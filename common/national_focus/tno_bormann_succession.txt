@@ -1,0 +1,457 @@
+# # # I T S  N O T  O V E R # # #
+
+focus_tree = {
+	id = tno_bormanns_problem
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = GER
+		}
+	}
+	default = no
+	shared_focus = BGR_suddenly_feel_old
+}
+
+shared_focus = {
+	id = BGR_suddenly_feel_old
+	icon = GFX_GER_bormann_army
+	cost = 4
+	#relative_position_id = BGR_suddenly_feel_old
+    x = 5
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_suddenly_feel_old"
+		#opening event, +50pp
+		hidden_effect = { country_event = { id = GER_bormann_sucession_intro.1 } }
+	}
+}
+
+shared_focus = {
+	id = BGR_fill_the_unfortunate_vacancy
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_suddenly_feel_old
+    }
+    x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_fill_the_unfortunate_vacancy"
+		#event, get new foreign minister
+		hidden_effect = { country_event = { id = GER_bormann_sucession_intro.2 } }
+	}
+}
+
+shared_focus = {
+	id = BGR_search_for_the_rats
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_fill_the_unfortunate_vacancy
+    }
+    x = -1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_search_for_the_rats"
+		#event, get new foreign minister
+		hidden_effect = { country_event = { id = GER_bormann_sucession_intro.3 } }
+	}
+}
+
+shared_focus = {
+	id = BGR_search_for_a_sucessor
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_fill_the_unfortunate_vacancy
+    }
+    x = 1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_search_for_a_sucessor"
+		#suddenly this got complicated
+		hidden_effect = { country_event = { id = GER_bormann_sucession_intro.4 } }
+	}
+}
+
+shared_focus = {
+	id = BGR_all_the_time_we_dont_have
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_search_for_the_rats
+    }
+	prerequisite = {
+        focus = BGR_search_for_a_sucessor
+    }
+    x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_all_the_time_we_dont_have"
+		add_political_power = 25
+		#event, next steps
+		hidden_effect = { country_event = { id = GER_bormann_sucession_intro.5 } }
+	}
+}
+
+shared_focus = {
+	id = BGR_hunt_for_the_red_army
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_all_the_time_we_dont_have
+    }
+    x = -3
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_hunt_for_the_red_army"
+		add_political_power = 25
+		#enables mechanic
+		#simple mechanic. you have a var starting from 0
+		#taking decisions increases var
+		#more decisions unlocked through focuses
+		#once var reaches 100 or higher, the red army faction is found
+		#then they can be eliminated
+		BGR_raf_investigation_start = yes
+		unlock_decision_tooltip = BGR_raf_comb_the_attack_files
+		unlock_decision_tooltip = BGR_raf_pay_the_informants
+	}
+}
+
+shared_focus = {
+	id = BGR_in_the_universities
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_hunt_for_the_red_army
+    }
+    x = -4
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_in_the_universities"
+		#enable more decisions
+		unlock_decision_tooltip = BGR_raf_search_the_universities
+	}
+}
+
+shared_focus = {
+	id = BGR_on_the_streets
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_hunt_for_the_red_army
+    }
+    x = -2
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_on_the_streets"
+		#enable more decisions
+		unlock_decision_tooltip = BGR_raf_sweep_the_streets
+	}
+}
+
+shared_focus = {
+	id = BGR_who_sympathizes
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_on_the_streets
+    }
+    x = -1
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_who_sympathizes"
+		#enable more decisions
+		unlock_decision_tooltip = BGR_raf_question_the_sympathizers
+	}
+}
+
+shared_focus = {
+	id = BGR_who_funds
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_on_the_streets
+    }
+    x = -2
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_who_funds"
+		#enable more decisions
+		unlock_decision_tooltip = BGR_raf_follow_the_money
+	}
+}
+
+shared_focus = {
+	id = BGR_who_recruited
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_in_the_universities
+    }
+    x = -5
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_who_recruited"
+		#enable more decisions
+		unlock_decision_tooltip = BGR_raf_find_the_recruiters
+	}
+}
+
+shared_focus = {
+	id = BGR_who_planned
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_in_the_universities
+    }
+    x = -4
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_who_planned"
+		#enable more decisions
+		unlock_decision_tooltip = BGR_raf_find_the_planners
+	}
+}
+
+shared_focus = {
+	id = BGR_who_led_them
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_who_funds
+		focus = BGR_who_sympathizes
+    }
+    x = -5
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_who_led_them"
+		#enable more decisions
+		unlock_decision_tooltip = BGR_raf_unmask_the_leadership
+	}
+}
+
+shared_focus = {
+	id = BGR_who_were_they
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_who_recruited
+		focus = BGR_who_planned
+    }
+    x = -1
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_who_were_they"
+		#enable more decisions
+		unlock_decision_tooltip = BGR_raf_identify_the_cells
+	}
+}
+
+shared_focus = {
+	id = BGR_one_last_ride
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_all_the_time_we_dont_have
+    }
+    x = 3
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_one_last_ride"
+		#start restoring loyalty of the different interest groups in the reich
+		BGR_SIG_initialize = yes
+	}
+}
+
+shared_focus = {
+	id = BGR_cancer_what_cancer
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_one_last_ride
+    }
+    x = 1
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_cancer_what_cancer"
+		#popular loyalty
+		set_temp_variable = { BGR_SIG_v = 10 }
+		BGR_SIG_people_add_loyalty = yes
+	}
+}
+
+shared_focus = {
+	id = BGR_whip_the_party
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_one_last_ride
+    }
+    x = 3
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_whip_the_party"
+		#party loyalty
+		set_temp_variable = { BGR_SIG_v = 20 }
+		BGR_SIG_party_add_loyalty = yes
+	}
+}
+
+shared_focus = {
+	id = BGR_get_the_money
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_one_last_ride
+    }
+    x = 5
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_get_the_money"
+		#megacorp loyalty
+		set_temp_variable = { BGR_SIG_v = 20 }
+		BGR_SIG_megacorps_add_loyalty = yes
+	}
+}
+
+shared_focus = {
+	id = BGR_still_got_it
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_get_the_money
+    }
+	prerequisite = {
+        focus = BGR_whip_the_party
+    }
+    x = 4
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_still_got_it"
+		#improve malus
+	}
+}
+
+shared_focus = {
+	id = BGR_smudge_the_truth
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_cancer_what_cancer
+    }
+    x = 2
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_smudge_the_truth"
+		#popular loyalty
+		set_temp_variable = { BGR_SIG_v = 10 }
+		BGR_SIG_people_add_loyalty = yes
+	}
+}
+
+shared_focus = {
+	id = BGR_cool_bormann
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_cancer_what_cancer
+    }
+    x = 1
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_cool_bormann"
+		#popular loyalty
+		set_temp_variable = { BGR_SIG_v = 10 }
+		BGR_SIG_people_add_loyalty = yes
+	}
+}
+
+shared_focus = {
+	id = BGR_the_canidates
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_smudge_the_truth
+    }
+	prerequisite = {
+        focus = BGR_still_got_it
+    }
+    x = 3
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_the_canidates"
+		#event describing each potential sucessor to bormann
+		hidden_effect = { country_event = { id = GER_bormann_sucession_intro.6 } }
+	}
+}
+
+shared_focus = {
+	id = BGR_let_the_games_begin
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_cool_bormann
+    }
+	prerequisite = {
+        focus = BGR_the_canidates
+    }
+    x = 2
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_let_the_games_begin"
+		#begin the sucession mechanic
+	}
+}
+
+shared_focus = {
+	id = BGR_end_the_farce
+	icon = GFX_GER_bormann_army
+	cost = 4
+	relative_position_id = BGR_suddenly_feel_old
+    prerequisite = {
+        focus = BGR_who_were_they
+		focus = BGR_who_led_them
+    }
+	prerequisite = {
+        focus = BGR_let_the_games_begin
+    }
+	available = {
+		#has found the red army faction
+		custom_trigger_tooltip = {
+			tooltip = BGR_raf_found_tt
+			has_country_flag = BGR_raf_found
+		}
+	}
+    x = 0
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus BGR_end_the_farce"
+		#event where the red army faction DIES
+		hidden_effect = { country_event = { id = GER_bormann_sucession_intro.7 } }
+		#load next part of the tree, depending on preferred sucessor
+	}
+}

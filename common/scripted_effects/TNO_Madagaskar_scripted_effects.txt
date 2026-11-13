@@ -1,0 +1,981 @@
+MAD_plague_sim_initial_setup = {
+	MAD = {
+		# INITIALISATION
+		every_owned_state = {
+			set_variable = { MAD_plague_pop_state_density = 0.5 }
+			set_variable = { MAD_plague_healthcare_access = 0.5 }
+		}
+
+		# MAD_plague_pop_state_density - Relates to the state's population density (0 is uninhabited, 1 is urban density)
+		# MAD_plague_healthcare_access - Relates to access to healthcare (0 is no access, 1 is easy access)
+
+		# If MAD_plague_healthcare_access > MAD_plague_pop_state_density, the disease will start to be eliminated by itself
+		# (while the contamination factor is at least the recovery factor; planes and burning halve the contamination factor)
+
+		543 = { # Rural
+			set_variable = { MAD_plague_pop_state_density = 0.5 }
+			set_variable = { MAD_plague_healthcare_access = 0.2 }
+		}
+
+		706 = { # Small Island
+			set_variable = { MAD_plague_pop_state_density = 0.6 }
+			set_variable = { MAD_plague_healthcare_access = 0.5 }
+		}
+
+		707 = { # Small Island
+			set_variable = { MAD_plague_pop_state_density = 0.6 }
+			set_variable = { MAD_plague_healthcare_access = 0.4 }
+		}
+
+		944 = { # Town
+			set_variable = { MAD_plague_pop_state_density = 0.8 }
+			set_variable = { MAD_plague_healthcare_access = 0.8 }
+		}
+
+		945 = { # Town
+			set_variable = { MAD_plague_pop_state_density = 0.7 }
+			set_variable = { MAD_plague_healthcare_access = 0.3 }
+		}
+
+		946 = { # Town
+			set_variable = { MAD_plague_pop_state_density = 0.6 }
+			set_variable = { MAD_plague_healthcare_access = 0.5 }
+		}
+
+		947 = { # Rural
+			set_variable = { MAD_plague_pop_state_density = 0.2 }
+			set_variable = { MAD_plague_healthcare_access = 0.1 }
+		}
+
+		1041 = { # Rural
+			set_variable = { MAD_plague_pop_state_density = 0.3 }
+			set_variable = { MAD_plague_healthcare_access = 0.2 }
+		}
+
+		1042 = { # Rural
+			set_variable = { MAD_plague_pop_state_density = 0.5 }
+			set_variable = { MAD_plague_healthcare_access = 0.2 }
+		}
+
+		1043 = { # Rural
+			set_variable = { MAD_plague_pop_state_density = 0.3 }
+			set_variable = { MAD_plague_healthcare_access = 0.1 }
+		}
+
+		set_variable = { MAD_plague_number_aid = 5 }
+		set_variable = { MAD_plague_base_contamination_factor = 0.3 }
+		set_variable = { MAD_plague_recovery_factor = 0.3 }
+
+		# COMPUTE ISLAND GLOBAL STATUS
+
+		set_variable = { MAD_plague_percent_global = 0 }
+		set_variable = { MAD_plague_percent_global_norm = 0 }
+
+		every_owned_state = {
+			add_to_variable = { MAD.MAD_plague_percent_global = MAD_plague_percent_population }
+			add_to_variable = { MAD.MAD_plague_percent_global_norm = 1 }
+		}
+
+		divide_variable = { MAD_plague_percent_global = MAD_plague_percent_global_norm }
+
+		MAD_modify_plague_status = yes
+	}
+}
+
+MAD_plague_sim_tick = {
+	MAD = {
+		every_owned_state = {
+			# MAD_plague_percent_population - Piece of the population currently contaminated (%)
+			# MAD_plague_pop_state_density - Local population density of the state (factor)
+			# MAD_plague_healthcare_access - Access to hospital or basic healthcare (factor)
+			# MAD_plague_contamination_prob - Probability of contaminationin the state (%)
+			# MAD_plague_across_border_prob - Probability for the disease to spread to a neighboring state (%)
+
+			# The contamination and recovery factors live on MAD, not on the state: read them as MAD.<var>
+			set_temp_variable = { MAD_plague_contamination_prob = MAD_plague_pop_state_density }
+			divide_temp_variable = { MAD_plague_contamination_prob = MAD_plague_healthcare_access }
+			multiply_temp_variable = { MAD_plague_contamination_prob = MAD.MAD_plague_base_contamination_factor }
+			multiply_temp_variable = { MAD_plague_contamination_prob = MAD_plague_percent_population }
+			clamp_temp_variable = {
+				var = MAD_plague_contamination_prob
+			    min = 0
+			    max = 1
+			}
+
+			set_temp_variable = { MAD_plague_healthy_population = 1 }
+			subtract_from_temp_variable = { MAD_plague_healthy_population = MAD_plague_percent_population }
+
+			set_temp_variable = { MAD_plague_newly_contaminated_population = MAD_plague_healthy_population }
+			multiply_temp_variable = { MAD_plague_newly_contaminated_population = MAD_plague_contamination_prob }
+
+			# Recoveries: a fixed share of the sick recover each week
+			set_temp_variable = { MAD_plague_recovered_population = MAD.MAD_plague_recovery_factor }
+			multiply_temp_variable = { MAD_plague_recovered_population = MAD_plague_percent_population }
+
+			set_temp_variable = { MAD_plague_new_percent_population = MAD_plague_percent_population }
+			add_to_temp_variable = { MAD_plague_new_percent_population = MAD_plague_newly_contaminated_population }
+			subtract_from_temp_variable = { MAD_plague_new_percent_population = MAD_plague_recovered_population }
+			clamp_temp_variable = {
+				var = MAD_plague_new_percent_population
+			    min = 0
+			    max = 1
+			}
+
+			set_variable = { MAD_plague_percent_population = MAD_plague_new_percent_population }
+			# log = "[GetDateText]: [Root.GetName] - [This.GetName]: COMPUTING NEIGHBORS SPREADING"
+
+			every_neighbor_state = {
+				# Spread is a sixth of the contamination factor (0.05 at the start), so planes and burning slow it too,
+				# and only reaches the neighbor's healthy share
+				set_temp_variable = { MAD_plague_across_border_prob = MAD.MAD_plague_base_contamination_factor }
+				divide_temp_variable = { MAD_plague_across_border_prob = 6 }
+
+				set_temp_variable = { MAD_plague_add_percent_population = MAD_plague_across_border_prob }
+				multiply_temp_variable = { MAD_plague_add_percent_population = PREV.MAD_plague_percent_population }
+
+				set_temp_variable = { MAD_plague_neighbor_healthy_population = 1 }
+				subtract_from_temp_variable = { MAD_plague_neighbor_healthy_population = MAD_plague_percent_population }
+				multiply_temp_variable = { MAD_plague_add_percent_population = MAD_plague_neighbor_healthy_population }
+				# log = "[GetDateText]: [Root.GetName] - [This.GetName]: MAD_plague_add_percent_population = [?This.MAD_plague_add_percent_population]"
+
+				if = {
+					limit = {
+						has_state_flag = MAD_state_quarantined
+					}
+					divide_temp_variable = { MAD_plague_add_percent_population = 10 }
+				}
+
+				if = {
+					limit = {
+						PREV = {
+							has_state_flag = MAD_state_quarantined
+						}
+					}
+					divide_temp_variable = { MAD_plague_add_percent_population = 10 }
+				}
+
+				add_to_variable = { MAD_plague_percent_population = MAD_plague_add_percent_population }
+				clamp_variable = {
+					var = MAD_plague_percent_population
+					min = 0
+					max = 1
+				}
+			}
+
+			# log = "[GetDateText]: [Root.GetName] - [This.GetName]: MAD_plague_percent_population = [?This.MAD_plague_percent_population]"
+			# log = "[GetDateText]: [Root.GetName] - [This.GetName]: MAD_plague_pop_state_density = [?This.MAD_plague_pop_state_density]"
+			# log = "[GetDateText]: [Root.GetName] - [This.GetName]: MAD_plague_healthcare_access = [?This.MAD_plague_healthcare_access]"
+			# log = "[GetDateText]: [Root.GetName] - [This.GetName]: MAD_plague_contamination_prob = [?This.MAD_plague_contamination_prob]"
+			# log = "[GetDateText]: [Root.GetName] - [This.GetName]: MAD_plague_across_border_prob = [?This.MAD_plague_across_border_prob]"
+		}
+
+		# COMPUTE ISLAND GLOBAL STATUS
+
+		set_variable = { MAD_plague_percent_global = 0 }
+		set_variable = { MAD_plague_percent_global_norm = 0 }
+
+		every_owned_state = {
+			add_to_variable = { MAD.MAD_plague_percent_global = MAD_plague_percent_population }
+			add_to_variable = { MAD.MAD_plague_percent_global_norm = 1 }
+		}
+
+		divide_variable = { MAD_plague_percent_global = MAD_plague_percent_global_norm }
+
+		MAD_modify_plague_status = yes
+	}
+}
+
+# Tiers by island average: none at 0, then <5%, <20%, <40%, <60%, and 60% or more.
+# Run in MAD scope.
+MAD_modify_plague_status = {
+	if = {
+		limit = {
+			NOT = { check_variable = { MAD_plague_percent_global > 0 } }
+		}
+
+		remove_ideas = {
+			MAD_idea_die_schwarze_pest_insignificant
+			MAD_idea_die_schwarze_pest_small
+			MAD_idea_die_schwarze_pest_concerning
+			MAD_idea_die_schwarze_pest_catastrophic
+			MAD_idea_die_schwarze_pest_disastrous
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = { MAD_plague_percent_global < 0.05 }
+		}
+
+		if = {
+			limit = { NOT = { has_idea = MAD_idea_die_schwarze_pest_insignificant } }
+
+			remove_ideas = {
+				MAD_idea_die_schwarze_pest_small
+				MAD_idea_die_schwarze_pest_concerning
+				MAD_idea_die_schwarze_pest_catastrophic
+				MAD_idea_die_schwarze_pest_disastrous
+			}
+
+			add_ideas = { MAD_idea_die_schwarze_pest_insignificant }
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = { MAD_plague_percent_global < 0.2 }
+		}
+
+		if = {
+			limit = { NOT = { has_idea = MAD_idea_die_schwarze_pest_small } }
+
+			remove_ideas = {
+				MAD_idea_die_schwarze_pest_insignificant
+				MAD_idea_die_schwarze_pest_concerning
+				MAD_idea_die_schwarze_pest_catastrophic
+				MAD_idea_die_schwarze_pest_disastrous
+			}
+
+			add_ideas = { MAD_idea_die_schwarze_pest_small }
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = { MAD_plague_percent_global < 0.4 }
+		}
+
+		if = {
+			limit = { NOT = { has_idea = MAD_idea_die_schwarze_pest_concerning } }
+
+			remove_ideas = {
+				MAD_idea_die_schwarze_pest_insignificant
+				MAD_idea_die_schwarze_pest_small
+				MAD_idea_die_schwarze_pest_catastrophic
+				MAD_idea_die_schwarze_pest_disastrous
+			}
+
+			add_ideas = { MAD_idea_die_schwarze_pest_concerning }
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = { MAD_plague_percent_global < 0.6 }
+		}
+
+		if = {
+			limit = { NOT = { has_idea = MAD_idea_die_schwarze_pest_catastrophic } }
+
+			remove_ideas = {
+				MAD_idea_die_schwarze_pest_insignificant
+				MAD_idea_die_schwarze_pest_small
+				MAD_idea_die_schwarze_pest_concerning
+				MAD_idea_die_schwarze_pest_disastrous
+			}
+
+			add_ideas = { MAD_idea_die_schwarze_pest_catastrophic }
+		}
+	}
+	else = {
+		if = {
+			limit = { NOT = { has_idea = MAD_idea_die_schwarze_pest_disastrous } }
+
+			remove_ideas = {
+				MAD_idea_die_schwarze_pest_insignificant
+				MAD_idea_die_schwarze_pest_small
+				MAD_idea_die_schwarze_pest_concerning
+				MAD_idea_die_schwarze_pest_catastrophic
+			}
+
+			add_ideas = { MAD_idea_die_schwarze_pest_disastrous }
+		}
+	}
+}
+
+# Gives the current scope MAD's plague tier, if MAD has one. Used on the civil-war tags.
+MAD_copy_plague_status_from_MAD = {
+	if = {
+		limit = { MAD = { has_idea = MAD_idea_die_schwarze_pest_insignificant } }
+		add_ideas = MAD_idea_die_schwarze_pest_insignificant
+	}
+	else_if = {
+		limit = { MAD = { has_idea = MAD_idea_die_schwarze_pest_small } }
+		add_ideas = MAD_idea_die_schwarze_pest_small
+	}
+	else_if = {
+		limit = { MAD = { has_idea = MAD_idea_die_schwarze_pest_concerning } }
+		add_ideas = MAD_idea_die_schwarze_pest_concerning
+	}
+	else_if = {
+		limit = { MAD = { has_idea = MAD_idea_die_schwarze_pest_catastrophic } }
+		add_ideas = MAD_idea_die_schwarze_pest_catastrophic
+	}
+	else_if = {
+		limit = { MAD = { has_idea = MAD_idea_die_schwarze_pest_disastrous } }
+		add_ideas = MAD_idea_die_schwarze_pest_disastrous
+	}
+}
+
+MAD_setup_civil_war = {
+	hidden_effect = {
+	    MAD = {
+	    	every_owned_state = {
+				set_demilitarized_zone = no
+			}
+
+	    	leave_faction = yes
+			GER = {
+				end_puppet = MAD
+			}
+
+			remove_unit_leader = 400
+			remove_unit_leader = 401
+			remove_unit_leader = 402
+			remove_unit_leader = 403
+			remove_unit_leader = 404
+			remove_unit_leader = 4040
+
+			set_country_flag = MAD_civil_war
+			add_manpower = 50000 # every side gets the same pool, so the war does not stall
+
+			delete_unit_template_and_units = {
+				division_template = "SS-Division"
+			}
+			delete_unit_template_and_units = {
+				division_template = "Garnision Madagaskar"
+			}
+
+			remove_ideas = {
+				MAD_idea_increased_rebel_activity
+				MAD_idea_managed_rebel_activity
+				MAD_idea_handled_rebel_activity
+				MAD_idea_mismanaged_rebel_activity
+			}
+
+			if = {
+				limit = {
+					has_idea = MAD_reichkommisar_maurice_1
+				}
+				load_oob = MAD_CIVIL_WAR_1
+				remove_ideas = MAD_reichkommisar_maurice_1
+			}
+			if = {
+				limit = {
+					has_idea = MAD_reichkommisar_maurice_2
+				}
+				load_oob = MAD_CIVIL_WAR_2
+				remove_ideas = MAD_reichkommisar_maurice_2
+			}
+			if = {
+				limit = {
+					has_idea = MAD_reichkommisar_maurice_3
+				}
+				load_oob = MAD_CIVIL_WAR_3
+				remove_ideas = MAD_reichkommisar_maurice_3
+			}
+			if = {
+				limit = {
+					has_idea = MAD_reichkommisar_maurice_4
+				}
+				load_oob = MAD_CIVIL_WAR_4
+				remove_ideas = MAD_reichkommisar_maurice_4
+			}
+			if = {
+				limit = {
+					has_idea = MAD_reichkommisar_maurice_5
+				}
+				load_oob = MAD_CIVIL_WAR_5
+				remove_ideas = MAD_reichkommisar_maurice_5
+			}
+
+			if = {
+				limit = {
+					has_country_flag = MAD_OFN_support
+				}
+				USA = {
+					proxy_war_increase_advisors = yes
+					proxy_war_increase_advisors = yes
+				}
+			}
+		}
+		
+		MDJ = { # Jewish Partisans
+			transfer_state = 543
+			transfer_state = 706
+			transfer_state = 707
+			transfer_state = 947
+			add_state_core = 543
+			add_state_core = 706
+			add_state_core = 707
+			add_state_core = 947
+			
+			inherit_technology = PREV
+			add_manpower = 50000
+
+			add_ideas = {
+				MDJ_Marek_Edelman_hog
+				MDJ_Robert_Gamzon_for
+				MDJ_Shmuel_Gonen_eco
+				MDJ_Haim_Bar_Lev_sec
+			}
+
+			if = {
+				limit = {
+					MAD = { has_idea = MAD_madagaskar_plan_1 }
+				}
+				load_oob = MDJ_CIVIL_WAR_1
+				MAD = { remove_ideas = MAD_madagaskar_plan_1 }
+			}
+			if = {
+				limit = {
+					MAD = { has_idea = MAD_madagaskar_plan_2 }
+				}
+				load_oob = MDJ_CIVIL_WAR_2
+				MAD = { remove_ideas = MAD_madagaskar_plan_2 }
+			}
+			if = {
+				limit = {
+					MAD = { has_idea = MAD_madagaskar_plan_3 }
+				}
+				load_oob = MDJ_CIVIL_WAR_3
+				MAD = { remove_ideas = MAD_madagaskar_plan_3 }
+			}
+			if = {
+				limit = {
+					MAD = { has_idea = MAD_madagaskar_plan_4 }
+				}
+				load_oob = MDJ_CIVIL_WAR_4
+				MAD = { remove_ideas = MAD_madagaskar_plan_4 }
+			}
+			if = {
+				limit = {
+					MAD = { has_idea = MAD_madagaskar_plan_5 }
+				}
+				load_oob = MDJ_CIVIL_WAR_5
+				MAD = { remove_ideas = MAD_madagaskar_plan_5 }
+			}
+
+			MAD_copy_plague_status_from_MAD = yes
+		}
+
+		MDM = { # Malagasy Rebels
+			transfer_state = 945
+			add_state_core = 945
+			transfer_state = 1041
+			add_state_core = 1041
+			
+			inherit_technology = PREV
+			add_manpower = 50000
+
+			add_ideas = {
+				MDM_Gabriel_Ramanantsoa_hog
+				MDM_Jacques_Rabemananjara_for
+				MDM_Philibert_Tsiranana_eco
+				MDM_Didier_Ratsiraka_sec
+			}
+
+			if = {
+				limit = {
+					MAD = { has_idea = MAD_malagasy_uproars_1 }
+				}
+				load_oob = MDM_CIVIL_WAR_1
+				MAD = { remove_ideas = MAD_malagasy_uproars_1 }
+			}
+			if = {
+				limit = {
+					MAD = { has_idea = MAD_malagasy_uproars_2 }
+				}
+				load_oob = MDM_CIVIL_WAR_2
+				MAD = { remove_ideas = MAD_malagasy_uproars_2 }
+			}
+			if = {
+				limit = {
+					MAD = { has_idea = MAD_malagasy_uproars_3 }
+				}
+				load_oob = MDM_CIVIL_WAR_3
+				MAD = { remove_ideas = MAD_malagasy_uproars_3 }
+			}
+			if = {
+				limit = {
+					MAD = { has_idea = MAD_malagasy_uproars_4 }
+				}
+				load_oob = MDM_CIVIL_WAR_4
+				MAD = { remove_ideas = MAD_malagasy_uproars_4 }
+			}
+			if = {
+				limit = {
+					MAD = { has_idea = MAD_malagasy_uproars_5 }
+				}
+				load_oob = MDM_CIVIL_WAR_5
+				MAD = { remove_ideas = MAD_malagasy_uproars_5 }
+			}
+
+			MAD_copy_plague_status_from_MAD = yes
+		}
+
+		MDG = { # German Garrison
+			transfer_state = 946
+			transfer_state = 1043
+			add_state_core = 946
+			add_state_core = 1043
+			
+			inherit_technology = PREV
+			add_manpower = 50000
+
+			add_ideas = {
+				MDG_Werner_Goldberg_hog
+				MDG_Paul_Ludwig_Hirschfeld_for
+				MDG_Alexander_Stahlberg_eco
+				MDG_Walter_Hollaender_sec
+			}
+
+			if = {
+				limit = {
+					MAD = { has_idea = MAD_german_garrisons_1 }
+				}
+				load_oob = MDG_CIVIL_WAR_1
+				MAD = { remove_ideas = MAD_german_garrisons_1 }
+			}
+			if = {
+				limit = {
+					MAD = { has_idea = MAD_german_garrisons_2 }
+				}
+				load_oob = MDG_CIVIL_WAR_2
+				MAD = { remove_ideas = MAD_german_garrisons_2 }
+			}
+			if = {
+				limit = {
+					MAD = { has_idea = MAD_german_garrisons_3 }
+				}
+				load_oob = MDG_CIVIL_WAR_3
+				MAD = { remove_ideas = MAD_german_garrisons_3 }
+			}
+			if = {
+				limit = {
+					MAD = { has_idea = MAD_german_garrisons_4 }
+				}
+				load_oob = MDG_CIVIL_WAR_4
+				MAD = { remove_ideas = MAD_german_garrisons_4 }
+			}
+			if = {
+				limit = {
+					MAD = { has_idea = MAD_german_garrisons_5 }
+				}
+				load_oob = MDG_CIVIL_WAR_5
+				MAD = { remove_ideas = MAD_german_garrisons_5 }
+			}
+
+			MAD_copy_plague_status_from_MAD = yes
+		}
+	}
+}
+
+MAD_launch_civil_war = {
+	hidden_effect = {
+		every_country = {
+		    news_event = {
+				id = WORLD.67
+				days = 1
+			}
+		}
+
+		set_global_flag = madagaskar_civil_war
+
+		MAD = {
+			add_named_threat = {
+				threat = 5
+				name = threat.22.t
+			}
+		}
+		TNO_World_Tension_add_5 = yes
+
+		MAD = { add_ideas = MAD_idea_madagascar_breakdown }
+		MDJ = { add_ideas = MAD_idea_madagascar_breakdown }
+		MDM = { add_ideas = MAD_idea_madagascar_breakdown }
+		MDG = { add_ideas = MAD_idea_madagascar_breakdown }
+
+		# The four powers each back one side and may send it volunteers
+		USA = { country_event = { id = MADAGASKAR_CIVIL_WAR.6 days = 1 } }
+		GER = { country_event = { id = MADAGASKAR_CIVIL_WAR.6 days = 1 } }
+		ITA = { country_event = { id = MADAGASKAR_CIVIL_WAR.6 days = 1 } }
+		JAP = { country_event = { id = MADAGASKAR_CIVIL_WAR.6 days = 1 } }
+
+		MDJ = {
+			declare_war_on = {
+				target = MAD
+				type = annex_everything
+			}
+		}
+		MDM = {
+			declare_war_on = {
+				target = MAD
+				type = annex_everything
+			}
+		}
+		MDG = {
+			declare_war_on = {
+				target = MAD
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = MDJ
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = MDM
+				type = annex_everything
+			}
+		}
+	}
+}
+
+# Ends the plague crisis: stops the weekly sim, hides the plague decisions and lifts every quarantine.
+# The plague tier idea stays as it is.
+MAD_end_plague_sim = {
+	MAD = {
+		clr_country_flag = MAD_die_schwarze_pest_flag
+		every_owned_state = {
+			limit = { has_state_flag = MAD_state_quarantined }
+			clr_state_flag = MAD_state_quarantined
+			set_demilitarized_zone = no
+		}
+	}
+}
+
+# A human MAD who followed the Milch, Hitnagdut or Malagasy route takes over that side when the war starts.
+# Run in MAD scope.
+MAD_hand_player_to_route_faction = {
+	if = {
+		limit = { is_ai = no }
+		if = {
+			limit = {
+				has_country_flag = MAD_milch_path
+				country_exists = MDG
+			}
+			MDG = { change_tag_from = ROOT }
+		}
+		else_if = {
+			limit = {
+				has_country_flag = MAD_hitnagdut_path
+				country_exists = MDJ
+			}
+			MDJ = { change_tag_from = ROOT }
+		}
+		else_if = {
+			limit = {
+				has_country_flag = MAD_malagasy_path
+				country_exists = MDM
+			}
+			MDM = { change_tag_from = ROOT }
+		}
+	}
+}
+
+# Run in the winning side's scope. Its sponsor (MADAGASKAR_CIVIL_WAR.6) gets prestige, port access and
+# the flag the scramble for Africa will read. Port access is military access: no docking-rights effect exists.
+MAD_proxy_war_reward = {
+	if = {
+		limit = {
+			original_tag = MAD
+			USA = { has_country_flag = MAD_proxy_sponsor_MAD }
+		}
+		give_military_access = USA
+		USA = { MAD_proxy_war_sponsor_reward = yes }
+	}
+	else_if = {
+		limit = {
+			original_tag = MDG
+			GER = { has_country_flag = MAD_proxy_sponsor_MDG }
+		}
+		give_military_access = GER
+		GER = { MAD_proxy_war_sponsor_reward = yes }
+	}
+	else_if = {
+		limit = {
+			original_tag = MDJ
+			ITA = { has_country_flag = MAD_proxy_sponsor_MDJ }
+		}
+		give_military_access = ITA
+		ITA = { MAD_proxy_war_sponsor_reward = yes }
+	}
+	else_if = {
+		limit = {
+			original_tag = MDM
+			JAP = { has_country_flag = MAD_proxy_sponsor_MDM }
+		}
+		give_military_access = JAP
+		JAP = { MAD_proxy_war_sponsor_reward = yes }
+	}
+}
+
+# Run in the sponsor's scope.
+MAD_proxy_war_sponsor_reward = {
+	custom_effect_tooltip = {
+		localization_key = TNO_prestige_gain
+		PRESTIGE_VALUE = {
+			localization_key = TNO_COLOR_GREEN
+			VALUE_CHANGE = "+2"
+		}
+	}
+	add_to_variable = {
+		var = prestige
+		value = 2
+	}
+	set_country_flag = MAD_proxy_war_won # for the scramble for Africa (to be developed)
+}
+
+# Run in the winning side's scope when it is not MAD: MAD's admirals join it (its ships arrive through
+# on_capitulation_immediate). MDG already has its own Wattenberg from history.
+MAD_inherit_madagaskar_admirals = {
+	create_navy_leader = {
+		name = "Felix Zymalkowski"
+		picture = "Portrait_Madagascar_Felix_Zymalkowski.dds"
+		traits = { spotter }
+		skill = 2
+		attack_skill = 1
+		defense_skill = 2
+		maneuvering_skill = 2
+		coordination_skill = 2
+	}
+	if = {
+		limit = { NOT = { original_tag = MDG } }
+		create_navy_leader = {
+			name = "Jürgen Wattenberg"
+			picture = "Portrait_Madagascar_Jurgen_Wattenberg.dds"
+			traits = { seawolf }
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			maneuvering_skill = 1
+			coordination_skill = 2
+		}
+	}
+}
+
+# Removes Madagascar Breakdown and every plague tier from whichever civil-war tags still exist.
+# Called once the war is over (a victor is decided, or an outside power took the last side).
+MAD_end_civil_war_ideas = {
+	every_country = {
+		limit = {
+			OR = {
+				original_tag = MAD
+				original_tag = MDG
+				original_tag = MDJ
+				original_tag = MDM
+			}
+		}
+		if = {
+			limit = { has_idea = MAD_idea_madagascar_breakdown }
+			remove_ideas = MAD_idea_madagascar_breakdown
+		}
+		if = {
+			limit = {
+				OR = {
+					has_idea = MAD_idea_die_schwarze_pest_insignificant
+					has_idea = MAD_idea_die_schwarze_pest_small
+					has_idea = MAD_idea_die_schwarze_pest_concerning
+					has_idea = MAD_idea_die_schwarze_pest_catastrophic
+					has_idea = MAD_idea_die_schwarze_pest_disastrous
+				}
+			}
+			remove_ideas = {
+				MAD_idea_die_schwarze_pest_insignificant
+				MAD_idea_die_schwarze_pest_small
+				MAD_idea_die_schwarze_pest_concerning
+				MAD_idea_die_schwarze_pest_catastrophic
+				MAD_idea_die_schwarze_pest_disastrous
+			}
+		}
+	}
+}
+
+# Run in the scope of a civil-war side that has just annexed another (on_annex): it takes cores on every
+# Madagascar state it now owns.
+MAD_core_annexed_states = {
+	every_owned_state = {
+		limit = {
+			OR = {
+				state = 543
+				state = 706
+				state = 707
+				state = 944
+				state = 945
+				state = 946
+				state = 947
+				state = 1041
+				state = 1042
+				state = 1043
+			}
+			NOT = { is_core_of = ROOT }
+		}
+		add_core_of = ROOT
+	}
+}
+
+# Called from on_annex while the civil war runs (ROOT annexer, FROM annexed). A tag counts as gone if it no
+# longer exists or is the one being annexed, so it works whoever does the annexing, including outside powers.
+MAD_civil_war_check_end = {
+	# MAD and MDG are gone but both rebel movements remain: they turn on each other
+	if = {
+		limit = {
+			NOT = { has_global_flag = madagaskar_war_of_the_oppressed }
+			OR = {
+				NOT = { country_exists = MAD }
+				FROM = { original_tag = MAD }
+			}
+			OR = {
+				NOT = { country_exists = MDG }
+				FROM = { original_tag = MDG }
+			}
+			country_exists = MDJ
+			NOT = { FROM = { original_tag = MDJ } }
+			country_exists = MDM
+			NOT = { FROM = { original_tag = MDM } }
+		}
+		set_global_flag = madagaskar_war_of_the_oppressed
+		MDM = {
+			country_event = {
+				id = MADAGASKAR_CIVIL_WAR.3
+				days = 7
+			}
+		}
+	}
+
+	# MAD VICTORY
+	else_if = {
+		limit = {
+			country_exists = MAD
+			NOT = { FROM = { original_tag = MAD } }
+			OR = {
+				NOT = { country_exists = MDG }
+				FROM = { original_tag = MDG }
+			}
+			OR = {
+				NOT = { country_exists = MDJ }
+				FROM = { original_tag = MDJ }
+			}
+			OR = {
+				NOT = { country_exists = MDM }
+				FROM = { original_tag = MDM }
+			}
+		}
+		clr_global_flag = madagaskar_civil_war
+		clr_global_flag = madagaskar_war_of_the_oppressed
+		MAD_end_civil_war_ideas = yes
+		MAD = { MAD_proxy_war_reward = yes }
+		MAD = { country_event = { id = MADAGASKAR_CIVIL_WAR.5 } }
+		USA = { country_event = { id = USA.madagascar.5 } }
+	}
+
+	# MDG VICTORY
+	else_if = {
+		limit = {
+			country_exists = MDG
+			NOT = { FROM = { original_tag = MDG } }
+			OR = {
+				NOT = { country_exists = MAD }
+				FROM = { original_tag = MAD }
+			}
+			OR = {
+				NOT = { country_exists = MDJ }
+				FROM = { original_tag = MDJ }
+			}
+			OR = {
+				NOT = { country_exists = MDM }
+				FROM = { original_tag = MDM }
+			}
+		}
+		clr_global_flag = madagaskar_civil_war
+		clr_global_flag = madagaskar_war_of_the_oppressed
+		MAD_end_civil_war_ideas = yes
+		MDG = {
+			MAD_proxy_war_reward = yes
+			MAD_inherit_madagaskar_admirals = yes
+		}
+		USA = { country_event = { id = USA.madagascar.4 } }
+	}
+
+	# MDJ VICTORY
+	else_if = {
+		limit = {
+			country_exists = MDJ
+			NOT = { FROM = { original_tag = MDJ } }
+			OR = {
+				NOT = { country_exists = MAD }
+				FROM = { original_tag = MAD }
+			}
+			OR = {
+				NOT = { country_exists = MDG }
+				FROM = { original_tag = MDG }
+			}
+			OR = {
+				NOT = { country_exists = MDM }
+				FROM = { original_tag = MDM }
+			}
+		}
+		clr_global_flag = madagaskar_civil_war
+		clr_global_flag = madagaskar_war_of_the_oppressed
+		MAD_end_civil_war_ideas = yes
+		MDJ = {
+			country_event = {
+				id = MADAGASKAR_CIVIL_WAR.4
+				days = 7
+			}
+		}
+		MDJ = {
+			MAD_proxy_war_reward = yes
+			MAD_inherit_madagaskar_admirals = yes
+		}
+		USA = { country_event = { id = USA.madagascar.3 } }
+	}
+
+	# MDM VICTORY
+	else_if = {
+		limit = {
+			country_exists = MDM
+			NOT = { FROM = { original_tag = MDM } }
+			OR = {
+				NOT = { country_exists = MAD }
+				FROM = { original_tag = MAD }
+			}
+			OR = {
+				NOT = { country_exists = MDG }
+				FROM = { original_tag = MDG }
+			}
+			OR = {
+				NOT = { country_exists = MDJ }
+				FROM = { original_tag = MDJ }
+			}
+		}
+		clr_global_flag = madagaskar_civil_war
+		clr_global_flag = madagaskar_war_of_the_oppressed
+		MAD_end_civil_war_ideas = yes
+		MDM = {
+			MAD_proxy_war_reward = yes
+			MAD_inherit_madagaskar_admirals = yes
+		}
+		USA = { country_event = { id = USA.madagascar.6 } }
+	}
+
+	# All four gone (an outside power took the last of them)
+	else_if = {
+		limit = {
+			OR = {
+				NOT = { country_exists = MAD }
+				FROM = { original_tag = MAD }
+			}
+			OR = {
+				NOT = { country_exists = MDG }
+				FROM = { original_tag = MDG }
+			}
+			OR = {
+				NOT = { country_exists = MDJ }
+				FROM = { original_tag = MDJ }
+			}
+			OR = {
+				NOT = { country_exists = MDM }
+				FROM = { original_tag = MDM }
+			}
+		}
+		clr_global_flag = madagaskar_civil_war
+		clr_global_flag = madagaskar_war_of_the_oppressed
+		MAD_end_civil_war_ideas = yes
+	}
+}

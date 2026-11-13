@@ -1,0 +1,54 @@
+on_actions = {
+	# on_startup moved to GRE_TUR_med_wip_startup_global (Phase C): on_startup files run in no fixed
+	# order, so the WIP flag set by TNO_Italy_med_on_actions.txt could not be relied on here.
+	on_monthly_TUR = {
+		effect = {
+			if = { limit = { has_global_flag = ITA_MED_WIP_PATHS }
+			TUR_DtS_Monthly_Calculation = yes
+			TUR_coup_meter_monthly = yes # the army's patience and the Kemalist coup (TNO_Turkey_med_coup_scripted_effects.txt)
+					}
+		}
+	}
+	on_weekly_TUR = {
+		effect = {
+			if = { limit = { has_global_flag = ITA_MED_WIP_PATHS }
+			if = {
+				limit = {
+					AND = {
+						TUR = { num_divisions < 1 }
+						has_global_flag = italy_turkey_war
+						# tur.113 settles both fronts itself; not again after either was settled (Phase D)
+						NOT = { has_global_flag = TUR_ITW_greece_settled }
+						NOT = { has_global_flag = TUR_ITW_levant_settled }
+					}
+				}
+				TUR = {
+					country_event = { id = tur.113 }
+				}
+			}
+					}
+		}
+	}
+	on_daily_TUR = {
+		effect = {
+			if = { limit = { has_global_flag = ITA_MED_WIP_PATHS }
+			#subtract one from "Days until next operative"
+#			add_to_variable = { TUR_HB_days_to_next_operative = -1 }
+#			clamp_variable = { var = TUR_HB_days_to_next_operative min = 0 max = 3650 }
+			#Check if you've failed a revolt
+			if = {
+				limit = { check_variable = { TUR.TUR_DtS_ongoing_revolts > 0 } }
+				TUR_Restoring_Order_Daily_Update = yes
+			}
+			if = {
+				limit = { has_country_flag = TUR_ongoing_bill }
+				add_to_variable = { TUR_GNA_bill_progress = 2 }
+				if = {
+					limit = { check_variable = { TUR_GNA_bill_progress = 100 } }
+					TUR_bill_conclude = yes
+				}
+			}
+					}
+		}
+	}
+}

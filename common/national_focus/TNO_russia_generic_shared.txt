@@ -1,0 +1,6681 @@
+focus_tree = {
+	id = RUS_RWS_nukes
+	country = {
+		factor = 0
+	}
+	default = no
+	shared_focus = RUS_RWS_nukes_into_the_atomic_age
+}
+
+focus_tree = {
+	id = RUS_SIB_nukes
+	country = {
+		factor = 0
+	}
+	default = no
+	shared_focus = RUS_SIB_nukes_into_the_atomic_age
+}
+
+focus_tree = {
+	id = RUS_expansion
+	country = {
+		factor = 0
+	}
+	default = no
+	shared_focus = RUS_not_whole_yet
+	shared_focus = RUS_fire_and_spit
+	shared_focus = RUS_picking_the_pieces
+}
+
+shared_focus = {
+	id = RUS_RWS_nukes_into_the_atomic_age
+	icon = GFX_GER_Nuclear_Reactor_Plans
+	cost = 4
+	x = 16
+	y = 0
+	ai_will_do = {
+		factor = 20
+	}
+	completion_reward = {
+		custom_effect_tooltip = RUS_RWS_nukes_into_the_atomic_age_tt
+		add_to_variable = {
+			misc_costs = 100
+		}
+		RUS_init_nuke_system = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_RWS_nukes_establish_closed_facilities
+	icon = GFX_KHA_the_industrial_security_council
+	cost = 4
+	x = -2
+	y = 1
+	relative_position_id = RUS_RWS_nukes_into_the_atomic_age
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_RWS_nukes_into_the_atomic_age
+	}
+	completion_reward = {
+		custom_effect_tooltip = RUS_RWS_nukes_establish_closed_facilities_tt
+		random_owned_controlled_state = {
+			limit = {
+				has_state_category = city
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = RUS_nuclear_program_phase_1
+			}
+			add_to_variable = {
+				RUSNukesTheoryProgress = 5
+			}
+		}
+		add_to_variable = {
+			RUSNukesMonthlyProgress = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_RWS_nukes_a_foundation_for_research
+	icon = GFX_CHI_Teach_The_Sciences
+	cost = 4
+	x = 0
+	y = 1
+	relative_position_id = RUS_RWS_nukes_establish_closed_facilities
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_RWS_nukes_establish_closed_facilities
+	}
+	completion_reward = {
+		custom_effect_tooltip = RUS_RWS_nukes_a_foundation_for_research_tt
+		TNO_improve_research_facilities_med = yes
+		if = {
+			limit = {
+				has_country_flag = RUS_nuclear_program_phase_1
+			}
+			add_to_variable = {
+				RUSNukesTheoryProgress = 15
+			}
+		}
+		add_to_variable = {
+			RUSNukesMonthlyProgress = 3
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					tag = SAM
+					has_government = fascism
+				}
+				country_event = {
+					id = SAM_oktan.4
+					days = 7
+					random = 48
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_RWS_nukes_address_the_uranium_problem
+	icon = GFX_USA_Glenn_We-Shall-Have-it-All
+	cost = 4
+	x = 2
+	y = 1
+	relative_position_id = RUS_RWS_nukes_into_the_atomic_age
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_RWS_nukes_into_the_atomic_age
+	}
+	completion_reward = {
+		custom_effect_tooltip = RUS_RWS_nukes_address_the_uranium_problem_tt
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = RUS_nuclear_program_phase_2
+					has_country_flag = RUS_nuclear_program_phase_1
+				}
+			}
+			add_to_variable = {
+				RUSNukesMatsProgress = 5
+			}
+		}
+		add_to_variable = {
+			RUSNukesMonthlyProgress = 2
+		}
+		add_to_variable = {
+			national_debt = 150
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_RWS_nukes_expand_the_dalur_mines
+	icon = GFX_WRS_re_open_mines
+	cost = 4
+	x = -1
+	y = 1
+	relative_position_id = RUS_RWS_nukes_address_the_uranium_problem
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_RWS_nukes_address_the_uranium_problem
+	}
+	completion_reward = {
+		custom_effect_tooltip = RUS_RWS_nukes_expand_the_dalur_mines_tt
+		572 = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = infrastructure
+				level = 2
+				instant_build = yes
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = RUS_nuclear_program_phase_2
+					has_country_flag = RUS_nuclear_program_phase_1
+				}
+			}
+			add_to_variable = {
+				RUSNukesMatsProgress = 10
+			}
+		}
+		add_to_variable = {
+			RUSNukesMonthlyProgress = 1
+		}
+		add_to_variable = {
+			national_debt = 350
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_RWS_nukes_source_foreign_materials
+	icon = GFX_RAJ_Invest_In_Nuclear
+	cost = 4
+	x = 1
+	y = 1
+	relative_position_id = RUS_RWS_nukes_address_the_uranium_problem
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_RWS_nukes_address_the_uranium_problem
+	}
+	completion_reward = {
+		custom_effect_tooltip = RUS_RWS_nukes_source_foreign_materials_tt
+		add_stability = -0.03
+		add_political_power = -25
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = RUS_nuclear_program_phase_2
+					has_country_flag = RUS_nuclear_program_phase_1
+				}
+			}
+			add_to_variable = {
+				RUSNukesMatsProgress = 10
+			}
+		}
+		add_to_variable = {
+			national_debt = 100
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_RWS_nukes_chasing_the_sun
+	icon = GFX_generic_nuclear_power
+	cost = 4
+	x = -1
+	y = 1
+	relative_position_id = RUS_RWS_nukes_expand_the_dalur_mines
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_RWS_nukes_source_foreign_materials
+	}
+	prerequisite = {
+		focus = RUS_RWS_nukes_expand_the_dalur_mines
+	}
+	prerequisite = {
+		focus = RUS_RWS_nukes_a_foundation_for_research
+	}
+	completion_reward = {
+		custom_effect_tooltip = RUS_RWS_nukes_chasing_the_sun_tt
+		add_to_variable = {
+			misc_costs = 150
+		}
+		add_to_variable = {
+			RUSNukesMonthlyProgress = 3
+		}
+		TNO_improve_industrial_expertise_low = yes
+	}
+}
+
+### SIBERIA ###
+shared_focus = {
+	id = RUS_SIB_nukes_into_the_atomic_age
+	icon = GFX_GER_Nuclear_Reactor_Plans
+	cost = 4
+	x = 16
+	y = 0
+	ai_will_do = {
+		factor = 20
+	}
+	completion_reward = {
+		custom_effect_tooltip = RUS_RWS_nukes_into_the_atomic_age_tt
+		add_to_variable = {
+			misc_costs = 100
+		}
+		RUS_init_nuke_system = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_SIB_nukes_establish_closed_facilities
+	icon = GFX_KHA_the_industrial_security_council
+	cost = 4
+	x = -2
+	y = 1
+	relative_position_id = RUS_SIB_nukes_into_the_atomic_age
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_SIB_nukes_into_the_atomic_age
+	}
+	completion_reward = {
+		custom_effect_tooltip = RUS_SIB_nukes_establish_closed_facilities_tt
+		random_owned_controlled_state = {
+			limit = {
+				has_state_category = city
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = RUS_nuclear_program_phase_1
+			}
+			add_to_variable = {
+				RUSNukesTheoryProgress = 5
+			}
+		}
+		add_to_variable = {
+			RUSNukesMonthlyProgress = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_SIB_nukes_a_foundation_for_research
+	icon = GFX_CHI_Teach_The_Sciences
+	cost = 4
+	x = 0
+	y = 1
+	relative_position_id = RUS_SIB_nukes_establish_closed_facilities
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_SIB_nukes_establish_closed_facilities
+	}
+	completion_reward = {
+		custom_effect_tooltip = RUS_SIB_nukes_a_foundation_for_research_tt
+		TNO_improve_research_facilities_med = yes
+		if = {
+			limit = {
+				has_country_flag = RUS_nuclear_program_phase_1
+			}
+			add_to_variable = {
+				RUSNukesTheoryProgress = 15
+			}
+		}
+		add_to_variable = {
+			RUSNukesMonthlyProgress = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_SIB_nukes_address_the_uranium_problem
+	icon = GFX_USA_Glenn_We-Shall-Have-it-All
+	cost = 4
+	x = 2
+	y = 1
+	relative_position_id = RUS_SIB_nukes_into_the_atomic_age
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_SIB_nukes_into_the_atomic_age
+	}
+	completion_reward = {
+		custom_effect_tooltip = RUS_SIB_nukes_address_the_uranium_problem_tt
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = RUS_nuclear_program_phase_2
+					has_country_flag = RUS_nuclear_program_phase_1
+				}
+			}
+			add_to_variable = {
+				RUSNukesMatsProgress = 5
+			}
+		}
+		add_to_variable = {
+			RUSNukesMonthlyProgress = 2
+		}
+		add_to_variable = {
+			national_debt = 150
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_SIB_nukes_expand_the_siberian_mines
+	icon = GFX_WRS_re_open_mines
+	cost = 4
+	x = -1
+	y = 1
+	relative_position_id = RUS_SIB_nukes_address_the_uranium_problem
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_SIB_nukes_address_the_uranium_problem
+	}
+	completion_reward = {
+		custom_effect_tooltip = RUS_SIB_nukes_expand_the_siberian_mines_tt
+		757 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		757 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = RUS_nuclear_program_phase_2
+					has_country_flag = RUS_nuclear_program_phase_1
+				}
+			}
+			add_to_variable = {
+				RUSNukesMatsProgress = 10
+			}
+		}
+		add_to_variable = {
+			RUSNukesMonthlyProgress = 1
+		}
+		add_to_variable = {
+			national_debt = 350
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_SIB_nukes_source_foreign_materials
+	icon = GFX_RAJ_Invest_In_Nuclear
+	cost = 4
+	x = 1
+	y = 1
+	relative_position_id = RUS_SIB_nukes_address_the_uranium_problem
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_SIB_nukes_address_the_uranium_problem
+	}
+	completion_reward = {
+		custom_effect_tooltip = RUS_SIB_nukes_source_foreign_materials_tt
+		add_stability = -0.03
+		add_political_power = -25
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = RUS_nuclear_program_phase_2
+					has_country_flag = RUS_nuclear_program_phase_1
+				}
+			}
+			add_to_variable = {
+				RUSNukesMatsProgress = 10
+			}
+		}
+		add_to_variable = {
+			national_debt = 100
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_SIB_nukes_chasing_the_sun
+	icon = GFX_generic_nuclear_power
+	cost = 4
+	x = -1
+	y = 1
+	relative_position_id = RUS_SIB_nukes_expand_the_siberian_mines
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_SIB_nukes_source_foreign_materials
+	}
+	prerequisite = {
+		focus = RUS_SIB_nukes_expand_the_siberian_mines
+	}
+	prerequisite = {
+		focus = RUS_SIB_nukes_a_foundation_for_research
+	}
+	completion_reward = {
+		custom_effect_tooltip = RUS_SIB_nukes_chasing_the_sun_tt
+		add_to_variable = {
+			misc_costs = 150
+		}
+		add_to_variable = {
+			RUSNukesMonthlyProgress = 3
+		}
+		TNO_improve_industrial_expertise_low = yes
+	}
+}
+
+# RA CONTENT # 
+# diplo murder tree #
+shared_focus = {
+	id = RUS_not_whole_yet
+	icon = GFX_ra_rus_shattered_union
+	cost = 4
+	x = 0
+	y = 0
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_not_whole_yet"
+		add_war_support = 0.1
+		set_country_flag = rus_expanding
+	}
+}
+
+shared_focus = {
+	id = RUS_clean_up_kazakh
+	icon = GFX_ra_rus_kazakhstan
+	cost = 4
+	x = 0
+	y = 1
+	prerequisite = {
+		focus = RUS_not_whole_yet
+	}
+	bypass = {
+		NOT = {
+			any_country = {
+				is_kazakh_nation = yes
+				exists = yes
+			}
+		}
+	}
+	relative_position_id = RUS_not_whole_yet
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_clean_up_kazakh"
+		#attack and annex kazakh tags if they haven't unified
+		if = {
+			limit = {
+				OR = {
+					tag = WRS
+					tag = ISH
+					tag = SVO
+					tag = IRK
+					tag = BRY
+					AND = {
+						tag = NIK
+						OR = {
+							has_government = communist
+							has_government = socialist
+						}
+					}
+				}
+			}
+			annex_country = {
+				target = KAZ
+				transfer_troops = yes
+			}
+		}
+		every_country = {
+			limit = {
+				is_kazakh_nation = yes
+			}
+			ROOT = {
+				declare_war_on = {
+					target = PREV
+					type = annex_everything
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_probe_the_west
+	icon = GFX_ra_rus_attack_east_europe
+	cost = 4
+	x = -3
+	y = 2
+	prerequisite = {
+		focus = RUS_clean_up_kazakh
+	}
+	bypass = {
+	}
+	available = {
+		has_war = no
+		#secured central asia first
+	}
+	relative_position_id = RUS_not_whole_yet
+	ai_will_do = {
+		factor = 40
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_probe_the_west"
+		#event
+		set_country_flag = rus_expanding_west
+		country_event = {
+			id = RUS_postunification.1
+			days = 2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_finish_the_finnish
+	icon = GFX_ra_rus_attack_finland
+	cost = 4
+	x = -1
+	y = 1
+	prerequisite = {
+		focus = RUS_probe_the_west
+	}
+	bypass = {
+		FIN = {
+			is_ally_with = GER
+		}
+	}
+	available = {
+		NOT = {
+			FIN = {
+				is_ally_with = GER
+			}
+		}
+	}
+	cancel = {
+		FIN = {
+			is_ally_with = GER
+		}
+	}
+	relative_position_id = RUS_probe_the_west
+	ai_will_do = {
+		factor = 40
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_finish_the_finnish"
+		#declare on Finland and take remaining claimed territory
+		declare_war_on = {
+			target = FIN
+			type = annex_everything
+		}
+		if = {
+			limit = {
+				KRL = {
+					exists = yes
+				}
+			}
+			declare_war_on = {
+				target = KRL
+				type = annex_everything
+			}
+		}
+		activate_mission = RUS_invade_finland
+	}
+}
+
+shared_focus = {
+	id = RUS_buildup_on_muscowien_border
+	icon = GFX_ra_rus_fortify_border
+	cost = 4
+	x = -2
+	y = 2
+	prerequisite = {
+		focus = RUS_probe_the_west
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_probe_the_west
+	ai_will_do = {
+		factor = 20
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_buildup_on_muscowien_border"
+		#decisions to get buffs against muscowein
+		#also include caspian operations so you can spawn troops in kaukasia
+		custom_effect_tooltip = RUS_buildup_on_muscowien_border_tt
+	}
+}
+
+shared_focus = {
+	id = RUS_sabotage_muscowien
+	icon = GFX_ra_rus_fire_moskowien
+	cost = 4
+	x = -3
+	y = 1
+	prerequisite = {
+		focus = RUS_probe_the_west
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_probe_the_west
+	ai_will_do = {
+		factor = 20
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_sabotage_muscowien"
+		#decisions to screw with muscowien in various ways
+		custom_effect_tooltip = RUS_sabotage_muscowien_tt
+	}
+}
+
+shared_focus = {
+	id = RUS_propagandize_in_the_pakt
+	icon = GFX_MCW_Follow_In_Example
+	cost = 4
+	x = -4
+	y = 2
+	prerequisite = {
+		focus = RUS_probe_the_west
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_probe_the_west
+	ai_will_do = {
+		factor = 20
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_propagandize_in_the_pakt"
+		#decisions to screw with germany in various ways
+		custom_effect_tooltip = RUS_propagandize_in_the_pakt_tt
+	}
+}
+
+shared_focus = {
+	id = RUS_gather_allies
+	icon = GFX_ra_rus_friendly_allies
+	cost = 4
+	x = -5
+	y = 1
+	prerequisite = {
+		focus = RUS_probe_the_west
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_probe_the_west
+	ai_will_do = {
+		factor = 20
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_gather_allies"
+		#decisions to screw with germany in various ways
+		custom_effect_tooltip = RUS_gather_allies_tt
+		set_variable = {
+			var = RUS_foreign_support_army_org_factor
+			value = 0
+		}
+		set_variable = {
+			var = RUS_foreign_support_army_morale_factor
+			value = 0
+		}
+		add_dynamic_modifier = {
+			modifier = RUS_foreign_support
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_final_preperations
+	icon = GFX_ra_rus_fist_russians
+	cost = 5
+	x = -3
+	y = 4
+	prerequisite = {
+		focus = RUS_gather_allies
+		focus = RUS_propagandize_in_the_pakt
+		focus = RUS_sabotage_muscowien
+		focus = RUS_buildup_on_muscowien_border
+		focus = RUS_finish_the_finnish
+	}
+	bypass = {
+	}
+	available = {
+		date > 1979.06.01
+		has_war = no
+		has_completed_focus = RUS_take_it_all_back
+	}
+	relative_position_id = RUS_probe_the_west
+	ai_will_do = {
+		factor = 900
+	}
+	cancelable = no
+	will_lead_to_war_with = GER
+	select_effect = {
+		#warning for GER
+		GER = {
+			country_event = RUS_postunification.10
+		}
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_final_preperations"
+		#event
+		set_country_flag = rus_prepping_war
+		country_event = {
+			id = RUS_postunification.2
+			days = 2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_justice
+	icon = GFX_ra_rus_bukharins_revenge
+	cost = 2
+	x = 0
+	y = 7
+	prerequisite = {
+		focus = RUS_final_preperations
+	}
+	prerequisite = {
+		focus = RUS_central_asia_secure
+	}
+	prerequisite = {
+		focus = RUS_take_it_all_back
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_clean_up_kazakh
+	ai_will_do = {
+		factor = 900
+	}
+	cancelable = no
+	will_lead_to_war_with = GER
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_justice"
+		#play_song = "Rasputin"
+		#the vengeance war begins
+		#new focus tree unlocked
+		clr_country_flag = rus_prepping_war
+		custom_effect_tooltip = RUS_justice_tt
+		set_global_flag = rus_vengeance_war
+		hidden_effect = {
+			TNO_World_Tension_add_50 = yes
+			country_event = {
+				id = RUS_postunification.6
+			}
+			declare_war_on = {
+				target = GER
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = MOS
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = MCW
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = VLG
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = CAU
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = POL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = GOT
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = UKR
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = OST
+				type = annex_everything
+			}
+			activate_mission = RUS_german_war_muscowien
+			GER = {
+				country_event = {
+					id = RUS_postunification.8
+				}
+			}
+			every_country = {
+				news_event = {
+					id = RA_GLOBAL_NEWS.6
+					days = 1
+				}
+			}
+			set_variable = {
+				var = RUS_for_vengeance_army_attack_factor
+				value = 0.8
+			}
+			set_variable = {
+				var = RUS_for_vengeance_army_defence_factor
+				value = 0.1
+			}
+			set_variable = {
+				var = RUS_for_vengeance_army_org_factor
+				value = 0.6
+			}
+			set_variable = {
+				var = RUS_for_vengeance_army_morale_factor
+				value = 0.6
+			}
+			set_variable = {
+				var = RUS_for_vengeance_army_speed_factor
+				value = -0.15
+			}
+			set_variable = {
+				var = RUS_for_vengeance_max_dig_in
+				value = 0
+			}
+			set_variable = {
+				var = RUS_for_vengeance_dig_in_speed_factor
+				value = 0
+			}
+			mark_focus_tree_layout_dirty = yes
+			add_dynamic_modifier = {
+				modifier = RUS_for_vengeance
+			}
+			USA = {
+				country_event = {
+					id = RUS_postunification_diplo.4
+					days = 2
+				}
+			}
+			ITA = {
+				country_event = {
+					id = RUS_postunification_diplo.4
+					days = 2
+				}
+			}
+			ENG = {
+				country_event = {
+					id = RUS_postunification_diplo.4
+					days = 2
+				}
+			}
+			#hidden ai buffs for player
+			if = {
+				limit = {
+					RUS = {
+						is_ai = no
+					}
+					GER = {
+						is_ai = yes
+					}
+				}
+				GER = {
+					add_ideas = ZZZ_ai_buff
+				}
+			}
+			else_if = {
+				limit = {
+					GER = {
+						is_ai = no
+					}
+					RUS = {
+						is_ai = yes
+					}
+				}
+				RUS = {
+					add_ideas = ZZZ_ai_buff
+				}
+			}
+			else = {
+				# RUS = {
+				# 	add_timed_idea = {
+				# 		idea = ZZZ_ai_buff
+				# 		days = 10
+				# 	}
+				# }
+			}
+			add_threat = 0.1
+			add_ideas = ZZZ_ai_aggressive
+			GER = {
+				every_state = {
+					limit = {
+						OR = {
+							region = 38
+							region = 39
+						}
+					}
+					add_dynamic_modifier = {
+						modifier = ZZZ_non_combat_zone
+					}
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_sweep_into_central_asia
+	icon = GFX_ra_rus_attack_central_asia
+	cost = 4
+	x = 0
+	y = 2
+	prerequisite = {
+		focus = RUS_clean_up_kazakh
+	}
+	bypass = {
+	}
+	available = {
+		has_war = no
+	}
+	relative_position_id = RUS_not_whole_yet
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_sweep_into_central_asia"
+		#event
+		country_event = {
+			id = RUS_postunification.3
+			days = 2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_attack_turkmen
+	icon = GFX_ra_rus_turkmenistan
+	cost = 4
+	x = -1
+	y = 1
+	prerequisite = {
+		focus = RUS_sweep_into_central_asia
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_sweep_into_central_asia
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_attack_turkmen"
+		#unlock decisions for invading turkmen
+		custom_effect_tooltip = RUS_attack_turkmen_tt
+	}
+}
+
+shared_focus = {
+	id = RUS_attack_kyrgyz
+	icon = GFX_ra_rus_kyrgyzstan
+	cost = 4
+	x = -2
+	y = 2
+	prerequisite = {
+		focus = RUS_sweep_into_central_asia
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_sweep_into_central_asia
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_attack_turkmen"
+		#unlock decisions for invading turkmen
+		custom_effect_tooltip = RUS_attack_turkmen_tt
+	}
+}
+
+shared_focus = {
+	id = RUS_attack_uzbek
+	icon = GFX_ra_rus_uzbekistan
+	cost = 4
+	x = 0
+	y = 2
+	prerequisite = {
+		focus = RUS_sweep_into_central_asia
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_sweep_into_central_asia
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_attack_uzbek"
+		#unlock decisions for invading uzbekistan and karpalistan
+		custom_effect_tooltip = RUS_attack_turkmen_tt
+	}
+}
+
+shared_focus = {
+	id = RUS_attack_tajik
+	icon = GFX_ra_rus_tajikistan
+	cost = 4
+	x = 1
+	y = 1
+	prerequisite = {
+		focus = RUS_sweep_into_central_asia
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_sweep_into_central_asia
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_attack_tajik"
+		if = {
+			limit = {
+				OR = {
+					tag = WRS
+					tag = ISH
+					tag = SVO
+					tag = IRK
+					tag = BRY
+					AND = {
+						tag = NIK
+						OR = {
+							has_government = communist
+							has_government = socialist
+						}
+					}
+				}
+			}
+			set_country_flag = rus_tajik_friend
+		}
+		custom_effect_tooltip = RUS_attack_turkmen_tt
+	}
+}
+
+shared_focus = {
+	id = RUS_subjugate_afghanistan
+	icon = GFX_ra_rus_afghanistan
+	cost = 4
+	x = 0
+	y = 3
+	prerequisite = {
+		focus = RUS_attack_turkmen
+	}
+	prerequisite = {
+		focus = RUS_attack_tajik
+	}
+	prerequisite = {
+		focus = RUS_attack_uzbek
+	}
+	prerequisite = {
+		focus = RUS_attack_kyrgyz
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_sweep_into_central_asia
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_subjugate_afghanistan"
+		#unlock decisions for invading afghan
+		custom_effect_tooltip = RUS_attack_turkmen_tt
+	}
+}
+
+shared_focus = {
+	id = RUS_central_asia_secure
+	icon = GFX_ra_rus_tashkent
+	cost = 4
+	x = 0
+	y = 4
+	prerequisite = {
+		focus = RUS_subjugate_afghanistan
+	}
+	bypass = {
+	}
+	available = {
+		UZB = {
+			exists = no
+		}
+		TRK = {
+			exists = no
+		}
+		TAJ = {
+			exists = no
+		}
+		KYR = {
+			exists = no
+		}
+	}
+	relative_position_id = RUS_sweep_into_central_asia
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_subjugate_afghanistan"
+		#prestige
+		custom_effect_tooltip = {
+			localization_key = TNO_prestige_gain
+			PRESTIGE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10"
+			}
+		}
+		add_to_variable = {
+			var = prestige
+			value = 10
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_march_to_the_east
+	icon = GFX_ra_rus_attack_east_asia
+	cost = 4
+	x = 4
+	y = 2
+	prerequisite = {
+		focus = RUS_clean_up_kazakh
+	}
+	bypass = {
+	}
+	available = {
+		has_war = no
+	}
+	relative_position_id = RUS_not_whole_yet
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_march_to_the_east"
+		#event
+		set_country_flag = rus_expanding_east
+		country_event = {
+			id = RUS_postunification.4
+			days = 2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_secure_sinkiang
+	icon = GFX_ra_rus_sinkiang
+	cost = 4
+	x = -1
+	y = 1
+	prerequisite = {
+		focus = RUS_march_to_the_east
+	}
+	prerequisite = {
+		focus = RUS_sweep_into_central_asia
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_march_to_the_east
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_secure_sinkiang"
+		#invade sinkiang
+		custom_effect_tooltip = RUS_attack_turkmen_tt
+	}
+}
+
+shared_focus = {
+	id = RUS_communication_with_china
+	icon = GFX_ra_rus_walkie_talkie_china
+	cost = 4
+	x = 1
+	y = 1
+	prerequisite = {
+		focus = RUS_march_to_the_east
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_march_to_the_east
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_communication_with_china"
+		#event
+		country_event = {
+			id = RUS_postunification.5
+			days = 2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_prep_siberia
+	icon = GFX_ra_rus_factory_siberia
+	cost = 4
+	x = 0
+	y = 2
+	prerequisite = {
+		focus = RUS_communication_with_china
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_march_to_the_east
+	ai_will_do = {
+		factor = 20
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_prep_siberia"
+		#decisions to prepare for invasion of japanese territories
+		custom_effect_tooltip = "Decisions To Build Infrastructure In Siberia Will Now Be Available"
+	}
+}
+
+shared_focus = {
+	id = RUS_mongolia_infiltration
+	icon = GFX_ra_rus_mongolian_horseman
+	cost = 4
+	x = 2
+	y = 2
+	prerequisite = {
+		focus = RUS_communication_with_china
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_march_to_the_east
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_mongolia_infiltration"
+		#decisions to prepare for invasion of japanese territories
+		custom_effect_tooltip = "Decisions To Subvert Mongolia Will Now Be Available"
+	}
+}
+
+shared_focus = {
+	id = RUS_contacts_in_the_far_east
+	icon = GFX_ra_rus_eastern_partisan
+	cost = 4
+	x = 4
+	y = 2
+	prerequisite = {
+		focus = RUS_communication_with_china
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_march_to_the_east
+	ai_will_do = {
+		factor = 20
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_contacts_in_the_far_east"
+		#decisions to prepare for invasion of japanese territories
+		custom_effect_tooltip = "Decisions To Infiltrate Our Rightful Territory Will Now Be Available"
+	}
+}
+
+shared_focus = {
+	id = RUS_take_it_all_back
+	icon = GFX_ra_rus_destroy_japan
+	cost = 7
+	x = 1
+	y = 4
+	prerequisite = {
+		focus = RUS_prep_siberia
+		focus = RUS_mongolia_infiltration
+		focus = RUS_contacts_in_the_far_east
+	}
+	available = {
+		date > 1975.02.01
+		has_war = no
+		has_completed_focus = RUS_central_asia_secure
+	}
+	bypass = {
+	}
+	relative_position_id = RUS_march_to_the_east
+	ai_will_do = {
+		factor = 900
+	}
+	cancelable = no
+	will_lead_to_war_with = JAP
+	select_effect = {
+		#warning for JAP
+		JAP = {
+			country_event = RUS_postunification.11
+		}
+		set_country_flag = rus_prepping_war
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_secure_sinkiang"
+		#invade japanese territory in the far east
+		#japan gets event letting them know RUS is prepping to invade
+		#note this is a stopgap until I add the Asian Liberation War
+		clr_country_flag = rus_prepping_war
+		custom_effect_tooltip = "Note To The Player: Don't Try To Attack Korea, Or China."
+		hidden_effect = {
+			hidden_effect = {
+				country_event = {
+					id = RUS_postunification.7
+				}
+				every_country = {
+					news_event = {
+						id = RA_GLOBAL_NEWS.18
+						days = 1
+					}
+				}
+				JAP = {
+					country_event = {
+						id = RUS_postunification.9
+					}
+					#just shows jap the timer
+					activate_mission = RUS_japan_war_info_mission_for_jap
+				}
+				add_threat = 0.1
+				declare_war_on = {
+					target = JAP
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = MEN
+					type = annex_everything
+				}
+				declare_war_on = {
+					target = MAN
+					type = annex_everything
+				}
+				activate_mission = RUS_japan_war
+				set_global_flag = rus_manchurian_war
+			}
+			if = {
+				limit = {
+					RUS = {
+						is_ai = no
+					}
+					JAP = {
+						is_ai = yes
+					}
+					CHI = {
+						is_ai = yes
+					}
+				}
+				JAP = {
+					add_ideas = ZZZ_ai_buff
+				}
+				CHI = {
+					add_ideas = ZZZ_ai_buff
+				}
+			}
+			else_if = {
+				limit = { 
+					RUS = {
+						is_ai = yes
+					}
+					JAP = {
+						is_ai = no
+					}
+				}
+				RUS = {
+					add_timed_idea = {
+						idea = ZZZ_ai_buff
+						days = 365
+					}
+				}
+			}
+			# else = {
+			# 	RUS = {
+			# 		add_timed_idea = {
+			# 			idea = ZZZ_ai_buff
+			# 			days = 50
+			# 		}
+			# 	}
+			# }
+			JAP = {
+				every_owned_state = {
+					limit = {
+						OR = {
+							region = 154
+							region = 185
+						}
+					}
+					add_dynamic_modifier = {
+						modifier = ZZZ_non_combat_zone
+					}
+				}
+			}
+			CHI = {
+				every_owned_state = {
+					add_dynamic_modifier = {
+						modifier = ZZZ_non_combat_zone
+					}
+				}
+			}
+		}
+		#effects if you took proper decisions beforehand
+		if = {
+			limit = {
+				has_country_flag = rus_mongolia_operation_ready
+			}
+			add_timed_idea = {
+				idea = RUS_mongolia_push
+				days = 80
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = rus_manchuko_operation_ready
+			}
+			add_timed_idea = {
+				idea = RUS_manchuko_push
+				days = 80
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = rus_japan_operation_ready
+			}
+			add_timed_idea = {
+				idea = RUS_japan_push
+				days = 80
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = rus_mongolia_uprising
+			}
+			#load oob
+			load_oob = RUS_mongolia
+		}
+		if = {
+			limit = {
+				has_country_flag = rus_russia_east_uprising
+			}
+			#load oob
+			load_oob = RUS_far_east
+		}
+	}
+}
+
+# military tree #
+shared_focus = {
+	id = RUS_fire_and_spit
+	icon = GFX_ra_rus_fire_and_spit
+	cost = 4
+	x = 10
+	y = 9
+	ai_will_do = {
+		factor = 50
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_fire_and_spit"
+		army_experience = 20
+		add_manpower = 20000
+	}
+}
+
+## Red Army Branch ##
+shared_focus = {
+	id = RUS_the_red_army_marches_again
+	icon = GFX_Generic_Red_Army
+	cost = 6
+	x = 0
+	y = 1
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_fire_and_spit
+	}
+	allow_branch = {
+		OR = {
+			original_tag = WRS
+			original_tag = IRK
+			original_tag = ISH
+			original_tag = SVO
+			original_tag = BRY
+			AND = {
+				original_tag = NIK
+				OR = {
+					has_government = communist
+					has_government = socialist
+					has_government = national_socialism
+				}
+			}
+			AND = {
+				original_tag = SAH
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_red_army_marches_again"
+		#idea
+		add_ideas = RUS_red_army1
+	}
+}
+
+shared_focus = {
+	id = RUS_red_officers
+	icon = GFX_WRS_The_Red_Junta
+	cost = 6
+	x = 0
+	y = 2
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_the_red_army_marches_again
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_red_army_marches_again"
+		#get generals from other commie tags
+		if = {
+			limit = {
+				OR = {
+					tag = WRS
+					tag = NIK
+				}
+			}
+			ISH = {
+				every_army_leader = {
+					set_nationality = WRS
+				}
+			}
+			SVO = {
+				every_army_leader = {
+					set_nationality = WRS
+				}
+			}
+			IRK = {
+				every_army_leader = {
+					set_nationality = WRS
+				}
+			}
+			BRY = {
+				every_army_leader = {
+					set_nationality = WRS
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = ISH
+			}
+			WRS = {
+				every_army_leader = {
+					set_nationality = ISH
+				}
+			}
+			SVO = {
+				every_army_leader = {
+					set_nationality = ISH
+				}
+			}
+			IRK = {
+				every_army_leader = {
+					set_nationality = ISH
+				}
+			}
+			BRY = {
+				every_army_leader = {
+					set_nationality = ISH
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = SVO
+			}
+			WRS = {
+				every_army_leader = {
+					set_nationality = SVO
+				}
+			}
+			ISH = {
+				every_army_leader = {
+					set_nationality = SVO
+				}
+			}
+			IRK = {
+				every_army_leader = {
+					set_nationality = SVO
+				}
+			}
+			BRY = {
+				every_army_leader = {
+					set_nationality = SVO
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = BRY
+			}
+			WRS = {
+				every_army_leader = {
+					set_nationality = BRY
+				}
+			}
+			ISH = {
+				every_army_leader = {
+					set_nationality = BRY
+				}
+			}
+			SVO = {
+				every_army_leader = {
+					set_nationality = BRY
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = IRK
+			}
+			WRS = {
+				every_army_leader = {
+					set_nationality = IRK
+				}
+			}
+			ISH = {
+				every_army_leader = {
+					set_nationality = IRK
+				}
+			}
+			SVO = {
+				every_army_leader = {
+					set_nationality = IRK
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_the_fire_of_patriotism
+	icon = GFX_ra_rus_soviet_army
+	cost = 6
+	x = -1
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_red_officers
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_fire_of_patriotism"
+		add_war_support = 0.15
+		add_command_power = 20
+	}
+}
+
+shared_focus = {
+	id = RUS_revolutionary_spirit
+	icon = GFX_ra_rus_lenin
+	cost = 6
+	x = -1
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_the_fire_of_patriotism
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_revolutionary_spirit"
+		#idea
+		add_ideas = RUS_for_the_revolution
+	}
+}
+
+shared_focus = {
+	id = RUS_hard_lessons
+	icon = GFX_WRS_Agriculture_Situation
+	cost = 6
+	x = 2
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_red_officers
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_hard_lessons"
+		add_stability = -0.1
+		#improve red army idea
+		swap_ideas = {
+			remove_idea = RUS_red_army1
+			add_idea = RUS_red_army2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_well_trained
+	icon = GFX_ra_rus_soviet_soldier
+	cost = 6
+	x = 1
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_hard_lessons
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_well_trained"
+		TNO_improve_army_professionalism_high = yes
+		tno_training_improve = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_well_supplied
+	icon = GFX_ra_rus_soviet_oil
+	cost = 6
+	x = 3
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_hard_lessons
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_well_supplied"
+		tno_conscription_worsen = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_deep_battle
+	icon = GFX_ra_rus_soviet_deep_battle
+	cost = 6
+	x = 2
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_well_trained
+	}
+	prerequisite = {
+		focus = RUS_well_supplied
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_deep_battle"
+		swap_ideas = {
+			remove_idea = RUS_red_army2
+			add_idea = RUS_red_army3
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_never_again
+	icon = GFX_ra_rus_never_again
+	cost = 6
+	x = 0
+	y = 6
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_revolutionary_spirit
+	}
+	prerequisite = {
+		focus = RUS_deep_battle
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_never_again"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_red_army3
+			add_idea = RUS_red_army4
+		}
+	}
+}
+
+## tsarist branch ##
+shared_focus = {
+	id = RUS_for_the_tsar
+	icon = GFX_goal_KIR_The_Imperial_Russian_Army
+	cost = 6
+	x = 0
+	y = 1
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_fire_and_spit
+	}
+	allow_branch = {
+		OR = {
+			original_tag = WCH
+			original_tag = KIR
+		}
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_for_the_tsar"
+		#idea
+		add_ideas = RUS_imperial_army1
+	}
+}
+
+shared_focus = {
+	id = RUS_tsarist_officers
+	icon = GFX_WCH_Legacy_Of_The_Ataman
+	cost = 6
+	x = 0
+	y = 2
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_for_the_tsar
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_tsarist_officers"
+		#get missing tsarist officers
+		if = {
+			limit = {
+				tag = WCH
+			}
+			KIR = {
+				every_army_leader = {
+					set_nationality = WCH
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = KIR
+			}
+			WCH = {
+				every_army_leader = {
+					set_nationality = KIR
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_new_imperial_army
+	icon = GFX_goal_KIR_For_God_and_Emperor
+	cost = 6
+	x = -1
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_tsarist_officers
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_new_imperial_army"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_imperial_army1
+			add_idea = RUS_imperial_army2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_officer_schools
+	icon = GFX_goal_KIR_The_Vyatka_General_Staff_Academy
+	cost = 6
+	x = -2
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_new_imperial_army
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_officer_schools"
+		#idea for leader xp gain
+		add_ideas = RUS_tsarist_army_schools
+	}
+}
+
+shared_focus = {
+	id = RUS_reestablish_military_districts
+	icon = GFX_PAV_Special_Administrative_Zones
+	cost = 6
+	x = 0
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_tsarist_officers
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_reestablish_military_districts"
+		#idea for recruitable pop and mobilization
+		add_ideas = RUS_mil_districts
+	}
+}
+
+shared_focus = {
+	id = RUS_power_of_the_masses
+	icon = GFX_goal_KIR_Send_in_the_Bridgeburners
+	cost = 6
+	x = 1
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_tsarist_officers
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_power_of_the_masses"
+		#buff for infantry
+		add_ideas = RUS_imperial_infantry
+	}
+}
+
+shared_focus = {
+	id = RUS_the_big_guns
+	icon = GFX_generic_artillery_warfare
+	cost = 6
+	x = 2
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_power_of_the_masses
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_big_guns"
+		#buff for arty
+		add_ideas = RUS_imperial_arty
+	}
+}
+
+shared_focus = {
+	id = RUS_god_save_the_tsar
+	icon = GFX_OMO_End_The_Thieves
+	cost = 6
+	x = 0
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_officer_schools
+	}
+	prerequisite = {
+		focus = RUS_reestablish_military_districts
+	}
+	prerequisite = {
+		focus = RUS_the_big_guns
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_big_guns"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_imperial_army2
+			add_idea = RUS_imperial_army3
+		}
+	}
+}
+
+## neutral democratic/authoritarian branch ##
+shared_focus = {
+	id = RUS_new_army_for_new_russia
+	icon = GFX_goal_VOL_Military_Debate
+	cost = 6
+	x = 0
+	y = 1
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_fire_and_spit
+	}
+	allow_branch = {
+		OR = {
+			original_tag = TOB
+			original_tag = ERS
+			original_tag = PAV
+			original_tag = OMO
+			AND = {
+				original_tag = NIK
+				OR = {
+					has_government = social_democrat
+					has_government = social_liberal
+					has_government = social_conservative
+					has_government = authoritarian_democrat
+					has_government = despotism
+					has_government = fascism
+				}
+			}
+			AND = {
+				original_tag = MAG
+				NOT = {
+					has_country_flag = MAG_werbell_prevails
+				}
+			}
+			AND = {
+				original_tag = SAH
+				NOT = {
+					has_country_flag = SAH_trotskyite_coup
+				}
+			}
+			original_tag = KOM
+			original_tag = GAY
+		}
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_new_army_for_new_russia"
+		#idea
+		add_ideas = RUS_new_army1
+	}
+}
+
+shared_focus = {
+	id = RUS_recruit_officers_for_army
+	icon = GFX_WCH_The_Saviors_of_Russia
+	cost = 6
+	x = 0
+	y = 2
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_new_army_for_new_russia
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_recruit_officers_for_army"
+		#get officers from other warlords
+		if = {
+			limit = {
+				tag = NIK
+			}
+			TOB = {
+				every_army_leader = {
+					set_nationality = NIK
+				}
+			}
+			ERS = {
+				every_army_leader = {
+					set_nationality = NIK
+				}
+			}
+			PAV = {
+				every_army_leader = {
+					set_nationality = NIK
+				}
+			}
+			MAG = {
+				every_army_leader = {
+					set_nationality = NIK
+				}
+			}
+			URL = {
+				every_army_leader = {
+					set_nationality = NIK
+				}
+			}
+			UDM = {
+				every_army_leader = {
+					set_nationality = NIK
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = TOB
+			}
+			ERS = {
+				every_army_leader = {
+					set_nationality = TOB
+				}
+			}
+			PAV = {
+				every_army_leader = {
+					set_nationality = TOB
+				}
+			}
+			MAG = {
+				every_army_leader = {
+					set_nationality = TOB
+				}
+			}
+			URL = {
+				every_army_leader = {
+					set_nationality = TOB
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = ERS
+			}
+			TOB = {
+				every_army_leader = {
+					set_nationality = ERS
+				}
+			}
+			MAG = {
+				every_army_leader = {
+					set_nationality = ERS
+				}
+			}
+			URL = {
+				every_army_leader = {
+					set_nationality = ERS
+				}
+			}
+			UDM = {
+				every_army_leader = {
+					set_nationality = ERS
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = PAV
+			}
+			TOB = {
+				every_army_leader = {
+					set_nationality = PAV
+				}
+			}
+			MAG = {
+				every_army_leader = {
+					set_nationality = PAV
+				}
+			}
+			URL = {
+				every_army_leader = {
+					set_nationality = PAV
+				}
+			}
+			UDM = {
+				every_army_leader = {
+					set_nationality = PAV
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = MAG
+			}
+			ERS = {
+				every_army_leader = {
+					set_nationality = MAG
+				}
+			}
+			PAV = {
+				every_army_leader = {
+					set_nationality = MAG
+				}
+			}
+			TOB = {
+				every_army_leader = {
+					set_nationality = MAG
+				}
+			}
+			URL = {
+				every_army_leader = {
+					set_nationality = MAG
+				}
+			}
+			UDM = {
+				every_army_leader = {
+					set_nationality = MAG
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_learn_from_the_past
+	icon = GFX_WCH_a_new_white_order
+	cost = 6
+	x = -1
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_recruit_officers_for_army
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_learn_from_the_past"
+		#idea
+		add_ideas = RUS_our_past
+	}
+}
+
+shared_focus = {
+	id = RUS_look_to_the_future
+	icon = GFX_Winds_of_Change
+	cost = 6
+	x = 1
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_recruit_officers_for_army
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_look_to_the_future"
+		#idea
+		add_ideas = RUS_our_future
+	}
+}
+
+shared_focus = {
+	id = RUS_a_proper_army
+	icon = GFX_XSM_Training_Day_and_Night
+	cost = 6
+	x = -2
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_learn_from_the_past
+	}
+	prerequisite = {
+		focus = RUS_look_to_the_future
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_a_proper_army"
+		tno_training_improve = yes
+		tno_military_supervision_improve = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_a_mobile_force
+	icon = GFX_WRS_Expand_Vehicle_Production
+	cost = 6
+	x = 0
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_learn_from_the_past
+	}
+	prerequisite = {
+		focus = RUS_look_to_the_future
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_a_mobile_force"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_new_army1
+			add_idea = RUS_new_army2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_the_best_officers
+	icon = GFX_ORE_the_best_officer_candidates
+	cost = 6
+	x = 2
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_learn_from_the_past
+	}
+	prerequisite = {
+		focus = RUS_look_to_the_future
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_best_officers"
+		#idea
+		remove_ideas = RUS_our_past
+		remove_ideas = RUS_our_future
+		add_ideas = RUS_together_as_one
+	}
+}
+
+shared_focus = {
+	id = RUS_strong_and_free
+	icon = GFX_WCH_Onwards_and_Outwards
+	cost = 6
+	x = 0
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_a_proper_army
+	}
+	prerequisite = {
+		focus = RUS_a_mobile_force
+	}
+	prerequisite = {
+		focus = RUS_the_best_officers
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_strong_and_free"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_new_army2
+			add_idea = RUS_new_army3
+		}
+	}
+}
+
+## aryan brotherhood branch ##
+shared_focus = {
+	id = RUS_aryans_on_the_march
+	icon = GFX_PRM_Aryan_Legions
+	cost = 6
+	x = 0
+	y = 1
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_fire_and_spit
+	}
+	allow_branch = {
+		OR = {
+			original_tag = PRM
+		}
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_aryans_on_the_march"
+		#idea
+		add_ideas = RUS_aryan_army1
+	}
+}
+
+shared_focus = {
+	id = RUS_the_amur_castoffs
+	icon = GFX_AMR_god_nation_labor
+	cost = 6
+	x = 0
+	y = 2
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_aryans_on_the_march
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_amur_castoffs"
+		#recruit amur officers
+		if = {
+			limit = {
+				tag = PRM
+			}
+			AMR = {
+				every_army_leader = {
+					set_nationality = PRM
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_the_aryans
+	icon = GFX_PRM_Beneath_The_Hooked_Cross
+	cost = 6
+	x = -1
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_the_amur_castoffs
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_aryans"
+		#imrpove idea
+		swap_ideas = {
+			remove_idea = RUS_aryan_army1
+			add_idea = RUS_aryan_army2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_purebread_battallions
+	icon = GFX_PRM_A_Warrior_Caste
+	cost = 6
+	x = -2
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_the_aryans
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_aryans"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_aryan_army2
+			add_idea = RUS_aryan_army3
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_study_german_designs
+	icon = GFX_achtung_kugelpanzer
+	cost = 6
+	x = 1
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_the_amur_castoffs
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_study_german_designs"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = APC
+		}
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = IFV
+		}
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = MBT
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_the_best_blitzkrieg
+	icon = GFX_GER_another_blitzkrieg
+	cost = 6
+	x = 0
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_study_german_designs
+	}
+	prerequisite = {
+		focus = RUS_the_aryans
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_best_blitzkrieg"
+		#tank and motorized buff
+		add_ideas = RUS_aryan_blitz
+	}
+}
+
+shared_focus = {
+	id = RUS_plenty_of_cannonfodder
+	icon = GFX_PRM_suffer_what_they_must
+	cost = 6
+	x = 2
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_study_german_designs
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_plenty_of_cannonfodder"
+		add_manpower = 50000
+		add_stability = -0.05
+	}
+}
+
+shared_focus = {
+	id = RUS_protectors_of_the_aryan_race
+	icon = GFX_PRM_Bolstering_Our_Ranks
+	cost = 6
+	x = 0
+	y = 6
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_the_best_blitzkrieg
+	}
+	prerequisite = {
+		focus = RUS_purebread_battallions
+	}
+	prerequisite = {
+		focus = RUS_plenty_of_cannonfodder
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_best_blitzkrieg"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_aryan_army3
+			add_idea = RUS_aryan_army4
+		}
+	}
+}
+
+## samara branch ##
+shared_focus = {
+	id = RUS_liberators_of_russia
+	icon = GFX_SAM_To_The_Committee
+	cost = 6
+	x = 0
+	y = 1
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_fire_and_spit
+	}
+	allow_branch = {
+		OR = {
+			original_tag = SAM
+		}
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_liberators_of_russia"
+		#idea
+		add_ideas = RUS_national_army1
+	}
+}
+
+shared_focus = {
+	id = RUS_reorganize_the_roa
+	icon = GFX_SAM_Who_Shall_Stand_Beside_Vlasov
+	cost = 6
+	x = 0
+	y = 2
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_liberators_of_russia
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_liberators_of_russia"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_national_army1
+			add_idea = RUS_national_army2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_lessons_from_the_liberation
+	icon = GFX_SAM_The_Russian_People_Deliver_Us
+	cost = 6
+	x = -2
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_reorganize_the_roa
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_lessons_from_the_liberation"
+		TNO_improve_army_professionalism_med = yes
+		tno_training_improve = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_lessons_from_the_germans
+	icon = GFX_SAM_To_The_Reich
+	cost = 6
+	x = 1
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_reorganize_the_roa
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_lessons_from_the_germans"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_national_army2
+			add_idea = RUS_national_army3
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_lessons_from_the_bolshevik_faliure
+	icon = GFX_TNO_generic_global_anti_communism
+	cost = 6
+	x = 3
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_reorganize_the_roa
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_lessons_from_the_bolshevik_faliure"
+		add_war_support = 0.1
+		add_stability = 0.1
+		army_experience = 25
+	}
+}
+
+shared_focus = {
+	id = RUS_stock_up
+	icon = GFX_SAM_Take_What_is_Ours
+	cost = 6
+	x = -1
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_lessons_from_the_liberation
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_stock_up"
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 10000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_new_blood
+	icon = GFX_SAM_To_The_People
+	cost = 6
+	x = 1
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_lessons_from_the_liberation
+	}
+	prerequisite = {
+		focus = RUS_lessons_from_the_germans
+	}
+	prerequisite = {
+		focus = RUS_lessons_from_the_bolshevik_faliure
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_new_blood"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_national_army3
+			add_idea = RUS_national_army4
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_good_food_and_pay
+	icon = GFX_SAM_Food_For_All
+	cost = 6
+	x = 3
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_lessons_from_the_germans
+	}
+	prerequisite = {
+		focus = RUS_lessons_from_the_bolshevik_faliure
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_good_food_and_pay"
+		#idea increasing recovery, org, and recruitable pop
+		add_ideas = RUS_march_by_your_stomach
+	}
+}
+
+shared_focus = {
+	id = RUS_the_pride_of_russia
+	icon = GFX_SAM_The_Army_of_National_Liberation
+	cost = 6
+	x = 0
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_new_blood
+	}
+	prerequisite = {
+		focus = RUS_good_food_and_pay
+	}
+	prerequisite = {
+		focus = RUS_stock_up
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_good_food_and_pay"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_national_army4
+			add_idea = RUS_national_army5
+		}
+	}
+}
+
+## kemerovo branch ##
+shared_focus = {
+	id = RUS_arms_of_rus
+	icon = GFX_KEM_A_Kingdom_of_Equals
+	cost = 6
+	x = 0
+	y = 1
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_fire_and_spit
+	}
+	allow_branch = {
+		OR = {
+			original_tag = KEM
+		}
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_arms_of_rus"
+		#idea
+		add_ideas = RUS_rurikid_army1
+	}
+}
+
+shared_focus = {
+	id = RUS_all_the_kings_men
+	icon = GFX_KEM_The_Zemsky_Sobor_Reborn
+	cost = 6
+	x = 0
+	y = 2
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_arms_of_rus
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_all_the_kings_men"
+		#improve ideas
+		swap_ideas = {
+			remove_idea = RUS_rurikid_army1
+			add_idea = RUS_rurikid_army2
+		}
+		every_army_leader = {
+			add_unit_leader_trait = skilled_staffer
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_guns_of_the_kingdom
+	icon = GFX_KEM_Defensive_Doctrine
+	cost = 6
+	x = -1
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_all_the_kings_men
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_guns_of_the_kingdom"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 3
+			category = infantry_weapons
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_form_the_druzhina
+	icon = GFX_KEM_On_the_Warpath
+	cost = 6
+	x = 1
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_all_the_kings_men
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_form_the_druzhina"
+		#idea giving special forces buff
+		add_ideas = RUS_druzhina1
+	}
+}
+
+shared_focus = {
+	id = RUS_a_truly_royal_army
+	icon = GFX_KEM_A_Standing_Army
+	cost = 6
+	x = -1
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_guns_of_the_kingdom
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_a_truly_royal_army"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_rurikid_army2
+			add_idea = RUS_rurikid_army3
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_the_new_varangians
+	icon = GFX_KEM_The_Kings_Army
+	cost = 6
+	x = 1
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_form_the_druzhina
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_new_varangians"
+		#buff elite infantry idea
+		swap_ideas = {
+			remove_idea = RUS_druzhina1
+			add_idea = RUS_druzhina2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_from_a_thousand_years
+	icon = GFX_KEM_dragon_ships
+	cost = 6
+	x = 0
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_all_the_kings_men
+	}
+	prerequisite = {
+		focus = RUS_a_truly_royal_army
+	}
+	prerequisite = {
+		focus = RUS_the_new_varangians
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_from_a_thousand_years"
+		TNO_improve_army_professionalism_high = yes
+		tno_training_improve = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_to_today
+	icon = GFX_KEM_The_Spirit_of_Rus_Reborn
+	cost = 6
+	x = 0
+	y = 6
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_from_a_thousand_years
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_to_today"
+		#imrpove idea
+		swap_ideas = {
+			remove_idea = RUS_rurikid_army3
+			add_idea = RUS_rurikid_army4
+		}
+	}
+}
+
+## black army branch ##
+shared_focus = {
+	id = RUS_sons_of_freedom
+	icon = GFX_CNT_formalize_militias
+	cost = 6
+	x = 0
+	y = 1
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_fire_and_spit
+	}
+	allow_branch = {
+		OR = {
+			original_tag = KHA
+		}
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_sons_of_freedom"
+		#idea
+		add_ideas = RUS_black_army1
+	}
+}
+
+shared_focus = {
+	id = RUS_the_black_army_across_russia
+	icon = GFX_CNT_Asia
+	cost = 6
+	x = 0
+	y = 2
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_sons_of_freedom
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_black_army_across_russia"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_black_army1
+			add_idea = RUS_black_army2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_new_officer_elections
+	icon = GFX_CNT_meet_the_new_boss
+	cost = 6
+	x = -1
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_the_black_army_across_russia
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_new_officer_elections"
+		army_experience = 25
+		TNO_improve_army_professionalism_high = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_the_regional_corps
+	icon = GFX_CNT_find_friends
+	cost = 6
+	x = -1
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_new_officer_elections
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_regional_corps"
+		#improve idea with org
+		swap_ideas = {
+			remove_idea = RUS_black_army2
+			add_idea = RUS_black_army3
+		}
+		every_army_leader = {
+			add_unit_leader_trait = skilled_staffer
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_all_ready_to_serve
+	icon = GFX_CNT_tanks_of_our_own
+	cost = 6
+	x = 1
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_the_black_army_across_russia
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_all_ready_to_serve"
+		#idea giving conscription and lowering stab
+		add_ideas = RUS_armed_populace1
+	}
+}
+
+shared_focus = {
+	id = RUS_voluntary_participation
+	icon = GFX_KHA_collective_defense_requirements
+	cost = 6
+	x = 1
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_all_ready_to_serve
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_all_ready_to_serve"
+		#improve previous idea
+		#set conscription to volunteer only if it isn't already
+		swap_ideas = {
+			remove_idea = RUS_armed_populace1
+			add_idea = RUS_armed_populace2
+		}
+		tno_conscription_clear = yes
+		add_ideas = tno_conscription_volunteer_only
+	}
+}
+
+shared_focus = {
+	id = RUS_arms_for_people
+	icon = GFX_CNT_unorthodox
+	cost = 6
+	x = 3
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_all_ready_to_serve
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_arms_for_people"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 3
+			category = infantry_weapons
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_for_global_revolution
+	icon = GFX_CNT_healthier_society
+	cost = 6
+	x = 2
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_voluntary_participation
+	}
+	prerequisite = {
+		focus = RUS_arms_for_people
+	}
+	prerequisite = {
+		focus = RUS_the_regional_corps
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_for_global_revolution"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_black_army3
+			add_idea = RUS_black_army4
+		}
+	}
+}
+
+## omsk branch ## 
+shared_focus = {
+	id = RUS_national_national_army
+	icon = GFX_OMS_Marching_for_Vengeance
+	cost = 6
+	x = 0
+	y = 1
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_fire_and_spit
+	}
+	allow_branch = {
+		OR = {
+			original_tag = OMS
+		}
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_national_national_army"
+		#idea
+		add_ideas = RUS_league_army1
+	}
+}
+
+shared_focus = {
+	id = RUS_prepare_russia
+	icon = GFX_OMS_infiltrate_our_enemies
+	cost = 6
+	x = 0
+	y = 2
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_national_national_army
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_prepare_russia"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_league_army1
+			add_idea = RUS_league_army2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_demand_the_best
+	icon = GFX_OMS_remember_the_oath
+	cost = 6
+	x = -2
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_prepare_russia
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_demand_the_best"
+		tno_training_improve = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_the_fires_of_hatred
+	icon = GFX_OMO_Yet_The_Darkness_Did_Not_Overcome
+	cost = 6
+	x = 0
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_prepare_russia
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_fires_of_hatred"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_league_army2
+			add_idea = RUS_league_army3
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_all_shall_serve
+	icon = GFX_OMS_an_elite_force
+	cost = 6
+	x = 2
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_prepare_russia
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_all_shall_serve"
+		tno_conscription_worsen = yes
+		tno_women_improve = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_new_officers_for_league
+	icon = GFX_OMS_enhanced_training_programs
+	cost = 6
+	x = -2
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_demand_the_best
+	}
+	prerequisite = {
+		focus = RUS_the_fires_of_hatred
+	}
+	prerequisite = {
+		focus = RUS_all_shall_serve
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_new_officers_for_league"
+		#idea for leader xp?
+		add_ideas = RUS_league_officers
+	}
+}
+
+shared_focus = {
+	id = RUS_their_worst_nightmare
+	icon = GFX_OMS_the_weapons_of_national_vengeance
+	cost = 6
+	x = 0
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_demand_the_best
+	}
+	prerequisite = {
+		focus = RUS_the_fires_of_hatred
+	}
+	prerequisite = {
+		focus = RUS_all_shall_serve
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_their_worst_nightmare"
+		#idea for leader xp?
+		swap_ideas = {
+			remove_idea = RUS_league_army3
+			add_idea = RUS_league_army4
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_gather_the_reserves
+	icon = GFX_OMS_the_drums_of_war
+	cost = 6
+	x = 2
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_demand_the_best
+	}
+	prerequisite = {
+		focus = RUS_the_fires_of_hatred
+	}
+	prerequisite = {
+		focus = RUS_all_shall_serve
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_demand_the_best"
+		add_manpower = 60000
+	}
+}
+
+shared_focus = {
+	id = RUS_for_national_redemption
+	icon = GFX_OMS_our_image_abroad
+	cost = 6
+	x = 0
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_new_officers_for_league
+	}
+	prerequisite = {
+		focus = RUS_their_worst_nightmare
+	}
+	prerequisite = {
+		focus = RUS_gather_the_reserves
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_demand_the_best"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_league_army4
+			add_idea = RUS_league_army5
+		}
+	}
+}
+
+## amur branch ##
+shared_focus = {
+	id = RUS_will_of_the_vozhd
+	icon = GFX_AMR_free_all_russian_army
+	cost = 6
+	x = 0
+	y = 1
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_fire_and_spit
+	}
+	allow_branch = {
+		OR = {
+			original_tag = AMR
+		}
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_will_of_the_vozhd"
+		#idea
+		add_ideas = RUS_vozhd_army1
+	}
+}
+
+shared_focus = {
+	id = RUS_learn_our_lessons
+	icon = GFX_Night_Schools
+	cost = 6
+	x = 0
+	y = 2
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_will_of_the_vozhd
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_learn_our_lessons"
+		#improve ideas
+		swap_ideas = {
+			remove_idea = RUS_vozhd_army1
+			add_idea = RUS_vozhd_army2
+		}
+		every_army_leader = {
+			add_unit_leader_trait = skilled_staffer
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_from_the_germans
+	icon = GFX_GER_A_German_Wehrmacht
+	cost = 6
+	x = -2
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_learn_our_lessons
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_from_the_germans"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = APC
+		}
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = IFV
+		}
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = MBT
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_from_ourselves
+	icon = GFX_AMR_Our_Great_Future
+	cost = 6
+	x = 0
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_learn_our_lessons
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_from_ourselves"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_vozhd_army2
+			add_idea = RUS_vozhd_army3
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_from_the_japanese
+	icon = GFX_VIN_Japanese_Army
+	cost = 6
+	x = 2
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_learn_our_lessons
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_from_the_japanese"
+		TNO_improve_army_professionalism_high = yes
+		tno_training_improve = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_strike_fast_strike_hard
+	icon = GFX_Tour_The_Panzer_Fleet
+	cost = 6
+	x = -2
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_from_the_germans
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_strike_fast_strike_hard"
+		#tank and motorized bonus
+		add_ideas = RUS_vozhd_copy_german
+	}
+}
+
+shared_focus = {
+	id = RUS_none_better
+	icon = GFX_GER_deal_only_death
+	cost = 6
+	x = 0
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_from_ourselves
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_none_better"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_vozhd_army3
+			add_idea = RUS_vozhd_army4
+		}
+		random_unit_leader = {
+			add_unit_leader_trait = war_hero
+		}
+		random_unit_leader = {
+			add_unit_leader_trait = war_hero
+		}
+		random_unit_leader = {
+			add_unit_leader_trait = war_hero
+		}
+		random_unit_leader = {
+			add_unit_leader_trait = war_hero
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_a_fanatic_force
+	icon = GFX_Revive_the_Freikorps
+	cost = 6
+	x = 2
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_from_the_japanese
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_a_fanatic_force"
+		#org and recovery rate to infantry
+		add_ideas = RUS_vozhd_copy_japan
+	}
+}
+
+shared_focus = {
+	id = RUS_for_god_and_russia
+	icon = GFX_AMR_The_One_True_Vozhd
+	cost = 6
+	x = 0
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_strike_fast_strike_hard
+	}
+	prerequisite = {
+		focus = RUS_none_better
+	}
+	prerequisite = {
+		focus = RUS_a_fanatic_force
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_for_god_and_russia"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_vozhd_army4
+			add_idea = RUS_vozhd_army5
+		}
+	}
+}
+
+## mag merc branch ##
+shared_focus = {
+	id = RUS_our_outer_heaven
+	icon = GFX_MAG_Building_the_Future
+	cost = 6
+	x = 0
+	y = 1
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_fire_and_spit
+	}
+	allow_branch = {
+		original_tag = MAG
+		has_country_flag = MAG_werbell_prevails
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_our_outer_heaven"
+		#idea
+		add_ideas = RUS_merc_army1
+	}
+}
+
+shared_focus = {
+	id = RUS_everyone_has_their_price
+	icon = GFX_URL_A_Paying_Job
+	cost = 6
+	x = 0
+	y = 2
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_our_outer_heaven
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_everyone_has_their_price"
+		#get officers
+		if = {
+			limit = {
+				tag = MAG
+			}
+			ERS = {
+				every_army_leader = {
+					set_nationality = MAG
+				}
+			}
+			PAV = {
+				every_army_leader = {
+					set_nationality = MAG
+				}
+			}
+			TOB = {
+				every_army_leader = {
+					set_nationality = MAG
+				}
+			}
+			URL = {
+				every_army_leader = {
+					set_nationality = MAG
+				}
+			}
+			UDM = {
+				every_army_leader = {
+					set_nationality = MAG
+				}
+			}
+		}
+		add_to_variable = {
+			national_debt = 10
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+	}
+}
+
+shared_focus = {
+	id = RUS_guns_of_the_patriots
+	icon = GFX_MAG_Welcome_Werbell
+	cost = 6
+	x = -2
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_everyone_has_their_price
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_guns_of_the_patriots"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 3
+			category = infantry_weapons
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_the_s_three_plan
+	icon = GFX_MAG_A_Foreign_Force
+	cost = 6
+	x = -2
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_everyone_has_their_price
+	}
+	prerequisite = {
+		focus = RUS_the_best_way_for_peace
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_s_three_plan"
+		TNO_improve_army_professionalism_high = yes
+		tno_training_improve = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_the_best_way_for_peace
+	icon = GFX_MAG_Fix_Bayonets
+	cost = 6
+	x = 0
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_guns_of_the_patriots
+	}
+	prerequisite = {
+		focus = RUS_soldiers_of_fotune
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_best_way_for_peace"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_merc_army1
+			add_idea = RUS_merc_army2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_soldiers_of_fotune
+	icon = GFX_UDM_golden_republic
+	cost = 6
+	x = 2
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_everyone_has_their_price
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_soldiers_of_fotune"
+		add_manpower = 50000
+	}
+}
+
+shared_focus = {
+	id = RUS_the_war_economy
+	icon = GFX_TNO_generic_gold_coins
+	cost = 6
+	x = 2
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_soldiers_of_fotune
+	}
+	prerequisite = {
+		focus = RUS_the_best_way_for_peace
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_war_economy"
+		add_offsite_building = {
+			type = arms_factory
+			level = 4
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_it_has_to_be_this_way
+	icon = GFX_ra_rus_merc_it_has_to_be_this_way
+	cost = 6
+	x = 0
+	y = 6
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_the_s_three_plan
+	}
+	prerequisite = {
+		focus = RUS_the_best_way_for_peace
+	}
+	prerequisite = {
+		focus = RUS_the_war_economy
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_it_has_to_be_this_way"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_merc_army2
+			add_idea = RUS_merc_army3
+		}
+	}
+}
+
+## komi EURASIA branch ##
+shared_focus = {
+	id = RUS_ride_for_eurasia
+	icon = GFX_NIK_Purity_in_Soul
+	cost = 6
+	x = 0
+	y = 1
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_fire_and_spit
+	}
+	allow_branch = {
+		OR = {
+			AND = {
+				original_tag = NIK
+				has_government = ultranational_socialism
+			}
+		}
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_ride_for_eurasia"
+		#idea
+		set_variable = {
+			var = RUS_eurasian_army1_conscription_factor
+			value = 0
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_army_org_factor
+			value = 0
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_army_attack_factor
+			value = 0
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_army_defence_factor
+			value = 0.025
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_army_morale_factor
+			value = 0.025
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_army_armor_attack_factor
+			value = 0
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_army_armor_defence_factor
+			value = 0
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_mechanized_attack_factor
+			value = 0
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_mechanized_defence_factor
+			value = 0
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_motorized_attack_factor
+			value = 0
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_motorized_defence_factor
+			value = 0
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_max_command_power
+			value = 0
+		}
+		add_dynamic_modifier = {
+			modifier = RUS_eurasian_army1
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_a_civ_forged_in_fire
+	icon = GFX_NIK_Strength_in_Body
+	cost = 6
+	x = 0
+	y = 2
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_ride_for_eurasia
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_a_civ_forged_in_fire"
+		#improve idea
+		custom_effect_tooltip = "Army Attack And Defence Will Increase"
+		set_variable = {
+			var = RUS_eurasian_army1_army_defence_factor
+			value = 0.05
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_army_morale_factor
+			value = 0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_a_common_struggle
+	icon = GFX_NIK_Ethnopluralist_Agenda
+	cost = 6
+	x = -2
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_a_civ_forged_in_fire
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_a_common_struggle"
+		#improve idea with manpower
+		custom_effect_tooltip = "Conscription Will Increase"
+		set_variable = {
+			var = RUS_eurasian_army1_conscription_factor
+			value = 0.1
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_death_to_europe
+	icon = GFX_Focus_Europe_Orthographic
+	cost = 6
+	x = -1
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_a_common_struggle
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_death_to_europe"
+		#improve idea with org and recovery rate
+		custom_effect_tooltip = "Army Attack And Organization Will Increase"
+		set_variable = {
+			var = RUS_eurasian_army1_army_attack_factor
+			value = 0.05
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_army_org_factor
+			value = 0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_heroes_of_the_future
+	icon = GFX_BRG_new_historical_heroes
+	cost = 6
+	x = 0
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_a_civ_forged_in_fire
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_heroes_of_the_future"
+		#improve idea xp gain
+		custom_effect_tooltip = "Max Command Power Will Increase"
+		set_variable = {
+			var = RUS_eurasian_army1_max_command_power
+			value = 30
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_new_tartar_yolk
+	icon = GFX_AKT_Masters_of_Man_and_Horse
+	cost = 6
+	x = 2
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_a_civ_forged_in_fire
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_new_tartar_yolk"
+		#improve motorized and apc
+		custom_effect_tooltip = "Motorized And Mechanized Will Recieve Additional Bonuses"
+		set_variable = {
+			var = RUS_eurasian_army1_mechanized_attack_factor
+			value = 0.05
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_mechanized_defence_factor
+			value = 0.05
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_motorized_attack_factor
+			value = 0.05
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_motorized_defence_factor
+			value = 0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_machine_cavalry
+	icon = GFX_NIK_army_for_the_world
+	cost = 6
+	x = 1
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_new_tartar_yolk
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_machine_cavalry"
+		#improve ifv and mtb
+		custom_effect_tooltip = "Armor Will Recieve Additional Bonuses"
+		set_variable = {
+			var = RUS_eurasian_army1_army_armor_attack_factor
+			value = 0.05
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_army_armor_defence_factor
+			value = 0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_victory_awaits
+	icon = GFX_NIK_heritage_for_the_future
+	cost = 6
+	x = 0
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_death_to_europe
+	}
+	prerequisite = {
+		focus = RUS_heroes_of_the_future
+	}
+	prerequisite = {
+		focus = RUS_machine_cavalry
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_machine_cavalry"
+		#improve pop and div speed
+		custom_effect_tooltip = "Army Organization, Attack, and Conscription Will Increase"
+		set_variable = {
+			var = RUS_eurasian_army1_army_org_factor
+			value = 0.1
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_army_attack_factor
+			value = 0.1
+		}
+		set_variable = {
+			var = RUS_eurasian_army1_conscription_factor
+			value = 0.2
+		}
+	}
+}
+
+## komi THE REGENT LIVES THE REGENT LIVES THE REGENT LIVES THE REGENT LIVES ##
+shared_focus = {
+	id = RUS_work_to_be_done
+	icon = GFX_ra_rus_tabor_work_to_be_done
+	cost = 6
+	x = 0
+	y = 1
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_fire_and_spit
+	}
+	allow_branch = {
+		OR = {
+			AND = {
+				original_tag = NIK
+				has_government = burgundian_system
+			}
+		}
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_work_to_be_done"
+		#idea
+		add_ideas = RUS_holy_imperial_army1
+	}
+}
+
+shared_focus = {
+	id = RUS_assess_the_imperial_army
+	icon = GFX_ra_rus_tabor_hand_holding_soldiers
+	cost = 6
+	x = 0
+	y = 2
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_work_to_be_done
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_assess_the_imperial_army"
+		#idea
+		swap_ideas = {
+			remove_idea = RUS_holy_imperial_army1
+			add_idea = RUS_holy_imperial_army2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_the_flesh
+	icon = GFX_ra_rus_tabor_the_flesh
+	cost = 6
+	x = -4
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_assess_the_imperial_army
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_flesh"
+		add_manpower = 50000
+	}
+}
+
+shared_focus = {
+	id = RUS_reward_the_loyal
+	icon = GFX_ra_rus_tabor_gold_pile
+	cost = 6
+	x = -3
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_the_flesh
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_reward_the_loyal"
+		add_stability = 0.2
+	}
+}
+
+shared_focus = {
+	id = RUS_and_the_competent
+	icon = GFX_ra_rus_tabor_soldiers
+	cost = 6
+	x = -2
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_reward_the_loyal
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_reward_the_loyal"
+		tno_training_improve = yes
+		TNO_improve_army_professionalism_high = yes
+		random_unit_leader = {
+			add_unit_leader_trait = war_hero
+		}
+		random_unit_leader = {
+			add_unit_leader_trait = war_hero
+		}
+		random_unit_leader = {
+			add_unit_leader_trait = war_hero
+		}
+		random_unit_leader = {
+			add_unit_leader_trait = war_hero
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_the_tools
+	icon = GFX_ra_rus_tabor_the_tools
+	cost = 6
+	x = 0
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_assess_the_imperial_army
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_tools"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 3
+			category = infantry_weapons
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_nothing_unforbidden
+	icon = GFX_ra_rus_tabor_radiation_sign
+	cost = 6
+	x = 0
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_the_tools
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_nothing_unforbidden"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_holy_imperial_army2
+			add_idea = RUS_holy_imperial_army3
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_hail_the_nightmare
+	icon = GFX_ra_rus_tabor_nightmare_tabby
+	cost = 6
+	x = 0
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_nothing_unforbidden
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_hail_the_nightmare"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_holy_imperial_army3
+			add_idea = RUS_holy_imperial_army4
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_the_machines
+	icon = GFX_ra_rus_tabor_the_machine
+	cost = 6
+	x = 4
+	y = 3
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_assess_the_imperial_army
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_machines"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = APC
+		}
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = IFV
+		}
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = MBT
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_imperial_motor_rifle
+	icon = GFX_ra_rus_tabor_btr70
+	cost = 6
+	x = 3
+	y = 4
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_the_machines
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_imperial_motor_rifle"
+		#motorized buff
+		add_ideas = RUS_hre_mobile_war1
+	}
+}
+
+shared_focus = {
+	id = RUS_holy_armor
+	icon = GFX_ra_rus_tabor_t72
+	cost = 6
+	x = 2
+	y = 5
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_imperial_motor_rifle
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_holy_armor"
+		#mbt buff
+		swap_ideas = {
+			remove_idea = RUS_hre_mobile_war1
+			add_idea = RUS_hre_mobile_war2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_at_his_command
+	icon = GFX_ra_rus_tabor_at_his_command_painting
+	cost = 6
+	x = 0
+	y = 6
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_and_the_competent
+	}
+	prerequisite = {
+		focus = RUS_hail_the_nightmare
+	}
+	prerequisite = {
+		focus = RUS_holy_armor
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_at_his_command"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_holy_imperial_army4
+			add_idea = RUS_holy_imperial_army5
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_thy_will_be_done
+	icon = GFX_ra_rus_tabor_christ_icon
+	cost = 6
+	x = 0
+	y = 7
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_at_his_command
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_thy_will_be_done"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_holy_imperial_army5
+			add_idea = RUS_holy_imperial_army6
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_on_earth_as_it_is_in_heaven
+	icon = GFX_ra_rus_tabor_globe
+	cost = 6
+	x = 0
+	y = 8
+	ai_will_do = {
+		factor = 50
+	}
+	prerequisite = {
+		focus = RUS_thy_will_be_done
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_on_earth_as_it_is_in_heaven"
+		#improve idea
+		swap_ideas = {
+			remove_idea = RUS_holy_imperial_army6
+			add_idea = RUS_holy_imperial_army7
+		}
+	}
+}
+
+## shared air navy tree ##
+shared_focus = {
+	id = RUS_air_and_sea
+	icon = GFX_SAF_air_and_naval_support
+	cost = 6
+	x = 10
+	y = 1
+	ai_will_do = {
+		factor = 10
+	}
+	prerequisite = {
+		focus = RUS_fire_and_spit
+	}
+	relative_position_id = RUS_fire_and_spit
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_air_and_sea"
+		air_experience = 25
+		navy_experience = 25
+	}
+}
+
+shared_focus = {
+	id = RUS_restore_the_admiralty
+	icon = GFX_MAG_The_West_Alaskan_Navy
+	cost = 6
+	x = -2
+	y = 1
+	ai_will_do = {
+		factor = 10
+	}
+	prerequisite = {
+		focus = RUS_air_and_sea
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_restore_the_admiralty"
+		#get naval officers
+		WRS = {
+			every_navy_leader = {
+				set_nationality = ROOT
+			}
+		}
+		AMR = {
+			every_navy_leader = {
+				set_nationality = ROOT
+			}
+		}
+		NIK = {
+			every_navy_leader = {
+				set_nationality = ROOT
+			}
+		}
+		MAG = {
+			every_navy_leader = {
+				set_nationality = ROOT
+			}
+		}
+		KMC = {
+			every_navy_leader = {
+				set_nationality = ROOT
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_from_the_ground_up
+	icon = GFX_RAJ_The_Navy
+	cost = 6
+	x = -3
+	y = 2
+	ai_will_do = {
+		factor = 10
+	}
+	prerequisite = {
+		focus = RUS_restore_the_admiralty
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_from_the_ground_up"
+		#dockyard buff
+		add_timed_idea = {
+			idea = RUS_rebuilding_the_fleet
+			days = 800
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_the_latest_doctrines
+	icon = GFX_RAJ_India_New_Naval_Estimates
+	cost = 7
+	x = -3
+	y = 3
+	ai_will_do = {
+		factor = 10
+	}
+	prerequisite = {
+		focus = RUS_from_the_ground_up
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_latest_doctrines"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 4
+			category = naval_doctrine
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_under_the_sea
+	icon = GFX_ra_rus_submarine
+	cost = 6
+	x = -3
+	y = 4
+	ai_will_do = {
+		factor = 10
+	}
+	prerequisite = {
+		focus = RUS_the_latest_doctrines
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_under_the_sea"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = ss_tech
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_destroyer_fleet
+	icon = GFX_naval_australia_sphere
+	cost = 6
+	x = -1
+	y = 2
+	ai_will_do = {
+		factor = 10
+	}
+	prerequisite = {
+		focus = RUS_restore_the_admiralty
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_destroyer_fleet"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = dd_tech
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_cruiser_designs
+	icon = GFX_GER_cruiser_for_cruiser
+	cost = 6
+	x = -1
+	y = 3
+	ai_will_do = {
+		factor = 10
+	}
+	prerequisite = {
+		focus = RUS_destroyer_fleet
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_cruiser_designs"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = cl_tech
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_contest_the_high_seas
+	icon = GFX_TNO_generic_navy_talk
+	cost = 6
+	x = -1
+	y = 4
+	ai_will_do = {
+		factor = 10
+	}
+	prerequisite = {
+		focus = RUS_cruiser_designs
+	}
+	mutually_exclusive = {
+		focus = RUS_flood_the_skies
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_contest_the_high_seas"
+		#begin work on carrier
+		#complete in 1.4 years
+		custom_effect_tooltip = "We Will Salvage And Refit The Atlantic Fleet!"
+		hidden_effect = {
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				load_oob = RUS_northern_fleet_mtg
+			}
+			else = {
+				load_oob = RUS_northern_fleet
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_not_just_a_land_power
+	icon = GFX_Can_we_trust_the_kriegsmarine
+	cost = 6
+	x = -2
+	y = 5
+	ai_will_do = {
+		factor = 10
+	}
+	prerequisite = {
+		focus = RUS_under_the_sea
+	}
+	prerequisite = {
+		focus = RUS_contest_the_high_seas
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_not_just_a_land_power"
+		#powerful idea
+		add_ideas = RUS_naval_priority
+	}
+}
+
+shared_focus = {
+	id = RUS_back_to_the_skies
+	icon = GFX_ANG_one_mans_sky
+	cost = 6
+	x = 2
+	y = 1
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_air_and_sea
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_back_to_the_skies"
+		#idea
+		add_ideas = RUS_new_air_force1
+	}
+}
+
+shared_focus = {
+	id = RUS_learn_from_the_old_union
+	icon = GFX_ra_rus_old_soviet_plane
+	cost = 7
+	x = 1
+	y = 2
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_back_to_the_skies
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_learn_from_the_old_union"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 4
+			category = air_doctrine
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_total_air_superiority
+	icon = GFX_ANG_control_the_sky
+	cost = 6
+	x = 1
+	y = 3
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_learn_from_the_old_union
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_total_air_superiority"
+		#improve idea
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = jet_fighter
+		}
+		swap_ideas = {
+			remove_idea = RUS_new_air_force1
+			add_idea = RUS_new_air_force2
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_flood_the_skies
+	icon = GFX_ANG_build_quickly
+	cost = 6
+	x = 1
+	y = 4
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_total_air_superiority
+	}
+	mutually_exclusive = {
+		focus = RUS_contest_the_high_seas
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_flood_the_skies"
+		#idea giving big bonuses to fighter and cas production
+		add_ideas = RUS_mass_plane_production
+	}
+}
+
+shared_focus = {
+	id = RUS_shield_the_ground
+	icon = GFX_ANG_new_bomber_fleet
+	cost = 6
+	x = 3
+	y = 2
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_back_to_the_skies
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_shield_the_ground"
+		#improve idea
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = jet_interceptor
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_air_and_land
+	icon = GFX_ANG_strike_fast
+	cost = 6
+	x = 3
+	y = 3
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_shield_the_ground
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_air_and_land"
+		#improve idea
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = jet_cas
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_our_own_terror_bombings
+	icon = GFX_ANG_tactical_approach
+	cost = 6
+	x = 3
+	y = 4
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_air_and_land
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_our_own_terror_bombings"
+		#improve idea
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = jet_strat_bomber
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_burn_the_sun
+	icon = GFX_ra_rus_mig31s_burning
+	cost = 6
+	x = 2
+	y = 5
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_flood_the_skies
+	}
+	prerequisite = {
+		focus = RUS_our_own_terror_bombings
+	}
+	relative_position_id = RUS_air_and_sea
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_burn_the_sun"
+		#powerful idea
+		swap_ideas = {
+			remove_idea = RUS_new_air_force2
+			add_idea = RUS_new_air_force3
+		}
+	}
+}
+
+# vengeance war tree #
+shared_focus = {
+	id = RUS_their_worst_mistake
+	icon = GFX_NIK_No_Law_But_the_Regents
+	cost = 3
+	x = 0
+	y = 9
+	ai_will_do = {
+		factor = 200
+	}
+	allow_branch = {
+		has_global_flag = rus_vengeance_war
+		NOT = {
+			owns_state = 219
+		}
+	}
+	prerequisite = {
+		focus = RUS_justice
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_their_worst_mistake"
+		add_war_support = 0.2
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = RUS_everything_for_the_front
+	icon = GFX_MZB_Simplify_Arms_Production
+	cost = 3
+	x = -1
+	y = 1
+	ai_will_do = {
+		factor = 200
+	}
+	relative_position_id = RUS_their_worst_mistake
+	prerequisite = {
+		focus = RUS_their_worst_mistake
+	}
+	available = {
+		has_war = yes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_fRUS_everything_for_the_frontire_and_spit"
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 10000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_hidden_factories
+	icon = GFX_Arms_factory_blue
+	cost = 3
+	x = 1
+	y = 1
+	ai_will_do = {
+		factor = 200
+	}
+	relative_position_id = RUS_their_worst_mistake
+	prerequisite = {
+		focus = RUS_their_worst_mistake
+	}
+	available = {
+		has_war = yes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_hidden_factories"
+		add_offsite_building = {
+			type = arms_factory
+			level = 10
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_mobilize_the_economy
+	icon = GFX_RAJ_Close_the_Economy
+	cost = 3
+	x = -2
+	y = 2
+	ai_will_do = {
+		factor = 200
+	}
+	relative_position_id = RUS_their_worst_mistake
+	prerequisite = {
+		focus = RUS_their_worst_mistake
+	}
+	available = {
+		has_war = yes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_mobilize_the_economy"
+		tno_economic_focus_improve = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_stretch_the_nation
+	icon = GFX_TOB_Temporary_Fully_Controlled_Economy
+	cost = 3
+	x = 0
+	y = 2
+	ai_will_do = {
+		factor = 200
+	}
+	relative_position_id = RUS_their_worst_mistake
+	prerequisite = {
+		focus = RUS_their_worst_mistake
+	}
+	available = {
+		has_war = yes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_stretch_the_nation"
+		add_days_mission_timeout = {
+			mission = RUS_german_war_muscowien
+			days = 20
+		}
+		add_days_mission_timeout = {
+			mission = RUS_german_war_kaukasia
+			days = 20
+		}
+		add_days_mission_timeout = {
+			mission = RUS_german_war_ukraine
+			days = 10
+		}
+		add_days_mission_timeout = {
+			mission = RUS_german_war_ostland
+			days = 10
+		}
+		add_stability = -0.1
+	}
+}
+
+shared_focus = {
+	id = RUS_serve_your_nation
+	icon = GFX_Quality_Recruitment
+	cost = 3
+	x = 2
+	y = 2
+	ai_will_do = {
+		factor = 200
+	}
+	relative_position_id = RUS_their_worst_mistake
+	prerequisite = {
+		focus = RUS_their_worst_mistake
+	}
+	available = {
+		has_war = yes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_serve_your_nation"
+		tno_conscription_worsen = yes
+		add_manpower = 40000
+	}
+}
+
+shared_focus = {
+	id = RUS_take_back_russia
+	icon = GFX_MCW_A_Door_To_The_Russian_Hell
+	cost = 3
+	x = -3
+	y = 3
+	ai_will_do = {
+		factor = 200
+	}
+	relative_position_id = RUS_their_worst_mistake
+	prerequisite = {
+		focus = RUS_their_worst_mistake
+	}
+	available = {
+		has_war = yes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_take_back_russia"
+		#idea against muscowien
+		add_timed_idea = {
+			idea = RUS_muscowien_operation
+			days = 30
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_into_the_caucasus
+	icon = GFX_CAU_expansionism
+	cost = 3
+	x = -5
+	y = 4
+	ai_will_do = {
+		factor = 200
+	}
+	relative_position_id = RUS_their_worst_mistake
+	prerequisite = {
+		focus = RUS_take_back_russia
+	}
+	available = {
+		has_war = yes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_into_the_caucasus"
+		#idea against kaukasia
+		add_timed_idea = {
+			idea = RUS_kaukasia_operation
+			days = 30
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_into_ukraine
+	icon = GFX_UKR_Free_Ukraine
+	cost = 3
+	x = -3
+	y = 4
+	ai_will_do = {
+		factor = 200
+	}
+	relative_position_id = RUS_their_worst_mistake
+	prerequisite = {
+		focus = RUS_take_back_russia
+	}
+	available = {
+		has_war = yes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_into_the_caucasus"
+		#idea against ukraine
+		add_timed_idea = {
+			idea = RUS_ukraine_operation
+			days = 30
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_into_the_baltic
+	icon = GFX_generic_ostland
+	cost = 3
+	x = -1
+	y = 4
+	ai_will_do = {
+		factor = 200
+	}
+	relative_position_id = RUS_their_worst_mistake
+	prerequisite = {
+		focus = RUS_take_back_russia
+	}
+	available = {
+		OST = {
+			exists = yes
+		}
+		has_war = yes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_into_the_caucasus"
+		#idea against ostland
+		add_timed_idea = {
+			idea = RUS_ostland_operation
+			days = 30
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_uprising_in_moscowien
+	icon = GFX_OST_Unite_the_Partisans
+	cost = 3
+	x = 3
+	y = 3
+	ai_will_do = {
+		factor = 200
+	}
+	relative_position_id = RUS_their_worst_mistake
+	prerequisite = {
+		focus = RUS_their_worst_mistake
+	}
+	available = {
+		has_war = yes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_uprising_in_moscowien"
+		#load oob
+		load_oob = RUS_moscow
+	}
+}
+
+shared_focus = {
+	id = RUS_troops_across_the_caspian
+	icon = GFX_ra_rus_cross_caspian
+	cost = 3
+	x = 2
+	y = 4
+	ai_will_do = {
+		factor = 200
+	}
+	relative_position_id = RUS_their_worst_mistake
+	prerequisite = {
+		focus = RUS_uprising_in_moscowien
+	}
+	available = {
+		has_war = yes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_troops_across_the_caspian"
+		#load oob in azeri
+		load_oob = RUS_caucasia_marines
+	}
+}
+
+shared_focus = {
+	id = RUS_troops_across_the_baltic
+	icon = GFX_TNO_generic_marine
+	cost = 3
+	x = 4
+	y = 4
+	ai_will_do = {
+		factor = 200
+	}
+	relative_position_id = RUS_their_worst_mistake
+	prerequisite = {
+		focus = RUS_uprising_in_moscowien
+	}
+	available = {
+		controls_state = 195
+		has_war = yes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_troops_across_the_caspian"
+		#load oob
+		load_oob = RUS_baltic_marines
+	}
+}
+
+# economy tree #
+shared_focus = {
+	id = RUS_picking_the_pieces
+	icon = GFX_endless_money
+	cost = 6
+	x = 14
+	y = 3
+	ai_will_do = {
+		factor = 20
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_picking_the_pieces"
+		#lower debuff
+		custom_effect_tooltip = RUS_picking_the_pieces_tt
+		add_to_variable = {
+			var = RUS_economic_status_industrial_capacity_factory
+			value = 0.1
+		}
+		add_to_variable = {
+			var = RUS_economic_status_production_speed_buildings_factor
+			value = 0.1
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_economic_stimulus
+	icon = GFX_ORE_develop_the_outer_regions
+	cost = 4
+	x = -1
+	y = 1
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_picking_the_pieces
+	}
+	relative_position_id = RUS_picking_the_pieces
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_economic_stimulus"
+		#gdp grow
+		TNO_improve_poverty_med = yes
+		multiply_variable = {
+			GDP = 1.01
+		}
+		add_to_variable = {
+			GDP_growth = 0.001
+		}
+		custom_effect_tooltip = econ_increase_GDP_small
+	}
+}
+
+shared_focus = {
+	id = RUS_open_the_banks
+	icon = GFX_SPA_Strangle_Central_Bank
+	cost = 4
+	x = -2
+	y = 2
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_economic_stimulus
+	}
+	relative_position_id = RUS_picking_the_pieces
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_open_the_banks"
+		#gdp grow
+		multiply_variable = {
+			GDP = 1.01
+		}
+		add_to_variable = {
+			GDP_growth = 0.001
+		}
+		custom_effect_tooltip = econ_increase_GDP_small
+	}
+}
+
+shared_focus = {
+	id = RUS_buy_buy_buy
+	icon = GFX_MZB_get_your_free_tvs
+	cost = 4
+	x = 0
+	y = 2
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_economic_stimulus
+	}
+	relative_position_id = RUS_picking_the_pieces
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_buy_buy_buy"
+		#gdp grow
+		multiply_variable = {
+			GDP = 1.01
+		}
+		add_to_variable = {
+			GDP_growth = 0.001
+		}
+		custom_effect_tooltip = econ_increase_GDP_small
+	}
+}
+
+shared_focus = {
+	id = RUS_now_pay_taxes
+	icon = GFX_goal_VOL_Tax_Debate
+	cost = 4
+	x = -1
+	y = 3
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_buy_buy_buy
+	}
+	prerequisite = {
+		focus = RUS_open_the_banks
+	}
+	relative_position_id = RUS_picking_the_pieces
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_now_pay_taxes"
+		#liquidity
+		custom_effect_tooltip = econ_misc_income_add_small_increase
+		add_to_variable = {
+			misc_income = 700
+		}
+		custom_effect_tooltip = RUS_now_pay_taxes_tt
+		subtract_from_variable = {
+			var = RUS_economic_status_consumer_goods_factor
+			value = 0.1
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_modernize_the_factories
+	icon = GFX_PAV_The_Champions_of_Industry
+	cost = 4
+	x = 4
+	y = 1
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_picking_the_pieces
+	}
+	relative_position_id = RUS_picking_the_pieces
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_modernize_the_factories"
+		#improve idea
+		TNO_improve_industrial_expertise_med = yes
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 1
+			category = industry
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 2000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_new_agri_methods
+	icon = GFX_RAJ_Question_Agriculture
+	cost = 4
+	x = 2
+	y = 2
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_modernize_the_factories
+	}
+	relative_position_id = RUS_picking_the_pieces
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_new_agri_methods"
+		#improve idea
+		TNO_improve_agriculture_med = yes
+		subtract_from_variable = {
+			var = RUS_economic_status_production_lack_of_resource_penalty_factor
+			value = 0.1
+		}
+		subtract_from_variable = {
+			var = RUS_economic_status_consumer_goods_factor
+			value = 0.05
+		}
+		custom_effect_tooltip = RUS_new_agri_methods_tt
+	}
+}
+
+shared_focus = {
+	id = RUS_support_the_farms
+	icon = GFX_RAJ_agricultural_aid
+	cost = 4
+	x = 1
+	y = 3
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_modernize_the_factories
+	}
+	relative_position_id = RUS_picking_the_pieces
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_support_the_farms"
+		#improve idea
+		custom_effect_tooltip = RUS_support_the_farms_tt
+		subtract_from_variable = {
+			var = RUS_economic_status_production_lack_of_resource_penalty_factor
+			value = 0.05
+		}
+		subtract_from_variable = {
+			var = RUS_economic_status_consumer_goods_factor
+			value = 0.05
+		}
+		#debt
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 100
+		}
+		TNO_improve_agriculture_med = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_no_more_famine
+	icon = GFX_RAJ_Agricultural_Miracle
+	cost = 4
+	x = 2
+	y = 4
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_support_the_farms
+	}
+	prerequisite = {
+		focus = RUS_new_agri_methods
+	}
+	relative_position_id = RUS_picking_the_pieces
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_modernize_the_factories"
+		#improve idea
+		custom_effect_tooltip = RUS_no_more_famine_tt
+		subtract_from_variable = {
+			var = RUS_economic_status_production_lack_of_resource_penalty_factor
+			value = 0.05
+		}
+		TNO_improve_poverty_med = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_the_wealth_of_russia
+	icon = GFX_NIK_The_Wealth_of_Russia
+	cost = 4
+	x = 7
+	y = 2
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_modernize_the_factories
+	}
+	relative_position_id = RUS_picking_the_pieces
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_wealth_of_russia"
+		#improve idea
+		custom_effect_tooltip = RUS_the_wealth_of_russia_tt
+		add_to_variable = {
+			var = RUS_economic_status_industrial_capacity_factory
+			value = 0.05
+		}
+		TNO_improve_industrial_equipment_low = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_ofn_aid
+	icon = GFX_OFN_handshake
+	cost = 5
+	x = -4
+	y = 1
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_the_wealth_of_russia
+	}
+	available = {
+		NOT = {
+			OR = {
+				has_government = national_socialism
+				has_government = burgundian_system
+			}
+			has_completed_focus = RUS_pursue_autarky
+		}
+	}
+	relative_position_id = RUS_the_wealth_of_russia
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_ofn_aid"
+		#liquidity if usa accepts
+		#improve idea
+		USA = {
+			country_event = {
+				id = RUS_postunification_diplo.5
+				days = 3
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_american_money
+	icon = GFX_USA_money
+	cost = 5
+	x = -4
+	y = 3
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_ofn_aid
+	}
+	available = {
+		#USA said yes
+		has_country_flag = rus_ofn_aid_gained
+	}
+	relative_position_id = RUS_the_wealth_of_russia
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_ofn_aid"
+		#gdp growth
+		multiply_variable = {
+			GDP = 1.01
+		}
+		add_to_variable = {
+			GDP_growth = 0.001
+		}
+		custom_effect_tooltip = econ_increase_GDP_small
+		#improve idea
+		custom_effect_tooltip = RUS_american_money_tt
+		add_to_variable = {
+			var = RUS_economic_status_industrial_capacity_factory
+			value = 0.05
+		}
+		add_to_variable = {
+			var = RUS_economic_status_production_speed_buildings_factor
+			value = 0.1
+		}
+		tno_trade_laws_improve = yes
+		USA = {
+			custom_effect_tooltip = econ_misc_income_add_small_increase
+			add_to_variable = {
+				misc_income = 1200
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_rebuild_the_west
+	icon = GFX_NIK_Delineate_the_Western_Boundary
+	cost = 5
+	x = -2
+	y = 1
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_the_wealth_of_russia
+	}
+	relative_position_id = RUS_the_wealth_of_russia
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_rebuild_the_west"
+		#improve idea
+		add_to_variable = {
+			var = RUS_economic_status_industrial_capacity_factory
+			value = 0.05
+		}
+		custom_effect_tooltip = RUS_rebuild_the_west_tt
+		#debt
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 1000
+		}
+		TNO_improve_industrial_equipment_low = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_orenburg_diamond_of_russia
+	icon = GFX_ORE_orenburg_redefined
+	cost = 4
+	x = -3
+	y = 2
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_rebuild_the_west
+	}
+	relative_position_id = RUS_the_wealth_of_russia
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_orenburg_diamond_of_russia"
+		#improve idea
+		add_to_variable = {
+			var = RUS_economic_status_industrial_capacity_factory
+			value = 0.05
+		}
+		add_to_variable = {
+			var = RUS_economic_status_production_factory_efficiency_gain_factor
+			value = 0.05
+		}
+		custom_effect_tooltip = RUS_orenburg_diamond_of_russia_tt
+		#upgrade orenburg state
+		652 = {
+			set_state_category = city
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 2000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_samara_reconstruction
+	icon = GFX_generic_samara
+	cost = 4
+	x = -1
+	y = 2
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_rebuild_the_west
+	}
+	relative_position_id = RUS_the_wealth_of_russia
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_orenburg_diamond_of_russia"
+		#improve idea
+		add_to_variable = {
+			var = RUS_economic_status_industrial_capacity_factory
+			value = 0.05
+		}
+		add_to_variable = {
+			var = RUS_economic_status_production_speed_buildings_factor
+			value = 0.05
+		}
+		custom_effect_tooltip = RUS_samara_reconstruction_tt
+		#upgrade samara state
+		850 = {
+			set_state_category = large_city
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 2000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_reopen_gaz
+	icon = GFX_generic_gorki
+	cost = 4
+	x = -2
+	y = 3
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_rebuild_the_west
+	}
+	relative_position_id = RUS_the_wealth_of_russia
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_orenburg_diamond_of_russia"
+		#improve idea
+		add_to_variable = {
+			var = RUS_economic_status_production_speed_buildings_factor
+			value = 0.05
+		}
+		add_to_variable = {
+			var = RUS_economic_status_production_factory_start_efficiency_factor
+			value = 0.1
+		}
+		custom_effect_tooltip = RUS_reopen_gaz_tt
+		#upgrade gorky state
+		252 = {
+			set_state_category = large_city
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 2000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_sibplans_legacy
+	icon = GFX_ERS_the_new_siberian_plan
+	cost = 4
+	x = 0
+	y = 1
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_the_wealth_of_russia
+	}
+	relative_position_id = RUS_the_wealth_of_russia
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_rebuild_the_west"
+		#improve idea
+		add_to_variable = {
+			var = RUS_economic_status_production_speed_buildings_factor
+			value = 0.05
+		}
+		add_to_variable = {
+			var = RUS_economic_status_line_change_production_efficiency_factor
+			value = 0.05
+		}
+		custom_effect_tooltip = RUS_sibplans_legacy_tt
+		#debt
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 1000
+		}
+		TNO_improve_industrial_equipment_low = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_the_black_city
+	icon = GFX_generic_omsk_ride
+	cost = 4
+	x = 0
+	y = 3
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_sibplans_legacy
+	}
+	relative_position_id = RUS_the_wealth_of_russia
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_black_city"
+		#improve idea
+		add_to_variable = {
+			var = RUS_economic_status_production_speed_buildings_factor
+			value = 0.05
+		}
+		add_to_variable = {
+			var = RUS_economic_status_industrial_capacity_factory
+			value = 0.05
+		}
+		custom_effect_tooltip = RUS_the_black_city_tt
+		#improve omsk
+		571 = {
+			set_state_category = large_city
+			set_victory_points = {
+				province = 10696
+				value = 25
+			}
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 2000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_heart_of_siberia
+	icon = GFX_SIB_diplo_novosibirsk
+	cost = 4
+	x = 1
+	y = 2
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_sibplans_legacy
+	}
+	relative_position_id = RUS_the_wealth_of_russia
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_black_city"
+		#improve idea
+		add_to_variable = {
+			var = RUS_economic_status_industrial_capacity_factory
+			value = 0.05
+		}
+		add_to_variable = {
+			var = RUS_economic_status_production_factory_efficiency_gain_factor
+			value = 0.05
+		}
+		custom_effect_tooltip = RUS_heart_of_siberia_tt
+		#improve novosibrisk
+		570 = {
+			set_state_category = large_city
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 2000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_far_to_the_east
+	icon = GFX_MAG_Siberian_Factories
+	cost = 4
+	x = 2
+	y = 1
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_the_wealth_of_russia
+	}
+	relative_position_id = RUS_the_wealth_of_russia
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_far_to_the_east"
+		#improve idea
+		#debt
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 1000
+		}
+		add_to_variable = {
+			var = RUS_economic_status_production_factory_efficiency_gain_factor
+			value = 0.05
+		}
+		add_to_variable = {
+			var = RUS_economic_status_production_factory_start_efficiency_factor
+			value = 0.05
+		}
+		TNO_improve_industrial_equipment_low = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_reopen_iap
+	icon = GFX_generic_irkutsk_diplo
+	cost = 4
+	x = 2
+	y = 3
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_far_to_the_east
+	}
+	relative_position_id = RUS_the_wealth_of_russia
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_far_to_the_east"
+		#improve idea
+		add_to_variable = {
+			var = RUS_economic_status_production_factory_start_efficiency_factor
+			value = 0.05
+		}
+		add_to_variable = {
+			var = RUS_economic_status_production_factory_max_efficiency_factor
+			value = 0.05
+		}
+		custom_effect_tooltip = RUS_reopen_iap_tt
+		#improve irk
+		566 = {
+			set_state_category = large_city
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 2000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_modernize_magadan
+	icon = GFX_MAG_A_Gateway_into_Russia
+	cost = 4
+	x = 3
+	y = 2
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_far_to_the_east
+	}
+	relative_position_id = RUS_the_wealth_of_russia
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_modernize_magadan"
+		#improve idea
+		add_to_variable = {
+			var = RUS_economic_status_production_factory_start_efficiency_factor
+			value = 0.05
+		}
+		add_to_variable = {
+			var = RUS_economic_status_production_factory_max_efficiency_factor
+			value = 0.05
+		}
+		custom_effect_tooltip = RUS_modernize_magadan_tt
+		#improve magadan port
+		562 = {
+			set_state_category = city
+			set_victory_points = {
+				province = 12683
+				value = 20
+			}
+			add_building_construction = {
+				type = dockyard
+				level = 2
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 2
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 2000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_pursue_autarky
+	icon = GFX_AST_end_the_alliance
+	cost = 5
+	x = 4
+	y = 1
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_the_wealth_of_russia
+	}
+	available = {
+		NOT = {
+			#america said yes
+			has_country_flag = rus_ofn_aid_gained
+		}
+	}
+	relative_position_id = RUS_the_wealth_of_russia
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_ofn_aid"
+		#debt
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 100
+		}
+		#improve idea
+		tno_improve_industrial_equipment_low = yes
+		add_to_variable = {
+			var = RUS_economic_status_industrial_capacity_factory
+			value = 0.1
+		}
+		custom_effect_tooltip = RUS_pursue_autarky_tt
+	}
+}
+
+shared_focus = {
+	id = RUS_our_own_sphere
+	icon = GFX_NIK_restore_international_trade
+	cost = 5
+	x = 4
+	y = 3
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_pursue_autarky
+	}
+	relative_position_id = RUS_the_wealth_of_russia
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_ofn_aid"
+		#debt
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 100
+		}
+		#improve idea
+		add_to_variable = {
+			var = RUS_economic_status_industrial_capacity_factory
+			value = 0.1
+		}
+		custom_effect_tooltip = RUS_our_own_sphere_tt
+		tno_improve_industrial_equipment_med = yes
+		#tno_trade_laws_worsen = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_new_tech_new_theories
+	icon = GFX_goal_computer_assisted_design
+	cost = 5
+	x = 11
+	y = 1
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_picking_the_pieces
+	}
+	relative_position_id = RUS_picking_the_pieces
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_new_tech_new_theories"
+		TNO_improve_research_facilities_med = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_import_computers
+	icon = GFX_CHI_Adapt_Computer_Designs
+	cost = 5
+	x = -1
+	y = 1
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_new_tech_new_theories
+	}
+	relative_position_id = RUS_new_tech_new_theories
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_import_computers"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = electronics
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 2000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_read_you_fools
+	icon = GFX_RAJ_Establish_Village_Schools
+	cost = 5
+	x = 1
+	y = 1
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_new_tech_new_theories
+	}
+	relative_position_id = RUS_new_tech_new_theories
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_read_you_fools"
+		TNO_improve_academic_base_high = yes
+		tno_education_improve = yes
+	}
+}
+
+shared_focus = {
+	id = RUS_a_future_for_us
+	icon = GFX_NIK_vision_for_the_people_ultravisionary
+	cost = 5
+	x = 1
+	y = 3
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_read_you_fools
+	}
+	prerequisite = {
+		focus = RUS_import_computers
+	}
+	relative_position_id = RUS_new_tech_new_theories
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_a_future_for_us"
+		#improve research speed
+		add_to_variable = {
+			var = RUS_economic_status_research_speed_factor
+			value = 0.1
+		}
+		custom_effect_tooltip = RUS_a_future_for_us_tt
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 2000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_fortune_beneath_the_soil
+	icon = GFX_Import_Extraction_Equipment
+	cost = 5
+	x = 15
+	y = 1
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_picking_the_pieces
+	}
+	relative_position_id = RUS_picking_the_pieces
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_fortune_beneath_the_soil"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = excavation_tech
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_russian_oil
+	icon = GFX_Expand_Oil_Quotas
+	cost = 5
+	x = -1
+	y = 1
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_fortune_beneath_the_soil
+	}
+	relative_position_id = RUS_fortune_beneath_the_soil
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_russian_oil"
+		add_to_variable = {
+			var = RUS_economic_status_line_change_production_efficiency_factor
+			value = 0.1
+		}
+		custom_effect_tooltip = RUS_russian_oil_tt
+		#russian oil gain
+		863 = {
+			add_resource = {
+				type = oil
+				amount = 20
+			}
+		}
+		844 = {
+			add_resource = {
+				type = oil
+				amount = 20
+			}
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 2000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_central_asian_oil
+	icon = GFX_Generic_Oil_Crisis
+	cost = 5
+	x = 0
+	y = 2
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_russian_oil
+	}
+	available = {
+		has_completed_focus = RUS_central_asia_secure
+	}
+	relative_position_id = RUS_fortune_beneath_the_soil
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_central_asian_oil"
+		add_to_variable = {
+			var = RUS_economic_status_line_change_production_efficiency_factor
+			value = 0.05
+		}
+		custom_effect_tooltip = RUS_central_asian_oil_tt
+		#ca oil gain
+		584 = {
+			add_resource = {
+				type = oil
+				amount = 27
+			}
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 2000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_expand_norilsk
+	icon = GFX_KHA_return_to_the_mines
+	cost = 5
+	x = 1
+	y = 1
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_fortune_beneath_the_soil
+	}
+	relative_position_id = RUS_fortune_beneath_the_soil
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_expand_norilsk"
+		add_to_variable = {
+			var = RUS_economic_status_consumer_goods_factor
+			value = 0.05
+		}
+		add_to_variable = {
+			var = RUS_economic_status_production_factory_max_efficiency_factor
+			value = 0.05
+		}
+		custom_effect_tooltip = RUS_expand_norilsk_tt
+		#tungsten and aluminum
+		516 = {
+			add_resource = {
+				type = tungsten
+				amount = 22
+			}
+			add_resource = {
+				type = aluminium
+				amount = 19
+			}
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 2000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_minry_diamond_mine
+	icon = GFX_COG_Blood_Diamonds
+	cost = 5
+	x = 2
+	y = 2
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_fortune_beneath_the_soil
+	}
+	relative_position_id = RUS_fortune_beneath_the_soil
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_minry_diamond_mine"
+		add_to_variable = {
+			var = RUS_economic_status_production_factory_max_efficiency_factor
+			value = 0.05
+		}
+		add_to_variable = {
+			var = RUS_economic_status_production_factory_start_efficiency_factor
+			value = 0.05
+		}
+		custom_effect_tooltip = RUS_minry_diamond_mine_tt
+		#boost to income
+		custom_effect_tooltip = econ_misc_income_add_small_increase
+		add_to_variable = {
+			misc_income = 700
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_lena_gold_field
+	icon = GFX_TED_rather_gold
+	cost = 5
+	x = 3
+	y = 1
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_fortune_beneath_the_soil
+	}
+	relative_position_id = RUS_fortune_beneath_the_soil
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_lena_gold_field"
+		add_to_variable = {
+			var = RUS_economic_status_production_factory_start_efficiency_factor
+			value = 0.05
+		}
+		custom_effect_tooltip = RUS_lena_gold_field_tt
+		#boost to income
+		custom_effect_tooltip = econ_misc_income_add_small_increase
+		add_to_variable = {
+			misc_income = 700
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_karaganda_basin
+	icon = GFX_GER_coal_mine_proliferation
+	cost = 5
+	x = 1
+	y = 3
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_expand_norilsk
+	}
+	available = {
+		has_completed_focus = RUS_central_asia_secure
+	}
+	relative_position_id = RUS_fortune_beneath_the_soil
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_karaganda_basin"
+		add_to_variable = {
+			var = RUS_economic_status_production_speed_buildings_factor
+			value = 0.05
+		}
+		custom_effect_tooltip = RUS_karaganda_basin_tt
+		#steel and chromium
+		589 = {
+			add_resource = {
+				type = steel
+				amount = 12
+			}
+			add_resource = {
+				type = chromium
+				amount = 31
+			}
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 2000
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_muruntau_kumptor_gold_mines
+	icon = GFX_TNO_generic_gold_bars
+	cost = 5
+	x = 3
+	y = 3
+	ai_will_do = {
+		factor = 20
+	}
+	prerequisite = {
+		focus = RUS_lena_gold_field
+	}
+	prerequisite = {
+		focus = RUS_minry_diamond_mine
+	}
+	available = {
+		has_completed_focus = RUS_central_asia_secure
+	}
+	relative_position_id = RUS_fortune_beneath_the_soil
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_muruntau_kumptor_gold_mines"
+		add_to_variable = {
+			var = RUS_economic_status_production_speed_buildings_factor
+			value = 0.05
+		}
+		custom_effect_tooltip = RUS_muruntau_kumptor_gold_mines_tt
+		#boost to income
+		custom_effect_tooltip = econ_misc_income_add_small_increase
+		add_to_variable = {
+			misc_income = 700
+		}
+	}
+}
+
+# post vengeance war tree 
+
+shared_focus = {
+	id = RUS_just_victory
+	icon = GFX_ra_rus_nike_flames
+	cost = 3
+	x = 0
+	y = 9
+	ai_will_do = {
+		factor = 200
+	}
+	allow_branch = {
+		owns_state = 219
+	}
+	prerequisite = {
+		focus = RUS_justice
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_just_victory"
+		add_stability = 0.2
+		add_political_power = 500
+		hidden_effect = {
+			every_country = {
+				limit = {
+					OR = {
+						tag = GER
+						is_ally_with = GER
+					}
+				}
+				RUS = {
+					remove_wargoal = {
+						target = PREV
+						type = all
+					}
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_their_proper_names
+	icon = GFX_ra_rus_russian_roadsign
+	cost = 3
+	x = -1
+	y = 1
+	ai_will_do = {
+		factor = 200
+	}
+	prerequisite = {
+		focus = RUS_just_victory
+	}
+	relative_position_id = RUS_just_victory
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_their_proper_names"
+		#event erasing German names
+		country_event = {
+			id = RUS_vengeance_war.10
+			days = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_the_germans_left_behind
+	icon = GFX_ra_rus_germans_in_photo
+	cost = 3
+	x = 1
+	y = 1
+	ai_will_do = {
+		factor = 200
+	}
+	prerequisite = {
+		focus = RUS_just_victory
+	}
+	relative_position_id = RUS_just_victory
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_germans_left_behind"
+		#event deciding the fate of the german settlers
+		country_event = {
+			id = RUS_vengeance_war.11
+			days = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_the_capital
+	icon = GFX_ra_rus_kremlin_in_shadows
+	cost = 3
+	x = -1
+	y = 2
+	ai_will_do = {
+		factor = 200
+	}
+	prerequisite = {
+		focus = RUS_their_proper_names
+	}
+	prerequisite = {
+		focus = RUS_the_germans_left_behind
+	}
+	relative_position_id = RUS_just_victory
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_the_capital"
+		#event deciding whether ot not to move capital
+		#moscow and st petersburg are options for everyone
+		#ruriks can move to kiev if Ukraine was annexed
+		country_event = {
+			id = RUS_vengeance_war.12
+			days = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = RUS_not_done_yet
+	icon = GFX_ra_rus_soldier_yelling
+	cost = 3
+	x = 1
+	y = 2
+	ai_will_do = {
+		factor = 200
+	}
+	prerequisite = {
+		focus = RUS_their_proper_names
+	}
+	prerequisite = {
+		focus = RUS_the_germans_left_behind
+	}
+	relative_position_id = RUS_just_victory
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_not_done_yet"
+		#decisions to expand even more depending on extent of success
+		custom_effect_tooltip = "We Can Pressure Our Weaker Neighbors To Return Our Territories"
+	}
+}
+
+shared_focus = {
+	id = RUS_a_new_day
+	icon = GFX_ra_rus_sunrise
+	cost = 3
+	x = 0
+	y = 3
+	ai_will_do = {
+		factor = 200
+	}
+	prerequisite = {
+		focus = RUS_the_capital
+	}
+	prerequisite = {
+		focus = RUS_not_done_yet
+	}
+	relative_position_id = RUS_just_victory
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RUS_a_new_day"
+		#ending event
+		country_event = {
+			id = RUS_vengeance_war.8
+		}
+	}
+}

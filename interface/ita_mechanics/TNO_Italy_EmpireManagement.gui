@@ -1,0 +1,695 @@
+guiTypes = {
+	#### Politics Screen Display ####
+	containerWindowType = {
+		name = "TNO_EmpireManagement_OpenButton"
+		size = { width = 220 height = 128 }
+		position = { x = 0 y = 289 }
+
+		buttonType = {
+			name = "EmpireManagement_OpenButton"
+			spriteType = "GFX_EmpireManagement_OpenButton"
+			position = { x = 216 y = 24 }
+			pdx_tooltip = ITA_EmpireManagement_OpenButton_tt
+			pdx_tooltip_delayed = ITA_EmpireManagement_OpenButton_tt_delayed
+			scale = 0.65
+			clicksound = click_ok
+			oversound = ui_menu_over
+		}
+		
+		### Tutorial arrow removed for now. Unlike every other TNORA mechanic,
+		### which shows its arrow only once something sets gui_alert_visible,
+		### the rework's GUIs showed theirs from the first frame and clicking
+		### the arrow does not press the button beneath it. Restore the block
+		### below - and a trigger to match - if the hint is wanted again.
+		#iconType = {
+		#name = "gui_alert"
+		#spriteType = "GFX_gui_alert"
+		#position = { x = 185 y = -16 }
+		#}
+	}
+
+	#### Main Display ####
+	containerWindowType = {
+		name = "TNO_EmpireManagement_Main"
+		size = { width = 1027 height = 749 }
+		position = { x = 542 y = 78 }
+		moveable = yes
+
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_window_thin_border2"
+		}
+		
+		iconType = {
+			name = "EmpireManagement_Borders"
+			spriteType = "GFX_EmpireManagement_Borders"
+			position = { x = 11 y = 11 }
+		}
+		
+		instantTextboxType = {
+			name = "EmpireManagement_Title"
+			position = { x = 68 y = -12 }
+			font = "vt323_72_WT_outline"
+			text = "EMPIRE MANAGEMENT"
+			maxWidth = 838
+			maxHeight = 58
+			format = center
+			fixedsize = yes
+		}
+
+		# Info Button
+		iconType = {
+			name = "EmpireManagement_InfoBtn"
+			spriteType = "GFX_ParliamentMechanic_InfoButton"
+			position = { x = -121 y = 17 }
+			orientation = UPPER_RIGHT
+			pdx_tooltip = ITA_EmpireManagement_InfoBtn_tt
+		}
+
+		# Close Button
+		buttonType = {
+			name = "EmpireManagement_CloseBtn"
+			position = { x = -68 y = 16 }
+			quadTextureSprite = "GFX_Kartenhaus_CloseButton"
+			shortcut = "ESCAPE"
+			pdx_tooltip = "CLOSE"
+			clicksound = click_close
+			orientation = UPPER_RIGHT
+		}
+
+		# Alert List
+		iconType = {
+			name = "EmpireManagement_AlertList"
+			position = { x = 17 y = 17 }
+			quadTextureSprite = "GFX_EmpireManagement_AlertBig"
+			orientation = UPPER_LEFT
+			pdx_tooltip = ITA_EmpireManagement_AlertList_tt
+		}
+
+		## Da Map ##
+		containerWindowType = {
+			name = "EmpireManagement_Map_Container"
+			position = { x = 18 y = 73 }
+
+			# Base map outline
+			iconType = {
+				name = "EmpireManagement_BaseOutline"
+				spriteType = "GFX_EmpireManagement_BaseOutline"
+				position = { x = 0 y = 0 }
+			}
+
+			# Italy map asset (separate here because it is an iconType as opposed to buttonType)
+			iconType = {
+				name = "EmpireManagement_Regions_Italy"
+				spriteType = "GFX_EmpireManagement_Region_Italy"
+				position = { x = 226 y = 38 }
+				pdx_tooltip = ITA_EmpireManagement_Regions_Italy_tt
+				pdx_tooltip_delayed = ITA_EmpireManagement_Regions_Italy_tt_delayed
+			}
+
+			# Regions gridbox
+			gridboxtype = {
+				name = "EmpireManagement_Regions"
+				position = { x = 4 y = 5 }
+			}
+
+			# Alerts gridbox
+			gridboxtype = {
+				name = "EmpireManagement_Alerts"
+				position = { x = 4 y = 5 }
+			}
+		}
+
+		## Bottom bar ##
+		containerWindowType = {
+			name = "EmpireManagement_Bottom_Container"
+			position = { x = 13 y = -97 }
+			orientation = LOWER_LEFT
+
+			# Imperial Policy
+			instantTextboxType = {
+				name = "EmpireManagement_ImperialPolicy_Title"
+				position = { x = 6 y = 9 }
+				maxWidth = 156
+				maxHeight = 26
+				format = centre
+				font = "aldrich_22_outline"
+				text = "Imperial Policy"
+				pdx_tooltip = "ITA_EmpireManagement_ImperialPolicy_Title_tt"
+			}
+			instantTextboxType = {
+				name = "EmpireManagement_ImperialPolicy_Value"
+				position = { x = 4 y = 35 }
+				maxWidth = 160
+				maxHeight = 44
+				format = centre
+				vertical_alignment = centre
+				fixedsize = yes
+				font = "aldrich_18_outline"
+				text = "ITA_EmpireManagement_ImperialPolicy"
+				pdx_tooltip = "ITA_EmpireManagement_ImperialPolicyDesc"
+			}
+
+			# Diplomats (+ progbar)
+			instantTextboxType = {
+				name = "EmpireManagement_Diplomats_Title"
+				position = { x = 171 y = 11 }
+				maxWidth = 106
+				maxHeight = 31
+				format = centre
+				font = "aldrich_22_outline"
+				text = "Diplomats"
+				pdx_tooltip = "ITA_EmpireManagement_Diplomats_Title_tt"
+			}
+			instantTextboxType = {
+				name = "EmpireManagement_Diplomats_Value"
+				position = { x = 280 y = 12 }
+				maxWidth = 110
+				maxHeight = 35
+				format = centre
+				font = "aldrich_22_outline"
+				text = "ITA_EmpireManagement_Diplomats_Value_tt"
+			}
+			iconType = {
+				name = "EmpireManagement_Diplomats_Progbar"
+				position = { x = 394 y = 3 }
+				quadTextureSprite = "GFX_EmpireManagement_ProgressBar"
+				pdx_tooltip = "ITA_EmpireManagement_Diplomats_Progbar_tt"
+			}
+
+			# Garrisons (+ progbar)
+			instantTextboxType = {
+				name = "EmpireManagement_Garrisons_Title"
+				position = { x = 171 y = 52 }
+				maxWidth = 106
+				maxHeight = 31
+				format = centre
+				font = "aldrich_22_outline"
+				text = "Garrisons"
+				pdx_tooltip = "ITA_EmpireManagement_Garrisons_Title_tt"
+			}
+			instantTextboxType = {
+				name = "EmpireManagement_Garrisons_Value"
+				position = { x = 280 y = 53 }
+				maxWidth = 110
+				maxHeight = 35
+				format = centre
+				font = "aldrich_22_outline"
+				text = "ITA_EmpireManagement_Garrisons_Value_tt"
+			}
+			iconType = {
+				name = "EmpireManagement_Garrisons_Progbar"
+				position = { x = 394 y = 43 }
+				quadTextureSprite = "GFX_EmpireManagement_ProgressBar"
+				pdx_tooltip = "ITA_EmpireManagement_Garrisons_Progbar_tt"
+			}
+		}
+
+		## Sidebar / Selected region
+		containerWindowType = {
+			name = "EmpireManagement_Sidebar_Container"
+			position = { x = -252 y = 73 }
+			orientation = UPPER_RIGHT
+
+			# Region info
+			containerWindowType = {
+				name = "EmpireManagement_SidebarInfo_Container"
+				position = { x = 0 y = 0 }
+				orientation = UPPER_RIGHT
+
+				instantTextBoxType = {
+					name = "EmpireManagement_Info_Title"
+					position = { x = 0 y = 4 }
+					maxWidth = 239
+					maxHeight = 26
+					format = center
+					font = "aldrich_20_outline"
+					text = "SELECTED REGION:"
+				}
+
+				instantTextBoxType = {
+					name = "EmpireManagement_Info_Name"
+					position = { x = 0 y = 34 }
+					maxWidth = 239
+					maxHeight = 24
+					format = center
+					fixedsize = yes
+					font = "aldrich_22_outline"
+					text = "[EmpireManagement_GetRegionName]"
+				}
+				instantTextBoxType = {
+					name = "EmpireManagement_Info_Type"
+					position = { x = 0 y = 60 }
+					maxWidth = 239
+					maxHeight = 20
+					format = center
+					font = "aldrich_18_outline"
+					text = "ITA_EmpireManagement_RegionType"
+				}
+
+				instantTextBoxType = {
+					name = "EmpireManagement_Info_History"
+					position = { x = 10 y = 88 }
+					maxWidth = 220
+					maxHeight = 263
+					format = left
+					fixedsize = yes
+					font = "aldrich_18_outline"
+					text = "[EmpireManagement_GetRegionBackstory]"
+				}
+			}
+
+			# Region actions
+			containerWindowType = {
+				name = "EmpireManagement_SidebarActions_Container"
+				position = { x = 0 y = 355 }
+				orientation = UPPER_RIGHT
+
+				# Regional Policy
+				containerWindowType = {
+					name = "EmpireManagement_RegionalPolicy_Container"
+					position = { x = 4 y = 0 }
+
+					instantTextboxType = {
+						name = "EmpireManagement_RegionalPolicy_Title"
+						position = { x = 3 y = 5 }
+						maxWidth = 187
+						maxHeight = 26
+						format = centre
+						font = "aldrich_22_outline"
+						text = "Regional Policy"
+						pdx_tooltip = "ITA_EmpireManagement_RegionalPolicy_Title_tt"
+					}
+					instantTextboxType = {
+						name = "EmpireManagement_RegionalPolicy_Type"
+						position = { x = 3 y = 32 }
+						maxWidth = 227
+						maxHeight = 44
+						format = centre
+						vertical_alignment = centre
+						fixedsize = yes
+						font = "aldrich_18_outline"
+						text = "ITA_EmpireManagement_RegionalPolicy_Title"
+						pdx_tooltip = "ITA_EmpireManagement_RegionalPolicy_Desc"
+					}
+
+					# Switch policy button
+					buttonType = {
+						name = "EmpireManagement_PolicySwitch"
+						position = { x = 197 y = 2 }
+						quadTextureSprite = "GFX_EmpireManagement_Button_PolicySwitch"
+						pdx_tooltip = "ITA_EmpireManagement_PolicySwitch_tt"
+						# pdx_tooltip_disabled = "ITA_EmpireManagement_PolicySwitch_Disabled_tt" #FIXME: waiting until NSB merge
+					}
+
+					# Special Action button
+					buttonType = {
+						name = "EmpireManagement_SpecialAction"
+						position = { x = 3 y = 79 }
+						quadTextureSprite = "GFX_EmpireManagement_Button_SpecialAction_Available"
+						buttonFont = "aldrich_18_outline"
+						buttonText = "Special Action"
+						pdx_tooltip = "ITA_EmpireManagement_SpecialAction_tt"
+						pdx_tooltip_delayed = "ITA_EmpireManagement_SpecialAction_Delayed_tt"
+						# pdx_tooltip_disabled = "ITA_EmpireManagement_SpecialAction_Disabled_tt" #FIXME: This will stay here like this until NSB is merged and we can put in tooltips for disabled buttons
+					}
+					iconType = {
+						name = "EmpireManagement_SpecialAction_Active"
+						position = { x = 3 y = 79 }
+						quadTextureSprite = "GFX_EmpireManagement_Button_SpecialAction_Active"
+						pdx_tooltip = "ITA_EmpireManagement_SpecialAction_tt"
+						pdx_tooltip_delayed = "ITA_EmpireManagement_SpecialAction_Active_tt"
+					}
+				}
+
+				# Diplomacy (Control/Favour)
+				instantTextboxType = {
+					name = "EmpireManagement_Diplomacy_Title"
+					position = { x = 6 y = 116 }
+					maxWidth = 108
+					maxHeight = 26
+					format = centre
+					font = "aldrich_20_outline"
+					text = "[EmpireManagement_ControlOrFavourMap]"
+					pdx_tooltip = "ITA_EmpireManagement_Diplomacy_Title_tt"
+				}
+				instantTextboxType = {
+					name = "EmpireManagement_Diplomacy_Value"
+					position = { x = 116 y = 118 }
+					maxWidth = 118
+					maxHeight = 30
+					format = centre
+					font = "aldrich_18_outline"
+					text = "[EmpireManagement_GetDiplomacyLevel]"
+					pdx_tooltip = "ITA_EmpireManagement_Diplomacy_Value_tt"
+				}
+
+				# Economics (Exploitation/Dependency)
+				instantTextboxType = {
+					name = "EmpireManagement_Economics_Title"
+					position = { x = 6 y = 152 }
+					maxWidth = 108
+					maxHeight = 26
+					format = centre
+					font = "aldrich_20_outline"
+					text = "[EmpireManagement_ExploitationOrDependencyMap]"
+					pdx_tooltip = "ITA_EmpireManagement_Economics_Title_tt"
+				}
+				instantTextboxType = {
+					name = "EmpireManagement_Economics_Value"
+					position = { x = 116 y = 154 }
+					maxWidth = 118
+					maxHeight = 30
+					format = centre
+					font = "aldrich_18_outline"
+					text = "[EmpireManagement_GetEconomicsLevel]"
+					pdx_tooltip = "ITA_EmpireManagement_Economics_Value_tt"
+				}
+
+				# Envoys (Garrisons/Diplomats)
+				instantTextboxType = {
+					name = "EmpireManagement_Envoys_Title"
+					position = { x = 10 y = 198 }
+					maxWidth = 130
+					maxHeight = 22
+					format = left
+					font = "aldrich_18_outline"
+					text = "[EmpireManagement_GarrisonsOrDiplomats_Alt]:"
+				}
+				instantTextboxType = {
+					name = "EmpireManagement_Envoys_Value"
+					position = { x = 139 y = 198 }
+					maxWidth = 90
+					maxHeight = 22
+					format = right
+					font = "aldrich_18_outline"
+					text = "[EmpireManagement_GetEnvoyLevel]"
+				}
+
+				buttonType = {
+					name = "EmpireManagement_Envoys_Minus"
+					position = { x = 8 y = 224 }
+					quadTextureSprite = "GFX_EmpireManagement_Button_Minus"
+					pdx_tooltip = "ITA_EmpireManagement_Envoys_Minus_tt"
+				}
+				iconType = {
+					name = "EmpireManagement_MaxAssignedEnvoys_Progbar"
+					position = { x = 31 y = 223 } # Must have the exact save position value as the other bar
+					quadTextureSprite = "GFX_EmpireManagement_MaxAssignedEnvoys_ProgressBar"
+					pdx_tooltip = "ITA_EmpireManagement_AssignedEnvoys_Progbar_tt"
+				}
+				iconType = {
+					name = "EmpireManagement_AssignedEnvoys_Progbar"
+					position = { x = 31 y = 223 }
+					quadTextureSprite = "GFX_EmpireManagement_AssignedEnvoys_ProgressBar"
+					pdx_tooltip = "ITA_EmpireManagement_AssignedEnvoys_Progbar_tt"
+				}
+				buttonType = {
+					name = "EmpireManagement_Envoys_Plus"
+					position = { x = 212 y = 224 }
+					quadTextureSprite = "GFX_EmpireManagement_Button_Plus"
+					pdx_tooltip = "ITA_EmpireManagement_Envoys_Plus_tt"
+				}
+
+				# Oil Exploitation
+				instantTextboxType = {
+					name = "EmpireManagement_OilExploitation_Title"
+					position = { x = 10 y = 256 }
+					maxWidth = 130
+					maxHeight = 22
+					format = left
+					font = "aldrich_18_outline"
+					text = "Oil Exploitation:"
+				}
+				instantTextboxType = {
+					name = "EmpireManagement_OilExploitation_Value"
+					position = { x = 139 y = 256 }
+					maxWidth = 90
+					maxHeight = 22
+					format = right
+					font = "aldrich_18_outline"
+					text = "[EmpireManagement_GetOilAvailability]"
+					pdx_tooltip = "ITA_EmpireManagement_OilExploitation_Value_tt"
+				}
+				buttonType = {
+					name = "EmpireManagement_OilExploitation_Button"
+					position = { x = 7 y = 281 }
+					quadTextureSprite = "GFX_EmpireManagement_Button_ENI_Action"
+					buttonFont = "aldrich_18_outline"
+					buttonText = "[EmpireManagement_GetOilExploitationButton_Availability]"
+					pdx_tooltip = "ITA_EmpireManagement_OilExploitation_Button_Base"
+					pdx_tooltip_delayed = "ITA_EmpireManagement_OilExploitation_Button_Disabled_tt"
+				}
+			}
+
+			# Chaos
+			iconType = {
+				name = "EmpireManagement_Sidebar_Chaos"
+				position = { x = 46 y = 190 }
+				quadTextureSprite = "GFX_EmpireManagement_Chaos"
+			}
+			iconType = {
+				name = "EmpireManagement_Sidebar_Chaos_Cover"
+				position = { x = 4 y = 355 }
+				quadTextureSprite = "GFX_EmpireManagement_Chaos_Cover"
+			}
+		}
+	}
+
+	#### Policy Change Display ####
+	containerWindowType = {
+		name = "TNO_EmpireManagement_PolicyChange_Container"
+		size = { width = 235 height = 275 }
+		position = { x = 777 y = 460 }
+
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_paper_bg3"
+		}
+
+		# Policies gridbox
+		containerWindowType = {
+			name = "EmpireManagement_PolicyChange_Policies_Container"
+			size = { width = 222 height = 257 }
+			position = { x = 9 y = 9 }
+			verticalScrollbar = "EmpireManagement_PolicyChamge_right_vertical_slider"
+
+			background = {
+				name = "Background"
+				quadTextureSprite = "GFX_tiled_window_transparent"
+			}
+
+			gridboxtype = {
+				name = "EmpireManagement_Policies"
+				position = { x = 0 y = 0 }
+				format = "UPPER_LEFT"
+				add_horizontal = no
+				max_slots_horizontal = 1
+				slotsize = { width = 193 height = 105 }
+			}
+		}
+
+		# Close Button
+		buttonType = {
+			name = "EmpireManagement_PolicyChange_CloseBtn"
+			position = { x = -28 y = 9 }
+			quadTextureSprite = "GFX_crt_closebutton"
+			shortcut = "ESCAPE"
+			pdx_tooltip = "CLOSE"
+			clicksound = click_close
+			orientation = UPPER_RIGHT
+		}
+	}
+
+	#### Gridboxes ####
+	# Regions entries
+	containerWindowType = {
+		name = "EmpireManagement_Regions_Container"
+		position = { x = 0 y = 0 }
+
+		buttonType = {
+			name = "EmpireManagement_Regions_Entry"
+			spriteType = "GFX_EmpireManagement_Region_Italy"
+			position = { x = 0 y = 0 }
+			clicksound = click_ok
+			pdx_tooltip = ITA_EmpireManagement_Regions_Entry_tt
+			pdx_tooltip_delayed = ITA_EmpireManagement_Regions_Entry_tt_delayed
+		}
+	}
+
+	# Alerts
+	containerWindowType = {
+		name = "EmpireManagement_Alerts_Container"
+		position = { x = 0 y = 0 }
+
+		iconType = {
+			name = "EmpireManagement_Alerts_Entry"
+			spriteType = "GFX_EmpireManagement_Alerts"
+			position = { x = 0 y = 0 }
+			pdx_tooltip = ITA_EmpireManagement_AlertAssetPosition
+			alwaystransparent = yes # disable for debug
+		}
+	}
+
+	# Policy List
+	containerWindowType = {
+		name = "EmpireManagement_Policies_Container"
+		position = { x = 0 y = 0 }
+		size = { width = 193 height = 105 }
+
+		buttonType = {
+			name = "EmpireManagement_Policies_Entry"
+			spriteType = "GFX_EmpireManagement_PolicyOutline"
+			position = { x = 0 y = 0 }
+			clicksound = click_ok
+			pdx_tooltip = ITA_EmpireManagement_Policies_Entry_tt
+			pdx_tooltip_delayed = ITA_EmpireManagement_Policies_Entry_tt_delayed
+		}
+
+		instantTextboxType = {
+			name = "EmpireManagement_Policies_Title"
+			position = { x = 3 y = 0 }
+			maxWidth = 186
+			maxHeight = 44
+			format = centre
+			vertical_alignment = centre
+			fixedsize = yes
+			alwaystransparent = yes
+			font = "aldrich_18_outline"
+			text = "ITA_EmpireManagement_RegionalPolicy_Selection_Title"
+		}
+
+		instantTextboxType = {
+			name = "EmpireManagement_Policies_Effects"
+			position = { x = 0 y = 45 }
+			maxWidth = 192
+			maxHeight = 54
+			format = centre
+			vertical_alignment = centre
+			fixedsize = yes
+			alwaystransparent = yes
+			font = "aldrich_16_outline"
+			text = "ITA_EmpireManagement_Policies_Effects_tt"
+		}
+	}
+
+	#### Policies Scrollbar ####
+	extendedScrollbarType = {      
+		name = "EmpireManagement_PolicyChamge_right_vertical_slider"
+		position = { x = -5 y = 23 }
+		size = { width = 18 height = 0 }
+		startValue = 0
+		orientation = upper_right
+		origo = upper_right
+		smooth_scrolling = 0.25
+
+		slider = {
+			name = "Slider"
+			quadTextureSprite = "GFX_scroll_drager"
+			position = { x = -2 y = -2 }
+		}
+
+		track = {
+			name = "Track"
+			quadTextureSprite = "GFX_scroll_track"
+			position = { x = 3 y = 0 }
+			alwaystransparent = yes
+		}
+
+		decreaseButton = {
+			name = "Decrease"
+			quadTextureSprite = "GFX_scroll_up"
+			position = { x = 1 y = 3 }
+		}
+
+		increaseButton = {
+			name = "Increase"
+			quadTextureSprite = "GFX_scroll_down"
+			position = { x = -17 y = -42 }
+		}
+	}
+
+	#### Debug Display ####
+	containerWindowType = {
+		name = "TNO_EmpireManagement_Debug_Container"
+		position = { x = 0 y = 0 }
+
+		## Map Debug ##
+		buttonType = {
+			name = "EmpireManagement_Debug_Reset"
+			position = { x = 16 y = 75 }
+			quadTextureSprite = "GFX_NV_btn_reset"
+			pdx_tooltip = "ITA_EmpireManagement_Debug_Reset_tt"
+		}
+		buttonType = {
+			name = "EmpireManagement_Debug_Morocco"
+			position = { x = 55 y = 270 }
+			quadTextureSprite = "GFX_add_one"
+			pdx_tooltip = "ITA_EmpireManagement_Debug_Morocco_tt"
+		}
+
+		## Sidebar Debug ##
+		buttonType = {
+			name = "EmpireManagement_Debug_CycleAlerts"
+			position = { x = 776 y = 74 }
+			quadTextureSprite = "GFX_add_one"
+			pdx_tooltip = "ITA_EmpireManagement_Debug_CycleAlerts_tt"
+		}
+		buttonType = {
+			name = "EmpireManagement_Debug_CycleStatus"
+			position = { x = 776 y = 99 }
+			quadTextureSprite = "GFX_add_one"
+			pdx_tooltip = "ITA_EmpireManagement_Debug_CycleStatus_tt"
+		}
+		buttonType = {
+			name = "EmpireManagement_Debug_ModifyDiplo"
+			position = { x = 745 y = 541 }
+			quadTextureSprite = "GFX_add_one"
+			pdx_tooltip = "ITA_EmpireManagement_Debug_ModifyDiplo_tt"
+		}
+		buttonType = {
+			name = "EmpireManagement_Debug_ModifyEcon"
+			position = { x = 745 y = 577 }
+			quadTextureSprite = "GFX_add_one"
+			pdx_tooltip = "ITA_EmpireManagement_Debug_ModifyEcon_tt"
+		}
+		buttonType = {
+			name = "EmpireManagement_Debug_ModifyEnvoyCap"
+			position = { x = 745 y = 622 }
+			quadTextureSprite = "GFX_add_one"
+			pdx_tooltip = "ITA_EmpireManagement_Debug_ModifyEnvoyCap_tt"
+		}
+		buttonType = {
+			name = "EmpireManagement_Debug_ModifyOil"
+			position = { x = 905 y = 680 }
+			quadTextureSprite = "GFX_add_one"
+			pdx_tooltip = "ITA_EmpireManagement_Debug_ModifyOil_tt"
+		}
+		buttonType = {
+			name = "EmpireManagement_Debug_ResetPolicySwitchCooldown"
+			position = { x = 980 y = 396 }
+			quadTextureSprite = "GFX_NV_btn_reset"
+			pdx_tooltip = "ITA_EmpireManagement_Debug_ResetPolicySwitchCooldown_tt"
+		}
+
+		## Bottom Debug ##
+		buttonType = {
+			name = "EmpireManagement_Debug_ModifyImperialPolicy"
+			position = { x = 16 y = 622 }
+			quadTextureSprite = "GFX_add_one"
+			pdx_tooltip = "ITA_EmpireManagement_Debug_ModifyImperialPolicy_tt"
+		}
+		buttonType = {
+			name = "EmpireManagement_Debug_ModifyDiplomats"
+			position = { x = 385 y = 660 }
+			quadTextureSprite = "GFX_add_one"
+			pdx_tooltip = "ITA_EmpireManagement_Debug_ModifyDiplomats_tt"
+		}
+		buttonType = {
+			name = "EmpireManagement_Debug_ModifyGarrisons"
+			position = { x = 385 y = 702 }
+			quadTextureSprite = "GFX_add_one"
+			pdx_tooltip = "ITA_EmpireManagement_Debug_ModifyGarrisons_tt"
+		}
+	}
+}

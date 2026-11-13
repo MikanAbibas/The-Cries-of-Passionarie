@@ -1,0 +1,1431 @@
+#why wasn't this done months ago eeeeeeee#
+
+ITA_army_add_borghese_pop = {
+	custom_effect_tooltip = ita_bor_arm_yay
+	add_to_variable = {
+		var = ITA_Borghese_RoyalArmy
+		value = 1
+	}
+}
+ITA_navy_add_borghese_pop = {
+	custom_effect_tooltip = ita_bor_navy_yay
+	add_to_variable = {
+		var = ITA_Borghese_RoyalNavy
+		value = 1
+	}
+}
+ITA_airforce_add_borghese_pop = {
+	custom_effect_tooltip = ita_bor_air_yay
+	add_to_variable = {
+		var = ITA_Borghese_RoyalAirforce
+		value = 1
+	}
+}
+ITA_blackshirts_add_borghese_pop = {
+	custom_effect_tooltip = ita_bor_black_yay
+	add_to_variable = {
+		var = ITA_Borghese_Blackshirts
+		value = 1
+	}
+}
+ITA_blackshirts_remove_borghese_pop = {
+	custom_effect_tooltip = ita_bor_black_nay
+	add_to_variable = {
+		var = ITA_Borghese_Blackshirts
+		value = -1
+	}
+}
+ITA_carabinieri_add_borghese_pop = {
+	custom_effect_tooltip = ita_bor_car_yay
+	add_to_variable = {
+		var = ITA_Borghese_Carabinieri
+		value = 1
+	}
+}
+ITA_army_add_sogno_pop = {
+	custom_effect_tooltip = ita_sog_arm_yay
+	add_to_variable = {
+		var = ITA_sogno_RoyalArmy
+		value = 1
+	}
+}
+ITA_navy_add_sogno_pop = {
+	custom_effect_tooltip = ita_sog_navy_yay
+	add_to_variable = {
+		var = ITA_sogno_RoyalNavy
+		value = 1
+	}
+}
+ITA_airforce_add_sogno_pop = {
+	custom_effect_tooltip = ita_sog_air_yay
+	add_to_variable = {
+		var = ITA_sogno_RoyalAirforce
+		value = 1
+	}
+}
+ITA_blackshirts_add_sogno_pop = {
+	custom_effect_tooltip = ita_sog_black_yay
+	add_to_variable = {
+		var = ITA_sogno_Blackshirts
+		value = 1
+	}
+}
+ITA_carabinieri_add_sogno_pop = {
+	custom_effect_tooltip = ita_sog_car_yay
+	add_to_variable = {
+		var = ITA_sogno_Carabinieri
+		value = 1
+	}
+}
+ITA_army_remove_sogno_pop = {
+	custom_effect_tooltip = ita_sog_arm_nay
+	add_to_variable = {
+		var = ITA_sogno_RoyalArmy
+		value = -1
+	}
+}
+ITA_navy_remove_sogno_pop = {
+	custom_effect_tooltip = ita_sog_navy_nay
+	add_to_variable = {
+		var = ITA_sogno_RoyalNavy
+		value = -1
+	}
+}
+ITA_airforce_remove_sogno_pop = {
+	custom_effect_tooltip = ita_sog_air_nay
+	add_to_variable = {
+		var = ITA_sogno_RoyalAirforce
+		value = -1
+	}
+}
+ITA_blackshirts_remove_sogno_pop = {
+	custom_effect_tooltip = ita_sog_black_nay
+	add_to_variable = {
+		var = ITA_sogno_Blackshirts
+		value = -1
+	}
+}
+ITA_carabinieri_remove_sogno_pop = {
+	custom_effect_tooltip = ita_sog_car_nay
+	add_to_variable = {
+		var = ITA_sogno_Carabinieri
+		value = -1
+	}
+}
+
+
+## Empire Management
+### Italy's commitment to each client, as set by events and focuses.
+###
+### These used to spend ITA_empire_management_coins directly while the
+### investment decisions spent empire_invest, so the same coin pool was read as
+### "coins left" by one half of the content and as "cap" by the other. Both
+### halves now write the one number - the client's pips - and ITA_empire_recalc
+### derives the committed total, the running political-power cost and the
+### overcommitment penalty from it.
+
+ITA_egypt_points_0 = {
+	set_variable = { var = ITA_EGY_management value = 0 }
+	if = {
+		limit = { country_exists = EGY }
+		EGY = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 0 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_EGY_POINTS_SET_0
+}
+
+ITA_egypt_points_1 = {
+	set_variable = { var = ITA_EGY_management value = 1 }
+	if = {
+		limit = { country_exists = EGY }
+		EGY = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 1 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_EGY_POINTS_SET_1
+}
+
+ITA_egypt_points_2 = {
+	set_variable = { var = ITA_EGY_management value = 2 }
+	if = {
+		limit = { country_exists = EGY }
+		EGY = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 2 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_EGY_POINTS_SET_2
+}
+
+ITA_egypt_points_3 = {
+	set_variable = { var = ITA_EGY_management value = 3 }
+	if = {
+		limit = { country_exists = EGY }
+		EGY = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 3 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_EGY_POINTS_SET_3
+}
+
+ITA_east_africa_points_0 = {
+	set_variable = { var = ITA_IEA_management value = 0 }
+	if = {
+		limit = { country_exists = IEA }
+		IEA = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 0 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_IEA_POINTS_SET_0
+}
+
+ITA_east_africa_points_1 = {
+	set_variable = { var = ITA_IEA_management value = 1 }
+	if = {
+		limit = { country_exists = IEA }
+		IEA = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 1 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_IEA_POINTS_SET_1
+}
+
+ITA_east_africa_points_2 = {
+	set_variable = { var = ITA_IEA_management value = 2 }
+	if = {
+		limit = { country_exists = IEA }
+		IEA = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 2 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_IEA_POINTS_SET_2
+}
+
+ITA_east_africa_points_3 = {
+	set_variable = { var = ITA_IEA_management value = 3 }
+	if = {
+		limit = { country_exists = IEA }
+		IEA = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 3 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_IEA_POINTS_SET_3
+}
+
+ITA_levant_points_0 = {
+	set_variable = { var = ITA_IME_management value = 0 }
+	if = {
+		limit = { country_exists = IME }
+		IME = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 0 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_IME_POINTS_SET_0
+}
+
+ITA_levant_points_1 = {
+	set_variable = { var = ITA_IME_management value = 1 }
+	if = {
+		limit = { country_exists = IME }
+		IME = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 1 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_IME_POINTS_SET_1
+}
+
+ITA_levant_points_2 = {
+	set_variable = { var = ITA_IME_management value = 2 }
+	if = {
+		limit = { country_exists = IME }
+		IME = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 2 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_IME_POINTS_SET_2
+}
+
+ITA_levant_points_3 = {
+	set_variable = { var = ITA_IME_management value = 3 }
+	if = {
+		limit = { country_exists = IME }
+		IME = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 3 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_IME_POINTS_SET_3
+}
+
+ITA_gulf_points_0 = {
+	set_variable = { var = ITA_GUL_management value = 0 }
+	if = {
+		limit = { country_exists = GUL }
+		GUL = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 0 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_GUL_POINTS_SET_0
+}
+
+ITA_gulf_points_1 = {
+	set_variable = { var = ITA_GUL_management value = 1 }
+	if = {
+		limit = { country_exists = GUL }
+		GUL = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 1 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_GUL_POINTS_SET_1
+}
+
+ITA_gulf_points_2 = {
+	set_variable = { var = ITA_GUL_management value = 2 }
+	if = {
+		limit = { country_exists = GUL }
+		GUL = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 2 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_GUL_POINTS_SET_2
+}
+
+ITA_gulf_points_3 = {
+	set_variable = { var = ITA_GUL_management value = 3 }
+	if = {
+		limit = { country_exists = GUL }
+		GUL = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 3 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_GUL_POINTS_SET_3
+}
+
+ITA_algeria_points_0 = {
+	set_variable = { var = ITA_ILG_management value = 0 }
+	if = {
+		limit = { country_exists = ILG }
+		ILG = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 0 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_ILG_POINTS_SET_0
+}
+
+ITA_algeria_points_1 = {
+	set_variable = { var = ITA_ILG_management value = 1 }
+	if = {
+		limit = { country_exists = ILG }
+		ILG = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 1 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_ILG_POINTS_SET_1
+}
+
+ITA_algeria_points_2 = {
+	set_variable = { var = ITA_ILG_management value = 2 }
+	if = {
+		limit = { country_exists = ILG }
+		ILG = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 2 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_ILG_POINTS_SET_2
+}
+
+ITA_algeria_points_3 = {
+	set_variable = { var = ITA_ILG_management value = 3 }
+	if = {
+		limit = { country_exists = ILG }
+		ILG = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 3 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_ILG_POINTS_SET_3
+}
+
+ITA_iraq_points_0 = {
+	set_variable = { var = ITA_IRQ_management value = 0 }
+	if = {
+		limit = { country_exists = IRQ }
+		IRQ = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 0 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_IRQ_POINTS_SET_0
+}
+
+ITA_iraq_points_1 = {
+	set_variable = { var = ITA_IRQ_management value = 1 }
+	if = {
+		limit = { country_exists = IRQ }
+		IRQ = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 1 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_IRQ_POINTS_SET_1
+}
+
+ITA_iraq_points_2 = {
+	set_variable = { var = ITA_IRQ_management value = 2 }
+	if = {
+		limit = { country_exists = IRQ }
+		IRQ = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 2 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_IRQ_POINTS_SET_2
+}
+
+ITA_iraq_points_3 = {
+	set_variable = { var = ITA_IRQ_management value = 3 }
+	if = {
+		limit = { country_exists = IRQ }
+		IRQ = {
+			if = {
+				limit = { NOT = { has_country_flag = empire_client } }
+				ITA_empire_register_client = yes
+			}
+			set_variable = { var = empire_invest value = 3 }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA = { ITA_empire_recalc = yes }
+	custom_effect_tooltip = ITA_IRQ_POINTS_SET_3
+}
+
+ITA_LARGER_EMPIRE_1 = {
+	custom_effect_tooltip = ITA_use_only_like_twice_ever
+	add_to_variable = {
+		var = ITA_empire_management_coins
+		value = 1
+	}
+	# Raising the cap has to re-run the accounting, or the free total and the
+	# over-commitment penalty keep answering against the old number.
+	ITA_empire_recalc = yes
+}
+
+#.5, 1, 2, 2.5, 3
+#Tiny, small, moderate, decent, large
+#In scale of " party unity will go up _ amount"
+
+## Oddity Influence
+
+# no TTs, player doenst know this is happening
+
+ITA_increase_political_1 = {
+	add_to_variable = {
+		var = ITA_political
+		value = 0.01
+	}
+	clamp_variable = {
+		var = ITA_political
+		min = 0
+		max = 1
+	}
+}
+
+ITA_increase_political_3 = {
+	add_to_variable = {
+		var = ITA_political
+		value = 0.03
+	}
+	clamp_variable = {
+		var = ITA_political
+		min = 0
+		max = 1
+	}
+}
+
+ITA_increase_political_5 = {
+	add_to_variable = {
+		var = ITA_political
+		value = 0.05
+	}
+	clamp_variable = {
+		var = ITA_political
+		min = 0
+		max = 1
+	}
+}
+
+ITA_increase_political_10 = {
+	add_to_variable = {
+		var = ITA_political
+		value = 0.10
+	}
+	clamp_variable = {
+		var = ITA_political
+		min = 0
+		max = 1
+	}
+}
+
+ITA_increase_media_1 = {
+	add_to_variable = {
+		var = ITA_media
+		value = 0.01
+	}
+	clamp_variable = {
+		var = ITA_media
+		min = 0
+		max = 1
+	}
+}
+
+ITA_increase_media_3 = {
+	add_to_variable = {
+		var = ITA_media
+		value = 0.03
+	}
+	clamp_variable = {
+		var = ITA_media
+		min = 0
+		max = 1
+	}
+}
+
+ITA_increase_media_5 = {
+	add_to_variable = {
+		var = ITA_media
+		value = 0.05
+	}
+	clamp_variable = {
+		var = ITA_media
+		min = 0
+		max = 1
+	}
+}
+
+ITA_increase_media_10 = {
+	add_to_variable = {
+		var = ITA_media
+		value = 0.10
+	}
+	clamp_variable = {
+		var = ITA_media
+		min = 0
+		max = 1
+	}
+}
+
+ITA_increase_corporations_1 = {
+	add_to_variable = {
+		var = ITA_corporations
+		value = 0.01
+	}
+	clamp_variable = {
+		var = ITA_corporations
+		min = 0
+		max = 1
+	}
+}
+
+ITA_increase_corporations_3 = {
+	add_to_variable = {
+		var = ITA_corporations
+		value = 0.03
+	}
+	clamp_variable = {
+		var = ITA_corporations
+		min = 0
+		max = 1
+	}
+}
+
+ITA_increase_corporations_5 = {
+	add_to_variable = {
+		var = ITA_corporations
+		value = 0.05
+	}
+	clamp_variable = {
+		var = ITA_corporations
+		min = 0
+		max = 1
+	}
+}
+
+ITA_increase_corporations_10 = {
+	add_to_variable = {
+		var = ITA_corporations
+		value = 0.10
+	}
+	clamp_variable = {
+		var = ITA_corporations
+		min = 0
+		max = 1
+	}
+}
+
+ITA_increase_faith_in_gov_1 = {
+	add_to_variable = {
+		var = ITA_faith_in_gov
+		value = 0.01
+	}
+	clamp_variable = {
+		var = ITA_faith_in_gov
+		min = 0
+		max = 1
+	}
+}
+
+ITA_increase_faith_in_gov_3 = {
+	add_to_variable = {
+		var = ITA_faith_in_gov
+		value = 0.03
+	}
+	clamp_variable = {
+		var = ITA_faith_in_gov
+		min = 0
+		max = 1
+	}
+}
+
+ITA_increase_faith_in_gov_5 = {
+	add_to_variable = {
+		var = ITA_faith_in_gov
+		value = 0.05
+	}
+	clamp_variable = {
+		var = ITA_faith_in_gov
+		min = 0
+		max = 1
+	}
+}
+
+ITA_increase_faith_in_gov_10 = {
+	add_to_variable = {
+		var = ITA_faith_in_gov
+		value = 0.10
+	}
+	clamp_variable = {
+		var = ITA_faith_in_gov
+		min = 0
+		max = 1
+	}
+}
+
+
+# Party Unity
+#DC
+ITA_increase_DC_unity_tiny = {
+	custom_effect_tooltip = ITA_increase_DC_unity_tiny_tt
+	add_to_variable = {
+		var = ITA_DC_unity
+		value = 0.5
+	}
+	clamp_variable = {
+		var = ITA_DC_unity
+		min = 0
+		max = 20
+	}
+	
+}
+ITA_increase_DC_unity_small = {
+	custom_effect_tooltip = ITA_increase_DC_unity_small_tt
+	add_to_variable = {
+		var = ITA_DC_unity
+		value = 1
+	}
+	clamp_variable = {
+		var = ITA_DC_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_increase_DC_unity_moderate = {
+	custom_effect_tooltip = ITA_increase_DC_unity_moderate_tt
+	add_to_variable = {
+		var = ITA_DC_unity
+		value = 2
+	}
+	clamp_variable = {
+		var = ITA_DC_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_increase_DC_unity_decent = {
+	custom_effect_tooltip = ITA_increase_DC_unity_decent_tt
+	add_to_variable = {
+		var = ITA_DC_unity
+		value = 2.5
+	}
+	clamp_variable = {
+		var = ITA_DC_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_increase_DC_unity_large = {
+	custom_effect_tooltip = ITA_increase_DC_unity_large_tt
+	add_to_variable = {
+		var = ITA_DC_unity
+		value = 3
+	}
+	clamp_variable = {
+		var = ITA_DC_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_decrease_DC_unity_tiny = {
+	custom_effect_tooltip = ITA_decrease_DC_unity_tiny_tt
+	add_to_variable = {
+		var = ITA_DC_unity
+		value = -0.5
+	}
+	clamp_variable = {
+		var = ITA_DC_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_decrease_DC_unity_small = {
+	custom_effect_tooltip = ITA_decrease_DC_unity_small_tt
+	add_to_variable = {
+		var = ITA_DC_unity
+		value = -1
+	}
+	clamp_variable = {
+		var = ITA_DC_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_decrease_DC_unity_moderate = {
+	custom_effect_tooltip = ITA_decrease_DC_unity_moderate_tt
+	add_to_variable = {
+		var = ITA_DC_unity
+		value = -2
+	}
+	clamp_variable = {
+		var = ITA_DC_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_decrease_DC_unity_decent = {
+	custom_effect_tooltip = ITA_decrease_DC_unity_decent_tt
+	add_to_variable = {
+		var = ITA_DC_unity
+		value = -2.5
+	}
+	clamp_variable = {
+		var = ITA_DC_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_decrease_DC_unity_large = {
+	custom_effect_tooltip = ITA_decrease_DC_unity_large_tt
+	add_to_variable = {
+		var = ITA_DC_unity
+		value = -3
+	}
+	clamp_variable = {
+		var = ITA_DC_unity
+		min = 0
+		max = 20
+	}
+}
+
+#FD
+ITA_increase_FD_unity_tiny = {
+	custom_effect_tooltip = ITA_increase_FD_unity_tiny_tt
+	add_to_variable = {
+		var = ITA_FD_unity
+		value = 0.5
+	}
+	clamp_variable = {
+		var = ITA_FD_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_increase_FD_unity_small = {
+	custom_effect_tooltip = ITA_increase_FD_unity_small_tt
+	add_to_variable = {
+		var = ITA_FD_unity
+		value = 1
+	}
+	clamp_variable = {
+		var = ITA_FD_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_increase_FD_unity_moderate = {
+	custom_effect_tooltip = ITA_increase_FD_unity_moderate_tt
+	add_to_variable = {
+		var = ITA_FD_unity
+		value = 2
+	}
+	clamp_variable = {
+		var = ITA_FD_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_increase_FD_unity_decent = {
+	custom_effect_tooltip = ITA_increase_FD_unity_decent_tt
+	add_to_variable = {
+		var = ITA_FD_unity
+		value = 2.5
+	}
+	clamp_variable = {
+		var = ITA_FD_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_increase_FD_unity_large = {
+	custom_effect_tooltip = ITA_increase_FD_unity_large_tt
+	add_to_variable = {
+		var = ITA_FD_unity
+		value = 3
+	}
+	clamp_variable = {
+		var = ITA_FD_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_decrease_FD_unity_tiny = {
+	custom_effect_tooltip = ITA_decrease_FD_unity_tiny_tt
+	add_to_variable = {
+		var = ITA_FD_unity
+		value = -0.5
+	}
+	clamp_variable = {
+		var = ITA_FD_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_decrease_FD_unity_small = {
+	custom_effect_tooltip = ITA_decrease_FD_unity_small_tt
+	add_to_variable = {
+		var = ITA_FD_unity
+		value = -1
+	}
+	clamp_variable = {
+		var = ITA_FD_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_decrease_FD_unity_moderate = {
+	custom_effect_tooltip = ITA_decrease_FD_unity_moderate_tt
+	add_to_variable = {
+		var = ITA_FD_unity
+		value = -2
+	}
+	clamp_variable = {
+		var = ITA_FD_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_decrease_FD_unity_decent = {
+	custom_effect_tooltip = ITA_decrease_FD_unity_decent_tt
+	add_to_variable = {
+		var = ITA_FD_unity
+		value = -2.5
+	}
+	clamp_variable = {
+		var = ITA_FD_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_decrease_FD_unity_large = {
+	custom_effect_tooltip = ITA_decrease_FD_unity_large_tt
+	add_to_variable = {
+		var = ITA_FD_unity
+		value = -3
+	}
+	clamp_variable = {
+		var = ITA_FD_unity
+		min = 0
+		max = 20
+	}
+}
+
+# BN
+
+ITA_increase_BN_unity_tiny = {
+	custom_effect_tooltip = ITA_increase_BN_unity_tiny_tt
+	add_to_variable = {
+		var = ITA_BN_unity
+		value = 0.5
+	}
+	clamp_variable = {
+		var = ITA_BN_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_increase_BN_unity_small = {
+	custom_effect_tooltip = ITA_increase_BN_unity_small_tt
+	add_to_variable = {
+		var = ITA_BN_unity
+		value = 1
+	}
+	clamp_variable = {
+		var = ITA_BN_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_increase_BN_unity_moderate = {
+	custom_effect_tooltip = ITA_increase_BN_unity_moderate_tt
+	add_to_variable = {
+		var = ITA_BN_unity
+		value = 2
+	}
+	clamp_variable = {
+		var = ITA_BN_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_increase_BN_unity_decent = {
+	custom_effect_tooltip = ITA_increase_BN_unity_decent_tt
+	add_to_variable = {
+		var = ITA_BN_unity
+		value = 2.5
+	}
+	clamp_variable = {
+		var = ITA_BN_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_increase_BN_unity_large = {
+	custom_effect_tooltip = ITA_increase_BN_unity_large_tt
+	add_to_variable = {
+		var = ITA_BN_unity
+		value = 3
+	}
+	clamp_variable = {
+		var = ITA_BN_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_decrease_BN_unity_tiny = {
+	custom_effect_tooltip = ITA_decrease_BN_unity_tiny_tt
+	add_to_variable = {
+		var = ITA_BN_unity
+		value = -0.5
+	}
+	clamp_variable = {
+		var = ITA_BN_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_decrease_BN_unity_small = {
+	custom_effect_tooltip = ITA_decrease_BN_unity_small_tt
+	add_to_variable = {
+		var = ITA_BN_unity
+		value = -1
+	}
+	clamp_variable = {
+		var = ITA_BN_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_decrease_BN_unity_moderate = {
+	custom_effect_tooltip = ITA_decrease_BN_unity_moderate_tt
+	add_to_variable = {
+		var = ITA_BN_unity
+		value = -2
+	}
+	clamp_variable = {
+		var = ITA_BN_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_decrease_BN_unity_decent = {
+	custom_effect_tooltip = ITA_decrease_BN_unity_decent_tt
+	add_to_variable = {
+		var = ITA_BN_unity
+		value = -2.5
+	}
+	clamp_variable = {
+		var = ITA_BN_unity
+		min = 0
+		max = 20
+	}
+}
+ITA_decrease_BN_unity_large = {
+	custom_effect_tooltip = ITA_decrease_BN_unity_large_tt
+	add_to_variable = {
+		var = ITA_BN_unity
+		value = -3
+	}
+	clamp_variable = {
+		var = ITA_BN_unity
+		min = 0
+		max = 20
+	}
+}
+
+##################################################################################
+### Empire Management - Action Point investment system (generic, all clients)  ###
+### Cap = ITA_empire_management_coins. Per-client pips = empire_invest (0-3) on  ###
+### each client flagged empire_client. committed = sum of every client's pips.   ###
+##################################################################################
+
+# Register a client (run in the CLIENT scope): flag it, init vars, attach boost.
+# Mediterranean rework: a heavy garrison speeds a client's stabilization. The Empire
+# Management GUI assigns envoys per region (ITA_EM_Regions_Envoys, capped by
+# ITA_EM_Regions_MaxEnvoys); regions below status 2 (colony, vassal) take garrisons, the
+# rest diplomats, so only those count. The bonus multiplies the investment gain in
+# ITA_empire_monthly_tick, so it never replaces investment: at least 60% of the client's
+# garrison cap gives +15%, at least 90% gives +33%. At max pip, stabilization takes
+# about 52 or 45 months instead of 60. Run in ITA scope.
+ITA_empire_update_garrison_bonus = {
+	if = {
+		limit = {
+			has_country_flag = ITA_med_rework_active
+			has_country_flag = ITA_EM_Active
+		}
+		if = { # East Africa: Eritrea, Ethiopia, Somalia, Kenya
+			limit = { country_exists = IEA }
+			ITA_empire_garrison_reset = yes
+			set_temp_variable = { empire_gar_r = 2 }
+			ITA_empire_garrison_add_region = yes
+			set_temp_variable = { empire_gar_r = 3 }
+			ITA_empire_garrison_add_region = yes
+			set_temp_variable = { empire_gar_r = 4 }
+			ITA_empire_garrison_add_region = yes
+			set_temp_variable = { empire_gar_r = 5 }
+			ITA_empire_garrison_add_region = yes
+			IEA = { ITA_empire_set_garrison_mult = yes }
+		}
+		if = {
+			limit = { country_exists = EGY }
+			ITA_empire_garrison_reset = yes
+			set_temp_variable = { empire_gar_r = 26 }
+			ITA_empire_garrison_add_region = yes
+			EGY = { ITA_empire_set_garrison_mult = yes }
+		}
+		if = {
+			limit = { country_exists = IRQ }
+			ITA_empire_garrison_reset = yes
+			set_temp_variable = { empire_gar_r = 19 }
+			ITA_empire_garrison_add_region = yes
+			IRQ = { ITA_empire_set_garrison_mult = yes }
+		}
+		if = {
+			limit = { country_exists = GUL }
+			ITA_empire_garrison_reset = yes
+			set_temp_variable = { empire_gar_r = 21 }
+			ITA_empire_garrison_add_region = yes
+			GUL = { ITA_empire_set_garrison_mult = yes }
+		}
+		if = {
+			limit = { country_exists = YEM }
+			ITA_empire_garrison_reset = yes
+			set_temp_variable = { empire_gar_r = 22 }
+			ITA_empire_garrison_add_region = yes
+			YEM = { ITA_empire_set_garrison_mult = yes }
+		}
+		if = {
+			limit = { country_exists = OMA }
+			ITA_empire_garrison_reset = yes
+			set_temp_variable = { empire_gar_r = 23 }
+			ITA_empire_garrison_add_region = yes
+			OMA = { ITA_empire_set_garrison_mult = yes }
+		}
+		if = {
+			limit = { country_exists = ILG }
+			ITA_empire_garrison_reset = yes
+			set_temp_variable = { empire_gar_r = 24 }
+			ITA_empire_garrison_add_region = yes
+			ILG = { ITA_empire_set_garrison_mult = yes }
+		}
+	}
+	else = {
+		every_country = {
+			limit = { has_country_flag = empire_client }
+			clear_variable = empire_garrison_mult
+		}
+	}
+}
+ITA_empire_garrison_reset = {
+	set_temp_variable = { empire_gar_have = 0 }
+	set_temp_variable = { empire_gar_cap = 0 }
+}
+# ITA scope; empire_gar_r is the Empire Management region index.
+ITA_empire_garrison_add_region = {
+	if = {
+		limit = { check_variable = { ITA_EM_Regions_Status^empire_gar_r < 2 } }
+		add_to_temp_variable = { empire_gar_have = ITA_EM_Regions_Envoys^empire_gar_r }
+		add_to_temp_variable = { empire_gar_cap = ITA_EM_Regions_MaxEnvoys^empire_gar_r }
+	}
+}
+# Client scope; reads empire_gar_have / empire_gar_cap.
+ITA_empire_set_garrison_mult = {
+	set_variable = { empire_garrison_mult = 1 }
+	if = {
+		limit = { check_variable = { empire_gar_cap > 0 } }
+		set_temp_variable = { empire_gar_fill = empire_gar_have }
+		divide_temp_variable = { empire_gar_fill = empire_gar_cap }
+		if = {
+			limit = { check_variable = { empire_gar_fill > 0.899 } }
+			set_variable = { empire_garrison_mult = 1.33 }
+		}
+		else_if = {
+			limit = { check_variable = { empire_gar_fill > 0.599 } }
+			set_variable = { empire_garrison_mult = 1.15 }
+		}
+	}
+}
+
+ITA_empire_register_client = {
+	set_country_flag = empire_client
+	set_variable = { var = empire_invest value = 0 }
+	set_variable = { var = empire_streak value = 0 }
+	set_variable = { var = empire_boost_build value = 0 }
+	set_variable = { var = empire_boost_stab value = 0 }
+	set_variable = { var = empire_boost_res value = 0 }
+	set_variable = { var = empire_boost_def value = 0 }
+	set_variable = { var = empire_boost_xp value = 0 }
+	set_variable = { var = empire_boost_atk value = 0 }
+	set_variable = { var = empire_boost_mp value = 0 }
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = empire_client_boost } } }
+		add_dynamic_modifier = { modifier = empire_client_boost }
+	}
+}
+
+# Translate a client's pip count into its boost-modifier values (run in CLIENT scope).
+empire_refresh_boost = {
+	clamp_variable = { var = empire_invest min = 0 max = 3 }
+	set_variable = { var = empire_boost_build value = 0 }
+	set_variable = { var = empire_boost_stab value = 0 }
+	set_variable = { var = empire_boost_res value = 0 }
+	set_variable = { var = empire_boost_def value = 0 }
+	set_variable = { var = empire_boost_xp value = 0 }
+	set_variable = { var = empire_boost_atk value = 0 }
+	set_variable = { var = empire_boost_mp value = 0 }
+	if = { # pip 1+ : economic foundation
+		limit = { check_variable = { var = empire_invest value = 0 compare = greater_than } }
+		add_to_variable = { var = empire_boost_build value = 0.10 }
+		add_to_variable = { var = empire_boost_stab value = 0.05 }
+	}
+	if = { # pip 2+ : resources, defense, training
+		limit = { check_variable = { var = empire_invest value = 1 compare = greater_than } }
+		add_to_variable = { var = empire_boost_build value = 0.10 }
+		add_to_variable = { var = empire_boost_res value = 0.10 }
+		add_to_variable = { var = empire_boost_def value = 0.10 }
+		add_to_variable = { var = empire_boost_xp value = 0.10 }
+	}
+	if = { # pip 3 : a military ally
+		limit = { check_variable = { var = empire_invest value = 2 compare = greater_than } }
+		add_to_variable = { var = empire_boost_build value = 0.10 }
+		add_to_variable = { var = empire_boost_stab value = 0.05 }
+		add_to_variable = { var = empire_boost_atk value = 0.15 }
+		add_to_variable = { var = empire_boost_def value = 0.10 }
+		add_to_variable = { var = empire_boost_mp value = 0.10 }
+	}
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = empire_client_boost } } }
+		add_dynamic_modifier = { modifier = empire_client_boost }
+	}
+}
+
+# Add / remove one pip to the client in scope (run in CLIENT scope). Auto-registers.
+empire_add_pip = {
+	if = { limit = { NOT = { has_country_flag = empire_client } } ITA_empire_register_client = yes }
+	add_to_variable = { var = empire_invest value = 1 }
+	clamp_variable = { var = empire_invest min = 0 max = 3 }
+	empire_refresh_boost = yes
+	ITA = { ITA_empire_recalc = yes }
+}
+empire_remove_pip = {
+	subtract_from_variable = { var = empire_invest value = 1 }
+	clamp_variable = { var = empire_invest min = 0 max = 3 }
+	empire_refresh_boost = yes
+	ITA = { ITA_empire_recalc = yes }
+}
+
+# Recompute committed pips + the exponential over-commit penalty (run in ITA scope).
+# Sums every client's CURRENT pips, so pips added by outside effects are accounted for.
+ITA_empire_recalc = {
+	set_variable = { var = global.empire_committed_accum value = 0 }
+	every_country = {
+		limit = { has_country_flag = empire_client }
+		clamp_variable = { var = empire_invest min = 0 max = 3 }
+		add_to_variable = { var = global.empire_committed_accum value = empire_invest }
+	}
+	set_variable = { var = ITA_empire_committed value = global.empire_committed_accum }
+	# What Italy can still spend without going over. Events and focuses gate on
+	# this; it was the meaning ITA_empire_management_coins carried before the
+	# investment mechanic turned that variable into the cap.
+	set_variable = { var = ITA_empire_free_coins value = ITA_empire_management_coins }
+	subtract_from_variable = { var = ITA_empire_free_coins value = ITA_empire_committed }
+	# overage = committed - cap
+	set_temp_variable = { tmp_overage = ITA_empire_committed }
+	subtract_from_temp_variable = { var = tmp_overage value = ITA_empire_management_coins }
+	set_variable = { var = ITA_empire_overcommit_stab value = 0 }
+	set_variable = { var = ITA_empire_overcommit_pp value = 0 }
+	set_variable = { var = ITA_empire_overcommit_cg value = 0 }
+	if = {
+		limit = { check_variable = { var = tmp_overage value = 0 compare = greater_than } }
+		# exponential penalty multiplier = 4 ^ overage, via 1.19 nested math expression `pow`.
+		# (Math operators must be chained inside a "var = { value = ... }" block, not flat.)
+		clamp_temp_variable = { var = tmp_overage min = 1 max = 5 }
+		set_temp_variable = { tmp_mult = { value = 4 pow = tmp_overage } }
+		# 1 point over = 4^1 = -4% stability; same multiplier scales PP gain and consumer goods.
+		set_variable = { ITA_empire_overcommit_stab = { value = tmp_mult multiply = -0.01 } }
+		set_variable = { ITA_empire_overcommit_pp = { value = tmp_mult multiply = -0.0125 } }
+		set_variable = { ITA_empire_overcommit_cg = { value = tmp_mult multiply = 0.01 } }
+	}
+	# The running cost of the empire, 0.2 political power a month per committed
+	# pip. history/countries seeds it at -0.8 for the four pips Italy starts
+	# with; deriving it here keeps it honest when events move the pips.
+	set_variable = { ITA_BLOCKS_FUNNY = { value = ITA_empire_committed multiply = -0.2 } }
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = ITA_empire_overcommit } } }
+		add_dynamic_modifier = { modifier = ITA_empire_overcommit }
+	}
+}
+
+# Milestone: raise the action-point cap by one (run in ITA scope).
+ITA_empire_raise_cap = {
+	add_to_variable = { var = ITA_empire_management_coins value = 1 }
+	ITA_empire_recalc = yes
+}
+
+# Monthly streak progression -> stabilization -> keystone ally (run in ITA scope).
+ITA_empire_monthly_tick = {
+	ITA_empire_update_garrison_bonus = yes
+	every_country = {
+		limit = { has_country_flag = empire_client }
+		empire_refresh_boost = yes
+		if = {
+			limit = { check_variable = { var = empire_invest value = 0 compare = greater_than } }
+			set_temp_variable = { empire_gain_temp = empire_invest }
+			if = {
+				limit = { has_variable = empire_garrison_mult }
+				multiply_temp_variable = { empire_gain_temp = empire_garrison_mult }
+			}
+			add_to_variable = { var = empire_streak value = empire_gain_temp }
+			if = { # ~5 years at max pip -> fully stabilized (no civil war)
+				limit = {
+					check_variable = { var = empire_streak value = 180 compare = greater_than_or_equals }
+					NOT = { has_idea = empire_stabilized }
+					NOT = { has_idea = empire_keystone_ally }
+				}
+				add_ideas = empire_stabilized
+				ROOT = { add_to_variable = { var = ITA_empire_management_coins value = 1 } }
+			}
+			if = { # sustained max past stabilization -> powerful ally
+				limit = {
+					check_variable = { var = empire_streak value = 360 compare = greater_than_or_equals }
+					check_variable = { var = empire_invest value = 3 compare = equals }
+					has_idea = empire_stabilized
+				}
+				remove_ideas = empire_stabilized
+				add_ideas = empire_keystone_ally
+			}
+		}
+		else = {
+			set_variable = { var = empire_streak value = 0 }
+		}
+	}
+	ITA_empire_recalc = yes
+}
+
+# One-time startup initialisation (called from on_startup in ITA scope).
+ITA_empire_startup_init = {
+	# Four pips are already committed in history/countries (Egypt 1, East Africa 1,
+	# the Levant 2) against two coins still free, so the cap is six.
+	set_variable = { var = ITA_empire_management_coins value = 6 }
+	if = { limit = { country_exists = IRQ } IRQ = { ITA_empire_register_client = yes } }
+	if = { limit = { country_exists = YEM } YEM = { ITA_empire_register_client = yes } }
+	if = { limit = { country_exists = OMA } OMA = { ITA_empire_register_client = yes } }
+	# The investable "Trucial States / UAE" client is the Gulf Governate (GUL), Italy's
+	# Gulf puppet at start; stabilizing it prevents the Gulf collapse (end_puppet = GUL).
+	if = { limit = { country_exists = GUL } GUL = { ITA_empire_register_client = yes } }
+	# Colonial clients - investment bonuses only (no civil-war / collapse gate yet).
+	if = { limit = { country_exists = ILG } ILG = { ITA_empire_register_client = yes } }
+	# Clients history already has Italy paying for. Their pips come from the
+	# ITA_<TAG>_management values the country file sets, which are also what the
+	# ITA_<TAG>_Block_Status readouts show, so the two never start out disagreeing.
+	if = {
+		limit = { country_exists = EGY }
+		set_temp_variable = { empire_seed_temp = ITA_EGY_management }
+		EGY = {
+			ITA_empire_register_client = yes
+			set_variable = { var = empire_invest value = empire_seed_temp }
+			empire_refresh_boost = yes
+		}
+	}
+	if = {
+		limit = { country_exists = IEA }
+		set_temp_variable = { empire_seed_temp = ITA_IEA_management }
+		IEA = {
+			ITA_empire_register_client = yes
+			set_variable = { var = empire_invest value = empire_seed_temp }
+			empire_refresh_boost = yes
+		}
+	}
+	# The Italian Middle East was never registered at all, so its two starting
+	# pips existed only in the old readout and its decisions had nothing to move.
+	if = {
+		limit = { country_exists = IME }
+		set_temp_variable = { empire_seed_temp = ITA_IME_management }
+		IME = {
+			ITA_empire_register_client = yes
+			set_variable = { var = empire_invest value = empire_seed_temp }
+			empire_refresh_boost = yes
+		}
+	}
+	ITA_empire_recalc = yes
+}

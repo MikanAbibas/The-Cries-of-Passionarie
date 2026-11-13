@@ -1,0 +1,49 @@
+on_actions = {
+	on_daily_GRE = {
+		effect = {
+			if = { limit = { has_global_flag = ITA_MED_WIP_PATHS }
+			GRE_resistance_state_control_count = yes
+			GRE_far_right_calculations = yes
+			GRE_projects_check_for_completion = yes
+			GRE_BOG_daily_countdown_update = yes
+			if = {
+				limit = {
+					check_variable = {GRE_project_days_left > 0}
+				}
+				add_to_variable = {GRE_project_days_left = -1}
+				GRE_projects_days_left_calculation = yes
+			}
+			if = {
+				limit = {
+					has_country_flag = GRE_autonomy_enabled
+				}
+				GRE_autonomy_daily_countdown = yes
+				GRE_autonomy_ideas_swapping = yes
+			}
+					}
+		}
+	}
+    on_weekly_GRE = {
+        effect = {
+			if = { limit = { has_global_flag = ITA_MED_WIP_PATHS }
+			add_to_variable = {GRE_project_gui_current_project_progress = GRE_project_gui_weekly_progress}
+        			}
+		}
+    }
+    on_monthly_GRE = {
+    	effect = {
+			if = { limit = { has_global_flag = ITA_MED_WIP_PATHS }
+			GRE_EDA_oil_crisis_response = yes # Phase F: once, when the crisis reaches Papandreou or Kyrkos
+    		if = {
+    			limit = {
+    				has_country_flag = GRE_autonomy_enabled
+    			}
+    			GRE_autonomy_monthly_building_check = yes
+    		}
+    				}
+		}
+    }
+    
+	# on_startup moved to GRE_TUR_med_wip_startup_global (Phase C): on_startup files run in no fixed
+	# order, so the WIP flag set by TNO_Italy_med_on_actions.txt could not be relied on here.
+}

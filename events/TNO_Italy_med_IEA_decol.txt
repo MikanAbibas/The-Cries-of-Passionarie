@@ -1,0 +1,879 @@
+﻿### East Africa decolonisation events for the Mediterranean Italy rework.
+###
+### Extracted from the mediterranean-test events/TNO_Italian_East_Africa_events.txt.
+### That whole file is not imported - master's East Africa events are the live ones
+### and the two collide - but this namespace is entirely new, so the decolonisation
+### chain the rework's decisions fire comes across on its own.
+
+add_namespace = IEA_decol
+
+country_event = { #Event that shows the decol mechanic
+	id = IEA_decol.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.1"}
+	title = IEA_decol.1.t
+	desc = IEA_decol.1.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IEA_decol.1.a
+		hidden_effect = {
+			ITA = {
+				ITA_IEA_Decol_GUI_setup = yes
+			}
+			set_country_flag = DemItaly_IEA_Decolonization
+			mark_focus_tree_layout_dirty = yes
+			every_country = {
+				news_event = {
+					id = ITA_news.32
+					days = 1
+				}
+			}
+		}
+		custom_effect_tooltip = ITA_IEA_decol_load_focus_tree_tt
+	}
+}
+
+country_event = { #event to activate rebel activity
+	id = IEA_decol.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.2"}
+
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = IEA_decol.2.a
+		ITA_IEA_Decol_get_rebelion = yes
+	}
+}
+
+country_event = { #negotiations begin
+	id = IEA_decol.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.10"}
+	title = IEA_decol.10.t
+	desc = IEA_decol.10.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IEA_decol.10.a
+		hidden_effect = {
+			SML = {
+				ITA_IEA_Decol_set_negotiations_in_progress = yes
+			}
+
+
+			if = {
+				limit = {
+					check_variable = { SML.decol_favor < 3 }
+				}
+				country_event = {
+					id = IEA_decol.11 #faliure
+					days = 4
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { SML.decol_favor = 3 }
+				}
+				random_list = {
+					65 = {
+						country_event = {
+							id = IEA_decol.11 #faliure
+							days = 4
+						}
+					}
+					35 = {
+						country_event = {
+							id = IEA_decol.12 #success
+							days = 4
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { SML.decol_favor = 4 }
+				}
+				random_list = {
+					30 = {
+						country_event = {
+							id = IEA_decol.11 #faliure
+							days = 4
+						}
+					}
+					70 = {
+						country_event = {
+							id = IEA_decol.12 #success
+							days = 4
+						}
+					}
+				}
+			}
+			else = {
+				country_event = {
+					id = IEA_decol.12 #success
+					days = 4
+				}
+			}
+		}
+	}
+}
+
+country_event = { #negotiations fail
+	id = IEA_decol.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.11"}
+	title = IEA_decol.11.t
+	desc = IEA_decol.11.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			SML = {
+				has_country_flag = decol_full_scale_revolt
+			}
+		}
+	}
+
+	option = {
+		name = IEA_decol.11.a
+		SML = {
+			ITA_IEA_Decol_set_negotiations_failed = yes
+		}
+	}
+}
+
+country_event = { #negotiations succeed
+	id = IEA_decol.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.12"}
+	title = IEA_decol.12.t
+	desc = IEA_decol.12.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			SML = {
+				has_country_flag = decol_full_scale_revolt
+			}
+		}
+	}
+
+	option = {
+		name = IEA_decol.12.a
+		SML = {
+			ITA_IEA_Decol_set_negotiations_successful = yes
+		}
+	}
+}
+
+country_event = { #full scale revolt
+	id = IEA_decol.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.13"}
+	title = IEA_decol.13.t
+	desc = IEA_decol.13.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IEA_decol.13.a
+		SML = {
+			ITA_IEA_Decol_set_full_scale_revolt = yes
+		}
+	}
+}
+
+country_event = { #negotiations begin
+	id = IEA_decol.20
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.20"}
+	title = IEA_decol.20.t
+	desc = IEA_decol.20.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IEA_decol.20.a
+		hidden_effect = {
+			ERT = {
+				ITA_IEA_Decol_set_negotiations_in_progress = yes
+			}
+
+
+			if = {
+				limit = {
+					check_variable = { ERT.decol_favor < 3 }
+				}
+				country_event = {
+					id = IEA_decol.21 #faliure
+					days = 4
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { ERT.decol_favor = 3 }
+				}
+				random_list = {
+					65 = {
+						country_event = {
+							id = IEA_decol.21 #faliure
+							days = 4
+						}
+					}
+					35 = {
+						country_event = {
+							id = IEA_decol.22 #success
+							days = 4
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { ERT.decol_favor = 4 }
+				}
+				random_list = {
+					30 = {
+						country_event = {
+							id = IEA_decol.21 #faliure
+							days = 4
+						}
+					}
+					70 = {
+						country_event = {
+							id = IEA_decol.22 #success
+							days = 4
+						}
+					}
+				}
+			}
+			else = {
+				country_event = {
+					id = IEA_decol.22 #success
+					days = 4
+				}
+			}
+		}
+	}
+}
+
+country_event = { #negotiations fail
+	id = IEA_decol.21
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.21"}
+	title = IEA_decol.21.t
+	desc = IEA_decol.21.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			ERT = {
+				has_country_flag = decol_full_scale_revolt
+			}
+		}
+	}
+
+	option = {
+		name = IEA_decol.21.a
+		ERT = {
+			ITA_IEA_Decol_set_negotiations_failed = yes
+		}
+	}
+}
+
+country_event = { #negotiations succeed
+	id = IEA_decol.22
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.22"}
+	title = IEA_decol.22.t
+	desc = IEA_decol.22.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			ERT = {
+				has_country_flag = decol_full_scale_revolt
+			}
+		}
+	}
+
+	option = {
+		name = IEA_decol.22.a
+		ERT = {
+			ITA_IEA_Decol_set_negotiations_successful = yes
+		}
+	}
+}
+
+country_event = { #full scale revolt
+	id = IEA_decol.23
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.23"}
+	title = IEA_decol.23.t
+	desc = IEA_decol.23.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IEA_decol.23.a
+		ERT = {
+			ITA_IEA_Decol_set_full_scale_revolt = yes
+		}
+	}
+}
+
+country_event = { #negotiations begin
+	id = IEA_decol.30
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.30"}
+	title = IEA_decol.30.t
+	desc = IEA_decol.30.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IEA_decol.30.a
+		hidden_effect = {
+			ETH = {
+				ITA_IEA_Decol_set_negotiations_in_progress = yes
+			}
+
+
+			if = {
+				limit = {
+					check_variable = { ETH.decol_favor < 3 }
+				}
+				country_event = {
+					id = IEA_decol.31 #faliure
+					days = 4
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { ETH.decol_favor = 3 }
+				}
+				random_list = {
+					65 = {
+						country_event = {
+							id = IEA_decol.31 #faliure
+							days = 4
+						}
+					}
+					35 = {
+						country_event = {
+							id = IEA_decol.32 #success
+							days = 4
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { ETH.decol_favor = 4 }
+				}
+				random_list = {
+					30 = {
+						country_event = {
+							id = IEA_decol.31 #faliure
+							days = 4
+						}
+					}
+					70 = {
+						country_event = {
+							id = IEA_decol.32 #success
+							days = 4
+						}
+					}
+				}
+			}
+			else = {
+				country_event = {
+					id = IEA_decol.32 #success
+					days = 4
+				}
+			}
+		}
+	}
+}
+
+country_event = { #negotiations fail
+	id = IEA_decol.31
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.31"}
+	title = IEA_decol.31.t
+	desc = IEA_decol.31.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			ETH = {
+				has_country_flag = decol_full_scale_revolt
+			}
+		}
+	}
+
+	option = {
+		name = IEA_decol.31.a
+		ETH = {
+			ITA_IEA_Decol_set_negotiations_failed = yes
+		}
+	}
+}
+
+country_event = { #negotiations succeed
+	id = IEA_decol.32
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.32"}
+	title = IEA_decol.32.t
+	desc = IEA_decol.32.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			ETH = {
+				has_country_flag = decol_full_scale_revolt
+			}
+		}
+	}
+
+	option = {
+		name = IEA_decol.32.a
+		ETH = {
+			ITA_IEA_Decol_set_negotiations_successful = yes
+		}
+	}
+}
+
+country_event = { #full scale revolt
+	id = IEA_decol.33
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.33"}
+	title = IEA_decol.33.t
+	desc = IEA_decol.33.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IEA_decol.33.a
+		ETH = {
+			ITA_IEA_Decol_set_full_scale_revolt = yes
+		}
+	}
+}
+
+country_event = { #negotiations begin
+	id = IEA_decol.40
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.40"}
+	title = IEA_decol.40.t
+	desc = IEA_decol.40.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IEA_decol.40.a
+		hidden_effect = {
+			ORM = {
+				ITA_IEA_Decol_set_negotiations_in_progress = yes
+			}
+
+
+			if = {
+				limit = {
+					check_variable = { ORM.decol_favor < 3 }
+				}
+				country_event = {
+					id = IEA_decol.41 #faliure
+					days = 4
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { ORM.decol_favor = 3 }
+				}
+				random_list = {
+					65 = {
+						country_event = {
+							id = IEA_decol.41 #faliure
+							days = 4
+						}
+					}
+					35 = {
+						country_event = {
+							id = IEA_decol.42 #success
+							days = 4
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { ORM.decol_favor = 4 }
+				}
+				random_list = {
+					30 = {
+						country_event = {
+							id = IEA_decol.41 #faliure
+							days = 4
+						}
+					}
+					70 = {
+						country_event = {
+							id = IEA_decol.42 #success
+							days = 4
+						}
+					}
+				}
+			}
+			else = {
+				country_event = {
+					id = IEA_decol.42 #success
+					days = 4
+				}
+			}
+		}
+	}
+}
+
+country_event = { #negotiations fail
+	id = IEA_decol.41
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.41"}
+	title = IEA_decol.41.t
+	desc = IEA_decol.41.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			ORM = {
+				has_country_flag = decol_full_scale_revolt
+			}
+		}
+	}
+
+	option = {
+		name = IEA_decol.41.a
+		ORM = {
+			ITA_IEA_Decol_set_negotiations_failed = yes
+		}
+	}
+}
+
+country_event = { #negotiations succeed
+	id = IEA_decol.42
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.42"}
+	title = IEA_decol.42.t
+	desc = IEA_decol.42.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			ORM = {
+				has_country_flag = decol_full_scale_revolt
+			}
+		}
+	}
+
+	option = {
+		name = IEA_decol.42.a
+		ORM = {
+			ITA_IEA_Decol_set_negotiations_successful = yes
+		}
+	}
+}
+
+country_event = { #full scale revolt
+	id = IEA_decol.43
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.43"}
+	title = IEA_decol.43.t
+	desc = IEA_decol.43.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IEA_decol.43.a
+		ORM = {
+			ITA_IEA_Decol_set_full_scale_revolt = yes
+		}
+	}
+}
+
+country_event = { #negotiations begin
+	id = IEA_decol.50
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.50"}
+	title = IEA_decol.50.t
+	desc = IEA_decol.50.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IEA_decol.50.a
+		hidden_effect = {
+			KEN = {
+				ITA_IEA_Decol_set_negotiations_in_progress = yes
+			}
+
+
+			if = {
+				limit = {
+					check_variable = { KEN.decol_favor < 3 }
+				}
+				country_event = {
+					id = IEA_decol.51 #faliure
+					days = 4
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { KEN.decol_favor = 3 }
+				}
+				random_list = {
+					65 = {
+						country_event = {
+							id = IEA_decol.51 #faliure
+							days = 4
+						}
+					}
+					35 = {
+						country_event = {
+							id = IEA_decol.52 #success
+							days = 4
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { KEN.decol_favor = 4 }
+				}
+				random_list = {
+					30 = {
+						country_event = {
+							id = IEA_decol.51 #faliure
+							days = 4
+						}
+					}
+					70 = {
+						country_event = {
+							id = IEA_decol.52 #success
+							days = 4
+						}
+					}
+				}
+			}
+			else = {
+				country_event = {
+					id = IEA_decol.52 #success
+					days = 4
+				}
+			}
+		}
+	}
+}
+
+country_event = { #negotiations fail
+	id = IEA_decol.51
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.51"}
+	title = IEA_decol.51.t
+	desc = IEA_decol.51.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			KEN = {
+				has_country_flag = decol_full_scale_revolt
+			}
+		}
+	}
+
+	option = {
+		name = IEA_decol.51.a
+		KEN = {
+			ITA_IEA_Decol_set_negotiations_failed = yes
+		}
+	}
+}
+
+country_event = { #negotiations succeed
+	id = IEA_decol.52
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.52"}
+	title = IEA_decol.52.t
+	desc = IEA_decol.52.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			KEN = {
+				has_country_flag = decol_full_scale_revolt
+			}
+		}
+	}
+
+	option = {
+		name = IEA_decol.52.a
+		KEN = {
+			ITA_IEA_Decol_set_negotiations_successful = yes
+		}
+	}
+}
+
+country_event = { #full scale revolt
+	id = IEA_decol.53
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.53"}
+	title = IEA_decol.53.t
+	desc = IEA_decol.53.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IEA_decol.53.a
+		KEN = {
+			ITA_IEA_Decol_set_full_scale_revolt = yes
+		}
+	}
+}
+
+country_event = { #overall decolonisation sucesful
+	id = IEA_decol.100
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.100"}
+	title = IEA_decol.100.t
+	desc = IEA_decol.100.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IEA_decol.100.a
+		clr_country_flag = DemItaly_IEA_Decolonization
+		mark_focus_tree_layout_dirty = yes
+
+		if = {
+			limit = {
+				has_country_flag = ITA_salvage_the_project_extra_effect
+			}
+			custom_effect_tooltip = ITA_salvage_the_project_extra_effect_tt
+
+			set_temp_variable = { Region_i = 2 }
+			set_temp_variable = { EconValueChange_v = 8 }
+			ITA_EmpireManagement_EconValueChange = yes
+			set_temp_variable = { Region_i = 3 }
+			set_temp_variable = { EconValueChange_v = 8 }
+			ITA_EmpireManagement_EconValueChange = yes
+			set_temp_variable = { Region_i = 4 }
+			set_temp_variable = { EconValueChange_v = 8 }
+			ITA_EmpireManagement_EconValueChange = yes
+			set_temp_variable = { Region_i = 5 }
+			set_temp_variable = { EconValueChange_v = 8 }
+			ITA_EmpireManagement_EconValueChange = yes
+		}
+
+		if = {
+			limit = {
+				has_country_flag = ITA_summon_the_colonials_extra_effect
+			}
+			custom_effect_tooltip = ITA_summon_the_colonials_extra_effect_tt
+
+			#set up an array of the regions tags to loop through
+			clear_temp_array = IEA_tags
+			add_to_array = { IEA_tags = ERT }
+			add_to_array = { IEA_tags = SML }
+			add_to_array = { IEA_tags = ORM }
+			add_to_array = { IEA_tags = KEN }
+
+			for_each_scope_loop = {
+				array = IEA_tags
+
+				if = {
+					limit = {
+						check_variable = { decol_negotiation_status = 3 } #negotiations succesful
+					}
+					
+					give_military_access = ITA
+					ITA = {
+						diplomatic_relation = {
+							country = PREV
+							relation = docking_rights
+							active = yes
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { #overall decolonisation neutral
+	id = IEA_decol.101
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.101"}
+	title = IEA_decol.101.t
+	desc = IEA_decol.101.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IEA_decol.101.a
+		clr_country_flag = DemItaly_IEA_Decolonization
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+country_event = { #overall decolonisation failed
+	id = IEA_decol.102
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IEA_decol.102"}
+	title = IEA_decol.102.t
+	desc = IEA_decol.102.d
+	picture = GFX_report_event_italian_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IEA_decol.102.a
+		clr_country_flag = DemItaly_IEA_Decolonization
+		mark_focus_tree_layout_dirty = yes
+	}
+}

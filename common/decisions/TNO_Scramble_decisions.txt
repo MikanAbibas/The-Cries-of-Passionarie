@@ -1,0 +1,297 @@
+SFA_debug_category = {
+	# New Scramble for Africa test path from any start: form Grossafrika, break it, start the scramble.
+	# The scramble reads the South African War's outcome; with none recorded it plays the status quo.
+	SFA_debug_form_grossafrika = {
+		visible = { is_debug = yes }
+		available = { country_exists = MZB }
+		fire_only_once = yes
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_debug_form_grossafrika"
+			MZB = { country_event = { id = SAFWAR.23 } }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	SFA_debug_breakdown = {
+		# stage 3, as an AI-run Grossafrika collapses. The stage is MZB's devastation score
+		# (MZB_has_stage_<n>_devastation): under 100 stage 1, 100-249 stage 2, 250 and up stage 3.
+		# Starts master's own chain at .803 (capital to Leopoldville), as losing Mozambik does: .805 removes Huttig for
+		# Forschner (.806) or von Hassel's cabal (.808), and the Oberkommando collapses about 45 days later
+		# (.8071 / .809). Firing .8071 directly skipped that and left Huttig in power with no name (user's test).
+		visible = { is_debug = yes }
+		available = {
+			country_exists = MZB
+			NOT = { has_global_flag = SFA_debug_broken }
+		}
+		fire_only_once = yes
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_debug_breakdown"
+			set_global_flag = SFA_debug_broken
+			MZB = {
+				set_variable = { MZB_REICHSTAAT_devastation_score = 300 }
+				country_event = { id = MZB_REICHSTAAT.803 }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	SFA_debug_breakdown_stage_2 = {
+		visible = { is_debug = yes }
+		available = {
+			country_exists = MZB
+			NOT = { has_global_flag = SFA_debug_broken }
+		}
+		fire_only_once = yes
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_debug_breakdown_stage_2"
+			set_global_flag = SFA_debug_broken
+			MZB = {
+				set_variable = { MZB_REICHSTAAT_devastation_score = 150 }
+				country_event = { id = MZB_REICHSTAAT.803 }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	SFA_debug_breakdown_stage_1 = {
+		visible = { is_debug = yes }
+		available = {
+			country_exists = MZB
+			NOT = { has_global_flag = SFA_debug_broken }
+		}
+		fire_only_once = yes
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_debug_breakdown_stage_1"
+			set_global_flag = SFA_debug_broken
+			MZB = {
+				set_variable = { MZB_REICHSTAAT_devastation_score = 0 }
+				country_event = { id = MZB_REICHSTAAT.803 }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	SFA_debug_start_now = {
+		visible = { is_debug = yes }
+		available = { NOT = { has_global_flag = SFA_active } }
+		fire_only_once = yes
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_debug_start_now"
+			USA = { country_event = { id = SFA.1 } }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	SFA_debug_pulse_now = {
+		visible = { is_debug = yes }
+		available = { has_global_flag = SFA_active }
+		days_re_enable = 0
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_debug_pulse_now"
+			SFA_pulse = yes
+			if = {
+				# a save from before the pulse existed: start the monthly chain
+				limit = { NOT = { has_global_flag = SFA_pulse_running } }
+				set_global_flag = SFA_pulse_running
+				USA = { country_event = { id = SFA.10 days = 30 } }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	SFA_debug_target_list = {
+		# phase 6 step 1 test: the Value view's target list, for the player, without the GUI
+		visible = { is_debug = yes }
+		available = { has_global_flag = SFA_active }
+		days_re_enable = 0
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_debug_target_list"
+			SFA_board_recompute = yes
+			SFA_build_target_list = yes
+			log = "[GetDateText]: New Scramble for Africa: [Root.GetName] can order [?SFA_target_list^num] states"
+			for_each_scope_loop = {
+				array = SFA_target_list
+				log = "[GetDateText]: New Scramble for Africa: target [This.GetName], value [?SFA_value]"
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	SFA_debug_cycle_outcome = {
+		visible = { is_debug = yes }
+		available = { NOT = { has_global_flag = SFA_active } }
+		days_re_enable = 0
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_debug_cycle_outcome"
+			add_to_variable = { global.SAW_outcome = 1 }
+			if = {
+				limit = { check_variable = { global.SAW_outcome > 5 } }
+				set_variable = { global.SAW_outcome = 1 }
+			}
+			SAW_record_outcome = yes
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	SFA_debug_improve_supply = {
+		# plan 4.9 test: improve supply in up to three states of the player's side, without the board's button
+		visible = { is_debug = yes }
+		available = {
+			has_global_flag = SFA_active
+			has_country_flag = SFA_patron
+		}
+		days_re_enable = 0
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_debug_improve_supply"
+			SFA_get_own_patron_code = yes
+			for_loop_effect = {
+				start = 0
+				end = 3
+				value = sfa_i
+				random_scope_in_array = {
+					array = global.SFA_states
+					limit = {
+						check_variable = { SFA_supply_level < 1 }
+						OWNER = { SFA_has_patron_code = yes }
+					}
+					save_event_target_as = SFA_supply_target
+					ROOT = { SFA_improve_supply = yes }
+				}
+			}
+			SFA_gui_refresh = yes
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	SFA_debug_sabotage_supply = {
+		# plan 4.9 test: Burgundy's sabotage, in three random scramble states, without its panel (costs nothing)
+		visible = { is_debug = yes }
+		available = { has_global_flag = SFA_active }
+		days_re_enable = 0
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_debug_sabotage_supply"
+			for_loop_effect = {
+				start = 0
+				end = 3
+				value = sfa_i
+				random_scope_in_array = {
+					array = global.SFA_states
+					limit = { SFA_can_sabotage_supply = yes }
+					SFA_supply_lower = yes
+					log = "[GetDateText]: New Scramble for Africa: sabotage test in [This.GetName], supply level [?SFA_supply_level]"
+				}
+			}
+			SFA_gui_refresh = yes
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	SFA_debug_land_strength = {
+		# plan 4.10 test: recompute land strength now and log the player's
+		visible = { is_debug = yes }
+		available = { has_global_flag = SFA_active }
+		days_re_enable = 0
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_debug_land_strength"
+			SFA_update_land_strength = yes
+			log = "[GetDateText]: New Scramble for Africa: [Root.GetName] land value [?SFA_land_value], strength [?SFA_land_strength]"
+			SFA_gui_refresh = yes
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	SFA_debug_supply_drop = {
+		# plan 4.11 test: a strategic supply drop on a state of the player's side, without the board's button
+		visible = { is_debug = yes }
+		available = {
+			has_global_flag = SFA_active
+			has_country_flag = SFA_patron
+		}
+		days_re_enable = 0
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_debug_supply_drop"
+			SFA_get_own_patron_code = yes
+			random_scope_in_array = {
+				array = global.SFA_states
+				limit = {
+					OWNER = { SFA_has_patron_code = yes }
+				}
+				save_event_target_as = SFA_drop_target
+			}
+			if = {
+				limit = { SFA_can_supply_drop = yes }
+				SFA_supply_drop = yes
+			}
+			else = {
+				log = "[GetDateText]: New Scramble for Africa: supply drop test: no state of ours, or not 2000 small arms and 1000 anti-tank weapons in stock"
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	SFA_debug_burgundy_actions = {
+		# plan 4.8 test: each of Burgundy's covert actions once, on a random target it may hit, free. Taking it again
+		# shows the locks: no debuff hits the same nation again until its modifier has run out.
+		visible = { is_debug = yes }
+		available = { has_global_flag = SFA_active }
+		days_re_enable = 0
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_debug_burgundy_actions"
+			set_temp_variable = { sfa_free = 1 }
+			random_scope_in_array = {
+				array = global.SFA_states
+				limit = { SFA_can_wreck_mines = yes }
+				SFA_brg_wreck_mines = yes
+			}
+			random_scope_in_array = {
+				array = global.SFA_states
+				limit = { SFA_can_sabotage_construction = yes }
+				SFA_brg_sabotage_construction = yes
+			}
+			random_scope_in_array = {
+				array = global.SFA_states
+				limit = { SFA_can_deploy_pathogens = yes }
+				SFA_brg_deploy_pathogens = yes
+			}
+			random_scope_in_array = {
+				array = global.SFA_nations
+				limit = {
+					exists = yes
+					SFA_can_terrorize_population = yes
+				}
+				SFA_brg_terrorize_population = yes
+			}
+			random_scope_in_array = {
+				array = global.SFA_nations
+				limit = {
+					exists = yes
+					SFA_can_bribe_officers = yes
+				}
+				SFA_brg_bribe_officers = yes
+			}
+			random_scope_in_array = {
+				array = global.SFA_nations
+				limit = {
+					exists = yes
+					SFA_can_increase_ss_presence = yes
+				}
+				SFA_brg_increase_ss_presence = yes
+			}
+			SFA_gui_refresh = yes
+		}
+		ai_will_do = { factor = 0 }
+	}
+}

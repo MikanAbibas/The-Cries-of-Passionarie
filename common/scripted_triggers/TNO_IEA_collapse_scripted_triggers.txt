@@ -1,0 +1,22 @@
+# East Africa's 1968 collapse (Mediterranean rework). See TNO_IEA_collapse_scripted_effects.txt.
+
+# The nations that break away from Italian East Africa (IEA.112 - IEA.116).
+IEA_is_free_nation = {
+	OR = {
+		tag = KEN
+		tag = SML
+		tag = ORM
+		tag = ETB
+		tag = ERT
+	}
+}
+
+# The Military Authority's reconquest war is running and a free nation is still fighting it.
+IEA_reconquest_ongoing = {
+	has_global_flag = IEA_reconquest_war
+	NOT = { has_global_flag = IEA_reconquest_over }
+	any_country = {
+		IEA_is_free_nation = yes
+		has_war_with = IEA
+	}
+}

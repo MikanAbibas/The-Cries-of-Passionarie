@@ -1,0 +1,808 @@
+scripted_gui = {
+
+	TNO_ITA_RED_open_culrev_container = {
+		context_type = player_context
+		parent_window_token = politics_tab
+		window_name = "TNO_ITA_RED_open_culrev_container"
+
+		visible = {
+			tag = ITA
+			has_country_flag = ITA_RED_culrev_available
+		}
+
+		triggers = {
+			# The gui_alert icon is commented out of the .gui, so this controls
+			# nothing. Kept for when the arrow comes back.
+			gui_alert_visible = { always = no }
+			#gui_alert_visible = {
+			#NOT = { has_country_flag = ITA_RED_culrev_alert_hidden }
+			#NOT = { has_country_flag = ITA_RED_culrev_open }
+			#}
+			ITA_RED_coup_alert_visible = {
+				OR = {
+					OR = {
+						check_variable = {ITA_RED_reaction_show = 80}
+						check_variable = {ITA_RED_reaction_show > 80}
+					}
+					OR = {
+						check_variable = {ITA_RED_reaction_show = 80}
+						check_variable = {ITA_RED_reaction_show > 80}
+					}
+				}
+			}
+		}
+
+		effects = {
+			open_culrev_button_click = {
+				if = {
+					limit = { NOT = { has_country_flag = ITA_RED_culrev_open } }
+					set_country_flag = ITA_RED_culrev_open
+				}
+				else = {
+					clr_country_flag = ITA_RED_culrev_open
+				}
+				set_country_flag = ITA_RED_culrev_alert_hidden
+			}
+		}
+	}
+
+	TNO_ITA_RED_culrev_main_container = {
+		context_type = player_context
+		window_name = "TNO_ITA_RED_culrev_main_container"
+
+		visible = {
+			has_country_flag = ITA_RED_culrev_open
+		}
+
+		triggers = {
+			ITA_RED_red_perk_add_close_visible = {
+				has_country_flag = ITA_RED_selecting_policies
+			}
+
+			militant_approval_pillar_base_visible = {
+				NOT = { has_country_flag = ITA_RED_no_more_militants }
+			}
+			militant_approval_pillar_pillar_visible = {
+				NOT = { has_country_flag = ITA_RED_no_more_militants }
+			}
+			militant_approval_pillar_bar_visible = {
+				NOT = { has_country_flag = ITA_RED_no_more_militants }
+			}
+			militant_approval_text_visible = {
+				NOT = { has_country_flag = ITA_RED_no_more_militants }
+			}
+
+			reaction_pillar_base_visible = {
+				NOT = { has_country_flag = ITA_RED_no_more_reactionaries }
+			}
+			reaction_pillar_pillar_visible = {
+				NOT = { has_country_flag = ITA_RED_no_more_reactionaries }
+			}
+			reaction_pillar_bar_visible = {
+				NOT = { has_country_flag = ITA_RED_no_more_reactionaries }
+			}
+			reaction_text_visible = {
+				NOT = { has_country_flag = ITA_RED_no_more_reactionaries }
+			}
+
+			farmers_pillar_prog_visible = {
+				check_variable = {ITA_RED_farmers_progress > 0}
+			}
+			farmers_pillar_red_visible = {
+				check_variable = {ITA_RED_farmers_progress = 0}
+			}
+			farmers_pillar_base_update_visible = {
+				check_variable = {ITA_RED_farmers_progress = 0}
+			}
+
+			workers_pillar_prog_visible = {
+				check_variable = {ITA_RED_workers_progress > 0}
+			}
+			workers_pillar_red_visible = {
+				check_variable = {ITA_RED_workers_progress = 0}
+			}
+			workers_pillar_base_update_visible = {
+				check_variable = {ITA_RED_workers_progress = 0}
+			}
+
+			middle_class_pillar_prog_visible = {
+				check_variable = {ITA_RED_middle_class_progress > 0}
+			}
+			middle_class_pillar_red_visible = {
+				check_variable = {ITA_RED_middle_class_progress = 0}
+			}
+			middle_class_pillar_base_update_visible = {
+				check_variable = {ITA_RED_middle_class_progress = 0}
+			}
+
+			soldiers_pillar_prog_visible = {
+				check_variable = {ITA_RED_soldiers_police_progress > 0}
+			}
+			soldiers_pillar_red_visible = {
+				check_variable = {ITA_RED_soldiers_police_progress = 0}
+			}
+			soldiers_police_pillar_base_update_visible = {
+				check_variable = {ITA_RED_soldiers_police_progress = 0}
+			}
+
+			clergy_pillar_prog_visible = {
+				check_variable = {ITA_RED_clergy_progress > 0}
+			}
+			clergy_pillar_red_visible = {
+				check_variable = {ITA_RED_clergy_progress = 0}
+			}
+			clergy_pillar_base_update_visible = {
+				check_variable = {ITA_RED_clergy_progress = 0}
+			}
+
+			academia_pillar_prog_visible = {
+				check_variable = {ITA_RED_academia_progress > 0}
+			}
+			academia_pillar_red_visible = {
+				check_variable = {ITA_RED_academia_progress = 0}
+			}
+			academia_pillar_base_update_visible = {
+				check_variable = {ITA_RED_academia_progress = 0}
+			}
+
+			marginalized_pillar_prog_visible = {
+				check_variable = {ITA_RED_marginalized_progress > 0}
+			}
+			marginalized_pillar_red_visible = {
+				check_variable = {ITA_RED_marginalized_progress = 0}
+			}
+			marginalized_pillar_base_update_visible = {
+				check_variable = {ITA_RED_marginalized_progress = 0}
+			}
+			ITA_cultrev_rev_decrees_visible = {
+				NOT = { has_country_flag = ITA_RED_retired_decrees_open }
+			}
+			ITA_cultrev_retired_decrees_visible = {
+				has_country_flag = ITA_RED_retired_decrees_open
+			}
+			ITA_cultrev_first_decrees_box_visible = {
+				has_country_flag = ITA_RED_red_perk_available
+			}
+			ITA_cultrev_second_decrees_box_visible = {
+				has_country_flag = ITA_RED_red_perk_available
+			}
+			ITA_cultrev_third_decrees_box_visible = {
+				has_country_flag = ITA_RED_red_perk_available
+			}
+			ITA_cultrev_fourth_decrees_box_visible = {
+				has_country_flag = ITA_RED_red_perk_available
+			}
+			ITA_cultrev_first_decrees_box_empty_visible = {
+				check_variable = {ITA_RED_selected_policy_1 > 0}
+				NOT = { has_country_flag = ITA_RED_retired_decrees_open }
+			}
+			ITA_cultrev_second_decrees_box_empty_visible = {
+				check_variable = {ITA_RED_selected_policy_2 > 0}
+				NOT = { has_country_flag = ITA_RED_retired_decrees_open }
+			}
+			ITA_cultrev_third_decrees_box_empty_visible = {
+				check_variable = {ITA_RED_selected_policy_3 > 0}
+				NOT = { has_country_flag = ITA_RED_retired_decrees_open }
+			}
+			ITA_cultrev_fourth_decrees_box_empty_visible = {
+				check_variable = {ITA_RED_selected_policy_4 > 0}
+				NOT = { has_country_flag = ITA_RED_retired_decrees_open }
+			}
+			ITA_cultrev_fifth_decrees_box_empty_visible = {
+				check_variable = {ITA_RED_selected_policy_5 > 0}
+				NOT = { has_country_flag = ITA_RED_retired_decrees_open }
+			}
+			ITA_cultrev_sixth_decrees_box_empty_visible = {
+				check_variable = {ITA_RED_selected_policy_6 > 0}
+				NOT = { has_country_flag = ITA_RED_retired_decrees_open }
+			}
+			ITA_cultrev_rev_first_decree_name_box_visible = {
+				check_variable = {ITA_RED_selected_policy_1 > 0}
+				NOT = { has_country_flag = ITA_RED_retired_decrees_open }
+			}
+			ITA_cultrev_rev_second_decree_name_box_visible = {
+				check_variable = {ITA_RED_selected_policy_2 > 0}
+				NOT = { has_country_flag = ITA_RED_retired_decrees_open }
+			}
+			ITA_cultrev_rev_third_decree_name_box_visible = {
+				check_variable = {ITA_RED_selected_policy_3 > 0}
+				NOT = { has_country_flag = ITA_RED_retired_decrees_open }
+			}
+			ITA_cultrev_rev_fourth_decree_name_box_visible = {
+				check_variable = {ITA_RED_selected_policy_4 > 0}
+				NOT = { has_country_flag = ITA_RED_retired_decrees_open }
+			}
+			ITA_cultrev_rev_fifth_decree_name_box_visible = {
+				check_variable = {ITA_RED_selected_policy_5 > 0}
+				NOT = { has_country_flag = ITA_RED_retired_decrees_open }
+			}
+			ITA_cultrev_rev_sixth_decree_name_box_visible = {
+				check_variable = {ITA_RED_selected_policy_6 > 0}
+				NOT = { has_country_flag = ITA_RED_retired_decrees_open }
+			}
+			militant_approval_coup_alert_visible = {
+				OR = {
+					check_variable = {ITA_RED_militant_approval_show = 20}
+					check_variable = {ITA_RED_militant_approval_show < 20}
+				}
+				NOT = { has_country_flag = ITA_RED_no_more_militants }
+			}
+			reacion_approval_coup_alert_visible = {
+				OR = {
+					check_variable = {ITA_RED_reaction_show = 80}
+					check_variable = {ITA_RED_reaction_show > 80}
+				}
+				NOT = { has_country_flag = ITA_RED_no_more_reactionaries }
+			}
+			militant_approval_increasing_visible = {
+				check_variable = {modifier@ITA_RED_weekly_militant_approval_modifier > 0}
+				NOT = { has_country_flag = ITA_RED_no_more_militants }
+			}
+			militant_approval_decreasing_visible = {
+				check_variable = {modifier@ITA_RED_weekly_militant_approval_modifier < 0}
+				NOT = { has_country_flag = ITA_RED_no_more_militants }
+			}
+			reaction_increasing_visible = {
+				check_variable = {modifier@ITA_RED_weekly_reaction_modifier > 0}
+				NOT = { has_country_flag = ITA_RED_no_more_reactionaries }
+			}
+			reaction_decreasing_visible = {
+				check_variable = {modifier@ITA_RED_weekly_reaction_modifier < 0}
+				NOT = { has_country_flag = ITA_RED_no_more_reactionaries }
+			}
+			severity_increasing_visible = {
+					check_variable = {modifier@ITA_RED_weekly_severity_modifier > 0}
+			}
+			severity_decreasing_visible = {
+					check_variable = {modifier@ITA_RED_weekly_severity_modifier < 0}
+			}
+			red_terror_increasing_visible = {
+					check_variable = {modifier@ITA_RED_weekly_red_terror_modifier > 0}
+			}
+			red_terror_decreasing_visible = {
+					check_variable = {modifier@ITA_RED_weekly_red_terror_modifier < 0}
+			}
+			farmers_alert_visible = {
+				has_country_flag = ITA_RED_culrev_pick_perk_farmers
+			}
+			workers_alert_visible = {
+				has_country_flag = ITA_RED_culrev_pick_perk_workers
+			}
+			middle_class_alert_visible = {
+				has_country_flag = ITA_RED_culrev_pick_perk_middle_class
+			}
+			soldiers_alert_visible = {
+				has_country_flag = ITA_RED_culrev_pick_perk_soldiers
+			}
+			clergy_alert_visible = {
+				has_country_flag = ITA_RED_culrev_pick_perk_clergy
+			}
+			academia_alert_visible = {
+				has_country_flag = ITA_RED_culrev_pick_perk_academia
+			}
+			marginalized_alert_visible = {
+				has_country_flag = ITA_RED_culrev_pick_perk_marginalized
+			}
+			farmers_increasing_visible = {
+					check_variable = {ITA_RED_farmers_velocity > 0}
+			}
+			workers_increasing_visible = {
+					check_variable = {ITA_RED_workers_velocity > 0}
+			}
+			middle_class_increasing_visible = {
+					check_variable = {ITA_RED_middle_class_velocity > 0}
+			}
+			soldiers_increasing_visible = {
+					check_variable = {ITA_RED_soldiers_police_velocity > 0}
+			}
+			clergy_increasing_visible = {
+					check_variable = {ITA_RED_clergy_velocity > 0}
+			}
+			academia_increasing_visible = {
+					check_variable = {ITA_RED_academia_velocity > 0}
+			}
+			marginalized_increasing_visible = {
+					check_variable = {ITA_RED_marginalized_velocity > 0}
+			}
+			ITA_RED_cultrev_perk_cap_bottom_visible = {
+				NOT = { has_country_flag = ITA_RED_selecting_policies }
+			}
+			ITA_cultrev_first_decrees_box_click_enabled = {
+				check_variable = {ITA_RED_allowed_policies > 0}
+			}
+			ITA_cultrev_second_decrees_box_click_enabled = {
+				check_variable = {ITA_RED_allowed_policies > 1}
+			}
+			ITA_cultrev_third_decrees_box_click_enabled = {
+				check_variable = {ITA_RED_allowed_policies > 2}
+			}
+			ITA_cultrev_fourth_decrees_box_click_enabled = {
+				check_variable = {ITA_RED_allowed_policies > 3}
+			}
+			ITA_cultrev_fifth_decrees_box_click_enabled = {
+				check_variable = {ITA_RED_allowed_policies > 4}
+			}
+			ITA_cultrev_sixth_decrees_box_click_enabled = {
+				check_variable = {ITA_RED_allowed_policies > 5}
+			}
+			pillars_info_action_1_button_click_enabled = {
+				if = {
+					limit = { check_variable = {ITA_RED_cultrev_selected_pillar = 0}}
+					check_variable = {ITA_RED_farmers_progress_red = 100}
+				}
+				else_if = {
+					limit = { check_variable = {ITA_RED_cultrev_selected_pillar = 1}}
+					check_variable = {ITA_RED_workers_progress_red = 100}
+				}
+				else_if = {
+					limit = { check_variable = {ITA_RED_cultrev_selected_pillar = 2}}
+					check_variable = {ITA_RED_middle_class_progress_red = 100}
+				}
+				else_if = {
+					limit = { check_variable = {ITA_RED_cultrev_selected_pillar = 3}}
+					check_variable = {ITA_RED_soldiers_police_progress_red = 100}
+				}
+				else_if = {
+					limit = { check_variable = {ITA_RED_cultrev_selected_pillar = 4}}
+					check_variable = {ITA_RED_clergy_progress_red = 100}
+				}
+				else_if = {
+					limit = { check_variable = {ITA_RED_cultrev_selected_pillar = 5}}
+					check_variable = {ITA_RED_academia_progress_red = 100}
+				}
+				else = {
+					check_variable = {ITA_RED_marginalized_progress_red = 100}
+				}
+			}
+			pillars_info_action_2_button_click_enabled = {
+				if = {
+					limit = { check_variable = {ITA_RED_cultrev_selected_pillar = 0}}
+					check_variable = {ITA_RED_farmers_progress_red = 100}
+				}
+				else_if = {
+					limit = { check_variable = {ITA_RED_cultrev_selected_pillar = 1}}
+					check_variable = {ITA_RED_workers_progress_red = 100}
+				}
+				else_if = {
+					limit = { check_variable = {ITA_RED_cultrev_selected_pillar = 2}}
+					check_variable = {ITA_RED_middle_class_progress_red = 100}
+				}
+				else_if = {
+					limit = { check_variable = {ITA_RED_cultrev_selected_pillar = 3}}
+					check_variable = {ITA_RED_soldiers_police_progress_red = 100}
+				}
+				else_if = {
+					limit = { check_variable = {ITA_RED_cultrev_selected_pillar = 4}}
+					check_variable = {ITA_RED_clergy_progress_red = 100}
+				}
+				else_if = {
+					limit = { check_variable = {ITA_RED_cultrev_selected_pillar = 5}}
+					check_variable = {ITA_RED_academia_progress_red = 100}
+				}
+				else = {
+					check_variable = {ITA_RED_marginalized_progress_red = 100}
+				}
+			}
+		}
+
+		effects = {
+			ITA_RED_culrev_close_click = {
+				clr_country_flag = ITA_RED_culrev_open
+				clr_country_flag = ITA_RED_selecting_policies
+			}
+			ITA_RED_red_perk_add_close_click = {
+				clr_country_flag = ITA_RED_selecting_policies
+			}
+			farmers_pillar_frame_click = {
+				set_variable = {ITA_RED_cultrev_selected_pillar = 0}
+				set_variable = {ITA_RED_action = ITA_RED_farmers_action}
+				clr_country_flag = ITA_RED_selecting_policies
+				if = {
+					limit = { check_variable = { ITA_RED_farmers_progress > 0 } }
+					ITA_RED_setup_blue_perks = yes
+				}
+				else = {
+					ITA_RED_setup_red_perks = yes
+				}
+			}
+			workers_pillar_frame_click = {
+				set_variable = {ITA_RED_cultrev_selected_pillar = 1}
+				set_variable = {ITA_RED_action = ITA_RED_workers_action}
+				clr_country_flag = ITA_RED_selecting_policies
+				if = {
+					limit = { check_variable = { ITA_RED_workers_progress > 0 } }
+					ITA_RED_setup_blue_perks = yes
+				}
+				else = {
+					ITA_RED_setup_red_perks = yes
+				}
+			}
+			middle_class_pillar_frame_click = {
+				set_variable = {ITA_RED_cultrev_selected_pillar = 2}
+				set_variable = {ITA_RED_action = ITA_RED_middle_class_action}
+				if = {
+					limit = { check_variable = { ITA_RED_middle_class_progress > 0 } }
+					ITA_RED_setup_blue_perks = yes
+				}
+				else = {
+					ITA_RED_setup_red_perks = yes
+				}
+			}
+			soldiers_police_pillar_frame_click = {
+				set_variable = {ITA_RED_cultrev_selected_pillar = 3}
+				set_variable = {ITA_RED_action = ITA_RED_soldiers_police_action}
+				clr_country_flag = ITA_RED_selecting_policies
+				if = {
+					limit = { check_variable = { ITA_RED_soldiers_police_progress > 0 } }
+					ITA_RED_setup_blue_perks = yes
+				}
+				else = {
+					ITA_RED_setup_red_perks = yes
+				}
+			}
+			clergy_pillar_frame_click = {
+				set_variable = {ITA_RED_cultrev_selected_pillar = 4}
+				set_variable = {ITA_RED_action = ITA_RED_clergy_action}
+				clr_country_flag = ITA_RED_selecting_policies
+				if = {
+					limit = { check_variable = { ITA_RED_clergy_progress > 0 } }
+					ITA_RED_setup_blue_perks = yes
+				}
+				else = {
+					ITA_RED_setup_red_perks = yes
+				}
+			}
+			academia_pillar_frame_click = {
+				set_variable = {ITA_RED_cultrev_selected_pillar = 5}
+				set_variable = {ITA_RED_action = ITA_RED_academia_action}
+				clr_country_flag = ITA_RED_selecting_policies
+				if = {
+					limit = { check_variable = { ITA_RED_academia_progress > 0 } }
+					ITA_RED_setup_blue_perks = yes
+				}
+				else = {
+					ITA_RED_setup_red_perks = yes
+				}
+			}
+			marginalized_pillar_frame_click = {
+				set_variable = {ITA_RED_cultrev_selected_pillar = 6}
+				set_variable = {ITA_RED_action = ITA_RED_marginalized_action}
+				clr_country_flag = ITA_RED_selecting_policies
+				if = {
+					limit = { check_variable = { ITA_RED_marginalized_progress > 0 } }
+					ITA_RED_setup_blue_perks = yes
+				}
+				else = {
+					ITA_RED_setup_red_perks = yes
+				}
+			}
+		}
+
+		properties = {
+			ITA_cultrev_flavour_text_box_pic = {
+				image = "[ITA_RED_cultrev_events_picture]"
+			}
+
+			ITA_RED_cultrev_perk_cap_bottom = {
+				image = "[ITA_RED_cultrev_pillar_base_type]"
+			}
+
+			ITA_cultrev_rev_fervour_bar = {frame = ITA_RED_revolutionary_fervor}
+
+			militant_approval_pillar_bar = {frame = ITA_RED_militant_approval_show}
+			reaction_pillar_bar = {frame = ITA_RED_reaction_show}
+			severity_pillar_bar = {frame = ITA_RED_severity_show}
+			red_terror_pillar_bar = {frame = ITA_RED_red_terror_show}
+
+			farmers_pillar_frame = { frame = ITA_RED_farmers_stage }
+			farmers_pillar_prog = { frame = ITA_RED_farmers_progress }
+			farmers_pillar_red = { frame = ITA_RED_farmers_progress_red }
+			farmers_pillar_fashvines = { frame = ITA_RED_Fascist_Vines_Farmers }
+
+			workers_pillar_frame = { frame = ITA_RED_workers_stage }
+			workers_pillar_prog = { frame = ITA_RED_workers_progress }
+			workers_pillar_red = { frame = ITA_RED_workers_progress_red }
+			workers_pillar_fashvines = { frame = ITA_RED_Fascist_Vines_Workers }
+
+			middle_class_pillar_frame = { frame = ITA_RED_middle_class_stage }
+			middle_class_pillar_prog = { frame = ITA_RED_middle_class_progress }
+			middle_class_pillar_red = { frame = ITA_RED_middle_class_progress_red }
+			middle_class_pillar_fashvines = { frame = ITA_RED_Fascist_Vines_Middle_Classes }
+
+			soldiers_police_pillar_frame = { frame = ITA_RED_soldiers_police_stage }
+			soldiers_pillar_prog = { frame = ITA_RED_soldiers_police_progress }
+			soldiers_pillar_red = { frame = ITA_RED_soldiers_police_progress_red }
+			soldiers_pillar_fashvines = { frame = ITA_RED_Fascist_Vines_Soldiers }
+
+			clergy_pillar_frame = { frame = ITA_RED_clergy_stage }
+			clergy_pillar_prog = { frame = ITA_RED_clergy_progress }
+			clergy_pillar_red = { frame = ITA_RED_clergy_progress_red }
+			clergy_pillar_fashvines = { frame = ITA_RED_Fascist_Vines_Clergy }
+
+			academia_pillar_frame = { frame = ITA_RED_academia_stage }
+			academia_pillar_prog = { frame = ITA_RED_academia_progress }
+			academia_pillar_red = { frame = ITA_RED_academia_progress_red }
+			academia_pillar_fashvines = { frame = ITA_RED_Fascist_Vines_Academia }
+
+			marginalized_pillar_frame = { frame = ITA_RED_marginalized_stage }
+			marginalized_pillar_prog = { frame = ITA_RED_marginalized_progress }
+			marginalized_pillar_red = { frame = ITA_RED_marginalized_progress_red }
+			marginalized_pillar_fashvines = { frame = ITA_RED_Fascist_Vines_marginalized }
+		}
+	}
+	ITA_RED_blue_perks_container = {
+		context_type = player_context
+		window_name = "ITA_RED_blue_perks_container"
+		parent_window_name = "TNO_ITA_RED_culrev_main_container"
+
+		visible = {
+			has_country_flag = ITA_RED_culrev_open
+			OR = {
+				AND = {
+					check_variable = { ITA_RED_cultrev_selected_pillar = 0 }
+					check_variable = { ITA_RED_farmers_progress > 0 }
+				}
+				AND = {
+					check_variable = { ITA_RED_cultrev_selected_pillar = 1 }
+					check_variable = { ITA_RED_workers_progress > 0 }
+				}
+				AND = {
+					check_variable = { ITA_RED_cultrev_selected_pillar = 2 }
+					check_variable = { ITA_RED_middle_class_progress > 0 }
+				}
+				AND = {
+					check_variable = { ITA_RED_cultrev_selected_pillar = 3 }
+					check_variable = { ITA_RED_soldiers_police_progress > 0 }
+				}
+				AND = {
+					check_variable = { ITA_RED_cultrev_selected_pillar = 4 }
+					check_variable = { ITA_RED_clergy_progress > 0 }
+				}
+				AND = {
+					check_variable = { ITA_RED_cultrev_selected_pillar = 5 }
+					check_variable = { ITA_RED_academia_progress > 0 }
+				}
+				AND = {
+					check_variable = { ITA_RED_cultrev_selected_pillar = 6 }
+					check_variable = { ITA_RED_marginalized_progress > 0 }
+				}
+			}
+		}
+
+		triggers = {
+			ITA_RED_blue_perk_button_click_enabled = {
+				if = {
+					limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 0 } }
+					has_country_flag = ITA_RED_culrev_pick_perk_farmers
+				}
+				else_if = {
+					limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 1 } }
+					has_country_flag = ITA_RED_culrev_pick_perk_workers
+				}
+				else_if = {
+					limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 2 } }
+					has_country_flag = ITA_RED_culrev_pick_perk_middle_class
+				}
+				else_if = {
+					limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 3 } }
+					has_country_flag = ITA_RED_culrev_pick_perk_soldiers
+				}
+				else_if = {
+					limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 4 } }
+					has_country_flag = ITA_RED_culrev_pick_perk_clergy
+				}
+				else_if = {
+					limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 5 } }
+					has_country_flag = ITA_RED_culrev_pick_perk_academia
+				}
+				else = {
+					has_country_flag = ITA_RED_culrev_pick_perk_marginalized
+				}
+			}
+		}
+
+		effects = {
+			ITA_RED_blue_perk_button_click = {
+				ITA_RED_blue_perk_click = yes
+				set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+				remove_TNO_alert_data = yes
+			}
+		}
+
+		dynamic_lists = {
+			ITA_RED_blue_perks_container_box = {
+				array = ITA_RED_blue_perks
+				index = i
+				change_scope = no
+
+				entry_container = ITA_RED_blue_perks_box
+			}
+		}
+
+		properties = {
+			ITA_RED_blue_perk_button = {
+				x = 0
+				y = ITA_RED_blue_perks_y
+			}
+			ITA_RED_blue_perks_name = {
+				y = ITA_RED_blue_perks_y_names
+			}
+		}
+	}
+
+	ITA_RED_red_perks_container = {
+		context_type = player_context
+		window_name = "ITA_RED_red_perks_container"
+		parent_window_name = "TNO_ITA_RED_culrev_main_container"
+
+		visible = {
+			has_country_flag = ITA_RED_culrev_open
+			NOT = {
+				OR = {
+					AND = {
+						check_variable = { ITA_RED_cultrev_selected_pillar = 0 }
+						check_variable = { ITA_RED_farmers_progress > 0 }
+					}
+					AND = {
+						check_variable = { ITA_RED_cultrev_selected_pillar = 1 }
+						check_variable = { ITA_RED_workers_progress > 0 }
+					}
+					AND = {
+						check_variable = { ITA_RED_cultrev_selected_pillar = 2 }
+						check_variable = { ITA_RED_middle_class_progress > 0 }
+					}
+					AND = {
+						check_variable = { ITA_RED_cultrev_selected_pillar = 3 }
+						check_variable = { ITA_RED_soldiers_police_progress > 0 }
+					}
+					AND = {
+						check_variable = { ITA_RED_cultrev_selected_pillar = 4 }
+						check_variable = { ITA_RED_clergy_progress > 0 }
+					}
+					AND = {
+						check_variable = { ITA_RED_cultrev_selected_pillar = 5 }
+						check_variable = { ITA_RED_academia_progress > 0 }
+					}
+					AND = {
+						check_variable = { ITA_RED_cultrev_selected_pillar = 6 }
+						check_variable = { ITA_RED_marginalized_progress > 0 }
+					}
+				}
+			}
+			NOT = { has_country_flag = ITA_RED_selecting_policies }
+		}
+
+		triggers = {
+			ITA_RED_red_perks_name_visible = {
+				NOT = { check_variable = { ITA_RED_red_perks^i = 0 } }
+			}
+		}
+
+		effects = {
+			ITA_RED_red_perk_button_click = {
+				if = {
+					limit = { check_variable = { ITA_RED_red_perks^i = 0 } }
+					set_country_flag = ITA_RED_selecting_policies
+					ITA_RED_setup_red_perks_add = yes
+				}
+			}
+		}
+
+		dynamic_lists = {
+			ITA_RED_red_perks_container_box = {
+				array = ITA_RED_red_perks
+				index = i
+				change_scope = no
+
+				entry_container = ITA_RED_red_perks_box
+			}
+		}
+
+		properties = {
+			ITA_RED_red_perk_button = {
+				x = 0
+				y = ITA_RED_red_perks_y
+				image = [ITA_RED_cultrev_red_perk_add_or_perk]
+			}
+			ITA_RED_red_perks_name = {
+				y = ITA_RED_red_perks_y_names
+			}
+		}
+	}
+
+	ITA_RED_red_perks_add_container = {
+		context_type = player_context
+		window_name = "ITA_RED_red_perks_add_container"
+		parent_window_name = "TNO_ITA_RED_culrev_main_container"
+
+		visible = {
+			has_country_flag = ITA_RED_culrev_open
+			NOT = {
+				OR = {
+					AND = {
+						check_variable = { ITA_RED_cultrev_selected_pillar = 0 }
+						check_variable = { ITA_RED_farmers_progress > 0 }
+					}
+					AND = {
+						check_variable = { ITA_RED_cultrev_selected_pillar = 1 }
+						check_variable = { ITA_RED_workers_progress > 0 }
+					}
+					AND = {
+						check_variable = { ITA_RED_cultrev_selected_pillar = 2 }
+						check_variable = { ITA_RED_middle_class_progress > 0 }
+					}
+					AND = {
+						check_variable = { ITA_RED_cultrev_selected_pillar = 3 }
+						check_variable = { ITA_RED_soldiers_police_progress > 0 }
+					}
+					AND = {
+						check_variable = { ITA_RED_cultrev_selected_pillar = 4 }
+						check_variable = { ITA_RED_clergy_progress > 0 }
+					}
+					AND = {
+						check_variable = { ITA_RED_cultrev_selected_pillar = 5 }
+						check_variable = { ITA_RED_academia_progress > 0 }
+					}
+					AND = {
+						check_variable = { ITA_RED_cultrev_selected_pillar = 6 }
+						check_variable = { ITA_RED_marginalized_progress > 0 }
+					}
+				}
+			}
+			has_country_flag = ITA_RED_selecting_policies
+		}
+
+		triggers = {
+			ITA_RED_red_perk_button_add_click_enabled = {
+				if = {
+					limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 0 } }
+					has_country_flag = ITA_RED_culrev_pick_perk_farmers
+				}
+				else_if = {
+					limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 1 } }
+					has_country_flag = ITA_RED_culrev_pick_perk_workers
+				}
+				else_if = {
+					limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 2 } }
+					has_country_flag = ITA_RED_culrev_pick_perk_middle_class
+				}
+				else_if = {
+					limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 3 } }
+					has_country_flag = ITA_RED_culrev_pick_perk_soldiers
+				}
+				else_if = {
+					limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 4 } }
+					has_country_flag = ITA_RED_culrev_pick_perk_clergy
+				}
+				else_if = {
+					limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 5 } }
+					has_country_flag = ITA_RED_culrev_pick_perk_academia
+				}
+				else = {
+					has_country_flag = ITA_RED_culrev_pick_perk_marginalized
+				}
+			}
+		}
+
+		effects = {
+			ITA_RED_red_perk_button_add_click = {
+				ITA_RED_red_perk_click = yes
+				set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+				remove_TNO_alert_data = yes
+			}
+		}
+
+		dynamic_lists = {
+			ITA_RED_red_perks_add_container_box = {
+				array = ITA_RED_red_perks_add
+				index = i
+				change_scope = no
+
+				entry_container = ITA_RED_red_perks_box_add
+			}
+		}
+
+		properties = {
+		}
+	}
+}

@@ -1,0 +1,482 @@
+########################
+### Galicia War tree ###
+########################
+shared_focus = {
+	id = GAL_Galicia_Wakes_Up
+	text = GAL_Galicia_Wakes_Up
+	icon = GFX_RAJ_World_Peace
+	cost = 3.00
+	x = 5
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_Galicia_Wakes_Up" 
+		custom_effect_tooltip = GAL_Galicia_Wakes_Up_tt
+	}
+}
+
+shared_focus = {
+	id = GAL_War_Economy
+	text = GAL_War_Economy
+	icon = GFX_TNO_generic_gun_production
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_Galicia_Wakes_Up
+	}
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_War_Economy" 
+		# set_temp_variable = { income_tax_temp = 0.01 }
+		# econ_income_tax_rate_change = yes
+		# set_temp_variable = { business_tax_temp = 0.02 }
+		# econ_business_tax_rate_change = yes
+		# set_temp_variable = {IBR_wars_efficiency_gain_temp = 0.02}
+		# IBR_wars_change_efficiency_gain = yes
+		tno_economic_focus_improve = yes
+		country_event = {
+			id = GAL_wars.1
+			days = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = GAL_Reform_Baks
+	text = GAL_Reform_Baks
+	icon = GFX_USA_68_A_Modern_Banking_System
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_War_Economy
+	}
+	x = 0
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_Reform_Baks" 
+		# set_temp_variable = { inflation_temp = -0.1 }
+		# econ_inflation_change = yes
+		# set_temp_variable = { money_reserves_temp = 0.3}
+		# econ_money_reserves_change_raw_money = yes
+		multiply_variable = {
+			GDP = 1.01
+		}
+		add_to_variable = {
+			GDP_growth = 0.001
+		}
+		custom_effect_tooltip = econ_increase_GDP_small
+	}
+}
+
+shared_focus = {
+	id = GAL_Not_Wasted_Product
+	text = GAL_Not_Wasted_Product
+	icon = GFX_BAS_Reward_the_Bandits
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_War_Economy
+	}
+	x = 2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_Not_Wasted_Product" 
+		# set_temp_variable = {hc_consumption_base_temp = -0.03}
+		# IBR_wars_change_hc_consumption_base_modifier = yes
+		# set_temp_variable = { hc_consumption_population_temp = -0.03}
+		# IBR_wars_change_hc_consumption_population_modifier = yes
+		tno_tax_rate_worsen = yes
+		random_owned_state = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		country_event = {
+			id = GAL_wars.5
+			days = 1
+		}
+
+	}
+}
+
+shared_focus = {
+	id = GAL_Not_Factory_Without_Worker
+	text = GAL_Not_Factory_Without_Worker
+	icon = GFX_USA_workers_for_business
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_Not_Wasted_Product
+	}
+	prerequisite = {
+		focus = GAL_Reform_Baks
+	}
+	x = 1
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_Not_Factory_Without_Worker" 
+		# set_temp_variable = {IBR_wars_max_effiency_temp = 0.02}
+		# IBR_wars_change_max_efficiency = yes
+		# set_temp_variable = {IBR_wars_efficiency_gain_temp = 0.02}
+		# IBR_wars_change_efficiency_gain = yes
+		tno_unemployment_worsen = yes
+		TNO_improve_industrial_expertise_high = yes
+	}
+}
+
+shared_focus = {
+	id = GAL_Bleed_Mines
+	text = GAL_Bleed_Mines
+	icon = GFX_WAL_coal_crisis
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_War_Economy
+	}
+	x = 4
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_Bleed_Mines" 
+		# set_temp_variable = { stockpile_temp = 5 } 
+		# stockpile_tungsten_change = yes
+		# set_temp_variable = { stockpile_temp = 20 } 
+		# stockpile_steel_change = yes
+		# set_temp_variable = {IBR_wars_max_effiency_temp = 0.02}
+		# IBR_wars_change_max_efficiency = yes
+		random_owned_state = {
+			add_resource = {
+				type = steel
+				amount = 14
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GAL_Not_Land_Without_Farmer
+	text = GAL_Not_Land_Without_Farmer
+	icon = GFX_farming
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_Not_Wasted_Product
+	}
+	prerequisite = {
+		focus = GAL_Bleed_Mines
+	}
+	x = 3
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_Not_Land_Without_Farmer" 
+		TNO_improve_agriculture_high = yes
+		# set_temp_variable = {hc_production_core_states_temp = 0.05}
+		# IBR_wars_change_hc_production_core_states_modifier = yes
+	}
+}
+
+shared_focus = {
+	id = GAL_create_SODIGA
+	text = GAL_create_SODIGA
+	icon = GFX_generic_change_law_labor
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_Not_Land_Without_Farmer
+	}
+	prerequisite = {
+		focus = GAL_Not_Factory_Without_Worker
+	}
+	x = 2
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_create_SODIGA" 
+		# set_temp_variable = { econ_centralization_temp = 3 }
+		# econ_centralization_change = yes
+		# set_temp_variable = {IBR_wars_units_GDP_ratio_temp = 0.3}
+		# IBR_wars_change_units_GDP_ratio = yes
+		# set_temp_variable = {IBR_wars_construction_speed_temp = 0.1}
+		# IBR_wars_change_construction_speed = yes
+		tno_economic_focus_improve = yes
+		random_owned_state = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = GAL_Maria_Pita_Spirit
+	text = GAL_Maria_Pita_Spirit
+	icon = GFX_Generic_Social_Liberal
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_Galicia_Wakes_Up
+	}
+	x = 8
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_Maria_Pita_Spirit" 
+		# set_temp_variable = {IBR_wars_legitimacy_temp = 4}
+		# IBR_wars_change_legitimacy = yes
+		# set_temp_variable = {IBR_wars_opposition_temp= -3}
+		# IBR_wars_change_political_opposition= yes
+		# set_temp_variable = {IBR_wars_army_attack_temp = 0.03}
+		# IBR_wars_change_army_attack = yes
+		# TNO_improve_gender_rights_policy_effectiveness_low = yes
+		tno_women_improve = yes
+		tno_political_parties_improve = yes
+	}
+}
+
+shared_focus = {
+	id = GAL_Patrol_Waters
+	text = GAL_Patrol_Waters
+	icon = GFX_USA_Patrol_the_Waters
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_Maria_Pita_Spirit
+	}
+	x = 6
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_Patrol_Waters" 
+		#naval_funding_maximal_increase_med = yes
+		navy_experience = 5 
+		every_owned_state = {
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				instant_build = yes
+				province = {
+					limit_to_naval_base = yes
+				}
+			}
+		}
+		country_event = {
+			id = GAL_wars.2
+			days = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = GAL_Encourage_Conscription
+	text = GAL_Encourage_Conscription
+	icon = GFX_RAJ_India_Increase_Conscription
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_Maria_Pita_Spirit
+	}
+	x = 8
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_Encourage_Conscription" 
+		# set_temp_variable = {IBR_wars_recuitable_population_temp = 0.02}
+		# IBR_wars_change_recuitable_population = yes
+		# TNO_improve_conscription_policy_effectiveness_low = yes
+		tno_conscription_worsen = yes
+		country_event = {
+			id = GAL_wars.3
+			days = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = GAL_Guerrilla_Tactics
+	text = GAL_Guerrilla_Tactics
+	icon = GFX_Generic_Army_Focus_Red
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_Patrol_Waters
+	}
+	prerequisite = {
+		focus = GAL_Encourage_Conscription
+	}
+	x = 7
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_Guerrilla_Tactics" 
+		# set_temp_variable = {IBR_wars_army_speed_temp = 0.05}
+		# IBR_wars_change_army_speed = yes
+		# set_temp_variable = {IBR_wars_army_organisation_temp = 0.03}
+		# IBR_wars_change_army_organisation = yes
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = land_doctrine
+		}
+		country_event = {
+			id = GAL_wars.4
+			days = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = GAL_Watch_Skies
+	text = GAL_Watch_Skies
+	icon = GFX_generic_air_defense
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_Maria_Pita_Spirit
+	}
+	x = 10
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_Watch_Skies"  
+		171 = {
+			set_building_level = {
+				type = radar_station
+				level = 1
+				instant_build = yes
+			}
+		} 
+		171 = {
+			add_building_construction = {
+				type = anti_air_building
+				level = 1
+				instant_build = yes
+			}
+		} 
+		982 = {
+			add_building_construction = {
+				type = anti_air_building
+				level = 1
+				instant_build = yes
+			}
+		}
+		air_experience = 10
+	}
+}
+
+shared_focus = {
+	id = GAL_Defensive_Positions
+	text = GAL_Defensive_Positions
+	icon = GFX_BAS_defensive_preparations
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_Encourage_Conscription
+	}
+	prerequisite = {
+		focus = GAL_Watch_Skies
+	}
+	x = 9
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_Defensive_Positions" 
+		# set_temp_variable = {IBR_wars_army_defense_temp = 0.07}
+		# IBR_wars_change_army_defense = yes 
+		every_owned_state = {
+			add_building_construction = {
+				type = bunker
+				level = 1
+				instant_build = yes
+				province = {
+					limit_to_victory_point = yes
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GAL_Gun_Or_Sword
+	text = GAL_Gun_Or_Sword
+	icon = GFX_Quantity_Recruitment
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_Defensive_Positions
+	}
+	prerequisite = {
+		focus = GAL_Guerrilla_Tactics
+	}
+	x = 8
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_Gun_Or_Sword" 
+		add_war_support = 0.05 
+		# set_temp_variable = {IBR_wars_recuitable_population_temp = 0.005}
+		# IBR_wars_change_recuitable_population = yes
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1500
+			producer = GAL
+		}
+	}
+}
+
+shared_focus = {
+	id = GAL_Intellectual_Support
+	text = GAL_Intellectual_Support
+	icon = GFX_generic_diplomacy_science
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_create_SODIGA
+	}
+	prerequisite = {
+		focus = GAL_Gun_Or_Sword
+	}
+	x = 4
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_Intellectual_Support" 
+		# set_temp_variable = {IBR_wars_political_gain_temp = 0.2}
+		# IBR_wars_change_political_power_gain = yes
+		# add_stability = 0.03 
+		# TNO_improve_press_rights_policy_effectiveness_med = yes
+		tno_education_improve = yes
+		TNO_improve_academic_base_high = yes
+		country_event = {
+			id = GAL_wars.6
+			days = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = GAL_galicia_Forever
+	text = GAL_galicia_Forever
+	icon = GFX_generic_revolutionary_movement
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_rekindle_flame
+	}
+	prerequisite = {
+		focus = GAL_Intellectual_Support
+	}
+	x = 5
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_galicia_Forever" 
+		add_war_support = 0.2
+		add_stability = 0.2
+		# set_temp_variable = {IBR_wars_legitimacy_temp = 3}
+		# IBR_wars_change_legitimacy = yes
+		# set_temp_variable = {IBR_wars_army_attack_temp = 0.04}
+		# IBR_wars_change_army_attack = yes
+	}
+}
+
+shared_focus = {
+	id = GAL_rekindle_flame
+	text = GAL_rekindle_flame
+	icon = GFX_BRT_A_New_Life
+	cost = 3.00
+	prerequisite = {
+		focus = GAL_create_SODIGA
+	}
+	prerequisite = {
+		focus = GAL_Gun_Or_Sword
+	}
+	x = 6
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GAL_rekindle_flame" 
+		# set_temp_variable = {IBR_wars_legitimacy_temp = 5}
+		# IBR_wars_change_legitimacy = yes 
+		# set_temp_variable = {IBR_wars_opposition_temp= -4}
+		# IBR_wars_change_political_opposition= yes
+		# TNO_improve_public_meetings_policy_effectiveness_med = yes
+		add_manpower = 20000
+		tno_training_improve = yes
+	}
+}

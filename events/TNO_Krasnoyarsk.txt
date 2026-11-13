@@ -1,0 +1,2849 @@
+﻿
+add_namespace = SAH
+add_namespace = SAH_flavor
+add_namespace = KRS_intro
+add_namespace = KRS_presmuta
+add_namespace = KRS_smuta
+add_namespace = KRS_pillars
+add_namespace = KRS_april_fools
+
+## Intro Event
+country_event = {
+	id = SAH.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.1"}
+	title = SAH.1.t
+	desc = SAH.1.d
+	picture = GFX_report_event_russia_white_army_poster
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = SAH.1.a
+		ai_chance = { base = 10 }
+	}
+}
+
+## The People's Apocalypse
+country_event = {
+	id = SAH.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.2"}
+	title = SAH.2.t
+	desc = SAH.2.d
+	picture = GFX_report_generic_prisoners2
+
+	is_triggered_only = yes
+
+	option = {
+		name = SAH.2.a
+		ai_chance = { base = 10 }
+		add_political_power = -10
+	}
+}
+
+## Temp Organ Unification Event One
+country_event = {
+	id = SAH.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.3"}
+	title = SAH.3.t
+	desc = SAH.3.d
+	picture = GFX_report_generic_prisoners2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Offer Unification
+		name = SAH.3.a
+		ai_chance = { base = 10 }
+		SVO = {
+			country_event = {
+				id = SAH.4
+				days = 2
+			}
+		}
+	}
+}
+
+## Temp Organ Unification Event Two
+country_event = {
+	id = SAH.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.4"}
+	title = SAH.4.t
+	desc = SAH.4.d
+	picture = GFX_report_generic_prisoners2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Say Yes
+		name = SAH.4.a
+		ai_chance = { base = 10 }
+		SAH = {
+			country_event = {
+				id = SAH.5
+				days = 2
+			}
+			change_tag_from = SVO
+		}
+	}
+	option = { #Say No
+		name = SAH.4.a
+		ai_chance = { base = 40 }
+		SAH = {
+			country_event = {
+				id = SAH.6
+				days = 2
+			}
+		}
+	}
+}
+
+## Temp Organ Unification Event Three
+country_event = {
+	id = SAH.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.5"}
+	title = SAH.5.t
+	desc = SAH.5.d
+	picture = GFX_report_generic_prisoners2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = SAH.5.a
+		ai_chance = { base = 10 }
+		annex_country = {
+			target = SVO
+			transfer_troops = yes
+		}
+		set_country_flag = SAH_unified_with_organ
+		add_popularity = {
+			ideology = communist
+			popularity = 0.05
+		}
+	}
+}
+
+## Temp Organ Unification Event Four
+country_event = {
+	id = SAH.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.6"}
+	title = SAH.6.t
+	desc = SAH.6.d
+	picture = GFX_report_generic_prisoners2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = SAH.6.a
+		ai_chance = { base = 10 }
+		declare_war_on = {
+			type = russian_reclaimation
+			target = SVO
+		}
+		set_country_flag = SAH_organ_refused_to_unify
+		add_political_power = -40
+	}
+}
+
+## Temp Oyrotia Unification Event One
+country_event = {
+	id = SAH.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.7"}
+	title = SAH.7.t
+	desc = SAH.7.d
+	picture = GFX_report_generic_prisoners2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Offer Unification
+		name = SAH.7.a
+		ai_chance = { base = 10 }
+		ALT = {
+			country_event = {
+				id = SAH.8
+				days = 2
+			}
+		}
+	}
+}
+
+## Temp Oyrotia Unification Event Two
+country_event = {
+	id = SAH.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.8"}
+	title = SAH.8.t
+	desc = SAH.8.d
+	picture = GFX_report_generic_prisoners2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Say Yes
+		name = SAH.8.a
+		ai_chance = { base = 10 }
+		SAH = {
+			country_event = {
+				id = SAH.9
+				days = 2
+			}
+			change_tag_from = ALT
+		}
+	}
+	option = { #Say No
+		name = SAH.8.a
+		ai_chance = { base = 5 }
+		SAH = {
+			country_event = {
+				id = SAH.10
+				days = 2
+			}
+		}
+	}
+}
+
+## Temp Oyrotia Unification Event Three
+country_event = {
+	id = SAH.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.9"}
+	title = SAH.9.t
+	desc = SAH.9.d
+	picture = GFX_report_generic_prisoners2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = SAH.9.a
+		ai_chance = { base = 10 }
+		annex_country = {
+			target = ALT
+			transfer_troops = no
+		}
+		set_country_flag = SAH_unified_with_oyrotia
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.03
+		}
+	}
+}
+
+## Temp Oyrotia Unification Event Four
+country_event = {
+	id = SAH.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.10"}
+	title = SAH.10.t
+	desc = SAH.10.d
+	picture = GFX_report_generic_prisoners2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = SAH.10.a
+		ai_chance = { base = 10 }
+		declare_war_on = {
+			type = russian_reclaimation
+			target = ALT
+		}
+		set_country_flag = SAH_oyrotia_refused_to_unify
+	}
+}
+
+## Rurik Execution
+country_event = {
+	id = SAH.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.11"}
+	title = SAH.11.t
+	desc = SAH.11.d
+	picture = GFX_report_event_firing_squad
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = SAH.11.a
+		ai_chance = { base = 10 }
+		add_manpower = -1
+		add_political_power = 35
+	}
+}
+
+#legionary coup
+country_event = {
+	id = SAH.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.12"}
+	title = SAH.12.t
+	desc = SAH.12.d
+	picture = GFX_report_event_ARC_flag
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = SAH_legion_coup
+		}
+	}
+
+	option = {
+		name = SAH.12.a
+		ai_chance = { base = 10 }
+		add_stability = -0.4
+		add_political_power = -200
+		kill_country_leader = yes
+		set_politics = {
+			ruling_party = fascism
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.03
+		}
+		set_party_name = {
+			ideology = fascism
+			long_name = SAH_new_fascism_party_long
+			name = SAH_new_fascism_party
+		}
+		create_country_leader = {
+			name = "Alexey Pesterev"
+			desc = "POLITICS_ALEXEY_PESTEREV_DESC"
+			picture = "Portrait_Krasnoyarsk_Alexey_Pesterev.dds"
+			expire = "1999.1.1"
+			ideology = fascism_subtype
+		}
+		every_unit_leader = {
+			limit = { has_id = 3651 }
+			retire = yes
+		}
+		#promote_leader = 3652
+
+		remove_ideas = SAH_military_guided_democracy
+		
+		if = {
+			limit = { 
+				has_cosmetic_tag = SAH_regional_unifier
+			}
+			load_focus_tree = SAH_regional_tree_legion
+			drop_cosmetic_tag = yes
+			set_cosmetic_tag = SAH_regional_unifier_legion
+		}
+		else = {
+			load_focus_tree = SAH_superregional_tree_legion
+			drop_cosmetic_tag = yes
+			set_cosmetic_tag = SAH_superregional_unifier_legion
+		}
+		SAH_clear_ministers = yes
+		SAH_appoint_rl_ministers = yes
+		add_dynamic_modifier = {
+			modifier = SAH_the_legion_musters
+		}
+		set_variable = {
+			SAH_the_legion_musters_research_speed_base = 0
+		}
+		set_variable = {
+			SAH_the_legion_musters_industrial_capacity_factory = -0.25
+		}
+		set_variable = {
+			SAH_the_legion_musters_stability_base = -0.45
+		}
+		set_variable = {
+			SAH_the_legion_musters_war_support_base = -0.4
+		}
+		set_variable = {
+			SAH_the_legion_musters_political_power_gain = -0.45
+		}
+		set_variable = {
+			SAH_the_legion_musters_conscription = -0.01
+		}
+		set_variable = {
+			SAH_the_legion_musters_conscription_factor = -0.2
+		}
+		set_variable = {
+			SAH_the_legion_musters_army_attack_factor = -0.05
+		}
+		set_variable = {
+			SAH_the_legion_musters_army_defence_factor = -0.05
+		}
+		set_variable = {
+			SAH_the_legion_musters_army_org_factor = -0.1
+		}
+		set_variable = {
+			SAH_the_legion_musters_army_morale_factor = 0
+		}
+		set_variable = {
+			SAH_the_legion_musters_max_command_power = 0
+		}
+		set_variable = {
+			SAH_the_legion_musters_planning_speed = 0
+		}
+		set_variable = {
+			SAH_the_legion_musters_fascism_drift = 0
+		}
+		set_variable = {
+			SAH_the_legion_musters_war_support_weekly = 0
+		}
+		add_to_variable = {
+			SAH_the_legion_musters_army_armor_attack = 0
+		}
+		add_to_variable = {
+			SAH_the_legion_musters_air_cas_efficiency = 0
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_the_legion_musters_effect
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_factory_output
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-25.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_stability_factor
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-45.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_war_support_factor
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-40.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_political_power_gain
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-0.45"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_conscription
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-1.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_conscription_factor
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-20.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_army_attack
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-5.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_army_defense
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-5.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_army_org
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-10.00%"
+			}
+		}
+		hidden_effect = {
+			remove_ideas = {
+				SAH_shepards_of_freedom
+				SAH_liberations_call
+				SAH_the_ideal_state1
+				SAH_the_ideal_state2
+				SAH_the_ideal_state3
+				SAH_the_republic_rises
+				SAH_wild_promises
+			}
+		}
+	}
+}
+
+#first election
+country_event = {
+	id = SAH.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.13"}
+	title = SAH.13.t
+	desc = SAH.13.d
+	picture = GFX_report_event_komi_rally_1
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			SAH_calculate_vkp_popularity = yes
+			#fire next election
+			country_event = {
+				id = SAH.14
+				days = 1825
+			}
+		}
+	}
+
+	option = {
+		name = SAH.13.a
+		ai_chance = { base = 10 }
+		trigger = {
+			SAH_psr_most_popular = yes
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.05
+		}
+		set_politics = {
+			ruling_party = authoritarian_democrat
+			elections_allowed = yes
+			election_frequency = 60
+		}
+		mark_focus_tree_layout_dirty = yes
+		SAH_clear_ministers = yes
+		SAH_appoint_psr_ministers = yes
+	}
+	
+	option = {
+		name = SAH.13.b
+		ai_chance = { base = 10 }
+		trigger = {
+			SAH_prp_most_popular = yes
+		}
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.05
+		}
+		set_politics = {
+			ruling_party = social_conservative
+			elections_allowed = yes
+			election_frequency = 60
+		}
+		#ministers
+		mark_focus_tree_layout_dirty = yes
+		SAH_clear_ministers = yes
+		SAH_appoint_prp_ministers = yes
+	}
+
+	option = {
+		name = SAH.13.c
+		ai_chance = { base = 10 }
+		trigger = {
+			SAH_vkp_most_popular = yes
+		}
+		add_popularity = {
+			ideology = communist
+			popularity = 0.05
+		}
+		set_politics = {
+			ruling_party = communist
+			elections_allowed = yes
+			election_frequency = 60
+		}
+		#ministers
+		mark_focus_tree_layout_dirty = yes
+		SAH_clear_ministers = yes
+		SAH_appoint_vkp_ministers = yes
+	}
+}
+
+#second election
+country_event = {
+	id = SAH.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.14"}
+	title = SAH.14.t
+	desc = SAH.14.d
+	picture = GFX_report_event_komi_rally_2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			#fire next election
+			SAH_calculate_vkp_popularity = yes
+			country_event = {
+				id = SAH.15
+				days = 1825
+			}
+		}
+	}
+
+	option = {
+		name = SAH.14.a
+		ai_chance = { base = 10 }
+		trigger = {
+			SAH_psr_most_popular = yes
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.05
+		}
+		set_politics = {
+			ruling_party = authoritarian_democrat
+			elections_allowed = yes
+			election_frequency = 60
+		}
+		SAH_clear_ministers = yes
+		SAH_appoint_psr_ministers = yes
+		mark_focus_tree_layout_dirty = yes
+	}
+	
+	option = {
+		name = SAH.14.b
+		ai_chance = { base = 10 }
+		trigger = {
+			SAH_prp_most_popular = yes
+		}
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.05
+		}
+		set_politics = {
+			ruling_party = social_conservative
+			elections_allowed = yes
+			election_frequency = 60
+		}
+		#ministers
+		SAH_clear_ministers = yes
+		SAH_appoint_prp_ministers = yes
+		mark_focus_tree_layout_dirty = yes
+	}
+
+	option = {
+		name = SAH.14.c
+		ai_chance = { base = 10 }
+		trigger = {
+			SAH_vkp_most_popular = yes
+		}
+		add_popularity = {
+			ideology = communist
+			popularity = 0.05
+		}
+		set_politics = {
+			ruling_party = communist
+			elections_allowed = yes
+			election_frequency = 60
+		}
+		#ministers
+		SAH_clear_ministers = yes
+		SAH_appoint_vkp_ministers = yes
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+#third election
+country_event = {
+	id = SAH.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.15"}
+	title = SAH.15.t
+	desc = SAH.15.d
+	picture = GFX_report_event_komi_rally_1
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			#fire next election
+			SAH_calculate_vkp_popularity = yes
+			country_event = {
+				id = SAH.16
+				days = 1825
+			}
+		}
+	}
+
+	option = {
+		name = SAH.15.a
+		ai_chance = { base = 10 }
+		trigger = {
+			SAH_psr_most_popular = yes
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.05
+		}
+		set_politics = {
+			ruling_party = authoritarian_democrat
+			elections_allowed = yes
+			election_frequency = 60
+		}
+		SAH_clear_ministers = yes
+		SAH_appoint_psr_ministers = yes
+		mark_focus_tree_layout_dirty = yes
+	}
+	
+	option = {
+		name = SAH.15.b
+		ai_chance = { base = 10 }
+		trigger = {
+			SAH_prp_most_popular = yes
+		}
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.05
+		}
+		set_politics = {
+			ruling_party = social_conservative
+			elections_allowed = yes
+			election_frequency = 60
+		}
+		#ministers
+		SAH_clear_ministers = yes
+		SAH_appoint_prp_ministers = yes
+		mark_focus_tree_layout_dirty = yes
+	}
+
+	option = {
+		name = SAH.15.c
+		ai_chance = { base = 10 }
+		trigger = {
+			SAH_vkp_most_popular = yes
+		}
+		
+		if = {
+			limit = { 
+				has_country_flag = SAH_menshevik_vkp
+			}
+			add_popularity = {
+				ideology = socialist
+				popularity = 0.05
+			}
+			set_politics = {
+				ruling_party = socialist
+				elections_allowed = yes
+				election_frequency = 60
+			}
+			SAH_clear_ministers = yes
+			SAH_appoint_vkp_menshevik_ministers = yes
+		}
+		else = {
+			add_popularity = {
+				ideology = communist
+				popularity = 0.05
+			}
+			set_politics = {
+				ruling_party = communist
+				elections_allowed = yes
+				election_frequency = 60
+			}
+			SAH_clear_ministers = yes
+			SAH_appoint_vkp_moderate_ministers = yes
+		}
+		#ministers
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+#fourth election
+country_event = {
+	id = SAH.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.16"}
+	title = SAH.16.t
+	desc = SAH.16.d
+	picture = GFX_report_event_komi_rally_2
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			#fire next election
+			SAH_calculate_vkp_popularity = yes
+		}
+	}
+
+	option = {
+		name = SAH.16.a
+		ai_chance = { base = 10 }
+		trigger = {
+			SAH_psr_most_popular = yes
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.05
+		}
+		set_politics = {
+			ruling_party = authoritarian_democrat
+			elections_allowed = yes
+			election_frequency = 60
+		}
+		mark_focus_tree_layout_dirty = yes
+		SAH_clear_ministers = yes
+		SAH_appoint_psr_ministers = yes
+	}
+	
+	option = {
+		name = SAH.16.b
+		ai_chance = { base = 10 }
+		trigger = {
+			SAH_prp_most_popular = yes
+		}
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.05
+		}
+		set_politics = {
+			ruling_party = social_conservative
+			elections_allowed = yes
+			election_frequency = 60
+		}
+		#ministers
+		mark_focus_tree_layout_dirty = yes
+		SAH_clear_ministers = yes
+		SAH_appoint_prp_ministers = yes
+	}
+
+	option = {
+		name = SAH.16.c
+		ai_chance = { base = 10 }
+		trigger = {
+			SAH_vkp_most_popular = yes
+		}
+		if = {
+			limit = { 
+				has_country_flag = SAH_menshevik_vkp
+			}
+			add_popularity = {
+				ideology = socialist
+				popularity = 0.05
+			}
+			set_politics = {
+				ruling_party = socialist
+				elections_allowed = yes
+				election_frequency = 60
+			}
+			SAH_clear_ministers = yes
+			SAH_appoint_vkp_menshevik_ministers = yes
+		}
+		else = {
+			add_popularity = {
+				ideology = communist
+				popularity = 0.05
+			}
+			set_politics = {
+				ruling_party = communist
+				elections_allowed = yes
+				election_frequency = 60
+			}
+			SAH_clear_ministers = yes
+			SAH_appoint_vkp_moderate_ministers = yes
+		}
+		#ministers
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+#trotskyite coup
+country_event = {
+	id = SAH.17
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.17"}
+	title = SAH.17.t
+	desc = SAH.17.d
+	picture = GFX_report_event_firing_squad
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = SAH_trotskyite_coup
+		}
+	}
+
+	option = {
+		name = SAH.17.a
+		ai_chance = { base = 10 }
+		add_stability = -0.1
+		kill_country_leader = yes
+		set_politics = {
+			ruling_party = communist
+		}
+		add_popularity = {
+			ideology = communist
+			popularity = 0.1
+		}
+		kill_country_leader = yes
+		every_unit_leader = {
+			limit = { has_id = 3651 }
+			retire = yes
+		}
+		#Lev Sedov
+		create_country_leader = {
+			name = "Lev Sedov"
+			desc = "POLITICS_LEV_SEDOV_DESC"
+			picture = "Portrait_Krasnoyarsk_Lev_Sedov.dds"
+			ideology = communist_subtype
+		}
+		set_cosmetic_tag = SAH_superregional_unifier_trot
+	}
+}
+
+#mensheviks appear
+country_event = {
+	id = SAH.18
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.18"}
+	title = SAH.18.t
+	desc = SAH.18.d
+	picture = GFX_report_event_socialist_protests
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	option = {
+		name = SAH.18.a
+		ai_chance = { base = 10 }
+		set_country_flag = SAH_menshevik_active
+		add_popularity = {
+			ideology = socialist
+			popularity = 0.05
+		}
+		set_party_name = {
+			ideology = socialist
+			long_name = SAH_new_socialist_party_long
+			name = SAH_new_socialist_party
+		}
+		hidden_effect = {
+			country_event = {
+				id = SAH.19
+				days = 20
+			}
+		}
+	}
+}
+
+#new leader of the communists 
+country_event = {
+	id = SAH.19
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.19"}
+	title = SAH.19.t
+	desc = SAH.19.d
+	picture = GFX_report_event_socialist_protests
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	option = {
+		name = SAH.19.a
+		ai_chance = { base = 10 }
+		add_popularity = {
+			ideology = socialist
+			popularity = 0.03
+		}
+		set_country_flag = SAH_menshevik_vkp
+	}
+
+	option = {
+		name = SAH.19.b
+		ai_chance = { base = 10 }
+		add_popularity = {
+			ideology = communist
+			popularity = 0.03
+		}
+	}
+}
+
+#government collapse (peoples support low)
+country_event = {
+	id = SAH.20
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.20"}
+	title = SAH.20.t
+	desc = SAH.20.d
+	picture = GFX_report_event_komi_riot
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			#fire next election
+			SAH_calculate_vkp_popularity = yes
+		}
+	}
+
+	option = {
+		name = SAH.20.a
+		ai_chance = { base = 10 }
+		trigger = {
+			OR = {
+				SAH_psr_most_popular = yes
+				AND = {
+					has_government = social_conservative
+					check_variable = {
+						var = party_popularity@authoritarian_democrat
+						value = SAH_vkp_popularity
+						compare = greater_than
+					}
+				}
+				AND = {
+					SAH_vkp_government = yes
+					authoritarian_democrat > party_popularity@social_conservative
+				}
+			}
+			NOT = {
+				has_government = authoritarian_democrat
+			}
+		}
+		add_to_variable = {
+			SAH_presidential_approval = -20
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_presidential_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-20"
+			}
+		}
+		add_to_variable = {
+			SAH_military_approval = -15
+		}
+		custom_effect_tooltip = {
+            localization_key = SAH_military_approval_tt
+            VALUE = {
+                localization_key = TNO_COLOR_RED
+                VALUE_CHANGE = "-15"
+            }
+        }
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.05
+		}
+		set_politics = {
+			ruling_party = authoritarian_democrat
+		}
+		mark_focus_tree_layout_dirty = yes
+		#ministers
+		SAH_clear_ministers = yes
+		SAH_appoint_psr_ministers = yes
+	}
+	
+	option = {
+		name = SAH.20.b
+		ai_chance = { base = 10 }
+		trigger = {
+			OR = {
+				SAH_prp_most_popular = yes
+				AND = {
+					has_government = authoritarian_democrat
+					social_conservative > party_popularity@communist
+				}
+				AND = {
+					SAH_vkp_government = yes
+					check_variable = {
+						var = party_popularity@social_conservative
+						value = SAH_vkp_popularity
+						compare = greater_than
+					}
+				}
+			}
+			NOT = {
+				has_government = social_conservative
+			}
+		}
+		add_to_variable = {
+			SAH_presidential_approval = -20
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_presidential_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-20"
+			}
+		}
+		add_to_variable = {
+			SAH_military_approval = -15
+		}
+		custom_effect_tooltip = {
+            localization_key = SAH_military_approval_tt
+            VALUE = {
+                localization_key = TNO_COLOR_RED
+                VALUE_CHANGE = "-15"
+            }
+        }
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.05
+		}
+		set_politics = {
+			ruling_party = social_conservative
+		}
+		mark_focus_tree_layout_dirty = yes
+		#ministers
+		SAH_clear_ministers = yes
+		SAH_appoint_prp_ministers = yes
+	}
+
+	option = {
+		name = SAH.20.c
+		ai_chance = { base = 10 }
+		trigger = {
+			OR = {
+				SAH_vkp_most_popular = yes
+				AND = {
+					has_government = authoritarian_democrat
+					check_variable = {
+						var = SAH_vkp_popularity
+						value = party_popularity@social_conservative
+						compare = greater_than_or_equals
+					}
+				}
+				AND = {
+					has_government = social_conservative
+					check_variable = {
+						var = SAH_vkp_popularity
+						value = party_popularity@authoritarian_democrat
+						compare = greater_than_or_equals
+					}
+				}
+			}
+			NOT = {
+				SAH_vkp_government = yes
+			}
+		}
+		add_to_variable = {
+			SAH_presidential_approval = -20
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_presidential_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-20"
+			}
+		}
+		add_to_variable = {
+			SAH_military_approval = -15
+		}
+		custom_effect_tooltip = {
+            localization_key = SAH_military_approval_tt
+            VALUE = {
+                localization_key = TNO_COLOR_RED
+                VALUE_CHANGE = "-15"
+            }
+        }
+		if = {
+			limit = { 
+				has_country_flag = SAH_menshevik_vkp
+			}
+			add_popularity = {
+				ideology = socialist
+				popularity = 0.05
+			}
+			set_politics = {
+				ruling_party = socialist
+			}
+			SAH_clear_ministers = yes
+			SAH_appoint_vkp_menshevik_ministers = yes
+		}
+		else_if = {
+			limit = { 
+				has_global_flag = RUS_national_unification
+			}
+			add_popularity = {
+				ideology = communist
+				popularity = 0.05
+			}
+			set_politics = {
+				ruling_party = communist
+			}
+			SAH_clear_ministers = yes
+			SAH_appoint_vkp_moderate_ministers = yes
+		}
+		else = {
+			add_popularity = {
+				ideology = communist
+				popularity = 0.05
+			}
+			set_politics = {
+				ruling_party = communist
+			}
+			SAH_clear_ministers = yes
+			SAH_appoint_vkp_ministers = yes
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+#president intervenes (president support low) psr>prp>vkp>psr
+country_event = {
+	id = SAH.21
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.21"}
+	title = SAH.21.t
+	desc = SAH.21.d
+	picture = GFX_report_event_komi_riot
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			#fire next election
+			SAH_calculate_vkp_popularity = yes
+		}
+	}
+
+	option = {
+		name = SAH.21.a
+		ai_chance = { base = 10 }
+		trigger = {
+			SAH_vkp_government = yes
+		}
+		add_to_variable = {
+			SAH_public_approval = -20
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-20"
+			}
+		}
+		add_to_variable = {
+			SAH_military_approval = -15
+		}
+		custom_effect_tooltip = {
+            localization_key = SAH_military_approval_tt
+            VALUE = {
+                localization_key = TNO_COLOR_RED
+                VALUE_CHANGE = "-15"
+            }
+        }
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.05
+		}
+		set_politics = {
+			ruling_party = authoritarian_democrat
+		}
+		mark_focus_tree_layout_dirty = yes
+		#ministers
+		SAH_clear_ministers = yes
+		SAH_appoint_psr_ministers = yes
+	}
+	
+	option = {
+		name = SAH.21.b
+		ai_chance = { base = 10 }
+		trigger = {
+			has_government = authoritarian_democrat
+		}
+		add_to_variable = {
+			SAH_public_approval = -20
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-20"
+			}
+		}
+		add_to_variable = {
+			SAH_military_approval = -15
+		}
+		custom_effect_tooltip = {
+            localization_key = SAH_military_approval_tt
+            VALUE = {
+                localization_key = TNO_COLOR_RED
+                VALUE_CHANGE = "-15"
+            }
+        }
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.05
+		}
+		set_politics = {
+			ruling_party = social_conservative
+		}
+		mark_focus_tree_layout_dirty = yes
+		#ministers
+		SAH_clear_ministers = yes
+		SAH_appoint_prp_ministers = yes
+	}
+
+	option = {
+		name = SAH.21.c
+		ai_chance = { base = 10 }
+		trigger = {
+			has_government = social_conservative
+		}
+		add_to_variable = {
+			SAH_public_approval = -20
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-20"
+			}
+		}
+		add_to_variable = {
+			SAH_military_approval = -15
+		}
+		custom_effect_tooltip = {
+            localization_key = SAH_military_approval_tt
+            VALUE = {
+                localization_key = TNO_COLOR_RED
+                VALUE_CHANGE = "-15"
+            }
+        }
+		if = {
+			limit = { 
+				has_country_flag = SAH_menshevik_vkp
+			}
+			add_popularity = {
+				ideology = socialist
+				popularity = 0.05
+			}
+			set_politics = {
+				ruling_party = socialist
+			}
+			SAH_clear_ministers = yes
+			SAH_appoint_vkp_menshevik_ministers = yes
+		}
+		else_if = {
+			limit = { 
+				has_global_flag = RUS_national_unification
+			}
+			add_popularity = {
+				ideology = communist
+				popularity = 0.05
+			}
+			set_politics = {
+				ruling_party = communist
+			}
+			SAH_clear_ministers = yes
+			SAH_appoint_vkp_moderate_ministers = yes
+		}
+		else = {
+			add_popularity = {
+				ideology = communist
+				popularity = 0.05
+			}
+			set_politics = {
+				ruling_party = communist
+			}
+			SAH_clear_ministers = yes
+			SAH_appoint_vkp_ministers = yes
+		}
+		mark_focus_tree_layout_dirty = yes
+	}
+}
+
+#svo generals join us
+country_event = {
+	id = SAH.22
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.22"}
+	title = SAH.22.t
+	desc = SAH.22.d
+	picture = GFX_report_event_ARC_flag
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = SAH.22.a
+		ai_chance = { base = 10 }
+		SVO = {
+			every_army_leader = {
+				set_nationality = SAH
+			}
+		}
+		add_popularity = {
+			ideology = communist
+			popularity = 0.01
+		}
+	}
+}
+
+#technocrat democracy
+country_event = {
+	id = SAH.23
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.23"}
+	title = SAH.23.t
+	desc = SAH.23.d
+	picture = GFX_report_event_technology3
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = SAH.23.a
+		ai_chance = { base = 10 }
+		retire_country_leader = yes
+		
+		create_country_leader = {
+			name = "Ivan Sevastyanov"
+			desc = "POLITICS_IVAN_SEVASTYANOV_DESC"
+			picture = "Portrait_RSSWR_Ivan_Sevastyanov.dds"
+			expire = "1991.4.24"
+			ideology = social_conservative_subtype
+			traits = {
+
+			}
+		}
+		hidden_effect = {
+			retire_ideology_leader = socialist
+			retire_ideology_leader = communist
+			retire_ideology_leader = authoritarian_democrat
+			create_country_leader = {
+				name = "Ivan Sevastyanov"
+				desc = "POLITICS_IVAN_SEVASTYANOV_DESC"
+				picture = "Portrait_RSSWR_Ivan_Sevastyanov.dds"
+				expire = "1991.4.24"
+				ideology = socialist_subtype
+				traits = {
+
+				}
+			}
+			create_country_leader = {
+				name = "Ivan Sevastyanov"
+				desc = "POLITICS_IVAN_SEVASTYANOV_DESC"
+				picture = "Portrait_RSSWR_Ivan_Sevastyanov.dds"
+				expire = "1991.4.24"
+				ideology = communist_subtype
+				traits = {
+
+				}
+			}
+			create_country_leader = {
+				name = "Ivan Sevastyanov"
+				desc = "POLITICS_IVAN_SEVASTYANOV_DESC"
+				picture = "Portrait_RSSWR_Ivan_Sevastyanov.dds"
+				expire = "1991.4.24"
+				ideology = authoritarian_democrat_subtype
+				traits = {
+
+				}
+			}
+		}
+		remove_ideas = SAH_military_guided_democracy
+		add_ideas = SAH_technocrat_guided_democracy
+	}
+}
+
+#legion hint event
+country_event = {
+	id = SAH.24
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH.24"}
+	title = SAH.24.t
+	desc = SAH.24.d
+	picture = GFX_report_event_ARC_flag
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = SAH.24.a
+		ai_chance = { base = 10 }
+	}
+}
+
+#GOMMIES OH NOOOO#
+
+
+## April Fools Events ##
+
+country_event = {
+	id = KRS_april_fools.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_april_fools.1"}
+	title = KRS_april_fools.1.t
+	desc = KRS_april_fools.1.d
+	picture = GFX_report_event_KRS_memories_of_the_father
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_april_fools.1.a
+		ai_chance = { base = 10 }
+		create_country_leader = {
+			name = "Lev Trotsky's Corpse"
+			picture = GFX_KRS_Lev_Trotsky_UNDEAD
+			expire = "1994.1.1"
+			ideology = communist_subtype
+		}
+	}
+}
+
+
+## Intro Events ##
+
+country_event = {
+	id = KRS_intro.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_intro.1"}
+	title = KRS_intro.1.t
+	desc = KRS_intro.1.d
+	picture = GFX_report_event_KRS_memories_of_the_father
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_intro.1.a
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRS_intro.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_intro.2"}
+	title = KRS_intro.2.t
+	desc = KRS_intro.2.d
+	picture = GFX_report_event_KRS_remember_the_past
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_intro.2.a
+		ai_chance = { base = 10 }
+		add_political_power = -10
+	}
+}
+
+country_event = {
+	id = KRS_intro.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_intro.3"}
+	title = KRS_intro.3.t
+	desc = KRS_intro.3.d
+	picture = GFX_report_event_RUS_soviet_propaganda
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_intro.3.a
+		ai_chance = { base = 10 }
+		hidden_effect = {
+			add_political_power = -10
+		}
+	}
+}
+
+country_event = {
+	id = KRS_intro.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_intro.4"}
+	title = KRS_intro.4.t
+	desc = KRS_intro.4.d
+	picture = GFX_report_event_RUS_the_motherland_calls
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { 
+		name = KRS_intro.4.a
+		ai_chance = { base = 10 }
+		SAH = {
+			country_event = {
+				id = KRS_intro.5
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = {
+	id = KRS_intro.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_intro.5"}
+	title = KRS_intro.5.t
+	desc = KRS_intro.5.d
+	picture = GFX_report_event_KRS_loss
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_intro.5.a
+		ai_chance = { base = 10 }
+		SAH = {
+			country_event = {
+				id = KRS_intro.6
+				days = 1
+			}
+		}
+
+	}
+}
+
+country_event = {
+	id = KRS_intro.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_intro.6"}
+	title = KRS_intro.6.t
+	desc = KRS_intro.6.d
+	picture = GFX_report_event_generic_funeral_2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_intro.6.a
+		ai_chance = { base = 10 }
+		SAH = {
+			add_political_power = -50
+			hidden_effect = {
+				load_focus_tree = KRS_start
+			}
+			custom_effect_tooltip = KRS_change_focus_tree
+		}
+
+	}
+}
+
+## Pre-Smuta Events ##
+
+country_event = {
+	id = KRS_presmuta.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.1"}
+	title = KRS_presmuta.1.t
+	desc = KRS_presmuta.1.d
+	picture = GFX_report_event_generic_congress
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.1.a
+		ai_chance = { base = 10 }
+		
+		SAH = {
+			# remove_ideas = KRS_Vladimir_Antonov_Ovseenko_sec
+			# add_ideas = KRS_Alexander_Alexeyev_sec
+		}
+	}
+}
+
+country_event = {
+	id = KRS_presmuta.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.2"}
+	title = KRS_presmuta.2.t
+	desc = KRS_presmuta.2.d
+	picture = GFX_report_event_KRS_trotskys_path
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.2.a
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRS_presmuta.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.3"}
+	title = KRS_presmuta.3.t
+	desc = KRS_presmuta.3.d
+	picture = GFX_report_event_KRS_remember_stalinist_crimes
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.3.a
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRS_presmuta.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.4"}
+	title = KRS_presmuta.4.t
+	desc = KRS_presmuta.4.d
+	picture = GFX_report_event_KRS_show_mercy_to_bukharinists
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.4.a
+		ai_chance = { base = 10 }
+	}
+}
+
+# cut :(
+
+country_event = {
+	id = KRS_presmuta.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.6"}
+	title = KRS_presmuta.6.t
+	desc = KRS_presmuta.6.d
+	picture = GFX_report_event_KRS_most_important_day
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.6.a
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRS_presmuta.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_KRS_presmuta.7"}
+	title = KRS_presmuta.7.t
+	desc = KRS_presmuta.7.d
+	picture = GFX_report_event_generic_money
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.7.a
+		ai_chance = { base = 10 }
+		TNO_improve_research_facilities_med = yes
+		TNO_improve_industrial_expertise_med = yes
+	}
+	option = {
+		name = KRS_presmuta.7.b
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_presidential_approval = 10
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_presidential_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10"
+			}
+		}
+	}
+}
+
+country_event = {
+	id = KRS_presmuta.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.8"}
+	title = KRS_presmuta.8.t
+	desc = KRS_presmuta.8.d
+	picture = GFX_report_event_KRS_the_foundations_of_the_red_army
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.8.a
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRS_presmuta.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.9"}
+	title = KRS_presmuta.9.t
+	desc = KRS_presmuta.9.d
+	picture = GFX_report_event_KRS_start_conscription
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.9.a
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRS_presmuta.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.10"}
+	title = KRS_presmuta.10.t
+	desc = KRS_presmuta.10.d
+	picture = GFX_report_event_KRS_modernize_our_troops
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.10.a
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRS_presmuta.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.11"}
+	title = KRS_presmuta.11.t
+	desc = KRS_presmuta.11.d
+	picture = GFX_report_event_KRS_preobrazhenskys_economic_plan
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.11.a
+		ai_chance = { base = 10 }
+		
+		TNO_improve_poverty_high = yes
+	}
+}
+
+country_event = {
+	id = KRS_presmuta.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.13"}
+	title = KRS_presmuta.13.t
+	desc = KRS_presmuta.13.d
+	picture = GFX_report_event_KRS_distribute_commodities
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.13.a
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRS_presmuta.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.14"}
+	title = KRS_presmuta.14.t
+	desc = KRS_presmuta.14.d
+	picture = GFX_report_event_generic_money
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.14.a
+		ai_chance = { base = 10 }
+		tno_unemployment_improve = yes
+		tno_pensions_improve = yes
+		TNO_improve_poverty_high = yes
+		TNO_improve_academic_base_med = yes
+	}
+}
+
+country_event = {
+	id = KRS_presmuta.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.15"}
+	title = KRS_presmuta.15.t
+	desc = KRS_presmuta.15.d
+	picture = GFX_report_event_KRS_motorised_divisions
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.15.a
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRS_presmuta.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.16"}
+	title = KRS_presmuta.16.t
+	desc = KRS_presmuta.16.d
+	picture = GFX_report_event_KRS_red_airforce
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.16.a
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRS_presmuta.17
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.17"}
+	title = KRS_presmuta.17.t
+	desc = KRS_presmuta.17.d
+	picture = GFX_report_event_KRS_nikolaevschina
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.17.a
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRS_presmuta.18
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.18"}
+	title = KRS_presmuta.18.t
+	desc = KRS_presmuta.18.d
+	picture = GFX_report_event_KRS_welfare_programme
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.18.a
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRS_presmuta.19
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_presmuta.19"}
+	title = KRS_presmuta.19.t
+	desc = KRS_presmuta.19.d
+	picture = GFX_report_event_KRS_reestablish_nep
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_presmuta.19.a
+		ai_chance = { base = 10 }
+	}
+}
+
+## Smuta Events ##
+
+country_event = {
+	id = KRS_smuta.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_smuta.1"}
+	title = KRS_smuta.1.t
+	desc = KRS_smuta.1.d
+	picture = GFX_report_event_KRS_sedovs_reflection
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_smuta.1.a
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRS_smuta.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_smuta.2"}
+	title = KRS_smuta.2.t
+	desc = KRS_smuta.2.d
+	picture = GFX_report_event_KRS_every_small_effort
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_smuta.2.a
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRS_smuta.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_smuta.3"}
+	title = KRS_smuta.3.t
+	desc = KRS_smuta.3.d
+	picture = GFX_report_event_KRS_curfews_in_district_17
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_smuta.3.a
+		ai_chance = { base = 10 }
+	}
+}
+
+country_event = {
+	id = KRS_smuta.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_smuta.4"}
+	title = KRS_smuta.4.t
+	desc = KRS_smuta.4.d
+	picture = GFX_report_event_KRS_something_unthinkable
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = KRS_smuta.4.a
+		ai_chance = { base = 10 }
+	}
+}
+
+## Pillar Events ##
+
+country_event = {
+	id = KRS_pillars.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_pillars.1"}
+	title = KRS_pillars.1.t
+	desc = KRS_pillars.1.d
+	picture = GFX_report_event_KRS_meeting_with_hanged_men
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	option = {
+		name = KRS_pillars.1.a
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_public_approval = -5
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-5"
+			}
+		}
+		add_to_variable = {
+			SAH_presidential_approval = 5
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_presidential_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5"
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.2
+				days = 65
+			}
+		}
+	}
+	option = {
+		name = KRS_pillars.1.b
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_public_approval = 5
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5"
+			}
+		}
+		add_to_variable = {
+			SAH_presidential_approval = -5
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_presidential_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-5"
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.2
+				days = 65
+			}
+		}
+	}
+}
+
+country_event = {
+	id = KRS_pillars.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_pillars.2"}
+	title = KRS_pillars.2.t
+	desc = KRS_pillars.2.d
+	picture = GFX_report_event_KRS_meeting_with_delegates
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	option = {
+		name = KRS_pillars.2.a
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_public_approval = 5
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5"
+			}
+		}
+		add_to_variable = {
+			SAH_presidential_approval = 2
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_presidential_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+2"
+			}
+		}
+		tno_education_improve = yes
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.3
+				days = 65
+			}
+		}
+	}
+	option = {
+		name = KRS_pillars.2.b
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_military_approval = 2
+		}
+		custom_effect_tooltip = {
+            localization_key = SAH_military_approval_tt
+            VALUE = {
+                localization_key = TNO_COLOR_GREEN
+                VALUE_CHANGE = "+2"
+            }
+        }
+		add_to_variable = {
+			SAH_presidential_approval = 5
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_presidential_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5"
+			}
+		}
+		add_to_variable = {
+			GDP = 1000
+		}
+		custom_effect_tooltip = gdp_increase_tt
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.3
+				days = 65
+			}
+		}
+	}
+}
+
+country_event = {
+	id = KRS_pillars.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_pillars.3"}
+	title = KRS_pillars.3.t
+	desc = KRS_pillars.3.d
+	picture = GFX_report_event_KRS_meetings
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	option = {
+		name = KRS_pillars.3.a
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_public_approval = -5
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-5"
+			}
+		}
+		add_to_variable = {
+			SAH_presidential_approval = 2
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_presidential_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+2"
+			}
+		}
+		add_manpower = 1000
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.4
+				days = 65
+			}
+		}
+	}
+	option = {
+		name = KRS_pillars.3.b
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_public_approval = 2
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+2"
+			}
+		}
+		add_to_variable = {
+			SAH_presidential_approval = -5
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_presidential_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-5"
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.4
+				days = 65
+			}
+		}
+	}
+}
+
+country_event = {
+	id = KRS_pillars.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_pillars.4"}
+	title = KRS_pillars.4.t
+	desc = KRS_pillars.4.d
+	picture = GFX_report_event_KRS_a_warriors_request
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	option = {
+		name = KRS_pillars.4.a
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_public_approval = -15
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-15"
+			}
+		}
+		add_to_variable = {
+			SAH_military_approval = 5
+		}
+		custom_effect_tooltip = {
+            localization_key = SAH_military_approval_tt
+            VALUE = {
+                localization_key = TNO_COLOR_GREEN
+                VALUE_CHANGE = "+5"
+            }
+        }
+		TNO_improve_army_professionalism_low = yes
+		TNO_improve_industrial_expertise_low = yes
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.5
+				days = 65
+			}
+		}
+	}
+	option = {
+		name = KRS_pillars.4.b
+		ai_chance = { base = 10 }
+		TNO_worsen_army_professionalism_low = yes
+		tno_security_worsen = yes
+		add_to_variable = {
+			SAH_public_approval = 15
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+15"
+			}
+		}
+		add_to_variable = {
+			SAH_military_approval = -10
+		}
+		custom_effect_tooltip = {
+            localization_key = SAH_military_approval_tt
+            VALUE = {
+                localization_key = TNO_COLOR_RED
+                VALUE_CHANGE = "-10"
+            }
+        }
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.5
+				days = 65
+			}
+		}
+	}
+}
+
+country_event = {
+	id = KRS_pillars.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_pillars.5"}
+	title = KRS_pillars.5.t
+	desc = KRS_pillars.5.d
+	picture = GFX_report_event_KRS_another_humble_request
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	option = {
+		name = KRS_pillars.5.a
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_military_approval = 5
+		}
+		custom_effect_tooltip = {
+            localization_key = SAH_military_approval_tt
+            VALUE = {
+                localization_key = TNO_COLOR_GREEN
+                VALUE_CHANGE = "+5"
+            }
+        }
+		add_to_variable = {
+			misc_cost = 9000
+		}
+		custom_effect_tooltip = econ_misc_expenses_add_large_increase
+		random_owned_controlled_state = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.6
+				days = 65
+			}
+		}
+	}
+	option = {
+		name = KRS_pillars.5.b
+		ai_chance = { base = 10 }
+		set_temp_variable = { number = 4 }
+		add_to_variable = {
+			SAH_military_approval = -5
+		}
+		custom_effect_tooltip = {
+            localization_key = SAH_military_approval_tt
+            VALUE = {
+                localization_key = TNO_COLOR_RED
+                VALUE_CHANGE = "-5"
+            }
+        }
+		TNO_worsen_army_professionalism_low = yes
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.6
+				days = 65
+			}
+		}
+	}
+}
+
+country_event = {
+	id = KRS_pillars.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_pillars.6"}
+	title = KRS_pillars.6.t
+	desc = KRS_pillars.6.d
+	picture = GFX_report_event_KRS_meetings
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	option = {
+		name = KRS_pillars.6.a
+		ai_chance = { base = 10 }
+		set_temp_variable = { number = 4 }
+		add_to_variable = {
+			SAH_military_approval = 2
+		}
+		custom_effect_tooltip = {
+            localization_key = SAH_military_approval_tt
+            VALUE = {
+                localization_key = TNO_COLOR_GREEN
+                VALUE_CHANGE = "+2"
+            }
+        }
+		TNO_improve_research_facilities_low = yes
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.7
+				days = 65
+			}
+		}
+	}
+	option = {
+		name = KRS_pillars.6.b
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_military_approval = -5
+		}
+		custom_effect_tooltip = {
+            localization_key = SAH_military_approval_tt
+            VALUE = {
+                localization_key = TNO_COLOR_RED
+                VALUE_CHANGE = "-5"
+            }
+        }
+		add_to_variable = {
+			SAH_public_approval = 10
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10"
+			}
+		}
+		TNO_worsen_army_professionalism_low = yes
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.7
+				days = 65
+			}
+		}
+	}
+}
+
+country_event = {
+	id = KRS_pillars.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_pillars.7"}
+	title = KRS_pillars.7.t
+	desc = KRS_pillars.7.d
+	picture = GFX_report_event_KRS_discussing_economy
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	option = {
+		name = KRS_pillars.7.a
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_public_approval = 5
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5"
+			}
+		}
+		add_to_variable = {
+			misc_cost = 9000
+		}
+		custom_effect_tooltip = econ_misc_expenses_add_large_increase
+		TNO_improve_agriculture_low = yes
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.8
+				days = 65
+			}
+		}
+	}
+	option = {
+		name = KRS_pillars.7.b
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_public_approval = -10
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-10"
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.8
+				days = 65
+			}
+		}
+	}
+}
+
+country_event = {
+	id = KRS_pillars.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_pillars.8"}
+	title = KRS_pillars.8.t
+	desc = KRS_pillars.8.d
+	picture = GFX_report_event_KRS_finalizing_the_means_of_production
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	option = {
+		name = KRS_pillars.8.a
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_public_approval = 5
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5"
+			}
+		}
+		tno_trade_laws_worsen = yes
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.9
+				days = 65
+			}
+		}
+	}
+	option = {
+		name = KRS_pillars.8.b
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_public_approval = -2
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-2"
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.9
+				days = 65
+			}
+		}
+	}
+}
+
+country_event = {
+	id = KRS_pillars.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_pillars.9"}
+	title = KRS_pillars.9.t
+	desc = KRS_pillars.9.d
+	picture = GFX_report_event_KRS_paid_by_the_hour
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	option = {
+		name = KRS_pillars.9.a
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_public_approval = 5
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_public_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5"
+			}
+		}
+		add_to_variable = {
+			SAH_presidential_approval = -5
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_presidential_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-5"
+			}
+		}
+		tno_max_workhours_improve = yes
+	}
+	option = {
+		name = KRS_pillars.9.b
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_presidential_approval = 5
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_presidential_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5"
+			}
+		}
+	}
+}
+
+#do these after superregional
+
+country_event = {
+	id = KRS_pillars.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_pillars.10"}
+	title = KRS_pillars.10.t
+	desc = KRS_pillars.10.d
+	picture = GFX_report_event_KRS_trains_on_time
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	option = {
+		name = KRS_pillars.10.a
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_military_approval = 3
+		}
+		custom_effect_tooltip = {
+            localization_key = SAH_military_approval_tt
+            VALUE = {
+                localization_key = TNO_COLOR_GREEN
+                VALUE_CHANGE = "+3"
+            }
+        }
+		build_railway = {
+			level = 2
+			fallback = yes
+			start_province = 1777
+			target_province = 4711
+		}
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.11
+				days = 120
+			}
+		}
+	}
+	option = {
+		name = KRS_pillars.10.b
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_presidential_approval = 6
+		}
+		custom_effect_tooltip = {
+			localization_key = SAH_presidential_approval_tt
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+6"
+			}
+		}
+		TNO_improve_industrial_expertise_high = yes
+		hidden_effect = {
+			country_event = {
+				id = KRS_pillars.11
+				days = 120
+			}
+		}
+	}
+}
+
+country_event = {
+	id = KRS_pillars.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event KRS_pillars.11"}
+	title = KRS_pillars.11.t
+	desc = KRS_pillars.11.d
+	picture = GFX_report_event_KRS_saturday_drive
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_government = fascism
+				has_country_flag = SAH_trotskyite_coup
+			}
+		}
+	}
+
+	option = {
+		name = KRS_pillars.11.a
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_public_approval = 8
+		}
+		random_owned_controlled_state = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+	option = {
+		name = KRS_pillars.11.b
+		ai_chance = { base = 10 }
+		add_to_variable = {
+			SAH_military_approval = 3
+		}
+		custom_effect_tooltip = {
+            localization_key = SAH_military_approval_tt
+            VALUE = {
+                localization_key = TNO_COLOR_GREEN
+                VALUE_CHANGE = "+3"
+            }
+        }
+		TNO_improve_industrial_equipment_high = yes
+	}
+}
+
+## Flavor Events ##
+
+country_event = {
+	id = SAH_flavor.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event SAH_flavor.1"}
+	title = SAH_flavor.1.t
+	desc = SAH_flavor.1.d
+	picture = GFX_report_event_generic_radio
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = SAH_flavor.1.a
+		ai_chance = { base = 10 }
+	}
+}

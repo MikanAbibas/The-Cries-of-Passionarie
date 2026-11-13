@@ -1,0 +1,1648 @@
+﻿#############################################
+###BAH GAWD WE GOT OURSELVES AN OIL CRISIS###
+#############################################
+
+#Written by the one, the only, Bomber Todd#
+#But also Mango#
+#And Targai#
+#And basically every dev#
+#basically shut up#
+#And Tex#
+#mothar added a couple of tooltips, please give credit#
+#GWS added the event that actually ends all this crap#
+add_namespace = OIL
+
+
+country_event = { #Foreshocks for Italy - Oil Prices Rise
+	id = OIL.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.1"}
+	title = OIL.1.t
+	desc = OIL.1.desc
+	picture = GFX_report_event_lithuania_army
+
+	fire_only_once = yes
+
+	trigger = {
+		has_global_flag = OIL_Egypt_Critical
+		check_variable = { global.PanArabRadicalism > 5 }
+		tag = ITA
+	}
+
+	option = {
+		name = OIL.1.a
+		#add_ideas = OIL_prelude
+		ITA = {
+			add_to_variable = {
+				var = GDP_growth
+				value = -0.01
+			}
+			custom_effect_tooltip = econ_decrease_GDP_growth
+			add_to_variable = {
+				var = GDP
+				value = -24
+			}
+		}
+		hidden_effect = {
+			set_global_flag = oil_crisis_foreshocks
+			every_country = {
+				if = {
+					limit = {
+						NOT = {
+							tag = ITA
+						}
+					}
+					country_event = {
+						id = OIL.2
+						days = 7
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Countries take note of the Italian oil price spike
+	id = OIL.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.2"}
+	title = OIL.2.t
+	desc = OIL.2.desc
+	picture = GFX_report_event_lithuania_army
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.2.a
+		#add_ideas = OIL_prelude
+		ROOT = {
+			set_temp_variable = { temp_gdp_growth = -0.005 }
+			econ_change_gdp_growth = yes
+		}
+		if = {
+			limit = {
+				has_global_flag = german_civil_war_goeringvic
+			}
+			GER = {
+				country_event = {
+					id = goering.504
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Foreshocks over for Italy
+	id = OIL.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.3"}
+	title = OIL.3.t
+	desc = OIL.3.desc
+	picture = GFX_report_event_lithuania_army
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.3.a
+		#remove_ideas = OIL_prelude
+		hidden_effect = {
+			clr_global_flag = oil_crisis_foreshocks
+			set_global_flag = oil_crisis_pause
+			ITA = {
+				country_event = { id = OIL.5 days = 270 }
+			}
+			every_country = {
+				if = {
+					limit = {
+						NOT = {
+							tag = ITA
+						}
+					}
+					country_event = {
+						id = OIL.4
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Removing idea from every country
+	id = OIL.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.4"}
+	title = OIL.4.t
+	desc = OIL.4.desc
+	picture = GFX_report_event_lithuania_army
+
+	is_triggered_only = yes
+
+	option = {
+		name = OIL.4.a
+		#remove_ideas = OIL_prelude
+	}
+}
+
+country_event = { #Oh boy you done did it now
+	id = OIL.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.5"}
+	title = OIL.5.t
+	desc = OIL.5.desc
+	picture = GFX_report_event_lithuania_army
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = OIL.5.a
+		hidden_effect = {
+			every_country = {
+				if = {
+					limit = {
+						NOT = {
+							tag = ZZZ
+							tag = INS
+							tag = VEN
+							tag = BRG
+							is_russian_nation = yes
+						}
+					}
+					TNO_Oil_Crisis_apply_modifier = yes
+				}
+			}
+			CHI = {
+				country_event = {
+					id = chi.5500
+					days = 4
+				}
+			}
+			# The crisis ends when its wars do (OIL_check_crisis_end), no longer after a fixed 912 days
+			set_global_flag = OIL_crisis_started
+			if = {
+				limit = { has_global_flag = german_civil_war_bormannvic }
+				GER = { country_event = { id = bormann.1207 days = 4 } }
+			}
+			else_if = {
+				limit = { has_global_flag = german_civil_war_speervic }
+				GER = { country_event = { id = speeroilcrisis.1 days = 4 } }
+			}
+			JAP = { country_event = { id = jap_oil.1 } }
+			USA = { country_event = { id = USA.oilcrisis.100 days = 3 } }
+			ILG = { country_event = { id = ilgoilcrisis.1 days = 3 } }
+		}
+	}
+}
+
+country_event = { #UAR Formation
+	id = OIL.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.6"}
+	title = OIL.6.t
+	desc = OIL.6.desc
+	picture = GFX_report_event_lithuania_army
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = OIL.6.a
+		# TNORA: the UAR now forms only through UAR_proclaim_the_united_arab_republic (common/decisions/TNO_UAR_decisions.txt).
+		# The rest of this event (German clean-up, the Scorza ending, the Bormann reward) now runs from
+		# UAR_check_baathist_struggle in common/scripted_effects/TNO_UAR_scripted_effects.txt.
+#STRIP(uar)		UAR = {
+#STRIP(uar)			add_state_core = 293
+#STRIP(uar)			add_state_core = 912
+#STRIP(uar)			add_state_core = 659
+#STRIP(uar)			add_state_core = 908
+#STRIP(uar)			add_state_core = 909
+#STRIP(uar)			add_state_core = 913
+#STRIP(uar)			add_state_core = 914
+#STRIP(uar)			add_state_core = 915
+#STRIP(uar)			add_state_core = 916
+#STRIP(uar)			add_state_core = 294
+#STRIP(uar)			add_state_core = 678
+#STRIP(uar)			add_state_core = 911
+#STRIP(uar)			add_state_core = 910
+#STRIP(uar)			add_state_core = 918
+#STRIP(uar)			add_state_core = 920
+#STRIP(uar)			add_state_core = 917
+#STRIP(uar)			add_state_core = 919
+#STRIP(uar)			add_state_core = 679
+#STRIP(uar)			add_state_core = 292
+#STRIP(uar)			add_state_core = 923
+#STRIP(uar)			add_state_core = 921
+#STRIP(uar)			add_state_core = 922
+#STRIP(uar)			add_state_core = 455
+#STRIP(uar)			add_state_core = 454
+#STRIP(uar)			add_state_core = 453
+#STRIP(uar)			add_state_core = 446
+#STRIP(uar)			add_state_core = 447
+#STRIP(uar)			add_state_core = 452
+#STRIP(uar)			add_state_core = 1115
+#STRIP(uar)			add_state_core = 457
+#STRIP(uar)			add_state_core = 456
+#STRIP(uar)			add_state_core = 1116
+#STRIP(uar)			add_state_core = 552
+#STRIP(uar)			add_state_core = 1119
+#STRIP(uar)			add_state_core = 1120
+#STRIP(uar)			add_state_core = 551
+#STRIP(uar)			add_state_core = 1123
+#STRIP(uar)			add_state_core = 1124
+#STRIP(uar)			add_state_core = 1125
+#STRIP(uar)			add_state_core = 549
+#STRIP(uar)			add_state_core = 1122
+#STRIP(uar)			add_state_core = 1135
+#STRIP(uar)			add_state_core = 1136
+#STRIP(uar)			add_state_core = 1126
+#STRIP(uar)			add_state_core = 1127
+#STRIP(uar)			add_state_core = 1128
+#STRIP(uar)			add_state_core = 1131
+#STRIP(uar)			add_state_core = 1179
+#STRIP(uar)			add_state_core = 1133
+#STRIP(uar)			add_state_core = 1134
+#STRIP(uar)			add_state_core = 1132
+#STRIP(uar)			add_state_core = 1121
+#STRIP(uar)			add_state_core = 1129
+#STRIP(uar)			add_state_core = 1130
+#STRIP(uar)			add_state_core = 1246
+#STRIP(uar)			add_state_core = 1247
+#STRIP(uar)			add_state_core = 1244
+#STRIP(uar)			add_state_core = 1245
+#STRIP(uar)			add_state_core = 782
+#STRIP(uar)			add_state_core = 1248
+#STRIP(uar)			add_state_core = 553
+#STRIP(uar)			add_state_core = 1240
+#STRIP(uar)			add_state_core = 554
+#STRIP(uar)			add_state_core = 680
+#STRIP(uar)			add_state_core = 1243
+#STRIP(uar)			add_state_core = 677
+#STRIP(uar)			add_state_core = 1241
+#STRIP(uar)			add_state_core = 554
+#STRIP(uar)			add_state_core = 1242
+#STRIP(uar)			add_state_core = 781
+#STRIP(uar)		}
+#STRIP(uar)		if = {
+#STRIP(uar)			limit = {
+#STRIP(uar)				EGB = {
+#STRIP(uar)					exists = yes
+#STRIP(uar)					has_war = no
+#STRIP(uar)					is_in_faction = yes
+#STRIP(uar)				}
+#STRIP(uar)			}
+#STRIP(uar)			UAR = {
+#STRIP(uar)				annex_country = { target = EGB transfer_troops = yes}
+#STRIP(uar)				change_tag_from = EGB
+#STRIP(uar)			}
+#STRIP(uar)		}
+#STRIP(uar)		if = {
+#STRIP(uar)			limit = {
+#STRIP(uar)				NYM = {
+#STRIP(uar)					exists = yes
+#STRIP(uar)					has_war = no
+#STRIP(uar)					is_in_faction = yes
+#STRIP(uar)				}
+#STRIP(uar)			}
+#STRIP(uar)			UAR = {
+#STRIP(uar)				annex_country = { target = NYM transfer_troops = yes}
+#STRIP(uar)				change_tag_from = NYM
+#STRIP(uar)			}
+#STRIP(uar)		}
+#STRIP(uar)		if = {
+#STRIP(uar)			limit = {
+#STRIP(uar)				PAL = {
+#STRIP(uar)					exists = yes
+#STRIP(uar)					has_government = ultranational_socialism
+#STRIP(uar)					has_war = no
+#STRIP(uar)					is_in_faction = yes
+#STRIP(uar)				}
+#STRIP(uar)			}
+#STRIP(uar)			UAR = {
+#STRIP(uar)				annex_country = { target = PAL transfer_troops = yes}
+#STRIP(uar)				change_tag_from = PAL
+#STRIP(uar)			}
+#STRIP(uar)		}
+#STRIP(uar)		if = {
+#STRIP(uar)			limit = {
+#STRIP(uar)				PAL = {
+#STRIP(uar)					exists = yes
+#STRIP(uar)					has_government = communist
+#STRIP(uar)					has_war = no
+#STRIP(uar)					is_in_faction = yes
+#STRIP(uar)				}
+#STRIP(uar)			}
+#STRIP(uar)			UAR = {
+#STRIP(uar)				annex_country = { target = PAL transfer_troops = yes}
+#STRIP(uar)				change_tag_from = PAL
+#STRIP(uar)			}
+#STRIP(uar)		}
+#STRIP(uar)		if = {
+#STRIP(uar)			limit = {
+#STRIP(uar)				SYR = {
+#STRIP(uar)					exists = yes
+#STRIP(uar)					has_war = no
+#STRIP(uar)					is_in_faction = yes
+#STRIP(uar)				}
+#STRIP(uar)			}
+#STRIP(uar)			UAR = {
+#STRIP(uar)				annex_country = { target = SYR transfer_troops = yes}
+#STRIP(uar)				change_tag_from = SYR
+#STRIP(uar)			}
+#STRIP(uar)		}
+#STRIP(uar)		if = {
+#STRIP(uar)			limit = {
+#STRIP(uar)				BIR = {
+#STRIP(uar)					exists = yes
+#STRIP(uar)					has_war = no
+#STRIP(uar)					is_in_faction = yes
+#STRIP(uar)				}
+#STRIP(uar)			}
+#STRIP(uar)			UAR = {
+#STRIP(uar)				annex_country = { target = BIR transfer_troops = yes}
+#STRIP(uar)				change_tag_from = BIR
+#STRIP(uar)			}
+#STRIP(uar)		}
+#STRIP(uar)		if = {
+#STRIP(uar)			limit = {
+#STRIP(uar)				OMB = {
+#STRIP(uar)					exists = yes
+#STRIP(uar)					has_war = no
+#STRIP(uar)					is_in_faction = yes
+#STRIP(uar)				}
+#STRIP(uar)			}
+#STRIP(uar)			UAR = {
+#STRIP(uar)				annex_country = { target = OMB transfer_troops = yes}
+#STRIP(uar)				change_tag_from = OMB
+#STRIP(uar)			}
+#STRIP(uar)		}
+#STRIP(uar)		if = {
+#STRIP(uar)			limit = {
+#STRIP(uar)				GUL = {
+#STRIP(uar)					exists = yes
+#STRIP(uar)					has_government = social_democrat
+#STRIP(uar)					has_war = no
+#STRIP(uar)					is_in_faction = yes
+#STRIP(uar)				}
+#STRIP(uar)			}
+#STRIP(uar)			UAR = {
+#STRIP(uar)				annex_country = { target = GUL transfer_troops = yes}
+#STRIP(uar)				change_tag_from = GUL
+#STRIP(uar)			}
+#STRIP(uar)		}
+#STRIP(uar)		ITA = {
+#STRIP(uar)			if = {
+#STRIP(uar)				limit = {
+#STRIP(uar)					has_country_flag = ita_scorza_wins
+#STRIP(uar)				}
+#STRIP(uar)				country_event = {
+#STRIP(uar)					id = ITA_scorza_ending.1
+#STRIP(uar)					hours = 5
+#STRIP(uar)				}
+#STRIP(uar)			}
+#STRIP(uar)		}
+#STRIP(uar)		hidden_effect = {
+#STRIP(uar)			GER = { # Clearing intervention stuff for Germany
+#STRIP(uar)				clr_country_flag = GER_OC_intervention
+#STRIP(uar)				clr_country_flag = GER_OC_Oman_CW
+#STRIP(uar)				clr_country_flag = GER_OC_Iraq_CW
+#STRIP(uar)				clr_country_flag = GER_OC_Egypt_CW
+#STRIP(uar)				remove_ideas = {
+#STRIP(uar)					GER_Bormann_OC_heat_of_the_desert
+#STRIP(uar)					GER_Bormann_OC_intervention
+#STRIP(uar)				}
+#STRIP(uar)				remove_dynamic_modifier = { modifier = GER_BOR_lost_generation_dynamic_modifier }
+#STRIP(uar)				clear_variable = BOR_OC_send_volunteer_size
+#STRIP(uar)				if = { # Giving the bonuses for supporting the Ba'aths
+#STRIP(uar)					limit = { has_global_flag = german_civil_war_bormannvic }
+#STRIP(uar)					country_event = { id = bormann.1213 days = 4 }
+#STRIP(uar)				}
+#STRIP(uar)			}
+#STRIP(uar)			every_country = { # Germany stops bombing the saudis
+#STRIP(uar)				limit = { has_idea = GER_Bormann_OC_bombing_runs }
+#STRIP(uar)				remove_ideas = GER_Bormann_OC_bombing_runs
+#STRIP(uar)			}
+#STRIP(uar)			# every_country = { # Hidden event to clear the Oil Cisis modifier for nations that don't have specific content to remove it yet
+#STRIP(uar)			# 	limit = { has_idea = TNO_Oil_Crisis }
+#STRIP(uar)			# 	country_event = { id = OIL.601 days = 120 }
+#STRIP(uar)			# }
+#STRIP(uar)			# Clearing German AI volunteers
+#STRIP(uar)			EGB = { delete_unit_template_and_units = { division_template = "German Volunteers" } clear_variable = german_volunteers_num }
+#STRIP(uar)			BIR = { delete_unit_template_and_units = { division_template = "German Volunteers" } clear_variable = german_volunteers_num }
+#STRIP(uar)			NYM = { delete_unit_template_and_units = { division_template = "German Volunteers" } clear_variable = german_volunteers_num }
+#STRIP(uar)			OMB = { delete_unit_template_and_units = { division_template = "German Volunteers" } clear_variable = german_volunteers_num }
+#STRIP(uar)		}
+	}
+}
+
+country_event = { #Oh boy you done did it now
+	id = OIL.1002
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.1002"}
+	title = OIL.1002.t
+	desc = OIL.1002.desc
+	picture = GFX_report_event_lithuania_army
+
+	is_triggered_only = yes
+
+	option = {
+		name = OIL.1002.a
+		# TNORA: the UAR now forms only through UAR_proclaim_the_united_arab_republic (common/decisions/TNO_UAR_decisions.txt).
+#STRIP(uar)		UAR = {
+#STRIP(uar)			set_cosmetic_tag = UAR_QUTB
+#STRIP(uar)			set_politics = {
+#STRIP(uar)				ruling_party = ultranational_socialism
+#STRIP(uar)			}
+#STRIP(uar)			add_popularity = {
+#STRIP(uar)				ideology = ultranational_socialism
+#STRIP(uar)				popularity = 0.60
+#STRIP(uar)			}
+#STRIP(uar)		}
+#STRIP(uar)		UAR = {
+#STRIP(uar)			transfer_state = 293
+#STRIP(uar)			transfer_state = 912
+#STRIP(uar)			transfer_state = 659
+#STRIP(uar)			transfer_state = 908
+#STRIP(uar)			transfer_state = 909
+#STRIP(uar)			transfer_state = 913
+#STRIP(uar)			transfer_state = 914
+#STRIP(uar)			transfer_state = 915
+#STRIP(uar)			transfer_state = 294
+#STRIP(uar)			transfer_state = 678
+#STRIP(uar)			transfer_state = 911
+#STRIP(uar)			transfer_state = 910
+#STRIP(uar)			transfer_state = 918
+#STRIP(uar)			transfer_state = 920
+#STRIP(uar)			transfer_state = 917
+#STRIP(uar)			transfer_state = 919
+#STRIP(uar)			transfer_state = 679
+#STRIP(uar)			transfer_state = 292
+#STRIP(uar)			transfer_state = 923
+#STRIP(uar)			transfer_state = 921
+#STRIP(uar)			transfer_state = 922
+#STRIP(uar)			transfer_state = 455
+#STRIP(uar)			transfer_state = 454
+#STRIP(uar)			transfer_state = 453
+#STRIP(uar)			transfer_state = 446
+#STRIP(uar)			transfer_state = 447
+#STRIP(uar)			transfer_state = 452
+#STRIP(uar)			transfer_state = 1115
+#STRIP(uar)			transfer_state = 457
+#STRIP(uar)			transfer_state = 456
+#STRIP(uar)			transfer_state = 1116
+#STRIP(uar)			transfer_state = 552
+#STRIP(uar)			transfer_state = 1119
+#STRIP(uar)			transfer_state = 1120
+#STRIP(uar)			transfer_state = 551
+#STRIP(uar)			transfer_state = 1123
+#STRIP(uar)			transfer_state = 1124
+#STRIP(uar)			transfer_state = 1125
+#STRIP(uar)			transfer_state = 549
+#STRIP(uar)			transfer_state = 1122
+#STRIP(uar)			transfer_state = 1135
+#STRIP(uar)			transfer_state = 1136
+#STRIP(uar)			transfer_state = 1126
+#STRIP(uar)			transfer_state = 1127
+#STRIP(uar)			transfer_state = 1128
+#STRIP(uar)			transfer_state = 1131
+#STRIP(uar)			transfer_state = 1179
+#STRIP(uar)			transfer_state = 1133
+#STRIP(uar)			transfer_state = 1134
+#STRIP(uar)			transfer_state = 1132
+#STRIP(uar)			transfer_state = 1121
+#STRIP(uar)			transfer_state = 1129
+#STRIP(uar)			transfer_state = 1130
+#STRIP(uar)			transfer_state = 1246
+#STRIP(uar)			transfer_state = 1247
+#STRIP(uar)			transfer_state = 1244
+#STRIP(uar)			transfer_state = 1245
+#STRIP(uar)			transfer_state = 782
+#STRIP(uar)			transfer_state = 1248
+#STRIP(uar)			transfer_state = 553
+#STRIP(uar)			transfer_state = 1240
+#STRIP(uar)			transfer_state = 554
+#STRIP(uar)			transfer_state = 680
+#STRIP(uar)			transfer_state = 1243
+#STRIP(uar)			transfer_state = 677
+#STRIP(uar)			transfer_state = 1241
+#STRIP(uar)			transfer_state = 554
+#STRIP(uar)			transfer_state = 1242
+#STRIP(uar)			transfer_state = 781
+#STRIP(uar)			transfer_state = 656
+#STRIP(uar)			transfer_state = 658
+#STRIP(uar)		}
+	}
+}
+
+country_event = { #Oh boy you done did it now
+	id = OIL.1003
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.1003"}
+	title = OIL.1003.t
+	desc = OIL.1003.desc
+	picture = GFX_report_event_lithuania_army
+
+	is_triggered_only = yes
+
+	option = {
+		name = OIL.5.a
+		FSR = {
+			annex_country = {
+				target = IBR
+				transfer_troops = yes
+			}
+		}
+		OMS = {
+			annex_country = {
+				target = ISH
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = KOK
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = PAV
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = SEM
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = ERS
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = FAV
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = TOB
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = VOR
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = KOM
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = UDM
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = BAS
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = DER
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = ORS
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = URL
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = ORE
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = TAR
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = PRM
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = WRS
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = MIR
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = UKH
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = PRM
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = GAY
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = MAR
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = KIR
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = SAM
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = BKR
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = CHU
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = MCW
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = VOL
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = KST
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = NIK
+				transfer_troops = yes
+			}
+			annex_country = {
+				target = VTY
+				transfer_troops = yes
+			}
+		}
+	}
+}
+
+country_event = { #UAR explosion test
+	id = OIL.1001
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.1001"}
+	title = OIL.1001.t
+	desc = OIL.1001.desc
+	picture = GFX_report_event_lithuania_army
+
+	is_triggered_only = yes
+
+	option = {
+		name = OIL.1001.a
+		KUR = {
+			transfer_state = 421
+			transfer_state = 976
+			transfer_state = 417
+			transfer_state = 974
+			transfer_state = 973
+			transfer_state = 781
+			transfer_state = 1243
+			transfer_state = 1396
+			transfer_state = 352
+			transfer_state = 676
+			set_cosmetic_tag = KUR_POSTUAR
+		}
+		LEB = {
+			transfer_state = 1240
+			transfer_state = 553
+			set_cosmetic_tag = LEB_POSTUAR
+		}
+		TUR = {
+			transfer_state = 1241
+		}
+		SYR = {
+			transfer_state = 1242
+			transfer_state = 677
+			transfer_state = 1395
+			transfer_state = 680
+			transfer_state = 554
+			transfer_state = 782
+			set_cosmetic_tag = SYR_POSTUAR
+		}
+		JOR = {
+			transfer_state = 1245
+			transfer_state = 1244
+			transfer_state = 455
+			transfer_state = 1246
+			transfer_state = 922
+			transfer_state = 1244
+			transfer_state = 921
+			set_cosmetic_tag = JOR_POSTUAR
+		}
+		EGY = {
+			transfer_state = 453
+			transfer_state = 447
+			transfer_state = 452
+			transfer_state = 1115
+			transfer_state = 446
+			transfer_state = 457
+			transfer_state = 1116
+			transfer_state = 552
+			transfer_state = 1119
+			transfer_state = 456
+			set_cosmetic_tag = EGY_POSTUAR
+		}
+		PAL = {
+			transfer_state = 1247
+			transfer_state = 454
+			transfer_state = 1248
+			set_cosmetic_tag = PAL_POSTUAR
+		}
+		RPS = {
+			transfer_state = 1120
+			transfer_state = 1121
+			transfer_state = 1122
+			transfer_state = 1135
+			transfer_state = 1133
+			transfer_state = 1134
+			transfer_state = 1132
+			transfer_state = 1179
+			transfer_state = 1131
+			transfer_state = 1128
+			transfer_state = 1129
+			transfer_state = 1130
+			transfer_state = 551
+			transfer_state = 1123
+			transfer_state = 1124
+			transfer_state = 1125
+			transfer_state = 549
+			transfer_state = 1136
+			transfer_state = 1126
+			transfer_state = 1127
+			transfer_state = 1119
+			set_cosmetic_tag = RPS_POSTUAR
+		}
+		IRQ = {
+			transfer_state = 291
+			transfer_state = 675
+			transfer_state = 916
+			transfer_state = 923
+			set_cosmetic_tag = IRQ_POSTUAR
+		}
+		YEM = {
+			transfer_state = 909
+			transfer_state = 908
+			transfer_state = 659
+			transfer_state = 293
+			set_cosmetic_tag = YEM_POSTUAR
+		}
+		NYM = {
+			transfer_state = 910
+			transfer_state = 911
+			transfer_state = 912
+			set_cosmetic_tag = NYM_POSTUAR
+		}
+		OMA = {
+			transfer_state = 913
+			transfer_state = 914
+			transfer_state = 915
+			transfer_state = 294
+			set_cosmetic_tag = OMA_POSTUAR
+		}
+		SAU = {
+			transfer_state = 918
+			transfer_state = 678
+			transfer_state = 919
+			transfer_state = 917
+			transfer_state = 292
+			set_cosmetic_tag = SAU_POSTUAR
+		}
+		HJZ = {
+			transfer_state = 920
+			transfer_state = 679
+			set_cosmetic_tag = HJZ_POSTUAR
+		}
+		UAE = {
+			transfer_state = 658
+			set_cosmetic_tag = UAE_POSTUAR
+		}
+		KUW = {
+			transfer_state = 656
+		}
+		SNI = {
+			transfer_state = 675
+			transfer_state = 923
+			set_cosmetic_tag = SNI_POSTUAR
+		}
+	}
+}
+###Events for USA-Italy Tree
+country_event = { #Il Duce's Disaster
+	id = OIL.500
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.500"}
+	title = OIL.500.t
+	desc = OIL.500.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	#Interventionist Path
+	option = {
+		name = OIL.500.a
+		custom_effect_tooltip = OIL_USA_intervention
+		custom_effect_tooltip = USA_add_OFN_unity
+		hidden_effect = {
+			add_to_variable = { OFN_Unity = 1 }
+			set_country_flag = OIL_USAprointerventionist
+			ITA = {
+				country_event = { id = OIL.501 days = 2 }
+			}
+		}
+		if = {
+			limit = {
+				has_government = social_democrat
+				has_government = authoritarian_democrat
+			}
+			custom_effect_tooltip = USA_NPP_popularity_decrease
+			hidden_effect = {
+				every_owned_state = {
+					limit = {
+						can_have_elections_in_state = yes
+					}
+					add_to_variable = { RD_R_bonus_popularity = 0.02 }
+					add_to_variable = { RD_popularity = 0.02 }
+					subtract_from_variable = { NPP_popularity = 0.04 }
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = social_liberal
+				has_government = social_conservative
+			}
+			custom_effect_tooltip = USA_RD_popularity_decrease
+			hidden_effect = {
+				every_owned_state = {
+					limit = {
+						can_have_elections_in_state = yes
+					}
+					add_to_variable = { NPP_C_bonus_popularity = 0.02 }
+					add_to_variable = { NPP_popularity = 0.02 }
+					subtract_from_variable = { RD_popularity = 0.04 }
+				}
+			}
+		}
+	}
+	#Non-Interventionist Path
+	option = {
+		name = OIL.500.b
+		custom_effect_tooltip = OIL_USA_no_intervention
+		hidden_effect = {
+			set_country_flag = OIL_USA_antiinterventionist
+			ITA = {
+				country_event = { id = OIL.502 days = 2 }
+			}
+		}
+	}
+}
+
+country_event = { #Alerts Italy that the USA is interventionist
+	id = OIL.501
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.501"}
+	title = OIL.501.t
+	desc = OIL.501.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	#Interventionist Path
+	option = {
+		name = OIL.501.a
+		custom_effect_tooltip = OIL_USA_intervention
+	}
+}
+
+country_event = { #Alerts Italy that the USA is non-interventionist
+	id = OIL.502
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.502"}
+	title = OIL.502.t
+	desc = OIL.502.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	#Interventionist Path
+	option = {
+		name = OIL.502.a
+		custom_effect_tooltip = OIL_USA_no_intervention
+	}
+}
+
+country_event = { #The Sun Never Rises
+	id = OIL.503
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.503"}
+	title = OIL.503.t
+	desc = OIL.503.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.503.a
+		add_opinion_modifier = {
+			modifier = USA_fucked_with_jap
+			target = JAP
+		}
+		BIR = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -100
+				producer = JAP
+			}
+		}
+		EGB = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -100
+				producer = JAP
+			}
+		}
+		NYM = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -100
+				producer = JAP
+			}
+		}
+		#DOF = {
+		#	add_equipment_to_stockpile = {
+		#		type = infantry_equipment
+		#		amount = -100
+		#		producer = JAP
+		#	}
+		#}
+	}
+}
+
+country_event = { #Mr. President, this isn't even close to enough.
+	id = OIL.504
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.504"}
+	title = OIL.504.t
+	desc = OIL.504.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.504.a
+		if = {
+			limit = {
+				ITA = { surrender_progress > 0.1 }
+			}
+			add_political_power = -100
+		}
+		else_if = {
+			add_political_power = 100
+		}
+	}
+}
+
+country_event = { #Operation Checkmate - "Saudi Bay of Pigs"
+	id = OIL.505
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.505"}
+	title = OIL.505.t
+	desc = OIL.505.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.505.a #This isn't worth the cash.
+	}
+	option = {
+		name = OIL.505.b #We don't need to spend *that* much
+		custom_effect_tooltip = econ_decrease_money_reserves_small
+		subtract_from_variable = {
+			var = money_reserves
+			value = 500
+		}
+		hidden_effect = {
+			set_country_flag = USA_OIL_small_checkmate
+			country_event = {
+				id = OIL.506
+				days = 5
+			}
+		}
+	}
+
+	option = {
+		name = OIL.505.c #These Saudis are gonna pay
+		custom_effect_tooltip = econ_decrease_money_reserves
+		subtract_from_variable = {
+			var = money_reserves
+			value = 1000
+		}
+		hidden_effect = {
+			set_country_flag = USA_OIL_moderate_checkmate
+			country_event = {
+				id = OIL.506
+				days = 5
+			}
+		}
+	}
+	option = {
+		name = OIL.505.d #Uncle Sam's gonna teach you a lesson in kicking ass.
+		custom_effect_tooltip = econ_decrease_money_reserves_large
+		subtract_from_variable = {
+			var = money_reserves
+			value = 1500
+		}
+		hidden_effect = {
+			set_country_flag = USA_OIL_BIG_checkmate
+			country_event = {
+				id = OIL.506
+				days = 5
+			}
+		}
+	}
+}
+
+country_event = { #Operation Checkmate - Training Arab Rebels with CIA
+	id = OIL.506
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.506"}
+	title = OIL.506.t
+	desc = OIL.506.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.506.a #Uhh.
+		if = {
+			limit = { has_country_flag = USA_OIL_small_checkmate }
+			custom_effect_tooltip = econ_decrease_money_reserves_small
+			subtract_from_variable = {
+				var = money_reserves
+				value = 500
+			}
+		}
+		else_if = {
+			limit = { has_country_flag = USA_OIL_moderate_checkmate }
+			custom_effect_tooltip = econ_decrease_money_reserves
+			subtract_from_variable = {
+				var = money_reserves
+				value = 1000
+			}
+		}
+		else_if = {
+			limit = { has_country_flag = USA_OIL_BIG_checkmate }
+			custom_effect_tooltip = econ_decrease_money_reserves_large
+			subtract_from_variable = {
+				var = money_reserves
+				value = 1500
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = OIL.507
+				days = 5
+			}
+		}
+	}
+}
+
+country_event = { #Operation Checkmate - Arab Landing on Taurout Bay
+	id = OIL.507
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.507"}
+	title = OIL.507.t
+	desc = OIL.507.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.507.a #Let's Go Boys!
+		hidden_effect = {
+			if = {
+				limit = { has_country_flag = USA_OIL_small_checkmate }
+				random_list = {
+					75 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.508 #Fail Event
+								days = 5
+							}
+						}
+					}
+					25 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.509 #Pass Event
+								days = 5
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = USA_OIL_moderate_checkmate }
+				random_list = {
+					50 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.508 #Fail Event
+								days = 5
+							}
+						}
+					}
+					50 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.509 #Pass Event
+								days = 5
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = USA_OIL_BIG_checkmate }
+				random_list = {
+					25 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.508 #Fail Event
+								days = 5
+							}
+						}
+					}
+					75 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.509 #Pass Event
+								days = 5
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Operation Checkmate - Landing Fails
+	id = OIL.508
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.508"}
+	title = OIL.508.t
+	desc = OIL.508.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.508.a #Uhh...
+		hidden_effect = {
+			country_event = {
+				id = OIL.510
+				days = 5
+			}
+		}
+	}
+}
+
+country_event = { #Operation Checkmate - President informed of failure
+	id = OIL.510
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.510"}
+	title = OIL.510.t
+	desc = OIL.510.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.510.a #Heads will roll!
+		hidden_effect = {
+			if = {
+				limit = { has_country_flag = USA_OIL_small_checkmate }
+				random_list = {
+					90 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.520 #Backlash Event
+								days = 10
+							}
+						}
+					}
+					10 = {
+						hidden_effect = {
+
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = USA_OIL_moderate_checkmate }
+				random_list = {
+					33 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.520 #Backlash Event
+								days = 10
+							}
+						}
+					}
+					67 = {
+						hidden_effect = {
+
+						}
+					}
+				}
+				else_if = {
+					limit = { has_country_flag = USA_OIL_BIG_checkmate }
+					random_list = {
+						60 = {
+							hidden_effect = {
+								country_event = {
+									id = OIL.520 #Backlash Event
+									days = 10
+								}
+							}
+						}
+						40 = {
+							hidden_effect = {
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Operation Checkmate - Landing Succeeds
+	id = OIL.509
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.509"}
+	title = OIL.509.t
+	desc = OIL.509.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.510.a #Suck It Saudis!
+		hidden_effect = {
+			country_event = {
+				id = OIL.511
+				days = 5
+			}
+		}
+	}
+}
+
+country_event = { #Operation Checkmate - Supplies are running out
+	id = OIL.511
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.511"}
+	title = OIL.510.t
+	desc = OIL.510.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.511.a #God fucking damn it
+		hidden_effect = {
+			if = {
+				limit = { has_country_flag = USA_OIL_small_checkmate }
+				random_list = {
+					60 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.512 #Relative event
+								days = 10
+							}
+						}
+					}
+					40 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.515 #Decisive event
+								days = 10
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = USA_OIL_moderate_checkmate }
+				random_list = {
+					50 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.512 #Relative event
+								days = 10
+							}
+						}
+					}
+					50 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.515 #Decisive event
+								days = 10
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = USA_OIL_BIG_checkmate }
+				random_list = {
+					60 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.512 #Relative event
+								days = 10
+							}
+						}
+					}
+					40 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.515 #Decisive event
+								days = 10
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Operation Checkmate - Rebels ambushed
+	id = OIL.512
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.511"}
+	title = OIL.512.t
+	desc = OIL.512.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.512.a #God fucking damn it
+		hidden_effect = {
+			country_event = {
+				id = OIL.513
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = { #Operation Checkmate - Not that bad, presidents told. Relative Success
+	id = OIL.513
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.513"}
+	title = OIL.513.t
+	desc = OIL.513.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.513.a #Meh sure
+		SAU = {
+			add_timed_idea = {
+				idea = USA_OilCrisis_FUCKYOUSAUDIS_1
+				days = 200
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = { has_country_flag = USA_OIL_small_checkmate }
+				random_list = {
+					90 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.520 #Backlash Event
+								days = 10
+							}
+						}
+					}
+					10 = {
+						hidden_effect = {
+
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = USA_OIL_moderate_checkmate }
+				random_list = {
+					33 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.520 #Backlash Event
+								days = 10
+							}
+						}
+					}
+					67 = {
+						hidden_effect = {
+
+						}
+					}
+				}
+				else_if = {
+					limit = { has_country_flag = USA_OIL_BIG_checkmate }
+					random_list = {
+						60 = {
+							hidden_effect = {
+								country_event = {
+									id = OIL.520 #Backlash Event
+									days = 10
+								}
+							}
+						}
+						40 = {
+							hidden_effect = {
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Guerilla War - Mr. President The Situation Is Epic
+	id = OIL.515
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.515"}
+	title = OIL.515.t
+	desc = OIL.515.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.515.a #Nice!
+		SAU = {
+			add_timed_idea = {
+				idea = USA_OilCrisis_FUCKYOUSAUDIS_2
+				days = 365
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = { has_country_flag = USA_OIL_small_checkmate }
+				random_list = {
+					90 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.520 #Backlash Event
+								days = 10
+							}
+						}
+					}
+					10 = {
+						hidden_effect = {
+
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = USA_OIL_moderate_checkmate }
+				random_list = {
+					33 = {
+						hidden_effect = {
+							country_event = {
+								id = OIL.520 #Backlash Event
+								days = 10
+							}
+						}
+					}
+					67 = {
+						hidden_effect = {
+
+						}
+					}
+				}
+				else_if = {
+					limit = { has_country_flag = USA_OIL_BIG_checkmate }
+					random_list = {
+						60 = {
+							hidden_effect = {
+								country_event = {
+									id = OIL.520 #Backlash Event
+									days = 10
+								}
+							}
+						}
+						40 = {
+							hidden_effect = {
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Backlash, the leak.
+	id = OIL.520
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.520"}
+	title = OIL.520.t
+	desc = OIL.520.desc
+	picture = GFX_report_event_generic_oil_platform
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.520.a #I'm gonna find the whistle-blowing son of a bitch.
+		if = {
+			limit = {
+				has_government = social_democrat
+				has_government = authoritarian_democrat
+			}
+			custom_effect_tooltip = USA_NPP_popularity_decrease
+			hidden_effect = {
+				every_owned_state = {
+					limit = {
+						can_have_elections_in_state = yes
+					}
+					add_to_variable = { RD_R_bonus_popularity = 0.02 }
+					add_to_variable = { RD_popularity = 0.02 }
+					subtract_from_variable = { NPP_popularity = 0.04 }
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = social_liberal
+				has_government = social_conservative
+			}
+			custom_effect_tooltip = USA_RD_popularity_decrease
+			hidden_effect = {
+				every_owned_state = {
+					limit = {
+						can_have_elections_in_state = yes
+					}
+					add_to_variable = { NPP_C_bonus_popularity = 0.02 }
+					add_to_variable = { NPP_popularity = 0.02 }
+					subtract_from_variable = { RD_popularity = 0.04 }
+				}
+			}
+		}
+	}
+}
+
+country_event = { #OC modifier debug
+	id = OIL.600
+	immediate = { log = "[GetDateText]: [Root.GetName]: event OIL.600" }
+	title = "Oil Crisis modifier debug"
+	desc = ""
+	picture = GFX_report_event_lithuania_army
+
+	is_triggered_only = yes
+
+	option = {
+		name = "Apply dynamic modifier"
+		add_ideas = TNO_Oil_Crisis
+		TNO_Oil_Crisis_apply_modifier = yes
+	}
+	option = {
+		name = "Reduce dynamic modifier"
+		TNO_Oil_Crisis_reduce_effects = yes
+	}
+	option = {
+		name = "Remove modifier/idea"
+		TNO_Oil_Crisis_remove_modifier = yes
+		remove_ideas = TNO_Oil_Crisis
+	}
+}
+
+country_event = { # Hidden event to remove the modifier after the OC has ended
+	id = OIL.601
+	immediate = { log = "[GetDateText]: [Root.GetName]: event OIL.601" }
+	title = "Oil Crisis modifier removal"
+	desc = "You shouldn't be seeing this"
+	picture = GFX_report_event_lithuania_army
+
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = "Remove that modifier pls"
+		TNO_Oil_Crisis_remove_modifier = yes
+	}
+}
+
+country_event = { # The Oil Crisis comes anyway. Scheduled by egy.999 for every route: when Italy kept
+	# Egypt and Iraq from collapsing, or Egypt collapsed without a strong Ba'ath and the Syrian
+	# Revolt never came, nothing else starts it. Skipped if it is already underway.
+	id = OIL.30
+	hidden = yes
+	immediate = {log = "[GetDateText]: [Root.GetName]: event OIL.30"}
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = OIL.30.a
+		if = {
+			limit = { NOT = { has_global_flag = oil_crisis_full_swing } }
+			every_country = {
+				news_event = {
+					id = WORLD.937
+					days = 2
+				}
+			}
+			country_event = { id = OIL.5 days = 2 }
+		}
+	}
+}

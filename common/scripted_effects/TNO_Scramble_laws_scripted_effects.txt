@@ -1,0 +1,335 @@
+# New Scramble for Africa: the laws of the scramble nations (user, 2026-10-24: "fitting to the nation's ideology and
+# their international alignment", and at least a four-year draft). Most revolt tags start with no laws at all and so
+# carried the categories' defaults (slavery allowed, "kill 'em all" supervision, a demilitarized budget, a one-year
+# draft); ANG, COG and MZB carried their Reichskommissariat-era sets. Applied at the start (SFA_start), when Italy's
+# and Iberia's proxies spawn, and once on the next pulse of an older save.
+
+SFA_set_all_nation_laws = {
+	every_country = {
+		limit = { has_country_flag = SFA_african_nation }
+		SFA_set_nation_laws = yes
+	}
+}
+
+SFA_set_nation_laws = {
+	# in a scramble nation's scope: every law category cleared, then the profile of its government, then its patron's
+	# choices for trade, training, supervision and integration. Every profile drafts for four years or more.
+	SFA_clear_nation_laws = yes
+	if = {
+		# Liberal democrats: social democrats, social liberals, market liberals
+		limit = { OR = { has_government = social_democrat has_government = social_liberal has_government = market_liberal } }
+		add_ideas = {
+			tno_political_parties_multiparty_system
+			tno_religious_rights_pluralism
+			tno_trade_unions_all_allowed
+			tno_immigration_quota_immigration
+			tno_slavery_outlawed
+			tno_public_meetings_allowed
+			tno_press_rights_free_press
+			tno_vote_franchise_universal
+			tno_refugees_vetted_entry
+			tno_conscription_four_year_draft
+			tno_women_noncombat_only
+			tno_military_spending_large_spending
+			tno_draft_exemptions_educational_deferment
+			tno_safety_limited_regulations
+			tno_health_care_public_health_care
+			tno_pollution_few_regulations
+			tno_education_public_education
+			tno_penal_system_incarceration
+			tno_lgbt_rights_lgbt_outlawed
+			tno_gender_rights_women_in_the_workplace
+			tno_minorities_equal_rights
+			tno_security_police
+			tno_economic_focus_early_mobilization
+			tno_tax_rate_medium_taxation
+			tno_income_taxation_flat_taxes
+			tno_minimum_wage_low_minimum_wage
+			tno_max_workhours_12_hour_work_day
+			tno_child_labor_restricted
+			tno_pensions_low_pensions
+			tno_unemployment_low_subsidies
+		}
+	}
+	else_if = {
+		# Conservative and authoritarian democrats
+		limit = { OR = { has_government = social_conservative has_government = authoritarian_democrat } }
+		add_ideas = {
+			tno_political_parties_controlled_opposition
+			tno_religious_rights_pluralism
+			tno_trade_unions_nonsocialist_allowed
+			tno_immigration_quota_immigration
+			tno_slavery_outlawed
+			tno_public_meetings_regulated
+			tno_press_rights_censored_press
+			tno_vote_franchise_registered_voting
+			tno_refugees_vetted_entry
+			tno_conscription_four_year_draft
+			tno_women_military_assistance
+			tno_military_spending_large_spending
+			tno_draft_exemptions_civil_service_deferment
+			tno_safety_minimal_regulations
+			tno_health_care_private_health_care
+			tno_pollution_no_controls
+			tno_education_public_education
+			tno_penal_system_penal_labor
+			tno_lgbt_rights_lgbt_outlawed
+			tno_gender_rights_traditional_roles
+			tno_minorities_equal_rights
+			tno_security_security_service
+			tno_economic_focus_early_mobilization
+			tno_tax_rate_medium_taxation
+			tno_income_taxation_flat_taxes
+			tno_minimum_wage_trinket_minimum_wage
+			tno_max_workhours_12_hour_work_day
+			tno_child_labor_restricted
+			tno_pensions_trinket_pensions
+			tno_unemployment_trinket_subsidies
+		}
+	}
+	else_if = {
+		# Socialists and communists
+		limit = { OR = { has_government = socialist has_government = communist } }
+		add_ideas = {
+			tno_political_parties_one_party_state
+			tno_religious_rights_secularism
+			tno_trade_unions_state_controlled
+			tno_immigration_quota_immigration
+			tno_slavery_outlawed
+			tno_public_meetings_regulated
+			tno_press_rights_state_press_only
+			tno_vote_franchise_universal
+			tno_refugees_vetted_entry
+			tno_conscription_service_by_requirement
+			tno_women_combat_roles
+			tno_military_spending_large_spending
+			tno_draft_exemptions_none
+			tno_safety_limited_regulations
+			tno_health_care_public_health_care
+			tno_pollution_no_controls
+			tno_education_public_education
+			tno_penal_system_penal_labor
+			tno_lgbt_rights_lgbt_outlawed
+			tno_gender_rights_gender_equality
+			tno_minorities_equal_rights
+			tno_security_security_service
+			tno_economic_focus_partial_mobilization
+			tno_tax_rate_high_taxes
+			tno_income_taxation_high_income_weighted
+			tno_minimum_wage_low_minimum_wage
+			tno_max_workhours_12_hour_work_day
+			tno_child_labor_illegal
+			tno_pensions_low_pensions
+			tno_unemployment_low_subsidies
+		}
+	}
+	else_if = {
+		# National socialists and the Burgundian system: the Reich's and the SS's remnants
+		limit = { OR = { has_government = national_socialism has_government = burgundian_system } }
+		add_ideas = {
+			tno_political_parties_one_party_state
+			tno_religious_rights_state_religion
+			tno_trade_unions_state_controlled
+			tno_immigration_closed_borders
+			tno_slavery_allowed
+			tno_public_meetings_outlawed
+			tno_press_rights_state_press_only
+			tno_vote_franchise_no_voting
+			tno_refugees_banned
+			tno_conscription_all_adults_serve
+			tno_women_banned
+			tno_military_spending_militarycentric_budget
+			tno_draft_exemptions_none
+			tno_safety_minimal_regulations
+			tno_health_care_private_health_care
+			tno_pollution_no_controls
+			tno_education_elite_only
+			tno_penal_system_penal_slavery
+			tno_lgbt_rights_lgbt_outlawed
+			tno_gender_rights_traditional_roles
+			tno_minorities_oppression
+			tno_security_wire_tapping
+			tno_economic_focus_war_economy
+			tno_tax_rate_high_taxes
+			tno_income_taxation_elite_tax_exemptions
+			tno_minimum_wage_no_minimum_wage
+			tno_max_workhours_14_hour_work_day
+			tno_child_labor_restricted
+			tno_pensions_no_pensions
+			tno_unemployment_no_subsidies
+		}
+	}
+	else_if = {
+		# Fascists and ultranationalists
+		limit = { OR = { has_government = fascism has_government = ultranational_socialism } }
+		add_ideas = {
+			tno_political_parties_one_party_state
+			tno_religious_rights_state_religion
+			tno_trade_unions_state_controlled
+			tno_immigration_closed_borders
+			tno_slavery_corvee
+			tno_public_meetings_outlawed
+			tno_press_rights_state_press_only
+			tno_vote_franchise_no_voting
+			tno_refugees_banned
+			tno_conscription_service_by_requirement
+			tno_women_banned
+			tno_military_spending_militarycentric_budget
+			tno_draft_exemptions_none
+			tno_safety_minimal_regulations
+			tno_health_care_private_health_care
+			tno_pollution_no_controls
+			tno_education_public_education
+			tno_penal_system_capital_punishment
+			tno_lgbt_rights_lgbt_outlawed
+			tno_gender_rights_traditional_roles
+			tno_minorities_segregation
+			tno_security_security_service
+			tno_economic_focus_partial_mobilization
+			tno_tax_rate_high_taxes
+			tno_income_taxation_elite_tax_exemptions
+			tno_minimum_wage_no_minimum_wage
+			tno_max_workhours_14_hour_work_day
+			tno_child_labor_restricted
+			tno_pensions_no_pensions
+			tno_unemployment_no_subsidies
+		}
+	}
+	else = {
+		# Despots, and any government not named above
+		add_ideas = {
+			tno_political_parties_one_party_state
+			tno_religious_rights_pluralism
+			tno_trade_unions_illegal
+			tno_immigration_closed_borders
+			tno_slavery_corvee
+			tno_public_meetings_outlawed
+			tno_press_rights_state_press_only
+			tno_vote_franchise_no_voting
+			tno_refugees_banned
+			tno_conscription_four_year_draft
+			tno_women_banned
+			tno_military_spending_militarycentric_budget
+			tno_draft_exemptions_civil_service_deferment
+			tno_safety_no_regulations
+			tno_health_care_no_health_care
+			tno_pollution_no_controls
+			tno_education_elite_only
+			tno_penal_system_penal_labor
+			tno_lgbt_rights_lgbt_outlawed
+			tno_gender_rights_traditional_roles
+			tno_minorities_segregation
+			tno_security_security_service
+			tno_economic_focus_partial_mobilization
+			tno_tax_rate_high_taxes
+			tno_income_taxation_elite_tax_exemptions
+			tno_minimum_wage_no_minimum_wage
+			tno_max_workhours_14_hour_work_day
+			tno_child_labor_legal
+			tno_pensions_no_pensions
+			tno_unemployment_no_subsidies
+		}
+	}
+	# the patron's hand: whom it trades with, how its army is trained and watched, and whether it is integrated
+	if = {
+		limit = { has_country_flag = SFA_patron_USA }
+		add_ideas = {
+			tno_trade_laws_export_focus
+			tno_training_combat_schooling
+			tno_military_supervision_rules_of_engagement
+			tno_racial_integration_integrated_military
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = SFA_patron_GER }
+		add_ideas = {
+			tno_trade_laws_export_focus
+			tno_training_combat_schooling
+			tno_military_supervision_no_supervision
+			tno_racial_integration_segregated_regiments
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = SFA_patron_ITA }
+		add_ideas = {
+			tno_trade_laws_export_focus
+			tno_training_basic_training
+			tno_military_supervision_military_policing
+			tno_racial_integration_integrated_military
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = SFA_patron_JAP }
+		add_ideas = {
+			tno_trade_laws_export_focus
+			tno_training_basic_training
+			tno_military_supervision_military_policing
+			tno_racial_integration_integrated_military
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = SFA_patron_BRG }
+		add_ideas = {
+			tno_trade_laws_closed_economy
+			tno_training_combat_schooling
+			tno_military_supervision_kill_em_all
+			tno_racial_integration_none
+		}
+	}
+	else_if = {
+		limit = { has_country_flag = SFA_patron_IBR }
+		add_ideas = {
+			tno_trade_laws_export_focus
+			tno_training_basic_training
+			tno_military_supervision_military_policing
+			tno_racial_integration_integrated_military
+		}
+	}
+	else = {
+		# independents
+		add_ideas = {
+			tno_trade_laws_limited_exports
+			tno_training_minimal_training
+			tno_military_supervision_no_supervision
+			tno_racial_integration_integrated_military
+		}
+	}
+}
+
+SFA_clear_nation_laws = {
+	# TNO's own clear effects (TNO_Laws_scripted_effects.txt), one per category
+	tno_political_parties_clear = yes
+	tno_religious_rights_clear = yes
+	tno_trade_unions_clear = yes
+	tno_immigration_clear = yes
+	tno_slavery_clear = yes
+	tno_public_meetings_clear = yes
+	tno_press_rights_clear = yes
+	tno_vote_franchise_clear = yes
+	tno_refugees_clear = yes
+	tno_conscription_clear = yes
+	tno_women_clear = yes
+	tno_military_spending_clear = yes
+	tno_draft_exemptions_clear = yes
+	tno_training_clear = yes
+	tno_military_supervision_clear = yes
+	tno_racial_integration_clear = yes
+	tno_safety_clear = yes
+	tno_health_care_clear = yes
+	tno_pollution_clear = yes
+	tno_education_clear = yes
+	tno_penal_system_clear = yes
+	tno_lgbt_rights_clear = yes
+	tno_gender_rights_clear = yes
+	tno_minorities_clear = yes
+	tno_security_clear = yes
+	tno_trade_laws_clear = yes
+	tno_economic_focus_clear = yes
+	tno_tax_rate_clear = yes
+	tno_income_taxation_clear = yes
+	tno_minimum_wage_clear = yes
+	tno_max_workhours_clear = yes
+	tno_child_labor_clear = yes
+	tno_pensions_clear = yes
+	tno_unemployment_clear = yes
+}

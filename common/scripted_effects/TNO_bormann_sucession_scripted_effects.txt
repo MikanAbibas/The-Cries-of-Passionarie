@@ -1,0 +1,157 @@
+#####################################################
+# Bormann's 1970s and succession (tno_bormanns_problem)
+#####################################################
+
+#	INDEX
+#	INVESTIGATION (the hunt for the Rote Armee Fraktion)
+#		BGR_raf_investigation_start
+#			Opens the investigation decisions and sets progress to 0. Called by BGR_hunt_for_the_red_army.
+#			Args: n/a
+#
+#		BGR_raf_add_progress
+#			Adds to investigation progress (0-100). At 100 the RAF is found: sets BGR_raf_found,
+#			which BGR_end_the_farce needs, and fires GER_bormann_sucession_intro.10.
+#			Args: BGR_raf_progress_temp (temp variable)
+#
+#		BGR_raf_investigation_end
+#			Closes the investigation once the RAF is destroyed. Called by GER_bormann_sucession_intro.7.
+#			Args: n/a
+#
+#	LOYALTY (the interest groups' loyalty to Bormann)
+#		BGR_SIG_initialize
+#			Fresh start of the interest groups, every one at low loyalty. Called by BGR_one_last_ride.
+#			Args: n/a
+#
+#		BGR_SIG_update
+#			Recalculates BGR_ReichLoyalty, the power-weighted average loyalty of the surviving groups.
+#			Args: n/a
+#
+#		BGR_SIG_party_add_loyalty / BGR_SIG_people_add_loyalty / BGR_SIG_megacorps_add_loyalty
+#			Adds loyalty (clamped 0-100) to the Party Bureaucracy, the People, or all three megacorporations
+#			(Reichswerke, IG Farben, Siemens), then updates.
+#			Args: BGR_SIG_v (temp variable)
+
+#################
+# INVESTIGATION #
+#################
+
+BGR_raf_investigation_start = {
+	log = "[GetDateText]: [Root.GetName]: BGR_raf_investigation_start; Executing."
+	set_country_flag = BGR_raf_hunt_active
+	set_variable = { BGR_raf_investigation = 0 }
+	custom_effect_tooltip = BGR_raf_investigation_start_tt
+}
+
+BGR_raf_add_progress = {
+	log = "[GetDateText]: [Root.GetName]: BGR_raf_add_progress; Given BGR_raf_progress_temp: [?BGR_raf_progress_temp]"
+	custom_effect_tooltip = BGR_raf_progress_tt
+	if = {
+		limit = { NOT = { has_country_flag = BGR_raf_found } }
+		add_to_variable = { BGR_raf_investigation = BGR_raf_progress_temp }
+		clamp_variable = { var = BGR_raf_investigation min = 0 max = 100 }
+		if = {
+			limit = { check_variable = { var = BGR_raf_investigation value = 100 compare = greater_than_or_equals } }
+			set_country_flag = BGR_raf_found
+			hidden_effect = { country_event = { id = GER_bormann_sucession_intro.10 } }
+		}
+	}
+}
+
+BGR_raf_investigation_end = {
+	log = "[GetDateText]: [Root.GetName]: BGR_raf_investigation_end; Executing."
+	clr_country_flag = BGR_raf_hunt_active
+	set_country_flag = BGR_raf_destroyed
+	clear_variable = BGR_raf_investigation
+}
+
+###########
+# LOYALTY #
+###########
+
+# Same groups and indices as the civil-war Influence mechanic (BOR_Influence_Initialize), so the
+# BOR_SIGName_<index> loc names apply. Power is that mechanic's starting power; loyalty is a single
+# 0-100 value towards Bormann. Church (3) and Slave Plantations (10) start dismantled: the
+# Kirchenkampf and abolition are both required before this tree.
+#	0 Party Bureaucracy		4 Heer				8 IG Farben
+#	1 People				5 Kriegsmarine		9 Siemens
+#	2 Intelligentsia		6 Ordnungspolizei	10 Slave Plantations
+#	3 Church				7 Reichswerke		11 Banks
+BGR_SIG_initialize = {
+	log = "[GetDateText]: [Root.GetName]: BGR_SIG_initialize; Executing."
+	set_country_flag = BGR_SIG_active
+	custom_effect_tooltip = BGR_SIG_initialize_tt
+
+	resize_array = { array = BGR_SIGPower value = 0 size = 12 }
+
+	#0 = Dismantled, 1 = Active
+	resize_array = { array = BGR_SIGType value = 1 size = 12 }
+
+	#Everyone starts low
+	resize_array = { array = BGR_SIGLoyalty value = 25 size = 12 }
+
+	set_variable = { BGR_SIGPower^0 = 253 }		#Party Bureaucracy
+	set_variable = { BGR_SIGPower^1 = 194 }		#People
+	set_variable = { BGR_SIGPower^2 = 120 }		#Intelligentsia
+	set_variable = { BGR_SIGPower^4 = 239 }		#Heer
+	set_variable = { BGR_SIGPower^5 = 67 }		#Kriegsmarine
+	set_variable = { BGR_SIGPower^6 = 98 }		#Ordnungspolizei
+	set_variable = { BGR_SIGPower^7 = 146 }		#Reichswerke
+	set_variable = { BGR_SIGPower^8 = 163 }		#IG Farben
+	set_variable = { BGR_SIGPower^9 = 122 }		#Siemens
+	set_variable = { BGR_SIGPower^11 = 176 }	#Banks
+
+	#Church
+	set_variable = { BGR_SIGType^3 = 0 }
+	set_variable = { BGR_SIGLoyalty^3 = 0 }
+	#Slave Plantations
+	set_variable = { BGR_SIGType^10 = 0 }
+	set_variable = { BGR_SIGLoyalty^10 = 0 }
+
+	BGR_SIG_update = yes
+}
+
+BGR_SIG_update = {
+	set_temp_variable = { BGR_SIG_weighted = 0 }
+	set_temp_variable = { BGR_SIG_total_power = 0 }
+	for_each_loop = {
+		array = BGR_SIGPower
+		if = {
+			limit = { check_variable = { BGR_SIGType^i > 0 } }
+			set_temp_variable = { x = BGR_SIGPower^i }
+			multiply_temp_variable = { x = BGR_SIGLoyalty^i }
+			add_to_temp_variable = { BGR_SIG_weighted = x }
+			add_to_temp_variable = { BGR_SIG_total_power = BGR_SIGPower^i }
+		}
+	}
+	set_variable = { BGR_ReichLoyalty = BGR_SIG_weighted }
+	if = {
+		limit = { check_variable = { BGR_SIG_total_power > 0 } }
+		divide_variable = { var = BGR_ReichLoyalty value = BGR_SIG_total_power }
+	}
+	log = "[GetDateText]: [Root.GetName]: BGR_SIG_update; BGR_ReichLoyalty = [?BGR_ReichLoyalty]"
+}
+
+BGR_SIG_party_add_loyalty = {
+	custom_effect_tooltip = BGR_SIG_party_loyalty_tt
+	add_to_variable = { BGR_SIGLoyalty^0 = BGR_SIG_v }
+	clamp_variable = { var = BGR_SIGLoyalty^0 min = 0 max = 100 }
+	BGR_SIG_update = yes
+}
+
+BGR_SIG_people_add_loyalty = {
+	custom_effect_tooltip = BGR_SIG_people_loyalty_tt
+	add_to_variable = { BGR_SIGLoyalty^1 = BGR_SIG_v }
+	clamp_variable = { var = BGR_SIGLoyalty^1 min = 0 max = 100 }
+	BGR_SIG_update = yes
+}
+
+BGR_SIG_megacorps_add_loyalty = {
+	custom_effect_tooltip = BGR_SIG_megacorps_loyalty_tt
+	add_to_variable = { BGR_SIGLoyalty^7 = BGR_SIG_v }
+	clamp_variable = { var = BGR_SIGLoyalty^7 min = 0 max = 100 }
+	add_to_variable = { BGR_SIGLoyalty^8 = BGR_SIG_v }
+	clamp_variable = { var = BGR_SIGLoyalty^8 min = 0 max = 100 }
+	add_to_variable = { BGR_SIGLoyalty^9 = BGR_SIG_v }
+	clamp_variable = { var = BGR_SIGLoyalty^9 min = 0 max = 100 }
+	BGR_SIG_update = yes
+}

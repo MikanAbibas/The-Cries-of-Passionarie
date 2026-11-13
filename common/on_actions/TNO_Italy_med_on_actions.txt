@@ -1,0 +1,108 @@
+### Italy - Mediterranean rework switch.
+###
+### The rule is read exactly ONCE, here, and the result is stored on flags.
+### Everything downstream gates on the flags, never on has_game_rule directly -
+### reading the rule at each call site would break saves started before a rule
+### was added or renamed.
+###
+### Three-way outcome:
+###   rule DEFAULT            -> ITA_legacy_content_active   (today's Italy)
+###   rule _NEW               -> ITA_med_rework_active
+###   rule _WIP               -> ITA_med_rework_active + ITA_med_wip_paths_active
+###
+### Both options are open to anyone who picks them in the lobby. _WIP adds the
+### unfinished paths (Red Italy, Pavolini) and the Mediterranean branch's Greece
+### and Turkey; it no longer needs -debug (2026-10-21). The debug decision
+### categories still do.
+###
+### Both a GLOBAL and a COUNTRY flag are set: decision `visible` blocks evaluate in
+### ITA scope and want the country flag, while cross-country hooks and other tags'
+### on_actions need the global.
+
+on_actions = {
+	on_startup = {
+		effect = {
+			if = {
+				limit = {
+					OR = {
+						has_game_rule = {
+							rule = ITA_MEDITERRANEAN_ITALY
+							option = ITA_MEDITERRANEAN_ITALY_NEW
+						}
+						has_game_rule = {
+							rule = ITA_MEDITERRANEAN_ITALY
+							option = ITA_MEDITERRANEAN_ITALY_WIP
+						}
+					}
+				}
+				set_global_flag = ITA_MED_REWORK
+				ITA = {
+					set_country_flag = ITA_med_rework_active
+					log = "[GetDateText]: [Root.GetName]: Mediterranean Italy rework ENABLED"
+				}
+
+				# East Africa collapses on 1 January 1968 (2191 days from 1962.1.1) unless
+				# Italy's investment has stabilized it or it has been decolonized. See IEA.200.
+				IEA = { country_event = { id = IEA.200 days = 2191 } }
+
+				# The two unfinished paths - Red Italy and Pavolini - stay behind the
+				# second option. See TNO_Italy_med_startup_scripted_effects.txt.
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = ITA_MEDITERRANEAN_ITALY
+							option = ITA_MEDITERRANEAN_ITALY_WIP
+						}
+					}
+					set_global_flag = ITA_MED_WIP_PATHS
+					ITA = {
+						set_country_flag = ITA_med_wip_paths_active
+						log = "[GetDateText]: [Root.GetName]: Mediterranean Italy WIP paths ENABLED"
+					}
+					# Greece and Turkey from the Mediterranean branch (GREECE_INTEGRATION_PLAN.md, Phase C).
+					# Turkey first: its start creates SNS and BKU, which the global setup reads.
+					TUR = { TUR_med_wip_startup = yes }
+					GRE = { GRE_med_wip_startup = yes }
+					# scripted effects need a scope; the body names its own (TUR, GRE, SNS, BKU)
+					TUR = { GRE_TUR_med_wip_startup_global = yes }
+				}
+
+				ITA = { ITA_med_rework_startup = yes }
+			}
+			else = {
+				set_global_flag = ITA_LEGACY_CONTENT
+				ITA = {
+					set_country_flag = ITA_legacy_content_active
+					log = "[GetDateText]: [Root.GetName]: legacy Italy content active"
+				}
+			}
+		}
+	}
+
+	# East Africa's reconquest war (TNO_IEA_collapse_scripted_effects.txt): once every free
+	# nation has capitulated, the Military Authority has won and rejoins Italy's faction early.
+	# ROOT is the capitulated country.
+	on_capitulation = {
+		effect = {
+			if = {
+				limit = {
+					has_global_flag = IEA_reconquest_war
+					NOT = { has_global_flag = IEA_reconquest_over }
+					IEA_is_free_nation = yes
+				}
+				set_country_flag = IEA_free_nation_defeated
+				if = {
+					limit = {
+						NOT = {
+							any_country = {
+								IEA_is_free_nation = yes
+								NOT = { has_country_flag = IEA_free_nation_defeated }
+							}
+						}
+					}
+					IEA = { country_event = { id = IEA.203 days = 7 } }
+				}
+			}
+		}
+	}
+}

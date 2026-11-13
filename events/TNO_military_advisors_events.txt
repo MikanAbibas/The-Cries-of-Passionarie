@@ -1,0 +1,30 @@
+﻿add_namespace = tno_military_advisors
+
+# Military Advisors (common/scripted_effects/TNO_military_advisors_scripted_effects.txt).
+# Counts the 30-day term down one day at a time. TNO_military_advisors_start_term schedules the first
+# tick when a term starts and sets TNO_military_advisors_ticking; each tick schedules the next until the
+# term is over, then resets every level and clears the flag. A grant that restarts the term only resets
+# the count, so one country never has two countdowns. The daily ticks do not log.
+
+country_event = { # one day of the term passes
+	id = tno_military_advisors.1
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		subtract_from_variable = { TNO_military_advisors_days_left = 1 }
+		if = {
+			limit = { check_variable = { TNO_military_advisors_days_left > 0 } }
+			TNO_military_advisors_refresh = yes
+			country_event = { id = tno_military_advisors.1 days = 1 }
+		}
+		else = {
+			clr_country_flag = TNO_military_advisors_ticking
+			if = {
+				limit = { check_variable = { TNO_military_advisors_level > 0 } }
+				log = "[GetDateText]: [Root.GetName]: tno_military_advisors.1 term over, Military Advisors back to level 0"
+				TNO_military_advisors_reset = yes
+			}
+		}
+	}
+}

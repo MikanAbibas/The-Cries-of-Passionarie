@@ -1,0 +1,242 @@
+scripted_gui = {
+	TNO_Balkan_Crisis_Decisions = {
+		context_type = decision_category
+		window_name = "TNO_balkan_crisis_decisions_GUI"
+		
+		visible = {
+			always = yes
+		}
+		
+		triggers = {
+			# Keyed to who actually holds the ground, not to the old victory flags, so the
+			# overlay tracks the border wars as they swing. The art only has start / full
+			# Hungarian / full Romanian (and the Macedonian pair), so a split holding reads
+			# as "prewar" — see the roster below it for the per-state picture.
+			# The three-way art is OUTCOME art, so it may only be shown once a theatre's open
+			# war has actually been settled. Keyed to bare ownership it mis-fired on day one:
+			# Romania already holds 76/1288/1289 and Bulgaria already holds 106/1271 at the
+			# 1962 start, so the victory fills drew Romania across the Alfold and Slovakia and
+			# Bulgaria across eastern Serbia before a shot was fired. BALKAN_open_war_resolved
+			# is set by BALKAN_close_border_wars_for from the peace outcome blocks.
+			balkan_crisis_transylvania_hungary_visible = {
+				HUN = { owns_state = 76 }
+				HUN = { owns_state = 1288 }
+				HUN = { owns_state = 1289 }
+			}
+			balkan_crisis_transylvania_romania_visible = {
+				ROM = { owns_state = 76 }
+				ROM = { owns_state = 1288 }
+				ROM = { owns_state = 1289 }
+				OR = {
+					ROM = { has_country_flag = BALKAN_open_war_resolved }
+					HUN = { has_country_flag = BALKAN_open_war_resolved }
+				}
+			}
+			balkan_crisis_transylvania_prewar_visible = {
+				NOT = {
+					OR = {
+						AND = {
+							HUN = { owns_state = 76 }
+							HUN = { owns_state = 1288 }
+							HUN = { owns_state = 1289 }
+						}
+						AND = {
+							ROM = { owns_state = 76 }
+							ROM = { owns_state = 1288 }
+							ROM = { owns_state = 1289 }
+							OR = {
+								ROM = { has_country_flag = BALKAN_open_war_resolved }
+								HUN = { has_country_flag = BALKAN_open_war_resolved }
+							}
+						}
+					}
+				}
+			}
+			balkan_crisis_macedonia_bulgaria_visible = {
+				BUL = { owns_state = 106 }
+				BUL = { owns_state = 1271 }
+				OR = {
+					BUL = { has_country_flag = BALKAN_open_war_resolved }
+					SER = { has_country_flag = BALKAN_open_war_resolved }
+				}
+			}
+			balkan_crisis_macedonia_serbia_visible = {
+				SER = { owns_state = 106 }
+				SER = { owns_state = 1271 }
+			}
+			balkan_crisis_macedonia_prewar_visible = {
+				NOT = {
+					OR = {
+						AND = {
+							SER = { owns_state = 106 }
+							SER = { owns_state = 1271 }
+						}
+						AND = {
+							BUL = { owns_state = 106 }
+							BUL = { owns_state = 1271 }
+							OR = {
+								BUL = { has_country_flag = BALKAN_open_war_resolved }
+								SER = { has_country_flag = BALKAN_open_war_resolved }
+							}
+						}
+					}
+				}
+			}
+
+			# Contested states: one layer per state per possible owner, so the overlay shows
+			# who actually holds the ground. A border war flipping a state flips the colour.
+			balkan_state_45_HUN_visible = {
+				HUN = { owns_state = 45 }
+			}
+			balkan_state_45_SER_visible = {
+				SER = { owns_state = 45 }
+			}
+			balkan_state_45_CRO_visible = {
+				CRO = { owns_state = 45 }
+			}
+			balkan_state_76_ROM_visible = {
+				ROM = { owns_state = 76 }
+			}
+			balkan_state_76_HUN_visible = {
+				HUN = { owns_state = 76 }
+			}
+			balkan_state_82_ROM_visible = {
+				ROM = { owns_state = 82 }
+			}
+			balkan_state_82_HUN_visible = {
+				HUN = { owns_state = 82 }
+			}
+			balkan_state_83_ROM_visible = {
+				ROM = { owns_state = 83 }
+			}
+			balkan_state_83_HUN_visible = {
+				HUN = { owns_state = 83 }
+			}
+			balkan_state_84_ROM_visible = {
+				ROM = { owns_state = 84 }
+			}
+			balkan_state_84_HUN_visible = {
+				HUN = { owns_state = 84 }
+			}
+			balkan_state_106_BUL_visible = {
+				BUL = { owns_state = 106 }
+			}
+			balkan_state_106_SER_visible = {
+				SER = { owns_state = 106 }
+			}
+			balkan_state_106_CRO_visible = {
+				CRO = { owns_state = 106 }
+			}
+			balkan_state_184_TUR_visible = {
+				TUR = { owns_state = 184 }
+			}
+			balkan_state_184_GRE_visible = {
+				GRE = { owns_state = 184 }
+			}
+			balkan_state_184_BUL_visible = {
+				BUL = { owns_state = 184 }
+			}
+			balkan_state_731_GRE_visible = {
+				GRE = { owns_state = 731 }
+			}
+			balkan_state_731_BUL_visible = {
+				BUL = { owns_state = 731 }
+			}
+			balkan_state_771_HUN_visible = {
+				HUN = { owns_state = 771 }
+			}
+			balkan_state_771_CRO_visible = {
+				CRO = { owns_state = 771 }
+			}
+			balkan_state_771_SER_visible = {
+				SER = { owns_state = 771 }
+			}
+			balkan_state_968_ROM_visible = {
+				ROM = { owns_state = 968 }
+			}
+			balkan_state_968_SER_visible = {
+				SER = { owns_state = 968 }
+			}
+			balkan_state_968_CRO_visible = {
+				CRO = { owns_state = 968 }
+			}
+			balkan_state_968_HUN_visible = {
+				HUN = { owns_state = 968 }
+			}
+			balkan_state_969_CRO_visible = {
+				CRO = { owns_state = 969 }
+			}
+			balkan_state_969_SER_visible = {
+				SER = { owns_state = 969 }
+			}
+			balkan_state_1265_GRE_visible = {
+				GRE = { owns_state = 1265 }
+			}
+			balkan_state_1265_BUL_visible = {
+				BUL = { owns_state = 1265 }
+			}
+			balkan_state_1266_TUR_visible = {
+				TUR = { owns_state = 1266 }
+			}
+			balkan_state_1266_GRE_visible = {
+				GRE = { owns_state = 1266 }
+			}
+			balkan_state_1266_BUL_visible = {
+				BUL = { owns_state = 1266 }
+			}
+			balkan_state_1271_BUL_visible = {
+				BUL = { owns_state = 1271 }
+			}
+			balkan_state_1271_SER_visible = {
+				SER = { owns_state = 1271 }
+			}
+			balkan_state_1271_CRO_visible = {
+				CRO = { owns_state = 1271 }
+			}
+			balkan_state_1287_ROM_visible = {
+				ROM = { owns_state = 1287 }
+			}
+			balkan_state_1287_HUN_visible = {
+				HUN = { owns_state = 1287 }
+			}
+			balkan_state_1288_ROM_visible = {
+				ROM = { owns_state = 1288 }
+			}
+			balkan_state_1288_HUN_visible = {
+				HUN = { owns_state = 1288 }
+			}
+			balkan_state_1289_ROM_visible = {
+				ROM = { owns_state = 1289 }
+			}
+			balkan_state_1289_HUN_visible = {
+				HUN = { owns_state = 1289 }
+			balkan_state_105_ITA_visible = {
+				ITA = { owns_state = 105 }
+			}
+			balkan_state_105_SER_visible = {
+				SER = { owns_state = 105 }
+			}
+			balkan_state_105_CRO_visible = {
+				CRO = { owns_state = 105 }
+			}
+			balkan_state_745_ITA_visible = {
+				ITA = { owns_state = 745 }
+			}
+			balkan_state_745_SER_visible = {
+				SER = { owns_state = 745 }
+			}
+			balkan_state_745_CRO_visible = {
+				CRO = { owns_state = 745 }
+			}
+			}
+		}
+
+		effects = {
+			#Buttons go here if we decide to use them lol
+		}
+
+		properties = {
+		
+		}
+	}
+}

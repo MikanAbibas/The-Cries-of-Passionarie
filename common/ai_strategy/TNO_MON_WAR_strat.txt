@@ -1,0 +1,103 @@
+MON_MEN_invade = {
+	enable = {
+		tag = MON
+		country_exists = MEN
+	}
+
+	abort = {
+		NOT = {
+			country_exists = YUN
+		}
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = "MEN"
+		value = 1000
+	}
+}
+
+MEN_MON_invade = {
+	enable = {
+		tag = MEN
+		country_exists = MON
+		MEN = {
+			has_war_with = MON
+		}
+		NOT = {
+			country_exists = MEN
+			#eventually add trigger for if Mongolia gets free and stronger
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		priority = 80
+		state_trigger = {
+			is_owned_by = MON
+		}
+		ordertype = front
+		execution_type = rush
+		manual_attack = yes
+		execute_order = yes
+	}
+}
+
+JAP_MON_strat = {
+	enable = {
+		tag = JAP
+		country_exists = MON
+		JAP = {
+			has_war_with = MON
+		}
+		NOT = {
+			country_exists = MEN
+			#eventually add trigger for if Mongolia gets free and stronger
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		priority = 80
+		state_trigger = {
+			is_owned_by = MON
+		}
+		ratio = 0.1
+		ordertype = front
+		execution_type = rush
+		manual_attack = yes
+	}
+}
+
+MAN_MON_strat = {
+	enable = {
+		tag = MAN
+		country_exists = MON
+		MAN = {
+			has_war_with = MON
+		}
+		NOT = {
+			country_exists = MEN
+			#eventually add trigger for if Mongolia gets free and stronger
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		priority = 80
+		state_trigger = {
+			is_owned_by = MON
+		}
+		ratio = 0.1
+		ordertype = front
+		execution_type = rush
+		manual_attack = yes
+	}
+}
+

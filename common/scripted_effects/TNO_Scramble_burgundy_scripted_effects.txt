@@ -1,0 +1,220 @@
+# New Scramble for Africa: Burgundy's covert actions (plan 4.8; the user's names, 2026-10-18).
+# Paid in Burgundy's own supplies (BRG_supplies, its global plans' currency). Each effect runs in its target's scope;
+# check the matching SFA_can_* trigger first (common/scripted_triggers/TNO_Scramble_scripted_triggers.txt). The debuffs
+# are timed dynamic modifiers (common/dynamic_modifiers/TNO_Scramble_dynamic_modifiers.txt) that remove themselves, and
+# none can hit the same nation again until its modifier has run out (user, 2026-10-18). Temp sfa_free = 1 skips the
+# payment (debug only). Burgundy's panel (phase 6, step 7) calls these.
+
+SFA_brg_pay = {
+	# Burgundy pays temp sfa_brg_cost supplies, unless sfa_free is set
+	if = {
+		limit = { NOT = { check_variable = { sfa_free = 1 } } }
+		BRG = { subtract_from_variable = { BRG_supplies = sfa_brg_cost } }
+	}
+}
+
+SFA_brg_sabotage_supply = {
+	# Sabotage Supply, in a state's scope: supply one level down (SFA_supply_lower sets the holder's lock). 1 supply.
+	SFA_supply_lower = yes
+	set_temp_variable = { sfa_brg_cost = 1 }
+	SFA_brg_pay = yes
+	log = "[GetDateText]: New Scramble for Africa: Burgundy sabotages supply in [This.GetName]"
+}
+
+SFA_brg_wreck_mines = {
+	# Wreck the Mines, in a state's scope: resources -50% for 180 days. 1 supply.
+	add_dynamic_modifier = {
+		modifier = SFA_wrecked_mines
+		days = 180
+	}
+	OWNER = { set_country_flag = { flag = SFA_lock_wrecked_mines days = 180 value = 1 } }
+	set_temp_variable = { sfa_brg_cost = 1 }
+	SFA_brg_pay = yes
+	log = "[GetDateText]: New Scramble for Africa: Burgundy wrecks the mines of [This.GetName]"
+}
+
+SFA_brg_sabotage_construction = {
+	# Sabotage Construction, in a state's scope: building speed -50% for 180 days. 1 supply.
+	add_dynamic_modifier = {
+		modifier = SFA_sabotaged_construction
+		days = 180
+	}
+	OWNER = { set_country_flag = { flag = SFA_lock_sabotaged_construction days = 180 value = 1 } }
+	set_temp_variable = { sfa_brg_cost = 1 }
+	SFA_brg_pay = yes
+	log = "[GetDateText]: New Scramble for Africa: Burgundy sabotages construction in [This.GetName]"
+}
+
+SFA_brg_deploy_pathogens = {
+	# Deploy Pathogens, in a state's scope: attrition +10% for its controller for 120 days. 2 supplies.
+	add_dynamic_modifier = {
+		modifier = SFA_pathogen_outbreak
+		days = 120
+	}
+	OWNER = { set_country_flag = { flag = SFA_lock_pathogen_outbreak days = 120 value = 1 } }
+	set_temp_variable = { sfa_brg_cost = 2 }
+	SFA_brg_pay = yes
+	log = "[GetDateText]: New Scramble for Africa: Burgundy deploys pathogens in [This.GetName]"
+}
+
+SFA_brg_terrorize_population = {
+	# Terrorize Population, in a nation's scope: stability and war support -10% for 180 days. 2 supplies.
+	add_dynamic_modifier = {
+		modifier = SFA_terrorized_population
+		days = 180
+	}
+	set_temp_variable = { sfa_brg_cost = 2 }
+	SFA_brg_pay = yes
+	log = "[GetDateText]: New Scramble for Africa: Burgundy terrorizes the population of [This.GetName]"
+}
+
+SFA_brg_bribe_officers = {
+	# Bribe Officers, in the scope of a nation at war: attack and defence -10% for 90 days. 2 supplies.
+	add_dynamic_modifier = {
+		modifier = SFA_bribed_officers
+		days = 90
+	}
+	set_temp_variable = { sfa_brg_cost = 2 }
+	SFA_brg_pay = yes
+	log = "[GetDateText]: New Scramble for Africa: Burgundy bribes the officers of [This.GetName]"
+}
+
+SFA_brg_increase_ss_presence = {
+	# Increase SS Presence In Africa, in the scope of one of Burgundy's own nations: attack and defence +15%,
+	# organisation +10% for 180 days, 10 000 manpower and a shipment of 3000 small arms and 1000 anti-tank weapons.
+	# Once a year. 4 supplies.
+	add_dynamic_modifier = {
+		modifier = SFA_ss_presence
+		days = 180
+	}
+	add_manpower = 10000
+	add_equipment_to_stockpile = { type = infantry_equipment amount = 3000 producer = BRG }
+	add_equipment_to_stockpile = { type = anti_tank_equipment amount = 1000 producer = BRG }
+	BRG = {
+		set_country_flag = { flag = SFA_ss_presence_cooldown days = 365 value = 1 }
+		# the date it is ready again, for the panel: date variables count hours / 100000, so 365 days = 0.0876
+		set_variable = { SFA_ss_ready_date = global.date }
+		add_to_variable = { SFA_ss_ready_date = 0.0876 }
+	}
+	set_temp_variable = { sfa_brg_cost = 4 }
+	SFA_brg_pay = yes
+	log = "[GetDateText]: New Scramble for Africa: Burgundy increases the SS presence in [This.GetName]"
+}
+
+SFA_ai_burgundy = {
+	# plan 4.8, each pulse: AI Burgundy, with supplies to spare, takes one covert action: against the nations at war
+	# with its own side first, then against its rivals' land. Its own nations at war get the SS once a year.
+	if = {
+		limit = {
+			country_exists = BRG
+			BRG = {
+				is_ai = yes
+				has_country_flag = SFA_patron
+				check_variable = { BRG_supplies > 2 }
+			}
+		}
+		random_list = {
+			30 = {
+				random_scope_in_array = {
+					array = global.SFA_states
+					limit = {
+						SFA_can_sabotage_supply = yes
+						OWNER = { any_enemy_country = { SFA_brg_side = yes } }
+					}
+					SFA_brg_sabotage_supply = yes
+				}
+			}
+			15 = {
+				random_scope_in_array = {
+					array = global.SFA_states
+					limit = {
+						SFA_can_deploy_pathogens = yes
+						OWNER = { any_enemy_country = { SFA_brg_side = yes } }
+					}
+					SFA_brg_deploy_pathogens = yes
+				}
+			}
+			15 = {
+				random_scope_in_array = {
+					array = global.SFA_nations
+					limit = {
+						exists = yes
+						SFA_can_bribe_officers = yes
+						any_enemy_country = { SFA_brg_side = yes }
+					}
+					SFA_brg_bribe_officers = yes
+				}
+			}
+			10 = {
+				random_scope_in_array = {
+					array = global.SFA_states
+					limit = {
+						SFA_can_wreck_mines = yes
+						OWNER = { SFA_has_patron = yes }
+					}
+					SFA_brg_wreck_mines = yes
+				}
+			}
+			10 = {
+				random_scope_in_array = {
+					array = global.SFA_states
+					limit = {
+						SFA_can_sabotage_construction = yes
+						OWNER = { SFA_has_patron = yes }
+					}
+					SFA_brg_sabotage_construction = yes
+				}
+			}
+			10 = {
+				random_scope_in_array = {
+					array = global.SFA_nations
+					limit = {
+						exists = yes
+						SFA_can_terrorize_population = yes
+						has_country_flag = SFA_regional_state
+					}
+					SFA_brg_terrorize_population = yes
+				}
+			}
+			10 = {
+				if = {
+					limit = { BRG = { check_variable = { BRG_supplies > 3 } } }
+					random_scope_in_array = {
+						array = global.SFA_nations
+						limit = {
+							exists = yes
+							SFA_can_increase_ss_presence = yes
+							has_war = yes
+						}
+						SFA_brg_increase_ss_presence = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+SFA_burgundy_african_supplies = {
+	# user, 2026-10-19, each pulse: Burgundy turns its African money into supplies, one for every 500 of its scramble
+	# income (the money is still paid; the remainder carries over to the next pulse), and gains one supply for every
+	# region an independent holds as its regional state (global.SFA_independent_regions): the independents' secret
+	# benefactor. The covert panel shows the month's gain.
+	if = {
+		limit = { country_exists = BRG }
+		BRG = {
+			set_variable = { SFA_africa_supplies = 0 }
+			add_to_variable = { SFA_income_carry = SFA_income }
+			while_loop_effect = {
+				limit = { check_variable = { SFA_income_carry > 499 } }
+				subtract_from_variable = { SFA_income_carry = 500 }
+				add_to_variable = { SFA_africa_supplies = 1 }
+			}
+			add_to_variable = { SFA_africa_supplies = global.SFA_independent_regions }
+			if = {
+				limit = { check_variable = { SFA_africa_supplies > 0 } }
+				add_to_variable = { BRG_supplies = SFA_africa_supplies }
+				log = "[GetDateText]: New Scramble for Africa: Burgundy gains [?SFA_africa_supplies] supplies from Africa ([?global.SFA_independent_regions] independent regions)"
+			}
+		}
+	}
+}

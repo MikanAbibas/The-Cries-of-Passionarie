@@ -1,0 +1,75 @@
+# The Second South African Civil War (BOR, SAF, SLF, CDL, ZUL, LTH, SWZ, SFG) ends only when one side has annexed the
+# others (TNO_SSAFCW_on_actions.txt). Left to hold their lines, the splinters dragged it out (user, 2026-10-26: "make
+# the SA splinters aggressive so they actually finish their wars in a timely manner"). Each side now rushes the others,
+# as Madagascar's civil war does (TNO_Madagaskar_civil_war_strat.txt).
+# Scopes (vanilla _documentation.md): in country_trigger THIS is the enemy and FROM is us. Priority 80 is the
+# war-specific rush rung (CLAUDE.md): over the generic attack order (50), under end_pocket (90) and going_slow (400).
+
+SAF_civil_war_rush = {
+	enable = {
+		has_global_flag = second_south_african_civil_war
+		OR = {
+			original_tag = BOR
+			original_tag = SAF
+			original_tag = SLF
+			original_tag = CDL
+			original_tag = ZUL
+			original_tag = LTH
+			original_tag = SWZ
+			original_tag = SFG
+		}
+		has_war = yes
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		country_trigger = {
+			OR = {
+				original_tag = BOR
+				original_tag = SAF
+				original_tag = SLF
+				original_tag = CDL
+				original_tag = ZUL
+				original_tag = LTH
+				original_tag = SWZ
+				original_tag = SFG
+			}
+			has_war_with = FROM
+		}
+		priority = 80
+		ordertype = front
+		execution_type = rush
+		manual_attack = yes
+		execute_order = yes
+	}
+}
+
+# Germany sends the Boers volunteers while Grossafrika stands and Hüttig rules it (user, 2026-10-27). The whitelist
+# clause is in DIPLOMACY_SEND_VOLUNTEERS_ENABLE_TRIGGER (diplomacy_scripted_triggers.txt), with the same conditions.
+GER_SAF_civil_war_volunteers_BOR = {
+	enable = {
+		original_tag = GER
+		has_global_flag = second_south_african_civil_war
+		NOT = { has_global_flag = MZB_REICHSTAAT_huttig_fallen }
+		country_exists = MZB
+		MZB = {
+			OR = {
+				has_cosmetic_tag = MZB_REICHSTAAT
+				has_cosmetic_tag = MZB_REICHSTAAT_2
+				has_cosmetic_tag = MZB_REICHSTAAT_3
+			}
+		}
+		country_exists = BOR
+		BOR = { has_war = yes }
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = send_volunteers_desire
+		id = BOR
+		value = 1000
+	}
+}

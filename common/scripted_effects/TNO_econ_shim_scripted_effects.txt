@@ -1,0 +1,154 @@
+### Economy-library bridges.
+###
+### Upstream TNO ships an economy library TNORA never forked, and the imported
+### content calls into it constantly. These definitions stop every such call
+### throwing "Unknown effect-type" and silently doing nothing.
+###
+### They are no longer accumulators. Where TNORA has the variable the upstream
+### effect meant - money_reserves, GDP, state_value - the call now moves the real
+### one. Where it does not, the call is redirected to the nearest thing TNORA
+### does model, which is a societal-development or law ladder, chosen by the sign
+### of the magnitude the author wrote. Nothing banks into a variable no one reads.
+###
+### NOT defined here, because master already defines the real effect:
+###   econ_gdp_growth_change, econ_flat_national_debt_change, econ_misc_costs_change,
+###   econ_misc_income_change, econ_interest_rates_change
+### and these are scripted TRIGGERS in TNO_useful_scripted_triggers.txt, not effects:
+###   econ_can_use_economy_system, econ_can_add_modifier_military/_civilian
+
+### --- treasury: money_reserves is real ---------------------------------------
+econ_spend_money_once_effect_raw_money = {
+	subtract_from_variable = { money_reserves = temp_econ_spending_amount }
+	custom_effect_tooltip = TNO_econ_shim_spend_money_tt
+}
+
+econ_money_reserves_change_raw_money = {
+	add_to_variable = { money_reserves = money_reserves_temp }
+	custom_effect_tooltip = TNO_econ_shim_money_reserves_tt
+}
+
+econ_money_reserves_change_percent_gdp = {
+	set_temp_variable = { TNO_econ_bridge_temp = GDP }
+	multiply_temp_variable = { TNO_econ_bridge_temp = temp_gdp_gained }
+	add_to_variable = { money_reserves = TNO_econ_bridge_temp }
+	custom_effect_tooltip = TNO_econ_shim_money_reserves_tt
+}
+
+### --- one-off GDP moves: GDP is real ----------------------------------------
+econ_GDP_boost_once_flat = {
+	add_to_variable = { GDP = temp_econ_GDP_boost_flat }
+	custom_effect_tooltip = TNO_econ_shim_gdp_boost_tt
+}
+
+econ_GDP_boost_once_percentage = {
+	set_temp_variable = { TNO_econ_bridge_temp = temp_econ_GDP_boost_percentage }
+	add_to_temp_variable = { TNO_econ_bridge_temp = 1 }
+	multiply_variable = { GDP = TNO_econ_bridge_temp }
+	custom_effect_tooltip = TNO_econ_shim_gdp_boost_tt
+}
+
+### --- per-state economic value: state_value is real -------------------------
+# All four run in state scope, the way the call sites already use them.
+econ_state_value_change_addition = {
+	add_to_variable = { state_value = temp_state_value_addition }
+}
+
+econ_state_value_change_addition_specified_state = {
+	add_to_variable = { state_value = temp_state_value_addition }
+}
+
+econ_state_value_change_multiply = {
+	multiply_variable = { state_value = state_value_multiplier_temp }
+}
+
+econ_state_value_change_multiply_specified_state = {
+	multiply_variable = { state_value = state_value_multiplier_temp }
+}
+
+### --- centralisation: the nearest TNORA idea is administrative capacity -----
+econ_centralization_change = {
+	if = {
+		limit = { check_variable = { econ_centralization_temp > 0 } }
+		TNO_improve_academic_base_low = yes
+	}
+	else_if = {
+		limit = { check_variable = { econ_centralization_temp < 0 } }
+		TNO_worsen_academic_base_low = yes
+	}
+}
+
+### --- taxation: the law ladder runs no / low / medium / high / exploitative --
+econ_business_tax_rate_change = {
+	if = {
+		limit = { check_variable = { business_tax_temp > 0 } }
+		tno_tax_rate_improve = yes
+	}
+	else_if = {
+		limit = { check_variable = { business_tax_temp < 0 } }
+		tno_tax_rate_worsen = yes
+	}
+}
+
+econ_income_tax_rate_change = {
+	if = {
+		limit = { check_variable = { income_tax_temp > 0 } }
+		tno_income_taxation_improve = yes
+	}
+	else_if = {
+		limit = { check_variable = { income_tax_temp < 0 } }
+		tno_income_taxation_worsen = yes
+	}
+}
+
+### --- no counterpart in TNORA ----------------------------------------------
+# Production units, the credit-rating ladder and the economy type/subtype tags
+# are upstream bookkeeping with nothing behind them here. They stay defined so
+# the call sites parse, and do nothing, rather than writing to a variable no
+# part of this mod reads.
+econ_pus_change = { }
+
+econ_type_change = { }
+econ_subtype_change = { }
+
+### --- spheres --------------------------------------------------------------
+# Upstream models economic spheres explicitly; TNORA does not. Membership is a
+# flag so the state is inspectable and reversible.
+econ_leave_sphere = {
+	clr_country_flag = TNO_shim_econ_in_sphere
+	clr_country_flag = TNO_shim_econ_sphere_GER
+	clr_country_flag = TNO_shim_econ_sphere_ITA
+	clr_country_flag = TNO_shim_econ_sphere_USA
+	clr_country_flag = TNO_shim_econ_sphere_JAP
+	clr_country_flag = TNO_shim_econ_sphere_IBR
+	clr_country_flag = TNO_shim_econ_sphere_FRA
+	clr_country_flag = TNO_shim_econ_sphere_WOL
+}
+
+econ_join_sphere_target = { set_country_flag = TNO_shim_econ_in_sphere }
+econ_join_sphere_GER = { set_country_flag = TNO_shim_econ_in_sphere  set_country_flag = TNO_shim_econ_sphere_GER }
+econ_join_sphere_ITA = { set_country_flag = TNO_shim_econ_in_sphere  set_country_flag = TNO_shim_econ_sphere_ITA }
+econ_join_sphere_USA = { set_country_flag = TNO_shim_econ_in_sphere  set_country_flag = TNO_shim_econ_sphere_USA }
+econ_join_sphere_JAP = { set_country_flag = TNO_shim_econ_in_sphere  set_country_flag = TNO_shim_econ_sphere_JAP }
+econ_join_sphere_IBR = { set_country_flag = TNO_shim_econ_in_sphere  set_country_flag = TNO_shim_econ_sphere_IBR }
+econ_join_sphere_FRA = { set_country_flag = TNO_shim_econ_in_sphere  set_country_flag = TNO_shim_econ_sphere_FRA }
+econ_join_sphere_WOL = { set_country_flag = TNO_shim_econ_in_sphere  set_country_flag = TNO_shim_econ_sphere_WOL }
+
+### --- misc -----------------------------------------------------------------
+# Upstream recalculation hook. TNORA has the same job in two real effects.
+recalculate_GDP_and_PUs_on_demand = {
+	calculate_total_gdp = yes
+	update_economy_tab = yes
+}
+
+# Upstream refreshes a cached policy-effectiveness table TNORA has no equivalent
+# for; the law ladders that replaced those calls need no refresh step.
+TNO_update_policy_effectiveness = { }
+
+### Interest rates.
+### `interest_rates` is a real TNORA country variable - it starts at 0.12 in
+### TNO_economy_scripted_effects.txt and both TNO_economy_decisions.txt and
+### Japan move it directly - but nothing defined the effect the callers use.
+### Japan's PM reforms call this ten times over and Italy's DDL four more.
+econ_interest_rates_change = {
+	add_to_variable = { interest_rates = interest_rates_temp }
+}

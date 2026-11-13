@@ -1,0 +1,359 @@
+shared_focus = {
+	id = IME_a_strike_in_the_back
+	icon = GFX_IME_Operation_Gladio
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 8
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus IME_a_strike_in_the_back"
+		custom_effect_tooltip = IME_a_strike_in_the_back_tt
+		add_manpower = 5000
+		add_equipment_to_stockpile = {
+			type = infantry_equipment_2
+			amount = 2000
+			producer = ITA
+		}
+		add_equipment_to_stockpile = {
+			type = anti_tank_equipment_0
+			amount = 400
+			producer = ITA
+		}
+		add_equipment_to_stockpile = {
+			type = support_equipment_1
+			amount = 250
+			producer = ITA
+		}
+		hidden_effect = {
+			country_event = {
+				id = ime_itw.101
+				days = 82
+				#IF YOU CHANGE THE LENGHTS OF THE FOCUSES CHANGE THIS TOO
+				#removes the focus tree after 66 days, 10 days after the last focus is completed
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = IME_hold_beirut
+	icon = GFX_KEM_Defensive_Doctrine
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = IME_a_strike_in_the_back
+	}
+	x = 0
+	y = 1
+	relative_position_id = IME_a_strike_in_the_back
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus IME_hold_beirut"
+		add_ideas = { IME_hold_beirut_idea }
+	}
+}
+
+shared_focus = {
+	id = IME_rally_the_palmach
+	icon = GFX_ISR_Generic_IDF
+	cost = 1.429 #10 days
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = IME_hold_beirut
+	}
+	x = -2
+	y = 2
+	relative_position_id = IME_a_strike_in_the_back
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus IME_rally_the_palmach"
+		hidden_effect = {
+			division_template = {
+				name = "Palmach Veterans"
+				is_locked = yes
+				priority = 2
+				template_counter = 17
+				regiments = {
+					elite_infantry = { x = 0 y = 0 }
+					elite_infantry = { x = 0 y = 1 }
+					elite_infantry = { x = 0 y = 2 }
+					elite_infantry = { x = 1 y = 0 }
+					elite_infantry = { x = 1 y = 1 }
+					elite_infantry = { x = 1 y = 2 }
+				}
+				support = { 
+					scout_helicopter_company = { x = 0 y = 0 }
+					logistics_company = { x = 0 y = 1 }
+				} 
+			}
+			1306 = {
+				create_unit = {division = "name = \"1st Palmach Division\" division_template = \"Palmach Veterans\" start_experience_factor = 0.7 start_equipment_factor = 1"owner = IME}
+				create_unit = {division = "name = \"2nd Palmach Division\" division_template = \"Palmach Veterans\" start_experience_factor = 0.7 start_equipment_factor = 1"owner = IME}
+			}
+		}
+		custom_effect_tooltip = IME_rally_the_palmach_tt
+	}
+}
+
+shared_focus = {
+	id = IME_expand_the_fatah
+	icon = GFX_IME_control_fatah
+	cost = 1.429 #10 days
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = IME_hold_beirut
+	}
+	x = 2
+	y = 2
+	relative_position_id = IME_a_strike_in_the_back
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus IME_expand_the_fatah"
+		hidden_effect = {
+			division_template = {
+				name = "Fatah Infantry"
+				is_locked = yes
+				priority = 1
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					infantry = { x = 1 y = 2 }
+					light_infantry = { x = 2 y = 0 }
+					light_infantry = { x = 2 y = 1 }
+					light_infantry = { x = 2 y = 2 }
+				}
+				support = { 
+					artillery = { x = 0 y = 0 }
+					engineer = { x = 0 y = 1 }
+				} 
+			}
+			1306 = {
+				create_unit = {division = "name = \"1st Fatah Division\" division_template = \"Fatah Infantry\" start_experience_factor = 0.35 start_equipment_factor = 1"owner = IME}
+				create_unit = {division = "name = \"2nd Fatah Division\" division_template = \"Fatah Infantry\" start_experience_factor = 0.35 start_equipment_factor = 1"owner = IME}
+				create_unit = {division = "name = \"3rd Fatah Division\" division_template = \"Fatah Infantry\" start_experience_factor = 0.35 start_equipment_factor = 1"owner = IME}
+			}
+		}
+		custom_effect_tooltip = IME_expand_the_fatah_tt
+	}
+}
+
+shared_focus = {
+	id = IME_open_the_port_of_tel_aviv
+	icon = GFX_COG_Total_Exportration
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = IME_hold_beirut
+	}
+	x = 0
+	y = 3
+	relative_position_id = IME_a_strike_in_the_back
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus IME_open_the_port_of_tel_aviv"
+		454 = {
+			add_building_construction = {
+				type = naval_base
+				level = 2
+				instant_build = yes
+				province = 4206
+			}
+			
+		}
+		hidden_effect = {
+			454 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			1306 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			1366 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		custom_effect_tooltip = IME_open_the_port_of_tel_aviv_tt
+	}
+}
+
+shared_focus = {
+	id = IME_messada_on_the_camel
+	icon = GFX_IME_northern_border
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = IME_rally_the_palmach
+	}
+	x = -2
+	y = 4
+	relative_position_id = IME_a_strike_in_the_back
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus IME_messada_on_the_camel"
+		454 = {
+			if = {
+				limit = {
+					is_fully_controlled_by = IME
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						id = 1201
+					}
+				}
+			}
+			else = {
+				IME = {
+					add_manpower = 2000
+				}
+			}
+			
+		}
+		1366 = {
+			if = {
+				limit = {
+					is_fully_controlled_by = IME
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+					province = {
+						id = 14443
+						id = 7107
+						id = 14473
+					}
+				}
+			}
+			else = {
+				IME = {
+					add_manpower = 2000
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					454 = { is_fully_controlled_by = IME }
+					1366 = { is_fully_controlled_by = IME }
+				}
+			}
+			custom_effect_tooltip = IME_messada_on_the_camel_tt
+		}
+
+	}
+}
+
+shared_focus = {
+	id = IME_abdullahs_legion
+	icon = GFX_IME_review_arab_legion
+	cost = 1.429 #10 days
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = IME_expand_the_fatah
+	}
+	x = 2
+	y = 4
+	relative_position_id = IME_a_strike_in_the_back
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus IME_abdullahs_legion"
+		hidden_effect = {
+			1306 = {
+				create_unit = {division = "name = \"3a Divisione fanteria 'Pasta alla carbonara'\" division_template = \"Motorized\" start_experience_factor = 0.4 start_equipment_factor = 1"owner = IME}
+				create_unit = {division = "name = \"4a Divisione Carabinieri 'Spaghetti'\" division_template = \"Carabinieri\" start_experience_factor = 0.4 start_equipment_factor = 1"owner = IME}
+			}
+		}
+		custom_effect_tooltip = IME_abdullahs_legion_tt
+	}
+}
+
+shared_focus = {
+	id = IME_repair_the_airports
+	icon = GFX_SVR_The_Airfields_of_Surgut
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = IME_open_the_port_of_tel_aviv
+	}
+	x = 0
+	y = 5
+	relative_position_id = IME_a_strike_in_the_back
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus IME_repair_the_airports"
+		1306 = {
+			add_building_construction = {
+				type = air_base
+				level = 2
+				instant_build = yes
+			}
+		}
+		add_equipment_to_stockpile = {
+			type = jet_fighter_equipment_1
+			amount = 50
+			producer = ITA
+		}
+		add_equipment_to_stockpile = {
+			type = jet_CAS_equipment_1
+			amount = 25
+			producer = ITA
+		}
+	}
+}
+
+shared_focus = {
+	id = IME_med_ghostlike_counterstrike
+	icon = GFX_generic_tank_warfare
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = IME_repair_the_airports
+	}
+	prerequisite = {
+		focus = IME_messada_on_the_camel
+	}
+	prerequisite = {
+		focus = IME_abdullahs_legion
+	}
+	x = 0
+	y = 6
+	relative_position_id = IME_a_strike_in_the_back
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus IME_med_ghostlike_counterstrike"
+		custom_effect_tooltip = IME_ghostlike_counterstrike_tt
+		add_ideas = { IME_built_up_counterattack }
+	}
+}
+
+shared_focus = { #empty focus so that the IME can return to being without a tree
+	id = IME_blank
+	icon = GFX_generic_little_entente
+	x = 0
+	y = 2
+	cost = 5
+	allow_branch = {
+		has_country_flag = never_set_this_flag
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus IME_blank"
+	}
+}

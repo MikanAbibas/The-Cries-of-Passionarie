@@ -1,0 +1,1150 @@
+scripted_gui = {
+	###############################################################
+	########                Amendment Select               ########
+	###############################################################
+	TNO_Italy_Camera_DDL_Amendment_Select2 = {
+		context_type = player_context
+		window_name = "TNO_Italy_Camera_DDL_Amendment_Select2"
+		parent_window_token = top_bar
+
+		visible = {
+			OR = {
+				has_country_flag = TNO_ITA_Show_DDL_Amendments
+				check_variable = { ITA_camera_help_page^0 = 12 }
+			}
+		}
+
+		dynamic_lists = {
+			amendments_list = {
+				array = ITA_ddl_possible_amendments
+				change_scope = no
+				entry_container = ITA_camera_ddl_amendment_possible
+				value = amendment_num
+			}
+			amend_effect_icons = {
+				array = ITA_ddl_amend_effect_icon_positions
+				change_scope = no
+				entry_container = ITA_camera_ddl_amend_effect_icon
+				index = effect_idx
+			}
+		}
+
+		properties = {
+			amend_icon_full_size = {
+				image = "[GET_DDL_Amend_Effect_Icon]"
+				x = ITA_ddl_amend_effect_icon_positions^effect_idx
+			}
+		}
+
+		effects = {
+			amendments_list_close_button_click = {
+				clr_country_flag = TNO_ITA_Show_DDL_Amendments
+			}
+			add_amend_click = {
+				# Find first open slot (if one exists)
+				set_temp_variable = { slot = 0 }
+				while_loop_effect = {
+					limit = {
+						check_variable = { ITA_ddl_amendments^slot > 0 }
+					}
+					add_to_temp_variable = { slot = 1 }
+				}
+				if = {
+					limit = {
+						check_variable = { slot < 4 }
+					}
+					# Add amendment, remove from possible list, hide selector UI
+					set_variable = { ITA_ddl_amendments^slot = amendment_num }
+					remove_from_array = { array = ITA_ddl_possible_amendments value = amendment_num }
+					clr_country_flag = TNO_ITA_Show_DDL_Amendments
+
+					ITA_camera_update_ddl_policy_shift = yes
+					ITA_camera_update_coalition_status = yes
+					ITA_camera_redraw = yes
+				}
+			}
+		}
+	}
+
+	###############################################################
+	########                   DDL History                 ########
+	###############################################################
+	TNO_Italy_Camera_DDL_History = {
+		context_type = player_context
+		window_name = "TNO_Italy_Camera_DDL_History"
+		parent_window_token = top_bar
+
+		visible = {
+			has_country_flag = TNO_ITA_Show_DDL_History
+		}
+
+		dynamic_lists = {
+			ddl_history_list = {
+				array = ITA_ddl_history
+				change_scope = no
+				entry_container = ITA_camera_ddl_history_entry
+				value = legge_id
+				index = history_idx
+			}
+			effect_icons = {
+				array = ITA_ddl_effect_icon_positions
+				change_scope = no
+				entry_container = ITA_camera_ddl_effect_icon
+				index = effect_idx
+			}
+		}
+
+		properties = {
+			icon_full_size = {
+				image = "[GET_DDL_Effect_Icon]"
+				x = ITA_ddl_effect_icon_positions^effect_idx
+			}
+			history_stamp = {
+				frame = ITA_ddl_history_status^history_idx
+			}
+		}
+
+		triggers = {
+			repeal_ddl_visible = {
+				check_variable = { ITA_ddl_history_status^history_idx = 1 }
+				is_in_array = { array = ITA_ddl_can_repeal value = legge_id }
+			}
+			status_title_visible = { OR = {
+				check_variable = { ITA_ddl_history_status^history_idx > 1 }
+				NOT = { is_in_array = { array = ITA_ddl_can_repeal value = legge_id }
+			}}}
+			repeal_ddl_click_enabled = {
+				ITA_ddl_active = no
+			}
+		}
+
+		effects = {
+			history_list_close_button_click = {
+				clr_country_flag = TNO_ITA_Show_DDL_History
+			}
+			repeal_ddl_click = {
+				set_variable = { ITA_ddl_active_ddl = legge_id }
+				set_variable = { ITA_ddl_is_repealing = 1 }
+				ITA_setup_new_ddl = yes
+				clr_country_flag = TNO_ITA_Show_DDL_History
+			}
+		}
+
+		triggers = {
+			select_ddl_visible = {
+				always = no
+			}
+		}
+	}
+
+	###############################################################
+	########                Debug DDL Select               ########
+	###############################################################
+	TNO_Italy_Camera_Debug_DDL_Select = {
+		context_type = player_context
+		window_name = "TNO_Italy_Camera_Debug_DDL_Select"
+		parent_window_token = top_bar
+
+		visible = { AND = {
+			has_country_flag = TNO_ITA_Show_DDL_Select
+			ITA_ddl_active = no
+		}}
+
+		dynamic_lists = {
+			ddl_selection_list = {
+				array = ITA_ddl_available
+				change_scope = no
+				entry_container = ITA_camera_ddl_history_entry
+				value = legge_id
+			}
+			effect_icons = {
+				array = ITA_ddl_effect_icon_positions
+				change_scope = no
+				entry_container = ITA_camera_ddl_effect_icon
+				index = effect_idx
+			}
+			ddl_preview_gribox = {
+				array = ITA_ddl_preview_one_element_array
+				change_scope = no
+				entry_container = TNO_Italy_Camera_DDL_Preview
+			}
+			
+		}
+
+		properties = {
+			icon_full_size = {
+				image = "[GET_DDL_Effect_Icon]"
+				x = ITA_ddl_effect_icon_positions^effect_idx
+			}
+		}
+
+		effects = {
+			ddl_select_close_button_click = {
+				clr_country_flag = TNO_ITA_Show_DDL_Select
+			}
+			select_ddl_click = {
+				set_variable = { ITA_ddl_active_ddl = legge_id }
+				set_variable = { ITA_ddl_is_repealing = 0 }
+				ITA_setup_new_ddl = yes
+				clr_country_flag = TNO_ITA_Show_DDL_Select
+				set_country_flag = ITA_put_ddl_up_to_vote
+			}
+
+			#open the preview window
+			select_ddl_right_click = {
+				set_variable = { ITA_ddl_details_picked = legge_id }
+				clear_array = ITA_ddl_preview_one_element_array
+				add_to_array = { ITA_ddl_preview_one_element_array = 1 }
+				scoped_sound_effect = tno_ita_ddl_open_preview
+			}
+			amendment_bg_right_click = {
+				set_variable = { ITA_ddl_details_picked = legge_id }
+				clear_array = ITA_ddl_preview_one_element_array
+				add_to_array = { ITA_ddl_preview_one_element_array = 1 }
+				scoped_sound_effect = tno_ita_ddl_open_preview
+			}
+			legge_title_right_click = {
+				set_variable = { ITA_ddl_details_picked = legge_id }
+				clear_array = ITA_ddl_preview_one_element_array
+				add_to_array = { ITA_ddl_preview_one_element_array = 1 }
+				scoped_sound_effect = tno_ita_ddl_open_preview
+			}
+
+			#close the preview window
+			ddl_preview_bg_click = {
+				clear_array = ITA_ddl_preview_one_element_array
+				scoped_sound_effect = tno_ita_ddl_close_preview
+			}
+			preview_ddl_title_click = {
+				clear_array = ITA_ddl_preview_one_element_array
+				scoped_sound_effect = tno_ita_ddl_close_preview
+			}
+			preview_ddl_desc_click = {
+				clear_array = ITA_ddl_preview_one_element_array
+				scoped_sound_effect = tno_ita_ddl_close_preview
+			}
+
+			
+			preview_ddl_effect_20_click = {
+				set_temp_variable = { effectiveness = 0 }
+				add_to_temp_variable = { effectiveness = 20 }
+				set_temp_variable = { legge_id = 0 }
+				add_to_temp_variable = { legge_id = ITA_ddl_details_picked }
+				ITA_ddl_success_effect = yes
+			}
+			preview_ddl_effect_40_click = {
+				set_temp_variable = { effectiveness = 0 }
+				add_to_temp_variable = { effectiveness = 40 }
+				set_temp_variable = { legge_id = 0 }
+				add_to_temp_variable = { legge_id = ITA_ddl_details_picked }
+				ITA_ddl_success_effect = yes
+			}
+			preview_ddl_effect_60_click = {
+				set_temp_variable = { effectiveness = 0 }
+				add_to_temp_variable = { effectiveness = 60 }
+				set_temp_variable = { legge_id = 0 }
+				add_to_temp_variable = { legge_id = ITA_ddl_details_picked }
+				ITA_ddl_success_effect = yes
+			}
+			preview_ddl_effect_80_click = {
+				set_temp_variable = { effectiveness = 0 }
+				add_to_temp_variable = { effectiveness = 80 }
+				set_temp_variable = { legge_id = 0 }
+				add_to_temp_variable = { legge_id = ITA_ddl_details_picked }
+				ITA_ddl_success_effect = yes
+			}
+		}
+
+		triggers = {
+			preview_ddl_effect_20_click_enabled = {
+				always = no
+			}
+			preview_ddl_effect_40_click_enabled = {
+				always = no
+			}
+			preview_ddl_effect_60_click_enabled = {
+				always = no
+			}
+			preview_ddl_effect_80_click_enabled = {
+				always = no
+			}
+
+			repeal_ddl_visible = {
+				always = no
+			}
+			status_title_visible = {
+				always = no
+			}
+		}
+	}
+
+
+	# Main pane
+	TNO_Italy_Camera = {
+		context_type = decision_category
+		window_name = "TNO_Italy_Camera"
+
+		dirty = TNO_Italy_Camera_dirty
+		
+		visible = {
+			always = yes
+		}
+
+
+		###############################################################
+		########                Camera Display                 ########
+		###############################################################
+		
+		dynamic_lists = {
+			camera_diagram = {
+				array = ITA_camera_seat_x_real
+				change_scope = no
+				entry_container = ITA_camera_seat
+				index = seat_idx
+			}
+			coalition_bar_segments = {
+				array = ITA_gf_current_negotiation
+				change_scope = no
+				entry_container = ITA_camera_coalition_bar_segment
+				index = current_number
+			}
+			policy_bar_segments = {
+				array = ITA_camera_policy_bar_segments
+				change_scope = no
+				entry_container = ITA_camera_policy_bar_segment
+				index = bar_segment_idx
+			}
+		}
+
+		properties = {
+			seat_dot_icon = {
+				x = ITA_camera_seat_x_real^seat_idx
+				y = ITA_camera_seat_y_real^seat_idx
+				frame = ITA_camera_current_color^ITA_camera_seat_current^seat_idx
+			}
+			policy_bar = {
+				x = ITA_policy_bar_offset
+			}
+			coalition_wedge = {
+				x = ITA_coalition_wedge_offset
+			}
+			policy_wedge = {
+				x = ITA_policy_wedge_offset
+			}
+			policy_wedge_shifted = {
+				x = ITA_policy_preview_wedge_offset
+			}
+			policy_shift_bar = {
+				x = ITA_policy_wedge_offset
+				frame = ITA_policy_overton_shift_amnt
+			}
+			policy_shift_bar_l = {
+				x = ITA_policy_preview_wedge_offset
+				frame = ITA_policy_overton_shift_amnt
+			}
+			ddl_policy_dot = {
+				x = ITA_ddl_dot_offset
+			}
+			policy_bar_segment = {
+				frame = ITA_camera_policy_bar_segments^bar_segment_idx
+			}
+			coalition_bar_segment = {
+				frame = ITA_gf_current_negotiation^current_number
+			}
+		}
+
+		
+		triggers = {
+			policy_wedge_shifted_visible = {
+				ITA_ddl_active = yes
+			}
+			ddl_policy_dot_visible = {
+				ITA_ddl_active = yes
+			}
+			policy_shift_bar_l_visible = { AND = {
+				check_variable = { ITA_policy_overton_left = 1 }
+				ITA_ddl_active = yes
+			}}
+			policy_shift_bar_visible = { AND = {
+				check_variable = { ITA_policy_overton_left = 0 }
+				ITA_ddl_active = yes
+			}}
+			policy_bar_segment_visible = {
+				check_variable = { ITA_camera_policy_bar_segments^bar_segment_idx < 91 }
+			}
+		}
+
+		properties = {
+			coalition_view = {
+				frame = ITA_camera_coalition_view
+			}
+			ddl_view = {
+				frame = ITA_camera_ddl_view
+			}
+		}
+
+		effects = {
+			coalition_view_click = {
+				set_variable = { ITA_camera_coalition_view = 2 }
+				set_variable = { ITA_camera_ddl_view = 1 }
+				ITA_camera_redraw = yes
+			}
+			ddl_view_click = {
+				set_variable = { ITA_camera_coalition_view = 1 }
+				set_variable = { ITA_camera_ddl_view = 2 }
+				ITA_camera_redraw = yes
+			}
+			help_button_click = {
+				if = {
+					limit = { 
+						check_variable = { ITA_camera_help_page^num > 0 } 
+						check_variable = { ITA_camera_help_page^0 < 5 } 
+					}
+					clear_array = ITA_camera_help_page
+				}
+				else = {
+					clear_array = ITA_camera_help_page
+					add_to_array = { ITA_camera_help_page = 0 }
+				}
+				ITA_camera_redraw = yes
+			}
+			govform_help_button_click = {
+				if = {
+					limit = { 
+						check_variable = { ITA_camera_help_page^num > 0 } 
+						check_variable = { ITA_camera_help_page^0 > 4 } 
+						check_variable = { ITA_camera_help_page^0 < 8 } 
+					}
+					clear_array = ITA_camera_help_page
+				}
+				else = {
+					clear_array = ITA_camera_help_page
+					add_to_array = { ITA_camera_help_page = 5 }
+				}
+				ITA_camera_redraw = yes
+			}
+			ddl_help_button_click = {
+				if = {
+					limit = { 
+						check_variable = { ITA_camera_help_page^num > 0 } 
+						check_variable = { ITA_camera_help_page^0 > 9 } 
+					}
+					clear_array = ITA_camera_help_page
+				}
+				else = {
+					clear_array = ITA_camera_help_page
+					add_to_array = { ITA_camera_help_page = 10 }
+				}
+				ITA_camera_redraw = yes
+			}
+			help_close_button_click = {
+				clear_array = ITA_camera_help_page
+				ITA_camera_redraw = yes
+			}
+			next_help_page_click = {
+				add_to_variable = { ITA_camera_help_page^0 = 1 }
+				ITA_camera_redraw = yes
+			}
+			prev_help_page_click = {
+				subtract_from_variable = { ITA_camera_help_page^0 = 1 }
+				ITA_camera_redraw = yes
+			}
+		}
+		triggers = {
+			next_help_page_click_enabled = {
+				OR = {
+					check_variable = { ITA_camera_help_page^0 < 4 }
+					AND = {
+						check_variable = { ITA_camera_help_page^0 > 4 }
+						check_variable = { ITA_camera_help_page^0 < 7 }
+					}
+					AND = {
+						check_variable = { ITA_camera_help_page^0 > 9 }
+						check_variable = { ITA_camera_help_page^0 < 13 }
+					}
+				}
+			}
+			prev_help_page_click_enabled = {
+				OR = {
+					AND = {
+						check_variable = { ITA_camera_help_page^0 > 5 }
+						check_variable = { ITA_camera_help_page^0 < 8 }
+					}
+					AND = {
+						check_variable = { ITA_camera_help_page^0 < 5 }
+						check_variable = { ITA_camera_help_page^0 > 0 }
+					}
+					AND = {
+						check_variable = { ITA_camera_help_page^0 < 14 }
+						check_variable = { ITA_camera_help_page^0 > 10 }
+					}
+				}
+			}
+			ddl_view_click_enabled = {
+				NOT = { check_variable = {
+					ITA_ddl_active_ddl = 0
+				}}
+			}
+		}
+
+		properties = {
+			info_box = {
+				# Color box based on party group
+				frame = ITA_camera_current_group^current_number
+				# Color box based on coalition membership
+				# frame = ITA_camera_current_coalition^current_number
+			}
+		}
+
+		dynamic_lists = {
+			camera_left_currents = {
+				array = ITA_camera_left_currents
+				change_scope = no
+				entry_container = ITA_camera_info
+				value = current_number
+			}
+			camera_center_currents = {
+				array = ITA_camera_center_currents
+				change_scope = no
+				entry_container = ITA_camera_info
+				value = current_number
+			}
+			camera_right_currents = {
+				array = ITA_camera_right_currents
+				change_scope = no
+				entry_container = ITA_camera_info
+				value = current_number
+			}
+		}
+
+		dynamic_lists = {
+			current_help = {
+				array = ITA_camera_help_page
+				change_scope = no
+				entry_container = "[ITA_Get_Camera_Help_Page]"
+				value = current_number
+			}
+			submenu = {
+				array = ITA_camera_submenu_arr
+				change_scope = no
+				entry_container = "[Get_Camera_Submenu_Container]"
+				value = current_number
+			}
+		}
+
+		effects = {
+			switch_view_click = {
+				if = {
+					limit = { check_variable = { ITA_camera_submenu = 2 }}
+
+					set_variable = { ITA_camera_submenu = 1 }
+					clear_array = ITA_camera_submenu_arr 
+					add_to_array = { ITA_camera_submenu_arr = 1 }
+				}
+				else = {
+					ITA_gf_collapse = yes
+				}
+
+				set_variable = { ITA_ddl_active_ddl = 0 }
+				ITA_setup_new_ddl = yes
+			}
+		}
+
+		triggers = {
+			switch_view_visible = {
+				has_country_flag = ITA_Camera_Debug_Tools_Enabled
+				ITA_govform_active = no
+			}
+		}
+
+		###############################################################
+		########                GovForm Stuff                  ########
+		###############################################################
+
+		dynamic_lists = {
+			pm_candidates = {
+				array = ITA_gf_pms
+				change_scope = no
+				entry_container = ITA_camera_gf_pm
+				value = current_number
+				index = pm_idx
+			}
+		}
+
+		properties = {
+			pm_pic = {
+				x = ITA_gf_pms_offset
+				image = "[Get_Current_PM_GFX_dynamic]"
+			}
+			pm_highlight = {
+				x = ITA_gf_pms_offset
+				frame = ITA_gf_selected_pm_arr^pm_idx
+			}
+			pm_party_name = {
+				x = ITA_gf_pms_offset
+			}
+			pm_name = {
+				x = ITA_gf_pms_offset
+			}
+		}
+
+		effects = {
+			pm_pic_click = {
+				set_variable = { ITA_gf_selected_pm = current_number }
+				
+				clear_array = ITA_gf_selected_pm_arr
+				resize_array = { array = ITA_gf_selected_pm_arr value = 1 size = ITA_gf_pms^num }
+				set_variable = { ITA_gf_selected_pm_arr^pm_idx = 2 }
+
+
+				ITA_gf_update_selected_pm = yes
+
+			}
+			submit_coalition_click = {
+				ITA_gf_submit_coalition = yes
+			}
+		}
+
+		properties = {
+			gf_timer = {
+				frame = ITA_gf_days_left_pct
+			}
+		}
+
+		triggers = {
+			submit_coalition_click_enabled = {
+				check_variable = { ITA_total_coalition_members > 200 }
+			}
+			pm_pic_click_enabled = {
+				ITA_pm_available_dynamic = yes
+			}
+		}
+
+		effects = {
+			left_debug_click = {
+				set_variable = { ITA_winning_wing = 0 }
+				ITA_begin_gf = yes
+			}
+			center_debug_click = {
+				set_variable = { ITA_winning_wing = 1 }
+				ITA_begin_gf = yes
+			}
+			right_debug_click = {
+				set_variable = { ITA_winning_wing = 2 }
+				ITA_begin_gf = yes
+			}
+		}
+
+		triggers = {
+			left_debug_visible = {
+				has_country_flag = ITA_Camera_Debug_Tools_Enabled
+				always = no
+			}
+			center_debug_visible = {
+				has_country_flag = ITA_Camera_Debug_Tools_Enabled
+				always = no
+			}
+			right_debug_visible = {
+				has_country_flag = ITA_Camera_Debug_Tools_Enabled
+				always = no
+			}
+		}
+		
+		###############################################################
+		########                  DDL Stuff                    ########
+		###############################################################
+
+		properties = {
+			focus_bar = {
+				frame = ITA_ddl_focus
+			}
+			timer = {
+				frame = ITA_ddl_days_left_pct
+			}
+			pm_icon = {
+				frame = ITA_camera_current_color^ITA_gf_selected_pm
+			}
+			ability_bar = {
+				frame = ITA_ddl_pm_ability_fill
+			}
+		}
+
+		triggers = {
+			pm_ability_visible = {
+				check_variable = { ITA_ddl_pm_has_ability^ITA_gf_selected_pm = 1 }
+			}
+			ability_frame_visible = {
+				check_variable = { ITA_ddl_pm_has_ability^ITA_gf_selected_pm = 1 }
+			}
+			ability_bar_visible = {
+				check_variable = { ITA_ddl_pm_has_ability^ITA_gf_selected_pm = 1 }
+			}
+			decorative_flag_visible = {
+				check_variable = { ITA_ddl_pm_has_ability^ITA_gf_selected_pm = 0 }
+			}
+			ddl_effect_button_click_enabled = {
+				always = no
+			}
+		}
+
+		dynamic_lists = {
+			amendments = {
+				array = ITA_ddl_amendments
+				change_scope = no
+				entry_container = "[Get_Amendment_Container]"
+				index = amendment_idx
+				value = amendment_num
+			}
+			effect_icons = {
+				array = ITA_ddl_effect_icon_positions
+				change_scope = no
+				entry_container = ITA_camera_ddl_effect_icon
+				index = effect_idx
+			}
+			amend_effect_icons = {
+				array = ITA_ddl_amend_effect_icon_positions
+				change_scope = no
+				entry_container = ITA_camera_ddl_amend_effect_icon
+				index = effect_idx
+			}
+		}
+
+		properties = {
+			icon_full_size = {
+				image = "[GET_Active_DDL_Effect_Icon]"
+				x = ITA_ddl_effect_icon_positions^effect_idx
+			}
+			amend_icon_full_size = {
+				image = "[GET_DDL_Amend_Effect_Icon]"
+				x = ITA_ddl_amend_effect_icon_positions^effect_idx
+			}
+			negotiate_current = {
+				frame = ITA_gf_current_negotiation^current_number 
+			}
+		}
+		
+		effects = {
+			ddl_effect_button_click = {
+				if = {
+					limit = {
+						ITA_ddl_active = yes
+					}
+
+					custom_effect_tooltip = ITA_ddl_effect_pre_tt
+
+					set_temp_variable = { effectiveness = 0 }
+					add_to_temp_variable = { effectiveness = ITA_ddl_focus }
+					set_temp_variable = { legge_id = 0 }
+					add_to_temp_variable = { legge_id = ITA_ddl_active_ddl }
+					ITA_ddl_success_effect = yes
+				}
+			}
+			remove_amend_click = {
+				remove_from_array = { array = ITA_ddl_amendments value = amendment_num}
+				add_to_array = { ITA_ddl_amendments = 0}
+				add_to_array = { ITA_ddl_possible_amendments = amendment_num }
+				ITA_camera_update_ddl_policy_shift = yes
+				ITA_camera_update_coalition_status = yes
+				ITA_camera_redraw = yes
+			}
+			add_amend_click = {
+				if = {
+					limit = { has_country_flag = TNO_ITA_Show_DDL_Amendments }
+					clr_country_flag = TNO_ITA_Show_DDL_Amendments
+				}
+				else = {
+					set_country_flag = TNO_ITA_Show_DDL_Amendments
+				}
+			}
+			history_button_click = {
+				if = {
+					limit = { has_country_flag = TNO_ITA_Show_DDL_History }
+					clr_country_flag = TNO_ITA_Show_DDL_History
+				}
+				else = {
+					set_country_flag = TNO_ITA_Show_DDL_History
+				}
+			}
+			add_ddl_click = {
+				if = {
+					limit = { has_country_flag = TNO_ITA_Show_DDL_Select }
+					clr_country_flag = TNO_ITA_Show_DDL_Select
+				}
+				else = {
+					set_country_flag = TNO_ITA_Show_DDL_Select
+				}
+			}
+			remove_ddl_click = {
+				set_variable = { ITA_ddl_active_ddl = 0 }
+				set_variable = { ITA_ddl_is_repealing = 0 }
+				ITA_setup_new_ddl = yes
+			}
+			refresh_ddl_click = {
+				ITA_recompute_ddl_available = yes
+				ITA_debug_recompute_ddl_final_values = yes
+				ITA_initialize_ddl_effects = yes
+				ITA_setup_new_ddl = yes
+			}
+			convince_current_click = {
+				set_temp_variable = { pp_cost = 20 }
+				if = {
+					limit = { check_variable = { ITA_camera_current_coalition^current_number = 2 } }
+					set_temp_variable = { pp_cost = 10 }
+				}
+
+				if = {
+					limit = { OR = {
+						check_variable = { political_power = pp_cost }
+						check_variable = { political_power > pp_cost }
+					}}
+					multiply_temp_variable = { pp_cost = -1 }
+					add_political_power = pp_cost
+
+					set_temp_variable = { random_pct = random }
+					multiply_temp_variable = { random_pct = 0.1}
+
+					# Saragat Negotiation Bonus
+					if = {
+						limit = { check_variable = { ITA_gf_selected_pm = 4 } }
+						add_to_temp_variable = { random_pct = 0.15 }
+					}
+					# Berlinuger Bonus/Penalty
+					else_if = {
+						limit = { check_variable = { ITA_gf_selected_pm = 0 } }
+						set_temp_variable = { bonus = ITA_ddl_negotiation_effectiveness_modifier_optimism }
+						multiply_temp_variable = { bonus = 0.1 }
+						add_to_temp_variable = { random_pct = bonus }
+					}
+					# Fanfani Penalty
+					else_if = {
+						limit = {
+							check_variable = { ITA_gf_selected_pm = 7 }
+							check_variable = { ITA_camera_current_coalition^current_number < 2 }
+						}
+					}
+					# Moro Bonus
+					else_if = {
+						limit = { check_variable = { ITA_gf_selected_pm = 8 } }
+						set_temp_variable = { bonus = ITA_ddl_negotiation_effectiveness_modifier_cooperation }
+						multiply_temp_variable = { bonus = 0.1 }
+						add_to_temp_variable = { random_pct = 0.05 }
+						add_to_temp_variable = { random_pct = bonus }
+					}
+					else = {
+						add_to_temp_variable = { random_pct = 0.05 }
+					}
+
+					set_temp_variable = { support_to_add = ITA_ddl_support_current_pct^current_number }
+					multiply_temp_variable = { support_to_add = random_pct }
+
+					add_to_variable = { ITA_ddl_support_bonus_support^current_number = support_to_add }
+					ITA_camera_update_coalition_status = yes
+					ITA_camera_redraw = yes
+
+					set_variable = { ITA_ddl_has_convinced^current_number = 1 }
+				}
+
+				add_to_variable = { TNO_Italy_Camera_dirty = 1 }
+			}
+			negotiate_current_click = {
+				set_temp_variable = { nextidx = current_number }
+				set_temp_variable = { previdx = current_number }
+				add_to_temp_variable = { nextidx = 1 }
+				subtract_from_temp_variable = { previdx = 1 }
+
+				if = {
+					limit = {
+						check_variable = { ITA_camera_current_coalition^current_number = 2 }
+						OR = {
+							NOT = { check_variable = { ITA_camera_current_coalition^nextidx = 2 } }
+							NOT = { check_variable = { ITA_camera_current_coalition^previdx = 2 } }
+						}
+						check_variable = { ITA_gf_current_negotiation^current_number < 5 }
+					}
+					set_variable = { ITA_camera_current_coalition^current_number = 1 }
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_camera_current_coalition^current_number = 1 }
+					}
+					set_variable = { ITA_camera_current_coalition^current_number = 2 }
+				}
+
+				ITA_gf_update_negotiation_status = yes
+
+				ITA_camera_update_coalition_status = yes
+				ITA_camera_redraw = yes
+			}
+		}
+
+		triggers = {
+			remove_amend_click_enabled = {
+				ITA_ddl_repealing = no 
+			}
+			legge_box_visible = {
+				ITA_ddl_active = yes
+			}
+			no_legge_logo_visible = {
+				ITA_ddl_active = no 
+			}
+			repeal_back_visible = { AND = {
+				ITA_ddl_active = yes
+				ITA_ddl_repealing = yes 
+			}}
+			no_legge_message_visible = {
+				ITA_ddl_active = no
+			}
+			focus_bar_visible = {
+				ITA_ddl_active = yes
+			}
+			timer_text_visible = { 
+				ITA_ddl_active = yes
+			}
+			add_ddl_visible = { AND = {
+				#has_country_flag = ITA_Camera_Debug_Tools_Enabled
+				ITA_ddl_active = no
+			}}
+			remove_ddl_visible = {  AND = {
+				has_country_flag = ITA_Camera_Debug_Tools_Enabled
+				ITA_ddl_active = yes
+			}}
+			refresh_ddl_visible = {
+				has_country_flag = ITA_Camera_Debug_Tools_Enabled
+			}
+			convince_current_visible = {
+				check_variable = { ITA_camera_submenu = 1 }
+			}
+			convince_current_click_enabled = { 
+				set_temp_variable = { supporting_deputies = ITA_ddl_support_current_deputies^current_number }
+				set_temp_variable = { new_pct = ITA_ddl_support_current_pct^current_number }
+
+				# Saragat Negotiation Bonus
+				if = {
+					limit = { check_variable = { ITA_gf_selected_pm = 4 } }
+					multiply_temp_variable = { new_pct = 1.25 }
+				}
+				# Berlinuger Bonus/Penalty
+				else_if = {
+					limit = { check_variable = { ITA_gf_selected_pm = 0 } }
+					set_temp_variable = { bonus = ITA_ddl_negotiation_effectiveness_modifier_optimism }
+					multiply_temp_variable = { bonus = 0.1 }
+					add_to_temp_variable = { bonus = 1.10 }
+					multiply_temp_variable = { new_pct = bonus }
+				}
+				# Fanfani Penalty
+				else_if = {
+					limit = {
+						check_variable = { ITA_gf_selected_pm = 7 }
+						check_variable = { ITA_camera_current_coalition^current_number < 2 }
+					}
+					multiply_temp_variable = { new_pct = 1.10 }
+				}
+				# Moro Bonus
+				else_if = {
+					limit = { check_variable = { ITA_gf_selected_pm = 8 } }
+					set_temp_variable = { bonus = ITA_ddl_negotiation_effectiveness_modifier_cooperation }
+					multiply_temp_variable = { bonus = 0.1 }
+					add_to_temp_variable = { bonus = 1.15 }
+					multiply_temp_variable = { new_pct = bonus }
+				}
+				else = {
+					multiply_temp_variable = { new_pct = 1.15 }
+				}
+
+				clamp_temp_variable = { var = new_pct min = 0 max = 1}
+				set_temp_variable = { max_new_support = ITA_camera_current_deputies^current_number }
+				multiply_temp_variable = { max_new_support = new_pct }
+				round_temp_variable = max_new_support
+				subtract_from_temp_variable = { max_new_support = supporting_deputies }
+
+				AND = {
+					ITA_ddl_active = yes
+					check_variable = { max_new_support > 0 }
+					check_variable = { ITA_ddl_has_convinced^current_number = 0 }
+				}
+			}
+			negotiate_current_visible = {
+				check_variable = { ITA_camera_submenu = 2 }
+			}
+			negotiate_current_click_enabled = {
+				set_temp_variable = { nextidx = current_number }
+				set_temp_variable = { previdx = current_number }
+				add_to_temp_variable = { nextidx = 1 }
+				subtract_from_temp_variable = { previdx = 1 }
+				OR = {
+					check_variable = { ITA_camera_current_coalition^nextidx = 2}
+					check_variable = { ITA_camera_current_coalition^previdx = 2}
+				}
+				check_variable = { ITA_gf_current_negotiation^current_number > 1 }
+				NOT = {
+					has_country_flag = ITA_camera_suspended
+				}
+			}
+		}
+
+		
+		###############################################################
+		########                 Debug Buttons                 ########
+		###############################################################
+		
+		effects = {
+			add_seat_click = {
+				set_variable = { to_add = 1 }
+				ITA_debug_add_seats = yes
+			}
+			add_seat_right_click = {
+				set_temp_variable = { to_add = 5 }
+				ITA_debug_add_seats = yes
+			}
+			rem_seat_click = {
+				set_variable = { to_rem = 1 }
+				ITA_debug_rem_seats = yes
+			}
+			rem_seat_right_click = {
+				set_temp_variable = { to_rem = 5 }
+				ITA_debug_rem_seats = yes
+			}
+
+			add_support_click = {
+				set_temp_variable = { to_change = 1 }
+				set_temp_variable = { to_change_max = ITA_camera_current_deputies^current_number }
+				subtract_from_temp_variable = { to_change_max = ITA_ddl_support_current_deputies^current_number }
+				if = {
+					limit = { 
+						check_variable = { to_change_max < to_change }
+					}
+					set_temp_variable = { to_change = to_change_max }
+				}
+				add_to_variable = { ITA_ddl_support_bonus_deputies^current_number = to_change }
+				ITA_camera_update_coalition_status = yes
+				ITA_camera_redraw = yes
+			}
+			add_support_right_click = {
+				set_temp_variable = { to_change = 5 }
+				set_temp_variable = { to_change_max = ITA_camera_current_deputies^current_number }
+				subtract_from_temp_variable = { to_change_max = ITA_ddl_support_current_deputies^current_number }
+				if = {
+					limit = { 
+						check_variable = { to_change_max < to_change }
+					}
+					set_temp_variable = { to_change = to_change_max }
+				}
+				add_to_variable = { ITA_ddl_support_bonus_deputies^current_number = to_change }
+				ITA_camera_update_coalition_status = yes
+				ITA_camera_redraw = yes
+			}
+			rem_support_click = {
+				set_temp_variable = { to_change = 1 }
+				set_temp_variable = { to_change_max = ITA_ddl_support_current_deputies^current_number }
+				if = {
+					limit = { 
+						check_variable = { to_change_max < to_change }
+					}
+					set_temp_variable = { to_change = to_change_max }
+				}
+				subtract_from_variable = { ITA_ddl_support_bonus_deputies^current_number = to_change }
+				ITA_camera_update_coalition_status = yes
+				ITA_camera_redraw = yes
+			}
+			rem_support_right_click = {
+				set_temp_variable = { to_change = 5 }
+				set_temp_variable = { to_change_max = ITA_ddl_support_current_deputies^current_number }
+				if = {
+					limit = { 
+						check_variable = { to_change_max < to_change }
+					}
+					set_temp_variable = { to_change = to_change_max }
+				}
+				subtract_from_variable = { ITA_ddl_support_bonus_deputies^current_number = to_change }
+				ITA_camera_update_coalition_status = yes
+				ITA_camera_redraw = yes
+			}
+
+
+			add_coalition_click = {
+				add_to_variable = { ITA_coalition_overton = 0.1 }
+				clamp_variable = { var = ITA_coalition_overton min = -0.9 max = 15.9 }
+				ITA_camera_update_coalition_status = yes
+				ITA_camera_redraw = yes
+			}
+			add_coalition_right_click = {
+				add_to_variable = { ITA_coalition_overton = 1 }
+				clamp_variable = { var = ITA_coalition_overton min = -0.9 max = 15.9 }
+				ITA_camera_update_coalition_status = yes
+				ITA_camera_redraw = yes
+			}
+			sub_coalition_click = {
+				add_to_variable = { ITA_coalition_overton = -0.1 }
+				clamp_variable = { var = ITA_coalition_overton min = -0.9 max = 15.9 }
+				ITA_camera_update_coalition_status = yes
+				ITA_camera_redraw = yes
+			}
+			sub_coalition_right_click = {
+				add_to_variable = { ITA_coalition_overton = -1 }
+				clamp_variable = { var = ITA_coalition_overton min = -0.9 max = 15.9 }
+				ITA_camera_update_coalition_status = yes
+				ITA_camera_redraw = yes
+			}
+			add_policy_click = {
+				add_to_variable = { ITA_policy_overton_modifier = 0.1 }
+				ITA_camera_update_policy_lean = yes
+				ITA_camera_update_ddl_policy_shift = yes
+				ITA_camera_update_coalition_status = yes
+				ITA_camera_redraw = yes
+			}
+			add_policy_right_click = {
+				add_to_variable = { ITA_policy_overton_modifier = 1 }
+				ITA_camera_update_policy_lean = yes
+				ITA_camera_update_ddl_policy_shift = yes
+				ITA_camera_update_coalition_status = yes
+				ITA_camera_redraw = yes
+			}
+			sub_policy_click = {
+				add_to_variable = { ITA_policy_overton_modifier = -0.1 }
+				ITA_camera_update_policy_lean = yes
+				ITA_camera_update_ddl_policy_shift = yes
+				ITA_camera_update_coalition_status = yes
+				ITA_camera_redraw = yes
+			}
+			sub_policy_right_click = {
+				add_to_variable = { ITA_policy_overton_modifier = -1 }
+				ITA_camera_update_policy_lean = yes
+				ITA_camera_update_ddl_policy_shift = yes
+				ITA_camera_update_coalition_status = yes
+				ITA_camera_redraw = yes
+			}
+		}
+
+		triggers = {
+			rem_seat_visible = {
+				has_country_flag = ITA_Camera_Debug_Tools_Enabled
+			}
+			add_seat_visible = {
+				has_country_flag = ITA_Camera_Debug_Tools_Enabled
+			}
+			rem_support_visible = {
+				has_country_flag = ITA_Camera_Debug_Tools_Enabled
+				NOT = { ITA_ddl_active = no }
+			}
+			add_support_visible = {
+				has_country_flag = ITA_Camera_Debug_Tools_Enabled
+				NOT = { ITA_ddl_active = no }
+			}
+			sub_coalition_visible = {
+				has_country_flag = ITA_Camera_Debug_Tools_Enabled
+				always = no
+			}
+			add_coalition_visible = {
+				has_country_flag = ITA_Camera_Debug_Tools_Enabled
+				always = no
+			}
+			sub_policy_visible = {
+				has_country_flag = ITA_Camera_Debug_Tools_Enabled
+			}
+			add_policy_visible = {
+				has_country_flag = ITA_Camera_Debug_Tools_Enabled
+			}
+		}
+
+	}
+}

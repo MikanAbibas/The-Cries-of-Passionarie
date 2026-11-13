@@ -1,0 +1,2732 @@
+#############################
+### THE REICH'S CONDUCTER ###
+###  THE VOLK'S PROTECTOR ###
+#############################
+###     THE ARCHITECT     ###
+###    REQUIRES RESPECT   ###
+#############################
+###		 Sooty Soot,	  ###
+###		virile Brahmin,	  ###
+###		  was here 		  ###
+#############################
+
+focus_tree = {
+	id = GER_speer_phase_two_intro
+	country = {
+		factor = 0
+	}
+	default = no
+	shared_focus = SGR_dream_no_more
+}
+
+focus_tree = {
+	id = GER_speer_phase_two_main
+	country = {
+		factor = 0
+	}
+	default = no
+	shared_focus = SGR_affairs_of_the_heimat
+	shared_focus = SGR_a_thread_for_the_sword_of_damocles
+	shared_focus = SGR_military_strategic_plan
+}
+
+# INTRO TREE #
+
+shared_focus = {
+	id = SGR_dream_no_more
+	icon = GER_nazi_might
+	cost = 4
+	#relative_position_id = SGR_dream_no_more
+	x = 8
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		country_event = { id = DengistSpeer.1 }
+		#adds dynamic modifier that starts negative but becomes positive through effects
+		#gives -50% stab, -0.5 daily pp and -3% gdp growth
+	}
+}
+
+shared_focus = {
+	id = SGR_extinguish_the_flames
+	icon = GFX_Moskowien_fire
+	cost = 4
+	relative_position_id = SGR_dream_no_more
+	prerequisite = {
+		focus = SGR_dream_no_more
+	}
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_extinguish_the_flames"
+		country_event = { id = DengistSpeer.2 }
+	}
+}
+
+shared_focus = {
+	id = SGR_bring_the_troops_home
+	icon = GFX_GER_A_Trip_Out_Back
+	cost = 4
+	relative_position_id = SGR_dream_no_more
+	prerequisite = {
+		focus = SGR_dream_no_more
+	}
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_bring_the_troops_home"
+		add_political_power = 50
+		add_manpower = 85000
+	}
+}
+
+shared_focus = {
+	id = SGR_trial_the_traitors
+	icon = GFX_generic_execute
+	cost = 4
+	relative_position_id = SGR_dream_no_more
+	prerequisite = {
+		focus = SGR_extinguish_the_flames
+	}
+	prerequisite = {
+		focus = SGR_bring_the_troops_home
+	}
+	x = 0
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_trial_the_traitors"
+		country_event = { id = DengistSpeer.3 }
+	}
+}
+
+shared_focus = {
+	id = SGR_finish_the_paramiliaries
+	icon = GFX_kill_freikorp
+	cost = 4
+	relative_position_id = SGR_dream_no_more
+	prerequisite = {
+		focus = SGR_trial_the_traitors
+	}
+	prerequisite = {
+		focus = SGR_bring_the_troops_home
+	}
+	x = 2
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_finish_the_paramiliaries"
+		country_event = { id = DengistSpeer.4 }
+		add_stability = 0.05
+	}
+}
+
+shared_focus = {
+	id = SGR_rally_the_party
+	icon = GFX_GER_Guide_The_Party
+	cost = 4
+	relative_position_id = SGR_dream_no_more
+	prerequisite = {
+		focus = SGR_trial_the_traitors
+	}
+	prerequisite = {
+		focus = SGR_bring_the_troops_home
+	}
+	x = -2
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_rally_the_party"
+		country_event = { id = DengistSpeer.5 }
+	}
+}
+
+shared_focus = {
+	id = SGR_expell_the_hyenas
+	icon = GFX_expel_the_hyenas
+	cost = 4
+	relative_position_id = SGR_dream_no_more
+	prerequisite = {
+		focus = SGR_trial_the_traitors
+	}
+	prerequisite = {
+		focus = SGR_rally_the_party
+	}
+	prerequisite = {
+		focus = SGR_finish_the_paramiliaries
+	}
+	x = 0
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_expell_the_hyenas"
+		country_event = { id = DengistSpeer.6 }
+	}
+}
+
+shared_focus = {
+	id = SGR_the_man_from_abwher
+	icon = GFX_man_from_davos
+	cost = 2
+	relative_position_id = SGR_dream_no_more
+	prerequisite = {
+		focus = SGR_expell_the_hyenas
+	}
+	x = 0
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_the_man_from_abwher"
+		country_event = { id = DengistSpeer.7 }
+	}
+}
+
+shared_focus = {
+	id = SGR_the_components_of_the_volkshalle
+	icon = GFX_gears_of_the_volkshalle
+	cost = 3
+	relative_position_id = SGR_dream_no_more
+	prerequisite = {
+		focus = SGR_the_man_from_abwher
+	}
+	x = 0
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_the_components_of_the_volkshalle"
+		country_event = { id = DengistSpeer.8 }
+	}
+}
+
+shared_focus = {
+	id = SGR_the_foundation
+	icon = GFX_the_foundation
+	cost = 3
+	relative_position_id = SGR_dream_no_more
+	prerequisite = {
+		focus = SGR_the_components_of_the_volkshalle
+	}
+	x = -1
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_the_foundation"
+		add_political_power = 80
+	}
+}
+
+shared_focus = {
+	id = SGR_the_buttress_the_nsdap
+	icon = GER_friends_in_the_reich
+	cost = 4
+	relative_position_id = SGR_dream_no_more
+	prerequisite = {
+		focus = SGR_the_foundation
+	}
+	x = -2
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_the_buttress_the_nsdap"
+		#party xp
+	}
+}
+
+shared_focus = {
+	id = SGR_the_dome
+	icon = GFX_the_dome
+	cost = 3
+	relative_position_id = SGR_dream_no_more
+	prerequisite = {
+		focus = SGR_the_components_of_the_volkshalle
+	}
+	x = 1
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_the_dome"
+		add_stability = 0.05
+		add_war_support = 0.05
+	}
+}
+
+shared_focus = {
+	id = SGR_coordinate_the_abwher_and_orpo
+	icon = GFX_GER_blackest_of_ops
+	cost = 4
+	relative_position_id = SGR_dream_no_more
+	prerequisite = {
+		focus = SGR_the_dome
+	}
+	x = 2
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_coordinate_the_abwher_and_orpo"
+		#police xp
+	}
+}
+
+shared_focus = {
+	id = SGR_the_pillars
+	icon = GFX_the_pillars
+	cost = 3
+	relative_position_id = SGR_dream_no_more
+	prerequisite = {
+		focus = SGR_the_components_of_the_volkshalle
+	}
+	x = 0
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_the_pillars"
+		#1% gdp growth
+	}
+}
+
+shared_focus = {
+	id = SGR_a_grand_plan
+	icon = GFX_GER_Utilize_Foreign_Labor
+	cost = 4
+	relative_position_id = SGR_dream_no_more
+	prerequisite = {
+		focus = SGR_the_pillars
+	}
+	x = 0
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_a_grand_plan"
+		#technocrat xp
+	}
+}
+
+shared_focus = {
+	id = SGR_who_brought_the_reich_back
+	icon = GFX_GER_the_fuhrers_will
+	cost = 4
+	relative_position_id = SGR_dream_no_more
+	prerequisite = {
+		focus = SGR_the_buttress_the_nsdap
+	}
+	prerequisite = {
+		focus = SGR_a_grand_plan
+	}
+	prerequisite = {
+		focus = SGR_coordinate_the_abwher_and_orpo
+	}
+	x = 0
+	y = 10
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_who_brought_the_reich_back"
+		country_event = { id = DengistSpeer.9 }
+	}
+}
+
+# MAIN TREE #
+
+shared_focus = {
+	id = SGR_affairs_of_the_heimat
+	icon = GFX_GER_thousand_year_volk
+	cost = 4
+	#relative_position_id = SGR_affairs_of_the_heimat
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_affairs_of_the_heimat"
+		country_event = { id = DengistSpeer.10 }
+	}
+}
+
+shared_focus = {
+	id = SGR_setting_the_stage
+	icon = GFX_GER_The_Warschau_Telegram
+	cost = 4
+	prerequisite = {
+		focus = SGR_affairs_of_the_heimat
+	}
+	relative_position_id = SGR_affairs_of_the_heimat
+	x = -2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_setting_the_stage"
+		hidden_effect = {
+			random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 2
+			}
+			random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 2
+			}
+			random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 2
+			}
+			random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 2
+			}
+		}
+		random_owned_controlled_state = {
+		add_building_construction = {
+			type = arms_factory
+			level = 2
+			instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+		add_building_construction = {
+			type = industrial_complex
+			level = 2
+			instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+		add_building_construction = {
+			type = arms_factory
+			level = 2
+			instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+		add_building_construction = {
+			type = industrial_complex
+			level = 2
+			instant_build = yes
+			}
+		}
+		# Technocrat influence dynamic spirit
+	}
+}
+
+shared_focus = {
+	id = SGR_acquiring_the_actors
+	icon = GFX_GER_convene_the_parties
+	cost = 4
+	prerequisite = {
+		focus = SGR_affairs_of_the_heimat
+	}
+	relative_position_id = SGR_affairs_of_the_heimat
+	x = 0
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_acquiring_the_actors"
+		add_stability = 0.1
+		add_war_support = 0.05
+		# Securocrat influence dynamic spirit
+	}
+}
+
+shared_focus = {
+	id = SGR_drawing_in_the_audience
+	icon = GFX_CHI_Propaganda
+	cost = 4
+	prerequisite = {
+		focus = SGR_affairs_of_the_heimat
+	}
+	relative_position_id = SGR_affairs_of_the_heimat
+	x = 2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_drawing_in_the_audience"
+		add_political_power = 50
+		# Apparatchik influence dynamic spirit
+	}
+}
+
+shared_focus = {
+	id = SGR_lights_cameras_action
+	icon = GFX_GIB_lights_camera
+	cost = 4
+	prerequisite = {
+		focus = SGR_drawing_in_the_audience
+	}
+	prerequisite = {
+		focus = SGR_acquiring_the_actors
+	}
+	prerequisite = {
+		focus = SGR_setting_the_stage
+	}
+	relative_position_id = SGR_acquiring_the_actors
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_lights_cameras_action"
+		country_event = { id = DengistSpeer.11 }
+	}
+}
+
+
+### Securocrats, discreet and long term actions boost their influence
+shared_focus = {
+	id = SGR_hear_no_evil
+	icon = GFX_GER_reichsnachrichtendienst
+	cost = 4
+	available = { has_completed_focus = SGR_the_world_on_the_march }
+	prerequisite = {
+		focus = SGR_lights_cameras_action
+	}
+	relative_position_id = SGR_lights_cameras_action
+	x = -14
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_hear_no_evil"
+		country_event = { id = DengistSpeer.12 }
+	}
+}
+
+
+###Right branch
+shared_focus = {
+	id = SGR_a_german_u2
+	icon = GFX_generic_nazi_jet_1
+	cost = 4
+	prerequisite = {
+		focus = SGR_hear_no_evil
+	}
+	relative_position_id = SGR_hear_no_evil
+	x = 5
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_a_german_u2"
+		country_event = { id = DengistSpeer.13 }
+	}
+}
+
+shared_focus = {
+	id = SGR_eyes_of_providence
+	icon = GFX_generic_satellite
+	cost = 4
+	prerequisite = {
+		focus = SGR_a_german_u2
+	}
+	relative_position_id = SGR_a_german_u2
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_eyes_of_providence"
+		#Securocrat spirit buff, spy satellites
+	}
+}
+
+###Middle Branch
+
+shared_focus = {
+	id = SGR_keeping_tabs_on_the_party
+	icon = GFX_GER_learn_their_secrets
+	cost = 4
+	prerequisite = {
+		focus = SGR_hear_no_evil
+	}
+	relative_position_id = SGR_hear_no_evil
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_keeping_tabs_on_the_party"
+		#Securocrat spirit buff (Stability and PP)
+	}
+}
+
+shared_focus = {
+	id = SGR_german_mkultra
+	icon = GFX_GER_top_minds
+	cost = 4
+	prerequisite = {
+		focus = SGR_hear_no_evil
+	}
+	relative_position_id = SGR_hear_no_evil
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_german_mkultra"
+		country_event = { id = DengistSpeer.14 }
+	}
+}
+
+shared_focus = {
+	id = SGR_stasi_techniques
+	icon = GFX_WAL_Imprison_anglo_politicians
+	cost = 4
+	prerequisite = {
+		focus = SGR_hear_no_evil
+	}
+	prerequisite = {
+		focus = SGR_german_mkultra
+	}
+	prerequisite = {
+		focus = SGR_keeping_tabs_on_the_party
+	}
+	relative_position_id = SGR_hear_no_evil
+	x = 0
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_stasi_techniques"
+		#Securocrat spirit buff (Domestic)
+		country_event = { id = DengistSpeer.15 }
+	}
+}
+
+shared_focus = {
+	id = SGR_the_greater_of_two_evils
+	icon = GFX_KRS_a_necessary_evil
+	cost = 4
+	prerequisite = {
+		focus = SGR_stasi_techniques
+	}
+	prerequisite = {
+		focus = SGR_land_of_the_blind_home_of_the_craven
+		focus = SGR_the_east_is_red
+	}
+	relative_position_id = SGR_stasi_techniques
+	x = 0
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_the_greater_of_two_evils"
+		country_event = { id = DengistSpeer.31 days = 2 }
+		#Securocrat spirit buff (Domestic)
+		#Flavor event
+	}
+}
+
+
+###Left Branch
+shared_focus = {
+	id = SGR_enhanced_training
+	icon = GFX_ANG_Veteran_Training_Program
+	cost = 4
+	prerequisite = {
+		focus = SGR_hear_no_evil
+	}
+	relative_position_id = SGR_hear_no_evil
+	x = -5
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_enhanced_training"
+		#Securocrat spirit buff
+	}
+}
+shared_focus = {
+	id = SGR_specialized_commando_teams
+	icon = GFX_GER_blackest_of_ops
+	cost = 4
+	prerequisite = {
+		focus = SGR_enhanced_training
+	}
+	relative_position_id = SGR_enhanced_training
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_specialized_commando_teams"
+		country_event = { id = DengistSpeer.16 }
+	}
+}
+
+### Securocrat America mini tree
+shared_focus = {
+	id = SGR_sinking_atlantis
+	icon = GFX_GER_strangle_their_eagle
+	cost = 4
+	prerequisite = {
+		focus = SGR_stasi_techniques
+	}
+	prerequisite = {
+		focus = SGR_eyes_of_providence
+	}
+	mutually_exclusive = { focus = SGR_teuton_against_samurai }
+	relative_position_id = SGR_eyes_of_providence
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_sinking_atlantis"
+		country_event = { id = DengistSpeer.17 }
+	}
+}
+
+shared_focus = {
+	id = SGR_go_for_the_heart
+	icon = GFX_A_Disciplined_Heart
+	cost = 4
+	prerequisite = {
+		focus = SGR_sinking_atlantis
+	}
+	mutually_exclusive = { focus = SGR_go_for_the_brain }
+	relative_position_id = SGR_sinking_atlantis
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_go_for_the_heart"
+		country_event = { id = DengistSpeer.18 }
+	}
+}
+
+shared_focus = {
+	id = SGR_go_for_the_brain
+	icon = GFX_A_Disciplined_Mind
+	cost = 4
+	prerequisite = {
+		focus = SGR_sinking_atlantis
+	}
+	mutually_exclusive = { focus = SGR_go_for_the_heart }
+	relative_position_id = SGR_sinking_atlantis
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_go_for_the_brain"
+		country_event = { id = DengistSpeer.19 }
+	}
+}
+
+shared_focus = {
+	id = SGR_them_versus_them
+	icon = GFX_USA_Use_The_Ghetto_Riots
+	cost = 4
+	prerequisite = {
+		focus = SGR_sinking_atlantis
+	}
+	relative_position_id = SGR_sinking_atlantis
+	x = -3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_them_versus_them"
+		country_event = { id = DengistSpeer.20 }
+	}
+}
+
+shared_focus = {
+	id = SGR_aryan_vanguard
+	icon = GFX_USA_72_Yockey
+	cost = 4
+	prerequisite = {
+		focus = SGR_them_versus_them
+	}
+	relative_position_id = SGR_sinking_atlantis
+	x = -2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_aryan_vanguard"
+		#Boost Yockey popularity in America
+	}
+}
+
+shared_focus = {
+	id = SGR_steal_their_toys
+	icon = GFX_focus_USA_SAW_break_front
+	cost = 4
+	prerequisite = {
+		focus = SGR_sinking_atlantis
+	}
+	relative_position_id = SGR_sinking_atlantis
+	x = 3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_steal_their_toys"
+		country_event = { id = DengistSpeer.22 }
+	}
+}
+
+shared_focus = {
+	id = SGR_infiltrate_their_castles
+	icon = GFX_OMO_Infiltrate_Their_Castle
+	cost = 4
+	prerequisite = {
+		focus = SGR_steal_their_toys
+	}
+	relative_position_id = SGR_sinking_atlantis
+	x = 2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_infiltrate_their_castles"
+		country_event = { id = DengistSpeer.23 }
+	}
+}
+
+shared_focus = {
+	id = SGR_land_of_the_blind_home_of_the_craven
+	icon = GFX_focus_usa_america_is_on_fire
+	cost = 4
+	prerequisite = {
+		focus = SGR_aryan_vanguard
+	}
+	prerequisite = {
+		focus = SGR_infiltrate_their_castles
+	}
+	prerequisite = {
+		focus = SGR_go_for_the_heart
+		focus = SGR_go_for_the_brain
+	}
+	relative_position_id = SGR_go_for_the_heart
+	x = -1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_land_of_the_blind_home_of_the_craven"
+		country_event = { id = DengistSpeer.24 days = 3 }
+	}
+}
+
+###Securocrat Japan mini tree
+shared_focus = {
+	id = SGR_teuton_against_samurai
+	icon = GFX_JAP_Ramshackle_Coalition
+	cost = 4
+	prerequisite = {
+		focus = SGR_specialized_commando_teams
+	}
+	prerequisite = {
+		focus = SGR_stasi_techniques
+	}
+	mutually_exclusive = { focus = SGR_sinking_atlantis }
+	relative_position_id = SGR_stasi_techniques
+	x = -4
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_teuton_against_samurai"
+		country_event = { id = DengistSpeer.25 days = 1 }
+		#Opens up mini tree to help China build up for GAW, maybe help Vietcong or CCP/KMT remnants if Long Yun balkanized China?
+	}
+}
+
+shared_focus = {
+	id = SGR_the_core
+	icon = GFX_GER_china_will_grow
+	cost = 4
+	prerequisite = {
+		focus = SGR_teuton_against_samurai
+	}
+	mutually_exclusive = { focus = SGR_the_tendrils }
+	relative_position_id = SGR_teuton_against_samurai
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_the_core"
+		country_event = { id = DengistSpeer.26 days = 2 }
+		#Flavor event, focus on building up China for GAW, opens decision menu to give guns intel and tech
+	}
+}
+
+shared_focus = {
+	id = SGR_the_tendrils
+	icon = GFX_JAP_sphere_failing_generic
+	cost = 4
+	prerequisite = {
+		focus = SGR_teuton_against_samurai
+	}
+	mutually_exclusive = { focus = SGR_the_core }
+	relative_position_id = SGR_teuton_against_samurai
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_the_tendrils"
+		country_event = { id = DengistSpeer.27 days = 2 }
+		#Flavor event, focus on getting CPS members to side with China, opens decision menu with man of Asia to selected country
+	}
+}
+
+shared_focus = {
+	id = SGR_40_years_of_resistance
+	icon = GFX_TNO_generic_gun_production
+	cost = 4
+	prerequisite = {
+		focus = SGR_teuton_against_samurai
+	}
+	relative_position_id = SGR_teuton_against_samurai
+	x = -3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_40_years_of_resistance"
+		#Increase strength of Ma clique, maybe results in a war with Hui?
+	}
+}
+
+shared_focus = {
+	id = SGR_contact_the_supreme_commander
+	icon = GFX_GER_The_Korean_Question
+	cost = 4
+	prerequisite = {
+		focus = SGR_40_years_of_resistance
+	}
+	relative_position_id = SGR_teuton_against_samurai
+	x = -2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_contact_the_supreme_commander"
+		country_event = { id = DengistSpeer.28 days = 2 }
+		#Flavor event, Contact Kim il Sung, increases resistance in Korea
+	}
+}
+
+shared_focus = {
+	id = SGR_map_out_the_pacific
+	icon = GFX_JAP_Ministry_of_Pan_Asian_Recovery
+	cost = 4
+	prerequisite = {
+		focus = SGR_teuton_against_samurai
+	}
+	relative_position_id = SGR_teuton_against_samurai
+	x = 3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_map_out_the_pacific"
+		#Intel bonus against Japan
+	}
+}
+
+shared_focus = {
+	id = SGR_pass_intel_to_the_americans
+	icon = GFX_GER_Intelligence_Sharing
+	cost = 4
+	prerequisite = {
+		focus = SGR_map_out_the_pacific
+	}
+	relative_position_id = SGR_teuton_against_samurai
+	x = 2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_pass_intel_to_the_americans"
+		USA = { country_event = { id = DengistSpeer.29 days = 2 } }
+		#Event for America, gives them the above bonus too
+	}
+}
+
+shared_focus = {
+	id = SGR_the_east_is_red
+	icon = GFX_Focus_East_Asia_Orthographic
+	cost = 4
+	prerequisite = {
+		focus = SGR_pass_intel_to_the_americans
+	}
+	prerequisite = {
+		focus = SGR_contact_the_supreme_commander
+	}
+	prerequisite = {
+		focus = SGR_the_core
+		focus = SGR_the_tendrils
+	}
+	relative_position_id = SGR_the_core
+	x = -1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_the_east_is_red"
+		country_event = { id = DengistSpeer.30 days = 3 } 
+		#Flavor event
+	}
+}
+
+### Securocrat Burgundy mini tree
+shared_focus = {
+	id = SGR_the_devil_to_the_west
+	icon = GFX_HGR_burgundian_ss
+	cost = 4
+	prerequisite = {
+		focus = SGR_the_greater_of_two_evils
+	}
+	available = { has_country_flag = SGR_Globalplans_Discovered }
+	mutually_exclusive = { focus = SGR_the_bear_to_the_east }
+	ai_will_do = {
+    base = 0
+	}
+	relative_position_id = SGR_the_greater_of_two_evils
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_the_devil_to_the_west"
+		country_event = { id = DengistSpeer.32 days = 1 }
+		#Flavor event, opens up mini tree to kill Himmler/Destabilize Burgundy
+	}
+}
+
+shared_focus = {
+	id = SGR_infiltrating_the_shadow_state
+	icon = GFX_UPO_From_the_Shadows
+	cost = 10
+	prerequisite = { focus = SGR_the_devil_to_the_west }
+	mutually_exclusive = { focus = SGR_kicking_down_the_door }
+	relative_position_id = SGR_the_devil_to_the_west
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_infiltrating_the_shadow_state"
+		country_event = { id = DengistSpeer.33 days = 1 }
+		#Flavor event, opens up decisions to kill Himmler
+	}
+}
+
+shared_focus = {
+	id = SGR_the_good_doctor
+	icon = GFX_HGR_Eichmann
+	cost = 10
+	prerequisite = { focus = SGR_infiltrating_the_shadow_state }
+	relative_position_id = SGR_the_devil_to_the_west
+	x = -1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_the_good_doctor"
+		country_event = { id = DengistSpeer.34 days = 3 }
+		#Flavor event, contacting Eichmann
+	}
+}
+
+shared_focus = {
+	id = SGR_kicking_down_the_door
+	icon = GFX_GER_kick_down_the_door
+	cost = 5
+	prerequisite = { focus = SGR_the_devil_to_the_west }
+	mutually_exclusive = { focus = SGR_infiltrating_the_shadow_state }
+	relative_position_id = SGR_the_devil_to_the_west
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_kicking_down_the_door"
+		country_event = { id = DengistSpeer.35 days = 1 }
+		#Flavor event, invading Burgundy
+	}
+}
+
+shared_focus = {
+	id = SGR_collapsing_the_rotten_structure
+	icon = GFX_JAP_Collapse_Proof_Supremacy
+	cost = 5
+	prerequisite = { focus = SGR_kicking_down_the_door }
+	relative_position_id = SGR_the_devil_to_the_west
+	x = 1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_collapsing_the_rotten_structure"
+		country_event = { id = DengistSpeer.36 days = 1 }
+		#Flavor event, use spies to cause blackout throughout Burgundy, maybe cause Burgundian civil war with the various Legions?
+	}
+}
+
+shared_focus = {
+	id = SGR_fall_schwarz
+	icon = GFX_fall_schwarz
+	cost = 10
+	ai_will_do = {
+    base = 0
+	}
+	prerequisite = { focus = SGR_collapsing_the_rotten_structure focus = SGR_the_good_doctor }
+	relative_position_id = SGR_the_devil_to_the_west
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_fall_schwarz"
+		custom_effect_tooltip = SGR_i_have_over_500_confirmed_kills_tt
+		country_event = { id = DengistSpeer.37 days = 1 }
+		#Unlocks decision to invade Burgundy or kill Himmler depending on what you chose
+	}
+}
+
+### Securocrat Russia mini tree
+shared_focus = {
+	id = SGR_the_bear_to_the_east
+	icon = GFX_PAV_the_siberian_bear
+	cost = 4
+	prerequisite = {
+		focus = SGR_the_greater_of_two_evils
+	}
+	mutually_exclusive = { focus = SGR_the_devil_to_the_west }
+	relative_position_id = SGR_the_greater_of_two_evils
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_the_bear_to_the_east"
+		country_event = { id = DengistSpeer.44 days = 3 }
+		#Flavor event, opens up mini tree to prepare for war with Russia
+	}
+}
+
+shared_focus = {
+	id = SGR_cloak_and_dagger
+	icon = YGR_Sabotage_our_Enemies_TCE	
+	cost = 4
+	prerequisite = {
+		focus = SGR_the_bear_to_the_east
+	}
+	mutually_exclusive = { focus = SGR_expand_the_ostwall }
+	relative_position_id = SGR_the_bear_to_the_east
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_cloak_and_dagger"
+		country_event = { id = DengistSpeer.45 days = 3 }
+		#Flavor event, focused on weakening the Russians
+	}
+}
+
+shared_focus = {
+	id = SGR_implanting_our_agents
+	icon = GFX_SAF_pseudo_operations
+	cost = 4
+	prerequisite = {
+		focus = SGR_cloak_and_dagger
+	}
+	relative_position_id = SGR_the_bear_to_the_east
+	x = -1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_implanting_our_agents"
+		#Offensive debuffs for Russia for the duration of the 2WRW
+	}
+}
+
+shared_focus = {
+	id = SGR_expand_the_ostwall
+	icon = GFX_GER_Reinforce_The_East
+	cost = 4
+	prerequisite = {
+		focus = SGR_the_bear_to_the_east
+	}
+	mutually_exclusive = { focus = SGR_cloak_and_dagger }
+	relative_position_id = SGR_the_bear_to_the_east
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_expand_the_ostwall"
+		country_event = { id = DengistSpeer.46 days = 3 }
+		#Flavor event, focused on building up defenses and Wehrmacht
+	}
+}
+
+shared_focus = {
+	id = SGR_impregnable_fortress
+	icon = GFX_ENG_fortify_the_coasts
+	cost = 4
+	prerequisite = {
+		focus = SGR_expand_the_ostwall
+	}
+	relative_position_id = SGR_the_bear_to_the_east
+	x = 1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_impregnable_fortress"
+		country_event = { id = DengistSpeer.47 days = 3 }
+		#Defensive bonuses for the duration of the 2WRW to account for smaller army size
+	}
+}
+
+shared_focus = {
+	id = SGR_and_now_we_wait
+	icon = GFX_BRG_Focus_Nation_Wide_Standardization
+	cost = 10
+	prerequisite = { focus = SGR_impregnable_fortress focus = SGR_implanting_our_agents }
+	relative_position_id = SGR_the_bear_to_the_east
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_and_now_we_wait"
+		country_event = { id = DengistSpeer.48 days = 4 }
+		#Flavor event, manpower and equipment
+	}
+}
+
+###End of Securocrat tree
+
+shared_focus = {
+	id = SGR_our_continent
+	icon = GFX_Focus_Europe_Orthographic
+	cost = 10
+	prerequisite = { focus = SGR_fall_schwarz focus = SGR_and_now_we_wait }
+	relative_position_id = SGR_fall_schwarz
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event, big buff to Securocrat spirit and influence
+	}
+}
+
+### Apparatchiks
+
+shared_focus = {
+	id = SGR_speak_no_evil
+	icon = GFX_GER_Were_All_German
+	cost = 4
+	available = { has_completed_focus = SGR_the_world_on_the_march }
+	prerequisite = {
+		focus = SGR_lights_cameras_action
+	}
+	relative_position_id = SGR_lights_cameras_action
+	x = 0
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_speak_no_evil"
+		# Flavor event
+	}
+}
+
+
+### Left branch
+shared_focus = {
+	id = SGR_for_the_volk
+	icon = GFX_GER_ein_volk
+	cost = 4
+	prerequisite = {
+		focus = SGR_speak_no_evil
+	}
+	relative_position_id = SGR_speak_no_evil
+	x = -4
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_for_the_volk"
+		# stability
+	}
+}
+
+shared_focus = {
+	id = SGR_revolutionizing_mass_media
+	icon = GFX_TNO_generic_radio_tower
+	cost = 4
+	prerequisite = {
+		focus = SGR_for_the_volk
+	}
+	relative_position_id = SGR_for_the_volk
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_speak_no_evil"
+		# Flavor event and war support, maybe NS popularity? Apparatchik spirit buff
+	}
+}
+
+shared_focus = {
+	id = SGR_bread_and_circuses
+	icon = GFX_IBR_Bread_and_Roses
+	cost = 4
+	prerequisite = {
+		focus = SGR_for_the_volk
+	}
+	relative_position_id = SGR_for_the_volk
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_speak_no_evil"
+		# stability
+	}
+}
+
+shared_focus = {
+	id = SGR_political_education
+	icon = GFX_GER_science_german_characteristics
+	cost = 4
+	prerequisite = {
+		focus = SGR_bread_and_circuses
+	}
+	prerequisite = {
+		focus = SGR_revolutionizing_mass_media
+	}
+	relative_position_id = SGR_for_the_volk
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_speak_no_evil"
+		add_political_power = 80
+		# stability, apparatchik spirit buff
+	}
+}
+
+### Right branch
+shared_focus = {
+	id = SGR_for_the_party
+	icon = GFX_GER_Thousand_Year_Reich_Forevermore
+	cost = 4
+	prerequisite = {
+		focus = SGR_speak_no_evil
+	}
+	relative_position_id = SGR_speak_no_evil
+	x = 4
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_for_the_party"
+		add_political_power = 70
+		# political power, buff apparatchik spirit
+	}
+}
+
+shared_focus = {
+	id = SGR_little_red_book
+	icon = GFX_IBR_paperwork
+	cost = 4
+	prerequisite = {
+		focus = SGR_for_the_party
+	}
+	relative_position_id = SGR_for_the_party
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_little_red_book"
+		# Flavor event, apparatchik spirit buff
+	}
+}
+
+shared_focus = {
+	id = SGR_freedom_of_debate_unity_of_action
+	icon = GFX_GER_new_rules_new_reichstag
+	cost = 4
+	prerequisite = {
+		focus = SGR_for_the_party
+	}
+	relative_position_id = SGR_for_the_party
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_freedom_of_debate_unity_of_action"
+		add_political_power = 50
+		# NS popularity
+	}
+}
+
+shared_focus = {
+	id = SGR_die_best_partei
+	icon = GFX_WAL_german_friends
+	cost = 4
+	prerequisite = {
+		focus = SGR_little_red_book
+	}
+	prerequisite = {
+		focus = SGR_freedom_of_debate_unity_of_action
+	}
+	relative_position_id = SGR_for_the_party
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_speak_no_evil"
+		add_political_power = 50
+		# apparatchik spirit buff
+	}
+}
+
+### Middle Branch
+
+shared_focus = {
+	id = SGR_new_decade_new_problems
+	icon = GFX_GER_nationalize_credit
+	cost = 4
+	prerequisite = {
+		focus = SGR_speak_no_evil
+	}
+	relative_position_id = SGR_speak_no_evil
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_new_decade_new_problems"
+		# small stability hit
+	}
+}
+
+shared_focus = {
+	id = SGR_a_new_constitution
+	icon = GFX_generic_constitution
+	cost = 5
+	prerequisite = {
+		focus = SGR_new_decade_new_problems
+	}
+	relative_position_id = SGR_new_decade_new_problems
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_a_new_constitution"
+		add_political_power = -100
+		# small stability hit
+		# event chain
+	}
+}
+
+shared_focus = {
+	id = SGR_die_speer_verfassung
+	icon = GFX_GER_all_eyes_on_us
+	cost = 4
+	prerequisite = {
+		focus = SGR_a_new_constitution
+	}
+	relative_position_id = SGR_a_new_constitution
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_die_speer_verfassung"
+		# new national spirit depending on choices you made in the prior event chain
+	}
+}
+
+### Germanization tree
+
+shared_focus = {
+	id = SGR_the_question_of_germanization
+	icon = GFX_GER_Fate_Of_Our_Conquests
+	cost = 4
+	prerequisite = {
+		focus = SGR_die_speer_verfassung
+	}
+	prerequisite = {
+		focus = SGR_die_best_partei
+	}
+	prerequisite = {
+		focus = SGR_political_education
+	}
+	relative_position_id = SGR_die_speer_verfassung
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_die_speer_verfassung"
+		# flavor event
+	}
+}
+
+### Right branch
+
+shared_focus = {
+	id = SGR_keep_things_realistic
+	icon = GFX_HGR_keep_the_moderates_assuaged
+	cost = 4
+	prerequisite = {
+		focus = SGR_the_question_of_germanization
+	}
+	mutually_exclusive = { focus = SGR_with_renewed_zeal }
+	relative_position_id = SGR_the_question_of_germanization
+	x = 3
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_die_speer_verfassung"
+		add_political_power = 50
+		# National spirit buff to the various Eastern RKs or flat WS and stability buff to them
+	}
+}
+
+shared_focus = {
+	id = SGR_time_is_on_our_side
+	icon = GFX_MAG_Desperate_Times
+	cost = 4
+	prerequisite = {
+		focus = SGR_keep_things_realistic
+	}
+	relative_position_id = SGR_keep_things_realistic
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_die_speer_verfassung"
+		# eastern RK stability buff
+	}
+}
+
+shared_focus = {
+	id = SGR_forgive_and_forget
+	icon = GFX_GER_A_Lighter_Hand
+	cost = 4
+	prerequisite = {
+		focus = SGR_time_is_on_our_side
+	}
+	relative_position_id = SGR_keep_things_realistic
+	x = -2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_die_speer_verfassung"
+		# Stability buff for the Eastern Komissariats
+		# flavor event
+	}
+}
+
+shared_focus = {
+	id = SGR_an_end_to_slavery
+	icon = GFX_generic_change_law_labor
+	cost = 4
+	prerequisite = {
+		focus = SGR_keep_things_realistic
+	}
+	relative_position_id = SGR_keep_things_realistic
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_die_speer_verfassung"
+		# eastern RK stability buff
+		# Improve labor conditions law for Eastern RKs
+	}
+}
+
+shared_focus = {
+	id = SGR_development_not_exploitation
+	icon = GFX_MCW_German_Land_Grants
+	cost = 4
+	prerequisite = {
+		focus = SGR_an_end_to_slavery
+	}
+	relative_position_id = SGR_keep_things_realistic
+	x = 0
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_development_not_exploitation"
+		# Civs and mils in the East
+		# flavor event
+	}
+}
+
+shared_focus = {
+	id = SGR_uplift_them
+	icon = GFX_GER_to_all_who_worked
+	cost = 4
+	prerequisite = {
+		focus = SGR_keep_things_realistic
+	}
+	relative_position_id = SGR_keep_things_realistic
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_uplift_them"
+		# eastern RK stability buff
+	}
+}
+
+shared_focus = {
+	id = SGR_first_among_equals
+	icon = GFX_national_socialist_male
+	cost = 4
+	prerequisite = {
+		focus = SGR_uplift_them
+	}
+	relative_position_id = SGR_keep_things_realistic
+	x = 2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_first_among_equals"
+		# eastern RK stability buff
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = SGR_banishing_the_tatar_yoke
+	icon = GFX_TNO_generic_beacon_light
+	cost = 4
+	prerequisite = {
+		focus = SGR_first_among_equals
+	}
+	prerequisite = {
+		focus = SGR_development_not_exploitation
+	}
+	prerequisite = {
+		focus = SGR_forgive_and_forget
+	}
+	relative_position_id = SGR_keep_things_realistic
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_breaking_the_tatar_yoke"
+		MCW = {
+			set_cosmetic_tag = MCW_Gorbachev
+			create_country_leader = {
+				name = "Mikhail Gorbachev"
+				picture = "gfx\leaders\MCW\Portrait_ MCW_Mikhail_Gorbachev_1970.tga"
+				expire = "8000.1.1"
+				ideology = social_democrat_subtype
+				traits = {
+						#
+				}
+			}
+			create_country_leader = {
+				name = "Bronislav Kaminski"
+				picture = "gfx\leaders\MCW\Portrait_Moskowien_Bronislaw_Kaminski_1970.tga"
+				expire = "8000.1.1"
+				ideology = national_socialism_subtype
+				traits = {
+						#
+				}
+			}
+			set_politics = {
+    			ruling_party = social_democrat
+    			long_name = MCW_social_democrat_gorbachev_party_long
+    			name = MCW_social_democrat_gorbachev_party
+				elections_allowed = yes
+    			last_election = "1970.6.17"
+    			election_frequency = 60
+				}
+			set_popularities = {
+				social_democrat = 53
+				authoritarian_democrat = 23
+				fascism = 6
+                social_conservative = 6
+				national_socialism = 12
+				}
+			set_party_name = {
+    			ideology = social_conservative
+    			long_name = MCW_social_conservative_gorbachev_party_long
+   				name = MCW_social_conservative_gorbachev_party
+				}
+			set_party_name = {
+    			ideology = authoritarian_democrat
+    			long_name = MCW_authoritarian_democrat_gorbachev_party_long
+   				name = MCW_authoritarian_democrat_gorbachev_party
+				}
+			set_party_name = {
+    			ideology = fascism
+    			long_name = MCW_fascism_gorbachev_party_long
+   				name = MCW_fascism_gorbachev_party
+				}
+			set_party_name = {
+    			ideology = national_socialism
+    			long_name = MCW_national_socialist_kaminski_party_long
+   				name = MCW_national_socialist_kaminski_party
+				}
+			}
+		# Flavor event, release Moskowien as a collaborator republic under Gorbachev?
+	}
+}
+	
+### Left Branch
+
+shared_focus = {
+	id = SGR_with_renewed_zeal
+	icon = GFX_GER_the_steel_fist
+	cost = 10
+	prerequisite = {
+		focus = SGR_the_question_of_germanization
+	}
+	mutually_exclusive = { focus = SGR_keep_things_realistic }
+	relative_position_id = SGR_the_question_of_germanization
+	x = -3
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_with_renewed_zeal"
+		add_political_power = -200
+		# National spirit debuff to the Eastern RKs or big stability hit to them, stab hit, pp hit, cannot take if collaborators were put in power in the 60s
+	}
+}
+
+shared_focus = {
+	id = SGR_pavlovian_conditioning
+	icon = GFX_GER_Dog_Red_Ball
+	cost = 5
+	prerequisite = {
+		focus = SGR_with_renewed_zeal
+	}
+	relative_position_id = SGR_with_renewed_zeal
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_pavlovian_conditioning"
+		# Small stability buff for Eastern RKs
+		# Flavor event
+	}
+}
+
+shared_focus = {
+	id = SGR_drill_it_into_their_heads
+	icon = GFX_teaching_strategy
+	cost = 10
+	prerequisite = {
+		focus = SGR_pavlovian_conditioning
+	}
+	relative_position_id = SGR_with_renewed_zeal
+	x = 2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_drill_it_into_their_heads"
+		add_political_power = 60
+		# Stability buff for Eastern Rks
+		# Flavor event
+	}
+}
+
+shared_focus = {
+	id = SGR_but_with_measured_expectations
+	icon = GFX_POL_Government_in_crisis
+	cost = 5
+	prerequisite = {
+		focus = SGR_with_renewed_zeal
+	}
+	relative_position_id = SGR_with_renewed_zeal
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_but_with_measured_expectations"
+		add_political_power = 60
+		# unlocks decision category to Germanize Poland
+	}
+}
+
+shared_focus = {
+	id = SGR_a_land_without_a_people
+	icon = GFX_GER_stability_in_the_ostfront
+	cost = 10
+	prerequisite = {
+		focus = SGR_but_with_measured_expectations
+	}
+	relative_position_id = SGR_but_with_measured_expectations
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_but_with_measured_expectations"
+		add_political_power = 35
+		# unlocks decisions to Germanize the Baltics, mainly the Lithuanians and Latvians, limited
+	}
+}
+
+shared_focus = {
+	id = SGR_incentivizing_development
+	icon = GFX_PRM_the_city_that_never_sleeps
+	cost = 4
+	prerequisite = {
+		focus = SGR_with_renewed_zeal
+	}
+	relative_position_id = SGR_with_renewed_zeal
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_but_with_measured_expectations"
+		# infrastructure and factories in Poland and Ostland
+	}
+}
+
+shared_focus = {
+	id = SGR_an_idea_from_the_enemy
+	icon = GFX_IME_Israel
+	cost = 4
+	prerequisite = {
+		focus = SGR_incentivizing_development
+	}
+	relative_position_id = SGR_with_renewed_zeal
+	x = -2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_but_with_measured_expectations"
+		# Small population increase in Ostland and Poland (Maybe 50k in two provinces each)
+		# Flavor event
+	}
+}
+
+shared_focus = {
+	id = SGR_smashing_the_tatar_yoke
+	icon = GFX_GER_a_swift_end_to_the_madness
+	cost = 4
+	prerequisite = {
+		focus = SGR_an_idea_from_the_enemy
+	}
+	prerequisite = {
+		focus = SGR_a_land_without_a_people
+	}
+	prerequisite = {
+		focus = SGR_drill_it_into_their_heads
+	}
+	relative_position_id = SGR_with_renewed_zeal
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_smashing_the_tatar_yoke"
+		hidden_effect = {
+		MCW = {
+			set_cosmetic_tag = MCW_Kaminski
+			create_country_leader = {
+				name = "Bronislav Kaminski"
+				picture = "gfx\leaders\MCW\Portrait_Moskowien_Bronislaw_Kaminski_1970.tga"
+				expire = "8000.1.1"
+				ideology = national_socialism_subtype
+				traits = {
+						#
+				}
+			}
+			set_politics = {
+    			ruling_party = national_socialism
+    			long_name = MCW_national_socialist_kaminski_party_long
+    			name = MCW_national_socialist_kaminski_party
+				traits = {
+						#
+					}
+				}
+			set_popularities = {
+				national_socialism = 67
+				despotism = 7
+				communist = 18
+                socialist = 8
+				}
+			set_party_name = {
+    			ideology = despotism
+    			long_name = MCW_despotism_kaminski_party_long
+   				name = MCW_despotism_kaminski_party
+				}
+			set_party_name = {
+    			ideology = socialist
+    			long_name = MCW_socialist_kaminski_party_long
+   				name = MCW_socialist_kaminski_party
+				}
+			}
+		}
+		# Flavor event, release Moskowien as a collaborator republic under Kaminski
+	}
+}
+
+### Final Apparatchik focus
+
+shared_focus = {
+	id = SGR_light_from_darkness
+	icon = GFX_ra_rus_sunrise
+	cost = 4
+	prerequisite = { focus = SGR_smashing_the_tatar_yoke focus = SGR_banishing_the_tatar_yoke }
+	relative_position_id = SGR_smashing_the_tatar_yoke
+	x = 3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_lebensraum"
+		# Flavor event
+	}
+}
+
+### Technocrats
+shared_focus = {
+	id = SGR_see_no_evil
+	icon = GFX_ANG_industrial_magnates
+	cost = 4
+	available = { has_completed_focus = SGR_the_world_on_the_march }
+	prerequisite = {
+		focus = SGR_lights_cameras_action
+	}
+	relative_position_id = SGR_lights_cameras_action
+	x = 14
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event
+	}
+}
+
+###Right branch
+shared_focus = {
+	id = SGR_effective_diplomacy
+	icon = GFX_JAP_Outline_of_International_Diplomacy
+	cost = 4
+	prerequisite = {
+		focus = SGR_see_no_evil
+	}
+	relative_position_id = SGR_see_no_evil
+	x = 5
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event
+	}
+}
+
+shared_focus = {
+	id = SGR_honeyed_words
+	icon = GFX_USA_Speerian_Diplomacy
+	cost = 4
+	prerequisite = {
+		focus = SGR_effective_diplomacy
+	}
+	relative_position_id = SGR_effective_diplomacy
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Opinion buff to America and Japan
+	}
+}
+
+###Middle Branch
+
+shared_focus = {
+	id = SGR_winning_over_the_party
+	icon = GFX_generic_change_law_speech
+	cost = 4
+	prerequisite = {
+		focus = SGR_see_no_evil
+	}
+	relative_position_id = SGR_see_no_evil
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Technocrat spirit buff, power buff
+	}
+}
+
+shared_focus = {
+	id = SGR_a_clique_of_intellectuals
+	icon = GFX_Generic_Shady_Deal
+	cost = 4
+	prerequisite = {
+		focus = SGR_see_no_evil
+	}
+	relative_position_id = SGR_see_no_evil
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Technocrat spirit buff
+	}
+}
+
+shared_focus = {
+	id = SGR_keep_things_flexible
+	icon = GFX_WAL_Generic_Papers
+	cost = 4
+	prerequisite = {
+		focus = SGR_see_no_evil
+	}
+	prerequisite = {
+		focus = SGR_a_clique_of_intellectuals
+	}
+	prerequisite = {
+		focus = SGR_winning_over_the_party
+	}
+	relative_position_id = SGR_see_no_evil
+	x = 0
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Technocrat spirit buff
+		#Flavor event
+	}
+}
+
+shared_focus = {
+	id = SGR_dreams_from_the_past
+	icon = GFX_OST_Military_Industry_Development
+	cost = 4
+	prerequisite = {
+		focus = SGR_keep_things_flexible
+	}
+	prerequisite = {
+		focus = SGR_fire_and_steel
+		focus = SGR_the_digital_age
+	}
+	relative_position_id = SGR_keep_things_flexible
+	x = 0
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event
+	}
+}
+
+
+###Left Branch
+shared_focus = {
+	id = SGR_rule_by_meritocracy_or_loyalty
+	icon = GFX_POL_germanys_loyal_sons
+	cost = 4
+	prerequisite = {
+		focus = SGR_see_no_evil
+	}
+	relative_position_id = SGR_see_no_evil
+	x = -5
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event
+	}
+}
+shared_focus = {
+	id = SGR_responsible_privatization
+	icon = GFX_GER_reforming_business
+	cost = 4
+	prerequisite = {
+		focus = SGR_rule_by_meritocracy_or_loyalty
+	}
+	relative_position_id = SGR_rule_by_meritocracy_or_loyalty
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Civilian factory and GDP bonus
+	}
+}
+
+### Technocrat research mini tree
+shared_focus = {
+	id = SGR_wissenschaft
+	icon = GFX_GER_new_science
+	cost = 4
+	prerequisite = {
+		focus = SGR_keep_things_flexible
+	}
+	prerequisite = {
+		focus = SGR_honeyed_words
+	}
+	mutually_exclusive = { focus = SGR_entwicklung }
+	relative_position_id = SGR_honeyed_words
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event, technocrat spirit buff bonus
+	}
+}
+
+shared_focus = {
+	id = SGR_in_service_of_the_army
+	icon = GFX_generic_nazi_army_officers
+	cost = 4
+	prerequisite = {
+		focus = SGR_wissenschaft
+	}
+	mutually_exclusive = { focus = SGR_in_service_of_capital }
+	relative_position_id = SGR_wissenschaft
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event, army tech research bonus
+	}
+}
+
+shared_focus = {
+	id = SGR_in_service_of_capital
+	icon = GFX_WAL_german_investors
+	cost = 4
+	prerequisite = {
+		focus = SGR_wissenschaft
+	}
+	mutually_exclusive = { focus = SGR_in_service_of_the_army }
+	relative_position_id = SGR_wissenschaft
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event, big GDP buff and several civs, industry research bonus
+	}
+}
+
+shared_focus = {
+	id = SGR_subsidize_electronics_manufacturing
+	icon = GFX_CHI_Adapt_Computer_Designs
+	cost = 4
+	prerequisite = {
+		focus = SGR_wissenschaft
+	}
+	relative_position_id = SGR_wissenschaft
+	x = -3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		# Computer research bonus
+	}
+}
+
+shared_focus = {
+	id = SGR_encourage_computerization
+	icon = GFX_Break_Out_The_Graphs
+	cost = 4
+	prerequisite = {
+		focus = SGR_subsidize_electronics_manufacturing
+	}
+	relative_position_id = SGR_wissenschaft
+	x = -2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		# GDP bonus, computer research bonus
+	}
+}
+
+shared_focus = {
+	id = SGR_students_today
+	icon = GFX_GER_SGR_dissidents_no_more
+	cost = 4
+	prerequisite = {
+		focus = SGR_wissenschaft
+	}
+	relative_position_id = SGR_wissenschaft
+	x = 3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event, education law buff
+	}
+}
+
+shared_focus = {
+	id = SGR_scientists_tomorrow
+	icon = GFX_send_the_scientists_to_work
+	cost = 4
+	prerequisite = {
+		focus = SGR_students_today
+	}
+	relative_position_id = SGR_wissenschaft
+	x = 2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Technocrat spirit buff to research speed
+	}
+}
+
+shared_focus = {
+	id = SGR_the_digital_age
+	icon = GFX_goal_computer_assisted_design
+	cost = 4
+	prerequisite = {
+		focus = SGR_scientists_tomorrow
+	}
+	prerequisite = {
+		focus = SGR_encourage_computerization
+	}
+	prerequisite = {
+		focus = SGR_in_service_of_capital
+		focus = SGR_in_service_of_the_army
+	}
+	relative_position_id = SGR_scientists_tomorrow
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event, technocrat spirit buff
+	}
+}
+
+###Technocrat development mini tree
+shared_focus = {
+	id = SGR_entwicklung
+	icon = GFX_GER_industry_generic
+	cost = 4
+	prerequisite = {
+		focus = SGR_responsible_privatization
+	}
+	prerequisite = {
+		focus = SGR_keep_things_flexible
+	}
+	mutually_exclusive = { focus = SGR_wissenschaft }
+	relative_position_id = SGR_keep_things_flexible
+	x = -4
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event, increase apparatchik power and GDP bonus
+	}
+}
+
+shared_focus = {
+	id = SGR_our_own_military_industrial_complex
+	icon = GFX_USA_Guns_for_Germany
+	cost = 4
+	prerequisite = {
+		focus = SGR_entwicklung
+	}
+	mutually_exclusive = { focus = SGR_our_own_steel_belt }
+	relative_position_id = SGR_entwicklung
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Arms production buff, mils, technocrat spirit bonus, flavor event
+	}
+}
+
+shared_focus = {
+	id = SGR_our_own_steel_belt
+	icon = GFX_CHI_Improving_Factory_Efficiency
+	cost = 4
+	prerequisite = {
+		focus = SGR_entwicklung
+	}
+	mutually_exclusive = { focus = SGR_our_own_military_industrial_complex }
+	relative_position_id = SGR_entwicklung
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event, civilian factories, GDP bonus, technocrat spirit bonus
+	}
+}
+
+shared_focus = {
+	id = SGR_redesign_germania
+	icon = GFX_JAP_Vertical_Architectural_Planning
+	cost = 4
+	prerequisite = {
+		focus = SGR_entwicklung
+	}
+	relative_position_id = SGR_entwicklung
+	x = -3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event, small GDP bonus and some civs in Berlin, lots of debt, decision category to build tons of stuff throughout Berlin
+	}
+}
+
+shared_focus = {
+	id = SGR_the_city_of_the_worlds_desire
+	icon = GFX_GER_when_in_germania
+	cost = 4
+	prerequisite = {
+		focus = SGR_redesign_germania
+	}
+	relative_position_id = SGR_entwicklung
+	x = -2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#mils and civs in Germania, small GDP bonus, lots of debt
+	}
+}
+
+shared_focus = {
+	id = SGR_fueling_the_behemoth
+	icon = GFX_ENG_More_Fuel_To_The_Fires
+	cost = 4
+	prerequisite = {
+		focus = SGR_entwicklung
+	}
+	relative_position_id = SGR_entwicklung
+	x = 3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Unlocks decisions to expand resource extraction operations in the East and Norway, national debt
+	}
+}
+
+shared_focus = {
+	id = SGR_a_self_sustaining_system
+	icon = GFX_GER_Utilize_Foreign_Labor
+	cost = 4
+	prerequisite = {
+		focus = SGR_fueling_the_behemoth
+	}
+	relative_position_id = SGR_entwicklung
+	x = 2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		# Mils and civs, small GDP growth bonus
+	}
+}
+
+shared_focus = {
+	id = SGR_fire_and_steel
+	icon = GFX_GAY_reap_the_steel
+	cost = 4
+	prerequisite = {
+		focus = SGR_a_self_sustaining_system
+	}
+	prerequisite = {
+		focus = SGR_the_city_of_the_worlds_desire
+	}
+	prerequisite = {
+		focus = SGR_our_own_military_industrial_complex
+		focus = SGR_our_own_steel_belt
+	}
+	relative_position_id = SGR_our_own_military_industrial_complex
+	x = -1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event, technocrat spirit buff
+	}
+}
+
+### Technocrat Eastern RK mini tree
+shared_focus = {
+	id = SGR_europes_frontier
+	icon = GFX_GER_europes_dreams
+	cost = 4
+	prerequisite = {
+		focus = SGR_dreams_from_the_past
+	}
+	mutually_exclusive = { focus = SGR_europes_heart }
+	relative_position_id = SGR_dreams_from_the_past
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event, opens up decisions to massively urbanize and develop the Eastern territories, GDP, GDP growth, and civs to the Eastern RKs
+	}
+}
+
+shared_focus = {
+	id = SGR_the_breadbasket
+	icon = GFX_focus_GER_the_breadbasket
+	cost = 10
+	prerequisite = { focus = SGR_europes_frontier }
+	relative_position_id = SGR_europes_frontier
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#unlocks decisions to develop Ukraine
+	}
+}
+
+shared_focus = {
+	id = SGR_the_mine
+	icon = GFX_focus_GER_the_mine
+	cost = 10
+	prerequisite = { focus = SGR_the_breadbasket }
+	relative_position_id = SGR_europes_frontier
+	x = -1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Unlocks decisions to develop Kaukasien
+	}
+}
+
+shared_focus = {
+	id = SGR_the_model
+	icon = GFX_focus_GER_the_model
+	cost = 5
+	prerequisite = { focus = SGR_europes_frontier }
+	relative_position_id = SGR_europes_frontier
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Unlocks decisions to develop Ostland
+	}
+}
+
+shared_focus = {
+	id = SGR_the_disgrace
+	icon = GFX_focus_GER_the_disgrace
+	cost = 5
+	prerequisite = { focus = SGR_the_model }
+	relative_position_id = SGR_europes_frontier
+	x = 1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Unlocks decisions to develop Moskowien
+	}
+}
+
+shared_focus = {
+	id = SGR_beyond_the_east
+	icon = GFX_Focus_Middle_East_Orthographic
+	cost = 10
+	prerequisite = { focus = SGR_the_disgrace }
+	prerequisite = { focus = SGR_the_mine }
+	relative_position_id = SGR_europes_frontier
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event, unlocks decision to develop Iran and UAR if it borders a friendly Iran/Turkey (Oil pipelines mainly), unlocks decisions to develop a friendly Romania and Hungary
+	}
+}
+
+### Technocrat Central/Western Europe development tree
+shared_focus = {
+	id = SGR_europes_heart
+	icon = GFX_TNO_generic_germany
+	cost = 4
+	prerequisite = {
+		focus = SGR_dreams_from_the_past
+	}
+	mutually_exclusive = { focus = SGR_europes_frontier }
+	relative_position_id = SGR_dreams_from_the_past
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event, opens up decision category to develop Germany proper and immediate territories (Shouldn't be as rewarding as doing the East)
+	}
+}
+
+shared_focus = {
+	id = SGR_factories_of_the_ruhr
+	icon = GFX_GER_Rhine_Industry
+	cost = 4
+	prerequisite = {
+		focus = SGR_europes_heart
+	}
+	relative_position_id = SGR_europes_heart
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Unlocks decisions to build civs and mils in the Ruhr
+	}
+}
+
+shared_focus = {
+	id = SGR_refineries_of_hannover
+	icon = GFX_GER_oil_crisis_struck
+	cost = 4
+	prerequisite = {
+		focus = SGR_factories_of_the_ruhr
+	}
+	relative_position_id = SGR_europes_heart
+	x = -1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Unlocks decisions to build refineries and silos in Hannover, less than Kaukasien
+	}
+}
+
+shared_focus = {
+	id = SGR_mines_of_the_alps
+	icon = GFX_GER_Southern_Industry
+	cost = 4
+	prerequisite = {
+		focus = SGR_europes_heart
+	}
+	relative_position_id = SGR_europes_heart
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Unlocks decisions for resource extraction operations in Bavaria and Austria
+	}
+}
+
+shared_focus = {
+	id = SGR_industry_of_brandenburg
+	icon = GFX_generic_nuclear_power
+	cost = 4
+	prerequisite = {
+		focus = SGR_mines_of_the_alps
+	}
+	relative_position_id = SGR_europes_heart
+	x = 1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Unlocks decisions to build nuclear reactors in East Germany
+	}
+}
+
+shared_focus = {
+	id = SGR_our_european_allies
+	icon = GFX_GER_the_eastern_pakt
+	cost = 10
+	prerequisite = { focus = SGR_industry_of_brandenburg }
+	prerequisite = { focus = SGR_refineries_of_hannover }
+	relative_position_id = SGR_europes_heart
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event, unlocks decisions to develop norwegian, british, spanish, and french industry/resource extraction operations if they are in the Pakt. Unlocks decisions to rebuild Burgundy if Fall Schwarz happened
+	}
+}
+
+###End of technocrat tree
+
+shared_focus = {
+	id = SGR_the_managerial_age
+	icon = GFX_GER_germany_investment
+	cost = 10
+	prerequisite = { focus = SGR_our_european_allies focus = SGR_beyond_the_east }
+	relative_position_id = SGR_our_european_allies
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_dream_no_more"
+		#Flavor event, big buff to technocrat spirit and influence
+	}
+}
+
+### Military Tree
+
+shared_focus = {
+	id = SGR_military_strategic_plan
+	icon = GFX_SGR_war_has_changed
+	available = {
+		has_completed_focus = SGR_hear_no_evil
+		has_completed_focus = SGR_speak_no_evil
+		has_completed_focus = SGR_see_no_evil
+	}
+	cost = 3
+	x = 9
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_military_strategic_plan"
+		#Flavor event, dynamic spirit
+	}
+}
+
+shared_focus = {
+	id = SGR_expanding_the_ranks
+	icon = GFX_GER_SGR_recruitment_spree
+	prerequisite = { focus = SGR_military_strategic_plan }
+	relative_position_id = SGR_military_strategic_plan
+	cost = 3
+	x = -4
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_expanding_the_ranks"
+		#Expand division cap by 5
+	}
+}
+
+shared_focus = {
+	id = SGR_service_guarantees_manhood
+	icon = GFX_generic_nazi_army_officers
+	prerequisite = { focus = SGR_expanding_the_ranks }
+	relative_position_id = SGR_expanding_the_ranks
+	cost = 3
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_service_guarantees_manhood"
+		#Expand divison cap by 5
+		#Manpower
+	}
+}
+
+shared_focus = {
+	id = SGR_proud_to_serve
+	icon = GFX_SGR_soldiers_like_no_others
+	prerequisite = { focus = SGR_service_guarantees_manhood }
+	relative_position_id = SGR_service_guarantees_manhood
+	cost = 3
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_proud_to_serve"
+		#Expand divison cap by 5
+	}
+}
+
+shared_focus = {
+	id = SGR_learning_from_experience
+	icon = GFX_GER_reintegration_efforts
+	prerequisite = { focus = SGR_military_strategic_plan }
+	relative_position_id = SGR_military_strategic_plan
+	cost = 3
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_learning_from_experience"
+		#Research bonus for infequipment
+	}
+}
+
+shared_focus = {
+	id = SGR_combat_trials
+	icon = GFX_GER_Honor_the_War
+	prerequisite = { focus = SGR_learning_from_experience }
+	relative_position_id = SGR_learning_from_experience
+	cost = 3
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_combat_trials"
+		#Research bonus for tanks
+	}
+}
+
+shared_focus = {
+	id = SGR_swapping_out_the_g3
+	icon = GFX_GER_guns_for_the_future
+	prerequisite = { focus = SGR_learning_from_experience }
+	relative_position_id = SGR_learning_from_experience
+	cost = 3
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_swapping_out_the_g3"
+		#Flavor event, opens decision category to develop the G40, G40 MODSPEZOP if G40 already researched, G50, or G11, only the G40 and G40 MODSPEZOP are realistically available since the G50 and G11 take too long and are only completed after the end of Schwab's content (After 1983). G50 can theoritically be completed if this is the first focus you take upon completing the tree.
+	}
+}
+
+shared_focus = {
+	id = SGR_teach_the_basics
+	icon = GFX_GER_war_memorials
+	prerequisite = { focus = SGR_military_strategic_plan }
+	relative_position_id = SGR_military_strategic_plan
+	cost = 3
+	x = 4
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_teach_the_basics"
+		#Small attack bonus, defense bonus
+	}
+}
+
+shared_focus = {
+	id = SGR_learn_the_complexities
+	icon = GFX_COG_icon_because_men_will_win_the_war
+	prerequisite = { focus = SGR_teach_the_basics }
+	relative_position_id = SGR_teach_the_basics
+	cost = 3
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_learn_the_complexities"
+		#Small breakthrough and org bonus
+	}
+}
+
+shared_focus = {
+	id = SGR_kriegsspiele
+	icon = GFX_GER_Pakt_Wargames
+	prerequisite = { focus = SGR_learn_the_complexities }
+	relative_position_id = SGR_learn_the_complexities
+	cost = 3
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_kriegsspiele"
+		#More division experience gain, attrition bonus, supply bonus
+	}
+}
+
+
+### End of military tree
+
+shared_focus = {
+	id = SGR_fourth_generation_warfare
+	icon = GFX_GER_panzers
+	prerequisite = { focus = SGR_swapping_out_the_g3 }
+	prerequisite = { focus = SGR_combat_trials }
+	prerequisite = { focus = SGR_proud_to_serve }
+	prerequisite = { focus = SGR_kriegsspiele }
+	relative_position_id = SGR_learning_from_experience
+	cost = 3
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_fourth_generation_warfare"
+		#Expand divison cap by 15, moderate recovery bonus, moderate org bonus
+	}
+}
+
+### Diplomatic Tree
+
+shared_focus = {
+	id = SGR_a_thread_for_the_sword_of_damocles
+	icon = GFX_TNO_generic_international_diplomacy
+	available = {
+		has_completed_focus = SGR_lights_cameras_action
+	}
+	cost = 3
+	x = -10
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_a_thread_for_the_sword_of_damocles"
+		#Flavor event, unlocks KdN decision category/GUI
+	}
+}
+
+shared_focus = {
+	id = SGR_sway_the_americans
+	icon = GFX_SAF_Reassure_The_Americans
+	prerequisite = { focus = SGR_a_thread_for_the_sword_of_damocles }
+	relative_position_id = SGR_a_thread_for_the_sword_of_damocles
+	cost = 3
+	x = -5
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_sway_the_americans"
+		#Unlocks decisions to invite America and its sphere into the KdN
+	}
+}
+
+shared_focus = {
+	id = SGR_reach_out_to_the_sphere
+	icon = GFX_TNO_generic_japan
+	prerequisite = { focus = SGR_a_thread_for_the_sword_of_damocles }
+	relative_position_id = SGR_a_thread_for_the_sword_of_damocles
+	cost = 3
+	x = -3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_reach_out_to_the_sphere"
+		#Unlocks decisions to invite Japan and its spehre into the KdN
+	}
+}
+
+shared_focus = {
+	id = SGR_the_rest_of_the_globe
+	icon = GFX_TNO_generic_world
+	prerequisite = { focus = SGR_reach_out_to_the_sphere }
+	prerequisite = { focus = SGR_sway_the_americans }
+	relative_position_id = SGR_reach_out_to_the_sphere
+	cost = 3
+	x = -1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_the_rest_of_the_globe"
+		#Unlocks decisions to invite everyone else (Sorted by regions: South America, Latin America, SubSaharan Africa, Middle East from the Atlas mountains to the Gulf, Central Asia from Iran to Kazakhstan and Afghanistan, Italy, Iberia, and the European minors. Russia, the Chinese warlords, and certain nations in Africa in special cases like stage 3 collapse will be excluded.
+		#
+		#"Controversial" nations like a Vietcong Vietnam, communist Laos, communist Iran, basically any country that's important or a critical part of a superpower's sphere but got taken over and joined another superpower's sphere will need some more work, maybe a decision/event pertaining to the legitimacy of the KdN/superpower opinion of it where you have to choose which government to recognize?
+	}
+}
+
+shared_focus = {
+	id = SGR_a_trojan_horse
+	icon = GFX_GER_a_trojan_horse
+	prerequisite = { focus = SGR_a_thread_for_the_sword_of_damocles }
+	relative_position_id = SGR_a_thread_for_the_sword_of_damocles
+	cost = 3
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_a_trojan_horse"
+		#TBD
+	}
+}
+
+shared_focus = {
+	id = SGR_our_man_on_the_inside
+	icon = GFX_GER_our_man_on_the_inside
+	prerequisite = { focus = SGR_a_trojan_horse }
+	relative_position_id = SGR_a_trojan_horse
+	cost = 3
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_our_man_on_the_inside"
+		#Flavor event, small minigame to make Kurt Waldheim the SecGen of the KdN. Japanese, Americans, and minors have their own candidates.
+	}
+}
+
+shared_focus = {
+	id = SGR_strike_of_the_gavel
+	icon = GFX_GER_court_of_human_rights
+	prerequisite = { focus = SGR_our_man_on_the_inside }
+	relative_position_id = SGR_our_man_on_the_inside
+	cost = 3
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_judge_jury_and_executioner"
+		#TBD
+	}
+}
+
+shared_focus = {
+	id = SGR_where_to_meet
+	icon = GFX_GER_where_to_meet
+	available = { has_completed_focus = SGR_the_rest_of_the_globe }
+	prerequisite = { focus = SGR_a_thread_for_the_sword_of_damocles }
+	relative_position_id = SGR_a_thread_for_the_sword_of_damocles
+	cost = 3
+	x = 5
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_where_to_meet"
+		#Starts small minigame as soon as you take the focus to determine the location of the KdN HQ. NYC, Germania, Osaka/Kyoto, or Geneva.
+	}
+}
+
+shared_focus = {
+	id = SGR_members_of_the_council
+	icon = GFX_GER_members_of_the_council
+	prerequisite = { focus = SGR_a_thread_for_the_sword_of_damocles }
+	relative_position_id = SGR_a_thread_for_the_sword_of_damocles
+	cost = 3
+	x = 3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_members_of_the_council"
+		#Event chain that starts as soon as you take the focus, determines whether the security council is just the 3 superpowers, or + Italy, or + Italy and China. China really pisses off Japan
+	}
+}
+
+shared_focus = {
+	id = SGR_keeping_the_peace
+	icon = GFX_GER_keeping_the_peace
+	prerequisite = { focus = SGR_members_of_the_council }
+	prerequisite = { focus = SGR_where_to_meet }
+	relative_position_id = SGR_members_of_the_council
+	cost = 3
+	x = 1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_keeping_the_peace"
+		#TBD
+	}
+}
+
+
+### End of diplomatic tree
+
+shared_focus = {
+	id = SGR_the_world_on_the_march
+	icon = GFX_GER_koalition_der_nationen
+	prerequisite = { focus = SGR_the_rest_of_the_globe }
+	prerequisite = { focus = SGR_strike_of_the_gavel }
+	prerequisite = { focus = SGR_keeping_the_peace }
+	relative_position_id = SGR_a_trojan_horse
+	cost = 3
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SGR_the_world_on_the_march"
+		#Activates KdN GUI
+	}
+}

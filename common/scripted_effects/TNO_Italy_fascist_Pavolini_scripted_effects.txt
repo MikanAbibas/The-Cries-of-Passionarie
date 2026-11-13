@@ -1,0 +1,404 @@
+
+### Reddit Mechanic ###
+ITA_RQSC_mechanic_variable_initialize = {
+	hidden_effect = { 
+		clear_array = ITA_RQSC_control
+		add_to_array = { ITA_RQSC_control = 100 } #The Number In The Middle of the Pillars
+		add_to_array = { ITA_RQSC_control = 46 }
+		add_to_array = { ITA_RQSC_control = 40 }
+		add_to_array = { ITA_RQSC_control = 48 }
+		add_to_array = { ITA_RQSC_control = 55 }
+		add_to_array = { ITA_RQSC_control = 40 }
+		add_to_array = { ITA_RQSC_control = 65 }
+		clear_array = ITA_RQSC_GUI_Buttons_array_1 #the buttons for selecting which faction to interact with
+		add_to_array = { ITA_RQSC_GUI_Buttons_array_1 = 1 }
+		add_to_array = { ITA_RQSC_GUI_Buttons_array_1 = 2 }
+		add_to_array = { ITA_RQSC_GUI_Buttons_array_1 = 3 }
+		add_to_array = { ITA_RQSC_GUI_Buttons_array_1 = 4 }
+		add_to_array = { ITA_RQSC_GUI_Buttons_array_1 = 5 }
+		add_to_array = { ITA_RQSC_GUI_Buttons_array_1 = 6 }
+		clear_array = ITA_RQSC_GUI_Buttons_array_2 #the buttons for selecting which faction to interact with
+		add_to_array = { ITA_RQSC_GUI_Buttons_array_2 = 1 }
+		add_to_array = { ITA_RQSC_GUI_Buttons_array_2 = 2 }
+		add_to_array = { ITA_RQSC_GUI_Buttons_array_2 = 3 }
+		add_to_array = { ITA_RQSC_GUI_Buttons_array_2 = 4 }
+		add_to_array = { ITA_RQSC_GUI_Buttons_array_2 = 5 }
+		add_to_array = { ITA_RQSC_GUI_Buttons_array_2 = 6 }
+		clear_array = ITA_RQSC_GUI_Targets_array #Different Targets
+		add_to_array = { ITA_RQSC_GUI_Targets_array = -1 } #Skipped
+		add_to_array = { ITA_RQSC_GUI_Targets_array = 1 } #Church. 1 = active, 0 = inactive
+		add_to_array = { ITA_RQSC_GUI_Targets_array = 0 } #Confidustria
+		add_to_array = { ITA_RQSC_GUI_Targets_array = 0 } #Army
+		add_to_array = { ITA_RQSC_GUI_Targets_array = 0 } #Colonies
+		add_to_array = { ITA_RQSC_GUI_Targets_array = 0 } #Court
+		add_to_array = { ITA_RQSC_GUI_Targets_array = 0 } #Bureaucracy
+		set_variable = { ITA_RQSC_centralisation = 11}
+		clear_array = ITA_RQSC_structure
+		add_to_array = { ITA_RQSC_structure = 57 } #The Structure of the Pillars
+		add_to_array = { ITA_RQSC_structure = 100 }
+		add_to_array = { ITA_RQSC_structure = 95 }
+		add_to_array = { ITA_RQSC_structure = 100 }
+		add_to_array = { ITA_RQSC_structure = 85 }
+		add_to_array = { ITA_RQSC_structure = 100 }
+		add_to_array = { ITA_RQSC_structure = 98 }
+		set_variable = { ITA_RQSC_selected_faction_1 = 0 } #which faction is selected
+		clear_array = ITA_RQSC_selected_positions_x #possible positions for the selected box
+		add_to_array = { ITA_RQSC_selected_positions_x = 2 }
+		add_to_array = { ITA_RQSC_selected_positions_x = 38 }
+		add_to_array = { ITA_RQSC_selected_positions_x = 74 }
+		add_to_array = { ITA_RQSC_selected_positions_x = 2 }
+		add_to_array = { ITA_RQSC_selected_positions_x = 38 }
+		add_to_array = { ITA_RQSC_selected_positions_x = 74 }
+		clear_array = ITA_RQSC_selected_positions_y #possible positions for the selected box
+		add_to_array = { ITA_RQSC_selected_positions_y = 2 }
+		add_to_array = { ITA_RQSC_selected_positions_y = 2 }
+		add_to_array = { ITA_RQSC_selected_positions_y = 2 }
+		add_to_array = { ITA_RQSC_selected_positions_y = 38 }
+		add_to_array = { ITA_RQSC_selected_positions_y = 38 }
+		add_to_array = { ITA_RQSC_selected_positions_y = 38 }
+
+		set_temp_variable = { array_num = 1 }
+		set_temp_variable = { interaction_target = 0 }
+		ITA_RQSC_setup_interaction_array = yes
+		set_variable = { ITA_RQSC_interaction_1_status = 0 }
+
+		set_temp_variable = { array_num = 2 }
+		set_temp_variable = { interaction_target = 0 }
+		ITA_RQSC_setup_interaction_array = yes
+		set_variable = { ITA_RQSC_interaction_2_status = 0 }
+
+		add_dynamic_modifier = {
+			modifier = ITA_RQSC_MODIFIER
+		}
+		add_ideas = ITA_RQSC_visible_modifier
+		set_variable = { RQSC_target = 1 }
+		set_variable = { RQSC_ID_pressed = 0 }
+
+		ITA_RQSC_CALC = yes
+	}
+}
+
+
+ITA_RQSC_CALC = {
+	ITA_RQSC_calc_duce_stability = yes
+
+	for_each_loop = {
+		array = ITA_RQSC_structure
+		index = i
+		value = val
+
+		if = {
+		limit = { check_variable = { i < 7 } }
+		clamp_variable = {
+			var = ITA_RQSC_structure^i
+			min = 0
+			max = 100
+		}
+	}
+	}
+	for_each_loop = {
+		array = ITA_RQSC_control
+		index = i
+		value = val
+
+		if = {
+		limit = { check_variable = { i < 7 } }
+		clamp_variable = {
+			var = ITA_RQSC_control^i
+			min = 0
+			max = 100
+		}
+	}
+	}
+	clamp_variable = {
+		var = ITA_RQSC_centralisation
+		min = 0
+		max = 100
+	}
+	#debuffs
+	set_variable = { RQSC_church_debuff = ITA_RQSC_structure^1 }
+	subtract_from_variable = { RQSC_church_debuff = 100 }
+	divide_variable = { RQSC_church_debuff = 250 }
+	set_variable = { RQSC_confidustria_debuff = ITA_RQSC_structure^2 }
+	subtract_from_variable = { RQSC_confidustria_debuff = 100 }
+	divide_variable = { RQSC_confidustria_debuff = 400 }
+	set_variable = { RQSC_army_debuff = ITA_RQSC_structure^3 }
+	subtract_from_variable = { RQSC_army_debuff = 100 }
+	divide_variable = { RQSC_army_debuff = 400 }
+	set_variable = { RQSC_colonies_debuff = ITA_RQSC_structure^4 }
+	subtract_from_variable = { RQSC_colonies_debuff = 100 }
+	divide_variable = { RQSC_colonies_debuff = 400 }
+	set_variable = { RQSC_court_debuff = ITA_RQSC_structure^5 } 
+	subtract_from_variable = { RQSC_court_debuff = 100 }
+	divide_variable = { RQSC_court_debuff = 1000 }
+	set_variable = { RQSC_bureaucracy_debuff = ITA_RQSC_structure^6 }
+	subtract_from_variable = { RQSC_bureaucracy_debuff = 100 }
+	divide_variable = { RQSC_bureaucracy_debuff = 500 }
+	force_update_dynamic_modifier = yes 
+}
+
+ITA_RQSC_setup_interaction_array = {
+	#array_num and interaction_target must be set as temp vars before this is called
+
+	#set the available interactions in the array_num interaction slot to the interaction_target's possible interactions
+	#interactions 0, 1, 2 are generic, available for everyone
+	#after that every pillar has 3 interactions (3, 4, 5 is the church, 6, 7, 8 is confiduistria, etc.)
+
+	if = {
+		limit = {
+			check_variable = { array_num = 1 }
+		}
+
+		clear_array = ITA_RQSC_GUI_Interactions_array_1
+
+		add_to_temp_variable = { interaction_target = 1 }
+		multiply_temp_variable = { interaction_target = 3 }
+		add_to_array = { ITA_RQSC_GUI_Interactions_array_1 = interaction_target }
+		add_to_temp_variable = { interaction_target = 1 }
+		add_to_array = { ITA_RQSC_GUI_Interactions_array_1 = interaction_target }
+		add_to_temp_variable = { interaction_target = 1 }
+		add_to_array = { ITA_RQSC_GUI_Interactions_array_1 = interaction_target }
+
+		add_to_array = { ITA_RQSC_GUI_Interactions_array_1 = 0 }
+		add_to_array = { ITA_RQSC_GUI_Interactions_array_1 = 1 }
+		add_to_array = { ITA_RQSC_GUI_Interactions_array_1 = 2 }
+
+	}
+	else_if = {
+		limit = {
+			check_variable = { array_num = 2 }
+		}
+
+		clear_array = ITA_RQSC_GUI_Interactions_array_2
+		
+		add_to_temp_variable = { interaction_target = 1 }
+		multiply_temp_variable = { interaction_target = 3 }
+		add_to_array = { ITA_RQSC_GUI_Interactions_array_2 = interaction_target }
+		add_to_temp_variable = { interaction_target = 1 }
+		add_to_array = { ITA_RQSC_GUI_Interactions_array_2 = interaction_target }
+		add_to_temp_variable = { interaction_target = 1 }
+		add_to_array = { ITA_RQSC_GUI_Interactions_array_2 = interaction_target }
+
+		add_to_array = { ITA_RQSC_GUI_Interactions_array_2 = 0 }
+		add_to_array = { ITA_RQSC_GUI_Interactions_array_2 = 1 }
+		add_to_array = { ITA_RQSC_GUI_Interactions_array_2 = 2 }
+	}
+}
+
+ITA_RQSC_add_interaction_1 = {
+	meta_effect = {
+		text = {
+			add_ideas = {
+				ITA_RQSC_interaction_[Get_Interaction_Num]_target_[Get_Interaction_Target]_idea
+			}
+		}
+		Get_Interaction_Num = "[THIS.RQSC_get_interaction_1_number]"
+		Get_Interaction_Target = "[THIS.RQSC_get_interaction_1_target]"
+	}
+
+	country_event = {
+		id = ITA_RQSC.1
+		days = 30
+	}
+}
+
+ITA_RQSC_remove_interaction_1 = {
+	meta_effect = {
+		text = {
+			remove_ideas = {
+				ITA_RQSC_interaction_[Get_Interaction_Num]_target_[Get_Interaction_Target]_idea
+			}
+		}
+		Get_Interaction_Num = "[THIS.RQSC_get_interaction_1_number]"
+		Get_Interaction_Target = "[THIS.RQSC_get_interaction_1_target]"
+	}
+	clear_variable = ITA_RQSC_interaction_1_target
+	clear_variable = ITA_RQSC_interaction_1_interaction
+}
+
+ITA_RQSC_add_interaction_2 = {
+	meta_effect = {
+		text = {
+			add_ideas = {
+				ITA_RQSC_interaction_[Get_Interaction_Num]_target_[Get_Interaction_Target]_idea
+			}
+		}
+		Get_Interaction_Num = "[THIS.RQSC_get_interaction_2_number]"
+		Get_Interaction_Target = "[THIS.RQSC_get_interaction_2_target]"
+	}
+
+	country_event = {
+		id = ITA_RQSC.2
+		days = 30
+	}
+}
+
+ITA_RQSC_remove_interaction_2 = {
+	meta_effect = {
+		text = {
+			remove_ideas = {
+				ITA_RQSC_interaction_[Get_Interaction_Num]_target_[Get_Interaction_Target]_idea
+			}
+		}
+		Get_Interaction_Num = "[THIS.RQSC_get_interaction_2_number]"
+		Get_Interaction_Target = "[THIS.RQSC_get_interaction_2_target]"
+	}
+	clear_variable = ITA_RQSC_interaction_2_target
+	clear_variable = ITA_RQSC_interaction_2_interaction
+}
+
+ITA_RQSC_monthly_tick = {
+	add_to_variable = { ITA_RQSC_structure^1 = modifier@RQSC_monthly_church_stability }
+	add_to_variable = { ITA_RQSC_structure^2 = modifier@RQSC_monthly_confidu_stability }
+	add_to_variable = { ITA_RQSC_structure^3 = modifier@RQSC_monthly_army_stability }
+	add_to_variable = { ITA_RQSC_structure^4 = modifier@RQSC_monthly_colonies_stability }
+	add_to_variable = { ITA_RQSC_structure^5 = modifier@RQSC_monthly_court_stability }
+	add_to_variable = { ITA_RQSC_structure^6 = modifier@RQSC_monthly_admin_stability }
+	
+	add_to_variable = { ITA_RQSC_control^1 = modifier@RQSC_monthly_church_control }
+	add_to_variable = { ITA_RQSC_control^2 = modifier@RQSC_monthly_confidu_control }
+	add_to_variable = { ITA_RQSC_control^3 = modifier@RQSC_monthly_army_control }
+	add_to_variable = { ITA_RQSC_control^4 = modifier@RQSC_monthly_colonies_control }
+	add_to_variable = { ITA_RQSC_control^5 = modifier@RQSC_monthly_court_control }
+	add_to_variable = { ITA_RQSC_control^6 = modifier@RQSC_monthly_admin_control }
+
+	ITA_RQSC_CALC = yes
+}
+
+ITA_RQSC_calc_duce_stability = {
+	#set the stability of the duce pillar to 100 - the average stab of the other pillars / 2
+
+	set_temp_variable = { stab_average = 0 }
+
+	add_to_temp_variable = { stab_average = ITA_RQSC_structure^1  }
+	add_to_temp_variable = { stab_average = ITA_RQSC_structure^2  }
+	add_to_temp_variable = { stab_average = ITA_RQSC_structure^3  }
+	add_to_temp_variable = { stab_average = ITA_RQSC_structure^4  }
+	add_to_temp_variable = { stab_average = ITA_RQSC_structure^5  }
+	add_to_temp_variable = { stab_average = ITA_RQSC_structure^6  }
+
+	divide_temp_variable = { stab_average = 6 }
+	divide_temp_variable = { stab_average = 2 }
+
+	set_variable = { ITA_RQSC_structure^0 = 100 }
+	subtract_from_variable = { ITA_RQSC_structure^0 = stab_average }
+}
+
+#ask jakavel if it's unclear know how to use this
+ITA_RQSC_change_control = {
+	#temp_pillar, temp_amount must be set as temp variables before this is called
+
+	if = {
+		limit = {
+			NOT = {
+				OR = {
+					has_variable = temp_pillar
+					has_variable = temp_amount
+				}
+			}
+		}
+		#changes control by 0
+		set_temp_variable = { temp_pillar = 0 }
+		set_temp_variable = { temp_amount = 0 }
+		set_temp_variable = { vars_not_set = 1 }
+		log = "ERROR: ITA_RQSC_change_control was called without temp_pillar and temp_amount being set, nothing will happen."
+	}
+
+	add_to_variable = { ITA_RQSC_control^temp_pillar = temp_amount }
+	ITA_RQSC_CALC = yes
+
+	#if temp_amount is negative use it's absolute value
+	#this is done to turn "decrease our control of X by -2" to "decrease our control of X by 2"
+	#as the former is confusing
+	if = {
+		limit = {
+			check_variable = { temp_amount < 0 }
+		}
+		set_temp_variable = { decrease_in_tt = 1 }
+		set_temp_variable = { red_in_tt = 1 }
+		multiply_temp_variable = { temp_amount = -1 }
+	}
+	else = {
+		set_temp_variable = { decrease_in_tt = 0 }
+		set_temp_variable = { red_in_tt = 0 }
+	}
+
+	#temp var for a scripted loc in the tooltip
+	set_temp_variable = { group_temp = temp_pillar }
+
+	#if some var was not set display an error tooltip
+	if = {
+		limit = {
+			check_variable = { vars_not_set = 1 }
+		}
+		custom_effect_tooltip = ITA_RQSC_change_control_error_tt
+	}
+	else = {
+		custom_effect_tooltip = ITA_RQSC_change_control_tt
+	}
+
+	clear_variable = temp_pillar
+	clear_variable = temp_amount
+	clear_variable = vars_not_set
+}
+
+#mostly a copy of the above but there are some differences in tooltip colors ( and it changes ITA_RQSC_structure instead of ITA_RQSC_control )
+ITA_RQSC_change_stability = {
+	#temp_pillar, temp_amount must be set as temp variables before this is called
+
+	if = {
+		limit = {
+			NOT = {
+				OR = {
+					has_variable = temp_pillar
+					has_variable = temp_amount
+				}
+			}
+		}
+		#changes stability by 0
+		set_temp_variable = { temp_pillar = 0 }
+		set_temp_variable = { temp_amount = 0 }
+		set_temp_variable = { vars_not_set = 1 }
+		log = "ERROR: ITA_RQSC_change_stability was called without temp_pillar and temp_amount being set, nothing will happen."
+	}
+
+	add_to_variable = { ITA_RQSC_structure^temp_pillar = temp_amount }
+	ITA_RQSC_CALC = yes
+
+	#if temp_amount is negative use it's absolute value
+	#this is done to turn "decrease our control of X by -2" to "decrease our control of X by 2"
+	#as the former is confusing
+
+	#the goal in the mechanic is to destroy the pillars so decreasing is green and increasing is red
+
+	if = {
+		limit = {
+			check_variable = { temp_amount < 0 }
+		}
+		set_temp_variable = { decrease_in_tt = 1 }
+		set_temp_variable = { red_in_tt = 0 }
+		multiply_temp_variable = { temp_amount = -1 }
+	}
+	else = {
+		set_temp_variable = { decrease_in_tt = 0 }
+		set_temp_variable = { red_in_tt = 1 }
+	}
+
+	#temp var for a scripted loc in the tooltip
+	set_temp_variable = { group_temp = temp_pillar }
+
+	#if some var was not set display an error tooltip
+	if = {
+		limit = {
+			check_variable = { vars_not_set = 1 }
+		}
+		custom_effect_tooltip = ITA_RQSC_change_stabilty_error_tt
+	}
+	else = {
+		custom_effect_tooltip = ITA_RQSC_change_stabilty_tt
+	}
+	
+	clear_variable = temp_pillar
+	clear_variable = temp_amount
+	clear_variable = vars_not_set
+}

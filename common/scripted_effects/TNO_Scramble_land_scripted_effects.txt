@@ -1,0 +1,237 @@
+# New Scramble for Africa: what the land does (plan 4.9-4.11; user, 2026-10-18).
+# Land strength: a scramble nation's states make it stronger, by their value, up to a cap.
+# Supply: each state's supply is Sabotaged, Normal or Improved. Patrons raise it for political power; Burgundy lowers
+# it covertly. The modifiers are in common/dynamic_modifiers/TNO_Scramble_dynamic_modifiers.txt.
+# Strategic supply drop: a patron ships weapons from its own stockpile to the holder of one of its side's states.
+
+SFA_update_land_strength = {
+	# plan 4.10, at the start, each pulse and after each peace: each scramble nation's SFA_land_value (the value of
+	# its scramble states) and SFA_land_strength (that value over 80, at most 1), which scales SFA_land_strength.
+	# At full strength: factory output +15%, construction +20%, factory efficiency growth +10%, consumer goods -5%,
+	# recruitable population +20%, organisation +15%, stability +20% (user, 2026-10-18). Each state's holder strength goes in
+	# global.SFA_holder_strengths, in global.SFA_states' order (0 for a holder that is no scramble nation), for the pins'
+	# tooltips: "[?1027.SFA_holder_strength]" may not start with a digit (lexer.cpp, in-game test 2026-10-18).
+	every_country = {
+		limit = { has_country_flag = SFA_african_nation }
+		set_variable = { SFA_land_value = 0 }
+	}
+	for_each_scope_loop = {
+		array = global.SFA_states
+		set_temp_variable = { sfa_v = SFA_value }
+		OWNER = {
+			if = {
+				limit = { has_country_flag = SFA_african_nation }
+				add_to_variable = { SFA_land_value = sfa_v }
+			}
+		}
+	}
+	every_country = {
+		limit = { has_country_flag = SFA_african_nation }
+		set_variable = { SFA_land_strength = SFA_land_value }
+		divide_variable = { var = SFA_land_strength value = 80 }
+		clamp_variable = {
+			var = SFA_land_strength
+			min = 0
+			max = 1
+		}
+		set_variable = { SFA_ls_factory = SFA_land_strength }
+		multiply_variable = { var = SFA_ls_factory value = 0.15 }
+		set_variable = { SFA_ls_construction = SFA_land_strength }
+		multiply_variable = { var = SFA_ls_construction value = 0.2 }
+		set_variable = { SFA_ls_efficiency = SFA_land_strength }
+		multiply_variable = { var = SFA_ls_efficiency value = 0.1 }
+		set_variable = { SFA_ls_consumer_goods = SFA_land_strength }
+		multiply_variable = { var = SFA_ls_consumer_goods value = -0.05 }
+		set_variable = { SFA_ls_manpower = SFA_land_strength }
+		multiply_variable = { var = SFA_ls_manpower value = 0.2 }
+		set_variable = { SFA_ls_organisation = SFA_land_strength }
+		multiply_variable = { var = SFA_ls_organisation value = 0.15 }
+		set_variable = { SFA_ls_stability = SFA_land_strength }
+		multiply_variable = { var = SFA_ls_stability value = 0.2 }
+		if = {
+			limit = { NOT = { has_dynamic_modifier = { modifier = SFA_land_strength } } }
+			add_dynamic_modifier = { modifier = SFA_land_strength }
+		}
+	}
+	clear_array = global.SFA_holder_strengths
+	for_each_scope_loop = {
+		array = global.SFA_states
+		set_temp_variable = { sfa_hs = 0 }
+		OWNER = {
+			if = {
+				limit = { has_country_flag = SFA_african_nation }
+				set_temp_variable = { sfa_hs = SFA_land_strength }
+			}
+		}
+		add_to_array = { global.SFA_holder_strengths = sfa_hs }
+	}
+}
+
+SFA_supply_raise = {
+	# plan 4.9, in a state's scope: one level up (Sabotaged -> Normal -> Improved). An improvement lasts until
+	# sabotaged.
+	if = {
+		limit = { check_variable = { SFA_supply_level < 1 } }
+		add_to_variable = { SFA_supply_level = 1 }
+		SFA_supply_apply = yes
+	}
+}
+
+SFA_supply_lower = {
+	# plan 4.9, in a state's scope, Burgundy's sabotage: one level down (Improved -> Normal -> Sabotaged). A sabotaged
+	# state repairs itself after 180 days (SFA_supply_repairs), and its holder is locked as long: no other state of that
+	# nation can be taken down to Sabotaged meanwhile (SFA_can_sabotage_supply; user, 2026-10-18).
+	if = {
+		limit = { check_variable = { SFA_supply_level > -1 } }
+		subtract_from_variable = { SFA_supply_level = 1 }
+		if = {
+			limit = { check_variable = { SFA_supply_level = -1 } }
+			set_variable = { SFA_supply_repair_day = global.num_days }
+			add_to_variable = { SFA_supply_repair_day = 180 }
+			OWNER = { set_country_flag = { flag = SFA_lock_supply_sabotage days = 180 value = 1 } }
+		}
+		SFA_supply_apply = yes
+	}
+}
+
+SFA_supply_apply = {
+	# plan 4.9, in a state's scope: SFA_state_supply follows SFA_supply_level. Improved: local supply +25%, army speed
+	# +10% for its controller. Sabotaged: local supply -25%, army speed -10%, attrition +5% for its controller.
+	if = {
+		limit = { check_variable = { SFA_supply_level = 0 } }
+		if = {
+			limit = { has_dynamic_modifier = { modifier = SFA_state_supply } }
+			remove_dynamic_modifier = { modifier = SFA_state_supply }
+		}
+	}
+	else = {
+		if = {
+			limit = { check_variable = { SFA_supply_level = 1 } }
+			set_variable = { SFA_sup_local = 0.25 }
+			set_variable = { SFA_sup_speed = 0.1 }
+			set_variable = { SFA_sup_attrition = 0 }
+		}
+		else = {
+			set_variable = { SFA_sup_local = -0.25 }
+			set_variable = { SFA_sup_speed = -0.1 }
+			set_variable = { SFA_sup_attrition = 0.05 }
+		}
+		if = {
+			limit = { NOT = { has_dynamic_modifier = { modifier = SFA_state_supply } } }
+			add_dynamic_modifier = { modifier = SFA_state_supply }
+		}
+	}
+}
+
+SFA_supply_repairs = {
+	# plan 4.9, each pulse: a state sabotaged 180 days ago is Normal again
+	for_each_scope_loop = {
+		array = global.SFA_states
+		if = {
+			limit = {
+				check_variable = { SFA_supply_level = -1 }
+				check_variable = { SFA_supply_repair_day < global.num_days }
+			}
+			set_variable = { SFA_supply_level = 0 }
+			SFA_supply_apply = yes
+		}
+	}
+}
+
+SFA_improve_supply = {
+	# plan 4.9, in a patron's scope, for the state saved as event target SFA_supply_target: 15 political power, one
+	# level up. The player's button is the board's (phase 6, step 6); AI patrons call it from SFA_ai_supply.
+	add_political_power = -15
+	event_target:SFA_supply_target = { SFA_supply_raise = yes }
+	log = "[GetDateText]: New Scramble for Africa: [This.GetName] improves supply in [SFA_supply_target.GetName]"
+}
+
+SFA_ai_supply = {
+	# plan 4.9, each pulse: an AI patron with political power to spare improves one state of its own side where a war
+	# is on or the region is contested. Burgundy keeps every patron action (user, 2026-10-18), Improve among them; its
+	# sabotage is one of its covert actions (SFA_ai_burgundy).
+	every_country = {
+		limit = {
+			has_country_flag = SFA_patron
+			is_ai = yes
+			has_political_power > 100
+		}
+		SFA_get_own_patron_code = yes
+		set_temp_variable = { sfa_found = 0 }
+		random_scope_in_array = {
+			array = global.SFA_states
+			limit = {
+				check_variable = { SFA_supply_level < 1 }
+				OWNER = { SFA_has_patron_code = yes }
+				OR = {
+					OWNER = { has_war = yes }
+					check_variable = { global.SFA_region_status^SFA_region = 2 }
+				}
+			}
+			save_event_target_as = SFA_supply_target
+			set_temp_variable = { sfa_found = 1 }
+		}
+		if = {
+			limit = { check_variable = { sfa_found = 1 } }
+			SFA_improve_supply = yes
+		}
+	}
+}
+
+SFA_supply_drop = {
+	# plan 4.11 (user, 2026-10-18), in a patron's scope, for the state saved as event target SFA_drop_target: the
+	# patron's own stockpile sends 2000 small arms (infantry_equipment) and 1000 anti-tank weapons to the state's
+	# holder, which also gains 5000 manpower. No political power. Check SFA_can_supply_drop first. The player's button
+	# is the board's (phase 6, step 6); AI patrons call it from SFA_ai_supply_drop.
+	save_event_target_as = SFA_drop_patron
+	event_target:SFA_drop_target = {
+		OWNER = {
+			event_target:SFA_drop_patron = {
+				send_equipment = {
+					equipment = infantry_equipment
+					amount = 2000
+					target = PREV
+				}
+				send_equipment = {
+					equipment = anti_tank_equipment
+					amount = 1000
+					target = PREV
+				}
+			}
+			add_manpower = 5000
+			save_event_target_as = SFA_drop_holder
+		}
+	}
+	log = "[GetDateText]: New Scramble for Africa: [This.GetName] drops supplies to [SFA_drop_holder.GetName] in [SFA_drop_target.GetName]"
+}
+
+SFA_ai_supply_drop = {
+	# plan 4.11, each pulse: an AI patron with five drops' worth in stock supplies one of its own side's nations at war
+	every_country = {
+		limit = {
+			has_country_flag = SFA_patron
+			is_ai = yes
+			has_equipment = {
+				infantry_equipment > 9999
+				anti_tank_equipment > 4999
+			}
+		}
+		SFA_get_own_patron_code = yes
+		set_temp_variable = { sfa_found = 0 }
+		random_scope_in_array = {
+			array = global.SFA_states
+			limit = {
+				OWNER = {
+					SFA_has_patron_code = yes
+					has_war = yes
+				}
+			}
+			save_event_target_as = SFA_drop_target
+			set_temp_variable = { sfa_found = 1 }
+		}
+		if = {
+			limit = { check_variable = { sfa_found = 1 } }
+			SFA_supply_drop = yes
+		}
+	}
+}

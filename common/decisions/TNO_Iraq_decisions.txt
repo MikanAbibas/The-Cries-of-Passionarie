@@ -1,0 +1,50 @@
+IRQ_political_hell = {
+
+}
+
+# Stopgap content for after the Oil Crisis civil war, until proper Iraq content is
+# written. Gated on Iraq_CW (set when the civil war begins) so the decision only
+# appears after the war, not at game start when BIR/IRP/SNI also do not exist yet.
+# Iraq does not leave Italy's alliance during the war, so this decision mainly
+# converts its old Triumvirate membership into a subordinate Rome client status
+# (and re-adds it to the faction should it have somehow fallen out). The AI is made
+# to always take the decision.
+IRQ_postwar_decisions = {
+
+	IRQ_rejoin_rome_pakt = {
+
+		icon = generic_form_nation
+
+		available = {
+			has_global_flag = Iraq_CW
+			NOT = { country_exists = BIR }
+			NOT = { country_exists = IRP }
+			NOT = { country_exists = SNI }
+			has_war = no
+			ITA = {
+				exists = yes
+				is_faction_leader = yes
+			}
+		}
+
+		visible = {
+			tag = IRQ
+		}
+
+		cost = 0
+
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision IRQ_rejoin_rome_pakt"
+			if = { limit = { has_idea = TRI_Member } remove_ideas = TRI_Member }
+			if = { limit = { has_idea = TRI_Member_Client } remove_ideas = TRI_Member_Client }
+			if = { limit = { NOT = { has_idea = Rome_client } } add_ideas = Rome_client }
+			if = { limit = { NOT = { is_in_faction_with = ITA } } ITA = { add_to_faction = IRQ } }
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+}

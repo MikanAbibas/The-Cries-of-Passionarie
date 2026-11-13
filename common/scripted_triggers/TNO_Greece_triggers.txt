@@ -1,0 +1,108 @@
+######################################################
+#  ██╗░░██╗███████╗██╗░░░░░██╗░░░░░░█████╗░░██████╗  #
+#  ██║░░██║██╔════╝██║░░░░░██║░░░░░██╔══██╗██╔════╝  #
+#  ███████║█████╗░░██║░░░░░██║░░░░░███████║╚█████╗░  #
+#  ██╔══██║██╔══╝░░██║░░░░░██║░░░░░██╔══██║░╚═══██╗  #
+#  ██║░░██║███████╗███████╗███████╗██║░░██║██████╔╝  #
+#  ╚═╝░░╚═╝╚══════╝╚══════╝╚══════╝╚═╝░░╚═╝╚═════╝░  #
+######################################################
+
+GRE_CoTS_Party_Faction_Selected = {
+	custom_trigger_tooltip = {
+		tooltip = GRE_CoTS_Party_Selected
+		check_variable = {
+			GRE_CoTS_Faction_Chosen^Party = 1
+		}
+	}
+}
+
+GRE_CoTS_Military_Faction_Selected = {
+	custom_trigger_tooltip = {
+		tooltip = GRE_CoTS_Military_Selected
+		check_variable = {
+			GRE_CoTS_Faction_Chosen^Military = 1
+		}
+	}
+}
+
+GRE_CoTS_Government_Faction_Selected = {
+	custom_trigger_tooltip = {
+		tooltip = GRE_CoTS_Government_Selected
+		check_variable = {
+			GRE_CoTS_Faction_Chosen^Government = 1
+		}
+	}
+}
+
+GRE_CoTS_People_Faction_Selected = {
+	custom_trigger_tooltip = {
+		tooltip = GRE_CoTS_People_Selected
+		check_variable = {
+			GRE_CoTS_Faction_Chosen^People = 1
+		}
+	}
+}
+
+GRE_CoTS_Business_Faction_Selected = {
+	custom_trigger_tooltip = {
+		tooltip = GRE_CoTS_Business_Selected
+		check_variable = {
+			GRE_CoTS_Faction_Chosen^Business = 1
+		}
+	}
+}
+
+GRE_CoTS_Faction_Under_Karamanlis = {
+	custom_trigger_tooltip = {
+		tooltip = GRE_CoTS_Control_Low
+		check_variable = {
+			GRE_CoTS_Faction_Control^GRE_CoTS_Faction_Mod < 41
+		}
+	}
+}
+
+GRE_CoTS_Faction_Under_Government = {
+	custom_trigger_tooltip = {
+		tooltip = GRE_CoTS_Control_High
+		check_variable = {
+			GRE_CoTS_Faction_Control^GRE_CoTS_Faction_Mod > 60
+		}
+	}
+}
+
+GRE_CoTS_Faction_Under_Karamanlis_Lost = {
+	custom_trigger_tooltip = {
+		tooltip = GRE_CoTS_Control_Lost
+		check_variable = {
+			GRE_CoTS_Faction_Control^GRE_CoTS_Faction_Mod < 21
+		}
+	}
+}
+
+GRE_CoTS_Faction_Under_Government_Total = {
+	custom_trigger_tooltip = {
+		tooltip = GRE_CoTS_Control_Total
+		check_variable = {
+			GRE_CoTS_Faction_Control^GRE_CoTS_Faction_Mod > 80
+		}
+	}
+}
+
+GRE_CoTS_Faction_Neutral = {
+	custom_trigger_tooltip = {
+		tooltip = GRE_CoTS_Control_Moderate
+		check_variable = {
+			GRE_CoTS_Faction_Control^GRE_CoTS_Faction_Mod > 40
+			GRE_CoTS_Faction_Control^GRE_CoTS_Faction_Mod < 61
+		}
+	}
+}
+
+GRE_Resistance_Over_100 = {
+	set_temp_variable = { tempFull = GRE_Resistance_Government_Control^i }
+	add_to_temp_variable = { tempFull = GRE_Resistance_EDES_Control^i }
+	add_to_temp_variable = { tempFull = GRE_Resistance_EAM_Control^i }
+
+	check_variable = { tempFull > 100 }
+}
+

@@ -1,0 +1,439 @@
+########################################
+################ ¡No pasarán! ##########
+########################################
+
+#War Tree
+shared_focus = {
+	id = SPR_prefiero_vencer_o_morir
+	icon = GFX_SPA_Dia_Plato_Unico
+	cost = 2
+	x = 6
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_prefiero_vencer_o_morir"
+		add_war_support = 0.1
+		hidden_effect = {
+			country_event = {
+				id = SPR.1
+				days = 7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = SPR_integrate_the_militias
+	icon = GFX_SPA_Expand_Auxilio_Social
+	cost = 2
+	prerequisite = { focus = SPR_prefiero_vencer_o_morir }
+	relative_position_id = SPR_prefiero_vencer_o_morir
+	x = -4
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_integrate_the_militias"
+		add_manpower = 20000
+		TNO_improve_army_professionalism_high = yes
+	}
+}
+
+shared_focus = {
+	id = SPR_everyone_can_serve
+	icon = GFX_Respect_women_focus_1
+	cost = 2
+	prerequisite = { focus = SPR_prefiero_vencer_o_morir }
+	relative_position_id = SPR_prefiero_vencer_o_morir
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_everyone_can_serve"
+		tno_women_improve = yes
+		tno_conscription_worsen = yes
+	}
+}
+
+shared_focus = {
+	id = SPR_adress_the_nation
+	icon = GFX_RAJ_Start_The_Government
+	cost = 2
+	prerequisite = { focus = SPR_prefiero_vencer_o_morir }
+	relative_position_id = SPR_prefiero_vencer_o_morir
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_adress_the_nation"
+		add_stability = 0.1
+		hidden_effect = {
+			country_event = {
+				id = SPR.3
+				days = 7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = SPR_relax_working_legislation
+	icon = GFX_SPA_Fight_the_Black_Market
+	cost = 2
+	prerequisite = { focus = SPR_prefiero_vencer_o_morir }
+	relative_position_id = SPR_prefiero_vencer_o_morir
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_relax_working_legislation"
+		tno_max_workhours_improve = yes
+		tno_unemployment_improve = yes
+	}
+}
+
+shared_focus = {
+	id = SPR_woo_possible_partners
+	icon = GFX_RAJ_India_Comprimise_Constitution
+	cost = 2
+	prerequisite = { focus = SPR_prefiero_vencer_o_morir }
+	relative_position_id = SPR_prefiero_vencer_o_morir
+	x = 4
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_woo_possible_partners"
+		add_popularity = {
+			ideology = social_liberal
+			popularity = 0.1
+		}
+	}
+}
+
+shared_focus = {
+	id = SPR_invest_in_tank_brigades
+	icon = GFX_TNO_generic_socialist_tank
+	cost = 2
+	prerequisite = { focus = SPR_integrate_the_militias }
+	relative_position_id = SPR_integrate_the_militias
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_invest_in_tank_brigades"
+		add_equipment_to_stockpile = {
+			type = MBT_equipment
+			amount = 300
+			producer = SPR
+		}
+	}
+}
+
+shared_focus = {
+	id = SPR_motorize_the_army
+	icon = GFX_WRS_Expand_Vehicle_Production
+	cost = 2
+	prerequisite = { focus = SPR_integrate_the_militias }
+	prerequisite = { focus = SPR_everyone_can_serve }
+	relative_position_id = SPR_integrate_the_militias
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_motorize_the_army"
+		add_equipment_to_stockpile = {
+			type = motorized_equipment_1
+			amount = 400
+			producer = SPR
+		}
+	}
+}
+
+shared_focus = {
+	id = SPR_modernize_the_cartagena_base
+	icon = GFX_Protect_the_Bases
+	cost = 2
+	prerequisite = { focus = SPR_everyone_can_serve }
+	relative_position_id = SPR_integrate_the_militias
+	x = 3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_modernize_the_cartagena_base"
+		navy_experience = 20
+		168 = {
+			add_building_construction = {
+				type = naval_base
+				level = 3
+				province = 10024
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = SPR_revitalise_the_air_force
+	icon = GFX_SKN_Caribbean_Air_Force
+	cost = 2
+	prerequisite = { focus = SPR_invest_in_tank_brigades }
+	prerequisite = { focus = SPR_motorize_the_army }
+	relative_position_id = SPR_integrate_the_militias
+	x = 0
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_revitalise_the_air_force"
+		air_experience = 20
+		add_equipment_to_stockpile = {
+			type = jet_fighter_equipment_1
+			amount = 40
+			producer = SPR
+		}
+	}
+}
+
+shared_focus = {
+	id = SPR_create_special_units
+	icon = GFX_RAJ_Invisibility_Cloaks
+	cost = 2
+	prerequisite = { focus = SPR_modernize_the_cartagena_base }
+	prerequisite = { focus = SPR_motorize_the_army }
+	relative_position_id = SPR_integrate_the_militias
+	x = 2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_create_special_units"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = special_forces_tech
+		}
+	}
+}
+
+shared_focus = {
+	id = SPR_the_examples_of_past_times
+	icon = GFX_SPA_Settle_New_Lands
+	cost = 2
+	prerequisite = { focus = SPR_adress_the_nation }
+	relative_position_id = SPR_adress_the_nation
+	x = 0
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_the_examples_of_past_times"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = land_doctrine
+		}
+	}
+}
+
+shared_focus = {
+	id = SPR_industrialize_valencia
+	icon = GFX_SPA_Spanish_Autarky
+	cost = 2
+	prerequisite = { focus = SPR_relax_working_legislation }
+	relative_position_id = SPR_woo_possible_partners
+	x = -3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_industrialize_valencia"
+		167 = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = SPR_begin_a_war_bonds_program
+	icon = GFX_SPA_Strangle_Central_Bank
+	cost = 2
+	prerequisite = { focus = SPR_relax_working_legislation }
+	prerequisite = { focus = SPR_woo_possible_partners }
+	relative_position_id = SPR_woo_possible_partners
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_begin_a_war_bonds_program"
+		tno_economic_focus_improve = yes
+		add_offsite_building = {
+			type = industrial_complex
+			level = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = SPR_allow_argicultural_cooperatives
+	icon = GFX_RAJ_National_Land_Reform
+	cost = 2
+	prerequisite = { focus = SPR_woo_possible_partners }
+	relative_position_id = SPR_woo_possible_partners
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_allow_argicultural_cooperatives"
+		add_popularity = {
+			ideology = socialist
+			popularity = 0.03
+		}
+		add_political_power = 50
+		TNO_improve_agriculture_high = yes
+	}
+}
+
+shared_focus = {
+	id = SPR_republican_arms
+	icon = GFX_RAJ_Autonomous_Industry
+	cost = 2
+	prerequisite = { focus = SPR_industrialize_valencia }
+	prerequisite = { focus = SPR_begin_a_war_bonds_program }
+	relative_position_id = SPR_woo_possible_partners
+	x = -2
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_republican_arms"
+		random_owned_state = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_state = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = SPR_temporal_welfare_cuts
+	icon = GFX_USA_GLD_Cut-Wasteful-Welfare
+	cost = 2
+	prerequisite = { focus = SPR_allow_argicultural_cooperatives }
+	prerequisite = { focus = SPR_begin_a_war_bonds_program }
+	relative_position_id = SPR_woo_possible_partners
+	x = 0
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_temporal_welfare_cuts"
+		tno_pensions_worsen = yes
+		tno_health_care_worsen = yes
+		random_owned_state = {
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = SPR_last_chance_for_freedom
+	icon = GFX_SPA_Democratic_Mirage
+	cost = 2
+	prerequisite = { focus = SPR_revitalise_the_air_force }
+	prerequisite = { focus = SPR_create_special_units }
+	prerequisite = { focus = SPR_the_examples_of_past_times }
+	prerequisite = { focus = SPR_republican_arms }
+	prerequisite = { focus = SPR_temporal_welfare_cuts }
+	relative_position_id = SPR_adress_the_nation
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_last_chance_for_freedom"
+		add_war_support = 0.15
+		hidden_effect = {
+			country_event = {
+				id = SPR.2
+				days = 7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = SPR_everything_to_the_military
+	icon = GFX_SPA_Reform_the_Youth_Organization
+	cost = 2
+	prerequisite = { focus = SPR_last_chance_for_freedom }
+	relative_position_id = SPR_last_chance_for_freedom
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_everything_to_the_military"
+		tno_economic_focus_improve = yes
+		random_owned_state = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_state = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = SPR_expand_conscription
+	icon = GFX_SPA_Una_Grande_y_Libre
+	cost = 2
+	prerequisite = { focus = SPR_last_chance_for_freedom }
+	relative_position_id = SPR_last_chance_for_freedom
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_expand_conscription"
+		tno_conscription_worsen = yes
+		add_manpower = 34000
+	}
+}
+
+shared_focus = {
+	id = SPR_all_together
+	icon = GFX_SPA_Yesmen_Government
+	cost = 2
+	prerequisite = { focus = SPR_last_chance_for_freedom }
+	relative_position_id = SPR_last_chance_for_freedom
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_all_together"
+		#idea
+		add_ideas = SPR_dream_no_more
+	}
+}
+
+shared_focus = {
+	id = SPR_no_parasan
+	icon = GFX_IBR_Legacy_of_the_Republic
+	cost = 2
+	prerequisite = { focus = SPR_everything_to_the_military }
+	prerequisite = { focus = SPR_expand_conscription }
+	prerequisite = { focus = SPR_all_together }
+	relative_position_id = SPR_last_chance_for_freedom
+	x = 0
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus SPR_no_parasan"
+		#idea
+		add_ideas = SPR_not_a_step_further
+	}
+}

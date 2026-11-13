@@ -1,0 +1,109 @@
+on_actions = {
+	on_daily_MAD = {
+		effect = {
+			if = {
+				limit = {
+					MAD = {
+						has_country_flag = MAD_die_schwarze_pest_flag
+					}
+				}
+
+				MAD = {
+					add_to_variable = { MAD_handy_counter = 1 }
+					if = {
+						limit = {
+							check_variable = { 
+								var = MAD_handy_counter
+								value = 7 
+							}
+						}
+						MAD_plague_sim_tick = yes
+						set_variable = { MAD_handy_counter = 0 }
+						log = "[GetDateText]: [Root.GetName]: Madagaskar's plague spread!"
+					}
+				}
+			}
+		}
+	}
+
+	on_state_control_changed = {
+		effect = {
+			if = {
+				limit = {
+					OR = {
+						tag = MDG
+						tag = MDM
+						tag = MDJ
+					}
+					country_exists = MAD
+					FROM.FROM = { state = 944 }
+				}
+				# ROOT is the new controller; Maurice's plea belongs to MAD
+				MAD = {
+					country_event = {
+						id = MADAGASKAR_MAURICE.13
+						days = 1
+					}
+				}
+			}
+		}
+	}
+
+	# ROOT is the capitulated country, FROM the winner. Fires before the engine disposes of the loser, so a
+	# Madagascar side beaten by another hands over its fleet; MAD's ships end with whoever wins the island.
+	on_capitulation_immediate = {
+		effect = {
+			if = {
+				limit = {
+					has_global_flag = madagaskar_civil_war
+					OR = {
+						original_tag = MAD
+						original_tag = MDG
+						original_tag = MDJ
+						original_tag = MDM
+					}
+					FROM = {
+						OR = {
+							original_tag = MAD
+							original_tag = MDG
+							original_tag = MDJ
+							original_tag = MDM
+						}
+					}
+				}
+				transfer_navy = { target = FROM }
+			}
+		}
+	}
+
+	on_annex = {
+		effect = {
+			if = {
+				limit = {
+					has_global_flag = madagaskar_civil_war
+					FROM = {
+						OR = {
+							original_tag = MAD
+							original_tag = MDG
+							original_tag = MDJ
+							original_tag = MDM
+						}
+					}
+				}
+				# A side that annexes another takes cores on what it now owns
+				if = {
+					limit = {
+						OR = {
+							original_tag = MAD
+							original_tag = MDG
+							original_tag = MDJ
+							original_tag = MDM
+						}
+					}
+					MAD_core_annexed_states = yes
+				}
+				MAD_civil_war_check_end = yes
+			}
+		}
+	}
+}

@@ -1,0 +1,138 @@
+# East Africa's 1968 collapse (Mediterranean rework): the reconquest war.
+#
+# IEA.200 (1968 check) -> IEA.112-116 (the break-up) -> IEA.201 (the Military Authority
+# leaves Italy's orbit and goes to war with every free nation) -> after 100 days IEA.202,
+# or as soon as every free nation has been beaten IEA.203 (on_capitulation in
+# TNO_Italy_med_on_actions.txt). Either way East Africa ends the war and rejoins Italy's
+# faction as a Rome client. Italy may send volunteers meanwhile (diplomacy_scripted_triggers),
+# and Germany and the USA can arm the uprisings from their espionage screens.
+
+# IEA scope. War on every free nation, and the 100-day clock.
+IEA_declare_reconquest = {
+	set_global_flag = IEA_reconquest_war
+	every_country = {
+		limit = {
+			IEA_is_free_nation = yes
+			NOT = { has_war_with = IEA }
+		}
+		IEA = {
+			declare_war_on = {
+				target = PREV
+				type = annex_everything
+			}
+		}
+	}
+	country_event = { id = IEA.202 days = 100 }
+}
+
+# IEA scope. The war ends: white peace with every free nation still fighting, and East
+# Africa rejoins Italy as the subject it was before 1968, in Italy's faction with the Rome
+# client idea. The Military Authority keeps its government and party popularities, which
+# puppeting would otherwise reset (TNO_useful_scripted_effects.txt). Then the Black Lions
+# and the Oromo front turn on each other if both survived. Runs once.
+IEA_end_reconquest = {
+	if = {
+		limit = { NOT = { has_global_flag = IEA_reconquest_over } }
+		set_global_flag = IEA_reconquest_over
+		every_country = {
+			limit = {
+				IEA_is_free_nation = yes
+				has_war_with = IEA
+			}
+			IEA = { white_peace = PREV }
+		}
+		if = {
+			limit = { NOT = { is_subject_of = ITA } }
+			save_party_popularities = yes
+			get_current_government_type = yes
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Together for Victory"
+						has_dlc = "Man the Guns"
+					}
+				}
+				ITA = {
+					set_autonomy = {
+						target = IEA
+						autonomy_state = autonomy_italy_hefty_influence
+					}
+				}
+			}
+			else = {
+				ITA = { puppet = IEA }
+			}
+			apply_party_popularities = yes
+			restore_previous_government_type = yes
+		}
+		if = {
+			limit = {
+				ETB = { exists = yes }
+				ORM = { exists = yes }
+			}
+			ETB = { country_event = { id = IEA.123 days = 7 } }
+		}
+		if = {
+			limit = {
+				ITA = { is_faction_leader = yes }
+				NOT = { is_in_faction_with = ITA }
+			}
+			ITA = { add_to_faction = IEA }
+		}
+		if = {
+			limit = { NOT = { has_idea = Rome_client } }
+			add_ideas = Rome_client
+		}
+	}
+}
+
+# Sponsor scope (GER or USA). Every free nation still fighting the Military Authority gets
+# its breakaway army again, 10000 infantry and 5000 anti-tank equipment, and 20000 manpower.
+IEA_arm_the_uprisings = {
+	if = {
+		limit = { KEN = { has_war_with = IEA } }
+		KEN = {
+			load_oob = KEN_breakaway
+			IEA_uprising_supplies = yes
+		}
+	}
+	if = {
+		limit = { SML = { has_war_with = IEA } }
+		SML = {
+			load_oob = SML_breakaway
+			IEA_uprising_supplies = yes
+		}
+	}
+	if = {
+		limit = { ORM = { has_war_with = IEA } }
+		ORM = {
+			load_oob = ORM_breakaway
+			IEA_uprising_supplies = yes
+		}
+	}
+	if = {
+		limit = { ETB = { has_war_with = IEA } }
+		ETB = {
+			load_oob = ETB_breakaway
+			IEA_uprising_supplies = yes
+		}
+	}
+	if = {
+		limit = { ERT = { has_war_with = IEA } }
+		ERT = {
+			load_oob = ERT_breakaway
+			IEA_uprising_supplies = yes
+		}
+	}
+}
+IEA_uprising_supplies = {
+	add_equipment_to_stockpile = {
+		type = infantry_equipment
+		amount = 10000
+	}
+	add_equipment_to_stockpile = {
+		type = anti_tank_equipment
+		amount = 5000
+	}
+	add_manpower = 20000
+}

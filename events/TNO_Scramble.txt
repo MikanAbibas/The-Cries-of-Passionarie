@@ -1,0 +1,182 @@
+add_namespace = SFA
+
+# New Scramble for Africa (z_plans/SCRAMBLE_FOR_AFRICA_PLAN.md). Titles only: the text is the user's.
+
+# SFA.1: the hidden start (plan 4.0). Hosted on the USA, 160 days after the Oberkommando collapse
+# (MZB_REICHSTAAT.8071 / .809). The debug decision fires it at once.
+country_event = {
+	id = SFA.1
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event SFA.1"
+		if = {
+			limit = { NOT = { has_global_flag = SFA_active } }
+			if = {
+				# only possible after Brudermord: wait for the war's end
+				limit = { has_global_flag = south_african_war_happening }
+				country_event = { id = SFA.1 days = 30 }
+			}
+			else_if = {
+				# an OFN total victory gets its own mechanics (plan 3.3)
+				limit = { has_global_flag = SAW_outcome_ofn_total }
+				log = "[GetDateText]: New Scramble for Africa: none after an OFN total victory"
+			}
+			else = {
+				SFA_start = yes
+			}
+		}
+	}
+
+	option = {
+		name = SFA.1.a
+	}
+}
+
+# SFA.2: the United States can now act (plan 4.0)
+country_event = {
+	id = SFA.2
+	title = SFA.2.t
+	desc = SFA.2.d
+	picture = GFX_report_event_cia_langley
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event SFA.2"
+	}
+
+	option = {
+		name = SFA.2.a
+		custom_effect_tooltip = SFA_volunteers_open_tt
+	}
+}
+
+# SFA.3: Germany can now act (plan 4.0)
+country_event = {
+	id = SFA.3
+	title = SFA.3.t
+	desc = SFA.3.d
+	picture = GFX_report_event_german_officer
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event SFA.3"
+	}
+
+	option = {
+		name = SFA.3.a
+		custom_effect_tooltip = SFA_volunteers_open_tt
+	}
+}
+
+# SFA.4: Italy: spawns SWA can now act (plan 4.0)
+country_event = {
+	id = SFA.4
+	title = SFA.4.t
+	desc = SFA.4.d
+	picture = GFX_report_event_italian_soldiers
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event SFA.4"
+		SFA_spawn_italian_proxy = yes
+	}
+
+	option = {
+		name = SFA.4.a
+		custom_effect_tooltip = SFA_volunteers_open_tt
+	}
+}
+
+# SFA.5: Japan can now act (plan 4.0)
+country_event = {
+	id = SFA.5
+	title = SFA.5.t
+	desc = SFA.5.d
+	picture = GFX_report_event_jap_mail
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event SFA.5"
+	}
+
+	option = {
+		name = SFA.5.a
+		custom_effect_tooltip = SFA_volunteers_open_tt
+	}
+}
+
+# SFA.6: Burgundy can now act (plan 4.0)
+country_event = {
+	id = SFA.6
+	title = SFA.6.t
+	desc = SFA.6.d
+	picture = GFX_report_event_BRG_leadership_himmler
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event SFA.6"
+	}
+
+	option = {
+		name = SFA.6.a
+		custom_effect_tooltip = SFA_burgundy_africa_tt
+	}
+}
+
+# SFA.7: Iberia's notice (user, 2026-10-18), two weeks after the start; its proxy seizes Kéllé
+country_event = {
+	id = SFA.7
+	title = SFA.7.t
+	desc = SFA.7.d
+	picture = GFX_report_event_iberia_garrison_commander
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event SFA.7"
+		SFA_spawn_iberian_proxy = yes
+	}
+
+	option = {
+		name = SFA.7.a
+		custom_effect_tooltip = SFA_volunteers_open_tt
+	}
+}
+
+# SFA.10: the monthly pulse (plan 4.3), hosted on the USA from the start on
+country_event = {
+	id = SFA.10
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event SFA.10"
+		if = {
+			limit = { has_global_flag = SFA_active }
+			SFA_pulse = yes
+			country_event = { id = SFA.10 days = 30 }
+		}
+	}
+
+	option = {
+		name = SFA.10.a
+	}
+}
+
+# SFA.20: a patron's order cooldown is over (plan 7.4): its topbar box lights up and the board re-reads at once
+country_event = {
+	id = SFA.20
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event SFA.20"
+		set_country_flag = SFA_attention
+		SFA_gui_refresh = yes
+	}
+
+	option = {
+		name = SFA.20.a
+	}
+}

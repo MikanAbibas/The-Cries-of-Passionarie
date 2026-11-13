@@ -1,0 +1,1620 @@
+# The party variables it reads exist only under _WIP (GRE_TUR_med_wip_startup_global). Elsewhere they read 0,
+# and the correction below then hands one random party 100%; a leak through the Italo-Turkish War's peace did
+# that to legacy Turkey until 2026-10-24.
+TUR_Pie_Chart_Update = {
+	if = {
+		limit = { has_global_flag = ITA_MED_WIP_PATHS }
+		TUR_Pie_Chart_Update_apply = yes
+	}
+}
+
+TUR_Pie_Chart_Update_apply = {
+	set_temp_variable = { TUR_socialist_temp = TUR_DYP_Popularity }
+	multiply_temp_variable = { TUR_socialist_temp = TUR_DYP_Socialist }
+	set_temp_variable = { TUR_socdem_temp = TUR_DYP_Popularity }
+	multiply_temp_variable = { TUR_socdem_temp = TUR_DYP_Progressive }
+	set_temp_variable = { TUR_libdem_temp = TUR_DYP_Popularity }
+	multiply_temp_variable = { TUR_libdem_temp = TUR_DYP_Liberal }
+	set_temp_variable = { TUR_authdem_temp = TUR_CHP_Popularity }
+	set_temp_variable = { TUR_fascist_temp = TUR_UDP_Popularity }
+	multiply_temp_variable = { TUR_fascist_temp = TUR_UDP_Nationalist }
+	set_temp_variable = { TUR_condem_temp = TUR_UDP_Popularity }
+	subtract_from_temp_variable = { TUR_condem_temp = TUR_fascist_temp }
+	
+	set_temp_variable = { TUR_Popularity_Change_Correction = TUR_socialist_temp }
+	add_to_temp_variable = { TUR_Popularity_Change_Correction = TUR_socdem_temp }
+	add_to_temp_variable = { TUR_Popularity_Change_Correction = TUR_libdem_temp }
+	add_to_temp_variable = { TUR_Popularity_Change_Correction = TUR_condem_temp }
+	add_to_temp_variable = { TUR_Popularity_Change_Correction = TUR_authdem_temp }
+	add_to_temp_variable = { TUR_Popularity_Change_Correction = TUR_fascist_temp }
+	if = {
+		limit = {
+			NOT = {
+				check_variable = { TUR_Popularity_Change_Correction = 100 }
+			}
+		}
+		subtract_from_temp_variable = { TUR_Popularity_Change_Correction = 100 }
+		random_list = {
+			1 = {
+				subtract_from_temp_variable = { TUR_socialist_temp = TUR_Popularity_Change_Correction }
+			}
+			1 = {
+				subtract_from_temp_variable = { TUR_socdem_temp = TUR_Popularity_Change_Correction }
+			}
+			1 = {
+				subtract_from_temp_variable = { TUR_libdem_temp = TUR_Popularity_Change_Correction }
+			}
+			1 = {
+				subtract_from_temp_variable = { TUR_condem_temp = TUR_Popularity_Change_Correction }
+			}
+			1 = {
+				subtract_from_temp_variable = { TUR_authdem_temp = TUR_Popularity_Change_Correction }
+			}
+			1 = {
+				subtract_from_temp_variable = { TUR_fascist_temp = TUR_Popularity_Change_Correction }
+			}
+		}
+	}
+	
+	set_popularities = {
+		communist = 0
+		socialist = TUR_socialist_temp
+		social_democrat = TUR_socdem_temp
+		social_liberal = TUR_libdem_temp
+		social_conservative = TUR_condem_temp
+		authoritarian_democrat = TUR_authdem_temp
+		despotism = 0
+		fascism = TUR_fascist_temp
+		national_socialism = 0
+		ultranational_socialism = 0
+		burgundian_system = 0
+	}
+}
+
+TUR_Change_DYP_Popularity = {
+	hidden_effect = {
+		set_temp_variable = { TUR_Party_Popularity_Distribute = 100 }
+		subtract_from_temp_variable = { TUR_Party_Popularity_Distribute = TUR_DYP_Popularity }
+		set_temp_variable = { TUR_CHP_Popularity_Change = TUR_CHP_Popularity }
+		divide_temp_variable = { TUR_CHP_Popularity_Change = TUR_Party_Popularity_Distribute }
+		multiply_temp_variable = { TUR_CHP_Popularity_Change = TUR_DYP_Pop_Change }
+		set_temp_variable = { TUR_UDP_Popularity_Change = TUR_UDP_Popularity }
+		divide_temp_variable = { TUR_UDP_Popularity_Change = TUR_Party_Popularity_Distribute }
+		multiply_temp_variable = { TUR_UDP_Popularity_Change = TUR_DYP_Pop_Change }
+		add_to_variable = { TUR_DYP_Popularity = TUR_DYP_Pop_Change }
+		subtract_from_variable = { TUR_CHP_Popularity = TUR_CHP_Popularity_Change }
+		subtract_from_variable = { TUR_UDP_Popularity = TUR_UDP_Popularity_Change }
+		if = {
+			limit = {
+				check_variable = { TUR_CHP_Popularity_Change = 0 }
+				check_variable = { TUR_UDP_Popularity_Change = 0 }
+			}
+			divide_temp_variable = { TUR_DYP_Pop_Change = 2 }
+			add_to_variable = { TUR_CHP_Popularity = TUR_DYP_Pop_Change }
+			add_to_variable = { TUR_UDP_Popularity = TUR_DYP_Pop_Change }
+		}
+		set_temp_variable = { TUR_Popularity_Change_Correction = TUR_DYP_Popularity }
+		add_to_temp_variable = { TUR_Popularity_Change_Correction = TUR_CHP_Popularity }
+		add_to_temp_variable = { TUR_Popularity_Change_Correction = TUR_UDP_Popularity }
+		if = {
+			limit = {
+				check_variable = { TUR_Popularity_Change_Correction < 100 }
+			}
+			add_to_variable = { TUR_DYP_Popularity = 0.01 }
+		}
+		else_if = {
+			limit = {
+				check_variable = { TUR_Popularity_Change_Correction > 100 }
+			}
+			add_to_variable = { TUR_DYP_Popularity = -0.01 }
+		}
+		clamp_variable = {
+			var = TUR_DYP_Popularity
+			min = 0
+			max = 100
+		}
+		clamp_variable = {
+			var = TUR_CHP_Popularity
+			min = 0
+			max = 100
+		}
+		clamp_variable = {
+			var = TUR_UDP_Popularity
+			min = 0
+			max = 100
+		}
+		TUR_Pie_Chart_Update = yes
+	}
+	custom_effect_tooltip = TUR_DYP_popularity_change_tt
+}
+
+TUR_Change_CHP_Popularity = {
+	hidden_effect = {
+		set_temp_variable = { TUR_Party_Popularity_Distribute = 100 }
+		subtract_from_temp_variable = { TUR_Party_Popularity_Distribute = TUR_CHP_Popularity }
+		set_temp_variable = { TUR_DYP_Popularity_Change = TUR_DYP_Popularity }
+		divide_temp_variable = { TUR_DYP_Popularity_Change = TUR_Party_Popularity_Distribute }
+		multiply_temp_variable = { TUR_DYP_Popularity_Change = TUR_CHP_Pop_Change }
+		set_temp_variable = { TUR_UDP_Popularity_Change = TUR_UDP_Popularity }
+		divide_temp_variable = { TUR_UDP_Popularity_Change = TUR_Party_Popularity_Distribute }
+		multiply_temp_variable = { TUR_UDP_Popularity_Change = TUR_CHP_Pop_Change }
+		add_to_variable = { TUR_CHP_Popularity = TUR_CHP_Pop_Change }
+		subtract_from_variable = { TUR_DYP_Popularity = TUR_DYP_Popularity_Change }
+		subtract_from_variable = { TUR_UDP_Popularity = TUR_UDP_Popularity_Change }
+		if = {
+			limit = {
+				check_variable = { TUR_CHP_Popularity_Change = 0 }
+				check_variable = { TUR_UDP_Popularity_Change = 0 }
+			}
+			divide_temp_variable = { TUR_CHP_Pop_Change = 2 }
+			add_to_variable = { TUR_CHP_Popularity = TUR_CHP_Pop_Change }
+			add_to_variable = { TUR_UDP_Popularity = TUR_CHP_Pop_Change }
+		}
+		set_temp_variable = { TUR_Popularity_Change_Correction = TUR_CHP_Popularity }
+		add_to_temp_variable = { TUR_Popularity_Change_Correction = TUR_CHP_Popularity }
+		add_to_temp_variable = { TUR_Popularity_Change_Correction = TUR_UDP_Popularity }
+		if = {
+			limit = {
+				check_variable = { TUR_Popularity_Change_Correction < 100 }
+			}
+			add_to_variable = { TUR_CHP_Popularity = 0.01 }
+		}
+		else_if = {
+			limit = {
+				check_variable = { TUR_Popularity_Change_Correction > 100 }
+			}
+			add_to_variable = { TUR_CHP_Popularity = -0.01 }
+		}
+		clamp_variable = {
+			var = TUR_DYP_Popularity
+			min = 0
+			max = 100
+		}
+		clamp_variable = {
+			var = TUR_CHP_Popularity
+			min = 0
+			max = 100
+		}
+		clamp_variable = {
+			var = TUR_UDP_Popularity
+			min = 0
+			max = 100
+		}
+		TUR_Pie_Chart_Update = yes
+	}
+	custom_effect_tooltip = TUR_CHP_popularity_change_tt
+}
+
+TUR_Change_UDP_Popularity = {
+	hidden_effect = {
+		set_temp_variable = { TUR_Party_Popularity_Distribute = 100 }
+		subtract_from_temp_variable = { TUR_Party_Popularity_Distribute = TUR_UDP_Popularity }
+		set_temp_variable = { TUR_CHP_Popularity_Change = TUR_CHP_Popularity }
+		divide_temp_variable = { TUR_CHP_Popularity_Change = TUR_Party_Popularity_Distribute }
+		multiply_temp_variable = { TUR_CHP_Popularity_Change = TUR_UDP_Pop_Change }
+		set_temp_variable = { TUR_DYP_Popularity_Change = TUR_UDP_Popularity }
+		divide_temp_variable = { TUR_DYP_Popularity_Change = TUR_Party_Popularity_Distribute }
+		multiply_temp_variable = { TUR_DYP_Popularity_Change = TUR_UDP_Pop_Change }
+		add_to_variable = { TUR_UDP_Popularity = TUR_UDP_Pop_Change }
+		subtract_from_variable = { TUR_CHP_Popularity = TUR_CHP_Popularity_Change }
+		subtract_from_variable = { TUR_DYP_Popularity = TUR_DYP_Popularity_Change }
+		if = {
+			limit = {
+				check_variable = { TUR_CHP_Popularity_Change = 0 }
+				check_variable = { TUR_UDP_Popularity_Change = 0 }
+			}
+			divide_temp_variable = { TUR_UDP_Pop_Change = 2 }
+			add_to_variable = { TUR_CHP_Popularity = TUR_UDP_Pop_Change }
+			add_to_variable = { TUR_UDP_Popularity = TUR_UDP_Pop_Change }
+		}
+		set_temp_variable = { TUR_Popularity_Change_Correction = TUR_UDP_Popularity }
+		add_to_temp_variable = { TUR_Popularity_Change_Correction = TUR_CHP_Popularity }
+		add_to_temp_variable = { TUR_Popularity_Change_Correction = TUR_UDP_Popularity }
+		if = {
+			limit = {
+				check_variable = { TUR_Popularity_Change_Correction < 100 }
+			}
+			add_to_variable = { TUR_UDP_Popularity = 0.01 }
+		}
+		else_if = {
+			limit = {
+				check_variable = { TUR_Popularity_Change_Correction > 100 }
+			}
+			add_to_variable = { TUR_UDP_Popularity = -0.01 }
+		}
+		clamp_variable = {
+			var = TUR_DYP_Popularity
+			min = 0
+			max = 100
+		}
+		clamp_variable = {
+			var = TUR_CHP_Popularity
+			min = 0
+			max = 100
+		}
+		clamp_variable = {
+			var = TUR_UDP_Popularity
+			min = 0
+			max = 100
+		}
+		TUR_Pie_Chart_Update = yes
+	}
+	custom_effect_tooltip = TUR_UDP_popularity_change_tt
+}
+
+TUR_DoW_change_stage = {
+	hidden_effect = {
+		clamp_variable = {
+			var = TUR_DOW
+			min = 0
+			max = 100
+		}
+		
+		if = {
+			limit = {
+				is_on_stage1 = yes
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_idea = TUR_drums_of_war_1
+					}
+				}
+				remove_ideas = {
+					TUR_drums_of_war_2
+					TUR_drums_of_war_3
+				}
+				add_ideas = TUR_drums_of_war_1
+			}
+		}
+		if = {
+			limit = {
+				is_on_stage2 = yes
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_idea = TUR_drums_of_war_2
+					}
+				}
+				remove_ideas = {
+					TUR_drums_of_war_1
+					TUR_drums_of_war_3
+				}
+				add_ideas = TUR_drums_of_war_2
+				#Give Inönü some positive traits
+			}
+		}
+		if = {
+			limit = {
+				is_on_stage3 = yes
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_idea = TUR_drums_of_war_3
+					}
+				}
+				remove_ideas = {
+					TUR_drums_of_war_1
+					TUR_drums_of_war_2
+				}
+				add_ideas = TUR_drums_of_war_3
+				#Give Inönü a negative trait
+			}
+		}
+	}
+}
+
+TUR_Kemalism_Arrow_change = {
+	if = {
+		limit = {
+			check_variable = { TUR_Kemalism_principle_1 < 30 }
+		}
+		set_variable = { 
+			var = TUR_Kemalism_principle_1_frame
+			value = 2
+		}
+	}
+	if = {
+		limit = {
+			check_variable = { TUR_Kemalism_principle_1 > 30 }
+		}
+		set_variable = { 
+			var = TUR_Kemalism_principle_1_frame
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			check_variable = { TUR_Kemalism_principle_2 < 30 }
+		}
+		set_variable = { 
+			var = TUR_Kemalism_principle_2_frame
+			value = 2
+		}
+	}
+	if = {
+		limit = {
+			check_variable = { TUR_Kemalism_principle_2 > 30 }
+		}
+		set_variable = { 
+			var = TUR_Kemalism_principle_2_frame
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			check_variable = { TUR_Kemalism_principle_3 < 30 }
+		}
+		set_variable = { 
+			var = TUR_Kemalism_principle_3_frame
+			value = 2
+		}
+	}
+	if = {
+		limit = {
+			check_variable = { TUR_Kemalism_principle_3 > 30 }
+		}
+		set_variable = { 
+			var = TUR_Kemalism_principle_3_frame
+			value = 1
+		}
+	}
+}
+
+TUR_Coup_Stage_Increase = {
+	if = {
+		limit = {
+				has_country_flag = coup_stage_10_enabled
+				NOT = { has_country_flag = coup_stage_9_enabled }
+			}
+			set_country_flag = coup_stage_9_enabled
+		}
+	else_if = {
+		limit = {
+			has_country_flag = coup_stage_9_enabled
+			NOT = { has_country_flag = coup_stage_8_enabled }
+		}
+		set_country_flag = coup_stage_8_enabled
+		}
+	else_if = {
+		limit = {
+			has_country_flag = coup_stage_8_enabled
+			NOT = { has_country_flag = coup_stage_7_enabled }
+		}
+		set_country_flag = coup_stage_7_enabled
+		}
+	else_if = {
+		limit = {
+			has_country_flag = coup_stage_7_enabled
+			NOT = { has_country_flag = coup_stage_6_enabled }
+		}
+		set_country_flag = coup_stage_6_enabled
+		}
+	else_if = {
+		limit = {
+			has_country_flag = coup_stage_6_enabled
+			NOT = { has_country_flag = coup_stage_5_enabled }
+		}
+		set_country_flag = coup_stage_5_enabled
+		}
+	else_if = {
+		limit = {
+			has_country_flag = coup_stage_5_enabled
+			NOT = { has_country_flag = coup_stage_4_enabled }
+		}
+		set_country_flag = coup_stage_4_enabled
+		}
+	else_if = {
+		limit = {
+			has_country_flag = coup_stage_4_enabled
+			NOT = { has_country_flag = coup_stage_3_enabled }
+		}
+		set_country_flag = coup_stage_3_enabled
+		}
+	else_if = {
+		limit = {
+			has_country_flag = coup_stage_3_enabled
+			NOT = { has_country_flag = coup_stage_2_enabled }
+		}
+		set_country_flag = coup_stage_2_enabled
+		}
+	else_if = {
+		limit = {
+			has_country_flag = coup_stage_2_enabled
+			NOT = { has_country_flag = coup_stage_1_enabled }
+		}
+		set_country_flag = coup_stage_1_enabled
+	}
+}
+
+TUR_calculate_peace_outcome_Greece = {
+	if = { ##### Total victory against Greece
+		limit = {
+			TUR = {
+				has_war_with = GRE
+				controls_state = 731
+				controls_state = 47
+				controls_state = 185
+				controls_state = 1262
+				controls_state = 186
+			}
+		}
+		GRE = {
+			save_global_event_target_as = losing_country
+			remove_ideas = ITW_surrender
+			country_event = { id = grePostITW.20 days = 2 }
+			# Remove naxos from greece resistance GUI calcs
+			remove_from_array = { 
+				array = GRE_Resistance_Government_Control 
+				index = 7
+			}
+			remove_from_array = { 
+				array = GRE_Resistance_EDES_Control 
+				index = 7
+			}
+			remove_from_array = { 
+				array = GRE_Resistance_EAM_Control 
+				index = 7
+			}
+			remove_from_array = { 
+				array = GRE_Resistance_State_Controller 
+				index = 7
+			}
+		}
+		TUR = {
+			save_global_event_target_as = winning_country
+			white_peace = GRE
+			transfer_state = 187
+			1263 = { set_demilitarized_zone = yes }
+			187 = { #Add a port to naxos so you can actually leave if you're stuck there
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					province = 13241
+				}
+			}
+			add_to_variable = { TUR_DOW = 20 }
+			TUR_DoW_change_stage = yes
+			set_country_flag = TUR_GTW_won
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+			add_to_variable = { TUR_ITW_win_counter = 1 }
+			unlock_national_focus = TUR_an_old_rival_a_new_war
+			unlock_national_focus = TUR_watching_the_border
+			unlock_national_focus = TUR_no_enemy_shall_step_on_turkish_soil
+			unlock_national_focus = TUR_onwards_to_athens
+			complete_national_focus = TUR_mutilation_progress
+		}
+		if = { #Early Turkish Victory also ends the Cyprus war
+			limit = {
+				NOT = { has_global_flag = Cyprus_War_Over }
+				has_global_flag = TUR_Cyprus_Conflict
+			}
+			GRE = { delete_unit_template_and_units = { division_template = "Ethnikí Frourá" } }
+			TUR = { delete_unit_template_and_units = { division_template = "Türk Mukavemat Teşkilatı" } }
+			TCP = {
+				transfer_state = 183
+				set_cosmetic_tag = TCP_unified
+			}
+			183 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 11984
+				}
+			}
+			1328 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 7193
+				}
+			}
+			TUR = { 
+				remove_mission = Liberate_North_Cyprus
+				remove_mission = Liberate_South_Cyprus
+				
+				unlock_national_focus = TUR_a_holiday_in_cyprus
+				unlock_national_focus = TUR_to_the_south
+				complete_national_focus = TUR_cyprus_cannot_remain_greek
+			}
+			
+		}
+		else_if = {
+			limit = { #If the Cyprus war hasn't even begun yet (~~paradrops~~ naval invasions), give turkey northern cyprus
+				NOT = { has_global_flag = TUR_Cyprus_Conflict }
+				NOT = { has_global_flag = Cyprus_War_Over }
+			}
+			TCP = {
+				transfer_state = 1328
+				#add_ideas = ITW_surrender
+				add_state_core = 1328
+				add_state_claim = 183
+			}
+			TUR = {
+				#load_oob = TUR_TCP
+				puppet = TCP
+			}
+			TCP = {
+				set_popularities = {
+					communist = 0
+					socialist = 0
+					social_democrat = 14
+					social_liberal = 0
+					social_conservative = 34
+					authoritarian_democrat = 52
+					despotism = 0
+					fascism = 0
+					national_socialism = 0
+					ultranational_socialism = 0
+					burgundian_system = 0
+				}
+			}
+			TCP = { set_cosmetic_tag = TCP_split }
+			add_to_variable = { TUR_ITW_win_counter = 1 }
+			#set_global_flag = Cyprus_War_Over #should this be set if the war never happened?
+		}
+	}
+	else_if = { ##### Victory against Greece
+		limit = {
+			TUR = {
+				has_war_with = GRE
+				controls_state = 731
+			}
+		}
+		GRE = {
+			save_global_event_target_as = losing_country
+			remove_ideas = ITW_surrender
+			country_event = { id = grePostITW.20 days = 2 }
+		}
+		TUR = {
+			save_global_event_target_as = winning_country
+			white_peace = GRE
+			transfer_state = 187
+			187 = { #Add a port to naxos so you can actually leave if you're stuck there
+				add_building_construction = {
+					type = naval_base
+					level = 1
+					province = 13241
+				}
+			}
+			add_to_variable = { TUR_DOW = 15 }
+			TUR_DoW_change_stage = yes
+			set_country_flag = TUR_GTW_won
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+			add_to_variable = { TUR_ITW_win_counter = 0.5 }
+			unlock_national_focus = TUR_an_old_rival_a_new_war
+			unlock_national_focus = TUR_watching_the_border
+			unlock_national_focus = TUR_no_enemy_shall_step_on_turkish_soil
+			unlock_national_focus = TUR_onwards_to_athens
+			complete_national_focus = TUR_mutilation_progress
+		}
+	}
+	else_if = { ##### Status Quo in Greece
+		limit = {
+			TUR = {
+				has_war_with = GRE
+				has_full_control_of_state = 184
+			}
+		}
+		GRE = {
+			save_global_event_target_as = winning_country
+			remove_ideas = ITW_surrender
+			country_event = { id = grePostITW.20 days = 2 }
+		}
+		TUR = {
+			save_global_event_target_as = losing_country #Counted as a loss for the popup since they don't actually take any land
+			white_peace = GRE
+			set_country_flag = TUR_GTW_lost
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+			unlock_national_focus = TUR_an_old_rival_a_new_war
+			unlock_national_focus = TUR_watching_the_border
+			unlock_national_focus = TUR_no_enemy_shall_step_on_turkish_soil
+			complete_national_focus = TUR_greece_holds
+		}
+	}
+	else_if = { ##### Total defeat against Greece
+		limit = {
+			GRE = {
+				controls_state = 184
+				controls_state = 1266
+				has_war_with = TUR
+			}
+		}
+		TUR = {
+			save_global_event_target_as = losing_country
+			set_country_flag = TUR_GTW_lost
+			add_to_variable = { TUR_ITW_win_counter = -3 }
+			unlock_national_focus = TUR_an_old_rival_a_new_war
+			unlock_national_focus = TUR_watching_the_border
+			#unlock_national_focus = TUR_no_enemy_shall_step_on_turkish_soil
+			complete_national_focus = TUR_greece_holds
+			add_to_variable = { TUR_DOW = -15 }
+			TUR_DoW_change_stage = yes
+		}
+		GRE = {
+			save_global_event_target_as = winning_country
+			remove_ideas = ITW_surrender
+			white_peace = TUR
+			transfer_state = 184
+			transfer_state = 1266
+			1267 = { set_demilitarized_zone = yes }
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+			country_event = { id = grePostITW.20 days = 2 }
+		}
+		if = { #Early Greek Victory also ends the cyprus war
+			limit = {
+				NOT = { has_global_flag = Cyprus_War_Over }
+			}
+			GRE = { annex_country = { target = TCP transfer_troops = no } }
+			GRE = { delete_unit_template_and_units = { division_template = "Ethnikí Frourá" } }
+			TUR = { delete_unit_template_and_units = { division_template = "Türk Mukavemat Teşkilatı" } }
+			183 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 11984
+				}
+			}
+			1328 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 7193
+				}
+			}
+			
+			TUR = {
+				remove_mission = Liberate_North_Cyprus
+				remove_mission = Liberate_South_Cyprus
+				
+				unlock_national_focus = TUR_a_holiday_in_cyprus
+				complete_national_focus = TUR_defeat_upon_the_beaches
+			}
+		}
+	}
+	else_if = { ##### Defeat against Greece
+		limit = {
+			TUR = {
+				has_war_with = GRE
+			}
+			GRE = {
+				controls_state = 184
+			}
+		}
+		TUR = {
+			save_global_event_target_as = losing_country
+			set_country_flag = TUR_GTW_lost
+			add_to_variable = { TUR_ITW_win_counter = -2 }
+			unlock_national_focus = TUR_an_old_rival_a_new_war
+			unlock_national_focus = TUR_watching_the_border
+			#unlock_national_focus = TUR_no_enemy_shall_step_on_turkish_soil
+			complete_national_focus = TUR_greece_holds
+			add_to_variable = { TUR_DOW = -10 }
+			TUR_DoW_change_stage = yes
+		}
+		GRE = {
+			save_global_event_target_as = winning_country
+			white_peace = TUR
+			transfer_state = 184
+			1266 = { set_demilitarized_zone = yes }
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+			country_event = { id = grePostITW.20 days = 2 }
+		}
+	}
+	else_if = { ##### Partial defeat against Greece
+		limit = {
+			TUR = {
+				has_war_with = GRE
+			}
+		}
+		TUR = {
+			save_global_event_target_as = losing_country
+			set_country_flag = TUR_GTW_lost
+			add_to_variable = { TUR_ITW_win_counter = -1 }
+			unlock_national_focus = TUR_an_old_rival_a_new_war
+			unlock_national_focus = TUR_watching_the_border
+			#unlock_national_focus = TUR_no_enemy_shall_step_on_turkish_soil
+			complete_national_focus = TUR_greece_holds
+			add_to_variable = { TUR_DOW = -5 }
+			TUR_DoW_change_stage = yes
+		}
+		GRE = {
+			save_global_event_target_as = winning_country
+			white_peace = TUR
+			184 = { set_demilitarized_zone = yes }
+			1266 = { set_demilitarized_zone = yes }
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+			country_event = { id = grePostITW.20 days = 2 }
+		}
+	}
+	#The stuff below happens for all peace deals.
+	# Puppeting resets Greece's ruling party and party popularities; save both and restore them
+	# after (TNO_useful_scripted_effects.txt).
+	GRE = {
+		save_party_popularities = yes
+		get_current_government_type = yes
+	}
+	ITA = { #Re-puppet Greece.
+		if = {
+			limit = { 
+				OR = { 
+					has_dlc = "Together for Victory" 
+					has_dlc = "Man the Guns" 
+				}
+			}
+			set_autonomy = {
+				target = GRE
+				autonomy_state = autonomy_italy_reliant
+			}	
+		}	
+		else = {
+			puppet = GRE
+		}
+	}
+	GRE = {
+		apply_party_popularities = yes
+		restore_previous_government_type = yes
+	}
+	TUR = { #Get rid of missions.
+		remove_mission = Liberate_North_Cyprus
+		remove_mission = Liberate_South_Cyprus
+		remove_mission = Hold_the_Line_vs_GRE
+		remove_mission = Hold_Dedeagac
+		remove_mission = Capture_Thessaloniki
+		remove_mission = Capture_Athens
+		remove_mission = Mop_Up_the_Greeks
+
+		TUR_DtS_Calculate_Regional_GDP_goals = yes
+	}
+	GRE = { #Get rid of bonus Thrace militia.
+		delete_unit_template_and_units = {
+			division_template = "Epitropí Apelefthérosis Thrákis"
+			disband = no #will not refund equipment and manpower
+		}
+	}
+	GRE = { #Clear ITW Flag
+		clr_country_flag = ITW_War
+	}
+}
+
+TUR_calculate_peace_outcome_Levant = {
+	if = {#In order to not screw up peace deals- calculate Iraq's gains BEFORE the levant's #Defeat against Iraq
+		limit = {
+			IRQ = { has_country_flag = IRQ_joined_ITW }
+			OR = {
+				AND = { #Method one for Iraq to get mosul- occupy it at peace deal time
+					781 = {
+						OR = {
+							is_controlled_by = IRQ
+							is_controlled_by = IME
+							is_controlled_by = LEB
+							is_controlled_by = JOR
+						}
+					}
+					1334 = {
+						OR = {
+							is_controlled_by = IRQ
+							is_controlled_by = IME
+							is_controlled_by = LEB
+							is_controlled_by = JOR
+						}
+					}
+				}
+				AND = { #Method two- have turkey be facing total defeat
+					TUR = {
+						has_war_with = IME
+						NOT = {
+							OR = {
+								controls_state = 1241
+								controls_state = 1242
+								controls_state = 1395
+								controls_state = 1370
+							}
+						}
+					}
+					SNS = {
+						NOT = {
+							OR = {
+								controls_state = 782
+								controls_state = 554
+								controls_state = 1372
+								controls_state = 1371
+								controls_state = 680
+							}
+						}
+					}
+				}
+			}
+		}
+		IRQ = {
+			annex_country = { target = BKU transfer_troops = no }
+			remove_ideas = ITW_surrender
+			white_peace = TUR
+			white_peace = SNS
+			white_peace = TCP
+			delete_unit_template_and_units = {
+				division_template = "Reserve Division"
+				disband = yes
+			}
+		}
+		add_to_variable = { TUR_ITW_win_counter = -2 }
+	}
+	else_if = { #Status Quo / Victory against Iraq
+		limit = { IRQ = { has_country_flag = IRQ_joined_ITW } }
+		IRQ = {
+			remove_ideas = ITW_surrender
+			white_peace = TUR
+			white_peace = SNS
+			white_peace = TCP
+			delete_unit_template_and_units = {
+				division_template = "Reserve Division"
+				disband = yes
+			}
+			transfer_state = 675
+			transfer_state = 924
+			transfer_state = 916
+			transfer_state = 1333
+			transfer_state = 291
+			transfer_state = 676
+			# Kuwait is the Gulf Governorate's: master's ITAENI events hand it over after the war
+			#STRIP(itw) transfer_state = 656
+			#transfer_state = 553
+		}
+	}
+	if = { ##### Total victory against the Levant
+		limit = {
+			TUR = {
+				controls_state = 1240
+				controls_state = 553
+				controls_state = 1306
+				controls_state = 1305
+				controls_state = 1368
+				controls_state = 1366
+				controls_state = 454
+				has_war_with = IME
+			}
+		}
+		IME = {
+			remove_ideas = ITW_surrender
+			save_global_event_target_as = losing_country
+		}
+		if = { limit = { country_exists = JOR } JOR = {
+			remove_ideas = ITW_surrender
+			#save_global_event_target_as = losing_country
+		} }
+		if = { limit = { country_exists = LEB } LEB = {
+			remove_ideas = ITW_surrender
+			#save_global_event_target_as = losing_country
+		} }
+		TUR = {
+			save_global_event_target_as = winning_country
+			white_peace = IME
+			if = { limit = { country_exists = LEB } white_peace = LEB }
+			if = { limit = { country_exists = JOR } white_peace = JOR }
+			set_country_flag = TUR_ITW_won
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+			add_to_variable = { TUR_ITW_win_counter = 1.5 }
+			unlock_national_focus = TUR_kuduse
+			unlock_national_focus = TUR_to_the_sea
+			unlock_national_focus = TUR_through_the_desert
+			unlock_national_focus = TUR_upon_the_dead_sea
+			unlock_national_focus = TUR_a_white_crescent_in_jerusalem
+			complete_national_focus = TUR_the_levant_subjugated
+			add_to_variable = { TUR_DOW = 20 }
+			TUR_DoW_change_stage = yes
+		}
+		SNS = { 
+			white_peace = IME 
+			if = { limit = { country_exists = LEB } white_peace = LEB }
+			if = { limit = { country_exists = JOR } white_peace = JOR }
+			transfer_state = 1240
+			transfer_state = 553
+			
+			transfer_state = 554
+			transfer_state = 680
+			transfer_state = 782
+			transfer_state = 1371
+			transfer_state = 1372
+			
+		}
+		BKU = { 
+			white_peace = IME 
+			if = { limit = { country_exists = LEB } white_peace = LEB }
+			if = { limit = { country_exists = JOR } white_peace = JOR }
+		}
+		IME = { white_peace = TCP } #so the levant doesn't attack newly turkish cyprus
+		if = { limit = { country_exists = JOR } JOR = { white_peace = TCP } }
+		if = { limit = { country_exists = LEB } LEB = { white_peace = TCP } }
+	}
+	else_if = { ##### Victory against the Levant
+		limit = {
+			TUR = {
+				has_war_with = IME
+				controls_state = 553
+				controls_state = 1240
+			}
+		}
+		IME = { save_global_event_target_as = losing_country }
+		#LEB = { save_global_event_target_as = losing_country }
+		#JOR = { save_global_event_target_as = losing_country }
+		TUR = {
+			save_global_event_target_as = winning_country
+			white_peace = IME
+			if = { limit = { country_exists = LEB } white_peace = LEB }
+			if = { limit = { country_exists = JOR } white_peace = JOR }
+			set_country_flag = TUR_ITW_won
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+			add_to_variable = { TUR_ITW_win_counter = 1 }
+			unlock_national_focus = TUR_kuduse
+			unlock_national_focus = TUR_to_the_sea
+			unlock_national_focus = TUR_through_the_desert
+			unlock_national_focus = TUR_upon_the_dead_sea
+			unlock_national_focus = TUR_a_white_crescent_in_jerusalem
+			complete_national_focus = TUR_the_levant_subjugated
+			add_to_variable = { TUR_DOW = 15 }
+			TUR_DoW_change_stage = yes
+		}
+		SNS = { 
+			white_peace = IME 
+			if = { limit = { country_exists = LEB } white_peace = LEB }
+			if = { limit = { country_exists = JOR } white_peace = JOR }
+			transfer_state = 1240
+			
+			transfer_state = 554
+			transfer_state = 680
+			transfer_state = 782
+			transfer_state = 1371
+			transfer_state = 1372
+			
+		}
+		BKU = { 
+			white_peace = IME
+			if = { limit = { country_exists = LEB } white_peace = LEB }
+			if = { limit = { country_exists = JOR } white_peace = JOR }
+		}
+		IME = { white_peace = TCP }
+		if = { limit = { country_exists = LEB } LEB = { white_peace = TCP } }
+		if = { limit = { country_exists = JOR } JOR = { white_peace = TCP } }
+	}
+	else_if = { ##### Total defeat against the Levant
+		limit = {
+			TUR = {
+				has_war_with = IME
+				NOT = {
+					OR = {
+						controls_state = 1241
+						controls_state = 1242
+						controls_state = 1395
+						controls_state = 1370
+					}
+				}
+			}
+			SNS = {
+				NOT = {
+					OR = {
+						controls_state = 782
+						controls_state = 554
+						controls_state = 1372
+						controls_state = 1371
+						controls_state = 680
+					}
+				}
+			}
+		}
+		TUR = {
+			save_global_event_target_as = losing_country
+			set_country_flag = TUR_ITW_lost
+			add_to_variable = { TUR_ITW_win_counter = -4 }
+			unlock_national_focus = TUR_kuduse
+			complete_national_focus = TUR_the_holy_city_out_of_reach
+			end_puppet = SNS
+			add_to_variable = { TUR_DOW = -15 }
+			TUR_DoW_change_stage = yes
+		}
+		IME = {
+			save_global_event_target_as = winning_country
+			remove_ideas = ITW_surrender
+			white_peace = TUR
+			white_peace = SNS
+			white_peace = BKU
+			white_peace = TCP
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+		}
+		if = { limit = { country_exists = LEB } LEB = {
+			remove_ideas = ITW_surrender
+			#save_global_event_target_as = winning_country
+			white_peace = TUR
+			white_peace = SNS
+			white_peace = BKU
+			white_peace = TCP
+			#set_global_flag = war_won
+			#set_global_flag = show_peace_popup_alert
+		} }
+		if = { limit = { country_exists = JOR } JOR = {
+			remove_ideas = ITW_surrender
+			#save_global_event_target_as = winning_country
+			white_peace = TUR
+			white_peace = SNS
+			white_peace = BKU
+			white_peace = TCP
+			#set_global_flag = war_won
+			#set_global_flag = show_peace_popup_alert
+		} }
+		SNS = {
+			transfer_state = 782
+			transfer_state = 554
+			transfer_state = 1372
+			transfer_state = 1371
+			transfer_state = 680
+			transfer_state = 1241
+			transfer_state = 1242
+			transfer_state = 1395
+			transfer_state = 1370
+			white_peace = IID
+			white_peace = GRE
+			set_cosmetic_tag = SNS_independent
+			#STRIP(dead_idea) remove_ideas = SNS_Local_Syrian_Government
+			set_party_name = {
+				ideology = despotism
+				name = SNS_independent_despotism_party
+				long_name = SNS_independent_despotism_party_long
+			}
+			set_country_flag = SNS_early_italian_backing
+		}
+		if = {
+			limit = {
+				IRQ = {
+					has_country_flag = IRQ_joined_ITW
+				}
+			}
+			SNS = {
+				# transfer_state = 1243
+				# transfer_state = 1396
+				# transfer_state = 1369
+				transfer_state = 1369
+			}
+		}
+	}
+	else_if = { ##### Defeat against the Levant
+		limit = {
+			TUR = { has_war_with = IME }
+			SNS = {
+				NOT = {
+					OR = {
+						controls_state = 782
+						controls_state = 554
+						controls_state = 1372
+						controls_state = 1371
+						controls_state = 680
+					}
+				}
+			}
+		}
+		TUR = {
+			save_global_event_target_as = losing_country
+			set_country_flag = TUR_ITW_lost
+			add_to_variable = { TUR_ITW_win_counter = -3 }
+			unlock_national_focus = TUR_kuduse
+			complete_national_focus = TUR_the_holy_city_out_of_reach
+			end_puppet = SNS
+			add_to_variable = { TUR_DOW = -10 }
+			TUR_DoW_change_stage = yes
+		}
+		IME = {
+			save_global_event_target_as = winning_country
+			white_peace = TUR
+			white_peace = SNS
+			white_peace = BKU
+			white_peace = TCP
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+		}
+		if = { limit = { country_exists = JOR } JOR = {
+			#save_global_event_target_as = winning_country
+			white_peace = TUR
+			white_peace = SNS
+			white_peace = BKU
+			white_peace = TCP
+			#set_global_flag = war_won
+			#set_global_flag = show_peace_popup_alert
+		} }
+		if = { limit = { country_exists = LEB } LEB = {
+			#save_global_event_target_as = winning_country
+			white_peace = TUR
+			white_peace = SNS
+			white_peace = BKU
+			white_peace = TCP
+			#set_global_flag = war_won
+			#set_global_flag = show_peace_popup_alert
+		} }
+		SNS = {
+			transfer_state = 782
+			transfer_state = 554
+			transfer_state = 1372
+			transfer_state = 1371
+			transfer_state = 680
+			transfer_state = 1242
+			transfer_state = 1370
+			white_peace = IID
+			white_peace = GRE
+			set_cosmetic_tag = SNS_independent
+			#STRIP(dead_idea) remove_ideas = SNS_Local_Syrian_Government
+			set_party_name = {
+				ideology = despotism
+				name = SNS_independent_despotism_party
+				long_name = SNS_independent_despotism_party_long
+			}
+			set_country_flag = SNS_early_italian_backing
+		}
+	}
+	else_if = { ##### Partial defeat against the Levant
+		limit = {
+			TUR = { has_war_with = IME }
+			SNS = {
+				NOT = {
+					controls_state = 554
+				}
+			}
+		}
+		TUR = {
+			save_global_event_target_as = losing_country
+			set_country_flag = TUR_ITW_lost
+			add_to_variable = { TUR_ITW_win_counter = -2 }
+			unlock_national_focus = TUR_kuduse
+			complete_national_focus = TUR_the_holy_city_out_of_reach
+			end_puppet = SNS
+		}
+		IME = {
+			save_global_event_target_as = winning_country
+			white_peace = TUR
+			white_peace = SNS
+			white_peace = BKU
+			white_peace = TCP
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+		}
+		if = { limit = { country_exists = LEB } LEB = {
+			#save_global_event_target_as = winning_country
+			white_peace = TUR
+			white_peace = SNS
+			white_peace = BKU
+			white_peace = TCP
+			#set_global_flag = war_won
+			#set_global_flag = show_peace_popup_alert
+		} }
+		if = { limit = { country_exists = JOR } JOR = {
+			#save_global_event_target_as = winning_country
+			white_peace = TUR
+			white_peace = SNS
+			white_peace = BKU
+			white_peace = TCP
+			#set_global_flag = war_won
+			#set_global_flag = show_peace_popup_alert
+		} }
+		SNS = {
+			transfer_state = 782
+			transfer_state = 554
+			transfer_state = 1372
+			transfer_state = 1371
+			transfer_state = 680
+			white_peace = IID
+			white_peace = GRE
+			set_cosmetic_tag = SNS_independent
+			#STRIP(dead_idea) remove_ideas = SNS_Local_Syrian_Government
+			set_party_name = {
+				ideology = despotism
+				name = SNS_independent_despotism_party
+				long_name = SNS_independent_despotism_party_long
+			}
+			set_country_flag = SNS_early_italian_backing
+		}
+	}
+	else_if = { ##### Status Quo in the Levant #checked last
+		limit = {
+			TUR = { has_war_with = IME }
+		}
+		IME = { save_global_event_target_as = winning_country }
+		TUR = {
+			save_global_event_target_as = losing_country #Counted as a loss for the popup since they don't actually take any land
+			white_peace = IME
+			if = { limit = { country_exists = LEB } white_peace = LEB }
+			if = { limit = { country_exists = JOR } white_peace = JOR }
+			set_country_flag = TUR_ITW_lost
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+			unlock_national_focus = TUR_kuduse
+			complete_national_focus = TUR_the_holy_city_out_of_reach
+			# add_to_variable = { TUR_DOW = -5 }
+			# TUR_DoW_change_stage = yes
+		}
+		SNS = {
+			white_peace = IME
+			if = { limit = { country_exists = LEB } white_peace = LEB }
+			if = { limit = { country_exists = JOR } white_peace = JOR }
+			transfer_state = 782
+			transfer_state = 554
+			transfer_state = 1372
+			transfer_state = 1371
+			transfer_state = 680
+		}
+		BKU = { 
+			white_peace = IME 
+			if = { limit = { country_exists = LEB } white_peace = LEB } 
+			if = { limit = { country_exists = JOR } white_peace = JOR } 
+		}
+		IME = { white_peace = TCP }
+		if = { limit = { country_exists = LEB } LEB = { white_peace = TCP } }
+		if = { limit = { country_exists = JOR } JOR = { white_peace = TCP } }
+	}
+	
+	IME = {
+		get_current_government_type = yes
+		ITA = { 
+			set_autonomy = { target = IME autonomy_state = autonomy_italy_governate }
+		}
+		restore_previous_government_type = yes
+		set_popularities = {
+			communist = 0
+			socialist = 0
+			social_democrat = 0
+			social_liberal = 0
+			social_conservative = 0
+			authoritarian_democrat = 10
+			despotism = 60
+			fascism = 30
+			national_socialism = 0
+			ultranational_socialism = 0
+			burgundian_system = 0
+		}
+		# master's IME carries on with its own post-war story (TUR_ITW_master_aftermath)
+		#STRIP(itw) country_event = {
+			#STRIP(itw) id = IMEskeleton.1 days = 20
+		#STRIP(itw) }
+	}
+	if = { limit = { country_exists = JOR } JOR = {
+		get_current_government_type = yes
+		ITA = {
+			set_autonomy = { target = JOR autonomy_state = autonomy_italy_reliant }
+		}
+		restore_previous_government_type = yes
+		set_popularities = {
+			communist = 0
+			ultranational_socialism = 0
+			socialist = 0
+			social_democrat = 0
+			social_liberal = 0
+			social_conservative = 10
+			authoritarian_democrat = 14
+			despotism = 76
+			fascism = 0
+			national_socialism = 0
+			burgundian_system = 0
+		}
+	} }
+	if = { limit = { country_exists = LEB } LEB = {
+		get_current_government_type = yes
+		ITA = {
+			set_autonomy = { target = LEB autonomy_state = autonomy_italy_reliant }
+		}
+		restore_previous_government_type = yes
+	} }
+	
+	TUR = {
+		remove_mission = Hold_the_Line_vs_IRQ
+		remove_mission = Hold_the_Line_vs_IME
+		remove_mission = Hold_Onto_Syria
+		remove_mission = Liberate_Kudus
+		remove_mission = Liberate_Kudus_Hold_units
+		remove_mission = Mop_Up_the_Levant
+
+		TUR_DtS_Calculate_Regional_GDP_goals = yes
+	}
+}
+
+TUR_72_MHP = {
+	##### MHP victory	
+	create_country_leader = {
+		name = "Alparslan Turkes"
+		desc = "POLITICS_ALPARSLAN_TURKES_DESC"
+		picture = "Portrait_Turkey_Alparslan_Turkes.dds"
+		expire = "1999.1.1"
+		ideology = authoritarian_democrat_national_social_conservative_subtype
+		traits = {}
+	}
+	remove_all_ministers = yes
+	add_ideas = TUR_Isa_Alptekin_hog
+	add_ideas = TUR_Necmettin_Erbakan_eco
+	add_ideas = TUR_Arif_Arvasi_for
+	add_ideas = TUR_med_Cemal_Gursel_sec
+	set_politics = { ruling_party = authoritarian_democrat }
+	set_party_name = {
+		ideology = authoritarian_democrat
+		long_name = TUR_med_fascism_party_long
+		name = TUR_med_fascism_party
+	}
+}
+
+
+
+TUR_72_TIP = {
+	##### TIP victory
+	set_politics = { ruling_party = socialist }
+	remove_all_ministers = yes
+	add_ideas = TUR_Mehmet_Ali_Aybar_hog
+	add_ideas = TUR_Kemal_Turkler_eco 
+	add_ideas = TUR_Avni_Erakalin_for
+}
+
+
+
+TUR_72_SODEP = {
+	##### SODEP victory	
+	set_politics = { ruling_party = social_liberal }
+	remove_all_ministers = yes
+	add_ideas = TUR_Besim_Ustunel_hog
+	add_ideas = TUR_Kasim_Gulek_eco
+	add_ideas = TUR_Abdi_Ipekci_for
+}
+
+
+
+TUR_72_CHPL = {
+	##### CHPL victory	
+	create_country_leader = {
+		name = "Fahri Koruturk"		
+		desc = "POLITICS_CELAL_BAYAR_DESC"
+		picture = "Portrait_Fahri_Koruturk.dds"
+		expire = "1999.1.1"
+		ideology = social_democrat_left_kemalism_subtype
+		traits = {}
+	}
+	set_politics = { ruling_party = social_democrat }
+	remove_all_ministers = yes
+	add_ideas = TUR_Bulent_Ecevit_hog
+	add_ideas = TUR_Deniz_Baykal_eco
+	add_ideas = TUR_Turan_Gunes_for
+}
+
+
+
+TUR_72_CHPR = {
+	##### CHPR victory
+	create_country_leader = {
+		name = "Cevdet Sunay"
+		desc = "POLITICS_CELAL_BAYAR_DESC"
+		picture = "Portrait_Turkey_Cevdet_Sunay.dds"
+		expire = "1999.1.1"
+		ideology = authoritarian_democrat_kemalism_subtype
+		traits = {}
+	}
+	set_politics = { ruling_party = authoritarian_democrat }
+	remove_all_ministers = yes
+	add_ideas = TUR_Nihat_Erim_hog
+	add_ideas = TUR_Ferit_Melen_eco
+	add_ideas = TUR_Sadi_Kocas_for
+}
+
+
+
+TUR_72_AP = {
+	##### AP victory	
+	create_country_leader = {
+		name = "Necip Fazil Kısakurek"
+		desc = "POLITICS_CELAL_BAYAR_DESC"
+		picture = "gfx/leaders/TUR/Portrait_Turkey_Necip_Fazil.dds"
+		expire = "1999.1.1"
+		ideology = social_conservative_islamic_social_conservative_subtype
+		traits = {}
+	}
+	set_politics = { ruling_party = social_conservative }
+	remove_all_ministers = yes
+	add_ideas = TUR_Suleyman_Demirel_hog
+	add_ideas = TUR_Mutlu_Menderes_eco
+	add_ideas = TUR_Ihsan_Sabri_Caglayangil_for
+}
+
+
+
+TUR_72_DP = {
+	##### DP victory	
+	create_country_leader = {
+		name = "Celâl Bayar"
+		desc = "POLITICS_CELAL_BAYAR_DESC"
+		picture = "Portrait_Turkey_Celal_Bayar.dds"
+		expire = "1999.1.1"
+		ideology = social_conservative_free_market_social_conservative_subtype
+		traits = {}
+	}
+	set_politics = { ruling_party = social_conservative }
+	remove_all_ministers = yes
+	add_ideas = TUR_Ahmet_Tevfik_Ileri_hog
+	add_ideas = TUR_Hasan_Polatkan_eco
+	add_ideas = TUR_Hayrettin_Erkmen_for
+}
+
+TUR_Maoist_Coup = {
+	load_focus_tree = TNO_turkey_mao_intro
+	set_politics = { ruling_party = communist }
+	set_cosmetic_tag = TUR_mao
+	#STRIP(ghost_tag) TIT = {
+		#STRIP(ghost_tag) set_cosmetic_tag = TUR
+		#STRIP(ghost_tag) set_politics = { ruling_party = despotism }
+		#STRIP(ghost_tag) create_country_leader = {
+			#STRIP(ghost_tag) name = "Cevdet Sunay"
+			#STRIP(ghost_tag) picture = "gfx/leaders/TUR/Portrait_Turkey_Cevdet_Sunay.dds"
+			#STRIP(ghost_tag) expire = "1999.1.1"
+			#STRIP(ghost_tag) ideology = despotism_military_junta_subtype
+			#STRIP(ghost_tag) traits = {}
+		#STRIP(ghost_tag) }
+		#STRIP(ghost_tag) set_popularities = {
+			#STRIP(ghost_tag) communist = 0
+			#STRIP(ghost_tag) ultranational_socialism = 0
+			#STRIP(ghost_tag) national_socialism = 0
+			#STRIP(ghost_tag) socialist = 0
+			#STRIP(ghost_tag) social_democrat = 0
+			#STRIP(ghost_tag) social_liberal = 0
+			#STRIP(ghost_tag) social_conservative = 0
+			#STRIP(ghost_tag) authoritarian_democrat = 21
+			#STRIP(ghost_tag) despotism = 79
+			#STRIP(ghost_tag) fascism = 0
+		#STRIP(ghost_tag) }
+		#STRIP(ghost_tag) transfer_state = 341
+		#STRIP(ghost_tag) transfer_state = 340
+		#STRIP(ghost_tag) transfer_state = 339
+		#STRIP(ghost_tag) transfer_state = 342
+		#STRIP(ghost_tag) transfer_state = 1267
+		#STRIP(ghost_tag) if = {
+			#STRIP(ghost_tag) limit = {
+				#STRIP(ghost_tag) TUR = {
+					#STRIP(ghost_tag) controls_state = 1266
+				#STRIP(ghost_tag) }
+			#STRIP(ghost_tag) }
+			#STRIP(ghost_tag) transfer_state = 1266
+		#STRIP(ghost_tag) }
+		#STRIP(ghost_tag) if = {
+			#STRIP(ghost_tag) limit = {
+				#STRIP(ghost_tag) TUR = {
+					#STRIP(ghost_tag) controls_state = 184
+				#STRIP(ghost_tag) }
+			#STRIP(ghost_tag) }
+			#STRIP(ghost_tag) transfer_state = 184
+		#STRIP(ghost_tag) }
+		#STRIP(ghost_tag) if = {
+			#STRIP(ghost_tag) limit = {
+				#STRIP(ghost_tag) TUR = {
+					#STRIP(ghost_tag) controls_state = 164
+				#STRIP(ghost_tag) }
+			#STRIP(ghost_tag) }
+			#STRIP(ghost_tag) transfer_state = 164
+		#STRIP(ghost_tag) }
+		#STRIP(ghost_tag) declare_war_on = { type = annex_everything target = TUR }
+	#STRIP(ghost_tag) }
+}
+
+TUR_EsoKemalist_Coup = {
+	load_focus_tree = TNO_turkey_9m_intro
+	set_politics = { ruling_party = burgundian_system }
+	set_cosmetic_tag = TUR_9m
+}
+
+TUR_TV_set_up = {
+	set_variable = { TUR_japan_popularity = 32 }
+    set_variable = { TUR_america_popularity = 29 }
+	set_variable = { TUR_turkey_popularity = 39 }
+	TUR_TV_update_GUI = yes
+}
+TUR_TV_update_GUI = {
+	clamp_variable = { var = TUR_japan_popularity min = 0 max = 100 }
+	clamp_variable = { var = TUR_america_popularity min = 0 max = 100 }
+	clamp_variable = { var = TUR_turkey_popularity min = 0 max = 100 }
+	
+    set_variable = { TUR_japan_pop = TUR_japan_popularity }
+    set_variable = { TUR_america_pop = TUR_america_popularity }
+	set_variable = { TUR_turkey_pop = TUR_turkey_popularity }
+
+    # Compute start and end values
+    # America is first so its start is 0 and end is just its %
+    set_temp_variable = { TUR_america_pop_temp = 0 }
+    set_temp_variable = { TUR_america_pop_end = TUR_america_pop }
+
+    # Compute frame = SSSEEE by shifting over the start number 3 places and adding the end number
+    set_variable = { TUR_america_pop_show = TUR_america_pop_temp } 
+    round_variable = TUR_america_pop_show
+    multiply_variable = { TUR_america_pop_show = 1000 }
+    add_to_variable = { TUR_america_pop_show = TUR_america_pop_end }
+
+    # Compute start and end values
+    # Japan starts where America ends
+    set_temp_variable = { TUR_japan_pop_temp = TUR_america_pop_end }
+    set_temp_variable = { TUR_japan_pop_end = TUR_japan_pop_temp }
+    add_to_temp_variable = { TUR_japan_pop_end = TUR_japan_pop }
+
+    set_variable = { TUR_japan_pop_show = TUR_japan_pop_temp } 
+    round_variable = TUR_japan_pop_show 
+    multiply_variable = { TUR_japan_pop_show = 1000 }
+    add_to_variable = { TUR_japan_pop_show = TUR_japan_pop_end }
+
+	# Next is Turkey, starts where Japan ends
+	set_temp_variable = { TUR_turkey_pop_temp = TUR_japan_pop_end }
+    set_temp_variable = { TUR_turkey_pop_end = TUR_turkey_pop_temp }
+    add_to_temp_variable = { TUR_turkey_pop_end = TUR_turkey_pop }
+
+    set_variable = { TUR_turkey_pop_show = TUR_turkey_pop_temp } 
+    round_variable = TUR_turkey_pop_show 
+    multiply_variable = { TUR_turkey_pop_show = 1000 }
+    add_to_variable = { TUR_turkey_pop_show = TUR_turkey_pop_end }
+}
+TUR_TV_increase_USA_influence_small = {
+	add_to_variable = { TUR_america_popularity = 3 }
+	add_to_variable = { TUR_turkey_popularity = -1.5 }
+	add_to_variable = { TUR_japan_popularity = -1.5 }
+	custom_effect_tooltip = TUR_TV_increase_USA_influence_small_tt
+	TUR_TV_update_GUI = yes
+}
+TUR_TV_increase_USA_influence_large = {
+	add_to_variable = { TUR_america_popularity = 5 }
+	add_to_variable = { TUR_turkey_popularity = -2.5 }
+	add_to_variable = { TUR_japan_popularity = -2.5 }
+	custom_effect_tooltip = TUR_TV_increase_USA_influence_large_tt
+	TUR_TV_update_GUI = yes
+}
+TUR_TV_decrease_USA_influence = {
+	add_to_variable = { TUR_america_popularity = -5 }
+	add_to_variable = { TUR_turkey_popularity = 2.5 }
+	add_to_variable = { TUR_japan_popularity = 2.5 }
+	custom_effect_tooltip = TUR_TV_decrease_USA_influence_tt
+	TUR_TV_update_GUI = yes
+}
+TUR_TV_increase_JAP_influence_small = {
+	add_to_variable = { TUR_japan_popularity = 3 }
+	add_to_variable = { TUR_turkey_popularity = -1.5 }
+	add_to_variable = { TUR_america_popularity = -1.5 }
+	custom_effect_tooltip = TUR_TV_increase_JAP_influence_small_tt
+	TUR_TV_update_GUI = yes
+}
+TUR_TV_increase_JAP_influence_large = {
+	add_to_variable = { TUR_japan_popularity = 5 }
+	add_to_variable = { TUR_turkey_popularity = -2.5 }
+	add_to_variable = { TUR_america_popularity = -2.5 }
+	custom_effect_tooltip = TUR_TV_increase_JAP_influence_large_tt
+	TUR_TV_update_GUI = yes
+}
+TUR_TV_decrease_JAP_influence = {
+	add_to_variable = { TUR_japan_popularity = -5 }
+	add_to_variable = { TUR_turkey_popularity = 2.5 }
+	add_to_variable = { TUR_america_popularity = 2.5 }
+	custom_effect_tooltip = TUR_TV_decrease_JAP_influence_tt
+	TUR_TV_update_GUI = yes
+}
+TUR_TV_increase_TUR_influence_small = {
+	add_to_variable = { TUR_turkey_popularity = 3 }
+	add_to_variable = { TUR_america_popularity = -1.5 }
+	add_to_variable = { TUR_japan_popularity = -1.5 }
+	custom_effect_tooltip = TUR_TV_increase_TUR_influence_small_tt
+	TUR_TV_update_GUI = yes
+}
+TUR_TV_increase_TUR_influence_large = {
+	add_to_variable = { TUR_turkey_popularity = 5 }
+	add_to_variable = { TUR_america_popularity = -2.5 }
+	add_to_variable = { TUR_japan_popularity = -2.5 }
+	custom_effect_tooltip = TUR_TV_increase_TUR_influence_large_tt
+	TUR_TV_update_GUI = yes
+}
+TUR_TV_decrease_TUR_influence = {
+	add_to_variable = { TUR_turkey_popularity = -5 }
+	add_to_variable = { TUR_america_popularity = 2.5 }
+	add_to_variable = { TUR_japan_popularity = 2.5 }
+	custom_effect_tooltip = TUR_TV_decrease_TUR_influence_tt
+	TUR_TV_update_GUI = yes
+}

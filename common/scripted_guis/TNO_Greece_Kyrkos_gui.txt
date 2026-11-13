@@ -1,0 +1,36 @@
+scripted_gui = {
+    TNO_GRE_kyrkos_referendum_gui = { 
+		context_type = decision_category
+		window_name = "TNO_GRE_kyrkos_referendum_gui"
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			always = yes
+		}
+		effects = {
+			GRE_kyrkos_referendum_pass_click = {
+				GRE_kyrkos_pass_constitution = yes
+			}
+		}
+		triggers = {
+			GRE_kyrkos_referendum_reform_bar_visible = {
+				check_variable = { GRE_kyrkos_constitution_reform_level > 0 }
+			}
+			GRE_kyrkos_referendum_popularity_bar_pink_visible = {
+				check_variable = { GRE_kyrkos_constitution_popular_support < 100 }
+			}
+			GRE_kyrkos_referendum_popularity_bar_red_visible = {
+				check_variable = { GRE_kyrkos_constitution_popular_support > 0 }
+			}
+		}
+		properties = {
+			GRE_kyrkos_referendum_reform_bar = {
+				frame = GRE_kyrkos_constitution_reform_level
+			}
+			GRE_kyrkos_referendum_popularity_bar_pink = {
+				frame = GRE_kyrkos_constitution_popular_support_negative
+			}
+			GRE_kyrkos_referendum_popularity_bar_red = {
+				frame = GRE_kyrkos_constitution_popular_support
+			}
+		}	
+	}
+}

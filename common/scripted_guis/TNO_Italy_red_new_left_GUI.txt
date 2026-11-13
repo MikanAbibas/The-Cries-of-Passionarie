@@ -1,0 +1,89 @@
+scripted_gui = {
+	TNO_ITA_RED_a_bird_and_its_cage = {
+		context_type = decision_category
+		window_name = "TNO_ITA_RED_a_bird_and_its_cage"
+
+		visible = {
+		}
+
+		triggers = {
+			ITA_RED_a_bird_and_its_cage_domestic_click_enabled = {
+				check_variable = { ITA_RED_feltrinelli_zone = 1 }
+			}
+			ITA_RED_a_bird_and_its_cage_office_domestic_sign_on_visible = {
+				check_variable = { ITA_RED_feltrinelli_zone = 1 }
+			}
+			ITA_RED_a_bird_and_its_cage_office_domestic_sign_off_visible = {
+				NOT = { check_variable = { ITA_RED_feltrinelli_zone = 1 } }
+			}
+			ITA_RED_a_bird_and_its_cage_travel_click_enabled = {
+				check_variable = { ITA_RED_feltrinelli_zone = 2 }
+			}
+			ITA_RED_a_bird_and_its_cage_office_domestic_sign_travel_on_visible = {
+				check_variable = { ITA_RED_feltrinelli_zone = 2 }
+			}
+			ITA_RED_a_bird_and_its_cage_office_domestic_sign_travel_off_visible = {
+				NOT = { check_variable = { ITA_RED_feltrinelli_zone = 2 } }
+			}
+			ITA_RED_a_bird_and_its_cage_abroad_click_enabled = {
+				check_variable = { ITA_RED_feltrinelli_zone = 3 }
+			}
+			ITA_RED_a_bird_and_its_cage_office_abroad_sign_on_visible = {
+				check_variable = { ITA_RED_feltrinelli_zone = 3 }
+			}
+			ITA_RED_a_bird_and_its_cage_office_abroad_sign_off_visible = {
+				NOT = { check_variable = { ITA_RED_feltrinelli_zone = 3 } }
+			}
+		}
+
+		effects = {
+		}
+
+		properties = {
+			ITA_RED_feltrinelli_domestic_opinion_progbar = { frame = ITA_RED_feltrinelli_domestic }
+			ITA_RED_feltrinelli_abroad_opinion_progbar = { frame = ITA_RED_feltrinelli_international_display }
+		}
+	}
+	TNO_ITA_RED_democracy_is_the_rifle_on_the_workers_shoulder = {
+		context_type = decision_category
+		window_name = "TNO_ITA_RED_democracy_is_the_rifle_on_the_workers_shoulder"
+
+		visible = {
+		}
+
+		triggers = {
+		ITA_RED_Workers_Name_click_enabled = {
+			NOT = {check_variable = {ITA_RED_Negri_Focus = 1}}
+			}
+		ITA_RED_Square_Name_click_enabled = {
+			NOT = {check_variable = {ITA_RED_Negri_Focus = 2}}
+			}
+		ITA_RED_Students_Name_click_enabled = {
+			NOT = {check_variable = {ITA_RED_Negri_Focus = 3}}
+			}
+		}
+
+		effects = {
+		}
+
+		properties = {
+			ITA_RED_Negri_GUI_Workers = {image = [GetWorkersStatus]}
+			ITA_RED_Negri_GUI_Square = {image = [GetSquareStatus]}
+			ITA_RED_Negri_GUI_Students = {image = [GetStudentsStatus]}
+			ITA_RED_Negri_Entry = {image = [GetSpecialEventsIcon]}
+			ITA_RED_Workers_bar = {frame = ITA_RED_Workers_Tendecies}
+			ITA_RED_Square_bar = {frame = ITA_RED_Square_Tendecies}
+			ITA_RED_Students_bar = {frame = ITA_RED_Students_Tendecies}
+		}
+
+		dynamic_lists = {
+			ITA_RED_Negri_Events = {
+				array = ITA_RED_Negri_Events
+				index = i
+				change_scope = no
+
+				entry_container = ITA_RED_Negri_Events_Entry
+			}
+		}
+	}
+}

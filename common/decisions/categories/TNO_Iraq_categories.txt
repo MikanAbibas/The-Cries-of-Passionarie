@@ -1,0 +1,30 @@
+IRQ_political_hell = {
+	icon = decision_category_generic_political_actions
+
+	picture = GFX_IRQ_decision_political_situation
+	visible_when_empty = yes
+	allowed = {
+		original_tag = IRQ
+	}
+}
+
+# Stopgap post-war content. Only loaded for Iraq and only shown once the Oil Crisis
+# civil war is over and won by Baghdad (BIR/IRP/SNI gone, no active war).
+IRQ_postwar_decisions = {
+
+	icon = GFX_decision_category_generic_foreign_policy
+
+	allowed = {
+		original_tag = IRQ
+	}
+
+	visible = {
+		tag = IRQ
+		has_global_flag = Iraq_CW
+		NOT = { country_exists = BIR }
+		NOT = { country_exists = IRP }
+		NOT = { country_exists = SNI }
+	}
+
+	priority = 100
+}

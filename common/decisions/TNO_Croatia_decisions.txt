@@ -1,0 +1,1473 @@
+CRO_government_control = {
+
+	# --- Repeating decay mission: government control naturally erodes during the intermission. ---
+	CRO_government_control_decay = {
+		allowed = { tag = CRO }
+		activation = {
+			has_country_flag = CRO_intermission_active
+			has_country_flag = CRO_sympathy_government
+		}
+		available = {
+			always = no
+		}
+		is_good = no
+		fire_only_once = no
+		days_mission_timeout = 30
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mission timeout CRO_government_control_decay"
+			set_temp_variable = { CRO_gov_control_change = -15 }
+			CRO_apply_gov_control_change = yes
+			activate_mission = CRO_government_control_decay
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	# --- Player (CRO): shore up the government (costs PP). ---
+	CRO_strengthen_government = {
+		allowed = { tag = CRO }
+		visible = {
+			has_country_flag = CRO_intermission_active
+			has_country_flag = CRO_sympathy_government
+		}
+		available = {
+			has_country_flag = CRO_intermission_active
+			has_country_flag = CRO_sympathy_government
+			NOT = { check_variable = { CRO_gov_control > 95 } }
+		}
+		cost = 75
+		days_re_enable = 45
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_strengthen_government"
+			set_temp_variable = { CRO_gov_control_change = 10 }
+			CRO_apply_gov_control_change = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 50
+				check_variable = { CRO_gov_control < 70 }
+			}
+			modifier = {
+				add = 100
+				check_variable = { CRO_gov_control < 50 }
+			}
+			modifier = {
+				add = 250
+				check_variable = { CRO_gov_control < 40 }
+			}
+			# Don't strip the treasury bare for it.
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 90 }
+			}
+		}
+	}
+
+	# --- Player (CRO): lean on Rome for support (raises control, deepens Italian power). ---
+	CRO_request_italian_support = {
+		allowed = { tag = CRO }
+		visible = {
+			has_country_flag = CRO_intermission_active
+			has_country_flag = CRO_sympathy_government
+			is_subject_of = ITA
+		}
+		available = {
+			has_country_flag = CRO_intermission_active
+			has_country_flag = CRO_sympathy_government
+			is_subject_of = ITA
+		}
+		cost = 50
+		days_re_enable = 60
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_request_italian_support"
+			set_temp_variable = { CRO_gov_control_change = 8 }
+			CRO_apply_gov_control_change = yes
+			set_temp_variable = { CRO_italian_power_change = 0.1 }
+			CRO_apply_italian_power_change = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 40
+				check_variable = { CRO_gov_control < 55 }
+			}
+			modifier = {
+				add = 150
+				check_variable = { CRO_gov_control < 38 }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+	# --- Rebels (Ustase/Partisan sympathy): erode the government's grip. ---
+	CRO_undermine_the_government = {
+		allowed = { tag = CRO }
+		visible = {
+			has_country_flag = CRO_intermission_active
+			OR = {
+				has_country_flag = CRO_sympathy_ustase
+				has_country_flag = CRO_sympathy_tito
+			}
+		}
+		available = {
+			has_country_flag = CRO_intermission_active
+			check_variable = { CRO_gov_control > 0 }
+		}
+		cost = 75
+		days_re_enable = 45
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_undermine_the_government"
+			set_temp_variable = { CRO_gov_control_change = -10 }
+			CRO_apply_gov_control_change = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 200
+				has_country_flag = CRO_intermission_active
+			}
+			# Push hardest once the coup is in reach.
+			modifier = {
+				add = 150
+				check_variable = { CRO_gov_control < 45 }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 80 }
+			}
+		}
+	}
+
+	CRO_spread_dissent = {
+		allowed = { tag = CRO }
+		visible = {
+			has_country_flag = CRO_intermission_active
+			OR = {
+				has_country_flag = CRO_sympathy_ustase
+				has_country_flag = CRO_sympathy_tito
+			}
+		}
+		available = {
+			has_country_flag = CRO_intermission_active
+			check_variable = { CRO_gov_control > 0 }
+		}
+		cost = 40
+		days_re_enable = 30
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_spread_dissent"
+			set_temp_variable = { CRO_gov_control_change = -6 }
+			CRO_apply_gov_control_change = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 250
+				has_country_flag = CRO_intermission_active
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 45 }
+			}
+		}
+	}
+
+	# --- Germany (GER): sabotage the Italian puppet's grip. Same category, tag-gated. ---
+	GER_sabotage_zagreb = {
+		allowed = { tag = GER }
+		visible = {
+			tag = GER
+			CRO = {
+				has_country_flag = CRO_intermission_active
+				is_subject_of = ITA
+			}
+		}
+		available = {
+			CRO = {
+				has_country_flag = CRO_intermission_active
+				check_variable = { CRO_gov_control > 0 }
+			}
+		}
+		cost = 35
+		days_re_enable = 45
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_sabotage_zagreb"
+			CRO = {
+				set_temp_variable = { CRO_gov_control_change = -12 }
+				CRO_apply_gov_control_change = yes
+			}
+		}
+		ai_will_do = {
+			factor = 0
+			# Only with political power to spare — Germany has bigger fires.
+			modifier = {
+				add = 25
+				has_political_power > 250
+				CRO = { check_variable = { CRO_gov_control > 35 } }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 200 }
+			}
+		}
+	}
+
+	GER_fund_the_ustase_underground = {
+		allowed = { tag = GER }
+		visible = {
+			tag = GER
+			CRO = {
+				has_country_flag = CRO_intermission_active
+				is_subject_of = ITA
+			}
+		}
+		available = {
+			CRO = {
+				has_country_flag = CRO_intermission_active
+				check_variable = { CRO_gov_control > 0 }
+			}
+		}
+		cost = 15
+		days_re_enable = 30
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_fund_the_ustase_underground"
+			CRO = {
+				set_temp_variable = { CRO_gov_control_change = -7 }
+				CRO_apply_gov_control_change = yes
+			}
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 30
+				has_political_power > 150
+				CRO = { check_variable = { CRO_gov_control > 30 } }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 120 }
+			}
+		}
+	}
+
+	# --- Italy (ITA): prop up the Zagreb government (boosts CRO's control). Same category, tag-gated. ---
+	ITA_prop_up_zagreb = {
+		allowed = { tag = ITA }
+		visible = {
+			tag = ITA
+			CRO = {
+				has_country_flag = CRO_intermission_active
+				is_subject_of = ITA
+			}
+		}
+		available = {
+			CRO = {
+				has_country_flag = CRO_intermission_active
+				check_variable = { CRO_gov_control > 0 }
+			}
+		}
+		cost = 30
+		days_re_enable = 45
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_prop_up_zagreb"
+			CRO = {
+				set_temp_variable = { CRO_gov_control_change = 12 }
+				CRO_apply_gov_control_change = yes
+			}
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 40
+				CRO = { check_variable = { CRO_gov_control < 60 } }
+			}
+			# Zagreb is about to fall — Rome cannot afford to lose it.
+			modifier = {
+				add = 120
+				CRO = { check_variable = { CRO_gov_control < 40 } }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 150 }
+			}
+		}
+	}
+}
+
+# ===================== Intermission: the state endures (rebel clock) =====================
+CRO_state_endures_category = {
+
+	# Rebels must collapse Government Control before this runs out, else the government wins.
+	CRO_the_state_endures = {
+		allowed = { tag = CRO }
+		activation = {
+			has_country_flag = CRO_intermission_active
+			OR = {
+				has_country_flag = CRO_sympathy_ustase
+				has_country_flag = CRO_sympathy_tito
+			}
+		}
+		available = { always = no }
+		cancel_trigger = {
+			OR = {
+				has_country_flag = CRO_couped
+				has_country_flag = CRO_path_resolved
+			}
+		}
+		is_good = no
+		fire_only_once = yes
+		days_mission_timeout = 380
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mission timeout CRO_the_state_endures (government wins)"
+			if = {
+				limit = { NOT = { has_country_flag = CRO_couped } }
+				country_event = { id = cro.121 }
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+}
+
+# ===================== Phase 5: civil war survival (180-day window) =====================
+CRO_civil_war = {
+
+	# CRO (Ustase): hold out against Rome for 180 days -> break off independent.
+	CRO_hold_out_against_rome = {
+		allowed = { original_tag = CRO }
+		activation = {
+			always = no
+		}
+		available = { always = no }
+		# Also cancel when Croatia has plainly lost: the mission used to run its
+		# full 180 days after the Ustase or the Partisans were beaten and then
+		# declare them the winner anyway.
+		cancel_trigger = {
+			OR = {
+				has_global_flag = CRO_civil_war_resolved
+				has_capitulated = yes
+				NOT = { has_war_with = ITA }
+			}
+		}
+		is_good = yes
+		# NOT fire_only_once: four routes arm this mission and only one runs per game,
+		# but an earlier route that armed it and then hit cancel_trigger used to burn
+		# it for good, which killed cro.110 and left CRO_civil_war_resolved unset.
+		days_mission_timeout = 180
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mission timeout CRO_hold_out_against_rome"
+			country_event = { id = cro.110 }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	# --- Germany (GER): back the Ustase in the civil war. ---
+	GER_arm_the_ustase = {
+		allowed = { tag = GER }
+		visible = {
+			tag = GER
+			has_global_flag = CRO_civil_war_active
+			CRO = { has_government = national_socialism }
+		}
+		available = {
+			NOT = { has_global_flag = CRO_civil_war_resolved }
+		}
+		cost = 50
+		days_re_enable = 45
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_arm_the_ustase"
+			CRO = {
+				add_equipment_to_stockpile = { type = infantry_equipment amount = 3000 producer = GER }
+			}
+		}
+		ai_will_do = { factor = 5 }
+	}
+
+	# Opens the volunteer channel to Zagreb (see DIPLOMACY_SEND_VOLUNTEERS_ENABLE_TRIGGER).
+	GER_volunteers_for_zagreb = {
+		allowed = { tag = GER }
+		visible = {
+			tag = GER
+			has_global_flag = CRO_civil_war_active
+			CRO = { has_government = national_socialism }
+			NOT = { has_country_flag = GER_croatian_intervention }
+		}
+		available = {
+			NOT = { has_global_flag = CRO_civil_war_resolved }
+		}
+		cost = 5
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_volunteers_for_zagreb"
+			set_country_flag = GER_croatian_intervention
+			custom_effect_tooltip = GER_volunteers_for_zagreb_tt
+		}
+		ai_will_do = { factor = 20 }
+	}
+
+	GER_manpower_for_zagreb = {
+		allowed = { tag = GER }
+		visible = {
+			tag = GER
+			has_global_flag = CRO_civil_war_active
+			CRO = { has_government = national_socialism }
+		}
+		available = {
+			NOT = { has_global_flag = CRO_civil_war_resolved }
+		}
+		cost = 75
+		days_re_enable = 90
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_manpower_for_zagreb"
+			CRO = {
+				add_manpower = 10000
+			}
+		}
+		ai_will_do = { factor = 3 }
+	}
+}
+
+# ===================== Phase 6: Titotangle leadership decisions =====================
+CRO_titotangle = {
+
+	CRO_appease_tito = {
+		allowed = { original_tag = CRO }
+		visible = { has_country_flag = CRO_revolution_active }
+		available = {
+			has_country_flag = CRO_revolution_active
+			NOT = { check_variable = { CRO_tito_balance > 90 } }
+		}
+		cost = 25
+		days_re_enable = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_appease_tito"
+			add_to_variable = { CRO_tito_balance = 10 }
+			CROTitoTangle_calcXY = yes
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	CRO_appease_hebrang = {
+		allowed = { original_tag = CRO }
+		visible = { has_country_flag = CRO_revolution_active }
+		available = {
+			has_country_flag = CRO_revolution_active
+			NOT = { check_variable = { CRO_hebrang_balance > 90 } }
+		}
+		cost = 25
+		days_re_enable = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_appease_hebrang"
+			add_to_variable = { CRO_hebrang_balance = 10 }
+			CROTitoTangle_calcXY = yes
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	CRO_appease_bakaric = {
+		allowed = { original_tag = CRO }
+		visible = { has_country_flag = CRO_revolution_active }
+		available = {
+			has_country_flag = CRO_revolution_active
+			NOT = { check_variable = { CRO_bakaric_balance > 90 } }
+		}
+		cost = 25
+		days_re_enable = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_appease_bakaric"
+			add_to_variable = { CRO_bakaric_balance = 10 }
+			CROTitoTangle_calcXY = yes
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+}
+
+# ===================== Zvonimir path: reduce Italian Power =====================
+CRO_italian_power_category = {
+
+	CRO_expel_italian_advisors = {
+		allowed = { original_tag = CRO }
+		visible = { has_completed_focus = CRO_the_prince }
+		available = {
+			check_variable = { CRO_italian_power > 0 }
+		}
+		cost = 75
+		days_re_enable = 90
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_expel_italian_advisors"
+			set_temp_variable = { CRO_italian_power_change = -0.10 }
+			CRO_apply_italian_power_change = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 60
+				check_variable = { CRO_italian_power > 0.2 }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 90 }
+			}
+		}
+	}
+
+	CRO_croatian_officer_corps = {
+		allowed = { original_tag = CRO }
+		visible = { has_completed_focus = CRO_the_prince }
+		available = {
+			check_variable = { CRO_italian_power > 0 }
+		}
+		cost = 40
+		days_re_enable = 45
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_croatian_officer_corps"
+			set_temp_variable = { CRO_italian_power_change = -0.05 }
+			CRO_apply_italian_power_change = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 80
+				check_variable = { CRO_italian_power > 0 }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 50 }
+			}
+		}
+	}
+
+	CRO_nationalize_italian_concerns = {
+		allowed = { original_tag = CRO }
+		visible = { has_completed_focus = CRO_the_prince }
+		available = {
+			check_variable = { CRO_italian_power > 0 }
+		}
+		cost = 100
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_nationalize_italian_concerns"
+			set_temp_variable = { CRO_italian_power_change = -0.15 }
+			CRO_apply_italian_power_change = yes
+			ITA = { add_opinion_modifier = { target = CRO modifier = embargo } }
+		}
+		ai_will_do = {
+			factor = 0
+			# The nuclear option: only once Rome's grip is already loosened.
+			modifier = {
+				add = 40
+				check_variable = { CRO_italian_power < 0.35 }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 130 }
+			}
+		}
+	}
+}
+
+# ===================== Partisan activity suppression =====================
+CRO_partisan_activity_category = {
+
+	CRO_anti_partisan_sweep = {
+		allowed = { original_tag = CRO }
+		visible = {
+			OR = {
+			has_idea = CRO_PARTISAN_ACTIVITY
+			has_idea = CRO_PARTISAN_ACTIVITY1
+			has_idea = CRO_PARTISAN_ACTIVITY2
+			has_idea = CRO_PARTISAN_ACTIVITY3
+			has_idea = CRO_PARTISAN_ACTIVITY4
+			has_idea = CRO_PARTISAN_ACTIVITY5
+			has_idea = CRO_PARTISAN_ACTIVITY6
+		}
+		}
+		available = {
+			OR = {
+			has_idea = CRO_PARTISAN_ACTIVITY
+			has_idea = CRO_PARTISAN_ACTIVITY1
+			has_idea = CRO_PARTISAN_ACTIVITY2
+			has_idea = CRO_PARTISAN_ACTIVITY3
+			has_idea = CRO_PARTISAN_ACTIVITY4
+			has_idea = CRO_PARTISAN_ACTIVITY5
+			has_idea = CRO_PARTISAN_ACTIVITY6
+		}
+		}
+		cost = 50
+		days_re_enable = 60
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_anti_partisan_sweep"
+			army_experience = 5
+			CRO_partisan_Activity_down = yes
+		}
+		ai_will_do = { factor = 2 }
+	}
+
+	CRO_collective_reprisals = {
+		allowed = { original_tag = CRO }
+		visible = {
+			OR = {
+			has_idea = CRO_PARTISAN_ACTIVITY
+			has_idea = CRO_PARTISAN_ACTIVITY1
+			has_idea = CRO_PARTISAN_ACTIVITY2
+			has_idea = CRO_PARTISAN_ACTIVITY3
+			has_idea = CRO_PARTISAN_ACTIVITY4
+			has_idea = CRO_PARTISAN_ACTIVITY5
+			has_idea = CRO_PARTISAN_ACTIVITY6
+		}
+		}
+		available = {
+			OR = {
+			has_idea = CRO_PARTISAN_ACTIVITY
+			has_idea = CRO_PARTISAN_ACTIVITY1
+			has_idea = CRO_PARTISAN_ACTIVITY2
+			has_idea = CRO_PARTISAN_ACTIVITY3
+			has_idea = CRO_PARTISAN_ACTIVITY4
+			has_idea = CRO_PARTISAN_ACTIVITY5
+			has_idea = CRO_PARTISAN_ACTIVITY6
+		}
+		}
+		cost = 25
+		days_re_enable = 35
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_collective_reprisals"
+			add_stability = -0.02
+			CRO_partisan_Activity_down = yes
+		}
+		ai_will_do = { factor = 0 }
+	}
+}
+
+# ===================== The Yugoslav Question (post-Titotangle) =====================
+CRO_reunification_category = {
+
+	# Peaceful unification with a fraternal Serbia. 75% acceptance; rejection unlocks invasion.
+	CRO_peaceful_unification_serbia = {
+		allowed = { original_tag = CRO }
+		visible = {
+			country_exists = SER
+			NOT = { has_country_flag = CRO_serbia_unified }
+			NOT = { has_country_flag = CRO_can_invade_SER }
+		}
+		available = {
+			country_exists = SER
+			OR = {
+				AND = {
+					has_government = communist
+					SER = { has_government = communist }
+				}
+				AND = {
+					has_government = social_democrat
+					SER = { has_government = social_democrat }
+				}
+			}
+		}
+		cost = 100
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_peaceful_unification_serbia"
+			custom_effect_tooltip = CRO_unification_offer_tt
+			hidden_effect = {
+				random_list = {
+					75 = {
+						set_country_flag = CRO_serbia_unified
+						country_event = { id = cro.150 days = 1 }
+					}
+					25 = {
+						set_country_flag = CRO_can_invade_SER
+						country_event = { id = cro.151 days = 1 }
+					}
+				}
+			}
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	CRO_invade_serbia = {
+		allowed = { original_tag = CRO }
+		visible = {
+			has_country_flag = CRO_can_invade_SER
+			country_exists = SER
+			NOT = { has_country_flag = CRO_serbia_unified }
+		}
+		available = {
+			NOT = { has_war_with = SER }
+		}
+		cost = 50
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_invade_serbia"
+			declare_war_on = {
+				target = SER
+				type = annex_everything
+			}
+		}
+		ai_will_do = { factor = 5 }
+	}
+
+	CRO_invade_hungary = {
+		allowed = { original_tag = CRO }
+		visible = {
+			has_country_flag = CRO_can_invade_HUN
+			country_exists = HUN
+			# Full conquest is for before the crisis or after the settlement; during the
+			# border-war decade the contest runs through the border-war engine instead.
+			OR = {
+				NOT = { has_global_flag = ZZZ_balkan_troubles }
+				has_global_flag = BALKAN_BORDER_WARS_OVER
+			}
+		}
+		available = {
+			NOT = { has_war_with = HUN }
+		}
+		cost = 50
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_invade_hungary"
+			declare_war_on = {
+				target = HUN
+				type = annex_everything
+			}
+		}
+		ai_will_do = { factor = 5 }
+	}
+
+	CRO_invade_romania = {
+		allowed = { original_tag = CRO }
+		visible = {
+			has_country_flag = CRO_can_invade_ROM
+			country_exists = ROM
+			# Full conquest is for before the crisis or after the settlement; during the
+			# border-war decade the contest runs through the border-war engine instead.
+			OR = {
+				NOT = { has_global_flag = ZZZ_balkan_troubles }
+				has_global_flag = BALKAN_BORDER_WARS_OVER
+			}
+		}
+		available = {
+			NOT = { has_war_with = ROM }
+		}
+		cost = 50
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_invade_romania"
+			declare_war_on = {
+				target = ROM
+				type = annex_everything
+			}
+		}
+		ai_will_do = { factor = 5 }
+	}
+}
+
+# ===================== Integrating conquered territory (targeted coring) =====================
+CRO_integration_category = {
+
+	# Core a conquered state once compliance has taken hold there.
+	CRO_integrate_territory = {
+		allowed = {
+			OR = { tag = CRO  tag = SER }
+		}
+		visible = {
+			any_owned_state = {
+				has_state_flag = CRO_war_coreable
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		target_trigger = {
+			FROM = {
+				is_owned_by = ROOT
+				has_state_flag = CRO_war_coreable
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		targets = {
+			45
+			771
+			968
+			107
+			108
+			1272
+			1273
+			1274
+			1275
+			104
+			109
+			746
+			969
+			1276
+			1277
+			1278
+			1279
+			1280
+			1293
+		}
+		available = {
+			FROM = {
+				compliance > 49
+			}
+		}
+		state_target = yes
+		on_map_mode = map_and_decisions_view
+		cost = 25
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_integrate_territory"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove CRO_integrate_territory"
+			FROM = {
+				add_core_of = ROOT
+				clr_state_flag = CRO_war_coreable
+			}
+		}
+		ai_will_do = { factor = 20 }
+	}
+}
+
+# ===================== Surrendering Croatia's claims (HUN/ROM) =====================
+CRO_claims_surrender_category = {
+
+	# Hungary cedes Vojvodina (and Hungarian Slovenia, if Yugoslavia demands it) to end the war.
+	HUN_surrender_vojvodina = {
+		allowed = { tag = HUN }
+		visible = {
+			has_war_with = CRO
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision HUN_surrender_vojvodina"
+			CRO = {
+				transfer_state = 45
+				set_state_controller = 45
+			}
+			45 = { set_state_flag = CRO_war_coreable }
+			if = {
+				limit = { CRO = { has_government = communist } }
+				CRO = {
+					transfer_state = 771
+					set_state_controller = 771
+				}
+				771 = { set_state_flag = CRO_war_coreable }
+			}
+			white_peace = CRO
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 200
+				surrender_progress > 0.4
+			}
+		}
+	}
+
+	# Romania cedes the Serbian Banat to end the war.
+	ROM_surrender_banat = {
+		allowed = { tag = ROM }
+		visible = {
+			has_war_with = CRO
+		}
+		cost = 0
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ROM_surrender_banat"
+			CRO = {
+				transfer_state = 968
+				set_state_controller = 968
+			}
+			968 = { set_state_flag = CRO_war_coreable }
+			white_peace = CRO
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 200
+				surrender_progress > 0.4
+			}
+		}
+	}
+}
+
+# ===================== Ustase main tree: steady growth =====================
+CRO_new_order_category = {
+
+	CRO_steady_growth = {
+		allowed = { original_tag = CRO }
+		activation = {
+			has_country_flag = CRO_steady_growth_active
+			NOT = { has_country_flag = CRO_growth_fast }
+		}
+		available = { always = no }
+		is_good = yes
+		fire_only_once = no
+		days_mission_timeout = 90
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mission timeout CRO_steady_growth"
+			CRO_steady_growth_tick = yes
+			if = {
+				limit = { has_country_flag = CRO_growth_fast }
+				activate_mission = CRO_steady_growth_fast
+			}
+			else = {
+				activate_mission = CRO_steady_growth
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	# Urgency of Power: same cycle, 30 days faster.
+	CRO_steady_growth_fast = {
+		allowed = { original_tag = CRO }
+		activation = {
+			has_country_flag = CRO_steady_growth_active
+			has_country_flag = CRO_growth_fast
+			NOT = { has_active_mission = CRO_steady_growth }
+		}
+		available = { always = no }
+		is_good = yes
+		fire_only_once = no
+		days_mission_timeout = 60
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mission timeout CRO_steady_growth_fast"
+			CRO_steady_growth_tick = yes
+			activate_mission = CRO_steady_growth_fast
+		}
+		ai_will_do = { factor = 0 }
+	}
+}
+
+# ===================== Steady growth: acceleration + GDP milestones =====================
+CRO_new_order_category = {
+
+	# Throw money at the cycle: current cycle finishes 50 days sooner.
+	CRO_accelerate_the_cycle = {
+		allowed = { original_tag = CRO }
+		visible = {
+			has_country_flag = CRO_steady_growth_active
+		}
+		available = {
+			check_variable = { money_reserves > 99.9 }
+		}
+		cost = 100
+		days_re_enable = 100
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_accelerate_the_cycle"
+			subtract_from_variable = { money_reserves = 100 }
+			custom_effect_tooltip = CRO_cycle_rush_tt
+			hidden_effect = {
+				if = {
+					limit = { has_country_flag = CRO_growth_fast }
+					add_days_mission_timeout = {
+						mission = CRO_steady_growth_fast
+						days = -50
+					}
+				}
+				else = {
+					add_days_mission_timeout = {
+						mission = CRO_steady_growth
+						days = -50
+					}
+				}
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	# Doctrine milestone I: paid in army experience.
+	CRO_reforged_doctrine_i = {
+		allowed = { original_tag = CRO }
+		visible = {
+			has_country_flag = CRO_steady_growth_active
+			NOT = { has_idea = CRO_reforged_doctrine_1 }
+			NOT = { has_idea = CRO_reforged_doctrine_2 }
+			NOT = { has_idea = CRO_reforged_doctrine_3 }
+		}
+		available = {
+			has_army_experience > 149.99
+		}
+		custom_cost_trigger = {
+			always = yes
+		}
+		custom_cost_text = CRO_xp_req_cost
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_reforged_doctrine_i"
+			army_experience = -150
+			add_ideas = CRO_reforged_doctrine_1
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	CRO_reforged_doctrine_ii = {
+		allowed = { original_tag = CRO }
+		visible = {
+			has_idea = CRO_reforged_doctrine_1
+		}
+		available = {
+			has_army_experience > 149.99
+		}
+		custom_cost_trigger = {
+			always = yes
+		}
+		custom_cost_text = CRO_xp_req_cost
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_reforged_doctrine_ii"
+			army_experience = -150
+			swap_ideas = {
+				remove_idea = CRO_reforged_doctrine_1
+				add_idea = CRO_reforged_doctrine_2
+			}
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	CRO_reforged_doctrine_iii = {
+		allowed = { original_tag = CRO }
+		visible = {
+			has_idea = CRO_reforged_doctrine_2
+		}
+		available = {
+			has_army_experience > 149.99
+		}
+		custom_cost_trigger = {
+			always = yes
+		}
+		custom_cost_text = CRO_xp_req_cost
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_reforged_doctrine_iii"
+			army_experience = -150
+			swap_ideas = {
+				remove_idea = CRO_reforged_doctrine_2
+				add_idea = CRO_reforged_doctrine_3
+			}
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	# GDP milestone I: +5% over the 1962 baseline.
+	CRO_directed_economy_i = {
+		allowed = { original_tag = CRO }
+		visible = {
+			has_country_flag = CRO_steady_growth_active
+			NOT = { has_idea = CRO_directed_economy_1 }
+			NOT = { has_idea = CRO_directed_economy_2 }
+			NOT = { has_idea = CRO_directed_economy_3 }
+		}
+		available = {
+			check_variable = { GDP > CRO_gdp_goal_1 }
+		}
+		custom_cost_trigger = {
+			always = yes
+		}
+		custom_cost_text = CRO_gdp_req_1_cost
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_directed_economy_i"
+			add_ideas = CRO_directed_economy_1
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	# GDP milestone II: +10% over baseline.
+	CRO_directed_economy_ii = {
+		allowed = { original_tag = CRO }
+		visible = {
+			has_idea = CRO_directed_economy_1
+		}
+		available = {
+			check_variable = { GDP > CRO_gdp_goal_2 }
+		}
+		custom_cost_trigger = {
+			always = yes
+		}
+		custom_cost_text = CRO_gdp_req_2_cost
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_directed_economy_ii"
+			swap_ideas = {
+				remove_idea = CRO_directed_economy_1
+				add_idea = CRO_directed_economy_2
+			}
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	# GDP milestone III: +15% over baseline.
+	CRO_directed_economy_iii = {
+		allowed = { original_tag = CRO }
+		visible = {
+			has_idea = CRO_directed_economy_2
+		}
+		available = {
+			check_variable = { GDP > CRO_gdp_goal_3 }
+		}
+		custom_cost_trigger = {
+			always = yes
+		}
+		custom_cost_text = CRO_gdp_req_3_cost
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_directed_economy_iii"
+			swap_ideas = {
+				remove_idea = CRO_directed_economy_2
+				add_idea = CRO_directed_economy_3
+			}
+		}
+		ai_will_do = { factor = 10 }
+	}
+}
+
+# ===================== Ustase foreign ventures =====================
+CRO_ustase_foreign_category = {
+
+	CRO_join_the_african_struggle = {
+		allowed = { original_tag = CRO }
+		visible = {
+			has_global_flag = south_african_war
+			NOT = { has_country_flag = CRO_minitree_saw }
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_join_the_african_struggle"
+			add_political_power = 25
+			set_country_flag = CRO_minitree_saw
+			custom_effect_tooltip = CRO_minitree_unlock_tt
+		}
+		ai_will_do = { factor = 5 }
+	}
+
+	CRO_navigate_the_oil_crisis = {
+		allowed = { original_tag = CRO }
+		visible = {
+			has_global_flag = oil_crisis_full_swing
+			NOT = { has_country_flag = CRO_minitree_oil }
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_navigate_the_oil_crisis"
+			add_political_power = 25
+			set_country_flag = CRO_minitree_oil
+			custom_effect_tooltip = CRO_minitree_unlock_tt
+		}
+		ai_will_do = { factor = 5 }
+	}
+
+	CRO_answer_the_vengeance_war = {
+		allowed = { original_tag = CRO }
+		visible = {
+			has_global_flag = rus_vengeance_war
+			NOT = { has_country_flag = CRO_minitree_veng }
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_answer_the_vengeance_war"
+			add_political_power = 25
+			set_country_flag = CRO_minitree_veng
+			custom_effect_tooltip = CRO_minitree_unlock_tt
+		}
+		ai_will_do = { factor = 5 }
+	}
+}
+
+# ===================== Leadership race: the Poglavnik's Twilight (OOSG clone) =====================
+CRO_leadership_race_category = {
+
+	# --- Pledges: pick a side (one-time; opens that faction's grind decisions). ---
+	CRO_back_francetic = {
+		visible = {
+			hidden_trigger = {
+				AND = {
+					has_country_flag = CRO_leadership_crisis
+					NOT = {
+						OR = {
+							has_country_flag = CRO_francetic_selected
+							has_country_flag = CRO_lorkovic_selected
+							has_country_flag = CRO_luburic_selected
+						}
+					}
+				}
+			}
+		}
+		available = {
+			has_country_flag = CRO_leadership_crisis
+		}
+		complete_effect = {
+			set_country_flag = CRO_francetic_selected
+			custom_effect_tooltip = CRO_back_francetic_tt
+		}
+		ai_will_do = { factor = 10 }
+	}
+	CRO_back_lorkovic = {
+		visible = {
+			hidden_trigger = {
+				AND = {
+					has_country_flag = CRO_leadership_crisis
+					NOT = {
+						OR = {
+							has_country_flag = CRO_francetic_selected
+							has_country_flag = CRO_lorkovic_selected
+							has_country_flag = CRO_luburic_selected
+						}
+					}
+				}
+			}
+		}
+		available = {
+			has_country_flag = CRO_leadership_crisis
+		}
+		complete_effect = {
+			set_country_flag = CRO_lorkovic_selected
+			custom_effect_tooltip = CRO_back_lorkovic_tt
+		}
+		ai_will_do = { factor = 10 }
+	}
+	CRO_back_luburic = {
+		visible = {
+			hidden_trigger = {
+				AND = {
+					has_country_flag = CRO_leadership_crisis
+					NOT = {
+						OR = {
+							has_country_flag = CRO_francetic_selected
+							has_country_flag = CRO_lorkovic_selected
+							has_country_flag = CRO_luburic_selected
+						}
+					}
+				}
+			}
+		}
+		available = {
+			has_country_flag = CRO_leadership_crisis
+		}
+		complete_effect = {
+			set_country_flag = CRO_luburic_selected
+			custom_effect_tooltip = CRO_back_luburic_tt
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	# --- Grind, Old Guard (Francetic). ---
+	CRO_rally_the_old_guard = {
+		allowed = { original_tag = CRO }
+		visible = {
+			hidden_trigger = {
+				AND = {
+					has_country_flag = CRO_leadership_crisis
+					has_country_flag = CRO_francetic_selected
+				}
+			}
+		}
+		available = {
+			NOT = { has_country_flag = CRO_candidate_action_in_progress }
+			has_country_flag = CRO_francetic_selected
+		}
+		cost = 20
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_rally_the_old_guard"
+			set_country_flag = CRO_candidate_action_in_progress
+			set_temp_variable = { CRO_francetic_power_temp = 5 }
+			CRO_add_francetic_power = yes
+			add_war_support = 0.025
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove CRO_rally_the_old_guard"
+			clr_country_flag = CRO_candidate_action_in_progress
+		}
+		ai_will_do = { factor = 5 }
+	}
+	CRO_legion_parades = {
+		allowed = { original_tag = CRO }
+		visible = {
+			hidden_trigger = {
+				AND = {
+					has_country_flag = CRO_leadership_crisis
+					has_country_flag = CRO_francetic_selected
+				}
+			}
+		}
+		available = {
+			NOT = { has_country_flag = CRO_candidate_action_in_progress }
+			has_country_flag = CRO_francetic_selected
+		}
+		cost = 10
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_legion_parades"
+			set_country_flag = CRO_candidate_action_in_progress
+			set_temp_variable = { CRO_francetic_power_temp = 3 }
+			CRO_add_francetic_power = yes
+			add_political_power = 5
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove CRO_legion_parades"
+			clr_country_flag = CRO_candidate_action_in_progress
+		}
+		ai_will_do = { factor = 5 }
+	}
+
+	# --- Grind, Moderates (Lorkovic). ---
+	CRO_court_the_moderates = {
+		allowed = { original_tag = CRO }
+		visible = {
+			hidden_trigger = {
+				AND = {
+					has_country_flag = CRO_leadership_crisis
+					has_country_flag = CRO_lorkovic_selected
+				}
+			}
+		}
+		available = {
+			NOT = { has_country_flag = CRO_candidate_action_in_progress }
+			has_country_flag = CRO_lorkovic_selected
+		}
+		cost = 20
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_court_the_moderates"
+			set_country_flag = CRO_candidate_action_in_progress
+			set_temp_variable = { CRO_lorkovic_power_temp = 5 }
+			CRO_add_lorkovic_power = yes
+			add_stability = 0.025
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove CRO_court_the_moderates"
+			clr_country_flag = CRO_candidate_action_in_progress
+		}
+		ai_will_do = { factor = 5 }
+	}
+	CRO_whisper_campaign = {
+		allowed = { original_tag = CRO }
+		visible = {
+			hidden_trigger = {
+				AND = {
+					has_country_flag = CRO_leadership_crisis
+					has_country_flag = CRO_lorkovic_selected
+				}
+			}
+		}
+		available = {
+			NOT = { has_country_flag = CRO_candidate_action_in_progress }
+			has_country_flag = CRO_lorkovic_selected
+		}
+		cost = 10
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_whisper_campaign"
+			set_country_flag = CRO_candidate_action_in_progress
+			set_temp_variable = { CRO_lorkovic_power_temp = 3 }
+			CRO_add_lorkovic_power = yes
+			add_political_power = 5
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove CRO_whisper_campaign"
+			clr_country_flag = CRO_candidate_action_in_progress
+		}
+		ai_will_do = { factor = 5 }
+	}
+
+	# --- Grind, Crusaders (Luburic). ---
+	CRO_arm_the_crusaders = {
+		allowed = { original_tag = CRO }
+		visible = {
+			hidden_trigger = {
+				AND = {
+					has_country_flag = CRO_leadership_crisis
+					has_country_flag = CRO_luburic_selected
+				}
+			}
+		}
+		available = {
+			NOT = { has_country_flag = CRO_candidate_action_in_progress }
+			has_country_flag = CRO_luburic_selected
+		}
+		cost = 20
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_arm_the_crusaders"
+			set_country_flag = CRO_candidate_action_in_progress
+			set_temp_variable = { CRO_luburic_power_temp = 5 }
+			CRO_add_luburic_power = yes
+			add_war_support = 0.025
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove CRO_arm_the_crusaders"
+			clr_country_flag = CRO_candidate_action_in_progress
+		}
+		ai_will_do = { factor = 5 }
+	}
+	CRO_cult_of_the_martyr = {
+		allowed = { original_tag = CRO }
+		visible = {
+			hidden_trigger = {
+				AND = {
+					has_country_flag = CRO_leadership_crisis
+					has_country_flag = CRO_luburic_selected
+				}
+			}
+		}
+		available = {
+			NOT = { has_country_flag = CRO_candidate_action_in_progress }
+			has_country_flag = CRO_luburic_selected
+		}
+		cost = 10
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision CRO_cult_of_the_martyr"
+			set_country_flag = CRO_candidate_action_in_progress
+			set_temp_variable = { CRO_luburic_power_temp = 3 }
+			CRO_add_luburic_power = yes
+			add_political_power = 5
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove CRO_cult_of_the_martyr"
+			clr_country_flag = CRO_candidate_action_in_progress
+		}
+		ai_will_do = { factor = 5 }
+	}
+
+	# --- Resolution countdown: the Black Council convenes when this expires. ---
+	CRO_black_council_mission = {
+		allowed = { original_tag = CRO }
+		activation = {
+			has_country_flag = CRO_leadership_crisis
+		}
+		available = {
+			always = yes
+		}
+		is_good = no
+		fire_only_once = no
+		days_mission_timeout = 365
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mission timeout CRO_black_council_mission"
+			country_event = { id = crocrisis.2 days = 0 }
+		}
+		ai_will_do = { factor = 0 }
+	}
+}

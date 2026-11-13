@@ -1,0 +1,216 @@
+#####################################################
+# Bormann's 1970s and succession (tno_bormanns_problem)
+#####################################################
+
+# The hunt for the Rote Armee Fraktion. BGR_hunt_for_the_red_army opens the category and its two
+# starting decisions; every later focus on that branch opens one more. Progress lands when an
+# investigation finishes (remove_effect). At 100 the RAF is found and the category closes.
+# Pay the Informants is the one repeatable, so the shortest branch can always reach 100.
+BGR_raf_investigation_category = {
+
+	BGR_raf_comb_the_attack_files = {
+		icon = GFX_decision_hol_exchange_intelligence_data
+		cost = 25
+		fire_only_once = yes
+		days_remove = 30
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BGR_raf_comb_the_attack_files"
+		}
+		remove_effect = {
+			set_temp_variable = { BGR_raf_progress_temp = 10 }
+			BGR_raf_add_progress = yes
+		}
+
+		ai_will_do = { factor = 1 }
+	}
+
+	BGR_raf_pay_the_informants = {
+		icon = GFX_decision_black_market_money
+		cost = 25
+		days_re_enable = 30
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BGR_raf_pay_the_informants"
+			set_temp_variable = { BGR_raf_progress_temp = 5 }
+			BGR_raf_add_progress = yes
+		}
+
+		ai_will_do = { factor = 1 }
+	}
+
+	BGR_raf_search_the_universities = {
+		icon = GFX_decision_arrest
+		visible = { has_completed_focus = BGR_in_the_universities }
+		cost = 35
+		fire_only_once = yes
+		days_remove = 30
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BGR_raf_search_the_universities"
+		}
+		remove_effect = {
+			set_temp_variable = { BGR_raf_progress_temp = 20 }
+			BGR_raf_add_progress = yes
+		}
+
+		ai_will_do = { factor = 1 }
+	}
+
+	BGR_raf_sweep_the_streets = {
+		icon = GFX_decision_arrest
+		visible = { has_completed_focus = BGR_on_the_streets }
+		cost = 35
+		fire_only_once = yes
+		days_remove = 30
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BGR_raf_sweep_the_streets"
+		}
+		remove_effect = {
+			set_temp_variable = { BGR_raf_progress_temp = 20 }
+			BGR_raf_add_progress = yes
+		}
+
+		ai_will_do = { factor = 1 }
+	}
+
+	BGR_raf_question_the_sympathizers = {
+		icon = GFX_decision_generic_phone_call
+		visible = { has_completed_focus = BGR_who_sympathizes }
+		cost = 35
+		fire_only_once = yes
+		days_remove = 30
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BGR_raf_question_the_sympathizers"
+		}
+		remove_effect = {
+			set_temp_variable = { BGR_raf_progress_temp = 20 }
+			BGR_raf_add_progress = yes
+		}
+
+		ai_will_do = { factor = 1 }
+	}
+
+	BGR_raf_follow_the_money = {
+		icon = GFX_decision_black_market_money
+		visible = { has_completed_focus = BGR_who_funds }
+		cost = 35
+		fire_only_once = yes
+		days_remove = 30
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BGR_raf_follow_the_money"
+		}
+		remove_effect = {
+			set_temp_variable = { BGR_raf_progress_temp = 20 }
+			BGR_raf_add_progress = yes
+		}
+
+		ai_will_do = { factor = 1 }
+	}
+
+	BGR_raf_find_the_recruiters = {
+		icon = GFX_decision_generic_phone_call
+		visible = { has_completed_focus = BGR_who_recruited }
+		cost = 35
+		fire_only_once = yes
+		days_remove = 30
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BGR_raf_find_the_recruiters"
+		}
+		remove_effect = {
+			set_temp_variable = { BGR_raf_progress_temp = 20 }
+			BGR_raf_add_progress = yes
+		}
+
+		ai_will_do = { factor = 1 }
+	}
+
+	BGR_raf_find_the_planners = {
+		icon = GFX_decision_hol_exchange_intelligence_data
+		visible = { has_completed_focus = BGR_who_planned }
+		cost = 35
+		fire_only_once = yes
+		days_remove = 30
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BGR_raf_find_the_planners"
+		}
+		remove_effect = {
+			set_temp_variable = { BGR_raf_progress_temp = 20 }
+			BGR_raf_add_progress = yes
+		}
+
+		ai_will_do = { factor = 1 }
+	}
+
+	BGR_raf_unmask_the_leadership = {
+		icon = GFX_decision_arrest
+		visible = { has_completed_focus = BGR_who_led_them }
+		cost = 50
+		fire_only_once = yes
+		days_remove = 45
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BGR_raf_unmask_the_leadership"
+		}
+		remove_effect = {
+			set_temp_variable = { BGR_raf_progress_temp = 30 }
+			BGR_raf_add_progress = yes
+		}
+
+		ai_will_do = { factor = 1 }
+	}
+
+	BGR_raf_identify_the_cells = {
+		icon = GFX_decision_hol_exchange_intelligence_data
+		visible = { has_completed_focus = BGR_who_were_they }
+		cost = 50
+		fire_only_once = yes
+		days_remove = 45
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BGR_raf_identify_the_cells"
+		}
+		remove_effect = {
+			set_temp_variable = { BGR_raf_progress_temp = 30 }
+			BGR_raf_add_progress = yes
+		}
+
+		ai_will_do = { factor = 1 }
+	}
+}
+
+# Nothing loads tno_bormanns_problem yet; these exist to test it.
+BGR_sucession_debug_category = {
+
+	BGR_debug_load_bormanns_problem = {
+		icon = GFX_decision_generic_decision
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BGR_debug_load_bormanns_problem"
+			load_focus_tree = { tree = tno_bormanns_problem keep_completed = no }
+		}
+
+		ai_will_do = { factor = 0 }
+	}
+
+	BGR_debug_find_the_raf = {
+		icon = GFX_decision_generic_decision
+		visible = {
+			has_country_flag = BGR_raf_hunt_active
+			NOT = { has_country_flag = BGR_raf_found }
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BGR_debug_find_the_raf"
+			set_temp_variable = { BGR_raf_progress_temp = 100 }
+			BGR_raf_add_progress = yes
+		}
+
+		ai_will_do = { factor = 0 }
+	}
+}

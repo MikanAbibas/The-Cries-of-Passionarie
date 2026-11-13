@@ -1,0 +1,238 @@
+# The only way to form the UAR. Any Ba'athist nation at peace can proclaim it while no
+# UAR exists; its states, cores and troops pass to the UAR. See TNO_UAR_scripted_effects.txt.
+UAR_formation_category = {
+	UAR_proclaim_the_united_arab_republic = {
+		icon = generic_form_nation
+
+		visible = {
+			UAR_is_baathist_nation = yes
+			NOT = { country_exists = UAR }
+		}
+
+		available = {
+			UAR_baathist_ready_to_unite = yes # at peace, and any civil war it broke away in won
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision UAR_proclaim_the_united_arab_republic"
+			UAR_proclaim_from_root = yes
+		}
+	}
+}
+
+UAR_unification_category = {
+	# uar_invite_yemen = {
+	# 	visible = {
+	# 		tag = UAR
+	# 		country_exists = NYM
+	# 	}
+	# 	available = {
+	# 		tag = UAR
+	# 		country_exists = NYM
+	# 		NYM = {
+	# 			has_war = no
+	# 		}
+	# 	}
+	# 	ai_will_do = {
+	# 		factor = 100
+	# 	}
+	# 	cost = 10
+	# 	fire_only_once = yes
+	# 	complete_effect = {
+	# 		log = "[GetDateText]: [Root.GetName]: Decision uar_take_syria"
+	# 		annex_country = {
+	# 			target = NYM
+	# 			transfer_troops = yes
+	# 		}
+	# 	}
+	# }
+	# uar_invite_egypt = {
+	# 	visible = {
+	# 		tag = UAR
+	# 		country_exists = EGB
+	# 	}
+	# 	available = {
+	# 		tag = UAR
+	# 		country_exists = EGB
+	# 		EGB = {
+	# 			has_war = no
+	# 		}
+	# 	}
+	# 	ai_will_do = {
+	# 		factor = 100
+	# 	}
+	# 	cost = 10
+	# 	fire_only_once = yes
+	# 	complete_effect = {
+	# 		log = "[GetDateText]: [Root.GetName]: Decision uar_take_syria"
+	# 		annex_country = {
+	# 			target = EGB
+	# 			transfer_troops = yes
+	# 		}
+	# 	}
+	# }
+
+	UAR_invite_baathist_nation = {
+		icon = GFX_decision_generic_industry
+		target_root_trigger = {
+			tag = UAR
+		}
+		target_trigger = {
+			FROM = {
+				exists = yes
+				UAR_baathist_ready_to_unite = yes
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		days_remove = 10
+		
+		modifier = {
+		}
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision UAR_invite_baathist_nation"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove UAR_invite_baathist_nation"
+			FROM = {
+				every_owned_state = {
+					add_core_of = UAR
+				}
+			}
+			annex_country = {
+				target = FROM
+				transfer_troops = yes
+			}
+			UAR_check_baathist_struggle = yes
+		}
+	}
+
+	# Arms for Ba'athists still fighting their own wars; once at peace they can be
+	# invited in through UAR_invite_baathist_nation. Amounts mirror Bormann's
+	# GER_Bormann_OC_send_weapons.
+	UAR_support_baathist_rebels = {
+		icon = generic_prepare_civil_war
+		target_root_trigger = {
+			tag = UAR
+		}
+		target_trigger = {
+			FROM = {
+				exists = yes
+				UAR_is_baathist_nation = yes
+				has_war = yes
+				NOT = { has_war_with = UAR }
+			}
+		}
+		available = {
+			has_equipment = { infantry_equipment > 599 }
+			has_equipment = { anti_tank_equipment > 349 }
+			has_equipment = { support_equipment > 399 }
+		}
+		cost = 25
+		days_remove = 3
+		days_re_enable = 21
+		fire_only_once = no
+		ai_will_do = {
+			factor = 50
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision UAR_support_baathist_rebels"
+		}
+		remove_effect = {
+			send_equipment = {
+				type = infantry_equipment
+				amount = 600
+				target = FROM
+			}
+			send_equipment = {
+				type = anti_tank_equipment
+				amount = 350
+				target = FROM
+			}
+			send_equipment = {
+				type = support_equipment
+				amount = 400
+				target = FROM
+			}
+		}
+	}
+
+	# Subjugate the southern Sudanese statelets. Spares the Baathist State of Sudan
+	# (SDS) and instead secures passage through it. Requires the UAR to hold Egypt.
+	UAR_invade_sudan = {
+		icon = generic_operation
+
+		available = {
+			tag = UAR
+			owns_state = 446
+			OR = {
+				AND = { country_exists = RPS NOT = { has_war_with = RPS } }
+				AND = { country_exists = SDF NOT = { has_war_with = SDF } }
+				AND = { country_exists = AZA NOT = { has_war_with = AZA } }
+				AND = { country_exists = AYA NOT = { has_war_with = AYA } }
+			}
+		}
+
+		visible = {
+			tag = UAR
+			OR = {
+				country_exists = RPS
+				country_exists = SDF
+				country_exists = AZA
+				country_exists = AYA
+			}
+		}
+
+		cost = 0
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision UAR_invade_sudan"
+			# Automatically secure passage through our Baathist brothers in the State of Sudan, if they stand.
+			if = {
+				limit = { country_exists = SDS }
+				SDS = { give_military_access = UAR }
+			}
+			# War on every Sudanese statelet except the Baathist State of Sudan.
+			if = { limit = { country_exists = RPS NOT = { has_war_with = RPS } } declare_war_on = { target = RPS type = annex_everything } }
+			if = { limit = { country_exists = SDF NOT = { has_war_with = SDF } } declare_war_on = { target = SDF type = annex_everything } }
+			if = { limit = { country_exists = AZA NOT = { has_war_with = AZA } } declare_war_on = { target = AZA type = annex_everything } }
+			if = { limit = { country_exists = AYA NOT = { has_war_with = AYA } } declare_war_on = { target = AYA type = annex_everything } }
+		}
+	}
+
+	uar_invite_levant = {
+		visible = {
+			tag = UAR
+			country_exists = JOR
+		}
+		available = {
+			tag = UAR
+			country_exists = JOR
+			JOR = {
+				has_war = no
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 10
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision uar_invite_levant"
+			annex_country = {
+				target = JOR
+				transfer_troops = yes
+			}
+		}
+	}
+}

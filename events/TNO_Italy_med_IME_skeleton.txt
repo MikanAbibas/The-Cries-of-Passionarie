@@ -1,0 +1,685 @@
+﻿### Middle East skeleton events for the Mediterranean Italy rework.
+###
+### Extracted from the mediterranean-test events/TNO_Italian_Middle_East_events.txt,
+### whose other namespaces collide with master's Middle East events.
+###
+### Upstream declares the namespace as IMEskeleton but writes three ids as
+### IMESkeleton, which never resolve. Normalised to the declared spelling.
+
+add_namespace = IMEskeleton
+
+country_event = { #Talks between Haganh, Fatah begin
+	id = IMEskeleton.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IMEskeleton.1"}
+	title = IMEskeleton.1.t
+	desc = IMEskeleton.1.d
+	picture = GFX_report_event_generic_congress
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { 
+		name = IMEskeleton.1.a
+		IME = {
+			country_event = {
+				id = IMEskeleton.2 days = 10
+			}
+		}
+	}
+}
+
+country_event = { #Pietromarchi aids talks, contacts Hashemites
+	id = IMEskeleton.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IMEskeleton.2"}
+	title = IMEskeleton.2.t
+	desc = IMEskeleton.2.d
+	picture = GFX_report_event_generic_congress
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IMEskeleton.2.a
+		random_list = {
+			60 = { #Leaked Negotiations
+				IME = { 
+					country_event = { id = IMEskeleton.6 days = 15 }
+				}
+			}
+			40 = { #Successful Negotiations
+				IME = { 
+					country_event = { id = IMEskeleton.3 days = 15 }
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Negotiations succeed
+	id = IMEskeleton.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IMEskeleton.3"}
+	title = IMEskeleton.3.t
+	desc = IMEskeleton.3.d
+	picture = GFX_report_event_generic_congress
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IMEskeleton.3.a
+		random_list = {
+			60 = { #Partition
+				IME = {
+					country_event = { id = IMEskeleton.5 days = 25 }
+				}
+			}
+			60 = { #UAK
+				IME = {
+					country_event = { id = IMEskeleton.4 days = 25 }
+				}
+			}
+		}
+	}
+}
+
+country_event = { #UAK agreed upon
+	id = IMEskeleton.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IMEskeleton.4"}
+	title = IMEskeleton.4.t
+	desc = IMEskeleton.4.d
+	picture = GFX_report_event_generic_congress
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { 
+		name = IMEskeleton.4.a
+		every_country = { 
+			news_event = { id = ITA_news.12 days = 5 }
+		}
+		JOR = {
+			annex_country = {
+				target = IME
+				transfer_troops = yes
+			}
+			drop_cosmetic_tag = yes
+			set_cosmetic_tag = UAK_ITA
+		}
+		ITA = {
+			set_variable = { ITA_EM_Regions_Status^18 = 1 } # Set IME to vassal
+		}
+		every_state = {
+			limit = {
+				is_core_of = IME
+			}
+			JOR = {
+				add_state_core = PREV
+			}
+		}
+	}
+}
+
+country_event = { #Partition Agreed Upon
+	id = IMEskeleton.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IMEskeleton.5"}
+	title = IMEskeleton.5.t
+	desc = IMEskeleton.5.d
+	picture = GFX_report_event_generic_congress
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { 
+		name = IMEskeleton.5.a
+		ITA = {
+			end_puppet = LEB
+			end_puppet = JOR
+			remove_from_faction = LEB
+			remove_from_faction = JOR
+
+			set_variable = { ITA_EM_Regions_Status^18 = 1 } # Set IME to allied
+		}
+		every_state = {
+			limit = {
+				is_core_of = IME
+			}
+			
+		}
+		every_country = { 
+			news_event = { id = ITA_news.11 days = 5 }
+		}
+		JER = { #AuthDem Jerusalem Mandate, la Rocca
+			#STRIP(upstream) TNO_startup_nation = yes
+			econ_join_sphere_ITA = yes
+			add_state_core = 1305
+			add_state_core = 1306
+			transfer_state = 1305
+			transfer_state = 1306
+			create_faction = "Levantine Union"
+			add_ideas = { LEV_UNION_Mandate }
+			add_to_faction = PAL
+			add_to_faction = ISR
+			add_to_faction = JOR
+			if = {
+				limit = { LEB = { exists = yes } }
+				add_to_faction = LEB 
+			}
+			1305 = { set_demilitarized_zone = yes }
+			1306 = { set_demilitarized_zone = yes }
+		}
+		LEB = { 
+			set_cosmetic_tag = LEB_PARTI 
+			add_ideas = { LEV_UNION_Member }
+		}
+		JOR = { 
+			set_cosmetic_tag = JOR_PARTI 
+			add_ideas = { LEV_UNION_Member }
+		}
+		ISR = { #SocDem Israel, Ben Gurion
+			add_ideas = { LEV_UNION_Member }
+			#STRIP(upstream) TNO_startup_nation = yes
+			econ_join_sphere_ITA = yes
+			add_state_core = 454
+			add_state_core = 1367
+			add_state_core = 1365
+			transfer_state = 454
+			transfer_state = 1367
+			transfer_state = 1365
+			load_oob = "ISR_partition_fash_italy"
+		}
+		PAL = { #SocDem Palestine, Arafat
+			add_ideas = { LEV_UNION_Member }
+			#STRIP(upstream) TNO_startup_nation = yes
+			econ_join_sphere_ITA = yes
+			add_state_core = 1248
+			add_state_core = 1304
+			add_state_core = 1247
+			# State 1437 does not exist, here or upstream. The partition already
+			# covers Haifa, Gaza, Al-Naqab, Hebron and Ramallah between them, and
+			# every other state the Middle East owns is Jordanian, Lebanese or
+			# Sinai - so there is nothing this was reaching for.
+			add_state_core = 1368
+			add_state_core = 1366
+			transfer_state = 1248
+			transfer_state = 1304
+			transfer_state = 1247
+			transfer_state = 1368
+			transfer_state = 1366
+			load_oob = "PAL_partition_fash_italy"
+		}
+		JOR = {
+			drop_cosmetic_tag = yes
+			swap_ideas = {
+				remove_idea = TRI_Member_Client
+				add_idea = LEV_UNION_Member
+			}
+		}
+		if = {
+			limit = {
+				LEB = { exists = yes }
+			}
+			LEB = {
+				drop_cosmetic_tag = yes
+				swap_ideas = {
+					remove_idea = TRI_Member_Client
+					add_idea = LEV_UNION_Member
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Negotiations leaked
+	id = IMEskeleton.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IMEskeleton.6"}
+	title = IMEskeleton.6.t
+	desc = IMEskeleton.6.d
+	picture = GFX_report_event_generic_congress
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IMEskeleton.6.a
+		IME = {
+			country_event = { id = IMEskeleton.7 days = 15 }
+		}
+	}
+}
+
+country_event = { #Palestinian Factions Rise Up
+	id = IMEskeleton.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IMEskeleton.7"}
+	title = IMEskeleton.7.t
+	desc = IMEskeleton.7.d
+	picture = GFX_report_event_generic_congress
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IMEskeleton.7.a
+		set_global_flag = Palestinian_Civil_War
+		IME = {
+			leave_faction = yes
+			ITA = {
+				end_puppet = IME
+			}
+			if = {
+				limit = {
+					ITA = {
+						AND = {
+							check_variable = {
+								var = ITA_EM_Regions_DiploValue^18 # IME
+								value = 0
+								compare = greater_than_or_equals
+							}
+							check_variable = {
+								var = ITA_EM_Regions_DiploValue^18 # IME
+								value = 27
+								compare = less_than_or_equals
+							}
+						}
+					}
+				}
+				load_oob = "IME_PCW_Low_Control"
+			}
+			else_if = {
+				limit = {
+					ITA = {
+						AND = {
+							check_variable = {
+								var = ITA_EM_Regions_DiploValue^18 # IME
+								value = 27
+								compare = greater_than
+							}
+							check_variable = {
+								var = ITA_EM_Regions_DiploValue^18 # IME
+								value = 54
+								compare = less_than_or_equals 
+							}
+						}
+					}
+				}
+				load_oob = "IME_PCW_Medium_Control"
+			}
+			else_if = {
+				limit = {
+					ITA = {
+						AND = {
+							check_variable = {
+								var = ITA_EM_Regions_DiploValue^18 # IME
+								value = 54
+								compare = greater_than
+							}
+							check_variable = {
+								var = ITA_EM_Regions_DiploValue^18 # IME
+								value = 80
+								compare = less_than_or_equals 
+							}
+						}
+					}
+				}
+				load_oob = "IME_PCW_High_Control"
+			}
+		}
+		JOR = {
+			load_oob = "JOR_PCW"
+			set_popularities = {
+				communist = 0
+				ultranational_socialism = 0
+				socialist = 0
+				social_democrat = 0
+				social_liberal = 0
+
+				social_conservative = 10
+				authoritarian_democrat = 14
+				despotism = 76
+				fascism = 0
+				national_socialism = 0
+				burgundian_system = 0
+			}
+		}
+		PAL = { #Communist Palestine, Habash
+			#STRIP(upstream) TNO_startup_nation = yes
+			set_politics = {
+				ruling_party = communist
+			}
+			set_cosmetic_tag = PAL_PCW
+			add_state_core = 1366
+			transfer_state = 1366
+			load_oob = "PAL_PCW"
+		}
+		ISR = { #AuthDem Israel, Begin
+			#STRIP(upstream) TNO_startup_nation = yes
+			set_politics = {
+				ruling_party = authoritarian_democrat
+			}
+			create_country_leader = {
+    			name = "Menachem Begin"
+    			desc = "POLITICS_Menachem_Begin_DESC"
+   				picture = "Portrait_Israel_Menachem_Begin.dds"
+    			expire = "1992.1.1"
+    			ideology = authoritarian_democrat_provisional_government_subtype
+			}
+			set_cosmetic_tag = ISR_irgun
+			add_state_core = 454
+			transfer_state = 454
+			load_oob = "ISR_PCW"
+		}
+		IME = {
+			country_event = { id = IMEskeleton.8 days = 10 }
+		}
+	}
+}
+
+country_event = { #Palestinian Civil War Begins
+	id = IMEskeleton.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IMEskeleton.8"}
+	title = IMEskeleton.8.t
+	desc = IMEskeleton.8.d
+	picture = GFX_report_event_generic_congress
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IMEskeleton.8.a
+		every_country = { 
+			news_event = { id = ITA_news.13 days = 3 }
+		}
+		set_global_flag = PAL_CW
+		ISR = {
+			declare_war_on = {
+				target = IME
+				type = civil_war
+			}
+			declare_war_on = {
+				target = PAL
+				type = civil_war
+			}
+		}
+		PAL = {
+			declare_war_on = {
+				target = IME
+				type = civil_war
+			}
+			declare_war_on = {
+				target = ISR
+				type = civil_war
+			}
+		}
+	}
+}
+
+country_event = { #UAK Forms After War
+	id = IMEskeleton.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IMEskeleton.9"}
+	title = IMEskeleton.9.t
+	desc = IMEskeleton.9.d
+	picture = GFX_report_event_generic_congress
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { 
+		name = IMEskeleton.9.a
+		every_country = { 
+			news_event = { id = ITA_news.16 days = 5 }
+		}
+		if = {
+			limit = {
+				ITA = {
+					NOT = {
+						has_government = communist
+					}
+				}
+			}
+			ITA = {
+				set_autonomy = {
+					target = JOR
+					autonomy_state = autonomy_italy_reliant
+				}
+				set_variable = { ITA_EM_Regions_Status^18 = 1 } # Set IME to vassal
+			}
+			JOR = {
+				set_country_flag = ind_UAK
+			}
+		}
+		else_if = {
+			limit = {
+				ITA = {
+					has_government = communist 
+				}
+			}
+			ITA = {
+				end_puppet = JOR
+				remove_from_faction = JOR
+			}
+
+		}
+		JOR = {
+			set_politics = {
+				ruling_party = despotism
+			}
+			set_popularities = {
+				communist = 0
+				ultranational_socialism = 0
+				socialist = 0
+				social_democrat = 0
+				social_liberal = 0
+
+				social_conservative = 10
+				authoritarian_democrat = 14
+				despotism = 76
+				fascism = 0
+				national_socialism = 0
+				burgundian_system = 0
+			}
+			annex_country = {
+				target = IME
+				transfer_troops = yes
+			}
+			drop_cosmetic_tag = yes
+			set_cosmetic_tag = UAK_ITA
+		}
+		every_state = {
+			limit = {
+				is_core_of = IME
+			}
+			JOR = {
+				add_state_core = PREV
+			}
+		}
+	}
+}
+
+country_event = { #Harakiyyin Victory
+	id = IMEskeleton.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IMEskeleton.10"}
+	title = IMEskeleton.10.t
+	desc = IMEskeleton.10.d
+	picture = GFX_report_event_generic_congress
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { 
+		name = IMEskeleton.10.a
+		every_country = { 
+			news_event = { id = ITA_news.14 days = 3 }
+		}
+		PAL = {
+			country_event = {
+				id = IMEskeleton.13 days = 65
+			}
+		}
+		ITA = {
+			set_variable = { ITA_EM_Regions_Status^18 = 3 } # Set IME to neutral
+		}
+		set_global_flag = PAL_PCW_Winner
+	}
+}
+
+country_event = { #Irgun Victory
+	id = IMEskeleton.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IMEskeleton.11"}
+	title = IMEskeleton.11.t
+	desc = IMEskeleton.11.d
+	picture = GFX_report_event_generic_congress
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { 
+		name = IMEskeleton.11.a
+		every_country = { 
+			news_event = { id = ITA_news.15 days = 3 }
+		}
+		ITA = {
+			set_variable = { ITA_EM_Regions_Status^18 = 3 } # Set IME to neutral
+		}
+		ISR = {
+			country_event = {
+				id = IMEskeleton.13 days = 65
+			}
+		}
+		set_politics = {
+			ruling_party = social_conservative
+			elections_allowed = yes
+		}
+		retire_country_leader = yes
+		create_country_leader = {
+    		name = "Menachem Begin"
+    		desc = "POLITICS_Menachem_Begin_DESC"
+   			picture = "Portrait_Israel_Menachem_Begin.dds"
+    		expire = "1992.1.1"
+    		ideology = social_conservative_revisionist_zionism_subtype
+		}
+		set_global_flag = ISR_PCW_Winner
+	}
+}
+
+country_event = { #Establishing IDF or Harakiyyin over Jordan
+	id = IMEskeleton.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IMEskeleton.12"}
+	title = IMEskeleton.12.t
+	desc = IMEskeleton.12.d
+	picture = GFX_report_event_generic_congress
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { 
+		name = IMEskeleton.12.a
+		if = {
+			limit = {
+				ISR = {
+					controls_state = 455
+					controls_state = 1246
+					controls_state = 1244
+					controls_state = 1245
+				}
+			}
+			ISR = {
+				set_autonomy = {
+					target = JOR
+					autonomy_state = autonomy_military_government
+				}
+			}
+			JOR = {
+				econ_leave_sphere = yes
+				set_party_name = { 
+					ideology = authoritarian_democrat
+					long_name = "Tsva ha-Hagana le-Yisra'el"
+					name = "IDF"
+				}
+				create_country_leader = {
+					name = "Moshe Dayan"
+					desc = "POLITICS_MOSHE_DAYAN_DESC"
+					picture = "Portrait_Israel_Moshe_Dayan.dds"
+					expire = 1970.1.1
+					ideology = authoritarian_democrat_military_mandate_subtype
+					traits = {
+
+					}
+				}
+				drop_cosmetic_tag = yes
+				set_cosmetic_tag = JOR_IDF
+				transfer_state = 1246
+				transfer_state = 455
+				transfer_state = 1245
+				transfer_state = 1244
+			}
+		}
+		else_if = {
+			limit = {
+				PAL = {
+					controls_state = 455
+					controls_state = 1246
+					controls_state = 1244
+					controls_state = 1245
+				}
+			}
+			PAL = {
+				set_autonomy = {
+					target = JOR
+					autonomy_state = autonomy_military_government
+				}
+			}
+			JOR = {
+				econ_leave_sphere = yes
+				drop_cosmetic_tag = yes
+				set_cosmetic_tag = JOR_HARAKIYYIN
+				transfer_state = 1246
+				transfer_state = 455
+				transfer_state = 1245
+				transfer_state = 1244
+			}
+		}
+	}
+}
+
+country_event = { #Irgun/Harakiyyin war on Jordan
+	id = IMEskeleton.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event IMEskeleton.13"}
+	title = IMEskeleton.13.t
+	desc = IMEskeleton.13.d
+	picture = GFX_report_event_generic_congress
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = IMEskeleton.13.a
+		ITA = {
+			end_puppet = JOR
+			remove_from_faction = JOR
+		}
+		if = {
+			limit = {
+				PAL = {
+					exists = yes
+				}
+			}
+			PAL = {
+				declare_war_on = {
+					target = JOR
+					type = annex_everything
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				ISR = {
+					exists = yes
+				}
+			}
+			ISR = {
+				declare_war_on = {
+					target = JOR
+					type = annex_everything
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,16 @@
+# Stub overriding the vanilla Thunder at Our Gates army HQ templates.
+#
+# Vanilla's copy of this file runs on every country when the TAOG DLC is active and
+# builds Army HQ division templates out of hq_infantry / hq_motorized / hq_support_company /
+# hq_air_liaison / hq_naval_liaison / hq_recon / hq_specops / hq_light_armor / hq_logistics /
+# hq_military_police / hq_maintenance.
+#
+# TNO disables that whole HQ system by stubbing common/units/hq_support.txt, so none of
+# those sub_units exist. The vanilla templates therefore referenced undefined sub_units,
+# which left broken division templates in the game state; the AI air evaluation then asked
+# the hq_air_liaison sub_unit for its air wing size and dereferenced null (CTD on the first
+# AI tick, only with TAOG enabled).
+#
+# history/general is not replace_path'd, so this same-named file overrides vanilla's.
+# If the HQ system is ever wanted, restore common/units/hq_support.txt to vanilla content
+# and delete this stub instead.

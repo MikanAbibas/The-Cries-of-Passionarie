@@ -1,0 +1,84 @@
+scripted_gui = {
+
+	# Military Advisors: a paid, temporary rise in the volunteer cap, docked under the deployment
+	# tab's header. Layout: interface/TNO_military_advisors.gui. Rules and variables:
+	# common/scripted_effects/TNO_military_advisors_scripted_effects.txt.
+	TNO_military_advisors_gui = {
+		context_type = player_context
+		parent_window_token = deployment_tab
+		window_name = "TNO_military_advisors_window"
+
+		# always drawn: the deployment list is moved down to make room for it
+		visible = {
+			always = yes
+		}
+
+		effects = {
+			military_advisors_raise_click = {
+				TNO_military_advisors_raise = yes
+			}
+		}
+
+		triggers = {
+			military_advisors_raise_click_enabled = {
+				TNO_military_advisors_can_raise = yes
+			}
+
+			# level 0 is drawn from fixed frames; the variable frames only once a raise has set them
+			military_advisors_level_zero_visible = {
+				check_variable = { TNO_military_advisors_level = 0 }
+			}
+			military_advisors_pips_zero_visible = {
+				check_variable = { TNO_military_advisors_level = 0 }
+			}
+			military_advisors_level_icon_visible = {
+				check_variable = { TNO_military_advisors_level > 0 }
+			}
+			military_advisors_pips_visible = {
+				check_variable = { TNO_military_advisors_level > 0 }
+			}
+			military_advisors_term_bar_visible = {
+				check_variable = { TNO_military_advisors_level > 0 }
+			}
+
+			# at level 5 the mockup's grey plate replaces the Raise button
+			military_advisors_raise_visible = {
+				check_variable = { TNO_military_advisors_level < 5 }
+			}
+			military_advisors_max_visible = {
+				check_variable = { TNO_military_advisors_level > 4 }
+			}
+			military_advisors_max_text_visible = {
+				check_variable = { TNO_military_advisors_level > 4 }
+			}
+		}
+
+		properties = {
+			military_advisors_level_icon = {
+				frame = TNO_military_advisors_frame
+			}
+			military_advisors_pips = {
+				frame = TNO_military_advisors_frame
+			}
+			military_advisors_term_bar = {
+				frame = TNO_military_advisors_bar_frame
+			}
+		}
+
+		ai_enabled = {
+			always = yes
+		}
+		ai_test_interval = 168
+		ai_test_variance = 48
+		ai_check = {
+			TNO_military_advisors_ai_should_raise = yes
+		}
+		ai_weights = {
+			military_advisors_raise_click = {
+				ai_will_do = {
+					base = 1
+				}
+			}
+		}
+	}
+}

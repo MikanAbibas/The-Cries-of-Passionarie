@@ -1,0 +1,81 @@
+# Balkan border wars — eligibility.
+#
+# One decision per contested state, so each carries its own claimant list; these are the shared
+# halves. Cooldowns are date stamps compared against global.date, never ticking counters:
+# date variables read as hours / 100000, so 365 days = 8760h = 0.0876 and 180 days = 0.0432.
+
+# The presser is in a position to start one at all.
+BALKAN_presser_ready = {
+	has_global_flag = BALKAN_BORDER_WARS
+	# A nation that has fought the open war is done with skirmishing, win or lose.
+	NOT = { has_country_flag = BALKAN_open_war_resolved }
+	# Only one at a time.
+	NOT = { has_country_flag = BALKAN_border_war_active }
+	# And a breather between them, so the decade is not wall-to-wall border wars.
+	custom_trigger_tooltip = {
+		tooltip = BALKAN_rested_tt
+		NOT = { has_country_flag = BALKAN_border_war_cooldown }
+	}
+	NOT = { has_war = yes }
+}
+
+# Run INSIDE a state scope. The state is contestable by ROOT right now.
+BALKAN_state_contestable = {
+	NOT = { is_owned_by = ROOT }
+	OR = {
+		NOT = { has_variable = BALKAN_cd_date }
+		check_variable = { var = BALKAN_cd_date  value = global.date  compare = less_than }
+	}
+	# someone to attack from
+	any_neighbor_state = { is_owned_by = ROOT }
+	# and the holder has to be a party to the crisis
+	OR = {
+		is_owned_by = ROM
+		is_owned_by = HUN
+		is_owned_by = BUL
+		is_owned_by = GRE
+		is_owned_by = SER
+		is_owned_by = CRO
+		is_owned_by = TUR
+		is_owned_by = ITA
+	}
+}
+
+# Thrace is Bulgaria's alone, and waits on the Greek-Turkish war being settled.
+# GRE_TUR_war_decided belongs to the Greek rework; until it exists these never open.
+BALKAN_thrace_open = {
+	has_global_flag = GRE_TUR_war_decided
+}
+
+# Kossovo and Montenegro open once Yugoslavia forms, or on the fallback timer.
+BALKAN_italian_states_open = {
+	has_global_flag = BALKAN_italian_claims_open
+}
+
+# Croatia reaches each axis through its focus tree rather than through bare claims.
+BALKAN_CRO_may_press_vojvodina = {
+	OR = {
+		NOT = { tag = CRO }
+		has_country_flag = CRO_can_border_war_HUN
+	}
+}
+BALKAN_CRO_may_press_banat = {
+	OR = {
+		NOT = { tag = CRO }
+		has_country_flag = CRO_can_border_war_ROM
+	}
+}
+BALKAN_CRO_may_press_srijem = {
+	OR = {
+		NOT = { tag = CRO }
+		has_country_flag = CRO_can_border_war_SER
+	}
+}
+# Hungarian Slovenia is a Yugoslav demand, not an Ustase one.
+BALKAN_is_yugoslav = {
+	OR = {
+		has_global_flag = CRO_yugoslavia
+		AND = { tag = CRO  has_government = communist }
+		tag = SER
+	}
+}

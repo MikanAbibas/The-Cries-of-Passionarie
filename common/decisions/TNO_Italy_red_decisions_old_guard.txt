@@ -1,0 +1,799 @@
+############################################################################
+## ██╗████████╗ █████╗ ██╗         ██╗███╗   ███╗██████╗ ███████╗██████╗  ##
+## ██║╚══██╔══╝██╔══██╗██║         ██║████╗ ████║██╔══██╗██╔════╝██╔══██╗ ##
+## ██║   ██║   ███████║██║         ██║██╔████╔██║██████╔╝█████╗  ██████╔╝ ##
+## ██║   ██║   ██╔══██║██║         ██║██║╚██╔╝██║██╔═══╝ ██╔══╝  ██╔══██╗ ##
+## ██║   ██║   ██║  ██║███████╗    ██║██║ ╚═╝ ██║██║     ███████╗██║  ██║ ##
+## ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝ ##
+############################################################################ (not)
+#Decisions
+
+ITA_RED_secchia_mechanic = {
+	ITA_secchia_party_degrade = {
+		priority = 100
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		is_good = yes
+		cancel_if_not_visible = no
+		days_mission_timeout = 30
+
+		timeout_effect = {
+			set_temp_variable = { ITA_RED_secchia_party_temp = 10 }
+			ITA_RED_secchia_party_decrease = yes
+			random_list = {
+				50 = {
+					activate_mission = ITA_secchia_state_degrade
+				}
+				50 = {
+					activate_mission = ITA_secchia_revolution_degrade
+				}
+			}
+		}
+	}
+	ITA_secchia_state_degrade = {
+		priority = 100
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		is_good = yes
+		cancel_if_not_visible = no
+		days_mission_timeout = 30
+
+		timeout_effect = {
+			set_temp_variable = { ITA_RED_secchia_state_temp = 10 }
+			ITA_RED_secchia_state_decrease = yes
+			random_list = {
+				50 = {
+					activate_mission = ITA_secchia_party_degrade
+				}
+				50 = {
+					activate_mission = ITA_secchia_revolution_degrade
+				}
+			}
+		}
+	}
+	ITA_secchia_revolution_degrade = {
+		priority = 100
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		is_good = yes
+		cancel_if_not_visible = no
+		days_mission_timeout = 30
+
+		timeout_effect = {
+			set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+			ITA_RED_secchia_revolution_decrease = yes
+			random_list = {
+				50 = {
+					activate_mission = ITA_secchia_state_degrade
+				}
+				50 = {
+					activate_mission = ITA_secchia_party_degrade
+				}
+			}
+		}
+	}
+
+	ITA_RED_secchia_fund_state_industry = {
+		icon = GFX_decision_generic_heavy_industry
+		allowed = { }
+
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 3 }
+		}
+
+		custom_cost_trigger = {
+			has_political_power > 24.99
+		}
+		custom_cost_text = decision_cost_25_pp_150_m
+
+		complete_effect = {
+			set_temp_variable = { temp_econ_spending_amount = 0.15 }
+			econ_spend_money_once_effect_raw_money = yes
+			hidden_effect = {
+				add_political_power = -25
+			}
+		}
+
+		remove_effect = {
+			set_temp_variable = { ITA_RED_secchia_state_temp = 5 }
+			ITA_RED_secchia_state_increase = yes
+			TNO_improve_industrial_equipment_low = yes
+			set_temp_variable = { ITA_RED_pillar_change_workers_temp = 5 }
+			ITA_RED_cultrev_progress_workers = yes
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+	ITA_RED_secchia_reorganize_the_middle_class = {
+		icon = GFX_decision_generic_workers
+		allowed = { }
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 3 }
+		}
+		custom_cost_trigger = {
+			set_temp_variable = { t_ita_reaction_check = 7.5 }
+
+			set_temp_variable = { t_ita_severity_check = 7.5 }
+
+			check_variable = { ITA_RED_reaction < 92.5 }
+			check_variable = { ITA_RED_severity < 92.5 }
+		}
+		custom_cost_text = decision_cost_reaction_ita_severity_dynamic
+		complete_effect = {
+			set_temp_variable = {ITA_RED_reaction_temp = 7.5}
+			ITA_RED_cultrev_reaction_change = yes
+			set_temp_variable = {ITA_RED_severity_temp = 7.5}
+			ITA_RED_cultrev_severity_change = yes
+		}
+
+		remove_effect = {
+			set_temp_variable = { ITA_RED_secchia_state_temp = 10 }
+			ITA_RED_secchia_state_increase = yes
+			add_political_power = 25
+			set_temp_variable = { ITA_RED_pillar_change_middle_class_temp = 5 }
+			ITA_RED_cultrev_progress_middle_class = yes
+		}
+		days_remove = 21
+		days_re_enable = 28
+	}
+	ITA_RED_secchia_crack_down_on_counterrevolution = {
+		icon = GFX_decision_generic_building_prisons
+		allowed = { }
+		custom_cost_trigger = {
+			set_temp_variable = { t_pp_check = 45 }
+
+			set_temp_variable = { t_ita_red_terror_check = 10 }
+
+			has_political_power > 44.99
+			check_variable = { ITA_RED_red_terror < 90 }
+		}
+		custom_cost_text = decision_cost_pp_ita_red_terror_dynamic
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 3 }
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -45
+			}
+			set_temp_variable = {ITA_RED_red_terror_temp = 10}
+			ITA_RED_cultrev_red_terror_change = yes
+		}
+
+		remove_effect = {
+			set_temp_variable = { ITA_RED_secchia_state_temp = 15 }
+			ITA_RED_secchia_state_increase = yes
+			set_temp_variable = { ITA_RED_pillar_change_middle_class_temp = 5 }
+			ITA_RED_cultrev_progress_middle_class = yes
+			set_temp_variable = { ITA_RED_pillar_change_clergy_temp = 5 }
+			ITA_RED_cultrev_progress_clergy = yes
+			set_temp_variable = {ITA_RED_reaction_temp = -5}
+			ITA_RED_cultrev_reaction_change = yes
+		}
+		days_remove = 28
+		days_re_enable = 28
+	}
+	ITA_RED_secchia_fund_youth_organizations = {
+		icon = GFX_decision_document_building
+		allowed = { }
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 1 }
+		}
+
+		custom_cost_trigger = {
+			has_political_power > 24.99
+		}
+		custom_cost_text = decision_cost_15_pp_25_m
+
+		complete_effect = {
+			set_temp_variable = { temp_econ_spending_amount = 0.15 }
+			econ_spend_money_once_effect_raw_money = yes
+			hidden_effect = {
+				add_political_power = -15
+			}
+		}
+
+		remove_effect = {
+			set_temp_variable = { ITA_RED_secchia_party_temp =  5 }
+			ITA_RED_secchia_party_increase = yes
+			set_temp_variable = { ITA_RED_pillar_change_academia_temp = 5 }
+			ITA_RED_cultrev_progress_academia = yes
+			set_temp_variable = {ITA_RED_militant_approval_temp = 5}
+			ITA_RED_cultrev_militant_approval_change = yes
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+	ITA_RED_secchia_define_the_party_line = {
+		icon = GFX_decision_document_socialism
+		allowed = { }
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 1 }
+		}
+
+		custom_cost_trigger = {
+			set_temp_variable = { t_pp_check = 35 }
+
+			set_temp_variable = { t_ita_fervor_check = 5 }
+
+			has_political_power > 34.99
+			check_variable = { ITA_RED_revolutionary_fervor > 4.99 }
+		}
+		custom_cost_text = decision_cost_pp_ita_fervor_dynamic
+
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -35
+			}
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = -5 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes
+		}
+
+		remove_effect = {
+			set_temp_variable = { ITA_RED_secchia_party_temp = 10 }
+			ITA_RED_secchia_party_increase = yes
+			TNO_improve_academic_base_med = yes
+		}
+		days_remove = 21
+		days_re_enable = 28
+	}
+	ITA_RED_secchia_crack_down_on_factionalism = {
+		icon = GFX_decision_document_target
+		allowed = { }
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 1 }
+		}
+
+		custom_cost_trigger = {
+			set_temp_variable = { t_pp_check = 40 }
+
+			set_temp_variable = { t_ita_fervor_check = 10 }
+
+			has_political_power > 39.99
+			check_variable = { ITA_RED_revolutionary_fervor > 9.99 }
+		}
+		custom_cost_text = decision_cost_pp_ita_fervor_dynamic
+
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -40
+			}
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = -10 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes
+			set_temp_variable = { ITA_RED_secchia_party_temp = 10 }
+			ITA_RED_secchia_party_decrease = yes
+		}
+
+		remove_effect = {
+			set_temp_variable = { ITA_RED_secchia_party_temp = 25 }
+			ITA_RED_secchia_party_increase = yes
+			add_stability = 0.05
+			tno_political_parties_improve = yes
+			tno_political_parties_improve = yes
+		}
+		days_remove = 28
+		days_re_enable = 28
+	}
+	ITA_RED_secchia_distribute_propaganda = {
+		icon = GFX_decision_generic_propaganda
+		allowed = { }
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 2 }
+		}
+
+		custom_cost_trigger = {
+			has_political_power > 24.99
+		}
+		custom_cost_text = decision_cost_25_pp_25_m
+
+		complete_effect = {
+			set_temp_variable = { temp_econ_spending_amount = 0.15 }
+			econ_spend_money_once_effect_raw_money = yes
+			hidden_effect = {
+				add_political_power = -25
+			}
+		}
+
+		remove_effect = {
+			set_temp_variable = { ITA_RED_secchia_revolution_temp = 5 }
+			ITA_RED_secchia_revolution_increase = yes
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 5 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes
+			set_temp_variable = { ITA_RED_militant_approval_temp = 5 }
+			ITA_RED_cultrev_militant_approval_change = yes
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+	ITA_RED_secchia_expand_militant_training = {
+		icon = GFX_decision_generic_assault
+		allowed = { }
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 2 }
+		}
+
+		custom_cost_trigger = {
+			command_power > 24.99
+			has_army_experience > 49.99
+		}
+		custom_cost_text = decision_cost_50_army_xp_25_cp
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -25
+				army_experience = -50
+			}
+		}
+
+		remove_effect = {
+			set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+			ITA_RED_secchia_revolution_increase = yes
+			TNO_improve_army_professionalism_low = yes
+			set_temp_variable = { ITA_RED_pillar_change_soldiers_police_temp = 5 }
+			ITA_RED_cultrev_progress_soldiers_police = yes
+		}
+		days_remove = 21
+		days_re_enable = 28
+	}
+	ITA_RED_secchia_establish_a_revolutionary_culture = {
+		icon = GFX_decision_generic_civil_support
+		allowed = { }
+		cost = 25
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 2 }
+		}
+
+		custom_cost_trigger = {
+			set_temp_variable = { t_pp_check = 35 }
+
+			set_temp_variable = { t_ita_red_terror_check = 5 }
+
+			has_political_power > 34.99
+			check_variable = { ITA_RED_red_terror < 95 }
+		}
+		custom_cost_text = decision_cost_pp_ita_red_terror_dynamic
+
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -35
+			}
+			set_temp_variable = {ITA_RED_red_terror_temp = 5}
+			ITA_RED_cultrev_red_terror_change = yes
+		}
+
+		remove_effect = {
+			set_temp_variable = { ITA_RED_secchia_revolution_temp = 15 }
+			ITA_RED_secchia_revolution_increase = yes
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 10 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes
+			add_war_support = 0.05
+		}
+		days_remove = 28
+		days_re_enable = 28
+	}
+
+	ITA_RED_0 = {
+		icon = GFX_decision_generic_heavy_industry
+		allowed = { }
+
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 1 }
+			has_country_flag = secchia_decision_flag_1
+		}
+
+		custom_cost_trigger = {
+			set_temp_variable = { t_ita_secchia_party_check = 9.99 }
+
+			check_variable = { ITA_RED_secchia_party < 10 }
+			has_political_power > 24.99
+		}
+		custom_cost_text = decision_cost_25_pp_10_secchia_party
+
+		complete_effect = {
+			set_temp_variable = { ITA_RED_secchia_party_temp = 10 }
+			ITA_RED_secchia_party_decrease = yes
+			hidden_effect = {
+				add_political_power = -25
+			}
+		}
+
+		remove_effect = {
+			set_temp_variable = { ITA_RED_secchia_state_temp = 5 }
+			ITA_RED_secchia_state_increase = yes
+			set_temp_variable = { ITA_RED_secchia_revolution_temp = 5 }
+			ITA_RED_secchia_revolution_increase = yes
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+
+	ITA_RED_1 = {
+		icon = GFX_decision_generic_heavy_industry
+		allowed = { }
+
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 2 }
+			has_country_flag = secchia_decision_flag_1
+		}
+
+		custom_cost_trigger = {
+			set_temp_variable = { t_ita_secchia_revolution_check = 10 }
+
+			check_variable = { ITA_RED_secchia_revolution > 9.99 }
+			has_political_power > 24.99
+		}
+		custom_cost_text = decision_cost_25_pp_10_secchia_revolution
+
+		complete_effect = {
+			set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+			ITA_RED_secchia_revolution_decrease = yes
+			hidden_effect = {
+				add_political_power = -25
+			}
+		}
+
+		remove_effect = {
+			set_temp_variable = { ITA_RED_secchia_party_temp = 5 }
+			ITA_RED_secchia_party_increase = yes
+			set_temp_variable = { ITA_RED_secchia_state_temp = 5 }
+			ITA_RED_secchia_state_increase = yes
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+
+	ITA_RED_2 = {
+		icon = GFX_decision_generic_heavy_industry
+		allowed = { }
+
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 3 }
+			has_country_flag = secchia_decision_flag_1
+		}
+
+		custom_cost_trigger = {
+			set_temp_variable = { t_ita_secchia_state_check = 9.99 }
+
+			check_variable = { ITA_RED_secchia_state > 10 }
+			has_political_power > 24.99
+		}
+		custom_cost_text = decision_cost_25_pp_10_secchia_state
+
+		complete_effect = {
+			set_temp_variable = { ITA_RED_secchia_state_temp = 10 }
+			ITA_RED_secchia_state_decrease = yes
+			hidden_effect = {
+				add_political_power = -25
+			}
+		}
+
+		remove_effect = {
+			set_temp_variable = { ITA_RED_secchia_party_temp = 5 }
+			ITA_RED_secchia_party_increase = yes
+			set_temp_variable = { ITA_RED_secchia_revolution_temp = 5 }
+			ITA_RED_secchia_revolution_increase = yes
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+
+	ITA_RED_3 = {
+		icon = GFX_decision_generic_heavy_industry
+		allowed = { }
+
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 1 }
+			has_country_flag = secchia_decision_flag_2
+		}
+
+
+		complete_effect = {
+
+		}
+
+		remove_effect = {
+
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+
+	ITA_RED_4 = {
+		icon = GFX_decision_generic_heavy_industry
+		allowed = { }
+
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 3 }
+			has_country_flag = secchia_decision_flag_3
+		}
+
+		custom_cost_trigger = {
+			set_temp_variable = { t_ita_ML_delegates_check = 5 }
+
+			# Comecon. The delegate array does not exist here, so the cost is the
+			# political power alone until the CME_ framework is imported.
+			#check_variable = { CME_delegate_ideology^CME_faction_temp > 4.99 }
+			has_political_power > 34.99
+		}
+		custom_cost_text = decision_cost_35_pp_5_delegates
+
+		complete_effect = {
+			# Comecon. TNORA has no CME_ framework, so this call did nothing.
+			#set_temp_variable = {CME_delegates_temp = -5}
+			#set_temp_variable = {CME_faction_temp = 1}
+			#CME_add_faction_delegates = yes
+			hidden_effect = {
+				add_political_power = -35
+			}
+		}
+
+		remove_effect = {
+			set_temp_variable = {ITA_RED_secchia_party_temp = 15}
+			ITA_RED_secchia_party_increase = yes
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+
+	ITA_RED_5 = {
+		icon = GFX_decision_generic_heavy_industry
+		allowed = { }
+
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 3 }
+			has_country_flag = secchia_decision_flag_4
+		}
+
+		custom_cost_trigger = {
+			set_temp_variable = { t_ita_secchia_state_check = 15 }
+
+			check_variable = { ITA_RED_secchia_party > 14.99 }
+			has_political_power > 34.99
+		}
+		custom_cost_text = decision_cost_35_pp_15_secchia_party
+
+		complete_effect = {
+			set_temp_variable = {ITA_RED_secchia_party_temp = 15}
+			ITA_RED_secchia_party_decrease = yes
+			hidden_effect = {
+				add_political_power = -35
+			}
+		}
+
+		remove_effect = {
+			#set_temp_variable = {CME_delegates_temp = 5}
+			#set_temp_variable = {CME_faction_temp = 1}
+			#CME_add_faction_delegates = yes
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+
+	ITA_RED_6 = {
+		icon = GFX_decision_generic_heavy_industry
+		allowed = { }
+
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 3 }
+			has_country_flag = secchia_decision_flag_5
+		}
+
+		custom_cost_trigger = {
+			set_temp_variable = { t_ita_secchia_state_check = 5 }
+
+			check_variable = { ITA_RED_secchia_state > 4.99 }
+			has_political_power > 24.99
+		}
+		custom_cost_text = decision_cost_25_pp_5_secchia_state
+
+		complete_effect = {
+			set_temp_variable = {ITA_RED_secchia_state_temp = 5}
+			ITA_RED_secchia_state_decrease = yes
+			hidden_effect = {
+				add_political_power = -25
+			}
+		}
+
+		remove_effect = {
+			set_temp_variable = {ITA_RED_reaction_temp = -5}
+			ITA_RED_cultrev_reaction_change = yes
+			set_temp_variable = { ITA_RED_militant_approval_temp = 5 }
+			ITA_RED_cultrev_militant_approval_change = yes
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+
+	ITA_RED_7 = {
+		icon = GFX_decision_generic_heavy_industry
+		allowed = { }
+
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 3 }
+			has_country_flag = secchia_decision_flag_6
+		}
+
+		available = {
+			has_fuel > 19999
+			has_political_power > 24.99
+		}
+
+		custom_cost_trigger = {
+			has_fuel > 19999
+			has_political_power > 24.99
+		}
+		custom_cost_text = decision_cost_20000_fuel_25_pp
+
+		complete_effect = {
+			add_fuel = -20000
+			hidden_effect = {
+				add_political_power = -25
+			}
+		}
+
+		remove_effect = {
+			set_temp_variable = { ITA_RED_secchia_state_temp = 5 }
+			ITA_RED_secchia_state_increase = yes
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+
+	ITA_RED_8 = {
+		icon = GFX_decision_generic_heavy_industry
+		allowed = { }
+
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 3 }
+			has_country_flag = secchia_decision_flag_7
+		}
+
+		cost = 25
+
+		complete_effect = {
+			set_temp_variable = { pus_temp = -1 }
+			econ_pus_change = yes
+		}
+
+		remove_effect = {
+			set_temp_variable = { ITA_RED_secchia_state_temp = 10 }
+			ITA_RED_secchia_state_increase = yes
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+
+	ITA_RED_9 = {
+		icon = GFX_decision_generic_heavy_industry
+		allowed = { }
+
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 2 }
+			has_country_flag = secchia_decision_flag_9
+		}
+
+		custom_cost_trigger = {
+			set_temp_variable = { t_ita_secchia_revolution_check = 10 }
+
+			check_variable = { ITA_RED_secchia_revolution > 9.99 }
+			has_political_power > 24.99
+		}
+
+		complete_effect = {
+			set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+			ITA_RED_secchia_revolution_decrease = yes
+			hidden_effect = {
+				add_political_power = -25
+			}
+		}
+
+		remove_effect = {
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 5 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+
+	ITA_RED_10 = {
+		icon = GFX_decision_generic_heavy_industry
+		allowed = { }
+
+		visible = {
+			check_variable = { ITA_RED_secchia_selected_area = 3 }
+			has_country_flag = secchia_decision_flag_8
+		}
+
+		custom_cost_trigger = {
+			set_temp_variable = { t_ita_secchia_revolution_check = 10 }
+
+			check_variable = { ITA_RED_secchia_revolution > 9.99 }
+		}
+		custom_cost_text = decision_cost_10_secchia_revolution
+
+		complete_effect = {
+			set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+			ITA_RED_secchia_revolution_decrease = yes
+		}
+
+		remove_effect = {
+			add_political_power = 100
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+}
+
+ITA_damen_UMSR_category = {
+	ITA_establish_balkan_sr = {
+		#icon =
+		allowed = { original_tag = ITA }
+		cost = 50
+		fire_only_once = yes
+		visible = {
+			CRO = { is_in_faction_with = ITA }
+			MNT = { is_in_faction_with = ITA }
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: ITA_establish_balkan_sr"
+			country_event = {
+				id = ITA_RED_damen.1
+				hours = 6
+			}
+		}
+	}
+
+
+	ITA_RED_invade_croatia = {
+		#icon =
+		allowed = { original_tag = ITA }
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: ITA_RED_invade_croatia"
+			puppet = CRO
+		}
+	}
+
+	ITA_RED_invade_montenegro = {
+		#icon =
+		allowed = { original_tag = ITA }
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: ITA_RED_invade_montenegro"
+			puppet = MNT
+		}
+	}
+}

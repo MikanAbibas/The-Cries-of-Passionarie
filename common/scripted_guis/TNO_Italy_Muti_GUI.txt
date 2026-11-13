@@ -1,0 +1,370 @@
+scripted_gui = { 
+	ITA_GUI_Multi_Revolution_GUI = {
+		context_type = decision_category
+		window_name = "ITA_GUI_Multi_Revolution_GUI"
+		
+		visible = {
+			always = yes
+		}
+
+		dynamic_lists = {
+            ITA_GUI_Muti_Interactions = {
+                array = ITA_GUI_Muti_Interactions
+                index = i
+                change_scope = no
+
+                entry_container = ITA_GUI_Muti_Interactions_Box
+            }
+		}
+		
+		triggers = {
+			ITA_Muti_GUI_people_debug_minus_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			ITA_Muti_GUI_people_debug_plus_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			ITA_Muti_GUI_clergy_debug_minus_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			ITA_Muti_GUI_clergy_debug_plus_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			ITA_Muti_GUI_party_debug_minus_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			ITA_Muti_GUI_party_debug_plus_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			ITA_Muti_GUI_natives_debug_minus_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			ITA_Muti_GUI_natives_debug_plus_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			ITA_Muti_GUI_industry_debug_minus_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			ITA_Muti_GUI_industry_debug_plus_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			ITA_Muti_GUI_army_debug_minus_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			ITA_Muti_GUI_army_debug_plus_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			ITA_Muti_GUI_alert_visible = {
+				check_variable = {global.ITA_speedometer > 80}
+			}
+			ITA_Muti_GUI_stall_alert_visible = {
+				OR = {
+					check_variable = {global.ITA_speedometer < 20}
+					check_variable = {global.ITA_speedometer = 20}
+				}
+			}
+			ITA_Muti_GUI_Meter_debug_plus_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			ITA_Muti_GUI_Meter_debug_minus_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			ITA_Muti_GUI_people_gas_selected_visible = {
+				check_variable = {ITA_GUI_muti_selected_pump = 0}
+			}
+			ITA_Muti_GUI_clergy_gas_selected_visible = {
+				check_variable = {ITA_GUI_muti_selected_pump = 1}
+			}
+			ITA_Muti_GUI_party_gas_selected_visible = {
+				check_variable = {ITA_GUI_muti_selected_pump = 2}
+			}
+			ITA_Muti_GUI_natives_gas_selected_visible = {
+				check_variable = {ITA_GUI_muti_selected_pump = 3}
+			}
+			ITA_Muti_GUI_industry_gas_selected_visible = {
+				check_variable = {ITA_GUI_muti_selected_pump = 4}
+			}
+			ITA_Muti_GUI_army_gas_selected_visible = {
+				check_variable = {ITA_GUI_muti_selected_pump = 5}
+			}
+			ITA_Muti_GUI_Interactions_available_box_visible = {
+				OR = {
+					AND = {
+						check_variable = {ITA_GUI_Muti_Interactions^i = 0}
+						has_political_power > 99
+					}
+					AND = {
+						check_variable = {ITA_GUI_Muti_Interactions^i = 1}
+						has_political_power > 49
+					}
+					AND = {
+						check_variable = {ITA_GUI_Muti_Interactions^i = 2}
+						has_political_power > 99
+					}
+					AND = {
+						check_variable = {ITA_GUI_Muti_Interactions^i = 3}
+						has_political_power > 99
+					}
+					AND = {
+						check_variable = {ITA_GUI_Muti_Interactions^i = 5}
+						has_political_power > 49
+					}
+					AND = {
+						check_variable = {ITA_GUI_Muti_Interactions^i = 6}
+						has_political_power > 49
+					}
+					AND = {
+						check_variable = {ITA_GUI_Muti_Interactions^i = 7}
+						has_political_power > 19
+					}
+					AND = {
+						check_variable = {ITA_GUI_Muti_Interactions^i = 8}
+						has_political_power > 49
+					}
+					AND = {
+						check_variable = {ITA_GUI_Muti_Interactions^i = 11}
+						has_political_power > 49
+					}
+					AND = {
+						check_variable = {ITA_GUI_Muti_Interactions^i = 12}
+						has_political_power > 49
+					}
+					AND = {
+						check_variable = {ITA_GUI_Muti_Interactions^i = 13}
+						has_political_power > 19
+					}
+					OR = {
+						check_variable = {ITA_GUI_Muti_Interactions^i = 4}
+						check_variable = {ITA_GUI_Muti_Interactions^i = 9}
+						check_variable = {ITA_GUI_Muti_Interactions^i = 10}
+						check_variable = {ITA_GUI_Muti_Interactions^i = 14}
+						check_variable = {ITA_GUI_Muti_Interactions^i = 15}
+						check_variable = {ITA_GUI_Muti_Interactions^i = 16}
+						check_variable = {ITA_GUI_Muti_Interactions^i = 17}
+						check_variable = {ITA_GUI_Muti_Interactions^i = 18}
+						check_variable = {ITA_GUI_Muti_Interactions^i = 19}
+						check_variable = {ITA_GUI_Muti_Interactions^i = 20}
+					}
+				}
+			}
+			ITA_Muti_interactions_button_visible = {
+				OR = {
+					AND = {
+						check_variable = {ITA_GUI_muti_selected_pump = 0}
+						check_variable = {ITA_GUI_Muti_people_cooldown = 0}
+					}
+					AND = {
+						check_variable = {ITA_GUI_muti_selected_pump = 1}
+						check_variable = {ITA_GUI_Muti_clergy_cooldown = 0}
+					}
+					AND = {
+						check_variable = {ITA_GUI_muti_selected_pump = 2}
+						check_variable = {ITA_GUI_Muti_party_cooldown = 0}
+					}
+					AND = {
+						check_variable = {ITA_GUI_muti_selected_pump = 3}
+						check_variable = {ITA_GUI_Muti_natives_cooldown = 0}
+					}
+					AND = {
+						check_variable = {ITA_GUI_muti_selected_pump = 4}
+						check_variable = {ITA_GUI_Muti_industry_cooldown = 0}
+					}
+					AND = {
+						check_variable = {ITA_GUI_muti_selected_pump = 5}
+						check_variable = {ITA_GUI_Muti_army_cooldown = 0}
+					}
+				}
+			}
+			ITA_Muti_GUI_Interactions_available_box_selected_visible = {
+				OR = {
+					AND = {
+						check_variable = {ITA_GUI_muti_selected_pump = 0}
+						check_variable = {ITA_GUI_muti_people_policiy < 21}
+					}
+					AND = {
+						check_variable = {ITA_GUI_muti_selected_pump = 1}
+						check_variable = {ITA_GUI_muti_clergy_policiy < 21}
+					}
+					AND = {
+						check_variable = {ITA_GUI_muti_selected_pump = 2}
+						check_variable = {ITA_GUI_muti_party_policiy < 21}
+					}
+					AND = {
+						check_variable = {ITA_GUI_muti_selected_pump = 3}
+						check_variable = {ITA_GUI_muti_natives_policiy < 21}
+					}
+					AND = {
+						check_variable = {ITA_GUI_muti_selected_pump = 4}
+						check_variable = {ITA_GUI_muti_industry_policiy < 21}
+					}
+					AND = {
+						check_variable = {ITA_GUI_muti_selected_pump = 5}
+						check_variable = {ITA_GUI_muti_army_policiy < 21}
+					}
+				}
+			}
+		}
+		
+		effects = {
+			ITA_Muti_interactions_button_click = {
+				ITA_Muti_GUI_clear_policy = yes
+			}
+			ITA_Muti_GUI_Interactions_available_box_click = {
+				ITA_Muti_GUI_Set_Interaction = yes
+			}
+			ITA_Muti_GUI_people_gas_click = {
+				set_variable = {ITA_GUI_muti_selected_pump = 0}
+				ITA_Muti_people_gas_setup = yes
+			}
+			ITA_Muti_GUI_clergy_gas_click = {
+				set_variable = {ITA_GUI_muti_selected_pump = 1}
+				ITA_Muti_clergy_gas_setup = yes
+			}
+			ITA_Muti_GUI_party_gas_click = {
+				set_variable = {ITA_GUI_muti_selected_pump = 2}
+				ITA_Muti_party_gas_setup = yes
+			}
+			ITA_Muti_GUI_natives_gas_click = {
+				set_variable = {ITA_GUI_muti_selected_pump = 3}
+				ITA_Muti_natives_gas_setup = yes
+			}
+			ITA_Muti_GUI_industry_gas_click = {
+				set_variable = {ITA_GUI_muti_selected_pump = 4}
+				ITA_Muti_industry_gas_setup = yes
+			}
+			ITA_Muti_GUI_army_gas_click = {
+				set_variable = {ITA_GUI_muti_selected_pump = 5}
+				ITA_Muti_army_gas_setup = yes
+			}
+			ITA_Muti_GUI_people_debug_minus_click = {
+				ITA_Muti_revolution_gui_decrease_people_pop_5 = yes
+			}
+			ITA_Muti_GUI_people_debug_minus_right_click = {
+				ITA_Muti_revolution_gui_decrease_people_reform_5 = yes
+			}
+			ITA_Muti_GUI_people_debug_plus_click = {
+				ITA_Muti_revolution_gui_increase_people_pop_5 = yes
+			}
+			ITA_Muti_GUI_people_debug_plus_right_click = {
+				ITA_Muti_revolution_gui_increase_people_reform_5 = yes
+			}
+			ITA_Muti_GUI_clergy_debug_minus_click = {
+				ITA_Muti_revolution_gui_decrease_clergy_pop_5 = yes
+			}
+			ITA_Muti_GUI_clergy_debug_minus_right_click = {
+				ITA_Muti_revolution_gui_decrease_clergy_reform_5 = yes
+			}
+			ITA_Muti_GUI_clergy_debug_plus_click = {
+				ITA_Muti_revolution_gui_increase_clergy_pop_5 = yes
+			}
+			ITA_Muti_GUI_clergy_debug_plus_right_click = {
+				ITA_Muti_revolution_gui_increase_clergy_reform_5 = yes
+			}
+			ITA_Muti_GUI_party_debug_minus_click = {
+				ITA_Muti_revolution_gui_decrease_party_pop_5 = yes
+			}
+			ITA_Muti_GUI_party_debug_minus_right_click = {
+				ITA_Muti_revolution_gui_decrease_party_reform_5 = yes
+			}
+			ITA_Muti_GUI_party_debug_plus_click = {
+				ITA_Muti_revolution_gui_increase_party_pop_5 = yes
+			}
+			ITA_Muti_GUI_party_debug_plus_right_click = {
+				ITA_Muti_revolution_gui_increase_party_reform_5 = yes
+			}
+			ITA_Muti_GUI_natives_debug_minus_click = {
+				ITA_Muti_revolution_gui_decrease_natives_pop_5 = yes
+			}
+			ITA_Muti_GUI_natives_debug_minus_right_click = {
+				ITA_Muti_revolution_gui_decrease_natives_reform_5 = yes
+			}
+			ITA_Muti_GUI_natives_debug_plus_click = {
+				ITA_Muti_revolution_gui_increase_natives_pop_5 = yes
+			}
+			ITA_Muti_GUI_natives_debug_plus_right_click = {
+				ITA_Muti_revolution_gui_increase_natives_reform_5 = yes
+			}
+			ITA_Muti_GUI_industry_debug_minus_click = {
+				ITA_Muti_revolution_gui_decrease_industry_pop_5 = yes
+			}
+			ITA_Muti_GUI_industry_debug_minus_right_click = {
+				ITA_Muti_revolution_gui_decrease_industry_reform_5 = yes
+			}
+			ITA_Muti_GUI_industry_debug_plus_click = {
+				ITA_Muti_revolution_gui_increase_industry_pop_5 = yes
+			}
+			ITA_Muti_GUI_industry_debug_plus_right_click = {
+				ITA_Muti_revolution_gui_increase_industry_reform_5 = yes
+			}
+			ITA_Muti_GUI_army_debug_minus_click = {
+				ITA_Muti_revolution_gui_decrease_army_pop_5 = yes
+			}
+			ITA_Muti_GUI_army_debug_minus_right_click = {
+				ITA_Muti_revolution_gui_decrease_army_reform_5 = yes
+			}
+			ITA_Muti_GUI_army_debug_plus_click = {
+				ITA_Muti_revolution_gui_increase_army_pop_5 = yes
+			}
+			ITA_Muti_GUI_army_debug_plus_right_click = {
+				ITA_Muti_revolution_gui_increase_army_reform_5 = yes
+			}
+			ITA_Muti_GUI_Meter_debug_plus_click = {
+				ITA_Muti_revolution_gui_increase_speed_meter_small = yes
+			}
+			ITA_Muti_GUI_Meter_debug_plus_right_click = {
+				ITA_Muti_revolution_gui_increase_speed_meter_moderate = yes
+			}
+			ITA_Muti_GUI_Meter_debug_minus_click = {
+				ITA_Muti_revolution_gui_decrease_speed_meter_small = yes
+			}
+			ITA_Muti_GUI_Meter_debug_minus_right_click = {
+				ITA_Muti_revolution_gui_decrease_speed_meter_moderate = yes
+			}
+		}
+		
+		properties = {
+			ITA_Muti_GUI_people_gas_bar = {
+				frame = global.ITA_people_reform
+			}
+			ITA_Muti_GUI_clergy_gas_bar = {
+				frame = global.ITA_clergy_reform
+			}
+			ITA_Muti_GUI_party_gas_bar = {
+				frame = global.ITA_party_reform
+			}
+			ITA_Muti_GUI_natives_gas_bar = {
+				frame = global.ITA_natives_reform
+			}
+			ITA_Muti_GUI_industry_gas_bar = {
+				frame = global.ITA_industry_reform
+			}
+			ITA_Muti_GUI_army_gas_bar = {
+				frame = global.ITA_army_reform
+			}
+			ITA_Muti_GUI_fiume_bar = {
+				frame = global.ITA_spirit_of_fiume
+			}
+
+			ITA_Muti_GUI_Meter_Dial = {
+				image = "[Get_ITA_Broom_Broom_Thing]"
+			}
+			ITA_Muti_GUI_Meter_Dial_Small = {
+				image = "[Get_ITA_Broom_Broom_Thing_Small]"
+			}
+		}
+	}
+}

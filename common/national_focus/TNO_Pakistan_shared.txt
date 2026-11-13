@@ -1,0 +1,854 @@
+#####################
+##PAKISTAN WAR TREE##
+#####################
+
+shared_focus = {
+	id = PAK_War_The_Hour_Has_Come
+	icon = GFX_Generic_Revolution
+	cost = 5
+	x = 6
+	y = 0
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	available = {
+		has_global_flag = icw_yes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_The_Hour_Has_Come"
+		add_war_support = 0.1
+		hidden_effect = {
+			country_event = {
+				id = pakistan.1
+				days = 3
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_A_Democratic_Republic
+	icon = GFX_Generic_Social_Conservatives
+	cost = 5
+	x = 3
+	y = 1
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_The_Hour_Has_Come
+	}
+	available = {
+		has_country_flag = PAK_ICW_dem
+	}
+	mutually_exclusive = {
+		focus = PAK_War_The_Iron_Fist
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_A_Democratic_Republic"
+		hidden_effect = {
+			add_popularity = {
+				ideology = authoritarian_democrat
+				popularity = -0.2
+			}
+			add_popularity = {
+				ideology = social_liberal
+				popularity = 0.1
+			}
+		}
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.1
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_A_Nonpartisan_Struggle
+	icon = GFX_Generic_Liberty_Handshake
+	cost = 5
+	x = 1
+	y = 2
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_A_Democratic_Republic
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_A_Nonpartisan_Struggle"
+		hidden_effect = {
+			add_popularity = {
+				ideology = social_conservative
+				popularity = -0.05
+			}
+		}
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = social_liberal
+			popularity = 0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Communists_and_Conservatives_Alike
+	icon = GFX_goal_generic_communist_deal
+	cost = 5
+	x = 2
+	y = 3
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_A_Nonpartisan_Struggle
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Communists_and_Conservatives_Alike"
+		hidden_effect = {
+			add_popularity = {
+				ideology = social_liberal
+				popularity = -0.05
+			}
+		}
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = communist
+			popularity = 0.02
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_An_Appeal_to_the_Free_World
+	icon = GFX_RAJ_india_diplomatic_usa
+	cost = 5
+	x = 5
+	y = 2
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_A_Democratic_Republic
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_An_Appeal_to_the_Free_World"
+		USA = {
+			country_event = {
+				id = pakistan.4
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_And_the_Not_So_Free
+	icon = GFX_RAJ_india_diplomatic_ger
+	cost = 5
+	x = 4
+	y = 3
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_An_Appeal_to_the_Free_World
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_And_the_Not_So_Free"
+		GER = {
+			country_event = {
+				id = pakistan.7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Secularism
+	icon = GFX_RAJ_religious_peace
+	cost = 5
+	x = 1
+	y = 4
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Communists_and_Conservatives_Alike
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Secularism"
+		tno_religious_rights_improve = yes
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Diversity
+	icon = GFX_USA_helping_hand
+	cost = 5
+	x = 3
+	y = 4
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Communists_and_Conservatives_Alike
+	}
+	prerequisite = {
+		focus = PAK_War_And_the_Not_So_Free
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Diversity"
+		tno_minorities_improve = yes
+		tno_racial_integration_improve = yes
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Freedom
+	icon = GFX_OST_Fight_for_Freedom
+	cost = 5
+	x = 5
+	y = 4
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_And_the_Not_So_Free
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Freedom"
+		tno_trade_unions_improve = yes
+		tno_press_rights_improve = yes
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Hold_Free_Elections
+	icon = GFX_generic_elections
+	cost = 5
+	x = 3
+	y = 5
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Secularism
+	}
+	prerequisite = {
+		focus = PAK_War_Diversity
+	}
+	prerequisite = {
+		focus = PAK_War_Freedom
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Hold_Free_Elections"
+		country_event = {
+			id = pakistan.10
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_The_Iron_Fist
+	icon = GFX_Generic_Authoritarian_Democracy
+	cost = 5
+	x = 9
+	y = 1
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_The_Hour_Has_Come
+	}
+	available = {
+		has_country_flag = PAK_ICW_Ayub_Khan
+	}
+	mutually_exclusive = {
+		focus = PAK_War_A_Democratic_Republic
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_The_Iron_Fist"
+		country_event = {
+			id = pakistan.2
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Crack_Down_on_Liberties
+	icon = GFX_RAJ_dont_need_democracy
+	cost = 5
+	x = 7
+	y = 2
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_The_Iron_Fist
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Crack_Down_on_Liberties"
+		tno_political_parties_clear = yes
+		add_ideas = tno_political_parties_one_party_state
+		hidden_effect = {
+			tno_trade_unions_worsen = yes
+			tno_public_meetings_worsen = yes
+			tno_press_rights_worsen = yes
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_A_Tight_Leash
+	icon = GFX_Limited_State_Newspaper
+	cost = 5
+	x = 8
+	y = 3
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Crack_Down_on_Liberties
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_A_Tight_Leash"
+		tno_press_rights_improve = yes
+		hidden_effect = {
+			add_popularity = {
+				ideology = social_conservative
+				popularity = -0.05
+			}
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Strengthen_the_Razakars
+	icon = GFX_focus_deploy_the_militia
+	cost = 5
+	x = 11
+	y = 2
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_The_Iron_Fist
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Strengthen_the_Razakars"
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Cry_for_Help
+	icon = GFX_TNO_generic_germany
+	cost = 5
+	x = 10
+	y = 3
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Strengthen_the_Razakars
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Cry_for_Help"
+		GER = {
+			country_event = {
+				id = pakistan.7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Faith
+	icon = GFX_generic_islam
+	cost = 5
+	x = 7
+	y = 4
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_A_Tight_Leash
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Faith"
+		add_timed_idea = {
+			idea = PAK_Jihad_for_Freedom
+			days = 100
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Unity
+	icon = GFX_OST_Unite_the_Partisans
+	cost = 5
+	x = 9
+	y = 4
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_A_Tight_Leash
+	}
+	prerequisite = {
+		focus = PAK_War_Cry_for_Help
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Unity"
+		add_stability = 0.1
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Discipline
+	icon = GFX_Generic_Handgun
+	cost = 5
+	x = 11
+	y = 4
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Cry_for_Help
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Discipline"
+		tno_security_improve = yes
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Hold_Fair_Elections
+	icon = GFX_generic_elections_rigged
+	cost = 5
+	x = 9
+	y = 5
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Faith
+	}
+	prerequisite = {
+		focus = PAK_War_Unity
+	}
+	prerequisite = {
+		focus = PAK_War_Discipline
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Hold_Fair_Elections"
+		country_event = {
+			id = pakistan.14
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Our_Afghan_Brothers
+	icon = GFX_Generic_Army_Focus_Green
+	cost = 5
+	x = 5
+	y = 6
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Hold_Free_Elections
+		focus = PAK_War_Hold_Fair_Elections
+	}
+	mutually_exclusive = {
+		focus = PAK_War_Remember_the_Acronym
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Our_Afghan_Brothers"
+		add_opinion_modifier = {
+			target = AFG
+			modifier = PAK_AFG_Brothers
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Call_for_Aid
+	icon = GFX_RAJ_India_International_Aid
+	cost = 5
+	x = 3
+	y = 7
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Our_Afghan_Brothers
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Call_for_Aid"
+		AFG = {
+			country_event = {
+				id = pakistan.16
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_A_Brotherhood_of_Islam
+	icon = GFX_Generic_Army_Focus_Green
+	cost = 5
+	x = 5
+	y = 7
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Our_Afghan_Brothers
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_A_Brotherhood_of_Islam"
+		AFG = {
+			country_event = {
+				id = pakistan.19
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Request_Money_For_Razakar_Regiments
+	icon = GFX_new_model_army_goal
+	cost = 5
+	x = 4
+	y = 8
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Call_for_Aid
+	}
+	prerequisite = {
+		focus = PAK_War_A_Brotherhood_of_Islam
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Request_Money_For_Razakar_Regiments"
+		AFG = {
+			country_event = {
+				id = pakistan.22
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_An_Alliance_of_Gain
+	icon = GFX_COG_icon_blood_diamonds
+	cost = 5
+	x = 3
+	y = 9
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Request_Money_For_Razakar_Regiments
+	}
+	mutually_exclusive = {
+		focus = PAK_War_An_Alliance_of_Respect
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_An_Alliance_of_Gain"
+		add_opinion_modifier = {
+			target = AFG
+			modifier = PAK_AFG_Alliance_of_Gain
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_An_Alliance_of_Respect
+	icon = GFX_DER_islamic_law
+	cost = 5
+	x = 5
+	y = 9
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Request_Money_For_Razakar_Regiments
+	}
+	mutually_exclusive = {
+		focus = PAK_War_An_Alliance_of_Gain
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_An_Alliance_of_Respect"
+		add_opinion_modifier = {
+			target = AFG
+			modifier = PAK_AFG_Alliance_of_Respect
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_A_Helping_Hand
+	icon = GFX_Generic_Liberty_Handshake
+	cost = 5
+	x = 4
+	y = 10
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_An_Alliance_of_Gain
+		focus = PAK_War_An_Alliance_of_Respect
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_A_Helping_Hand"
+		AFG = {
+			country_event = {
+				id = pakistan.25
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Remember_the_Acronym
+	icon = GFX_Generic_Army_Focus_Green
+	cost = 5
+	x = 7
+	y = 6
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Hold_Free_Elections
+		focus = PAK_War_Hold_Fair_Elections
+	}
+	mutually_exclusive = {
+		focus = PAK_War_Our_Afghan_Brothers
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Remember_the_Acronym"
+		add_opinion_modifier = {
+			target = AFG
+			modifier = PAK_AFG_The_Acronym_of_Pakistan
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Afghania
+	icon = GFX_Generic_Army_Focus_Green
+	cost = 5
+	x = 7
+	y = 7
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Remember_the_Acronym
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Afghania"
+		442 = {
+			add_core_of = PAK
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Balochistan
+	icon = GFX_Generic_Army_Focus_Green
+	cost = 5
+	x = 9
+	y = 7
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Remember_the_Acronym
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Balochistan"
+		444 = {
+			add_core_of = PAK
+		}
+		445 = {
+			add_core_of = PAK
+		}
+		929 = {
+			add_core_of = PAK
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Deliver_an_Ultimatum
+	icon = GFX_generic_islamic_constitution
+	cost = 5
+	x = 8
+	y = 8
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Afghania
+	}
+	prerequisite = {
+		focus = PAK_War_Balochistan
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Deliver_an_Ultimatum"
+		AFG = {
+			country_event = {
+				id = pakistan.28
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Pakistan_Never_Forgets
+	icon = GFX_Generic_Army_Focus_Green
+	cost = 5
+	x = 7
+	y = 9
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Deliver_an_Ultimatum
+	}
+	available = {
+		has_country_flag = PAK_AFG_didnt_give_land_flag
+	}
+	mutually_exclusive = {
+		focus = PAK_War_Unite_Pakistan
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Pakistan_Never_Forgets"
+		add_war_support = 0.05
+		hidden_effect = {
+			set_country_flag = PAK_AFG_take_land_decision_flag
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Unite_Pakistan
+	icon = GFX_Generic_Army_Focus_Green
+	cost = 5
+	x = 9
+	y = 9
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Deliver_an_Ultimatum
+	}
+	available = {
+		has_country_flag = PAK_AFG_didnt_give_land_flag
+	}
+	mutually_exclusive = {
+		focus = PAK_War_Pakistan_Never_Forgets
+	}
+	will_lead_to_war_with = AFG
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Unite_Pakistan"
+		declare_war_on = {
+			target = AFG
+			type = take_state
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Go_It_Alone
+	icon = GFX_we_stand_alone_goal
+	cost = 5
+	x = 8
+	y = 10
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_Pakistan_Never_Forgets
+		focus = PAK_War_Unite_Pakistan
+	}
+	available = {
+		has_country_flag = PAK_AFG_didnt_give_land_flag
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Go_It_Alone"
+		add_timed_idea = {
+			idea = PAK_Go_It_Alone
+			days = 100
+		}
+	}
+}
+
+shared_focus = {
+	id = PAK_War_Pak_Sarzamin
+	icon = GFX_Generic_Army_Focus_Green
+	cost = 5
+	x = 6
+	y = 11
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = PAK_War_A_Helping_Hand
+		focus = PAK_War_Go_It_Alone
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus PAK_War_Pak_Sarzamin"
+		add_stability = 0.15
+		add_war_support = 0.15
+		add_political_power = 75
+	}
+}

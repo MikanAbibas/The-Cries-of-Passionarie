@@ -1,0 +1,683 @@
+#shared_focus = {
+#	id = RPP_blankfocus
+#	icon = GFX_generic_defence
+#	x = 0
+#	y = 7
+#	cost = 5
+#
+#	allow_branch = {
+#		has_country_flag = neversetthisflag
+#	}
+#
+#	completion_reward = {
+#		log = "[GetDateText]: [Root.GetName]: Focus RPP_blankfocus"
+#	}
+#}
+
+##################
+#### War Tree ####
+##################
+
+shared_focus = {
+	id = RPP_a_guerra_iberica
+	icon = GFX_generic_political_chaos
+	cost = 2
+	x = 8
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_a_guerra_iberica"
+		custom_effect_tooltip = RPP_armas_patria_tooltip
+	}
+}
+
+shared_focus = {
+	id = RPP_o_exercito
+	icon = GFX_Generic_Army_Officers
+	cost = 2
+	prerequisite = {
+		focus = RPP_a_guerra_iberica
+	}
+	relative_position_id = RPP_a_guerra_iberica
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_o_exercito"
+		army_experience = 10
+		add_command_power = 25
+		# army_funding_maximal_increase_high = yes
+		# set_temp_variable = {IBR_wars_army_defense_temp = 0.02}
+		# IBR_wars_change_army_defense = yes
+		add_manpower = 12000
+	}
+}
+
+shared_focus = {
+	id = RPP_the_republican_army
+	icon = GFX_IBR_Debate_Military
+	cost = 2
+	prerequisite = {
+		focus = RPP_o_exercito
+	}
+	relative_position_id = RPP_a_guerra_iberica
+	x = -4
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_the_republican_army"
+		army_experience = 10
+		tno_training_improve = yes
+		# TNO_improve_conscription_policy_effectiveness_low = yes
+		# TNO_improve_training_policy_effectiveness_low = yes
+	}
+}
+
+shared_focus = {
+	id = RPP_a_forca_popular
+	icon = GFX_INS_deploy_the_militia
+	cost = 2
+	prerequisite = {
+		focus = RPP_the_republican_army
+	}
+	mutually_exclusive = {
+		focus = RPP_o_exercito_da_republica
+	}
+	relative_position_id = RPP_the_republican_army
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_a_forca_popular"
+		TNO_worsen_army_professionalism_low = yes
+		add_manpower = 35000
+		# set_temp_variable = {IBR_wars_recuitable_population_temp = 0.02}
+		# IBR_wars_change_recuitable_population = yes
+		# set_temp_variable = {IBR_wars_opposition_temp= -1}
+		# IBR_wars_change_political_opposition= yes
+		country_event = {
+			id = RPP_wars.2
+			days = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = RPP_train_the_peoples_militias
+	icon = GFX_ORE_reorganizing_the_militias
+	cost = 2
+	prerequisite = {
+		focus = RPP_a_forca_popular
+	}
+	relative_position_id = RPP_the_republican_army
+	x = -1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_train_the_peoples_militias"
+		# TNO_improve_training_policy_effectiveness_low = yes
+		# set_temp_variable = {IBR_wars_army_attack_temp = 0.01}
+		# IBR_wars_change_army_attack = yes
+		# set_temp_variable = {IBR_wars_army_defense_temp = 0.01}
+		# IBR_wars_change_army_defense = yes
+		add_ideas = RPP_peoples_militias
+	}
+}
+
+shared_focus = {
+	id = RPP_o_exercito_da_republica
+	icon = GFX_Quality_Recruitment
+	cost = 2
+	prerequisite = {
+		focus = RPP_the_republican_army
+	}
+	mutually_exclusive = {
+		focus = RPP_a_forca_popular
+	}
+	relative_position_id = RPP_the_republican_army
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_o_exercito_da_republica"
+		# set_temp_variable = {IBR_wars_max_command_temp = 15}
+		# IBR_wars_change_max_command_power = yes
+		# set_temp_variable = {IBR_wars_command_gain_temp = 0.2}
+		# IBR_wars_change_command_power_gain = yes
+		# TNO_improve_military_supervision_policy_effectiveness_low = yes
+		tno_training_improve = yes
+		TNO_improve_army_professionalism_high = yes
+		# country_event = {
+		# 	id = RPP_wars.3
+		# 	days = 1
+		# }
+	}
+}
+
+shared_focus = {
+	id = RPP_support_an_elite_army
+	icon = GFX_new_model_army
+	cost = 2
+	prerequisite = {
+		focus = RPP_o_exercito_da_republica
+	}
+	relative_position_id = RPP_the_republican_army
+	x = 1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_support_an_elite_army"
+		# TNO_improve_army_professionalism_low = yes
+		# set_temp_variable = {IBR_wars_army_organisation_temp = 0.03}
+		# IBR_wars_change_army_organisation = yes
+		# set_temp_variable = {IBR_wars_army_speed_temp = 0.02}
+		# IBR_wars_change_army_speed = yes
+		add_ideas = RPP_best_of_the_best
+	}
+}
+
+shared_focus = {
+	id = RPP_death_to_autocrats
+	icon = GFX_generic_republican_movement
+	cost = 2
+	prerequisite = {
+		focus = RPP_train_the_peoples_militias
+		focus = RPP_support_an_elite_army
+	}
+	relative_position_id = RPP_the_republican_army
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_death_to_autocrats"
+		add_war_support = 0.1
+		add_ideas = RPP_tyrant_death
+		# set_temp_variable = {IBR_wars_opposition_temp= -2}
+		# IBR_wars_change_political_opposition= yes
+		# set_temp_variable = {IBR_wars_army_attack_temp = 0.01}
+		# IBR_wars_change_army_attack = yes
+		country_event = {
+			id = RPP_wars.4
+			days = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = RPP_a_economia
+	icon = GFX_BRT_Mind_the_Economy
+	cost = 2
+	prerequisite = {
+		focus = RPP_a_guerra_iberica
+	}
+	relative_position_id = RPP_a_guerra_iberica
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_a_economia"
+		# set_temp_variable = { money_reserves_temp = 0.1 }
+		# econ_money_reserves_change_raw_money = yes
+		# set_temp_variable = {IBR_wars_max_effiency_temp = 0.05}
+		# IBR_wars_change_max_efficiency = yes
+		tno_economic_focus_improve = yes
+	}
+}
+
+shared_focus = {
+	id = RPP_the_rural_regions
+	icon = GFX_RAJ_India_Agriculture_Is_Hard
+	cost = 2
+	prerequisite = {
+		focus = RPP_a_economia
+	}
+	relative_position_id = RPP_a_guerra_iberica
+	x = 4
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_the_rural_regions"
+		TNO_improve_agriculture_high = yes
+		# set_temp_variable = {hc_production_core_states_temp = 0.03}
+		# IBR_wars_change_hc_production_base_modifier = yes
+		# set_temp_variable = {IBR_wars_supply_node_range_temp = 0.06}
+		# IBR_wars_change_supply_node_range = yes
+		every_owned_state = {
+			limit = {
+				OR = {
+					has_state_category = rural
+					has_state_category = wasteland
+					has_state_category = pastoral
+				}
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RPP_an_american_model
+	icon = GFX_USA_68_Kill_the_Tariffs
+	cost = 2
+	prerequisite = {
+		focus = RPP_the_rural_regions
+	}
+	mutually_exclusive = {
+		focus = RPP_embrace_a_more_mixed_economy
+	}
+	relative_position_id = RPP_the_rural_regions
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_an_american_model"
+		# set_temp_variable = { econ_centralization_temp = -7 }
+		# econ_centralization_change = yes
+		# set_temp_variable = { business_tax_temp = -0.02 }
+		# econ_business_tax_rate_change = yes
+		# set_temp_variable = { income_tax_temp = -0.02 }
+		# econ_income_tax_rate_change = yes
+		tno_tax_rate_worsen = yes
+		tno_income_taxation_improve = yes
+	}
+}
+
+shared_focus = {
+	id = RPP_a_wide_financial_reform
+	icon = GFX_generic_benefit_general
+	cost = 2
+	prerequisite = {
+		focus = RPP_an_american_model
+	}
+	relative_position_id = RPP_the_rural_regions
+	x = -1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_a_wide_financial_reform"
+		# set_temp_variable = { inflation_temp = -0.5 }
+		# econ_inflation_change = yes
+		# set_temp_variable = { money_reserves_temp = 0.1 }
+		# econ_money_reserves_change_raw_money = yes
+		every_owned_state = {
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		tno_trade_laws_worsen = yes
+	}
+}
+
+shared_focus = {
+	id = RPP_embrace_a_more_mixed_economy
+	icon = GFX_RAJ_Mixed_Market
+	cost = 2
+	prerequisite = {
+		focus = RPP_the_rural_regions
+	}
+	mutually_exclusive = {
+		focus = RPP_an_american_model
+	}
+	relative_position_id = RPP_the_rural_regions
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_embrace_a_more_mixed_economy"
+		# hidden_effect ={
+		# 	set_temp_variable = { TNO_economy_type_temp = token:Econ_Type_Capitalism }
+		# 	econ_type_change = yes
+		# }
+		# set_temp_variable = { TNO_economy_subtype_temp = token:Econ_Subtype_Social_Market }
+		# econ_subtype_change = yes
+		# set_temp_variable = { econ_centralization_temp = 2 }
+		# econ_centralization_change = yes
+		random_owned_state = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = RPP_embrace_the_unions
+	icon = GFX_NOR_but_what_about_the_unions
+	cost = 2
+	prerequisite = {
+		focus = RPP_embrace_a_more_mixed_economy
+	}
+	relative_position_id = RPP_the_rural_regions
+	x = 1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_embrace_the_unions"
+		# TNO_improve_trade_unions_policy_effectiveness_high = yes
+		# set_temp_variable = { hc_consumption_population_temp = -0.005}
+		# IBR_wars_change_hc_consumption_population_modifier = yes
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.05
+		}
+		random_owned_state = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_state = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = RPP_fully_embrace_free_trade
+	icon = GFX_Generic_Ship_Trade
+	cost = 2
+	prerequisite = {
+		focus = RPP_a_wide_financial_reform
+		focus = RPP_embrace_the_unions
+	}
+	relative_position_id = RPP_the_rural_regions
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_fully_embrace_free_trade"
+		add_offsite_building = {
+			type = industrial_complex
+			level = 2
+		}
+		TNO_improve_poverty_med = yes
+		multiply_variable = {
+			GDP = 1.01
+		}
+		add_to_variable = {
+			GDP_growth = 0.001
+		}
+		custom_effect_tooltip = econ_increase_GDP_small
+		# tno_trade_laws_worsen = yes
+		# set_temp_variable = { temp_modifier = 60 }
+		# every_country = {
+		# 	limit = {
+		# 		OR = {
+		# 			NOT = {
+		# 				check_variable = {
+		# 					ECON_SPHERE_LEADER = GER
+		# 				}
+		# 			}
+		# 			NOT = {
+		# 				is_iberianwar_mainland_nation = yes
+		# 			}
+		# 		}
+		# 	}
+		# 	ROOT = { add_to_trade_modifier_PREV = yes }
+		# }
+	}
+}
+
+shared_focus = {
+	id = RPP_o_exilado
+	icon = GFX_A_Disciplined_Heart
+	cost = 2
+	prerequisite = {
+		focus = RPP_a_guerra_iberica
+	}
+	relative_position_id = RPP_a_guerra_iberica
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_o_exilado"
+		add_stability = 0.12
+		add_war_support = 0.12
+	}
+}
+
+shared_focus = {
+	id = RPP_speak_on_the_radio
+	icon = GFX_RAJ_Guru_on_Radio
+	cost = 2
+	prerequisite = {
+		focus = RPP_o_exilado
+	}
+	relative_position_id = RPP_o_exilado
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_speak_on_the_radio"
+		# set_temp_variable = {IBR_wars_legitimacy_temp = 5}
+		# IBR_wars_change_legitimacy = yes
+		add_political_power = 100
+		country_event = {
+			id = RPP_wars.5
+			days = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = RPP_learn_from_brazil
+	icon = GFX_A_Disciplined_Mind
+	cost = 2
+	prerequisite = {
+		focus = RPP_o_exilado
+	}
+	relative_position_id = RPP_o_exilado
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_learn_from_brazil"
+		# set_temp_variable = {IBR_wars_opposition_temp= -2}
+		# IBR_wars_change_political_opposition= yes
+		# set_temp_variable = {IBR_wars_political_gain_temp = 0.05}
+		# IBR_wars_change_political_power_gain = yes
+		# set_temp_variable = {IBR_wars_command_gain_temp = 0.07}
+		# IBR_wars_change_command_power_gain = yes
+		tno_security_improve = yes
+	}
+}
+
+shared_focus = {
+	id = RPP_found_the_movimento_nacional_independente
+	icon = GFX_RAJ_Three_Shots
+	cost = 2
+	prerequisite = {
+		focus = RPP_speak_on_the_radio
+	}
+	prerequisite = {
+		focus = RPP_learn_from_brazil
+	}
+	relative_position_id = RPP_o_exilado
+	x = 0
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_found_the_movimento_nacional_independente"
+		add_political_power = 100
+		# TNO_improve_political_parties_policy_effectiveness_low = yes
+		# set_temp_variable = {IBR_wars_political_gain_temp = 0.02}
+		# IBR_wars_change_political_power_gain = yes
+	}
+}
+
+shared_focus = {
+	id = RPP_maintain_party_unity
+	icon = GFX_Generic_Social_Conservative
+	cost = 2
+	prerequisite = {
+		focus = RPP_found_the_movimento_nacional_independente
+	}
+	mutually_exclusive = {
+		focus = RPP_a_place_for_all_democrats
+	}
+	relative_position_id = RPP_o_exilado
+	x = -1
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_maintain_party_unity"
+		# set_temp_variable = {IBR_wars_legitimacy_temp = 3}
+		# IBR_wars_change_legitimacy = yes
+		# set_temp_variable = {IBR_wars_opposition_temp= 1}
+		# IBR_wars_change_political_opposition= yes
+		# add_stability = 0.02
+		# set_temp_variable = {IBR_wars_political_gain_temp = 0.01}
+		# IBR_wars_change_political_power_gain = yes
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.1
+		}
+	}
+}
+
+shared_focus = {
+	id = RPP_a_place_for_all_democrats
+	icon = GFX_generic_crowd_cheering
+	cost = 2
+	prerequisite = {
+		focus = RPP_found_the_movimento_nacional_independente
+	}
+	mutually_exclusive = {
+		focus = RPP_maintain_party_unity
+	}
+	relative_position_id = RPP_o_exilado
+	x = 1
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_a_place_for_all_democrats"
+		# TNO_improve_press_rights_policy_effectiveness_med = yes
+		# TNO_improve_public_meetings_policy_effectiveness_med = yes
+		# set_temp_variable = {IBR_wars_opposition_temp= -3}
+		# IBR_wars_change_political_opposition= yes
+		add_political_power = 50
+		add_manpower = 8000
+		add_popularity = {
+			ideology = market_liberal
+			popularity = 0.025
+		}
+		add_popularity = {
+			ideology = social_liberal
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = RPP_a_peoples_general
+	icon = GFX_RAJ_India_Clarify_Army_Role
+	cost = 2
+	prerequisite = {
+		focus = RPP_maintain_party_unity
+		focus = RPP_a_place_for_all_democrats
+	}
+	relative_position_id = RPP_o_exilado
+	x = 0
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_a_peoples_general"
+		# set_temp_variable = {IBR_wars_legitimacy_temp = 2}
+		# IBR_wars_change_legitimacy = yes
+		# set_temp_variable = {IBR_wars_army_organisation_temp = 0.05}
+		# IBR_wars_change_army_organisation = yes
+		add_stability = 0.1
+		add_war_support = 0.1
+		# country_event = {
+		# 	id = RPP_wars.6
+		# 	days = 1
+		# }
+	}
+}
+
+shared_focus = {
+	id = RPP_an_army_that_protects_freedom
+	icon = GFX_URL_And_a_Purpose_in_Life
+	cost = 2
+	prerequisite = {
+		focus = RPP_death_to_autocrats
+	}
+	prerequisite = {
+		focus = RPP_a_peoples_general
+	}
+	relative_position_id = RPP_o_exilado
+	x = -1
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_an_army_that_protects_freedom"
+		# army_funding_maximal_increase_low = yes
+		# set_temp_variable = {IBR_wars_army_attack_temp = 0.03}
+		# IBR_wars_change_army_attack = yes
+		# set_temp_variable = {IBR_wars_army_defense_temp = 0.03}
+		# IBR_wars_change_army_defense = yes
+		TNO_improve_army_professionalism_high = yes
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1000
+			producer = RPP
+		}
+		add_equipment_to_stockpile = {
+			type = anti_tank_equipment
+			amount = 500
+			producer = RPP
+		}
+		add_equipment_to_stockpile = {
+			type = artillery_equipment
+			amount = 250
+			producer = RPP
+		}
+	}
+}
+
+shared_focus = {
+	id = RPP_a_state_that_fights_for_the_free
+	icon = GFX_TNO_generic_world
+	cost = 2
+	prerequisite = {
+		focus = RPP_fully_embrace_free_trade
+	}
+	prerequisite = {
+		focus = RPP_a_peoples_general
+	}
+	relative_position_id = RPP_o_exilado
+	x = 1
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_a_state_that_fights_for_the_free"
+		# set_temp_variable = {IBR_wars_legitimacy_temp = 5}
+		# IBR_wars_change_legitimacy = yes
+		# set_temp_variable = {IBR_wars_opposition_temp= -3}
+		# IBR_wars_change_political_opposition= yes
+		# add_stability = 0.03
+		# set_temp_variable = {IBR_wars_recuitable_population_temp = 0.02}
+		# IBR_wars_change_recuitable_population = yes
+		tno_pensions_improve = yes
+		tno_unemployment_improve = yes
+		tno_health_care_improve = yes
+		tno_education_improve = yes
+	}
+}
+
+shared_focus = {
+	id = RPP_e_a_hora
+	icon = GFX_OST_Fight_for_Freedom
+	cost = 2
+	prerequisite = {
+		focus = RPP_an_army_that_protects_freedom
+	}
+	prerequisite = {
+		focus = RPP_a_state_that_fights_for_the_free
+	}
+	relative_position_id = RPP_o_exilado
+	x = 0
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RPP_e_a_hora"
+		add_war_support = 0.05
+		# set_temp_variable = {IBR_wars_political_gain_temp = 0.1}
+		# IBR_wars_change_political_power_gain = yes
+		# set_temp_variable = {IBR_wars_command_gain_temp = 0.2}
+		# IBR_wars_change_command_power_gain = yes
+		add_ideas = RPP_republic_once_more
+	}
+}

@@ -1,0 +1,124 @@
+# Balkan border wars — starting and resolving one.
+#
+# Run from the targeted decision: THIS is the presser, FROM the target state.
+# change_state_after_war = no, so the transfer, the cores and the cooldown are all decided in
+# the resolution events rather than by the engine. Attacker state is picked at runtime, the way
+# vanilla's FRA_attacker_state does it, so the system keeps working as the map changes hands.
+
+# Each decision saves its own state as event_target:BALKAN_defender_state first.
+BALKAN_begin_border_war = {
+	set_country_flag = BALKAN_border_war_active
+	save_global_event_target_as = BALKAN_presser
+	event_target:BALKAN_defender_state = {
+		random_neighbor_state = {
+			limit = { is_owned_by = event_target:BALKAN_presser }
+			save_global_event_target_as = BALKAN_attacker_state
+		}
+		OWNER = { save_global_event_target_as = BALKAN_holder }
+	}
+	event_target:BALKAN_attacker_state = {
+		CONTROLLER = {
+			start_border_war = {
+				change_state_after_war = no
+				combat_width = 40
+				attacker = {
+					state = event_target:BALKAN_attacker_state
+					num_provinces = 3
+					on_win = balkanborder.1
+					on_lose = balkanborder.2
+					on_cancel = balkanborder.3
+				}
+				defender = {
+					state = event_target:BALKAN_defender_state
+					num_provinces = 3
+					on_win = balkanborder.2
+					on_lose = balkanborder.1
+					on_cancel = balkanborder.3
+				}
+			}
+		}
+	}
+}
+
+# The presser took it. The state changes hands, becomes claimable back after a year, and the
+# region gets a notch more unstable.
+BALKAN_border_war_won = {
+	# The state remembers who lost it (BALKAN_lost_by_<TAG>), which is what lets a side that
+	# never held it in 1962 press it back (Greece on Thrace); a retaker's own mark is cleared.
+	event_target:BALKAN_holder = {
+		event_target:BALKAN_defender_state = { set_state_flag = BALKAN_lost_by_@PREV }
+	}
+	event_target:BALKAN_presser = {
+		event_target:BALKAN_defender_state = { clr_state_flag = BALKAN_lost_by_@PREV }
+	}
+	event_target:BALKAN_presser = {
+		clr_country_flag = BALKAN_border_war_active
+		BALKAN_rest_presser = yes
+		transfer_state = event_target:BALKAN_defender_state
+	}
+	event_target:BALKAN_defender_state = {
+		set_state_controller = event_target:BALKAN_presser
+		BALKAN_stamp_cooldown = yes
+	}
+	add_to_variable = { global.BALKAN_tension = 1 }
+}
+
+# The holder kept it. Same cooldown, so a beaten attacker cannot immediately re-press.
+BALKAN_border_war_lost = {
+	event_target:BALKAN_presser = {
+		clr_country_flag = BALKAN_border_war_active
+		BALKAN_rest_presser = yes
+	}
+	event_target:BALKAN_defender_state = {
+		BALKAN_stamp_cooldown = yes
+	}
+	add_to_variable = { global.BALKAN_tension = 1 }
+}
+
+BALKAN_border_war_cancelled = {
+	event_target:BALKAN_presser = {
+		clr_country_flag = BALKAN_border_war_active
+		BALKAN_rest_presser = yes
+	}
+}
+
+# 365 days: date variables read as hours / 100000, so 8760 hours = 0.0876.
+BALKAN_stamp_cooldown = {
+	set_variable = { BALKAN_cd_date = global.date }
+	add_to_variable = { BALKAN_cd_date = 0.0876 }
+}
+
+# 180 days before this nation can press another claim anywhere. Keeps the border-war decade
+# a series of distinct grabs rather than one continuous war.
+BALKAN_rest_presser = {
+	set_country_flag = { flag = BALKAN_border_war_cooldown days = 180 value = 1 }
+}
+
+# Called from the open-war outcomes: this nation is finished with border wars for good.
+BALKAN_close_border_wars_for = {
+	set_country_flag = BALKAN_open_war_resolved
+	clr_country_flag = BALKAN_border_war_active
+}
+
+# Called from every open-war outcome. Whichever of the two wars settles LAST starts the
+# wind-down: thirty days later the border-war window closes and the world is told.
+BALKAN_check_crisis_over = {
+	if = {
+		limit = {
+			NOT = { has_global_flag = BALKAN_crisis_winding_down }
+			OR = {
+				has_global_flag = ZZZ_transylvania_hun_vic
+				has_global_flag = ZZZ_transylvania_rom_vic
+			}
+			OR = {
+				has_global_flag = ZZZ_macedonia_bul_vic
+				has_global_flag = ZZZ_macedonia_ser_vic
+			}
+		}
+		set_global_flag = BALKAN_crisis_winding_down
+		random_country = {
+			limit = { original_tag = GER }
+			country_event = { id = ZZZ_balkan_war.14 days = 30 }
+		}
+	}
+}

@@ -1,0 +1,1600 @@
+### Ministers ###
+ITA_add_quadrumvirate_ministers = {
+	custom_effect_tooltip = ITA_add_ministers_tt
+	hidden_effect = {
+		remove_all_ministers = yes
+		add_ideas = {
+			ITA_Alessandro_Pavolini_hog
+			ITA_Ettore_Muti_for
+			ITA_Niccolo_Giani_eco
+			ITA_Italo_Balbo_sec
+		}
+	}
+}
+
+ITA_add_balbo_ministers = {
+	custom_effect_tooltip = ITA_add_ministers_tt
+	hidden_effect = {
+		remove_all_ministers = yes
+		add_ideas = {
+			ITA_Alfredo_de_Marsico_hog
+			ITA_Dino_Grandi_for
+			ITA_Ugo_Spirito_eco
+			ITA_Stefano_Cagna_sec
+		}
+	}
+}
+
+ITA_add_muti_ministers = {
+	custom_effect_tooltip = ITA_add_ministers_tt
+	hidden_effect = {
+		remove_all_ministers = yes
+		add_ideas = {
+			ITA_Stanis_Ruinas_hog
+			ITA_Giorgio_Pini_for
+			ITA_Angelo_Tarchi_eco
+			ITA_Vittorio_Ambrosini_sec
+		}
+	}
+}
+
+
+ITA_add_pavolini_ministers = {
+	custom_effect_tooltip = ITA_add_ministers_tt
+	hidden_effect = {
+		remove_all_ministers = yes
+		add_ideas = {
+			ITA_Guido_Buffarini_Guidi_hog
+			ITA_Ather_Capelli_for
+			ITA_Giampietro_Domenico_Pellegrini_eco
+			ITA_Vincenzo_Costa_sec
+		}
+	}
+}
+
+ITA_add_giani_ministers = { 
+	custom_effect_tooltip = ITA_add_ministers_tt
+	hidden_effect = {
+		remove_all_ministers = yes
+		add_ideas = {
+			ITA_Guido_Pallotta_hog
+			ITA_Asveroglio_Gravelli_for
+			ITA_Rutilio_Sermonti_eco
+			ITA_Pio_Filippani_Ronconi_sec
+		}
+	}
+}
+
+##Resistance mechanic## 
+ITA_FashResistance_modify_colony_exploitation = {
+	if = {
+		limit = { NOT = { has_variable = EconValueChange_v } }
+		set_temp_variable = { EconValueChange_v = 3 }
+	}
+
+	set_temp_variable = { Region_i = 3 } # Ethiopia
+	ITA_EmpireManagement_EconValueChange = yes
+	set_temp_variable = { Region_i = 4 } # Somalia
+	ITA_EmpireManagement_EconValueChange = yes
+	set_temp_variable = { Region_i = 2 } # Eritrea
+	ITA_EmpireManagement_EconValueChange = yes
+	set_temp_variable = { Region_i = 5 } # Kenya
+	ITA_EmpireManagement_EconValueChange = yes
+	set_temp_variable = { Region_i = 0 } # Libya
+	ITA_EmpireManagement_EconValueChange = yes
+	set_temp_variable = { Region_i = 21 } # Gulf
+	ITA_EmpireManagement_EconValueChange = yes
+}
+
+ITA_fash_resistance_dec_exploit = {
+	custom_effect_tooltip = ITA_fash_resistance_dec_exploit_tt
+	hidden_effect = {
+		add_timed_idea = {
+			idea = ITA_EM_dec_exploit
+			days = ITA_EM_dec_days
+		}
+	}
+}
+ITA_fash_resistance_dec_control = {
+	custom_effect_tooltip = ITA_fash_resistance_dec_control_tt
+	hidden_effect = {
+		add_timed_idea = {
+			idea = ITA_EM_dec_control
+			days = ITA_EM_dec_days
+		}
+	}
+}
+ITA_fash_resistance_tripoli_insurgency_add = {
+	custom_effect_tooltip = ITA_fash_resistance_tripoli_insurgency_add_tt
+	hidden_effect = {
+		448 = {
+			set_temp_variable = { state_gdp_flat_temp = -0.1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+	}
+	add_timed_idea = {
+		idea = ITA_insurgency_tripoli
+		days = 60
+	}
+}
+
+ITA_fash_resistance_start = {
+	country_event = {
+		id = ITA_fash_resistance.0
+		days = 7
+	}
+}
+
+ITA_fash_resistance_add_repression_small = {
+	custom_effect_tooltip = ITA_repression_low
+	hidden_effect = {
+		add_to_variable = { ITA_fash_resistance_repression = 5 }
+	}
+}
+ITA_fash_resistance_add_repression_moderate = {
+	custom_effect_tooltip = ITA_repression_moderate
+	hidden_effect = {
+		add_to_variable = { ITA_fash_resistance_repression = 10 }
+	}
+}
+ITA_fash_resistance_add_repression_large = {
+	custom_effect_tooltip = ITA_repression_large
+	hidden_effect = {
+		add_to_variable = { ITA_fash_resistance_repression = 15 }
+	}
+}
+
+ITA_FashResistance_modify_colony_control = {
+	if = {
+		limit = { NOT = { has_variable = DiploValueChange_v } }
+		set_temp_variable = { DiploValueChange_v = 3 }
+	}
+
+	set_temp_variable = { Region_i = 3 } # Ethiopia
+	ITA_EmpireManagement_DiploValueChange = yes
+	set_temp_variable = { Region_i = 4 } # Somalia
+	ITA_EmpireManagement_DiploValueChange = yes
+	set_temp_variable = { Region_i = 2 } # Eritrea
+	ITA_EmpireManagement_DiploValueChange = yes
+	set_temp_variable = { Region_i = 5 } # Kenya
+	ITA_EmpireManagement_DiploValueChange = yes
+	set_temp_variable = { Region_i = 0 } # Libya
+	ITA_EmpireManagement_DiploValueChange = yes
+	set_temp_variable = { Region_i = 21 } # Gulf
+	ITA_EmpireManagement_DiploValueChange = yes
+}
+
+### GCF mechanic ###
+ITA_GCF_init = {
+	resize_array = { ITA_GCF_QuadrumvirPow = 4 }
+	set_variable = { ITA_GCF_QuadrumvirPow^0 = 1 } # Pavolini
+	set_variable = { ITA_GCF_QuadrumvirPow^1 = 1 } # Balbo
+	set_variable = { ITA_GCF_QuadrumvirPow^2 = 1 } # Muti
+	set_variable = { ITA_GCF_QuadrumvirPow^3 = 1 } # Giani
+
+	set_variable = { ITA_GCF_dirty = 0 }
+
+	## Gerarchi
+	resize_array = { ITA_GCF_GerarchiPow = 6 }
+
+	#0 = Pavolini
+	#1 = Balbo
+	#2 = Muti
+	#3 = Giani
+	#4 = Pavolini + Balbo
+	#their powers are displayed with a four way radial progress bar
+	#in the progress bar Balbo's power is drawn under Pavolini's
+	#4 is only calculated so that's drawn correctly
+
+	# Ministri - 0
+	set_variable = { ITA_GCF_GerarchiPow^0  = 80 }
+	set_variable = { ITA_GCF_GerarchiLoy^00 = 40 }
+	set_variable = { ITA_GCF_GerarchiLoy^10 = 25 }
+	set_variable = { ITA_GCF_GerarchiLoy^20 = 20 }
+	set_variable = { ITA_GCF_GerarchiLoy^30 = 15 }
+	set_variable = { ITA_GCF_GerarchiLoy^40 = ITA_GCF_GerarchiLoy^00 }
+	add_to_variable = { ITA_GCF_GerarchiLoy^40 = ITA_GCF_GerarchiLoy^10 }
+
+	# Corporati - 1
+	set_variable = { ITA_GCF_GerarchiPow^1  = 70 }
+	set_variable = { ITA_GCF_GerarchiLoy^01 = 40 }
+	set_variable = { ITA_GCF_GerarchiLoy^11 = 25 }
+	set_variable = { ITA_GCF_GerarchiLoy^21 = 20 }
+	set_variable = { ITA_GCF_GerarchiLoy^31 = 15 }
+	set_variable = { ITA_GCF_GerarchiLoy^41 = ITA_GCF_GerarchiLoy^01 }
+	add_to_variable = { ITA_GCF_GerarchiLoy^41 = ITA_GCF_GerarchiLoy^11 }
+
+	# Burocrati - 2
+	set_variable = { ITA_GCF_GerarchiPow^2  = 60 }
+	set_variable = { ITA_GCF_GerarchiLoy^02 = 25 }
+	set_variable = { ITA_GCF_GerarchiLoy^12 = 40 }
+	set_variable = { ITA_GCF_GerarchiLoy^22 = 20 }
+	set_variable = { ITA_GCF_GerarchiLoy^32 = 15 }
+	set_variable = { ITA_GCF_GerarchiLoy^42 = ITA_GCF_GerarchiLoy^02 }
+	add_to_variable = { ITA_GCF_GerarchiLoy^42 = ITA_GCF_GerarchiLoy^12 }
+
+	# Militaristi - 3
+	set_variable = { ITA_GCF_GerarchiPow^3  = 65 }
+	set_variable = { ITA_GCF_GerarchiLoy^03 = 10 }
+	set_variable = { ITA_GCF_GerarchiLoy^13 = 30 }
+	set_variable = { ITA_GCF_GerarchiLoy^23 = 35 }
+	set_variable = { ITA_GCF_GerarchiLoy^33 = 25 }
+	set_variable = { ITA_GCF_GerarchiLoy^43 = ITA_GCF_GerarchiLoy^03 }
+	add_to_variable = { ITA_GCF_GerarchiLoy^43 = ITA_GCF_GerarchiLoy^13 }
+
+	# MVSN - 4
+	set_variable = { ITA_GCF_GerarchiPow^4  = 45 }
+	set_variable = { ITA_GCF_GerarchiLoy^04 = 35 }
+	set_variable = { ITA_GCF_GerarchiLoy^14 = 10 }
+	set_variable = { ITA_GCF_GerarchiLoy^24 = 30 }
+	set_variable = { ITA_GCF_GerarchiLoy^34 = 25 }
+	set_variable = { ITA_GCF_GerarchiLoy^44 = ITA_GCF_GerarchiLoy^04 }
+	add_to_variable = { ITA_GCF_GerarchiLoy^44 = ITA_GCF_GerarchiLoy^14 }
+
+	# Moderati - 5
+	set_variable = { ITA_GCF_GerarchiPow^5  = 60 }
+	set_variable = { ITA_GCF_GerarchiLoy^05 = 20 }
+	set_variable = { ITA_GCF_GerarchiLoy^15 = 45 }
+	set_variable = { ITA_GCF_GerarchiLoy^25 = 25 }
+	set_variable = { ITA_GCF_GerarchiLoy^35 = 10 }
+	set_variable = { ITA_GCF_GerarchiLoy^45 = ITA_GCF_GerarchiLoy^05 }
+	add_to_variable = { ITA_GCF_GerarchiLoy^45 = ITA_GCF_GerarchiLoy^15 }
+
+	#Promises setup
+	set_variable = { ITA_max_promises = 8 }
+	set_variable = { ITA_promises_add_button_position = 0 }
+
+	set_variable = { ITA_GCF_Buttons_Switch_Frame = 1 }
+
+	
+	hidden_effect = {
+		random_list = {
+			1 = {
+				set_variable = { ITA_GCF_talk_pillar = 0 }
+			}
+			1 = {
+				set_variable = { ITA_GCF_talk_pillar = 1 }
+			}
+			1 = {
+				set_variable = { ITA_GCF_talk_pillar = 2 }
+			}
+			1 = {
+				set_variable = { ITA_GCF_talk_pillar = 3 }
+			}
+			1 = {
+				set_variable = { ITA_GCF_talk_pillar = 4 }
+			}
+			1 = {
+				set_variable = { ITA_GCF_talk_pillar = 5 }
+			}
+		}
+
+		random_list = {
+			1 = {
+				set_variable = { ITA_GCF_purge_pillar = 0 }
+				modifier = {
+					factor = 0
+					check_variable = { ITA_GCF_talk_pillar = 0 }
+				}
+			}
+			1 = {
+				set_variable = { ITA_GCF_purge_pillar = 1 }
+				modifier = {
+					factor = 0
+					check_variable = { ITA_GCF_talk_pillar = 1 }
+				}
+			}
+			1 = {
+				set_variable = { ITA_GCF_purge_pillar = 2 }
+				modifier = {
+					factor = 0
+					check_variable = { ITA_GCF_talk_pillar = 2 }
+				}
+			}
+			1 = {
+				set_variable = { ITA_GCF_purge_pillar = 3 }
+				modifier = {
+					factor = 0
+					check_variable = { ITA_GCF_talk_pillar = 3 }
+				}
+			}
+			1 = {
+				set_variable = { ITA_GCF_purge_pillar = 4 }
+				modifier = {
+					factor = 0
+					check_variable = { ITA_GCF_talk_pillar = 4 }
+				}
+			}
+			1 = {
+				set_variable = { ITA_GCF_purge_pillar = 5 }
+				modifier = {
+					factor = 0
+					check_variable = { ITA_GCF_talk_pillar = 5 }
+				}
+			}
+		}
+	}
+
+	
+	#Corruption - Balbo
+	if = {
+		limit = {
+			has_country_flag = ITA_no_more_corruption_flag
+		}
+		hidden_effect = {
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 1 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+		}
+	}
+	
+	#Decadence - Giani
+	if = {
+		limit = {
+			has_country_flag = ITA_no_more_decadence_flag
+		}
+		hidden_effect = {
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 1 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+		}
+	}
+	
+	#Anarchy - Pavolini
+	if = {
+		limit = {
+			has_country_flag = ITA_no_more_anarchy_flag
+		}
+			hidden_effect = {
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 1 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+		}
+	}
+	
+	#Weakness - Muti
+	if = {
+		limit = {
+			has_country_flag = ITA_no_more_weakness_flag
+		}
+		hidden_effect = {
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 1 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+		}
+	}
+	
+	#Empire - Balbo & Pavolini
+	if = {
+		limit = {
+			has_country_flag = ITA_the_empire_is_resurgent_flag
+		}
+		hidden_effect = {
+			#Balbo
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 1 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			#Pavolini
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 1 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+		}
+	}
+	
+	#Fascism - Muti & Giani
+	if = {
+		limit = {
+			has_country_flag = ITA_no_more_weakness_flag
+		}
+		hidden_effect = {
+			#Muti
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 1 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			#Giani
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 1 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+		}
+	}
+
+	ITA_GCF_CalcQuadrumvirPow = yes
+}
+
+ITA_GCF_CalcQuadrumvirPow = {
+	#There are 6 Gerarchi and 4 candidates, each candidate controlls a portion of each Gerarchi
+	#A candidate gets the power of the geriarchi multiplied by the portion of the Gerarchi that the candidate controlls
+	#So if Balbo controlls 10% of every geriarchi and every geriarchi has 70 power then he gets (0.1 * 70) * 6 power
+
+	for_each_loop = {
+		array = ITA_GCF_QuadrumvirPow
+		index = i
+		set_variable = { ITA_GCF_QuadrumvirPow^i = 0 }
+		for_each_loop = {
+			array = ITA_GCF_GerarchiPow
+			index = j
+
+			set_temp_variable = { loy_index = i }
+			multiply_temp_variable = { loy_index = 10}
+			add_to_temp_variable = { loy_index = j }
+
+			set_temp_variable = { amount_to_add = ITA_GCF_GerarchiPow^j }
+			multiply_temp_variable = { amount_to_add = ITA_GCF_GerarchiLoy^loy_index}
+			multiply_temp_variable = { amount_to_add = 0.01} #loy is from 0-100, converti it to 0-1
+			add_to_variable = { ITA_GCF_QuadrumvirPow^i = amount_to_add }
+			round_variable = ITA_GCF_QuadrumvirPow^i
+		}
+	}
+
+	add_to_variable = { ITA_GCF_dirty = 1 }
+}
+
+ITA_GCF_AddLoy = {
+	#ITA_GCF_fella_to_add
+	#ITA_GCF_gerarchi_to_add
+	#ITA_GCF_amount_to_add
+	#All of these must be set as temp variables.
+
+	if = {
+		limit = {
+			OR = {
+				NOT = {
+					has_variable = ITA_GCF_fella_to_add
+					has_variable = ITA_GCF_gerarchi_to_add
+					has_variable = ITA_GCF_amount_to_add
+				}
+			}
+		}
+		set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0 }
+		log = "[GetDateText]: [Root.GetName]: The proper variables were not set before ITA_GCF_AddLoy was called."
+	}
+
+	if = {
+		limit = {
+			check_variable = { ITA_GCF_amount_to_add > 0 }
+		}
+		custom_effect_tooltip = ITA_GCF_AddLoy_tt
+	}
+	else = {
+		set_temp_variable = { decrease_in_tt = 1 }
+		custom_effect_tooltip = ITA_GCF_AddLoy_tt
+		set_temp_variable = { decrease_in_tt = 0 }
+	}
+
+	multiply_temp_variable = { ITA_GCF_amount_to_add = 100 }
+
+	set_temp_variable = { fella_to_add_to = ITA_GCF_fella_to_add }
+	multiply_temp_variable = { fella_to_add_to = 10 }
+	add_to_temp_variable = { fella_to_add_to = ITA_GCF_gerarchi_to_add }
+
+	set_temp_variable = { check_if_it_goes_above_100 = ITA_GCF_GerarchiLoy^fella_to_add_to }
+	add_to_temp_variable = { check_if_it_goes_above_100 = ITA_GCF_amount_to_add }
+	if = {
+		limit = {
+			check_variable = { check_if_it_goes_above_100 > 100 }
+		}
+		subtract_from_temp_variable = { check_if_it_goes_above_100 = 100 }
+		subtract_from_temp_variable = { ITA_GCF_amount_to_add = check_if_it_goes_above_100 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { check_if_it_goes_above_100 < 0 }
+		}
+		subtract_from_temp_variable = { ITA_GCF_amount_to_add = check_if_it_goes_above_100 }
+	}
+
+	set_temp_variable = {  everyone_else = 100 }
+	subtract_from_temp_variable = { everyone_else = ITA_GCF_GerarchiLoy^fella_to_add_to }
+
+	for_each_loop = {
+		array = ITA_GCF_QuadrumvirPow
+		index = i
+
+		set_temp_variable = { current_fella = i }
+		multiply_temp_variable = { current_fella = 10 }
+		add_to_temp_variable = { current_fella = ITA_GCF_gerarchi_to_add }
+
+		if = {
+			limit = {
+				check_variable = { fella_to_add_to = current_fella }
+			}
+			add_to_variable = { ITA_GCF_GerarchiLoy^current_fella = ITA_GCF_amount_to_add }
+		}
+		else = {
+			set_temp_variable = { amount_to_subtract = ITA_GCF_GerarchiLoy^current_fella }
+			divide_temp_variable = { amount_to_subtract = everyone_else }
+			multiply_temp_variable = { amount_to_subtract = ITA_GCF_amount_to_add }
+			subtract_from_variable = { ITA_GCF_GerarchiLoy^current_fella = amount_to_subtract }
+		}
+
+	}
+
+	set_temp_variable = { adjusted_balbo = 40 }
+	add_to_temp_variable = { adjusted_balbo = ITA_GCF_gerarchi_to_add }
+	set_temp_variable = { unadjusted_balbo = 10 }
+	add_to_temp_variable = { unadjusted_balbo = ITA_GCF_gerarchi_to_add }
+	set_temp_variable = { pavolini = 0 }
+	add_to_temp_variable = { pavolini = ITA_GCF_gerarchi_to_add }
+
+	set_variable = { ITA_GCF_GerarchiLoy^adjusted_balbo = ITA_GCF_GerarchiLoy^unadjusted_balbo }
+	add_to_variable = { ITA_GCF_GerarchiLoy^adjusted_balbo = ITA_GCF_GerarchiLoy^pavolini }
+
+	clear_variable = ITA_GCF_fella_to_add
+	clear_variable = ITA_GCF_gerarchi_to_add
+	clear_variable = ITA_GCF_amount_to_add
+
+	if = {
+		limit = {
+			has_active_mission = ITA_GCF_100_day_session
+		}
+		add_to_variable = { ITA_GCF_dirty = 1 }
+	}
+	else = {
+		ITA_GCF_CalcQuadrumvirPow = yes
+	}	
+}
+
+ITA_GCF_AddPow = {
+	#ITA_GCF_gerarchi_to_add
+	#ITA_GCF_amount_to_add
+	#All of these must be set as temp variables.
+
+	if = {
+		limit = {
+			OR = {
+				NOT = {
+					has_variable = ITA_GCF_gerarchi_to_add
+					has_variable = ITA_GCF_amount_to_add
+				}
+			}
+		}
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0 }
+		log = "[GetDateText]: [Root.GetName]: The proper variables were not set before ITA_GCF_AddLoy was called."
+	}
+
+	if = {
+		limit = {
+			check_variable = { ITA_GCF_amount_to_add > 0 }
+		}
+		custom_effect_tooltip = ITA_GCF_AddPow_tt
+	}
+	else = {
+		set_temp_variable = { decrease_in_tt = 1 }
+		multiply_temp_variable = { ITA_GCF_amount_to_add = -1 }
+		custom_effect_tooltip = ITA_GCF_AddPow_tt
+		multiply_temp_variable = { ITA_GCF_amount_to_add = -1 }
+		set_temp_variable = { decrease_in_tt = 0 }
+	}
+
+	add_to_variable = { ITA_GCF_GerarchiPow^ITA_GCF_gerarchi_to_add = ITA_GCF_amount_to_add }
+	clamp_variable = {
+		var = ITA_GCF_GerarchiPow^ITA_GCF_gerarchi_to_add
+		min = 8
+	}
+
+	clear_variable = ITA_GCF_gerarchi_to_add
+	clear_variable = ITA_GCF_amount_to_add
+
+	if = {
+		limit = {
+			has_active_mission = ITA_GCF_100_day_session
+		}
+		add_to_variable = { ITA_GCF_dirty = 1 }
+	}
+	else = {
+		ITA_GCF_CalcQuadrumvirPow = yes
+	}	
+}
+
+ITA_GCF_Get_leading_duce = {
+	if = {
+		limit = {
+			has_country_leader = {
+				name = "Alessandro Pavolini"
+				ruling_only = yes
+			}
+			
+		}
+		set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+	}
+	else_if = {
+		limit = {
+			has_country_leader = {
+				name = "Italo Balbo"
+				ruling_only = yes
+			}
+		}
+		set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+	}
+	else_if = {
+		limit = {
+			has_country_leader = {
+				name = "Ettore Muti"
+				ruling_only = yes
+			}
+		}
+		set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+	}
+	else_if = {
+		limit = {
+			has_country_leader = {
+				name = "Niccolò Giani"
+				ruling_only = yes
+			}
+		}
+		set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+	}
+	else_if = {
+		limit = {
+			has_country_flag = ITA_pavolini_chosen
+		}
+		set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+	}
+	else_if = {
+		limit = {
+			has_country_flag = ITA_balbo_chosen
+		}
+		set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+	}
+	else_if = {
+		limit = {
+			has_country_flag = ITA_muti_chosen
+		}
+		set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+	}
+	else_if = {
+		limit = {
+			has_country_flag = ITA_giani_chosen
+		}
+		set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+	}
+}
+
+ITA_GCF_PavoliniSetup = {
+	custom_effect_tooltip = ITA_GCF_Unlock_Actions_Pavolini
+
+	add_to_array = { ITA_avalaible_promises_array = 19 }
+	add_to_array = { ITA_avalaible_promises_array = 20 }
+	add_to_array = { ITA_avalaible_promises_array = 21 }
+	add_to_array = { ITA_avalaible_promises_array = 31 }
+	add_to_array = { ITA_avalaible_promises_array = 32 }
+	add_to_array = { ITA_avalaible_promises_array = 33 }
+
+	add_to_array = { ITA_stored_promises_array = 34 }
+	add_to_array = { ITA_stored_promises_array = 35 }
+	add_to_array = { ITA_stored_promises_array = 36 }
+
+	add_to_variable = { ITA_GCF_dirty = 1 }
+	hidden_effect = {
+		activate_mission = ITA_GCF_balbo_influence
+		activate_mission = ITA_GCF_muti_influence
+		activate_mission = ITA_GCF_giani_influence
+	}
+}
+
+ITA_GCF_BalboSetup = {
+	custom_effect_tooltip = ITA_GCF_Unlock_Actions_Balbo
+
+	add_to_array = { ITA_avalaible_promises_array = 19 }
+	add_to_array = { ITA_avalaible_promises_array = 20 }
+	add_to_array = { ITA_avalaible_promises_array = 21 }
+	add_to_array = { ITA_avalaible_promises_array = 22 }
+	add_to_array = { ITA_avalaible_promises_array = 23 }
+	add_to_array = { ITA_avalaible_promises_array = 24 }
+
+	add_to_array = { ITA_stored_promises_array = 34 }
+	add_to_array = { ITA_stored_promises_array = 35 }
+	add_to_array = { ITA_stored_promises_array = 36 }
+
+	add_to_variable = { ITA_GCF_dirty = 1 }
+	hidden_effect = {
+		activate_mission = ITA_GCF_pavolini_influence
+		activate_mission = ITA_GCF_muti_influence
+		activate_mission = ITA_GCF_giani_influence
+	}
+	set_country_flag = ITA_has_not_promised_curtail_paramilitaries
+}
+
+ITA_GCF_MutiSetup = {
+	custom_effect_tooltip = ITA_GCF_Unlock_Actions_Muti
+
+	add_to_array = { ITA_avalaible_promises_array = 19 }
+	add_to_array = { ITA_avalaible_promises_array = 20 }
+	add_to_array = { ITA_avalaible_promises_array = 21 }
+	add_to_array = { ITA_avalaible_promises_array = 25 }
+	add_to_array = { ITA_avalaible_promises_array = 26 }
+	add_to_array = { ITA_avalaible_promises_array = 27 }
+
+	add_to_array = { ITA_stored_promises_array = 34 }
+	add_to_array = { ITA_stored_promises_array = 35 }
+	add_to_array = { ITA_stored_promises_array = 36 }
+
+	add_to_variable = { ITA_GCF_dirty = 1 }
+	hidden_effect = {
+		activate_mission = ITA_GCF_balbo_influence
+		activate_mission = ITA_GCF_pavolini_influence
+		activate_mission = ITA_GCF_giani_influence
+	}
+}
+
+ITA_GCF_GianiSetup = {
+	custom_effect_tooltip = ITA_GCF_Unlock_Actions_Giani
+
+	add_to_array = { ITA_avalaible_promises_array = 19 }
+	add_to_array = { ITA_avalaible_promises_array = 20 }
+	add_to_array = { ITA_avalaible_promises_array = 21 }
+	add_to_array = { ITA_avalaible_promises_array = 28 }
+	add_to_array = { ITA_avalaible_promises_array = 29 }
+	add_to_array = { ITA_avalaible_promises_array = 30 }
+
+	add_to_array = { ITA_stored_promises_array = 34 }
+	add_to_array = { ITA_stored_promises_array = 35 }
+	add_to_array = { ITA_stored_promises_array = 36 }
+
+	add_to_variable = { ITA_GCF_dirty = 1 }
+	hidden_effect = {
+		activate_mission = ITA_GCF_balbo_influence
+		activate_mission = ITA_GCF_muti_influence
+		activate_mission = ITA_GCF_pavolini_influence
+	}
+}
+
+ITA_GCF_PickLooser = {
+	custom_effect_tooltip = ITA_GCF_PickLooser_tt
+	#ITA_GCF_QuadrumvirPow
+	#ITA_GCF_Knocked_Out_Array
+
+	set_temp_variable = { to_be_knocked_out = -1 }
+	set_temp_variable = { lowest_score = -1 }
+	for_each_loop = {
+		array = ITA_GCF_QuadrumvirPow
+
+		if = {
+			limit = {
+				check_variable = { ITA_GCF_Knocked_Out_Array^i = 0 } #not knocked out yet
+				OR = {
+					check_variable = { v < lowest_score } #lower score than the previous lowest
+					check_variable = { lowest_score = -1 } #lowest_score not set yet
+				}
+				
+			}
+			set_temp_variable = { to_be_knocked_out = i }
+			set_temp_variable = { lowest_score = v }
+		}
+	}
+
+	set_variable = { ITA_GCF_Knocked_Out_Array^to_be_knocked_out = 1 }
+	add_to_variable = { ITA_GCF_dirty = 1 }
+
+	hidden_effect = {
+		if = {
+			limit = {
+				check_variable = { to_be_knocked_out = 0 }
+			}
+			country_event = {
+				id = ITA_GCF.1
+				days = 1
+			}
+			set_country_flag = ITA_pavolini_knocked_out
+		}
+		else_if = {
+			limit = {
+				check_variable = { to_be_knocked_out = 1 }
+			}
+			country_event = {
+				id = ITA_GCF.2
+				days = 1
+			}
+			set_country_flag = ITA_balbo_knocked_out
+		}
+		else_if = {
+			limit = {
+				check_variable = { to_be_knocked_out = 2 }
+			}
+			country_event = {
+				id = ITA_GCF.3
+				days = 1
+			}
+			set_country_flag = ITA_muti_knocked_out
+		}
+		else_if = {
+			limit = {
+				check_variable = { to_be_knocked_out = 3 }
+			}
+			country_event = {
+				id = ITA_GCF.4
+				days = 1
+			}
+			set_country_flag = ITA_giani_knocked_out
+		}
+	}
+	
+
+	#Remove corruption interactions at the end of the phase
+	remove_from_array = {
+		array = ITA_promises_array
+		value = 34
+	}
+	remove_from_array = {
+		array = ITA_promises_array
+		value = 35
+	}
+	remove_from_array = {
+		array = ITA_promises_array
+		value = 36
+	}
+	remove_from_array = {
+		array = ITA_promises_array
+		value = 0
+	}
+	if = {
+		limit = {
+			check_variable = { ITA_GCF_Buttons_Switch_Frame = 1 }
+		}
+		clear_array = ITA_stored_promises_array
+		add_to_array = { ITA_stored_promises_array = 34 }
+		add_to_array = { ITA_stored_promises_array = 35 }
+		add_to_array = { ITA_stored_promises_array = 36 }
+	}
+	else = {
+		clear_array = ITA_avalaible_promises_array
+		add_to_array = { ITA_avalaible_promises_array = 34 }
+		add_to_array = { ITA_avalaible_promises_array = 35 }
+		add_to_array = { ITA_avalaible_promises_array = 36 }
+	}
+
+	set_temp_variable = { new_len = 0 }
+	for_each_loop = {
+		array = ITA_promises_array
+		add_to_temp_variable = { new_len = 1 }
+	}
+	set_variable = { ITA_promises_add_button_position = new_len }
+	add_to_array = { ITA_promises_array = 0 }
+
+}
+
+ITA_GCF_PickWinner = {
+	custom_effect_tooltip = ITA_GCF_PickWinner_tt
+
+	set_variable = { ITA_GCF_Knocked_Out_Array^0 = 0 }
+	set_variable = { ITA_GCF_Knocked_Out_Array^1 = 0 }
+	set_variable = { ITA_GCF_Knocked_Out_Array^2 = 0 }
+	set_variable = { ITA_GCF_Knocked_Out_Array^3 = 0 }
+
+	hidden_effect = {
+		if = {
+			limit = {
+				has_country_flag = ITA_balbo_knocked_out
+				has_country_flag = ITA_muti_knocked_out
+				has_country_flag = ITA_giani_knocked_out
+				has_country_flag = ITA_med_wip_paths_active
+			}
+			country_event = {
+				id = ITA_GCF.5
+				hours = 16
+			}
+		}
+		# Pavolini last man standing without the rule set to _WIP. Choosing him is
+		# already barred at ITA_a_black_octavianus, but the hundred-day sessions
+		# eliminate on score alone and can leave him there anyway, which would drop
+		# the player into a tree that is two of a hundred and forty-nine focuses
+		# wired. The council crowns the Quadrumvir the player actually backed.
+		else_if = {
+			limit = {
+				has_country_flag = ITA_balbo_knocked_out
+				has_country_flag = ITA_muti_knocked_out
+				has_country_flag = ITA_giani_knocked_out
+			}
+			if = {
+				limit = { has_country_flag = ITA_muti_chosen }
+				country_event = { id = ITA_GCF.7 hours = 16 }
+			}
+			else_if = {
+				limit = { has_country_flag = ITA_giani_chosen }
+				country_event = { id = ITA_GCF.8 hours = 16 }
+			}
+			else = {
+				country_event = { id = ITA_GCF.6 hours = 16 }
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ITA_pavolini_knocked_out
+				has_country_flag = ITA_muti_knocked_out
+				has_country_flag = ITA_giani_knocked_out
+			}
+			country_event = {
+				id = ITA_GCF.6
+				hours = 16
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ITA_pavolini_knocked_out
+				has_country_flag = ITA_balbo_knocked_out
+				has_country_flag = ITA_giani_knocked_out
+			}
+			country_event = {
+				id = ITA_GCF.7
+				hours = 16
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ITA_pavolini_knocked_out
+				has_country_flag = ITA_balbo_knocked_out
+				has_country_flag = ITA_muti_knocked_out
+			}
+			country_event = {
+				id = ITA_GCF.8
+				hours = 16
+			}
+		}
+	}
+}
+
+ITA_GCF_MutiGUIQuadrumvirate = {
+	hidden_effect = {
+		if = {
+			limit = {
+				has_completed_focus = ITA_and_mold_a_new_future
+			}
+			ITA_Muti_revolution_gui_increase_people_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_people_reform_5 = yes
+			ITA_Muti_revolution_gui_increase_natives_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_natives_reform_5 = yes
+			ITA_Muti_revolution_gui_decrease_party_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_party_reform_5 = yes
+			ITA_Muti_revolution_gui_decrease_clergy_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_clergy_reform_5 = yes
+		}
+		
+		else_if = {
+			limit = {
+				has_completed_focus = ITA_and_fix_what_is_current
+			}
+			ITA_Muti_revolution_gui_decrease_people_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_people_reform_5 = yes
+			ITA_Muti_revolution_gui_decrease_natives_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_natives_reform_5 = yes
+			ITA_Muti_revolution_gui_increase_party_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_party_reform_5 = yes
+			ITA_Muti_revolution_gui_increase_clergy_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_clergy_reform_5 = yes
+		}
+		
+		else_if = {
+			limit = {
+				has_completed_focus = ITA_mussolini_wasnt_always_right
+			}
+			ITA_Muti_revolution_gui_increase_clergy_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_clergy_reform_5 = yes
+			ITA_Muti_revolution_gui_increase_industry_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_industry_reform_5 = yes
+			ITA_Muti_revolution_gui_decrease_party_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_party_reform_5 = yes
+			ITA_Muti_revolution_gui_decrease_army_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_army_reform_5 = yes
+		}
+		
+		else_if = {
+			limit = {
+				has_completed_focus = ITA_unity_above_all
+			}
+			ITA_Muti_revolution_gui_decrease_clergy_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_clergy_reform_5 = yes
+			ITA_Muti_revolution_gui_decrease_industry_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_industry_reform_5 = yes
+			ITA_Muti_revolution_gui_increase_party_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_party_reform_5 = yes
+			ITA_Muti_revolution_gui_increase_army_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_army_reform_5 = yes
+		}
+		
+		else_if = {
+			limit = {
+				has_completed_focus = ITA_break_the_chains
+			}
+			ITA_Muti_revolution_gui_increase_people_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_people_reform_5 = yes
+			ITA_Muti_revolution_gui_increase_natives_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_natives_reform_5 = yes
+			ITA_Muti_revolution_gui_increase_party_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_party_reform_5 = yes
+			ITA_Muti_revolution_gui_decrease_clergy_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_clergy_reform_5 = yes
+			ITA_Muti_revolution_gui_decrease_army_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_army_reform_5 = yes
+			ITA_Muti_revolution_gui_decrease_industry_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_industry_reform_5 = yes
+		}
+		
+		else_if = {
+			limit = {
+				has_completed_focus = ITA_not_too_fast
+			}
+			ITA_Muti_revolution_gui_decrease_people_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_people_reform_5 = yes
+			ITA_Muti_revolution_gui_decrease_natives_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_natives_reform_5 = yes
+			ITA_Muti_revolution_gui_decrease_party_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_party_reform_5 = yes
+			ITA_Muti_revolution_gui_increase_clergy_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_clergy_reform_5 = yes
+			ITA_Muti_revolution_gui_increase_army_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_army_reform_5 = yes
+			ITA_Muti_revolution_gui_increase_industry_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_industry_reform_5 = yes
+		}
+		
+		else_if = {
+			limit = {
+				has_completed_focus = ITA_a_new_wave_of_art
+			}
+			ITA_Muti_revolution_gui_increase_people_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_people_reform_5 = yes
+			ITA_Muti_revolution_gui_decrease_party_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_clergy_pop_5 = yes
+		}
+		
+		else_if = {
+			limit = {
+				has_completed_focus = ITA_speeches_and_ads
+			}
+			ITA_Muti_revolution_gui_decrease_people_pop_5 = yes
+			ITA_Muti_revolution_gui_decrease_people_reform_5 = yes
+			ITA_Muti_revolution_gui_increase_party_pop_5 = yes
+			ITA_Muti_revolution_gui_increase_party_reform_5 = yes
+		}
+	}
+}
+
+ITA_GCF_10_day_tick_elections_gerarchi = {
+	set_temp_variable = { amount_to_add = ITA_GCF_GerarchiPow^ITA_GCF_gerarchi_to_add }
+
+	set_temp_variable = { this_support = ITA_GCF_fella_to_add }
+	multiply_temp_variable = { this_support = 10 }
+	add_to_temp_variable = { this_support = ITA_GCF_gerarchi_to_add }
+
+	multiply_temp_variable = { amount_to_add = ITA_GCF_GerarchiLoy^this_support }
+	divide_temp_variable = { amount_to_add = 1000 }
+
+	add_to_variable = { ITA_GCF_QuadrumvirPow^ITA_GCF_fella_to_add = amount_to_add }
+	custom_effect_tooltip = ITA_GCF_amount_for_this_fella_from_this_gerarchi
+}
+
+ITA_GCF_10_day_tick_elections = {
+	if = {
+		limit = {
+			check_variable = { ITA_GCF_Knocked_Out_Array^ITA_GCF_fella_to_add = 0 }
+		}
+
+		custom_effect_tooltip = ITA_GCF_tick_boost_title
+
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+		ITA_GCF_10_day_tick_elections_gerarchi = yes
+		set_temp_variable = { total = amount_to_add }
+
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 1 }
+		ITA_GCF_10_day_tick_elections_gerarchi = yes
+		add_to_temp_variable = { total = amount_to_add }
+
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+		ITA_GCF_10_day_tick_elections_gerarchi = yes
+		add_to_temp_variable = { total = amount_to_add }
+
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+		ITA_GCF_10_day_tick_elections_gerarchi = yes
+		add_to_temp_variable = { total = amount_to_add }
+
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+		ITA_GCF_10_day_tick_elections_gerarchi = yes
+		add_to_temp_variable = { total = amount_to_add }
+
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+		ITA_GCF_10_day_tick_elections_gerarchi = yes
+		add_to_temp_variable = { total = amount_to_add }
+
+		custom_effect_tooltip = ITA_GCF_amount_increase_total
+	}
+}
+
+ITA_GCF_Start_100_day_session = {
+	hidden_effect = {
+		activate_mission = ITA_GCF_100_day_session
+		activate_mission = ITA_GCF_10_day_tick
+		set_variable = { ITA_GCF_QuadrumvirPow^0 = 0 }
+		set_variable = { ITA_GCF_QuadrumvirPow^1 = 0 }
+		set_variable = { ITA_GCF_QuadrumvirPow^2 = 0 }
+		set_variable = { ITA_GCF_QuadrumvirPow^3 = 0 }
+		set_country_flag = ITA_GCF_enable_clicking
+		add_to_variable = { ITA_GCF_dirty = 1 }
+	}
+}
+
+ITA_GCF_Activate_appropriate_missions = {
+	hidden_effect = {
+		if = {
+			limit = {
+				is_in_array = { ITA_promises_array = 19 }
+			}
+			activate_mission = ITA_GCF_keep_promise_19
+		}
+		if = {
+			limit = {
+				is_in_array = { ITA_promises_array = 20 }
+			}
+			activate_mission = ITA_GCF_keep_promise_20
+		}
+		if = {
+			limit = {
+				is_in_array = { ITA_promises_array = 21 }
+			}
+			activate_mission = ITA_GCF_keep_promise_21
+		}
+		if = {
+			limit = {
+				is_in_array = { ITA_promises_array = 22 }
+			}
+			activate_mission = ITA_GCF_keep_promise_22
+		}
+		if = {
+			limit = {
+				is_in_array = { ITA_promises_array = 23 }
+			}
+			activate_mission = ITA_GCF_keep_promise_23
+		}
+		if = {
+			limit = {
+				is_in_array = { ITA_promises_array = 24 }
+			}
+			activate_mission = ITA_GCF_keep_promise_24
+		}
+		if = {
+			limit = {
+				is_in_array = { ITA_promises_array = 25 }
+			}
+			set_variable = { GCF_keep_promise_25_target = num_divisions }
+			add_to_variable = { GCF_keep_promise_25_target = 4 }
+			activate_mission = ITA_GCF_keep_promise_25
+		}
+		if = {
+			limit = {
+				is_in_array = { ITA_promises_array = 26 }
+			}
+			activate_mission = ITA_GCF_keep_promise_26
+		}
+		if = {
+			limit = {
+				is_in_array = { ITA_promises_array = 27 }
+			}
+			activate_mission = ITA_GCF_keep_promise_27
+		}
+		if = {
+			limit = {
+				is_in_array = { ITA_promises_array = 28 }
+			}
+			activate_mission = ITA_GCF_keep_promise_28
+		}
+		if = {
+			limit = {
+				is_in_array = { ITA_promises_array = 29 }
+			}
+			activate_mission = ITA_GCF_keep_promise_29
+		}
+		if = {
+			limit = {
+				is_in_array = { ITA_promises_array = 30 }
+			}
+			activate_mission = ITA_GCF_keep_promise_30
+		}
+		if = {
+			limit = {
+				is_in_array = { ITA_promises_array = 31 }
+			}
+			activate_mission = ITA_GCF_keep_promise_31
+		}
+		if = {
+			limit = {
+				is_in_array = { ITA_promises_array = 32 }
+			}
+			activate_mission = ITA_GCF_keep_promise_32
+		}
+		if = {
+			limit = {
+				is_in_array = { ITA_promises_array = 33 }
+			}
+			activate_mission = ITA_GCF_keep_promise_33
+		}
+
+		if = {
+			limit = {
+				check_variable = { ITA_GCF_corruption = 1 }
+			}
+			add_ideas = ITA_GCF_corruption_level_1
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_GCF_corruption = 2 }
+			}
+			add_ideas = ITA_GCF_corruption_level_2
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_GCF_corruption = 3 }
+			}
+			add_ideas = ITA_GCF_corruption_level_3
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_GCF_corruption = 4 }
+			}
+			add_ideas = ITA_GCF_corruption_level_4
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_GCF_corruption = 5 }
+			}
+			add_ideas = ITA_GCF_corruption_level_5
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_GCF_corruption = 6 }
+			}
+			add_ideas = ITA_GCF_corruption_level_6
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_GCF_corruption = 7 }
+			}
+			add_ideas = ITA_GCF_corruption_level_7
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_GCF_corruption = 8 }
+			}
+			add_ideas = ITA_GCF_corruption_level_8
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_GCF_corruption = 9 }
+			}
+			add_ideas = ITA_GCF_corruption_level_9
+		}
+		set_variable = { ITA_GCF_corruption = 0 }
+	}
+}
+ITA_IEA_Collapse_setup = { #Temp Stuff For Now
+	set_variable = {ITA_IEA_collapse_first_mission_status = 2}
+	set_variable = {ITA_IEA_collapse_second_mission_status = 2}
+	set_variable = {ITA_IEA_collapse_third_mission_status = 1}
+	set_variable = {ITA_IEA_collapse_fourth_mission_status = 4}
+}
+ITA_fash_vatican_relations_update = {
+	# Reformist Church
+	if = {
+		limit = {
+			AND = {
+				has_global_flag = reformist_vatican_ii
+				ITA = {
+					has_country_leader = {
+						name = "Italo Balbo"
+						ruling_only = yes
+					}
+				}
+			}
+		}
+		#STRIP(vatican) VAC = {
+			#STRIP(vatican) swap_ideas = {
+				#STRIP(vatican) remove_idea = VAC_lateran_pacts
+				#STRIP(vatican) add_idea = VAC_tension_with_italy
+			#STRIP(vatican) }
+		#STRIP(vatican) }
+	}
+	else_if = {
+		limit = {
+			AND = {
+				has_global_flag = reformist_vatican_ii
+				ITA = {
+					has_country_leader = {
+						name = "Ettore Muti"
+						ruling_only = yes
+					}
+				}
+			}
+		}
+		#STRIP(vatican) VAC = {
+			#STRIP(vatican) swap_ideas = {
+				#STRIP(vatican) remove_idea = VAC_lateran_pacts
+				#STRIP(vatican) add_idea = VAC_non_expedit
+			#STRIP(vatican) }
+		#STRIP(vatican) }
+	}
+	else_if = {
+		limit = {
+			AND = {
+				has_global_flag = reformist_vatican_ii
+				ITA = {
+					has_country_leader = {
+						name = "Alessandro Pavolini"
+						ruling_only = yes
+					}
+				}
+			}
+		}
+		#STRIP(vatican) VAC = {
+			#STRIP(vatican) swap_ideas = {
+				#STRIP(vatican) remove_idea = VAC_lateran_pacts
+				#STRIP(vatican) add_idea = VAC_non_expedit
+			#STRIP(vatican) }
+		#STRIP(vatican) }
+	}
+	else_if = {
+		limit = {
+			AND = {
+				has_global_flag = reformist_vatican_ii
+				ITA = {
+					has_country_leader = {
+						name = "Niccolò Giani"
+						ruling_only = yes
+					}
+				}
+			}
+		}
+		#STRIP(vatican) VAC = {
+			#STRIP(vatican) swap_ideas = {
+				#STRIP(vatican) remove_idea = VAC_lateran_pacts
+				#STRIP(vatican) add_idea = VAC_non_expedit
+			#STRIP(vatican) }
+		#STRIP(vatican) }
+	}
+	# Moderate Church
+	else_if = {
+		limit = {
+			AND = {
+				has_global_flag = moderate_vatican_ii
+				ITA = {
+					has_country_leader = {
+						name = "Ettore Muti"
+						ruling_only = yes
+					}
+				}
+			}
+		}
+		#STRIP(vatican) VAC = {
+			#STRIP(vatican) swap_ideas = {
+				#STRIP(vatican) remove_idea = VAC_lateran_pacts
+				#STRIP(vatican) add_idea = VAC_tension_with_italy
+			#STRIP(vatican) }
+		#STRIP(vatican) }
+	}
+	else_if = {
+		limit = {
+			AND = {
+				has_global_flag = moderate_vatican_ii
+				ITA = {
+					has_country_leader = {
+						name = "Alessandro Pavolini"
+						ruling_only = yes
+					}
+				}
+			}
+		}
+		#STRIP(vatican) VAC = {
+			#STRIP(vatican) swap_ideas = {
+				#STRIP(vatican) remove_idea = VAC_lateran_pacts
+				#STRIP(vatican) add_idea = VAC_tension_with_italy
+			#STRIP(vatican) }
+		#STRIP(vatican) }
+	}
+	else_if = {
+		limit = {
+			AND = {
+				has_global_flag = moderate_vatican_ii
+				ITA = {
+					has_country_leader = {
+						name = "Niccolò Giani"
+						ruling_only = yes
+					}
+				}
+			}
+		}
+		#STRIP(vatican) VAC = {
+			#STRIP(vatican) swap_ideas = {
+				#STRIP(vatican) remove_idea = VAC_lateran_pacts
+				#STRIP(vatican) add_idea = VAC_non_expedit
+			#STRIP(vatican) }
+		#STRIP(vatican) }
+	}
+	# Conservative Church
+	else_if = {
+		limit = {
+			AND = {
+				has_global_flag = conservative_vatican_ii
+				ITA = {
+					has_country_leader = {
+						name = "Niccolò Giani"
+						ruling_only = yes
+					}
+				}
+			}
+		}
+		#STRIP(vatican) VAC = {
+			#STRIP(vatican) swap_ideas = {
+				#STRIP(vatican) remove_idea = VAC_lateran_pacts
+				#STRIP(vatican) add_idea = VAC_tension_with_italy
+			#STRIP(vatican) }
+		#STRIP(vatican) }
+	}
+}

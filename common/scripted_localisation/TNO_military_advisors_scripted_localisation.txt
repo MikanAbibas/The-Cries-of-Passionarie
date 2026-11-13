@@ -1,0 +1,180 @@
+# Military Advisors window (interface/TNO_military_advisors.gui). Scope: the player's country.
+# A variable that was never set reads 0, so a country that has not touched the window shows level 0.
+
+defined_text = {
+	name = TNO_GetMilitaryAdvisorsBonus
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_level = 0 } }
+		localization_key = TNO_MILITARY_ADVISORS_BONUS_NONE
+	}
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_level = 1 } }
+		localization_key = TNO_MILITARY_ADVISORS_BONUS_ONE
+	}
+	text = {
+		localization_key = TNO_MILITARY_ADVISORS_BONUS_MANY
+	}
+}
+
+defined_text = {
+	name = TNO_GetMilitaryAdvisorsTerm
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_level = 0 } }
+		localization_key = TNO_MILITARY_ADVISORS_TERM_NONE
+	}
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_days_left < 6 } }
+		localization_key = TNO_MILITARY_ADVISORS_TERM_ENDING
+	}
+	text = {
+		localization_key = TNO_MILITARY_ADVISORS_TERM_RUNNING
+	}
+}
+
+defined_text = {
+	name = TNO_GetMilitaryAdvisorsDays
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_days_left = 1 } }
+		localization_key = TNO_MILITARY_ADVISORS_DAYS_ONE
+	}
+	text = {
+		localization_key = TNO_MILITARY_ADVISORS_DAYS
+	}
+}
+
+defined_text = {
+	name = TNO_GetMilitaryAdvisorsButton
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_level = 0 } }
+		localization_key = TNO_MILITARY_ADVISORS_BUTTON_1
+	}
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_level = 1 } }
+		localization_key = TNO_MILITARY_ADVISORS_BUTTON_2
+	}
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_level = 2 } }
+		localization_key = TNO_MILITARY_ADVISORS_BUTTON_3
+	}
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_level = 3 } }
+		localization_key = TNO_MILITARY_ADVISORS_BUTTON_4
+	}
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_level = 4 } }
+		localization_key = TNO_MILITARY_ADVISORS_BUTTON_5
+	}
+	text = {
+		localization_key = TNO_MILITARY_ADVISORS_BUTTON_MAX
+	}
+}
+
+# the price line under the button
+defined_text = {
+	name = TNO_GetMilitaryAdvisorsCost
+	text = {
+		trigger = {
+			OR = {
+				check_variable = { TNO_military_advisors_level > 4 }
+				NOT = { econ_can_use_economy_system = yes }
+			}
+		}
+		localization_key = TNO_MILITARY_ADVISORS_EMPTY
+	}
+	text = {
+		localization_key = TNO_MILITARY_ADVISORS_COST_SHOWN
+	}
+}
+
+# the next level's price, in billions from 1000 M up
+defined_text = {
+	name = TNO_GetMilitaryAdvisorsPrice
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_price > 999.999 } }
+		localization_key = TNO_MILITARY_ADVISORS_PRICE_B
+	}
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_price > 9.999 } }
+		localization_key = TNO_MILITARY_ADVISORS_PRICE_M
+	}
+	text = {
+		localization_key = TNO_MILITARY_ADVISORS_PRICE_M_SMALL
+	}
+}
+
+defined_text = {
+	name = TNO_GetMilitaryAdvisorsRaiseTT
+	text = {
+		trigger = { NOT = { econ_can_use_economy_system = yes } }
+		localization_key = TNO_MILITARY_ADVISORS_RAISE_TT_NO_ECONOMY
+	}
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_level > 4 } }
+		localization_key = TNO_MILITARY_ADVISORS_RAISE_TT_MAX
+	}
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_level = 0 } }
+		localization_key = TNO_MILITARY_ADVISORS_RAISE_TT_START
+	}
+	text = {
+		localization_key = TNO_MILITARY_ADVISORS_RAISE_TT_ACTIVE
+	}
+}
+
+### the volunteer bonus breakdown (TNO_military_advisors_refresh keeps the figures)
+
+defined_text = {
+	name = TNO_GetMilitaryAdvisorsTotal
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_total_bonus < 0 } }
+		localization_key = TNO_MILITARY_ADVISORS_TOTAL_NEG
+	}
+	text = {
+		localization_key = TNO_MILITARY_ADVISORS_TOTAL_POS
+	}
+}
+
+defined_text = {
+	name = TNO_GetMilitaryAdvisorsRankLine
+	text = {
+		trigger = { has_idea = ZZZ_superpower_rank_1 }
+		localization_key = TNO_MILITARY_ADVISORS_RANK_1
+	}
+	text = {
+		trigger = { has_idea = ZZZ_superpower_rank_2 }
+		localization_key = TNO_MILITARY_ADVISORS_RANK_2
+	}
+	text = {
+		trigger = { has_idea = ZZZ_superpower_rank_3 }
+		localization_key = TNO_MILITARY_ADVISORS_RANK_3
+	}
+	text = {
+		localization_key = TNO_MILITARY_ADVISORS_EMPTY
+	}
+}
+
+defined_text = {
+	name = TNO_GetMilitaryAdvisorsLevelLine
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_level > 0 } }
+		localization_key = TNO_MILITARY_ADVISORS_LEVEL_LINE
+	}
+	text = {
+		localization_key = TNO_MILITARY_ADVISORS_EMPTY
+	}
+}
+
+defined_text = {
+	name = TNO_GetMilitaryAdvisorsOtherLine
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_other_bonus > 0 } }
+		localization_key = TNO_MILITARY_ADVISORS_OTHER_POS
+	}
+	text = {
+		trigger = { check_variable = { TNO_military_advisors_other_bonus < 0 } }
+		localization_key = TNO_MILITARY_ADVISORS_OTHER_NEG
+	}
+	text = {
+		localization_key = TNO_MILITARY_ADVISORS_EMPTY
+	}
+}

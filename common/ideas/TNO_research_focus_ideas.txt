@@ -1,0 +1,213 @@
+### TNO Research Priorities
+### Law category swapped from the button under the research slots (see common/scripted_guis/TNO_ResearchFocus.txt)
+###
+### Every priority lists the same 15 categories: the focused field at +0.10, every
+### other field at -0.05. No global research_speed_factor is used.
+###
+### Those 15 categories were picked so that no technology in common/technologies
+### carries two of them - every tech matches exactly one line, so nothing stacks.
+### The sub-categories (fighter, MBT, dd_tech, radar_tech, cat_maneuver_warfare, ...)
+### are deliberately left out; they always sit on a tech that already matches one of
+### the 15, and listing them would double or triple the bonus on that tech.
+###
+### Categories:
+###   Doctrine    - land_doctrine, air_doctrine, naval_doctrine
+###   Land/Naval  - infantry_weapons, special_forces_tech, armor, artillery,
+###                 naval_equipment, support_tech
+###   Air         - air_equipment, helicopter, missile
+###   Industrial  - industry, electronics, jet_technology
+###
+### National academias go in this same slot. They are declared here like any other
+### priority, weight the 15 categories however they like, and are handed out at
+### runtime with TNO_unlock_research_focus - see the checklist at the bottom of
+### common/scripted_effects/TNO_research_focus_scripted_effects.txt.
+
+ideas = {
+
+	tno_research_focus = {
+		law = yes
+
+		tno_research_focus_balanced = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea tno_research_focus_balanced" }
+			default = yes
+			available = { always = no } # swapped through the research priorities window only
+
+			removal_cost = -1
+			ledger = hidden
+			modifier = { }
+			cancel_if_invalid = no
+			ai_will_do = { factor = 1 }
+		}
+
+		tno_research_focus_doctrine = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea tno_research_focus_doctrine" }
+			available = { always = no }
+
+			removal_cost = -1
+			ledger = hidden
+			research_bonus = {
+				# focused
+				land_doctrine = 0.10
+				air_doctrine = 0.10
+				naval_doctrine = 0.10
+				# neglected
+				infantry_weapons = -0.05
+				special_forces_tech = -0.05
+				armor = -0.05
+				artillery = -0.05
+				naval_equipment = -0.05
+				support_tech = -0.05
+				air_equipment = -0.05
+				helicopter = -0.05
+				missile = -0.05
+				industry = -0.05
+				electronics = -0.05
+				jet_technology = -0.05
+			}
+			cancel_if_invalid = no
+			ai_will_do = { factor = 0 }
+		}
+
+		tno_research_focus_land_naval = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea tno_research_focus_land_naval" }
+			available = { always = no }
+
+			removal_cost = -1
+			ledger = hidden
+			research_bonus = {
+				# focused
+				infantry_weapons = 0.10
+				special_forces_tech = 0.10
+				armor = 0.10
+				artillery = 0.10
+				naval_equipment = 0.10
+				support_tech = 0.10
+				# neglected
+				land_doctrine = -0.05
+				air_doctrine = -0.05
+				naval_doctrine = -0.05
+				air_equipment = -0.05
+				helicopter = -0.05
+				missile = -0.05
+				industry = -0.05
+				electronics = -0.05
+				jet_technology = -0.05
+			}
+			cancel_if_invalid = no
+			ai_will_do = { factor = 0 }
+		}
+
+		tno_research_focus_air = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea tno_research_focus_air" }
+			available = { always = no }
+
+			removal_cost = -1
+			ledger = hidden
+			research_bonus = {
+				# focused
+				air_equipment = 0.10
+				helicopter = 0.10
+				missile = 0.10
+				# neglected
+				land_doctrine = -0.05
+				air_doctrine = -0.05
+				naval_doctrine = -0.05
+				infantry_weapons = -0.05
+				special_forces_tech = -0.05
+				armor = -0.05
+				artillery = -0.05
+				naval_equipment = -0.05
+				support_tech = -0.05
+				industry = -0.05
+				electronics = -0.05
+				jet_technology = -0.05
+			}
+			cancel_if_invalid = no
+			ai_will_do = { factor = 0 }
+		}
+
+		#######################################################################
+		# National academias - handed out with TNO_unlock_research_focus.
+		#
+		# These two are narrower than the base priorities: one category at +0.20,
+		# the rest of the equipment field untouched rather than penalised, and the
+		# -0.05 falling only on doctrine and the civil techs. motorized_equipment
+		# and IFV sit outside the 15-category set on purpose - neither idea boosts
+		# armor, support_tech or the other categories those techs share, so nothing
+		# stacks.
+		#######################################################################
+
+		# GER, unlocked by GER_a_supercar_truck (ID 10)
+		tno_research_focus_ger_motorized = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea tno_research_focus_ger_motorized" }
+			available = { always = no }
+
+			removal_cost = -1
+			ledger = hidden
+			research_bonus = {
+				# focused
+				motorized_equipment = 0.20
+				# neglected
+				land_doctrine = -0.05
+				air_doctrine = -0.05
+				naval_doctrine = -0.05
+				industry = -0.05
+				electronics = -0.05
+				jet_technology = -0.05
+			}
+			cancel_if_invalid = no
+			ai_will_do = { factor = 0 }
+		}
+
+		tno_research_focus_industry = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea tno_research_focus_industry" }
+			available = { always = no }
+
+			removal_cost = -1
+			ledger = hidden
+			research_bonus = {
+				# focused
+				industry = 0.10
+				electronics = 0.10
+				jet_technology = 0.10
+				# neglected
+				land_doctrine = -0.05
+				air_doctrine = -0.05
+				naval_doctrine = -0.05
+				infantry_weapons = -0.05
+				special_forces_tech = -0.05
+				armor = -0.05
+				artillery = -0.05
+				naval_equipment = -0.05
+				support_tech = -0.05
+				air_equipment = -0.05
+				helicopter = -0.05
+				missile = -0.05
+			}
+			cancel_if_invalid = no
+			ai_will_do = { factor = 0 }
+		}
+
+		# GER, unlocked by GER_a_special_forces_vehicle (ID 11)
+		tno_research_focus_ger_ifv = {
+			on_add = { log = "[GetDateText]: [Root.GetName]: add idea tno_research_focus_ger_ifv" }
+			available = { always = no }
+
+			removal_cost = -1
+			ledger = hidden
+			research_bonus = {
+				# focused
+				IFV = 0.20
+				# neglected
+				land_doctrine = -0.05
+				air_doctrine = -0.05
+				naval_doctrine = -0.05
+				industry = -0.05
+				electronics = -0.05
+				jet_technology = -0.05
+			}
+			cancel_if_invalid = no
+			ai_will_do = { factor = 0 }
+		}
+	}
+}

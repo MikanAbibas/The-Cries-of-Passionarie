@@ -1,0 +1,6511 @@
+############################################################################
+## ██╗████████╗ █████╗ ██╗         ██╗███╗   ███╗██████╗ ███████╗██████╗  ##
+## ██║╚══██╔══╝██╔══██╗██║         ██║████╗ ████║██╔══██╗██╔════╝██╔══██╗ ##
+## ██║   ██║   ███████║██║         ██║██╔████╔██║██████╔╝█████╗  ██████╔╝ ##
+## ██║   ██║   ██╔══██║██║         ██║██║╚██╔╝██║██╔═══╝ ██╔══╝  ██╔══██╗ ##
+## ██║   ██║   ██║  ██║███████╗    ██║██║ ╚═╝ ██║██║     ███████╗██║  ██║ ##
+## ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝ ##
+############################################################################
+#Decisions
+ 
+#Index; Search for these names using CTRL+F and you'll find the section they entitle.
+#	Italy Debug Decisions
+#		Pre-Verona Debug
+#			Starting Tree
+#			Post-Malta
+#			Verona Congress
+#		Fascist Italy Debug
+#			Quadrumvirate Debug
+#			Muti Debug
+#			Balbo Debug
+#			Pavolini Debug
+#			Giani Debug
+#
+#		Democratic Italy Debug
+#			Ciano Verona Victory Debug
+#			Democratic Trees Debug
+#			Camera Debug
+#			Institutions Debug
+#			IEA Decolonization Debug
+#
+#		Red Italy Debug
+#
+#	Italo-Turkish War Iraq Decisions
+#
+#   Mechanics Decisions
+#		Ciano Pillars of Power Decisions
+#		Verona Congress Decisions
+#		Grand Council of Fascism Decisions
+#		Democratic Pillars of Power Decisions
+#		IEA Decolonization Decisions
+
+
+
+#########################################
+###=====| Italy Debug Decisions |=====###
+#########################################
+ITA_debug_category = {   
+	### Pre-Verona Debug ###
+	ITA_pre_verona_effigy = {
+
+		visible = {
+			always = yes
+		}
+		available = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 10
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_pre_verona_effigy"
+		}
+	}
+	ITA_load_starting_tree = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			always = yes
+		}
+		available = {   
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_starting_tree"
+			load_focus_tree = ITA_starting_tree
+		}
+	}
+	ITA_load_post_malta = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			always = yes
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_post_malta"
+			load_focus_tree = ITA_post_Malta_tree
+			custom_effect_tooltip = post_malta_tree_debug_tooltip
+		}
+	}
+	ITA_load_verona_congress = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			always = yes
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_verona_congress"
+			country_event = {
+				id = postmalta.7
+			}
+		}
+	}
+
+	ITA_load_ITW_Iraq_debug = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			always = yes
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_Iraq_debug"
+			ITA_ITW_Iraq_setup = yes
+		}
+	}
+
+	### Fascist Italy Debug ###
+	ITA_fascist_italy_effigy = {
+
+		visible = {
+			always = yes
+		}
+		available = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 10
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_fascist_italy_effigy"
+		}
+	}
+
+	### GCF Debug ###
+	ITA_GCF_Debug_init = {
+		icon = GFX_decision_generic_decision
+
+		visible = { always = yes }
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_GCF_Debug_init"
+
+			set_country_flag = ITA_show_grand_council_of_fascism
+			ITA_GCF_init = yes
+		}
+	}
+
+	### Quadrumvirate Debug ###
+	ITA_quadrumvirate_debug_setup = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_quadrumvirate_debug_setup"
+			country_event = {
+				id = ITA_verona.51
+			}
+		}
+	}
+	### fash resistance debug ###
+	ITA_fash_resistance_init = {
+		icon = GFX_decision_generic_decision
+		
+		fire_only_once = no
+
+		visible = {
+				always = yes
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_fash_resistance_init"
+			country_event = {
+				id = ITA_fash_resistance.0
+			}
+			set_variable = { ITA_fash_resistance_repression = 0 }
+			set_variable = { ITA_fash_resistance_clues = 0 }
+		}
+	}
+	### Muti Debug ###
+	ITA_muti_debug_setup = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_muti_debug_setup"
+			retire_country_leader = yes
+			ITA_med_promote_Ettore_Muti = yes
+			ITA_add_muti_ministers = yes
+			set_country_flag = ITA_Muti_mechanic
+			ITA_EmpireManagement_Setup_StartingPolicyEffects_Muti = yes
+		}
+	}
+	ITA_load_muti_inauguration = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_leader = {
+				name = "Ettore Muti"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_muti_inauguration"
+			load_focus_tree = ITA_muti_inauguration
+		}
+	}
+	ITA_load_muti_main_trees = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_leader = {
+				name = "Ettore Muti"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_muti_main_trees"
+			load_focus_tree = ITA_muti_trees_main
+		}
+	}
+	ITA_load_muti_political_tree = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_leader = {
+				name = "Ettore Muti"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_muti_political_tree"
+			load_focus_tree = ITA_muti_political_tree
+		}
+	}
+	ITA_load_muti_economy_tree = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_leader = {
+				name = "Ettore Muti"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_muti_economy_tree"
+			load_focus_tree = ITA_muti_economy_tree
+		}
+	}
+	ITA_load_muti_military_tree = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_leader = {
+				name = "Ettore Muti"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_muti_military_tree"
+			load_focus_tree = ITA_muti_military_tree
+		}
+	}
+	ITA_load_muti_colonial_tree = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_leader = {
+				name = "Ettore Muti"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_muti_colonial_tree"
+			load_focus_tree = ITA_muti_colonial_tree
+		}
+	}
+	ITA_load_muti_epilogue_tree = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_leader = {
+				name = "Ettore Muti"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_muti_epilogue_tree"
+			load_focus_tree = ITA_muti_epilogue_tree
+		}
+	}
+	### Balbo Debug ###
+	ITA_balbo_debug_setup = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_balbo_debug_setup"
+			retire_country_leader = yes
+			ITA_med_promote_Italo_Balbo = yes
+			ITA_add_balbo_ministers = yes
+			
+			set_country_flag = ITA_Balbo_Mechanic
+			ITA_balboimper_starting_effects = yes
+			ITA_EmpireManagement_Setup_StartingPolicyEffects_Balbo = yes
+		}
+	}
+	ITA_load_balbo_inauguration = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_leader = {
+				name = "Italo Balbo"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_balbo_inauguration"
+			load_focus_tree = ITA_balbo_inauguration
+		}
+	}
+	ITA_load_balbo_main_trees = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_leader = {
+				name = "Italo Balbo"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_balbo_main_trees"
+			load_focus_tree = ITA_balbo_trees_main
+		}
+	}
+	ITA_load_balbo_epilogue_tree = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_leader = {
+				name = "Italo Balbo"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_balbo_epilogue_tree"
+			load_focus_tree = ITA_balbo_epilogue_tree
+		}
+	}
+	### Pavolini Debug ###
+	ITA_pavolini_debug_setup = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_pavolini_debug_setup"
+			retire_country_leader = yes
+			ITA_med_promote_Alessandro_Pavolini = yes
+			ITA_add_pavolini_ministers = yes
+			ITA_EmpireManagement_Setup_StartingPolicyEffects_Pavolini = yes
+		}
+	}
+	
+	ITA_load_pavolini_inauguration = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_flag = ITA_med_wip_paths_active
+			has_country_leader = {
+				name = "Alessandro Pavolini"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_pavolini_inauguration"
+			load_focus_tree = ITA_pavolini_inauguration
+		}
+	}
+	
+	ITA_load_pavolini_main_trees = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_flag = ITA_med_wip_paths_active
+			has_country_leader = {
+				name = "Alessandro Pavolini"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_pavolini_main_trees"
+			load_focus_tree = ITA_pavolini_trees_main
+		}
+	}
+
+	ITA_load_pavolini_diplomacy_treee = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_flag = ITA_med_wip_paths_active
+			has_country_leader = {
+				name = "Alessandro Pavolini"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_pavolini_main_trees"
+			load_focus_tree = ITA_pavolini_diplomacy_tree
+		}
+	}
+
+	ITA_RQSC_Mechanic = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_leader = {
+				name = "Alessandro Pavolini"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_RQSC_Mechanic"
+			set_country_flag = ITA_RQSC_Mechanic
+			ITA_RQSC_mechanic_variable_initialize = yes
+		}
+	}
+
+	### Giani Debug ###
+	ITA_giani_debug_setup = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_giani_debug_setup"
+			retire_country_leader = yes
+			ITA_med_promote_Niccolo_Giani = yes
+			ITA_add_giani_ministers = yes
+			ITA_EmpireManagement_Setup_StartingPolicyEffects_Giani = yes
+		}
+	}
+
+	ITA_load_giani_main_trees = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_leader = {
+				name = "Niccolò Giani"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_giani_main_trees"
+			load_focus_tree = ITA_giani_trees
+		}
+	}
+
+	ITA_load_giani_epilogue_tree = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_leader = {
+				name = "Niccolò Giani"
+				ruling_only = yes
+			}
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_load_giani_epilogue_tree"
+			load_focus_tree = ITA_giani_epilogue_tree
+		}
+	}
+
+	### Democratic Italy Debug ###
+	ITA_democratic_italy_effigy = {
+
+		visible = {
+			always = yes
+		}
+		available = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 10
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_democratic_italy_effigy"
+		}
+	}
+
+	### Institutions Debug ###
+	ITA_institutions_debug_setup = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_institutions_setup"
+			set_country_flag = ITA_Institutions_Enabled
+		}
+	}
+	ITA_institutions_debug_buttons = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		visible = {
+			has_country_flag = ITA_Institutions_Enabled
+		}
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_institutions_setup"
+			if = {
+				limit = { has_country_flag = ITA_Institutions_Debug_Buttons }
+				clr_country_flag = ITA_Institutions_Debug_Buttons
+			}
+			set_country_flag = ITA_Institutions_Debug_Buttons
+		}
+	}
+
+	### IEA Decolonization Debug ###
+
+	ITA_dem_italy_start_IEA_decol = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		visible = {
+			has_country_flag = ITA_Institutions_Enabled
+		}
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_dem_italy_decolonization_toggle"
+			hidden_effect = {
+				ITA = {
+					ITA_IEA_Decol_GUI_setup = yes
+				}
+				set_country_flag = DemItaly_IEA_Decolonization
+				mark_focus_tree_layout_dirty = yes
+			}
+		}
+	}
+
+	### Ciano Verona Victory Debug ###
+	ITA_dem_italy_debug_setup = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_dem_italy_debug_setup"
+			load_focus_tree = ITA_Ciano_Victory
+		}
+	}
+	ITA_dem_italy_natunity_debug = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_dem_italy_natunity_debug"
+			load_focus_tree = ITA_National_Unity
+			mark_focus_tree_layout_dirty = yes
+			add_popularity = {
+				ideology = despotism
+				popularity = 0.35
+			}
+			retire_country_leader = yes
+			set_country_flag = ITA_dem_italy_umberto
+			set_politics = {
+				ruling_party = despotism
+				elections_allowed = no
+				last_election = "1924.4.6"
+				election_frequency = 60
+			}
+			create_country_leader = {
+				name = "Umberto II di Savoia"
+				desc = "POLITICS_UMBERTO_II_REV_DESC"
+				picture = "Portrait_Italy_Umberto_II.dds"
+				expire = "1990.1.1"
+				ideology = despotism_interim_government_subtype
+			}
+		}
+	}
+	### Democratic Trees Debug ###
+	ITA_dem_italy_tree_set_1_left_debug = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_dem_italy_tree_set_1_left_debug"
+			load_focus_tree = ITA_Left_Main
+			ITA_check_past_focus_completion = yes
+		}
+	}
+	ITA_dem_italy_tree_set_1_center_debug = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_dem_italy_tree_set_1_center_debug"
+			load_focus_tree = ITA_Center_Main
+			ITA_check_past_focus_completion = yes
+		}
+	}
+	ITA_dem_italy_tree_set_1_right_debug = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_dem_italy_tree_set_1_right_debug"
+			load_focus_tree = ITA_Right_Main
+			ITA_check_past_focus_completion = yes
+		}
+	}
+	ITA_dem_italy_tree_set_1_center_with_iea_decol_debug = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_dem_italy_tree_set_1_center_with_iea_decol_debug"
+			set_country_flag = DemItaly_IEA_Decolonization
+			load_focus_tree = ITA_Center_Main
+			mark_focus_tree_layout_dirty = yes
+			ITA_check_past_focus_completion = yes
+		}
+	}
+	### Leader Inauguration ###
+	ITA_dem_italy_show_hide_inauguration_decisions_debug = {
+		icon = {
+			key = GFX_decision_generic_decision
+			trigger = {
+				has_country_flag = ITA_debug_show_inauguration_decisions
+			}
+		}
+		icon = {
+			key = GFX_decision_generic_intelligence_operation
+			trigger = {
+				NOT = { has_country_flag = ITA_debug_show_inauguration_decisions }
+			}
+		}
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_dem_italy_show_hide_inauguration_decisions_debug"
+			if = {
+				limit = {
+					has_country_flag = ITA_debug_show_inauguration_decisions
+				}
+				clr_country_flag = ITA_debug_show_inauguration_decisions
+			}
+			else = {
+				set_country_flag = ITA_debug_show_inauguration_decisions
+			}
+		}
+	}
+	ITA_debug_inaugurate_berlinguer = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		visible = {
+			has_country_flag = ITA_debug_show_inauguration_decisions
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_inaugurate_berlinguer"
+			set_temp_variable = { ITA_gf_pm_to_inaugurate = 0 }
+			ITA_gf_inaugurate_pm = yes
+			ITA_gf_get_focus_tree = yes
+			#set_politics = {
+			#	ruling_party = communist
+			#}
+			#set_party_name = {
+			#	ideology = communist
+			#	long_name = "Partito Socialista Italiano - Berlinguer Clique"
+			#	name = "PSI - BC"
+			#}
+			#create_country_leader = {
+			#	name = "Enrico Berlinguer"
+			#	desc = ""
+			#	picture = "Portrait_Italy_Enrico_Berlinguer.dds"
+			#	expire = "1999.1.1"
+			#	ideology = communist_neocommunism_subtype
+			#	traits = { }
+			#}
+		}
+	}
+	ITA_debug_inaugurate_nenni = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		visible = {
+			has_country_flag = ITA_debug_show_inauguration_decisions
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_inaugurate_nenni"
+			set_temp_variable = { ITA_gf_pm_to_inaugurate = 1 }
+			ITA_gf_inaugurate_pm = yes
+			ITA_gf_get_focus_tree = yes
+			#set_politics = {
+			#	ruling_party = socialist
+			#}
+			#set_party_name = {
+			#	ideology = socialist
+			#	long_name = "Partito Socialista Italiano - Massimalista"
+			#	name = "PSI - MX"
+			#}
+			#create_country_leader = {
+			#	name = "Pietro Nenni"
+			#	desc = ""
+			#	picture = "Portrait_Italy_Pietro_Nenni.dds"
+			#	expire = "1999.1.1"
+			#	ideology = socialist_popular_frontism_subtype
+			#	traits = { }
+			#}
+		}
+	}
+	ITA_debug_inaugurate_pannella = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		visible = {
+			has_country_flag = ITA_debug_show_inauguration_decisions
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_inaugurate_pannella"
+			set_temp_variable = { ITA_gf_pm_to_inaugurate = 2 }
+			ITA_gf_inaugurate_pm = yes
+			ITA_gf_get_focus_tree = yes
+			#set_politics = {
+			#	ruling_party = social_democrat
+			#}
+			#set_party_name = {
+			#	ideology = social_democrat
+			#	long_name = "Partito Radicale"
+			#	name = "PR"
+			#}
+			#create_country_leader = {
+			#	name = "Marco Pannella"
+			#	desc = ""
+			#	picture = "Portrait_Italy_Marco_Pannella.dds"
+			#	expire = "1999.1.1"
+			#	ideology = social_democrat_social_democracy_subtype
+			#	traits = { }
+			#}
+		}
+	}
+	ITA_debug_inaugurate_saragat = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		visible = {
+			has_country_flag = ITA_debug_show_inauguration_decisions
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_inaugurate_saragat"
+			set_temp_variable = { ITA_gf_pm_to_inaugurate = 4 }
+			ITA_gf_inaugurate_pm = yes
+			ITA_gf_get_focus_tree = yes
+			#set_politics = {
+			#	ruling_party = social_democrat
+			#}
+			#set_party_name = {
+			#	ideology = social_democrat
+			#	long_name = "Partito Socialista Democratico Italiano"
+			#	name = "PSDI"
+			#}
+			#create_country_leader = {
+			#	name = "Giuseppe Saragat"
+			#	desc = ""
+			#	picture = "Portrait_Italy_Giuseppe_Saragat.dds"
+			#	expire = "1999.1.1"
+			#	ideology = social_democrat_democratic_socialism_subtype
+			#	traits = { }
+			#}
+		}
+	}
+	ITA_debug_inaugurate_la_malfa = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		visible = {
+			has_country_flag = ITA_debug_show_inauguration_decisions
+		}
+
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_inaugurate_la_malfa"
+			set_temp_variable = { ITA_gf_pm_to_inaugurate = 5 }
+			ITA_gf_inaugurate_pm = yes
+			ITA_gf_get_focus_tree = yes
+			#set_politics = {
+			#	ruling_party = social_liberal
+			#}
+			#set_party_name = {
+			#	ideology = social_liberal
+			#	long_name = "Partito Repubblicano Italiano"
+			#	name = "PRI"
+			#}
+			#create_country_leader = {
+			#	name = "Ugo La Malfa"
+			#	desc = ""
+			#	picture = "Portrait_Italy_Ugo_La_Malfa.dds"
+			#	expire = "1999.1.1"
+			#	ideology = social_liberal_social_liberal_subtype
+			#	traits = { }
+			#}
+		}
+	}
+	ITA_debug_inaugurate_fanfani = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		visible = {
+			has_country_flag = ITA_debug_show_inauguration_decisions
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_inaugurate_fanfani"
+			set_temp_variable = { ITA_gf_pm_to_inaugurate = 7 }
+			ITA_gf_inaugurate_pm = yes
+			ITA_gf_get_focus_tree = yes
+			#set_politics = {
+			#	ruling_party = social_liberal
+			#}
+			#set_party_name = {
+			#	ideology = social_liberal
+			#	long_name = "Democrazia Cristiana - Nuove Cronache"
+			#	name = "DC - NC"
+			#}
+			#create_country_leader = {
+			#	name = "Amintore Fanfani"
+			#	desc = ""
+			#	picture = "Portrait_Italy_Amintore_Fanfani.dds"
+			#	expire = "1999.1.1"
+			#	ideology = social_liberal_catholic_social_democrat_subtype
+			#	traits = { }
+			#}
+		}
+	}
+	ITA_debug_inaugurate_moro = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		visible = {
+			has_country_flag = ITA_debug_show_inauguration_decisions
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_inaugurate_moro"
+			set_temp_variable = { ITA_gf_pm_to_inaugurate = 8 }
+			ITA_gf_inaugurate_pm = yes
+			ITA_gf_get_focus_tree = yes
+			#set_politics = {
+			#	ruling_party = social_conservative
+			#}
+			#set_party_name = {
+			#	ideology = social_conservative
+			#	long_name = "Democrazia Cristiana - Dorotei"
+			#	name = "DC - D"
+			#}
+			#create_country_leader = {
+			#	name = "Aldo Moro"
+			#	desc = ""
+			#	picture = "Portrait_Italy_Aldo_Moro.dds"
+			#	expire = "1999.1.1"
+			#	ideology = social_conservative_christian_democracy_subtype
+			#	traits = { }
+			#}
+		}
+	}
+	ITA_debug_inaugurate_andreotti = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		visible = {
+			has_country_flag = ITA_debug_show_inauguration_decisions
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_inaugurate_andreotti"
+			set_temp_variable = { ITA_gf_pm_to_inaugurate = 9 }
+			ITA_gf_inaugurate_pm = yes
+			ITA_gf_get_focus_tree = yes
+			#set_politics = {
+			#	ruling_party = social_conservative
+			#}
+			#set_party_name = {
+			#	ideology = social_conservative
+			#	long_name = "Democrazia Cristiana - Primavera"
+			#	name = "DC - P"
+			#}
+			#create_country_leader = {
+			#	name = "Giulio Andreotti"
+			#	desc = ""
+			#	picture = "Portrait_Italy_Giulio_Andreotti.dds"
+			#	expire = "1999.1.1"
+			#	ideology = social_conservative_christian_democracy_subtype
+			#	traits = { }
+			#}
+		}
+	}
+	ITA_debug_inaugurate_malagodi = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		visible = {
+			has_country_flag = ITA_debug_show_inauguration_decisions
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_inaugurate_malagodi"
+			set_temp_variable = { ITA_gf_pm_to_inaugurate = 10 }
+			ITA_gf_inaugurate_pm = yes
+			ITA_gf_get_focus_tree = yes
+			#set_politics = {
+			#	ruling_party = authoritarian_democrat
+			#}
+			#set_party_name = {
+			#	ideology = authoritarian_democrat
+			#	long_name = "Partito Liberale Italiano"
+			#	name = "PLI"
+			#}
+			#create_country_leader = {
+			#	name = "Giovanni Malagodi"
+			#	desc = ""
+			#	picture = "Portrait_Italy_Giovanni_Malagodi.dds"
+			#	expire = "1999.1.1"
+			#	ideology = authoritarian_democrat_subtype
+			#	traits = { }
+			#}
+		}
+	}
+	ITA_debug_inaugurate_lauro = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		visible = {
+			has_country_flag = ITA_debug_show_inauguration_decisions
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_inaugurate_lauro"
+			set_temp_variable = { ITA_gf_pm_to_inaugurate = 11 }
+			ITA_gf_inaugurate_pm = yes
+			ITA_gf_get_focus_tree = yes
+			#set_politics = {
+			#	ruling_party = authoritarian_democrat
+			#}
+			#set_party_name = {
+			#	ideology = authoritarian_democrat
+			#	long_name = "Partito Democratico Italiano"
+			#	name = "PDI"
+			#}
+			#create_country_leader = {
+			#	name = "Achille Lauro"
+			#	desc = ""
+			#	picture = "Portrait_Italy_Achille_Lauro.dds"
+			#	expire = "1999.1.1"
+			#	ideology = authoritarian_democrat_national_social_conservative_subtype
+			#	traits = { }
+			#}
+		}
+	}
+	ITA_debug_inaugurate_almirante = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		visible = {
+			has_country_flag = ITA_debug_show_inauguration_decisions
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_inaugurate_almirante"
+			set_temp_variable = { ITA_gf_pm_to_inaugurate = 13 }
+			ITA_gf_inaugurate_pm = yes
+			ITA_gf_get_focus_tree = yes
+			#set_politics = {
+			#	ruling_party = fascism
+			#}
+			#set_party_name = {
+			#	ideology = fascism
+			#	long_name = "Movimento Sociale Italiano - Almirante Clique"
+			#	name = "MSI - AC"
+			#}
+			#create_country_leader = {
+			#	name = "Giorgio Almirante"
+			#	desc = ""
+			#	picture = "Portrait_Italy_Giorgio_Almirante.dds"
+			#	expire = "1999.1.1"
+			#	ideology = fascism_subtype
+			#	traits = { }
+			#}
+		}
+	}
+	ITA_debug_inaugurate_rauti = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		visible = {
+			has_country_flag = ITA_debug_show_inauguration_decisions
+		}
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_inaugurate_rauti"
+			set_temp_variable = { ITA_gf_pm_to_inaugurate = 14 }
+			ITA_gf_inaugurate_pm = yes
+			ITA_gf_get_focus_tree = yes
+			#set_politics = {
+			#	ruling_party = national_socialism
+			#}
+			#set_party_name = {
+			#	ideology = national_socialism
+			#	long_name = "Movimento Sociale Italiano - Ordine Nuovo"
+			#	name = "MSI - ON"
+			#}
+			#create_country_leader = {
+			#	name = "Pino Rauti"
+			#	desc = ""
+			#	picture = "Portrait_Italy_Pino_Rauti.dds"
+			#	expire = "1999.1.1"
+			#	ideology = national_socialism_subtype
+			#	traits = { }
+			#}
+		}
+	}
+
+	### Camera Debug ###
+	ITA_camera_debug_setup = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_camera_setup"
+			set_country_flag = ITA_Camera_Enabled
+			ITA_camera_initialize = yes
+		}
+	}
+	ITA_camera_toggle_tools = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		visible = {
+			has_country_flag = ITA_Camera_Enabled
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_camera_toggle_tools"
+			if = {
+				limit = { has_country_flag = ITA_Camera_Debug_Tools_Enabled }
+				clr_country_flag = ITA_Camera_Debug_Tools_Enabled
+			}
+			else = {
+				set_country_flag = ITA_Camera_Debug_Tools_Enabled
+			}
+			ITA_recompute_ddl_available = yes
+			add_to_variable = { TNO_Italy_Camera_dirty = 1 }
+		}
+	}
+	ITA_camera_do_piano_solo = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = yes
+
+		visible = {
+			has_country_flag = ITA_Camera_Enabled
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_camera_do_piano_solo"
+			
+			ITA_camera_piano_solo = yes
+		}
+	}
+
+	ITA_PSDE_setup = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_PSDE_setup"
+			set_variable = { GFX_psde_case_no = 1 }
+
+			clr_country_flag = ITA_PSDE_picked_hint
+			clr_country_flag = ITA_PSDE_picked_culprit
+			clr_country_flag = ITA_PSDE_picked_instigator
+
+			set_variable = { ITA_PSDE_right_recticle_frame = 1 }
+			set_variable = { ITA_PSDE_left_recticle_frame = 1 }
+			set_variable = { ITA_PSDE_bottom_recticle_frame = 1 }
+
+			set_country_flag = ITA_PSDE_Enabled
+		}
+	}
+	
+	ITA_pillars_debug_setup = {
+		icon = GFX_decision_generic_decision
+		fire_only_once = no
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_pillars_debug_setup"
+			set_country_flag = DemItaly_PoP_Active
+		}
+	}
+
+	ITA_cianovic_pillars_debug_setup = {
+		fire_only_once = no
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_cianovic_pillars_debug_setup"
+			set_country_flag = Ciano_Victory_PoP_Active
+			ITA_POP_Ciano_Victory_setup = yes
+		}
+	}
+
+	ITA_show_hide_ENI_exploitation_debug = {
+		fire_only_once = no
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_show_hide_ENI_exploitation_debug"
+			if = {
+				limit = {
+					has_country_flag = ITA_show_ENI_exploitation
+				}
+				clr_country_flag = ITA_show_ENI_exploitation
+			}
+			else = {
+				set_country_flag = ITA_show_ENI_exploitation
+			}
+		}
+	}
+
+	ITA_debug_load_giani_conversion_mech = {
+		visible = {
+			always = yes
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_load_giani_conversion_mech"
+			set_country_flag = ITA_GUI_giani_mech_active
+			ITA_GUI_giani_setup = yes
+		}
+	}
+
+	ITA_debug_enable_ITW_decisions = {
+		visible = {
+			always = yes
+		}
+		available = {
+			always = yes
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_enable_ITW_decisions"
+			#STRIP(itw) TUR = {
+			#STRIP(itw) country_event = {
+			#STRIP(itw) id = tur.58
+			#STRIP(itw) }
+			#STRIP(itw) }
+		}
+	}
+
+	### IEA Decolonization Debug ###
+	ITA_debug_show_hide_IEA_decisions = {
+		visible = {
+			always = yes
+		}
+		available = {
+			always = yes
+		}
+
+		icon = {
+			key = GFX_decision_generic_visibility_closed
+			trigger = {
+				has_country_flag = ITA_show_IEA_debug_decisions
+			}
+		}
+		icon = {
+			key = GFX_decision_generic_visibility
+			trigger = {
+				NOT = { has_country_flag = ITA_show_IEA_debug_decisions }
+			}
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_show_hide_IEA_decisions"
+			if = {
+				limit = {
+					has_country_flag = ITA_show_IEA_debug_decisions
+				}
+				clr_country_flag = ITA_show_IEA_debug_decisions
+			}
+			else = {
+				set_country_flag = ITA_show_IEA_debug_decisions
+			}
+		}
+	}
+
+	ITA_debug_IEA_effigy = {
+		visible = {
+			has_country_flag = ITA_show_IEA_debug_decisions
+		}
+		available = {
+			always = no
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_IEA_effigy"
+		}
+	}
+
+	ITA_debug_setup_decolonisation_mehcanic = {
+		visible = {
+			has_country_flag = ITA_show_IEA_debug_decisions
+		}
+		available = {
+			always = yes
+		}
+
+		icon = GFX_decision_generic_fighter_plane_indent
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_setup_decolonisation_mehcanic"
+			ITA = {
+				country_event = IEA_decol.1
+			}
+		}
+	}
+
+	ITA_debug_IEA_successful_decolonisation = {
+		visible = {
+			has_country_flag = ITA_show_IEA_debug_decisions
+		}
+		available = {
+			always = yes
+		}
+
+		icon = GFX_decision_generic_fighter_plane_indent
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_dem_successful_decolonisation"
+			IEA_debug_succesful_decolonisation = yes
+		}
+	}
+
+	ITA_debug_IEA_partial_collapse = {
+		visible = {
+			has_country_flag = ITA_show_IEA_debug_decisions
+		}
+		available = {
+			always = yes
+		}
+
+		icon = GFX_decision_generic_fighter_plane_indent
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_dem_successful_decolonisation"
+			IEA_debug_partial_collapse = yes
+		}
+	}
+
+	ITA_debug_IEA_full_collapse = {
+		visible = {
+			has_country_flag = ITA_show_IEA_debug_decisions
+		}
+		available = {
+			always = yes
+		}
+
+		icon = GFX_decision_generic_fighter_plane_indent
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_debug_dem_successful_decolonisation"
+			IEA_debug_full_collapse = yes
+		}
+	}
+
+	### Red Italy Debug ###
+	ITA_red_italy_effigy = {
+		visible = {
+			always = yes
+		}
+		available = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_effigy"
+		}
+	}
+	ITA_red_italy_prov_government = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_prov_government"
+			country_event = { id = ITA_verona.52 }
+		}
+	}
+
+	ITA_red_italy_dead_prov_government = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_dead_prov_government"
+			country_event = { id = dead_provisional_government.1 }
+		}
+	}
+
+	ITA_red_italy_prov_rev_government  = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_prov_rev_government"
+			country_event = { id = revolutionary_provisional_government.1 }
+		}
+	}
+
+	ITA_red_italy_ig_war_tree  = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_ig_war_tree"
+			load_focus_tree = { tree = ITA_RED_ig_war keep_completed = no }
+		}
+	}
+
+	ITA_red_italy_ig_war_start  = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_ig_war_start"
+			country_event = { id = ig_war_beginning.1 }
+		}
+	}
+
+	ITA_red_italy_enable_culrev  = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_enable_culrev"
+			set_country_flag = ITA_RED_culrev_available
+			ITA_RED_CulRev_initialize = yes
+		}
+	}
+
+	ITA_red_italy_leaders_effigy = {
+		visible = {
+			always = yes
+		}
+		available = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_leaders_effigy"
+		}
+	}
+	ITA_red_italy_pietro_secchia = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_pietro_secchia"
+			country_event = { id = red_italy.100 }
+		}
+	}
+	ITA_red_italy_laura_conti = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_laura_conti"
+			country_event = { id = red_italy.101 }
+		}
+	}
+	ITA_red_italy_onorato_damen = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_onorato_damen"
+			country_event = { id = red_italy.102 }
+		}
+	}
+	ITA_red_italy_alberto_asor_rosa = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_alberto_asor_rosa"
+			country_event = { id = red_italy.103 }
+		}
+	}
+	ITA_red_italy_giangiacomo_feltrinelli = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_giangiacomo_feltrinelli"
+			country_event = { id = red_italy.104 }
+		}
+	}
+	ITA_red_italy_arrigo_cervetto = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_arrigo_cervetto"
+			country_event = { id = red_italy.105 }
+		}
+	}
+	ITA_red_italy_don_andrea_gallo = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_don_andrea_gallo"
+			country_event = { id = red_italy.106 }
+		}
+	}
+	ITA_red_italy_franco_rodano = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_franco_rodano"
+			country_event = { id = red_italy.107 }
+		}
+	}
+	ITA_red_italy_livio_labor = {
+		icon = GFX_decision_generic_decision
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_livio_labor"
+			country_event = { id = red_italy.108 }
+		}
+	}
+	ITA_red_italy_giovanni_scuderi = {
+		icon = GFX_decision_generic_decision
+		
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_red_italy_giovanni_scuderi"
+			country_event = { id = red_italy.109 }
+		}
+	}
+}
+
+ITA_nuke_development_category = {
+	ITA_nuke_monthly_check= { ######Monthly Progress Update on Nuclear Weapons
+		allowed = { 
+			tag = ITA
+		}
+		icon = GFX_decision_reactor
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		activation = {
+			# The category is gated on the rework; a mission activates regardless of
+			# its category, and these all showed on the legacy path without this.
+			has_country_flag = ITA_med_rework_active
+			NOT = {
+				has_country_flag = ITA_end_nuclear_programme
+			}
+		}
+		visible = {
+			# The category is gated on the rework; a mission activates regardless of
+			# its category, and these all showed on the legacy path without this.
+			has_country_flag = ITA_med_rework_active
+			NOT = {
+				has_country_flag = ITA_end_nuclear_programme
+			}
+		}
+
+		selectable_mission = no
+		days_mission_timeout = 30
+		is_good = yes
+		# No fire_only_once: the timeout re-activates this mission to make the
+		# monthly loop, and fire_only_once blocked that, so the programme ticked
+		# once and then stood still forever.
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_nuke_monthly_check"
+			hidden_effect = {
+				activate_mission = ITA_nuke_monthly_check
+			}
+			ITA_nuclear_monthly = yes
+		}
+	}
+	ITA_procure_more_quality_uranium = {
+		allowed = { 
+			tag = ITA
+		}
+		icon = GFX_decision_category_generic_prospect_for_resources
+	
+		visible = {
+			# The category is gated on the rework; a mission activates regardless of
+			# its category, and these all showed on the legacy path without this.
+			has_country_flag = ITA_med_rework_active
+			NOT = {
+				has_country_flag = ITA_end_nuclear_programme
+			}
+		}
+	
+		custom_cost_trigger = {always = yes }
+		custom_cost_text = ITA_nuke_10_millions
+	
+		ai_will_do = {
+			factor = 1
+		}
+		days_remove = 30
+		days_re_enable = 55
+		complete_effect = {
+			set_temp_variable = { temp_econ_spending_amount = 0.01 }
+			econ_spend_money_once_effect_raw_money = yes
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_procure_more_quality_uranium"
+			add_to_variable = { ITA_nuclear_material_quality = 20 }
+			ITA_nuclear_calc = yes
+			custom_effect_tooltip = ITA_nuke_uranium_improve.tt
+		}
+	}
+	
+	ITA_decrease_uranium_decay = {
+		allowed = { 
+			tag = ITA
+		}
+	
+		icon = GFX_decision_reactor
+	
+		visible = {
+			# The category is gated on the rework; a mission activates regardless of
+			# its category, and these all showed on the legacy path without this.
+			has_country_flag = ITA_med_rework_active
+			NOT = {
+				has_country_flag = ITA_end_nuclear_programme
+			}
+		}
+	
+		custom_cost_trigger = {always = yes }
+		custom_cost_text = ITA_nuke_40_millions_per_year
+
+		days_remove = 90
+		days_re_enable = 150
+		complete_effect = {
+			add_to_variable = { ITA_nuclear_material_cost = 40 }
+			ITA_nuclear_calc = yes
+		}  
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_decrease_uranium_decay"
+			subtract_from_variable = { ITA_nuclear_material_decay = 0.5 }
+			ITA_nuclear_calc = yes	
+			custom_effect_tooltip = ITA_decrease_uranium_decay.tt
+		}
+	}
+	
+	ITA_give_scientists_pay_bonus = { 
+		allowed = { 
+			tag = ITA
+		}
+		icon = GFX_decision_category_generic_economy
+		visible = {
+			# The category is gated on the rework; a mission activates regardless of
+			# its category, and these all showed on the legacy path without this.
+			has_country_flag = ITA_med_rework_active
+			NOT = {
+				has_country_flag = ITA_end_nuclear_programme
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		custom_cost_trigger = {always = yes }
+		custom_cost_text = ITA_nuke_15_millions
+		days_remove = 30
+		days_re_enable = 55
+		complete_effect = {
+			set_temp_variable = { temp_econ_spending_amount = 0.015 }
+			econ_spend_money_once_effect_raw_money = yes
+		}  
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_increase_scientists_pay"
+			add_to_variable = { ITA_scientist_happiness = 15 }
+			ITA_nuclear_calc = yes
+			custom_effect_tooltip = ITA_scientist_happiness_improve.tt
+		}
+	}
+	
+	ITA_increase_scientists_safety = { 
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_construction
+
+		visible = {
+			# The category is gated on the rework; a mission activates regardless of
+			# its category, and these all showed on the legacy path without this.
+			has_country_flag = ITA_med_rework_active
+			NOT = {
+				has_country_flag = ITA_end_nuclear_programme
+			}
+		}
+
+		custom_cost_trigger = {always = yes }
+		custom_cost_text = ITA_nuke_35_millions_per_year
+
+		days_remove = 90
+		days_re_enable = 150
+		complete_effect = {
+			add_to_variable = { ITA_nuclear_science_cost = 35 }
+			ITA_nuclear_calc = yes
+		}  
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_increase_scientists_safety"
+			subtract_from_variable = { ITA_scientist_decay = 0.3 }
+			ITA_nuclear_calc = yes
+			custom_effect_tooltip = ITA_decrease_scientist_decay.tt
+		}
+	}
+	
+	ITA_increase_reactor_amount = { 
+		allowed = { 
+			tag = ITA
+		}
+	
+		icon = GFX_decision_reactor
+
+	
+		visible = {
+			# The category is gated on the rework; a mission activates regardless of
+			# its category, and these all showed on the legacy path without this.
+			has_country_flag = ITA_med_rework_active
+			NOT = {
+				has_country_flag = ITA_end_nuclear_programme
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		custom_cost_trigger = {always = yes }
+		custom_cost_text = ITA_nuke_70_millions_per_year
+	
+		days_remove = 150
+		days_re_enable = 240
+		complete_effect = {
+			add_to_variable = { ITA_nuclear_maintenance_cost = 70 }
+			ITA_nuclear_calc = yes
+		}  
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_increase_scientists_safety"
+			add_to_variable = { ITA_nuclear_development_monthly_modifier = 0.2 }
+			ITA_nuclear_calc = yes
+			custom_effect_tooltip = ITA_increase_monthly_development_speed_high.tt
+		}
+	}
+	
+	ITA_increase_amount_of_scientists = { 
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = decision_drug_trade_increase
+
+		visible = {
+			# The category is gated on the rework; a mission activates regardless of
+			# its category, and these all showed on the legacy path without this.
+			has_country_flag = ITA_med_rework_active
+			NOT = {
+				has_country_flag = ITA_end_nuclear_programme
+			}
+		}
+
+		custom_cost_trigger = {always = yes }
+		custom_cost_text = ITA_nuke_40_millions_per_year
+
+		days_remove = 90
+		days_re_enable = 150
+		complete_effect = {
+			add_to_variable = { ITA_nuclear_science_cost = 40 }
+			ITA_nuclear_calc = yes
+		}  
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_increase_scientists_safety"
+			subtract_from_variable = { ITA_nuclear_development_monthly_modifier = 0.1 }
+			ITA_nuclear_calc = yes
+			custom_effect_tooltip = ITA_increase_monthly_development_speed_medium.tt
+		}
+	}
+}
+
+ITA_ciano_pillars_of_power = {
+	### Ciano Pillars of Power Decisions ###
+
+	ITA_Ciano_POP_Promote_Serena = {
+
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ITA_Ciano_POP_choosing_new_HoG
+		}
+
+		cost = 10
+  
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_Ciano_POP_Promote_Serena"
+			hidden_effect = {
+				remove_ideas = ITA_Empty_Position_hog 
+			}
+			add_ideas = ITA_Adelchi_Serena_hog
+
+			custom_effect_tooltip = ITA_Ciano_POP_GUI_ITA_add_serena_tt
+			add_to_variable = { ITA_opposition = -10 }
+			add_to_variable = { ITA_Ciano_POP_dirty = 1 }
+
+			set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+			set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 6 }
+			set_temp_variable = { ITA_Ciano_POP_amount_to_add = 8 }
+			ITA_Ciano_POP_add_loyalty = yes
+
+			clr_country_flag = ITA_Ciano_POP_choosing_new_HoG
+		}
+	}
+
+	ITA_Ciano_POP_Leave_the_position_empty = {
+
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ITA_Ciano_POP_choosing_new_HoG
+		}
+  
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_Ciano_POP_Promote_Serena"
+			custom_effect_tooltip = ITA_Ciano_POP_GUI_ITA_leave_position_empty_tt
+			add_to_variable = { ITA_radicalization = 15 }
+			add_to_variable = { ITA_Ciano_POP_dirty = 1 }
+
+			add_political_power = 40
+
+			set_temp_variable = { ITA_Ciano_POP_party_to_add = 3 }
+			set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 3 }
+			set_temp_variable = { ITA_Ciano_POP_amount_to_add = 4 }
+			ITA_Ciano_POP_add_loyalty = yes
+
+			clr_country_flag = ITA_Ciano_POP_choosing_new_HoG
+		}
+	}
+
+	ITA_Ciano_POP_Expand_Fascist_Youth_Organizations = {
+
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_flag = ITA_Ciano_POP_fascist_youth
+		}
+
+		cost = 15
+		days_remove = 20
+  
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_Ciano_POP_Expand_Fascist_Youth_Organizations"
+			add_to_variable = { ITA_radicalization = -5 }
+			add_to_variable = { ITA_Ciano_POP_dirty = 1 }
+			custom_effect_tooltip = ITA_Ciano_POP_GUI_ITA_decrease_rad_6
+
+			set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+			set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 4 }
+			set_temp_variable = { ITA_Ciano_POP_amount_to_add = 4 }
+			ITA_Ciano_POP_add_loyalty = yes
+
+			set_temp_variable = { ITA_Ciano_POP_party_to_add = 1 }
+			set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 4 }
+			set_temp_variable = { ITA_Ciano_POP_amount_to_add = 8 }
+			ITA_Ciano_POP_add_loyalty = yes
+			
+			set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 4 }
+			set_temp_variable = { ITA_Ciano_POP_amount_to_add = -4 }
+			ITA_Ciano_POP_change_power = yes
+
+			clr_country_flag = ITA_Ciano_POP_fascist_youth
+		}
+	}
+
+	ITA_Ciano_POP_lobby_a_pillar = {
+
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_phone_call
+
+		cost = 15
+
+		days_remove = 30
+		days_re_enable = 5
+		fixed_random_seed = no
+  
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_Ciano_POP_lobby_a_pillar"
+			
+			set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+			set_temp_variable = { ITA_Ciano_POP_pillar_to_add = ITA_Ciano_POP_lobby_pillar }
+			set_temp_variable = { ITA_Ciano_POP_amount_to_add = ITA_Ciano_POP_lobby_amount }
+			ITA_Ciano_POP_add_loyalty = yes
+
+			set_temp_variable = { new_pillar = 0 }
+			randomize_temp_variable = {
+				var = new_pillar
+				distribution = uniform
+				min = 0
+				max = 11
+			}
+			round_temp_variable = new_pillar
+			if = {
+				limit = {
+					check_variable = { new_pillar = ITA_Ciano_POP_lobby_pillar }
+				}
+				add_to_temp_variable = { new_pillar = 2 }
+				clamp_temp_variable = {
+					var = new_pillar
+					min = 0
+					max = 11
+				}
+			}
+			set_variable = { ITA_Ciano_POP_lobby_pillar = new_pillar }
+			hidden_effect = {
+				random_list = {
+					1 = {
+						set_variable = { ITA_Ciano_POP_lobby_amount = 4 }
+					}
+					1 = {
+						set_variable = { ITA_Ciano_POP_lobby_amount = 8 }
+					}
+				}
+			}
+		}
+	}
+
+	ITA_Ciano_POP_purge_unloyal_elements = {
+
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_use_force
+
+		custom_cost_trigger = { 
+			command_power > 9.99
+			has_political_power > 9.99
+		}
+		custom_cost_text = decision_cost_10_cp_10_pp
+
+		days_remove = 40
+		days_re_enable = 8
+		fixed_random_seed = no
+
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -10
+				add_command_power = -10
+			}
+		}
+  
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_Ciano_POP_purge_unloyal_elements"
+			
+			set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+			set_temp_variable = { ITA_Ciano_POP_pillar_to_add = ITA_Ciano_POP_purge_pillar }
+			set_temp_variable = { ITA_Ciano_POP_amount_to_add = 2 }
+			ITA_Ciano_POP_add_loyalty = yes
+
+			set_temp_variable = { ITA_Ciano_POP_party_to_add = 1 }
+			set_temp_variable = { ITA_Ciano_POP_pillar_to_add = ITA_Ciano_POP_purge_pillar }
+			set_temp_variable = { ITA_Ciano_POP_amount_to_add = 4 }
+			ITA_Ciano_POP_add_loyalty = yes
+
+			set_temp_variable = { ITA_Ciano_POP_pillar_to_add = ITA_Ciano_POP_purge_pillar }
+			set_temp_variable = { ITA_Ciano_POP_amount_to_add = -3 }
+			ITA_Ciano_POP_change_power = yes
+
+			set_temp_variable = { new_pillar = 0 }
+			randomize_temp_variable = {
+				var = new_pillar
+				distribution = uniform
+				min = 0
+				max = 11
+			}
+			round_temp_variable = new_pillar
+			if = {
+				limit = {
+					check_variable = { new_pillar = ITA_Ciano_POP_purge_pillar }
+				}
+				add_to_temp_variable = { new_pillar = 2 }
+				clamp_temp_variable = {
+					var = new_pillar
+					min = 0
+					max = 11
+				}
+			}
+			set_variable = { ITA_Ciano_POP_purge_pillar = new_pillar }
+		}
+	}
+
+	ITA_Ciano_POP_reassure_the_party = {
+
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_action
+
+		cost = 30
+
+		days_remove = 25
+		days_re_enable = 15
+  
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_Ciano_POP_reassure_the_party"
+			
+			custom_effect_tooltip = ITA_Ciano_POP_GUI_ITA_decrease_opp_2
+			subtract_from_variable = { ITA_opposition = 2 }
+			add_to_variable = { ITA_Ciano_POP_dirty = 1 }
+		}
+	}
+
+	ITA_Ciano_POP_calm_the_public = {
+
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_propaganda
+
+		cost = 30
+
+		days_remove = 25
+		days_re_enable = 15
+  
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_Ciano_POP_calm_the_public"
+			
+			custom_effect_tooltip = ITA_Ciano_POP_GUI_ITA_decrease_rad_2
+			subtract_from_variable = { ITA_radicalization = 2 }
+			add_to_variable = { ITA_Ciano_POP_dirty = 1 }
+		}
+	}
+
+	ITA_Ciano_POP_stir_party_opposition = {
+
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_discourse
+
+		cost = 30
+
+		days_remove = 25
+		days_re_enable = 15
+  
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_Ciano_POP_stir_party_opposition"
+			
+			custom_effect_tooltip = ITA_Ciano_POP_GUI_ITA_increase_opp_2
+			add_to_variable = { ITA_opposition = 2 }
+			add_to_variable = { ITA_Ciano_POP_dirty = 1 }
+		}
+	}
+
+	ITA_Ciano_POP_coordinate_radicals = {
+
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_civil_support
+
+		cost = 30
+
+		days_remove = 25
+		days_re_enable = 15
+  
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_Ciano_POP_coordinate_radicals"
+			
+			custom_effect_tooltip = ITA_Ciano_POP_GUI_ITA_increase_rad_2
+			add_to_variable = { ITA_radicalization = 2 }
+			add_to_variable = { ITA_Ciano_POP_dirty = 1 }
+		}
+	}
+}
+
+ITA_Verona_Congress = {
+	### Verona Congress Decisions ###
+
+	#There are 3 factions: Ciano, the Fascists, and the public opposition
+	#There's 2 copies of each decision, one is a mission that's activated when you're not in controll of that faction.
+	#The mission represents the AI taking actions against you, theese are prefixed with `ITA_mission_`.
+	#Then there's the normal decisions you can take, theese are just prefixed with `ITA_`.
+	
+	###Ciano AI Missions
+	ITA_mission_bribe_minor_opposition_gerarchi = {
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_discourse
+
+		days_mission_timeout = 14
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_bribe_minor_opposition_gerarchi"
+			ITA_increase_ciano_verona_5 = yes
+			ITA_decrease_outside_pressure_verona_3 = yes
+
+			ITA_Verona_get_next_ciano_move = yes
+		}
+	}
+	ITA_mission_use_royal_palace_contacts = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_phone_call
+
+		days_mission_timeout = 5
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_use_royal_palace_contacts"
+			ITA_increase_ciano_verona_6 = yes
+
+			ITA_Verona_get_next_ciano_move = yes
+		}
+	}
+	ITA_mission_promise_everything_you_can = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_action
+
+		days_mission_timeout = 3
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_promise_everything_you_can"
+			ITA_increase_ciano_verona_7 = yes
+			ITA_decrease_outside_pressure_verona_2 = yes
+
+			ITA_Verona_get_next_ciano_move = yes
+		}
+	}
+	ITA_mission_send_in_the_police = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_military_parade
+
+		days_mission_timeout = 14
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_send_in_the_police"
+			ITA_increase_ciano_verona_4 = yes
+			ITA_decrease_outside_pressure_verona_4 = yes
+
+			ITA_Verona_get_next_ciano_move = yes
+		}
+	}
+	ITA_mission_appeal_to_the_loyal_citizens = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_propaganda
+
+		days_mission_timeout = 3
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_appeal_to_the_loyal_citizens"
+			ITA_increase_ciano_verona_7 = yes
+
+			ITA_Verona_get_next_ciano_move = yes
+		}
+	}
+	ITA_mission_send_in_the_blackshirts_ciano = {  
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_assault
+
+		days_mission_timeout = 7
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_send_in_the_blackshirts_ciano"
+			ITA_increase_ciano_verona_5 = yes
+			ITA_decrease_outside_pressure_verona_4 = yes
+
+			ITA_Verona_get_next_ciano_move = yes
+		}
+	}
+
+	###Fascist AI Missions
+	ITA_mission_find_the_weak_links = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_discourse
+
+		days_mission_timeout = 14
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_find_the_weak_links"
+			ITA_increase_fascist_verona_4 = yes
+
+			ITA_Verona_get_next_fascist_move = yes
+		}
+	}
+	ITA_mission_use_regia_marina_contacts = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_category_military_operation
+
+		visible = {
+			has_country_flag = ITA_fascist_verona
+		}
+
+		days_mission_timeout = 7
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_use_regia_marina_contacts"
+			ITA_increase_fascist_verona_5 = yes
+
+			ITA_Verona_get_next_fascist_move = yes
+		}
+	}
+	ITA_mission_open_threats = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_use_force
+
+		days_mission_timeout = 7
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_open_threats"
+			ITA_increase_fascist_verona_4 = yes
+			ITA_increase_outside_pressure_verona_2 = yes
+
+			ITA_Verona_get_next_fascist_move = yes
+		}
+	}
+	ITA_mission_send_in_the_blackshirts = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_military_parade
+
+		days_mission_timeout = 14
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_send_in_the_blackshirts"
+			ITA_increase_fascist_verona_6 = yes
+			ITA_decrease_outside_pressure_verona_4 = yes
+
+			ITA_Verona_get_next_fascist_move = yes
+		}
+	}
+	ITA_mission_appeal_to_the_hardliners = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_propaganda
+
+		days_mission_timeout = 5
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_appeal_to_the_hardliners"
+			ITA_increase_fascist_verona_6 = yes
+
+			ITA_Verona_get_next_fascist_move = yes
+		}
+	}
+	ITA_mission_beat_them_harder = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_assault
+
+		days_mission_timeout = 10
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_beat_them_harder"
+			ITA_increase_fascist_verona_8 = yes
+			ITA_increase_outside_pressure_verona_6 = yes
+
+			ITA_Verona_get_next_fascist_move = yes
+		}
+	}
+
+	###Public AI Missions
+	ITA_mission_hold_peaceful_protests = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_civil_support
+
+		days_mission_timeout = 14
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_hold_peaceful_protests"
+			ITA_increase_outside_pressure_verona_4 = yes
+
+			ITA_Verona_get_next_outside_move = yes
+		}
+	}
+	ITA_mission_our_friends_in_russia = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_phone_call
+
+		days_mission_timeout = 14
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_our_friends_in_russia"
+			ITA_increase_outside_pressure_verona_7 = yes
+
+			ITA_Verona_get_next_outside_move = yes
+		}
+	}
+	ITA_mission_proletarians_of_italy_unite = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_revolt
+
+		days_mission_timeout = 10
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_proletarians_of_italy_unite"
+			add_stability = -0.07
+			ITA_increase_outside_pressure_verona_8 = yes
+
+			ITA_Verona_get_next_outside_move = yes
+		}
+	}
+	ITA_mission_confront_the_police = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_use_force
+
+		days_mission_timeout = 5
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_confront_the_police"
+			add_stability = -0.02
+			ITA_increase_outside_pressure_verona_6 = yes
+
+			ITA_Verona_get_next_outside_move = yes
+		}
+	}
+	ITA_mission_form_the_gruppi_di_difesa_proletaria = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_military_parade
+
+		days_mission_timeout = 15
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_form_the_gruppi_di_difesa_proletaria"
+			add_stability = -0.05
+			ITA_increase_outside_pressure_verona_8 = yes
+
+			ITA_Verona_get_next_outside_move = yes
+		}
+	}
+	ITA_mission_storm_verona = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_assault
+
+		days_mission_timeout = 15
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_storm_verona"
+			add_stability = -0.1
+			ITA_increase_outside_pressure_verona_12 = yes
+
+			ITA_Verona_get_next_outside_move = yes
+		}
+	}
+	ITA_mission_reduce_the_tension = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_propaganda
+
+		days_mission_timeout = 10
+
+		available = {
+			ITA_verona_over_trigger = yes
+		}
+		activation = {
+			always = no
+		}
+  
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_reduce_the_tension"
+			add_stability = 0.07
+			ITA_decrease_outside_pressure_verona_2 = yes
+
+			ITA_Verona_get_next_outside_move = yes
+		}
+	}
+
+
+
+	###Ciano Decisions
+	ITA_bribe_minor_opposition_gerarchi = {
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ITA_ciano_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		cost = 20
+
+		days_remove = 14
+		days_re_enable = 14
+
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_bribe_minor_opposition_gerarchi"
+			ITA_increase_ciano_verona_5 = yes
+			ITA_decrease_outside_pressure_verona_3 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_use_royal_palace_contacts = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_phone_call
+
+		visible = {
+			has_country_flag = ITA_ciano_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		cost = 10
+
+		fire_only_once = yes
+		days_remove = 5
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_use_royal_palace_contacts"
+			ITA_increase_ciano_verona_6 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_promise_everything_you_can = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_action
+
+		visible = {
+			has_country_flag = ITA_ciano_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		fire_only_once = yes
+		cost = 40
+		days_remove = 3
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_promise_everything_you_can"
+			ITA_increase_ciano_verona_7 = yes
+			ITA_decrease_outside_pressure_verona_2 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_send_in_the_police = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_military_parade
+
+		visible = {
+			has_country_flag = ITA_ciano_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		cost = 20
+		days_remove = 14
+		days_re_enable = 14
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_send_in_the_police"
+			ITA_increase_ciano_verona_4 = yes
+			ITA_decrease_outside_pressure_verona_4 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_appeal_to_the_loyal_citizens = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_propaganda
+
+		visible = {
+			has_country_flag = ITA_ciano_verona
+		}
+		fire_only_once = yes
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		cost = 15
+		days_remove = 3
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_appeal_to_the_loyal_citizens"
+			ITA_increase_ciano_verona_7 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_send_in_the_blackshirts_ciano = {  
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_assault
+
+		visible = {
+			has_country_flag = ITA_ciano_verona
+		}
+		fire_only_once = yes
+
+		available = {
+			custom_trigger_tooltip = {
+				check_variable = { ITA_Verona_outside_pressure > 40 }
+				tooltip = ITA_Public_Opposition_Percent_over_40.tt
+			}
+
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		custom_cost_trigger = { command_power > 19.99 }
+		custom_cost_text = decision_cost_20_cp
+
+		days_remove = 7
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -20
+			}
+		}
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_send_in_the_blackshirts_ciano"
+			ITA_increase_ciano_verona_5 = yes
+			ITA_decrease_outside_pressure_verona_4 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+
+
+	###Fascist Decisions
+	ITA_find_the_weak_links = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ITA_fascist_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		cost = 20
+		days_remove = 14
+		days_re_enable = 14
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_find_the_weak_links"
+			ITA_increase_fascist_verona_4 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_use_regia_marina_contacts = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_category_military_operation
+
+		visible = {
+			has_country_flag = ITA_fascist_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		custom_cost_trigger = { has_navy_experience > 4.99 has_political_power > 9.99 }
+		custom_cost_text = decision_cost_10_pp_5_navy_xp
+		days_remove = 7
+		fire_only_once = yes
+
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -10
+				navy_experience = -5
+			}
+		}
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_use_regia_marina_contacts"
+			ITA_increase_fascist_verona_5 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_open_threats = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_use_force
+
+		visible = {
+			has_country_flag = ITA_fascist_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		days_remove = 7
+		cost = 10
+		fire_only_once = yes
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_open_threats"
+			ITA_increase_fascist_verona_4 = yes
+			ITA_increase_outside_pressure_verona_2 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_send_in_the_blackshirts = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_military_parade
+
+		visible = {
+			has_country_flag = ITA_fascist_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		days_remove = 14
+		days_re_enable = 14
+
+		custom_cost_trigger = { command_power > 14.99 }
+		custom_cost_text = decision_cost_15_cp
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -15
+			}
+		}
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_send_in_the_blackshirts"
+			ITA_increase_fascist_verona_6 = yes
+			ITA_decrease_outside_pressure_verona_4 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_appeal_to_the_hardliners = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_propaganda
+
+		visible = {
+			has_country_flag = ITA_fascist_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		
+
+		days_remove = 5
+		fire_only_once = yes
+		cost = 10
+		
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_appeal_to_the_hardliners"
+			ITA_increase_fascist_verona_6 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_beat_them_harder = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_assault
+
+		visible = {
+			has_country_flag = ITA_fascist_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		days_remove = 10
+		cost = 30
+		fire_only_once = yes
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_beat_them_harder"
+			ITA_increase_fascist_verona_8 = yes
+			ITA_increase_outside_pressure_verona_6 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+
+
+	###Public Decisions
+	ITA_hold_peaceful_protests = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_civil_support
+
+		visible = {
+			has_country_flag = ITA_public_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		days_remove = 14
+		days_re_enable = 14
+		cost = 20
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_hold_peaceful_protests"
+			ITA_increase_outside_pressure_verona_4 = yes
+			add_political_power = 30
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_our_friends_in_russia = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_phone_call
+
+		visible = {
+			has_country_flag = ITA_public_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		days_remove = 14
+		fire_only_once = yes
+		cost = 15
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_our_friends_in_russia"
+			ITA_increase_outside_pressure_verona_7 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_proletarians_of_italy_unite = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_revolt
+
+		visible = {
+			has_country_flag = ITA_public_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		days_remove = 10
+		fire_only_once = yes
+		cost = 10
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_proletarians_of_italy_unite"
+			add_stability = -0.07
+			ITA_increase_outside_pressure_verona_8 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_confront_the_police = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_use_force
+
+		visible = {
+			has_country_flag = ITA_public_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		days_remove = 5
+		days_re_enable = 14
+		fire_only_once = yes
+		
+		custom_cost_trigger = { 
+			command_power > 9.99
+			has_political_power > 9.99
+		}
+		custom_cost_text = decision_cost_10_cp_10_pp
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+				add_political_power = -10
+			}
+		}
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_confront_the_police"
+			add_stability = -0.02
+			ITA_increase_outside_pressure_verona_6 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_form_the_gruppi_di_difesa_proletaria = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_military_parade
+
+		visible = {
+			has_country_flag = ITA_public_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		days_remove = 15
+		fire_only_once = yes
+		cost = 20
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_form_the_gruppi_di_difesa_proletaria"
+			add_stability = -0.05
+			ITA_increase_outside_pressure_verona_8 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_storm_verona = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_assault
+
+		visible = {
+			has_country_flag = ITA_public_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		days_remove = 15
+		fire_only_once = yes
+		cost = 50
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_storm_verona"
+			add_stability = -0.1
+			ITA_increase_outside_pressure_verona_12 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+	ITA_reduce_the_tension = { 
+	
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_propaganda
+
+		visible = {
+			has_country_flag = ITA_public_verona
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ITA_verona_taking_other_action
+			}
+		}
+
+		days_remove = 10
+		days_re_enable = 10
+		cost = 5
+  
+		complete_effect = {
+			set_country_flag = ITA_verona_taking_other_action
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout ITA_reduce_the_tension"
+			add_stability = 0.07
+			add_political_power = 40
+			ITA_decrease_outside_pressure_verona_2 = yes
+
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+
+
+	# Debug decisions
+	ITA_verona_debug_remove_taking_another_action = {
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = decision_generic_assault
+
+		available = {
+			always = yes
+		}
+
+		visible = {
+			is_debug = yes
+			is_ai = no
+		}
+
+		complete_effect = {
+			custom_effect_tooltip = "Resets the 'Already taking another action.' trigger in case it breaks."
+			clr_country_flag = ITA_verona_taking_other_action
+		}
+	}
+}
+
+ITA_ZZZ_Verona_Congress_Countdown = {
+	ITA_ZZZ_Verona_Congress_Countdown_mission = {
+		allowed = { 
+			tag = ZZZ
+		}
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		selectable_mission = no
+		days_mission_timeout = 60
+		is_good = no
+		timeout_effect = {
+			ITA = {
+				set_country_flag = ITA_Verona_Congress_Over
+				ITA_Verona_get_winner = yes
+			}	
+		}
+	}
+}
+
+ITA_grand_council_of_fascism = {
+	### Grand Council of Fascism Decisions ###
+
+	ITA_increase_balbos_influence_of_ministri_by_11 = {  
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = decision_generic_assault
+
+		available = {
+			always = yes
+		}
+
+		visible = {
+			is_debug = yes
+			is_ai = no
+		}
+
+		complete_effect = { #example of how to use ITA_GCF_AddLoy
+			#0 - Pavolini
+			#1 - Balbo
+			#2 - Muti
+			#3 - Giani
+
+			#0 - Ministri
+			#1 - Corporazioni
+			#2 - Burocrati 
+			#3 - Militaristi
+			#4 - MVSN
+			#5 - Moderati
+
+			#Make sure to assign all three variables before calling ITA_GCF_AddLoy or it won't do anything
+			#All the vars are clear after they are used so you cannot reuse them, you have to set them again
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 } #Balbo
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 } #ministri
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.11 } #11%, would be -0.11 if you want to decrease
+			ITA_GCF_AddLoy = yes
+		}  
+	}
+	
+	ITA_GCF_pavolini_influence = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			always = no
+		}
+		days_mission_timeout = 15
+		timeout_effect = {
+			custom_effect_tooltip = ITA_pavolini_influence
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_flag = ITA_GCF_enable_clicking
+					}
+					activate_mission = ITA_GCF_pavolini_influence
+				}
+				random_list = {
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 0 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 1 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 0 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 0 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 0 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 } 
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 0 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 } 
+						ITA_GCF_AddLoy = yes
+					}
+				}
+			}
+		}
+	}
+	
+	ITA_GCF_balbo_influence = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			always = no
+		}
+		days_mission_timeout = 15
+		timeout_effect = {
+			custom_effect_tooltip = ITA_balbo_influence
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_flag = ITA_GCF_enable_clicking
+					}
+					activate_mission = ITA_GCF_balbo_influence
+				}
+				random_list = {
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 1 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 1 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 1 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 1 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 1 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 } 
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 1 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 } 
+						ITA_GCF_AddLoy = yes
+					}
+				}
+			}
+		}
+	}
+	
+	ITA_GCF_muti_influence = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			always = no
+		}
+		days_mission_timeout = 15
+		timeout_effect = {
+			custom_effect_tooltip = ITA_muti_influence
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_flag = ITA_GCF_enable_clicking
+					}
+					activate_mission = ITA_GCF_muti_influence
+				}
+				random_list = {
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 2 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 2 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 2 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 2 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 } 
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 2 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 } 
+						ITA_GCF_AddLoy = yes
+					}
+				}
+			}
+		}
+	}
+	
+	ITA_GCF_giani_influence = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			always = no
+		}
+		days_mission_timeout = 15
+		timeout_effect = {
+			custom_effect_tooltip = ITA_giani_influence
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_flag = ITA_GCF_enable_clicking
+					}
+					activate_mission = ITA_GCF_giani_influence
+				}
+				random_list = {
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 3 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 3 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 3 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 3 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 } 
+						ITA_GCF_AddLoy = yes
+					}
+					50 = {
+						set_temp_variable = { ITA_GCF_fella_to_add = 3 } 
+						set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 } 
+						set_temp_variable = { ITA_GCF_amount_to_add = 0.05 } 
+						ITA_GCF_AddLoy = yes
+					}
+				}
+			}
+		}
+	}
+	
+	
+	ITA_GCF_talk_with_a_pillar = {  
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_phone_call
+
+		available = {
+			always = yes
+		}
+
+		cost = 25
+		days_remove = 10
+		days_re_enable = 7
+		fixed_random_seed = no
+
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_flag = ITA_pavolini_chosen
+				has_country_flag = ITA_balbo_chosen
+				has_country_flag = ITA_muti_chosen
+				has_country_flag = ITA_giani_chosen
+			}
+		}
+
+		remove_effect = { #example of how to use ITA_GCF_AddLoy
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = ITA_GCF_talk_pillar }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+			ITA_GCF_AddLoy = yes
+			hidden_effect = {
+				random_list = {
+					1 = {
+						set_variable = { ITA_GCF_talk_pillar = 0 }
+					}
+					1 = {
+						set_variable = { ITA_GCF_talk_pillar = 1 }
+					}
+					1 = {
+						set_variable = { ITA_GCF_talk_pillar = 2 }
+					}
+					1 = {
+						set_variable = { ITA_GCF_talk_pillar = 3 }
+					}
+					1 = {
+						set_variable = { ITA_GCF_talk_pillar = 4 }
+					}
+					1 = {
+						set_variable = { ITA_GCF_talk_pillar = 5 }
+					}
+				}
+			}
+		}
+	}
+
+	ITA_GCF_purge_a_pillar = {  
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		icon = GFX_decision_arrest
+
+		available = {
+			always = yes
+		}
+
+		cost = 40
+		days_remove = 6
+		days_re_enable = 4
+		fixed_random_seed = no
+
+		visible = {
+			is_ai = no
+			OR = {
+				has_country_flag = ITA_pavolini_chosen
+				has_country_flag = ITA_balbo_chosen
+				has_country_flag = ITA_muti_chosen
+				has_country_flag = ITA_giani_chosen
+			}
+		}
+
+		remove_effect = { #example of how to use ITA_GCF_AddLoy
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = ITA_GCF_purge_pillar }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.03 }
+			ITA_GCF_AddLoy = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = ITA_GCF_purge_pillar }
+			set_temp_variable = { ITA_GCF_amount_to_add = -6 }
+			ITA_GCF_AddPow = yes
+			hidden_effect = {
+				random_list = {
+					1 = {
+						set_variable = { ITA_GCF_purge_pillar = 0 }
+					}
+					1 = {
+						set_variable = { ITA_GCF_purge_pillar = 1 }
+					}
+					1 = {
+						set_variable = { ITA_GCF_purge_pillar = 2 }
+					}
+					1 = {
+						set_variable = { ITA_GCF_purge_pillar = 3 }
+					}
+					1 = {
+						set_variable = { ITA_GCF_purge_pillar = 4 }
+					}
+					1 = {
+						set_variable = { ITA_GCF_purge_pillar = 5 }
+					}
+				}
+			}
+		}
+	}
+
+	ITA_GCF_100_day_session = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			always = no
+		}
+
+		timeout_effect = {
+			ITA_GCF_PickLooser = yes
+			ITA_GCF_CalcQuadrumvirPow = yes
+			clr_country_flag = ITA_GCF_enable_clicking
+		}
+
+		days_mission_timeout = 100
+	}
+
+	ITA_GCF_10_day_tick = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			always = no
+		}
+
+		timeout_effect = {
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+			ITA_GCF_10_day_tick_elections = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+			ITA_GCF_10_day_tick_elections = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+			ITA_GCF_10_day_tick_elections = yes
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+			ITA_GCF_10_day_tick_elections = yes
+
+			add_to_variable = { ITA_GCF_dirty = 1 }
+
+			if = {
+				limit = {
+					check_variable = { days_mission_timeout@ITA_GCF_100_day_session > 9 }
+				}
+				activate_mission = ITA_GCF_10_day_tick
+			}
+		}
+
+		days_mission_timeout = 9
+	}
+
+	#missions for the promises
+	ITA_GCF_keep_promise_19 = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		cost = 25
+		selectable_mission = yes
+
+		timeout_effect = {
+			add_timed_idea = {
+				idea = ITA_GCF_promise_unfulfilled
+				days = 180
+			}
+		}
+
+		days_mission_timeout = 180
+	}
+
+	ITA_GCF_keep_promise_20 = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		custom_cost_trigger = { has_political_power > 14.99 }
+		custom_cost_text = decision_cost_15_pp_200_m
+		selectable_mission = yes
+
+		timeout_effect = {
+			add_timed_idea = {
+				idea = ITA_GCF_promise_unfulfilled
+				days = 180
+			}
+		}
+		complete_effect = {
+			add_political_power = -15
+			custom_effect_tooltip = ITA_GCF_add_200_to_debt
+			add_to_variable = { national_debt = 200 }
+		}
+
+		days_mission_timeout = 180
+	}
+
+	ITA_GCF_keep_promise_21 = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			has_equipment = {
+				infantry_equipment > 999
+			}
+			has_equipment = {
+				support_equipment > 99
+			}
+			has_equipment = {
+				artillery_equipment > 49
+			}
+			has_equipment = {
+				fighter_equipment > 49
+			}
+		}
+
+		selectable_mission = yes
+
+		timeout_effect = {
+			add_timed_idea = {
+				idea = ITA_GCF_promise_unfulfilled
+				days = 180
+			}
+		}
+		complete_effect = {
+			army_experience = 25
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -1000
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = -100
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = -50
+			}
+			add_equipment_to_stockpile = {
+				type = fighter_equipment
+				amount = -50
+			}
+		}
+
+		days_mission_timeout = 180
+	}
+
+	ITA_GCF_keep_promise_22 = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		cost = 25
+		selectable_mission = yes
+
+		timeout_effect = {
+			add_timed_idea = {
+				idea = ITA_GCF_promise_unfulfilled
+				days = 180
+			}
+		}
+
+		days_mission_timeout = 180
+	}
+
+	ITA_GCF_keep_promise_23 = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		selectable_mission = yes
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_GCF_has_60_efficiency
+				check_variable = { ITA_balboimper_Efficiency > 0.599 }
+			}
+		}
+
+		timeout_effect = {
+			add_timed_idea = {
+				idea = ITA_GCF_promise_unfulfilled
+				days = 180
+			}
+		}
+
+		days_mission_timeout = 180
+	}
+
+	ITA_GCF_keep_promise_24 = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			has_equipment = {
+				infantry_equipment > 499
+			}
+			has_equipment = {
+				support_equipment > 149
+			}
+			has_equipment = {
+				motorized_equipment > 99
+			}
+		}
+		
+		selectable_mission = yes
+		cost = 15
+
+		timeout_effect = {
+			add_timed_idea = {
+				idea = ITA_GCF_promise_unfulfilled
+				days = 180
+			}
+		}
+
+		complete_effect = {
+			add_stability = 0.025
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -1000
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = -150
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = -100
+			}
+		}
+
+		days_mission_timeout = 180
+	}
+
+	ITA_GCF_keep_promise_25 = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		selectable_mission = yes
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_GCF_trained_5_divisions
+				check_variable = { GCF_keep_promise_25_target < num_divisions }
+			}
+		}
+
+		timeout_effect = {
+			add_timed_idea = {
+				idea = ITA_GCF_promise_unfulfilled
+				days = 180
+			}
+		}
+
+		days_mission_timeout = 180
+	}
+
+	ITA_GCF_keep_promise_26 = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		custom_cost_trigger = { has_political_power > 14.99 }
+		custom_cost_text = decision_cost_15_pp_250_m
+		selectable_mission = yes
+
+		timeout_effect = {
+			add_timed_idea = {
+				idea = ITA_GCF_promise_unfulfilled
+				days = 180
+			}
+		}
+
+		complete_effect = {
+			add_political_power = -15
+			custom_effect_tooltip = ITA_GCF_add_250_to_debt
+			add_to_variable = { national_debt = 250 }
+		}
+
+		days_mission_timeout = 180
+	}
+
+	ITA_GCF_keep_promise_27 = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_GCF_20_fiume
+				check_variable = { global.ITA_spirit_of_fiume > 19 }
+			}
+		}
+
+		selectable_mission = yes
+
+		timeout_effect = {
+			add_timed_idea = {
+				idea = ITA_GCF_promise_unfulfilled
+				days = 180
+			}
+		}
+
+		complete_effect = {
+		}
+
+		days_mission_timeout = 180
+	}
+
+	ITA_GCF_keep_promise_28 = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		selectable_mission = yes
+		cost = 25
+
+		timeout_effect = {
+			add_timed_idea = {
+				idea = ITA_GCF_promise_unfulfilled
+				days = 180
+			}
+		}
+
+		days_mission_timeout = 180
+	}
+
+	ITA_GCF_keep_promise_29 = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			#Add something here relating to Giani's mechanic
+			#custom_trigger_tooltip = {
+			#	tooltip = ITA_GCF_20_fiume
+			#	check_variable = { global.ITA_spirit_of_fiume > 19 }
+			#}
+		}
+
+		selectable_mission = yes
+
+		timeout_effect = {
+			add_timed_idea = {
+				idea = ITA_GCF_promise_unfulfilled
+				days = 180
+			}
+		}
+
+		days_mission_timeout = 180
+	}
+
+	ITA_GCF_keep_promise_30 = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		custom_cost_trigger = { always = yes }
+		custom_cost_text = decision_cost_500_m
+		selectable_mission = yes
+
+		selectable_mission = yes
+
+		timeout_effect = {
+			add_timed_idea = {
+				idea = ITA_GCF_promise_unfulfilled
+				days = 180
+			}
+		}
+
+		complete_effect = {
+			custom_effect_tooltip = ITA_GCF_add_500_to_debt
+			add_to_variable = { national_debt = 500 }
+		}
+
+		days_mission_timeout = 180
+	}
+
+	ITA_GCF_keep_promise_31 = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		selectable_mission = yes
+
+		available = {
+			#Add something here relating to Pavolini's mechanic
+			#custom_trigger_tooltip = {
+			#	tooltip = ITA_GCF_20_fiume
+			#	check_variable = { global.ITA_spirit_of_fiume > 19 }
+			#}
+		}
+
+		timeout_effect = {
+			add_timed_idea = {
+				idea = ITA_GCF_promise_unfulfilled
+				days = 180
+			}
+		}
+
+		days_mission_timeout = 180
+	}
+
+	ITA_GCF_keep_promise_32 = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			has_equipment = {
+				infantry_equipment > 499
+			}
+			has_equipment = {
+				support_equipment > 249
+			}
+		}
+
+		selectable_mission = yes
+
+		timeout_effect = {
+			add_timed_idea = {
+				idea = ITA_GCF_promise_unfulfilled
+				days = 180
+			}
+		}
+
+		complete_effect = {
+			#for TT integration: add securitly policy efficiency
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -500
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = -250
+			}
+			custom_effect_tooltip = ITA_GCF_add_200_to_debt
+			add_to_variable = { national_debt = 200 }
+		}
+
+		days_mission_timeout = 180
+	}
+
+	ITA_GCF_keep_promise_33 = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		custom_cost_trigger = { has_political_power > 14 }
+		custom_cost_text = decision_cost_15_pp_250_m
+		selectable_mission = yes
+
+		timeout_effect = {
+			add_timed_idea = {
+				idea = ITA_GCF_promise_unfulfilled
+				days = 180
+			}
+		}
+
+		complete_effect = {
+			custom_effect_tooltip = ITA_GCF_add_250_to_debt
+			add_to_variable = { national_debt = 250 }
+		}
+
+		days_mission_timeout = 180
+	}
+
+}
+
+
+
+ITA_pillars_of_power = {
+	### Democratic Pillars of Power Decisions ###
+
+	ITA_dem_pop_add_promises_debug = {
+		icon = GFX_decision_ITA_infrastructure_italy_south
+		allowed = { 
+			tag = ITA
+		}
+
+		visible = {
+			is_debug = yes
+			is_ai = no
+		}
+
+		complete_effect = { 
+			custom_effect_tooltip = "This event allows you to choose which promises are available."
+			clear_array = ITA_avalaible_promises_array
+			country_event = {
+				id = natunity.11
+			}
+		}  
+	}
+
+	ITA_dem_pop_toggle_debug_buttons = {
+		icon = GFX_decision_ITA_infrastructure_italy_south
+		allowed = { 
+			tag = ITA
+		}
+
+		visible = {
+			is_debug = yes
+			is_ai = no
+		}
+
+		complete_effect = {
+			if = {
+				limit = {
+					has_country_flag = ITA_POP_GUI_debug_buttons_visible
+				}
+				clr_country_flag = ITA_POP_GUI_debug_buttons_visible
+			}
+			else = {
+				set_country_flag = ITA_POP_GUI_debug_buttons_visible
+			}
+			add_to_variable = { ITA_POP_GUI_dirty = 1 }
+		}  
+	}
+
+	ITA_dem_pop_have_election = {
+		icon = GFX_decision_ITA_infrastructure_italy_south
+		allowed = { 
+			tag = ITA
+		}
+
+		visible = {
+			is_debug = yes
+			is_ai = no
+		}
+
+		complete_effect = {
+			country_event = {
+				id = ITA_med.7004
+			}
+		}  
+	}
+	
+	ITA_dem_pop_keep_promise_1 = {
+		icon = GFX_decision_generic_political_action
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check = 82 }
+			ITA_ddl_has_passed_ddl = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_1_Tooltip
+			set_variable = { changer = 0 } #farers
+			set_temp_variable = { constant = 6 }
+			ITA_decrease_left_Popolo = yes
+
+			set_variable = { changer = 1 } #urban workers
+			set_temp_variable = { constant = 18 }
+			ITA_decrease_left_Popolo = yes
+
+			set_variable = { changer = 2 } #middle classes
+			set_temp_variable = { constant = 12 }
+			ITA_decrease_left_Popolo = yes
+
+			set_variable = { changer = 4 } #students
+			set_temp_variable = { constant = 30 }
+			ITA_decrease_left_Popolo = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_2 = {
+		icon = GFX_decision_border_war
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check = 72 }
+			ITA_ddl_has_passed_ddl = yes
+			always = no
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_2_Tooltip
+			set_variable = { changer = 0 } #farers
+			set_temp_variable = { constant = 36 }
+			ITA_decrease_left_Popolo = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_3 = {
+		icon = GFX_decision_generic_civil_support
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check = 75 }
+			ITA_ddl_has_passed_ddl = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_3_Tooltip
+			set_variable = { changer = 1 }
+			set_temp_variable = { constant = 36 }
+			ITA_decrease_left_Popolo = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_4 = {
+		icon = GFX_decision_generic_political_action
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check_1 = 85 }
+			set_temp_variable = { ddl_id_to_check_2 = 86 }
+			ITA_ddl_has_passed_ddl_with_or = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_4_Tooltip
+			set_variable = { changer = 5 }
+			set_temp_variable = { constant = 48 }
+			ITA_decrease_left_Popolo = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_5 = {
+		icon = GFX_decision_humanitarian_aid_increase
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check_1 = 88 }
+			set_temp_variable = { ddl_id_to_check_2 = 90 }
+			ITA_ddl_has_passed_ddl_with_or = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_5_Tooltip
+			set_variable = { changer = 1 }
+			set_temp_variable = { constant = 18 }
+			ITA_decrease_left_Popolo = yes
+
+			set_variable = { changer = 0 }
+			set_temp_variable = { constant = 18 }
+			ITA_decrease_left_Popolo = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_6 = {
+		icon = GFX_decision_revolt
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check = 68 }
+			ITA_ddl_has_passed_ddl = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_6_Tooltip
+			set_variable = { changer = 4 }
+			set_temp_variable = { constant = 36 }
+			ITA_decrease_left_Popolo = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_7 = {
+		icon = GFX_decision_generic_use_force
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check = 9 }
+			ITA_ddl_has_passed_ddl = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_7_Tooltip
+			set_variable = { changer = 1 }
+			set_temp_variable = { constant = 12 }
+			ITA_decrease_right_Stato = yes
+
+			set_variable = { changer = 2 }
+			set_temp_variable = { constant = 36 }
+			ITA_decrease_right_Stato = yes
+
+			set_variable = { changer = 3 }
+			set_temp_variable = { constant = 12 }
+			ITA_decrease_right_Popolo = yes
+
+			set_variable = { changer = 2 }
+			set_temp_variable = { constant = 12 }
+			ITA_decrease_right_Popolo = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_8 = {
+		icon = GFX_decision_generic_political_action
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check_1 = 28 }
+			set_temp_variable = { ddl_id_to_check_2 = 27 }
+			ITA_ddl_has_passed_ddl_with_or = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_8_Tooltip
+			set_variable = { changer = 3 }
+			set_temp_variable = { constant = 48 }
+			ITA_decrease_right_Popolo = yes
+
+			set_variable = { changer = 3 }
+			set_temp_variable = { constant = 12 }
+			ITA_decrease_right_Stato = yes
+
+			set_variable = { changer = 1 }
+			set_temp_variable = { constant = 24 }
+			ITA_decrease_right_Stato = yes
+
+			set_variable = { changer = 2 }
+			set_temp_variable = { constant = 6 }
+			ITA_decrease_right_Popolo = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_9 = {
+		icon = GFX_decision_generic_military_parade
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check = 56 }
+			ITA_ddl_has_passed_ddl = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_9_Tooltip
+			set_variable = { changer = 3 }
+			set_temp_variable = { constant = 30 }
+			ITA_decrease_right_Popolo = yes
+
+			set_variable = { changer = 3 }
+			set_temp_variable = { constant = 36 }
+			ITA_decrease_right_Stato = yes
+
+			set_variable = { changer = 1 }
+			set_temp_variable = { constant = 12 }
+			ITA_decrease_right_Stato = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_10 = {
+		icon = GFX_decision_industrial_farm
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check_1 = 45 }
+			set_temp_variable = { ddl_id_to_check_2 = 46 }
+			ITA_ddl_has_passed_ddl_with_or = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_10_Tooltip
+			set_variable = { changer = 2 }
+			set_temp_variable = { constant = 24 }
+			ITA_decrease_right_Popolo = yes
+
+			set_variable = { changer = 2 }
+			set_temp_variable = { constant = 36 }
+			ITA_decrease_right_Stato = yes
+
+			set_variable = { changer = 2 }
+			set_temp_variable = { constant = 6 }
+			ITA_decrease_right_Popolo = yes
+
+			set_variable = { changer = 0 }
+			set_temp_variable = { constant = 12 }
+			ITA_decrease_right_Popolo = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_11 = {
+		icon = GFX_decision_generic_independence
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check_1 = 47 }
+			set_temp_variable = { ddl_id_to_check_2 = 48 }
+			ITA_ddl_has_passed_ddl_with_or = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_11_Tooltip
+			set_variable = { changer = 2 }
+			set_temp_variable = { constant = 24 }
+			ITA_decrease_right_Popolo = yes
+
+			set_variable = { changer = 0 }
+			set_temp_variable = { constant = 36 }
+			ITA_decrease_right_Stato = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_12 = {
+		icon = GFX_decision_generic_propaganda
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check_1 = 49 }
+			set_temp_variable = { ddl_id_to_check_2 = 50 }
+			ITA_ddl_has_passed_ddl_with_or = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_12_Tooltip
+			set_variable = { changer = 2 }
+			set_temp_variable = { constant = 12 }
+			ITA_decrease_right_Popolo = yes
+
+			set_variable = { changer = 5 }
+			set_temp_variable = { constant = 36 }
+			ITA_decrease_right_Stato = yes
+
+			set_variable = { changer = 3 }
+			set_temp_variable = { constant = 12 }
+			ITA_decrease_right_Popolo = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_13 = {
+		icon = GFX_decision_generic_political_action
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check_1 = 18 }
+			set_temp_variable = { ddl_id_to_check_2 = 19 }
+			ITA_ddl_has_passed_ddl_with_or = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_13_Tooltip
+			set_variable = { changer = 4 }
+			set_temp_variable = { constant = 12 }
+			ITA_decrease_center_Popolo = yes
+
+			set_variable = { changer = 1 }
+			set_temp_variable = { constant = 6 }
+			ITA_decrease_center_Popolo = yes
+
+			set_variable = { changer = 0 }
+			set_temp_variable = { constant = 18 }
+			ITA_decrease_center_Popolo = yes
+
+			set_variable = { changer = 5 }
+			set_temp_variable = { constant = 24 }
+			ITA_decrease_center_Popolo = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_14 = {
+		icon = GFX_decision_industrial_farm
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check_1 = 38 }
+			set_temp_variable = { ddl_id_to_check_2 = 39 }
+			ITA_ddl_has_passed_ddl_with_or = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_14_Tooltip
+			set_variable = { changer = 2 }
+			set_temp_variable = { constant = 24 }
+			ITA_decrease_center_Popolo = yes
+
+			set_variable = { changer = 2 }
+			set_temp_variable = { constant = 24 }
+			ITA_decrease_center_Stato = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_15 = {
+		icon = GFX_decision_generic_train
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check_1 = 35 }
+			set_temp_variable = { ddl_id_to_check_2 = 36 }
+			ITA_ddl_has_passed_ddl_with_or = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_15_Tooltip
+			set_variable = { changer = 0 }
+			set_temp_variable = { constant = 24 }
+			ITA_decrease_center_Stato = yes
+
+			set_variable = { changer = 2 }
+			set_temp_variable = { constant = 12 }
+			ITA_decrease_center_Popolo = yes
+
+			set_variable = { changer = 1 }
+			set_temp_variable = { constant = 12 }
+			ITA_decrease_center_Popolo = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_16 = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check = 11 }
+			ITA_ddl_has_passed_ddl = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_16_Tooltip
+			set_variable = { changer = 1 }
+			set_temp_variable = { constant = 24 }
+			ITA_decrease_center_Popolo = yes
+
+			set_variable = { changer = 2 }
+			set_temp_variable = { constant = 12 }
+			ITA_decrease_center_Stato = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_17 = {
+		icon = GFX_decision_generic_electricity
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			set_temp_variable = { ddl_id_to_check_1 = 34 }
+			set_temp_variable = { ddl_id_to_check_2 = 37 }
+			ITA_ddl_has_passed_ddl_with_or = yes
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_17_Tooltip
+			set_variable = { changer = 0 }
+			set_temp_variable = { constant = 18 }
+			ITA_decrease_center_Stato = yes
+
+			set_variable = { changer = 0 }
+			set_temp_variable = { constant = 30 }
+			ITA_decrease_center_Popolo = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	}
+
+	ITA_dem_pop_keep_promise_18 = {           
+		icon = GFX_decision_humanitarian_aid_increase
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			always = no #make sure to remove this when en actuall condition is added
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_POP_Fail_Promise_18_Tooltip
+			set_variable = { changer = 1 }
+			set_temp_variable = { constant = 6 }
+			ITA_decrease_center_Popolo = yes
+
+			set_variable = { changer = 0 }
+			set_temp_variable = { constant = 18 }
+			ITA_decrease_center_Popolo = yes
+
+			custom_effect_tooltip = ITA_POP_Promise_govform_warning
+		}
+
+		is_good = no
+		days_mission_timeout = 1825
+	} 
+}  
+
+ITA_election_countdown = {
+	ITA_election_countdown_mission = {
+		allowed = { tag = ZZZ }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			always = no
+		}
+
+		timeout_effect = {
+			ITA = {
+				country_event = {
+					id = ITA_med.7004
+				}
+			}
+		}
+
+		days_mission_timeout = 1825 #5*365, 5 years
+	}
+}
+
+ITA_Camera = {
+	ITA_ddl_countdown = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			has_country_flag = ITA_put_ddl_up_to_vote
+		}
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_ddl_countdown_failure
+		}
+
+		days_mission_timeout = 60
+	}
+}
+
+### IEA Decolonization Decisions ###
+ITA_IEA_Decol_GUI = {
+
+	#mission to count down till decolonisation
+	ITA_IEA_Decol_countdown_mission = {
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			always = no
+		}
+		priority = 10000
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_IEA_Decol_countdown_mission_tt
+			hidden_effect = {
+				ITA_IEA_Decol_final_effect = yes
+			}
+		}
+
+		#starts counting down when the decol mech appears, so 7 July 66 and last about 6 months
+		days_mission_timeout = 190
+	}
+
+	#General decisions
+	ITA_IEA_Decol_show_general_decisions = {
+		icon = GFX_decision_generic_visibility
+
+		visible = {
+			NOT = {
+				has_country_flag = IEA.decol_show_decisions
+			}
+		}
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_show_general_decisions"
+			set_country_flag = IEA.decol_show_decisions
+		}
+	}
+	ITA_IEA_Decol_hide_general_decisions = {
+		icon = GFX_decision_generic_visibility_closed
+
+		visible = {
+			has_country_flag = IEA.decol_show_decisions
+		}
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_hide_general_decisions"
+			clr_country_flag = IEA.decol_show_decisions
+		}
+	}
+	ITA_IEA_Decol_delay_decolonization_date = {
+		icon = GFX_decision_generic_political_action_indent
+
+		visible = {
+			has_country_flag = IEA.decol_show_decisions
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_IEA_Decol_delay_decolonization_date_tt		
+				check_variable = { ITA_IEA_Decol_delays < 3 }
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 12
+
+		cost = 10
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_delay_decolonization_date"
+			add_to_variable = { ITA_IEA_Decol_delays = 1 }
+
+			add_days_mission_timeout = {
+				mission = ITA_IEA_Decol_countdown_mission
+				days = 14
+			}
+		}
+	}
+	ITA_IEA_Decol_evacuate_east_africa = {
+		icon = GFX_decision_generic_military_parade_indent
+
+		visible = {
+			has_country_flag = IEA.decol_show_decisions
+		}
+
+		fire_only_once = yes
+
+		custom_cost_trigger = { command_power > 19.99 }
+		custom_cost_text = decision_cost_20_cp
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_evacuate_east_africa"
+			hidden_effect = { add_command_power = -20 }
+
+			custom_effect_tooltip = ITA_IEA_Decol_evacuate_east_africa_tt
+
+			hidden_effect = {
+				ITA_IEA_Decol_final_effect = yes
+			}
+		}
+	}
+
+	#Somalia
+	ITA_IEA_Decol_show_somalia_decisions = {
+		icon = GFX_decision_generic_visibility
+
+		visible = {
+			NOT = {
+				has_country_flag = SML.decol_show_decisions
+			}
+			NOT = {
+				SML = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_show_somalia_decisions"
+			set_country_flag = SML.decol_show_decisions
+		}
+	}
+	ITA_IEA_Decol_hide_somalia_decisions = {
+		icon = GFX_decision_generic_visibility_closed
+
+		visible = {
+			has_country_flag = SML.decol_show_decisions
+			NOT = {
+				SML = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_hide_somalia_decisions"
+			clr_country_flag = SML.decol_show_decisions
+		}
+	}
+	ITA_IEA_Decol_somalia_reinforce_garrison = {
+		icon = GFX_decision_generic_prepare_civil_war_indent
+
+		visible = {
+			has_country_flag = SML.decol_show_decisions
+			NOT = {
+				SML = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 40
+
+		custom_cost_trigger = {
+			has_political_power > 9
+			has_equipment = {
+				infantry_equipment > 1999
+			}
+		}
+		custom_cost_text = decision_cost_2000_guns_10_pp
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_somalia_reinforce_garrison"
+			hidden_effect = {
+				add_political_power = -10
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -2000
+			}
+
+			set_temp_variable = { target = SML }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_resistance = yes
+		}
+	}
+	ITA_IEA_Decol_somalia_increase_propaganda_efforts = {
+		icon = GFX_decision_generic_political_action_indent
+
+		visible = {
+			has_country_flag = SML.decol_show_decisions
+			NOT = {
+				SML = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 60
+
+		cost = 25
+
+		days_remove = 12
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_somalia_increase_propaganda_efforts"
+
+			set_temp_variable = { target = SML }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_favor = yes
+		}
+	}
+	ITA_IEA_Decol_somalia_negotiate_with_the_somali_youth_club = {
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = SML.decol_show_decisions
+			NOT = {
+				SML = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 40
+
+		days_remove = 6
+		cost = 25
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_somalia_negotiate_with_the_somali_youth_club"
+
+			set_temp_variable = { target = SML }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_favor = yes
+
+			set_temp_variable = { target = SML }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_resistance = yes
+		}
+	}
+	ITA_IEA_Decol_somalia_invest_in_the_local_economy = {
+		icon = GFX_decision_generic_phone_call_indent
+
+		visible = {
+			has_country_flag = SML.decol_show_decisions
+			NOT = {
+				SML = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 70
+
+		days_remove = 5
+		custom_cost_trigger = {
+			hidden_trigger = {
+				has_political_power > 9.99
+			}
+		}
+		custom_cost_text = decision_cost_60_million_10_pp 
+
+		complete_effect = {
+			hidden_effect = { add_political_power = -10 }
+			set_temp_variable = { temp_econ_spending_amount = 0.06 }
+			econ_spend_money_once_effect_raw_money = yes
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_somalia_invest_in_the_local_economy"
+
+			set_temp_variable = { target = SML }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_favor = yes
+
+			1113 = {
+				set_temp_variable = { state_value_multiplier_temp = 1.1 }
+				econ_state_value_change_multiply_specified_state = yes
+			}
+		}
+	}
+	ITA_IEA_Decol_somalia_hand_over_some_controll_to_local_garrisons = {
+		icon = GFX_decision_generic_tank_indent
+
+		visible = {
+			has_country_flag = SML.decol_show_decisions
+			NOT = {
+				SML = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = yes
+
+		days_remove = 10
+		custom_cost_trigger = { command_power > 19.99 }
+		custom_cost_text = decision_cost_20_cp
+
+		complete_effect = {
+			hidden_effect = { add_command_power = -20 }
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_hand_over_some_controll_to_local_garrisons"
+
+			add_manpower = 2500
+
+			set_temp_variable = { target = SML }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_favor = yes
+
+			set_temp_variable = { target = SML }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_resistance = yes
+		}
+	}
+	ITA_IEA_Decol_somalia_begin_negotiations = {
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = SML.decol_show_decisions
+			NOT = {
+				SML = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_begin_negotiations"
+			set_temp_variable = { target = SML }
+			ITA_IEA_Decol_get_outlook = yes
+
+			country_event = {
+				id =  IEA_decol.10
+			}
+		}
+	}
+
+
+
+
+	#Eritrea
+	ITA_IEA_Decol_show_eritrea_decisions = {
+		icon = GFX_decision_generic_visibility
+
+		visible = {
+			NOT = {
+				has_country_flag = ERT.decol_show_decisions
+			}
+			NOT = {
+				ERT = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_show_eritrea_decisions"
+			set_country_flag = ERT.decol_show_decisions
+		}
+	}
+	ITA_IEA_Decol_hide_eritrea_decisions = {
+		icon = GFX_decision_generic_visibility_closed
+
+		visible = {
+			has_country_flag = ERT.decol_show_decisions
+			NOT = {
+				ERT = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_hide_eritrea_decisions"
+			clr_country_flag = ERT.decol_show_decisions
+		}
+	}
+	ITA_IEA_Decol_eritrea_increase_regia_marina_presence = {
+		icon = GFX_decision_generic_military_parade_indent
+
+		visible = {
+			has_country_flag = ERT.decol_show_decisions
+			NOT = {
+				ERT = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 40
+
+		custom_cost_trigger = {
+			has_political_power > 9.99
+			has_equipment = {
+				convoy > 10
+			}
+		}
+		custom_cost_text = decision_cost_10_convoy_10_pp
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_eritrea_reinforce_garrison"
+			hidden_effect = {
+				add_political_power = -10
+				
+			}
+			add_equipment_to_stockpile = {
+				type = convoy
+				amount = -10
+			}
+
+			navy_experience = 10
+
+			set_temp_variable = { target = ERT }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_resistance = yes
+		}
+	}
+	ITA_IEA_Decol_eritrea_fund_the_new_eritrea_party = {
+		icon = GFX_decision_generic_political_action_indent
+
+		visible = {
+			has_country_flag = ERT.decol_show_decisions
+			NOT = {
+				ERT = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 80
+		days_remove = 10
+
+		custom_cost_trigger = {
+			has_political_power > 19.99
+		}
+		custom_cost_text = decision_cost_30_million_20_pp
+
+		complete_effect = {
+			hidden_effect = { add_political_power = -20 }
+			set_temp_variable = { temp_econ_spending_amount = 0.03 }
+			econ_spend_money_once_effect_raw_money = yes
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_eritrea_fund_the_new_eritrea_party"
+
+			set_temp_variable = { target = ERT }
+			set_temp_variable = { amount = 2 }
+			ITA_IEA_Decol_change_favor = yes
+		}
+	}
+	ITA_IEA_Decol_eritrea_supply_the_ascari = {
+		icon = GFX_decision_generic_tank_indent
+
+		visible = {
+			has_country_flag = ERT.decol_show_decisions
+			NOT = {
+				ERT = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 40
+
+		custom_cost_trigger = {
+			has_political_power > 9
+			has_equipment = {
+				infantry_equipment > 1999
+			}
+			has_equipment = {
+				support_equipment > 29
+			}
+		}
+		custom_cost_text = decision_cost_30_support_eq_1000_guns_10_pp
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_eritrea_supply_the_ascari"
+			hidden_effect = {
+				add_political_power = -10
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -1000
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = -30
+			}
+
+			set_temp_variable = { target = ERT }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_resistance = yes
+		}
+	}
+	ITA_IEA_Decol_eritrea_reduce_the_governors_authoroty = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_flag = ERT.decol_show_decisions
+			NOT = {
+				ERT = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 30
+
+		cost = 30
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_eritrea_reduce_the_governors_authoroty"
+
+			set_temp_variable = { target = ERT }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_favor = yes
+
+			set_temp_variable = { target = ERT }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_resistance = yes
+		}
+	}
+	ITA_IEA_Decol_eritrea_bring_in_more_garrisons = {
+		icon = GFX_decision_generic_prepare_civil_war_indent
+
+		visible = {
+			has_country_flag = ERT.decol_show_decisions
+			NOT = {
+				ERT = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 45
+
+		days_remove = 8
+
+		custom_cost_trigger = {
+			has_political_power > 14
+			has_equipment = {
+				infantry_equipment > 1999
+			}
+		}
+		custom_cost_text = decision_cost_2000_guns_15_pp
+
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -15
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -2000
+			}
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_eritrea_bring_in_more_garrisons"
+
+			set_temp_variable = { target = ERT }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_favor = yes
+
+			set_temp_variable = { target = ERT }
+			set_temp_variable = { amount = -2 }
+			ITA_IEA_Decol_change_resistance = yes
+		}
+	}
+	ITA_IEA_Decol_eritrea_begin_negotiations = {
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ERT.decol_show_decisions
+			NOT = {
+				ERT = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_eritrea_begin_negotiations"
+			set_temp_variable = { target = ERT }
+			ITA_IEA_Decol_get_outlook = yes
+
+			country_event = {
+				id =  IEA_decol.20
+			}
+		}
+	}
+
+	#Amara
+	ITA_IEA_Decol_show_amara_decisions = {
+		icon = GFX_decision_generic_visibility
+
+		visible = {
+			NOT = {
+				has_country_flag = ETH.decol_show_decisions
+			}
+			NOT = {
+				ETH = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_show_amara_decisions"
+			set_country_flag = ETH.decol_show_decisions
+		}
+	}
+	ITA_IEA_Decol_hide_amara_decisions = {
+		icon = GFX_decision_generic_visibility_closed
+
+		visible = {
+			has_country_flag = ETH.decol_show_decisions
+			NOT = {
+				ETH = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_hide_amara_decisions"
+			clr_country_flag = ETH.decol_show_decisions
+		}
+	}
+	ITA_IEA_Decol_amara_expand_addis_abeba_airport = {
+		icon = GFX_decision_generic_fighter_plane_indent
+
+		visible = {
+			has_country_flag = ETH.decol_show_decisions
+			NOT = {
+				ETH = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 70
+
+		days_remove = 15
+		custom_cost_trigger = {
+			hidden_trigger = {
+				has_political_power > 9.99
+			}
+		}
+		custom_cost_text = decision_cost_60_million_10_pp 
+
+		complete_effect = {
+			hidden_effect = { add_political_power = -10 }
+			set_temp_variable = { temp_econ_spending_amount = 0.06 }
+			econ_spend_money_once_effect_raw_money = yes
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_amara_expand_addis_abeba_airport"
+			271 = {
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+
+			custom_effect_tooltip = ITA_IEA_Decol_amara_expand_addis_abeba_airport_tt
+
+			set_temp_variable = { target = ETH }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_favor = yes
+		}
+	}
+	ITA_IEA_Decol_amara_raid_arbegnoch_strongholds = {
+		icon = GFX_decision_generic_bombing_indent
+
+		visible = {
+			has_country_flag = ETH.decol_show_decisions
+			NOT = {
+				ETH = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 30
+
+		custom_cost_trigger = { 
+			command_power > 9.99
+			has_political_power > 9.99
+		}
+		custom_cost_text = decision_cost_10_cp_10_pp
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_amara_raid_arbegnoch_strongholds"
+			hidden_effect = { 
+				add_political_power = -10
+				add_command_power = -10
+			}
+
+			set_temp_variable = { target = ETH }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_resistance = yes
+
+			set_temp_variable = { target = ETH }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_favor = yes
+		}
+	}
+	ITA_IEA_Decol_amara_reconciliate_with_the_tewahedo_church = {
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ETH.decol_show_decisions
+			NOT = {
+				ETH = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 45
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_amara_reconciliate_with_the_tewahedo_church"
+			set_temp_variable = { target = ETH }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_favor = yes
+
+			set_temp_variable = { target = ETH }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_resistance = yes
+		}
+	}
+	ITA_IEA_Decol_amara_release_political_prisoners = {
+		icon = GFX_decision_generic_phone_call_indent
+
+		visible = {
+			has_country_flag = ETH.decol_show_decisions
+			NOT = {
+				ETH = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 32
+
+		cost = 20
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_amara_release_political_prisoners"
+
+			set_temp_variable = { target = ETH }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_favor = yes
+
+			set_temp_variable = { target = ETH }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_resistance = yes
+		}
+	}
+	ITA_IEA_Decol_amara_poverty_relief_in_the_countryside = {
+		icon = GFX_decision_humanitarian_aid_increase_indent
+
+		visible = {
+			has_country_flag = ETH.decol_show_decisions
+			NOT = {
+				ETH = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 42
+
+		days_remove = 5
+
+		custom_cost_trigger = {
+			has_equipment = {
+				support_equipment > 49
+			}
+		}
+		custom_cost_text = decision_cost_50_support_eq_50_million
+
+		complete_effect = {
+			set_temp_variable = { temp_econ_spending_amount = 0.05 }
+			econ_spend_money_once_effect_raw_money = yes
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = -50
+			}
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_amara_poverty_relief_in_the_countryside"
+
+			set_temp_variable = { target = ETH }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_favor = yes
+
+			IEA = {
+				TNO_improve_poverty_low = yes
+			}
+		}
+	}
+	ITA_IEA_Decol_amara_begin_negotiations = {
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ETH.decol_show_decisions
+			NOT = {
+				ETH = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_amara_begin_negotiations"
+			set_temp_variable = { target = ETH }
+			ITA_IEA_Decol_get_outlook = yes
+
+			country_event = {
+				id =  IEA_decol.30
+			}
+		}
+	}
+
+	#Harar
+	ITA_IEA_Decol_show_harar_decisions = {
+		icon = GFX_decision_generic_visibility
+
+		visible = {
+			NOT = {
+				has_country_flag = ORM.decol_show_decisions
+			}
+			NOT = {
+				ORM = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_show_harar_decisions"
+			set_country_flag = ORM.decol_show_decisions
+		}
+	}
+	ITA_IEA_Decol_hide_harar_decisions = {
+		icon = GFX_decision_generic_visibility_closed
+
+		visible = {
+			has_country_flag = ORM.decol_show_decisions
+			NOT = {
+				ORM = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_hide_harar_decisions"
+			clr_country_flag = ORM.decol_show_decisions
+		}
+	}
+	ITA_IEA_Decol_harar_reinforce_the_garrison = {
+		icon = GFX_decision_generic_military_parade_indent
+
+		visible = {
+			has_country_flag = ORM.decol_show_decisions
+			NOT = {
+				ORM = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = IEA_IEA_decol_harar_blocked
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 40
+
+		custom_cost_trigger = { 
+			command_power > 19.99
+			has_political_power > 19.99
+		}
+		custom_cost_text = decision_cost_20_cp_20_pp
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_harar_reinforce_the_garrison"
+			hidden_effect = { 
+				add_political_power = -20
+				add_command_power = -20
+			}
+
+			set_temp_variable = { target = ORM }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_resistance = yes
+		}
+	}
+	ITA_IEA_Decol_harar_continue_benign_neglect = {
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ORM.decol_show_decisions
+			NOT = {
+				ORM = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 10 
+		days_remove = 30
+
+		cost = 15
+
+		complete_effect = {
+			hidden_effect = {
+				set_country_flag = IEA_IEA_decol_harar_blocked
+			}
+		}
+
+		modifier = {
+			custom_modifier_tooltip = ITA_IEA_Decol_actions_blocked_tt
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_harar_continue_benign_neglect"
+
+			set_temp_variable = { target = ORM }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_favor = yes
+
+			set_temp_variable = { target = ORM }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_resistance = yes
+
+			hidden_effect = {
+				clr_country_flag = IEA_IEA_decol_harar_blocked
+			}
+		}
+	}
+	ITA_IEA_Decol_harar_fund_self_help_associations = {
+		icon = GFX_decision_humanitarian_aid_increase_indent
+
+		visible = {
+			has_country_flag = ORM.decol_show_decisions
+			NOT = {
+				ORM = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = IEA_IEA_decol_harar_blocked
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 33
+		days_remove = 8
+
+		custom_cost_trigger = {
+			hidden_trigger = {
+				has_political_power > 9.99
+			}
+		}
+		custom_cost_text = decision_cost_60_million_10_pp 
+
+		complete_effect = {
+			hidden_effect = { add_political_power = -10 }
+			set_temp_variable = { temp_econ_spending_amount = 0.06 }
+			econ_spend_money_once_effect_raw_money = yes
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_harar_fund_self_help_associations"
+			set_temp_variable = { target = ORM }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_favor = yes
+
+			set_temp_variable = { target = ORM }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_resistance = yes
+		}
+	}
+	ITA_IEA_Decol_harar_prepare_a_native_administration = {
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ORM.decol_show_decisions
+			NOT = {
+				ORM = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = IEA_IEA_decol_harar_blocked
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 44
+
+		cost = 20
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_harar_prepare_a_native_administration"
+
+			set_temp_variable = { target = ORM }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_favor = yes
+
+			set_temp_variable = { target = ORM }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_resistance = yes
+		}
+	}
+	ITA_IEA_Decol_harar_call_in_air_support = {
+		icon = GFX_decision_generic_bombing_indent
+
+		visible = {
+			has_country_flag = ORM.decol_show_decisions
+			NOT = {
+				ORM = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = IEA_IEA_decol_harar_blocked
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 25
+
+		days_remove = 3
+
+		custom_cost_trigger = { 
+			command_power > 29.99
+			has_political_power > 9.99
+		}
+		custom_cost_text = decision_cost_30_cp_10_pp
+
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -10
+				add_command_power = -30
+			}
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_harar_call_in_air_support"
+
+			set_temp_variable = { target = ORM }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_resistance = yes
+
+			set_temp_variable = { target = ORM }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_favor = yes
+		}
+	}
+	ITA_IEA_Decol_harar_begin_negotiations = {
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ORM.decol_show_decisions
+			NOT = {
+				ORM = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_harar_begin_negotiations"
+			set_temp_variable = { target = ORM }
+			ITA_IEA_Decol_get_outlook = yes
+
+			country_event = {
+				id =  IEA_decol.40
+			}
+		}
+	}
+
+	#Kenia
+	ITA_IEA_Decol_show_kenia_decisions = {
+		icon = GFX_decision_generic_visibility
+
+		visible = {
+			NOT = {
+				has_country_flag = KEN.decol_show_decisions
+			}
+			NOT = {
+				KEN = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_show_kenia_decisions"
+			set_country_flag = KEN.decol_show_decisions
+		}
+	}
+	ITA_IEA_Decol_hide_kenia_decisions = {
+		icon = GFX_decision_generic_visibility_closed
+
+		visible = {
+			has_country_flag = KEN.decol_show_decisions
+			NOT = {
+				KEN = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_hide_kenia_decisions"
+			clr_country_flag = KEN.decol_show_decisions
+		}
+	}
+	ITA_IEA_Decol_kenia_return_settler_land = {
+		icon = GFX_decision_generic_decision
+
+		visible = {
+			has_country_flag = KEN.decol_show_decisions
+			NOT = {
+				KEN = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 40
+
+		custom_cost_trigger = {
+			has_political_power > 19.99
+		}
+		custom_cost_text = decision_cost_30_million_20_pp
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_kenia_return_settler_land"
+			
+			hidden_effect = { add_political_power = -20 }
+			set_temp_variable = { temp_econ_spending_amount = 0.03 }
+			econ_spend_money_once_effect_raw_money = yes
+
+			set_temp_variable = { target = KEN }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_resistance = yes
+
+			set_temp_variable = { target = KEN }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_favor = yes
+		}
+	}
+	ITA_IEA_Decol_kenia_start_infastructure_projects = {
+		icon = GFX_decision_generic_construction
+
+		visible = {
+			has_country_flag = KEN.decol_show_decisions
+			NOT = {
+				KEN = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 24
+		days_remove = 20
+		
+
+		custom_cost_trigger = {
+			hidden_trigger = {
+				has_political_power > 9.99
+			}
+		}
+		custom_cost_text = decision_cost_60_million_10_pp 
+
+		complete_effect = {
+			hidden_effect = { add_political_power = -10 }
+			set_temp_variable = { temp_econ_spending_amount = 0.06 }
+			econ_spend_money_once_effect_raw_money = yes
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_kenia_start_infastructure_projects"
+
+			547 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			1092 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+
+			set_temp_variable = { target = KEN }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_favor = yes
+		}
+	}
+	ITA_IEA_Decol_kenia_cooperate_with_democratic_parties = {
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = KEN.decol_show_decisions
+			NOT = {
+				KEN = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 28
+
+		cost = 25
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_kenia_cooperate_with_democratic_parties"
+		
+			set_temp_variable = { target = KEN }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_favor = yes		
+		}
+	}
+	ITA_IEA_Decol_kenia_strike_at_the_land_and_freedom_armies = {
+		icon = GFX_decision_generic_tank_indent
+
+		visible = {
+			has_country_flag = KEN.decol_show_decisions
+			NOT = {
+				KEN = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 32
+
+		days_remove = 3
+
+		custom_cost_trigger = { 
+			command_power > 29.99
+			has_political_power > 19.99
+		}
+		custom_cost_text = decision_cost_30_cp_20_pp
+
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -20
+				add_command_power = -30
+			}
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_kenia_strike_at_the_land_and_freedom_armies"
+
+			set_temp_variable = { target = KEN }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_favor = yes
+
+			set_temp_variable = { target = KEN }
+			set_temp_variable = { amount = -2 }
+			ITA_IEA_Decol_change_resistance = yes
+		}
+	}
+	ITA_IEA_Decol_kenia_use_settler_mercenaries = {
+		icon = GFX_decision_generic_prepare_civil_war_indent
+
+		visible = {
+			has_country_flag = KEN.decol_show_decisions
+			NOT = {
+				KEN = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = no
+		days_re_enable = 25
+
+		days_remove = 3
+
+		custom_cost_trigger = {
+			has_political_power > 9.99
+		}
+		custom_cost_text = decision_cost_30_million_10_pp
+
+		complete_effect = {
+			hidden_effect = { add_political_power = -10 }
+			set_temp_variable = { temp_econ_spending_amount = 0.03 }
+			econ_spend_money_once_effect_raw_money = yes
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_kenia_use_settler_mercenaries"
+
+			set_temp_variable = { target = KEN }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_favor = yes
+
+			set_temp_variable = { target = KEN }
+			set_temp_variable = { amount = -1 }
+			ITA_IEA_Decol_change_resistance = yes
+		}
+	}
+	ITA_IEA_Decol_kenia_begin_negotiations = {
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = KEN.decol_show_decisions
+			NOT = {
+				KEN = {
+					has_country_flag = decol_no_interaction
+				}
+			}
+		}
+
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_IEA_Decol_kenia_begin_negotiations"
+			set_temp_variable = { target = KEN }
+			ITA_IEA_Decol_get_outlook = yes
+
+			country_event = {
+				id =  IEA_decol.50
+			}
+		}
+	}
+
+	#rebelion missions
+	ITA_IEA_Decol_somalia_rebels = {
+		icon = GFX_decision_revolt
+
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			always = no
+		}
+		days_mission_timeout = 15
+		timeout_effect = {
+			set_temp_variable = { target = SML }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_resistance = yes
+
+			hidden_effect = {
+				country_event = {
+					id = IEA_decol.2
+					days = 10
+				}
+			}
+		}
+	}
+	ITA_IEA_Decol_eritrea_rebels = {
+		icon = GFX_decision_revolt
+
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			always = no
+		}
+		days_mission_timeout = 15
+		timeout_effect = {
+			set_temp_variable = { target = ERT }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_resistance = yes
+
+			hidden_effect = {
+				country_event = {
+					id = IEA_decol.2
+					days = 10
+				}
+			}
+		}
+	}
+	ITA_IEA_Decol_amara_rebels = {
+		icon = GFX_decision_revolt
+
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			always = no
+		}
+		days_mission_timeout = 15
+		timeout_effect = {
+			set_temp_variable = { target = ETH }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_resistance = yes
+
+			hidden_effect = {
+				country_event = {
+					id = IEA_decol.2
+					days = 10
+				}
+			}
+		}
+	}
+	ITA_IEA_Decol_harar_rebels = {
+		icon = GFX_decision_revolt
+
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			always = no
+		}
+		days_mission_timeout = 15
+		timeout_effect = {
+			set_temp_variable = { target = ORM }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_resistance = yes
+
+			hidden_effect = {
+				country_event = {
+					id = IEA_decol.2
+					days = 10
+				}
+			}
+		}
+	}
+	ITA_IEA_Decol_kenia_rebels = {
+		icon = GFX_decision_revolt
+
+		allowed = { tag = ITA }
+
+		activation = {
+			always = no
+		}
+
+		available = {
+			always = no
+		}
+		days_mission_timeout = 15
+		timeout_effect = {
+			set_temp_variable = { target = KEN }
+			set_temp_variable = { amount = 1 }
+			ITA_IEA_Decol_change_resistance = yes
+			hidden_effect = {
+				country_event = {
+					id = IEA_decol.2
+					days = 10
+				}
+			}
+		}
+	}
+}

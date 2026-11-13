@@ -1,0 +1,37 @@
+SAH_psr_most_popular = {
+	authoritarian_democrat > party_popularity@social_conservative
+	check_variable = {
+		var = party_popularity@authoritarian_democrat
+		value = SAH_vkp_popularity
+		compare = greater_than
+	}
+}
+
+SAH_prp_most_popular = {
+	social_conservative > party_popularity@authoritarian_democrat
+	check_variable = {
+		var = party_popularity@social_conservative
+		value = SAH_vkp_popularity
+		compare = greater_than
+	}
+}
+
+SAH_vkp_most_popular = {
+	check_variable = {
+		var = SAH_vkp_popularity
+		value = party_popularity@social_conservative
+		compare = greater_than_or_equals
+	}
+	check_variable = {
+		var = SAH_vkp_popularity
+		value = party_popularity@authoritarian_democrat
+		compare = greater_than_or_equals
+	}
+}
+
+SAH_vkp_government = {
+	OR = {
+		has_government = socialist
+		has_government = communist
+	}
+}

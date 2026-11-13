@@ -1,0 +1,87 @@
+# Research priorities. IDs are documented in common/scripted_effects/TNO_research_focus_scripted_effects.txt
+
+# Name of the priority the country currently holds - used in the strip under the research slots
+defined_text = {
+	name = GetResearchFocusName
+	text = {
+		trigger = { has_idea = tno_research_focus_doctrine }
+		localization_key = tno_research_focus_doctrine
+	}
+	text = {
+		trigger = { has_idea = tno_research_focus_land_naval }
+		localization_key = tno_research_focus_land_naval
+	}
+	text = {
+		trigger = { has_idea = tno_research_focus_air }
+		localization_key = tno_research_focus_air
+	}
+	text = {
+		trigger = { has_idea = tno_research_focus_industry }
+		localization_key = tno_research_focus_industry
+	}
+	# national academias: add one text block each here, keyed on has_idea
+	text = {
+		trigger = { has_idea = tno_research_focus_ger_motorized }
+		localization_key = tno_research_focus_ger_motorized
+	}
+	text = {
+		trigger = { has_idea = tno_research_focus_ger_ifv }
+		localization_key = tno_research_focus_ger_ifv
+	}
+	text = {
+		localization_key = tno_research_focus_balanced
+	}
+}
+
+defined_text = {
+	name = GetResearchFocusCooldown
+	text = {
+		trigger = { has_country_flag = tno_research_focus_cooldown }
+		localization_key = TNO_RESEARCH_FOCUS_COOLDOWN_UNTIL
+	}
+	text = {
+		localization_key = TNO_RESEARCH_FOCUS_COOLDOWN_READY
+	}
+}
+
+######################################################################
+# Dynamic list entries. Both of these run once per stamped entry with
+# TNO_research_focus_i set to that entry's index, so they read the ID out of the
+# array the same way the scripted GUI's triggers do.
+#
+# A new national academia needs one text block in each, above the fallback:
+#	text = {
+#		trigger = { check_variable = { TNO_research_focus_available^TNO_research_focus_i = 10 } }
+#		localization_key = tno_research_focus_<name>
+#	}
+######################################################################
+
+defined_text = {
+	name = GetResearchFocusEntryName
+	text = {
+		trigger = { check_variable = { TNO_research_focus_available^TNO_research_focus_i = 10 } }
+		localization_key = tno_research_focus_ger_motorized
+	}
+	text = {
+		trigger = { check_variable = { TNO_research_focus_available^TNO_research_focus_i = 11 } }
+		localization_key = tno_research_focus_ger_ifv
+	}
+	text = {
+		localization_key = TNO_RESEARCH_FOCUS_UNKNOWN
+	}
+}
+
+defined_text = {
+	name = GetResearchFocusEntryEffect
+	text = {
+		trigger = { check_variable = { TNO_research_focus_available^TNO_research_focus_i = 10 } }
+		localization_key = TNO_RESEARCH_FOCUS_GER_MOTORIZED_EFFECT
+	}
+	text = {
+		trigger = { check_variable = { TNO_research_focus_available^TNO_research_focus_i = 11 } }
+		localization_key = TNO_RESEARCH_FOCUS_GER_IFV_EFFECT
+	}
+	text = {
+		localization_key = TNO_RESEARCH_FOCUS_UNKNOWN_EFFECT
+	}
+}

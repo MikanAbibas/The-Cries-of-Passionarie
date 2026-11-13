@@ -1,0 +1,3049 @@
+############################################################################
+## ██╗████████╗ █████╗ ██╗         ██╗███╗   ███╗██████╗ ███████╗██████╗  ##
+## ██║╚══██╔══╝██╔══██╗██║         ██║████╗ ████║██╔══██╗██╔════╝██╔══██╗ ##
+## ██║   ██║   ███████║██║         ██║██╔████╔██║██████╔╝█████╗  ██████╔╝ ##
+## ██║   ██║   ██╔══██║██║         ██║██║╚██╔╝██║██╔═══╝ ██╔══╝  ██╔══██╗ ##
+## ██║   ██║   ██║  ██║███████╗    ██║██║ ╚═╝ ██║██║     ███████╗██║  ██║ ##
+## ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝ ##
+############################################################################
+# Scripted effects
+# Relevant wikipage: https://gitlab.com/the-new-order-team/git-days-of-europe/-/wikis/Italy-Empire-Management
+
+#################################################
+##=| Empire Management Mech Scripted Effects |=##
+##======================| |====================##
+#################################################
+
+#Index; Search for these names using ctrl+f and you'll find the section they entitle.
+#	Setup/Map Effects
+#       ITA_EmpireManagement_Setup
+#       ITA_EmpireManagement_Setup_StartingPolicyEffects
+#       ITA_EmpireManagement_AddMorocco
+#       ITA_EmpireManagement_Disable
+#
+#   Calculation Effects
+#       ITA_EmpireManagement_Calculate_EnvoyUsage
+#       ITA_EmpireManagement_Calculate_DynamicModifier
+#
+#   Update Effects
+#       ITA_EmpireManagement_MonthlyUpdate
+#       ITA_EmpireManagement_UpdateAlerts
+#       ITA_EmpireManagement_BuildPolicyArrays
+#       ITA_EmpireManagement_ClearPolicyArrays
+#       ITA_EmpireManagement_PolicySwitch
+#       ITA_EmpireManagement_IncreaseENIPresence
+#       ITA_EmpireManagement_DailyCooldown
+#
+#   Imperial Policy Effects
+#       ITA_EmpireManagement_UpdateImperialPolicyEffects
+#       ITA_EmpireManagement_ApplyImperialPolicyEffect_Starter
+#       ITA_EmpireManagement_ApplyImperialPolicyEffect_Balbo
+#       ITA_EmpireManagement_ApplyImperialPolicyEffect_Muti
+#       ITA_EmpireManagement_ApplyImperialPolicyEffect_Pavolini
+#       ITA_EmpireManagement_ApplyImperialPolicyEffect_Giani
+#       ITA_EmpireManagement_ApplyImperialPolicyEffect_LeftDem
+#       ITA_EmpireManagement_ApplyImperialPolicyEffect_CenterDem
+#       ITA_EmpireManagement_ApplyImperialPolicyEffect_RightDem
+#
+#   Interaction Effects
+#       ITA_EmpireManagement_DiplomatChange
+#       ITA_EmpireManagement_GarrisonChange
+#       ITA_EmpireManagement_DiploValueChange
+#       ITA_EmpireManagement_EconValueChange
+#       ITA_EmpireManagement_OilExploitationChange
+#       ITA_EmpireManagement_ModifyEnvoyCap
+#       ITA_EmpireManagement_EnablePolicy
+#       ITA_EmpireManagement_DisablePolicy
+#
+#   General Interaction Effects
+#       ITA_EM_GUI_increase_control_BRHFS
+#       ITA_EM_GUI_increase_control_IEA
+#       ITA_EM_GUI_increase_control_colonies
+#       ITA_EM_GUI_increase_control_ISAO
+#       ITA_EM_GUI_increase_control_HR
+#       ITA_EM_GUI_increase_control_HRF
+#       ITA_EM_GUI_increase_control_IT
+#       ITA_EM_GUI_increase_control_CMA
+#       ITA_EM_GUI_increase_control_TES_SS
+#       ITA_EM_GUI_increase_control_europe
+#       ITA_EM_GUI_increase_control_catholic
+#       ITA_EM_GUI_increase_control_TIRHUFSBS
+#
+#   Special Action Effects
+#       Not listing each one individually, fuck you
+
+#################################################
+#				Setup/Map Effects				#
+#################################################
+# Each region has its own unique index ID that is shared across every array of the mechanic
+# It may be found in the list below
+
+# Important note for internal regions: their ID is one more than their array index
+# So Libya's ID is 1, while their array index is 0
+# Tags use their specific tag IDs, so this isn't important for them
+# *However*, they still follow that rule for Policy numbered scopes
+
+#### FULL REGIONAL INDEXES AND X/Y VALUES LIST ####
+## Internal: 
+# Libya       (0) - { x = 255 y = 202 }
+# Sudan       (1) - { x = 375 y = 297 }
+# Eritrea     (2) - { x = 517 y = 390 }
+# Ethiopia    (3) - { x = 494 y = 423 }
+# Somalia     (4) - { x = 571 y = 397 }
+# Kenya       (5) - { x = 493 y = 474 }
+
+## Western Europe:
+# France       (6) - { x = 146 y = 0  }
+# Iberia       (7) - { x = 0   y = 72 }
+# Switzerland  (8) - { x = 223 y = 26 }
+
+## Balkans:
+# Croatia    (9)  - { x = 307 y = 41 }
+# Hungary    (10) - { x = 320 y = 8  }
+# Romania    (11) - { x = 272 y = 1  }
+# Serbia     (12) - { x = 349 y = 42 }
+# Montenegro (13) - { x = 343 y = 71 }
+# Albania    (14) - { x = 348 y = 80 }
+# Bulgaria   (15) - { x = 279 y = 67 }
+# Greece     (16) - { x = 359 y = 99 }
+
+## Middle East:
+# Turkey       (17) - { x = 391 y = 91  }
+# IME          (18) - { x = 496 y = 176 }
+# Iraq         (19) - { x = 536 y = 164 }
+# Saudi Arabia (20) - { x = 500 y = 203 }
+# Gulf         (21) - { x = 653 y = 267 }
+# Yemen        (22) - { x = 577 y = 345 }
+# Oman         (23) - { x = 669 y = 283 }
+
+## Africa: 
+# Algeria (24) - { x = 81  y = 148 }
+# Tunisia (25) - { x = 237 y = 137 }
+# Egypt   (26) - { x = 403 y = 207 }
+# Morocco (27) - { x = 0   y = 163 } # Not part of the starting map
+
+## Sets up everything
+# Run at startup, or whenever you want to reset the entire thing
+ITA_EmpireManagement_Setup = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup; Executing."
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup; Setting up Empire Management mechanic."
+    set_country_flag = ITA_EM_Active
+
+    # Making sure the arrays don't exist already
+    clear_array = ITA_EM_Regions
+	clear_array = ITA_EM_Regions_X
+	clear_array = ITA_EM_Regions_Y
+
+	clear_array = ITA_EM_Alerts
+	clear_array = ITA_EM_Alerts_Y
+	clear_array = ITA_EM_Alerts_X
+
+	clear_array = ITA_EM_HasOil
+	clear_array = ITA_EM_OilExploitation
+	clear_array = ITA_EM_OilExploitationCooldown
+
+	clear_array = ITA_EM_Regions_Status
+	clear_array = ITA_EM_Regions_Envoys
+	clear_array = ITA_EM_Regions_MaxEnvoys
+	clear_array = ITA_EM_Regions_DiploValue
+	clear_array = ITA_EM_Regions_EconValue
+
+    clear_array = ITA_EM_Policies
+    clear_array = ITA_EM_Policy_Region
+    clear_array = ITA_EM_Policy_DiploEffect
+    clear_array = ITA_EM_Policy_EconEffect
+    clear_array = ITA_EM_PolicySwitch_Cooldown
+    clear_array = ITA_EM_SpecialAction_DiploEffect
+    clear_array = ITA_EM_SpecialAction_EconEffect
+    clear_array = ITA_EM_SpecialAction_Cooldown
+
+    clear_array = ITA_EM_ModifierEffects
+
+    ### Setup the map and map arrays
+    ## Base map array (ID)
+    # This array stores the region-specific ID
+    # It is used to determine the GFX among other things
+    # A list of IDs may be found above
+	add_to_array = { ITA_EM_Regions = 0  }
+	resize_array = { ITA_EM_Regions = 27 }
+
+    ## Alerts
+    # This array is used to check if any region has a current alert/emergency
+    # Precise values:
+    #   0 - No Current Alert/Emergency
+    #   1 - Ongoing Conflict
+    #   2 - German Confrontation
+    #   3 - Low Control
+    #   4 - ENI Action Available
+    add_to_array = { ITA_EM_Alerts = 0  }
+	resize_array = { ITA_EM_Alerts = 27 }
+
+    # X/Y asset positionings
+	add_to_array = { ITA_EM_Regions_X = 0  }
+	resize_array = { ITA_EM_Regions_X = 27 }
+	add_to_array = { ITA_EM_Regions_Y = 0  }
+	resize_array = { ITA_EM_Regions_Y = 27 }
+
+    add_to_array = { ITA_EM_Alerts_X = 0  }
+	resize_array = { ITA_EM_Alerts_X = 27 }
+    add_to_array = { ITA_EM_Alerts_Y = 0  }
+	resize_array = { ITA_EM_Alerts_Y = 27 }
+
+    ## Internal
+    # Libya
+    set_variable = { ITA_EM_Regions^0 =   1   }
+	set_variable = { ITA_EM_Regions_X^0 = 255 }
+	set_variable = { ITA_EM_Regions_Y^0 = 202 }
+	set_variable = { ITA_EM_Alerts_X^0 =  325 }
+	set_variable = { ITA_EM_Alerts_Y^0 =  255 }
+
+    # Sudan
+    set_variable = { ITA_EM_Regions^1 =   2   }
+	set_variable = { ITA_EM_Regions_X^1 = 375 }
+	set_variable = { ITA_EM_Regions_Y^1 = 297 }
+	set_variable = { ITA_EM_Alerts_X^1 =  440 }
+	set_variable = { ITA_EM_Alerts_Y^1 =  390 }
+
+    # Eritrea
+    set_variable = { ITA_EM_Regions^2 =   3   }
+	set_variable = { ITA_EM_Regions_X^2 = 517 }
+	set_variable = { ITA_EM_Regions_Y^2 = 352 }
+	set_variable = { ITA_EM_Alerts_X^2 =  543 }
+	set_variable = { ITA_EM_Alerts_Y^2 =  388 }
+
+    # Ethiopia
+    set_variable = { ITA_EM_Regions^3 =   4   }
+	set_variable = { ITA_EM_Regions_X^3 = 484 }
+	set_variable = { ITA_EM_Regions_Y^3 = 390 }
+	set_variable = { ITA_EM_Alerts_X^3 =  532 }
+	set_variable = { ITA_EM_Alerts_Y^3 =  438 }
+
+    # Somalia
+    set_variable = { ITA_EM_Regions^4 =   5   }
+	set_variable = { ITA_EM_Regions_X^4 = 571 }
+	set_variable = { ITA_EM_Regions_Y^4 = 397 }
+	set_variable = { ITA_EM_Alerts_X^4 =  610 }
+	set_variable = { ITA_EM_Alerts_Y^4 =  450 }
+
+    # Kenya
+    set_variable = { ITA_EM_Regions^5 =   6   }
+	set_variable = { ITA_EM_Regions_X^5 = 493 }
+	set_variable = { ITA_EM_Regions_Y^5 = 474 }
+	set_variable = { ITA_EM_Alerts_X^5 =  530 }
+	set_variable = { ITA_EM_Alerts_Y^5 =  515 }
+
+    ## Western Europe
+    # France
+    set_variable = { ITA_EM_Regions^6 =   FRA }
+	set_variable = { ITA_EM_Regions_X^6 = 146 }
+	set_variable = { ITA_EM_Regions_Y^6 = 0   }
+	set_variable = { ITA_EM_Alerts_X^6 =  170 }
+	set_variable = { ITA_EM_Alerts_Y^6 =  35  }
+    
+    # Iberia
+    set_variable = { ITA_EM_Regions^7 =   IBR }
+	set_variable = { ITA_EM_Regions_X^7 = 0   }
+	set_variable = { ITA_EM_Regions_Y^7 = 72  }
+	set_variable = { ITA_EM_Alerts_X^7 =  115 }
+	set_variable = { ITA_EM_Alerts_Y^7 =  105 }
+
+    # Switzerland
+    set_variable = { ITA_EM_Regions^8 =   SWI }
+	set_variable = { ITA_EM_Regions_X^8 = 223 }
+	set_variable = { ITA_EM_Regions_Y^8 = 26  }
+	set_variable = { ITA_EM_Alerts_X^8 =  235 }
+	set_variable = { ITA_EM_Alerts_Y^8 =  25  }
+
+    ## Balkans
+    # Croatia
+    set_variable = { ITA_EM_Regions^9 =   CRO }
+	set_variable = { ITA_EM_Regions_X^9 = 307 }
+	set_variable = { ITA_EM_Regions_Y^9 = 41  }
+	set_variable = { ITA_EM_Alerts_X^9 =  325 }
+	set_variable = { ITA_EM_Alerts_Y^9 =  50  }
+
+    # Hungary
+    set_variable = { ITA_EM_Regions^10 =   HUN }
+	set_variable = { ITA_EM_Regions_X^10 = 320 }
+	set_variable = { ITA_EM_Regions_Y^10 = 8   }
+	set_variable = { ITA_EM_Alerts_X^10 =  355 }
+	set_variable = { ITA_EM_Alerts_Y^10 =  15  }
+
+    # Romania
+    set_variable = { ITA_EM_Regions^11 =   ROM }
+	set_variable = { ITA_EM_Regions_X^11 = 362 }
+	set_variable = { ITA_EM_Regions_Y^11 = 1   }
+	set_variable = { ITA_EM_Alerts_X^11 =  428 }
+	set_variable = { ITA_EM_Alerts_Y^11 =  20  }
+
+    # Serbia
+    set_variable = { ITA_EM_Regions^12 =   SER }
+	set_variable = { ITA_EM_Regions_X^12 = 349 }
+	set_variable = { ITA_EM_Regions_Y^12 = 42  }
+	set_variable = { ITA_EM_Alerts_X^12 =  358 }
+	set_variable = { ITA_EM_Alerts_Y^12 =  55  }
+
+    # Montenegro
+    set_variable = { ITA_EM_Regions^13 =   MNT }
+	set_variable = { ITA_EM_Regions_X^13 = 343 }
+	set_variable = { ITA_EM_Regions_Y^13 = 71  }
+	set_variable = { ITA_EM_Alerts_X^13 =  343 }
+	set_variable = { ITA_EM_Alerts_Y^13 =  71  }
+
+    # Albania
+    set_variable = { ITA_EM_Regions^14 =   ALB }
+	set_variable = { ITA_EM_Regions_X^14 = 348 }
+	set_variable = { ITA_EM_Regions_Y^14 = 80  }
+	set_variable = { ITA_EM_Alerts_X^14 =  350 }
+	set_variable = { ITA_EM_Alerts_Y^14 =  90  }
+
+    # Bulgaria
+    set_variable = { ITA_EM_Regions^15 =   BUL }
+	set_variable = { ITA_EM_Regions_X^15 = 369 }
+	set_variable = { ITA_EM_Regions_Y^15 = 67  }
+	set_variable = { ITA_EM_Alerts_X^15 =  395 }
+	set_variable = { ITA_EM_Alerts_Y^15 =  73  }
+
+    # Greece
+    set_variable = { ITA_EM_Regions^16 =   GRE }
+	set_variable = { ITA_EM_Regions_X^16 = 359 }
+	set_variable = { ITA_EM_Regions_Y^16 = 99  }
+	set_variable = { ITA_EM_Alerts_X^16 =  370 }
+	set_variable = { ITA_EM_Alerts_Y^16 =  110 }
+
+    ## Middle East
+    # Turkey
+    set_variable = { ITA_EM_Regions^17 =   TUR }
+	set_variable = { ITA_EM_Regions_X^17 = 391 }
+	set_variable = { ITA_EM_Regions_Y^17 = 91  }
+	set_variable = { ITA_EM_Alerts_X^17 =  500 }
+	set_variable = { ITA_EM_Alerts_Y^17 =  120 }
+
+    # IME
+    set_variable = { ITA_EM_Regions^18 =   IME }
+	set_variable = { ITA_EM_Regions_X^18 = 496 }
+	set_variable = { ITA_EM_Regions_Y^18 = 176 }
+	set_variable = { ITA_EM_Alerts_X^18 =  503 }
+	set_variable = { ITA_EM_Alerts_Y^18 =  204 }
+
+    # Iraq
+    set_variable = { ITA_EM_Regions^19 =   IRQ }
+	set_variable = { ITA_EM_Regions_X^19 = 536 }
+	set_variable = { ITA_EM_Regions_Y^19 = 164 }
+	set_variable = { ITA_EM_Alerts_X^19 =  580 }
+	set_variable = { ITA_EM_Alerts_Y^19 =  190 }
+
+    # Saudi Arabia
+    set_variable = { ITA_EM_Regions^20 =   SAU }
+	set_variable = { ITA_EM_Regions_X^20 = 500 }
+	set_variable = { ITA_EM_Regions_Y^20 = 203 }
+	set_variable = { ITA_EM_Alerts_X^20 =  590 }
+	set_variable = { ITA_EM_Alerts_Y^20 =  280 }
+
+    # Gulf
+    set_variable = { ITA_EM_Regions^21 =   GUL }
+	set_variable = { ITA_EM_Regions_X^21 = 653 }
+	set_variable = { ITA_EM_Regions_Y^21 = 267 }
+	set_variable = { ITA_EM_Alerts_X^21 =  680 }
+	set_variable = { ITA_EM_Alerts_Y^21 =  284 }
+
+    # Yemen
+    set_variable = { ITA_EM_Regions^22 =   YEM }
+	set_variable = { ITA_EM_Regions_X^22 = 577 }
+	set_variable = { ITA_EM_Regions_Y^22 = 345 }
+	set_variable = { ITA_EM_Alerts_X^22 =  600 }
+	set_variable = { ITA_EM_Alerts_Y^22 =  370 }
+
+    # Oman
+    set_variable = { ITA_EM_Regions^23 =   OMA }
+	set_variable = { ITA_EM_Regions_X^23 = 669 }
+	set_variable = { ITA_EM_Regions_Y^23 = 283 }
+	set_variable = { ITA_EM_Alerts_X^23 =  710 }
+	set_variable = { ITA_EM_Alerts_Y^23 =  300 }
+
+    ## Africa
+    # Algeria
+    set_variable = { ITA_EM_Regions^24 =   AGR }
+	set_variable = { ITA_EM_Regions_X^24 = 81  }
+	set_variable = { ITA_EM_Regions_Y^24 = 148 }
+	set_variable = { ITA_EM_Alerts_X^24 =  180 }
+	set_variable = { ITA_EM_Alerts_Y^24 =  230 }
+
+    # Tunisia
+    set_variable = { ITA_EM_Regions^25 =   TUN }
+	set_variable = { ITA_EM_Regions_X^25 = 237 }
+	set_variable = { ITA_EM_Regions_Y^25 = 137 }
+	set_variable = { ITA_EM_Alerts_X^25 =  250 }
+	set_variable = { ITA_EM_Alerts_Y^25 =  160 }
+
+    # Egypt
+    set_variable = { ITA_EM_Regions^26 =   EGY }
+	set_variable = { ITA_EM_Regions_X^26 = 403 }
+	set_variable = { ITA_EM_Regions_Y^26 = 207 }
+	set_variable = { ITA_EM_Alerts_X^26 =  440 }
+	set_variable = { ITA_EM_Alerts_Y^26 =  250 }
+
+    ### Setup value arrays
+    ## Country status setup
+    # This array is used to check the geopolitical status of a region (ally, colony, German puppet, etc.)
+    # Precise values:
+    #   0 - Colony of the Empire
+    #   1 - Vassal State
+    #   2 - Allied State
+    #   3 - Neutral State
+    #   4 - German Vassal
+	add_to_array = { ITA_EM_Regions_Status = 0  }
+	resize_array = { ITA_EM_Regions_Status = 27 }
+
+    set_variable = { ITA_EM_Regions_Status^0  = 0 } # Libya        (Colony)
+    set_variable = { ITA_EM_Regions_Status^1  = 1 } # Sudan        (Vassal)
+    set_variable = { ITA_EM_Regions_Status^2  = 0 } # Eritrea      (Colony)
+    set_variable = { ITA_EM_Regions_Status^3  = 0 } # Ethiopia     (Colony)
+    set_variable = { ITA_EM_Regions_Status^4  = 0 } # Somalia      (Colony)
+    set_variable = { ITA_EM_Regions_Status^5  = 0 } # Kenya        (Colony)
+    set_variable = { ITA_EM_Regions_Status^6  = 4 } # France       (German Vassal)
+    set_variable = { ITA_EM_Regions_Status^7  = 2 } # Iberia       (Allied)
+    set_variable = { ITA_EM_Regions_Status^8  = 3 } # Switzerland  (Neutral)
+    set_variable = { ITA_EM_Regions_Status^9  = 1 } # Croatia      (Vassal)
+    set_variable = { ITA_EM_Regions_Status^10 = 3 } # Hungary      (Neutral)
+    set_variable = { ITA_EM_Regions_Status^11 = 3 } # Romania      (Neutral)
+    set_variable = { ITA_EM_Regions_Status^12 = 4 } # Serbia       (German Vassal)
+    set_variable = { ITA_EM_Regions_Status^13 = 1 } # Montenegro   (Vassal)
+    set_variable = { ITA_EM_Regions_Status^14 = 0 } # Albania      (Colony)
+    set_variable = { ITA_EM_Regions_Status^15 = 4 } # Bulgaria     (German Vassal)
+    set_variable = { ITA_EM_Regions_Status^16 = 1 } # Greece       (Vassal)
+    set_variable = { ITA_EM_Regions_Status^17 = 2 } # Turkey       (Allied)
+    set_variable = { ITA_EM_Regions_Status^18 = 0 } # IME          (Colony)
+    set_variable = { ITA_EM_Regions_Status^19 = 2 } # Iraq         (Allied)
+    set_variable = { ITA_EM_Regions_Status^20 = 2 } # Saudi Arabia (Allied)
+    set_variable = { ITA_EM_Regions_Status^21 = 0 } # Gulf         (Colony)
+    set_variable = { ITA_EM_Regions_Status^22 = 1 } # Yemen        (Vassal)
+    set_variable = { ITA_EM_Regions_Status^23 = 2 } # Oman         (Allied)
+    set_variable = { ITA_EM_Regions_Status^24 = 4 } # Algeria      (German Vassal)
+    set_variable = { ITA_EM_Regions_Status^25 = 0 } # Tunisia      (Colony)
+    set_variable = { ITA_EM_Regions_Status^26 = 1 } # Egypt        (Vassal)
+
+    ## Envoy caps setup
+    # This array defines how many envoys (Garrisons/Diplomats) can be assigned to a particular region
+    # Minimum value is 1, max is 5. Anything lower or higher than that range will be rounded to the nearest limiter
+    # Default is 3
+    add_to_array = { ITA_EM_Regions_MaxEnvoys = 0  }
+	resize_array = { array = ITA_EM_Regions_MaxEnvoys size = 27 value = 3 }
+
+    set_variable = { ITA_EM_Regions_MaxEnvoys^0  = 2 } # Libya
+    set_variable = { ITA_EM_Regions_MaxEnvoys^1  = 5 } # Sudan
+    set_variable = { ITA_EM_Regions_MaxEnvoys^2  = 2 } # Eritrea
+    set_variable = { ITA_EM_Regions_MaxEnvoys^3  = 5 } # Ethiopia
+    set_variable = { ITA_EM_Regions_MaxEnvoys^4  = 4 } # Somalia
+    set_variable = { ITA_EM_Regions_MaxEnvoys^5  = 3 } # Kenya
+    set_variable = { ITA_EM_Regions_MaxEnvoys^6  = 5 } # France
+    set_variable = { ITA_EM_Regions_MaxEnvoys^7  = 5 } # Iberia
+    set_variable = { ITA_EM_Regions_MaxEnvoys^8  = 5 } # Switzerland
+    set_variable = { ITA_EM_Regions_MaxEnvoys^9  = 3 } # Croatia
+    set_variable = { ITA_EM_Regions_MaxEnvoys^10 = 5 } # Hungary
+    set_variable = { ITA_EM_Regions_MaxEnvoys^11 = 5 } # Romania
+    set_variable = { ITA_EM_Regions_MaxEnvoys^12 = 5 } # Serbia
+    set_variable = { ITA_EM_Regions_MaxEnvoys^13 = 2 } # Montenegro
+    set_variable = { ITA_EM_Regions_MaxEnvoys^14 = 2 } # Albania
+    set_variable = { ITA_EM_Regions_MaxEnvoys^15 = 5 } # Bulgaria
+    set_variable = { ITA_EM_Regions_MaxEnvoys^16 = 3 } # Greece
+    set_variable = { ITA_EM_Regions_MaxEnvoys^17 = 5 } # Turkey
+    set_variable = { ITA_EM_Regions_MaxEnvoys^18 = 4 } # IME
+    set_variable = { ITA_EM_Regions_MaxEnvoys^19 = 5 } # Iraq
+    set_variable = { ITA_EM_Regions_MaxEnvoys^20 = 5 } # Saudi Arabia
+    set_variable = { ITA_EM_Regions_MaxEnvoys^21 = 4 } # Gulf
+    set_variable = { ITA_EM_Regions_MaxEnvoys^22 = 4 } # Yemen
+    set_variable = { ITA_EM_Regions_MaxEnvoys^23 = 5 } # Oman
+    set_variable = { ITA_EM_Regions_MaxEnvoys^24 = 4 } # Algeria
+    set_variable = { ITA_EM_Regions_MaxEnvoys^25 = 3 } # Tunisia
+    set_variable = { ITA_EM_Regions_MaxEnvoys^26 = 5 } # Egypt
+
+    ## Starting envoys setup
+    # ...while this one sets up the starting num of envoys for each region
+    # Specific type (Garrison or Diplomat) is determined via the region status
+    add_to_array = { ITA_EM_Regions_Envoys = 0  }
+	resize_array = { ITA_EM_Regions_Envoys = 27 }
+
+    set_variable = { ITA_EM_Regions_Envoys^0  = 0 } # Libya
+    set_variable = { ITA_EM_Regions_Envoys^1  = 2 } # Sudan
+    set_variable = { ITA_EM_Regions_Envoys^2  = 0 } # Eritrea
+    set_variable = { ITA_EM_Regions_Envoys^3  = 2 } # Ethiopia
+    set_variable = { ITA_EM_Regions_Envoys^4  = 2 } # Somalia
+    set_variable = { ITA_EM_Regions_Envoys^5  = 0 } # Kenya
+    set_variable = { ITA_EM_Regions_Envoys^6  = 3 } # France
+    set_variable = { ITA_EM_Regions_Envoys^7  = 5 } # Iberia
+    set_variable = { ITA_EM_Regions_Envoys^8  = 2 } # Switzerland
+    set_variable = { ITA_EM_Regions_Envoys^9  = 2 } # Croatia
+    set_variable = { ITA_EM_Regions_Envoys^10 = 3 } # Hungary
+    set_variable = { ITA_EM_Regions_Envoys^11 = 3 } # Romania
+    set_variable = { ITA_EM_Regions_Envoys^12 = 0 } # Serbia
+    set_variable = { ITA_EM_Regions_Envoys^13 = 1 } # Montenegro
+    set_variable = { ITA_EM_Regions_Envoys^14 = 1 } # Albania
+    set_variable = { ITA_EM_Regions_Envoys^15 = 3 } # Bulgaria
+    set_variable = { ITA_EM_Regions_Envoys^16 = 2 } # Greece
+    set_variable = { ITA_EM_Regions_Envoys^17 = 5 } # Turkey
+    set_variable = { ITA_EM_Regions_Envoys^18 = 2 } # IME
+    set_variable = { ITA_EM_Regions_Envoys^19 = 1 } # Iraq
+    set_variable = { ITA_EM_Regions_Envoys^20 = 5 } # Saudi Arabia
+    set_variable = { ITA_EM_Regions_Envoys^21 = 2 } # Gulf
+    set_variable = { ITA_EM_Regions_Envoys^22 = 0 } # Yemen
+    set_variable = { ITA_EM_Regions_Envoys^23 = 0 } # Oman
+    set_variable = { ITA_EM_Regions_Envoys^24 = 0 } # Algeria
+    set_variable = { ITA_EM_Regions_Envoys^25 = 0 } # Tunisia
+    set_variable = { ITA_EM_Regions_Envoys^26 = 2 } # Egypt
+
+    ## Starting diplo values setup
+    # This array stores the region's current control/favour value
+    # Specific type is determined via the region status
+    add_to_array = { ITA_EM_Regions_DiploValue = 0  }
+	resize_array = { ITA_EM_Regions_DiploValue = 27 }
+
+    set_variable = { ITA_EM_Regions_DiploValue^0  = 30 } # Libya
+    set_variable = { ITA_EM_Regions_DiploValue^1  = 40 } # Sudan
+    set_variable = { ITA_EM_Regions_DiploValue^2  = 50 } # Eritrea
+    set_variable = { ITA_EM_Regions_DiploValue^3  = 40 } # Ethiopia
+    set_variable = { ITA_EM_Regions_DiploValue^4  = 40 } # Somalia
+    set_variable = { ITA_EM_Regions_DiploValue^5  = 35 } # Kenya
+    set_variable = { ITA_EM_Regions_DiploValue^6  = 0  } # France
+    set_variable = { ITA_EM_Regions_DiploValue^7  = 0  } # Iberia
+    set_variable = { ITA_EM_Regions_DiploValue^8  = 0  } # Switzerland
+    set_variable = { ITA_EM_Regions_DiploValue^9  = 25 } # Croatia
+    set_variable = { ITA_EM_Regions_DiploValue^10 = 0  } # Hungary
+    set_variable = { ITA_EM_Regions_DiploValue^11 = 0  } # Romania
+    set_variable = { ITA_EM_Regions_DiploValue^12 = 0  } # Serbia
+    set_variable = { ITA_EM_Regions_DiploValue^13 = 25 } # Montenegro
+    set_variable = { ITA_EM_Regions_DiploValue^14 = 35 } # Albania
+    set_variable = { ITA_EM_Regions_DiploValue^15 = 0  } # Bulgaria
+    set_variable = { ITA_EM_Regions_DiploValue^16 = 0  } # Greece
+    set_variable = { ITA_EM_Regions_DiploValue^17 = 0  } # Turkey
+    set_variable = { ITA_EM_Regions_DiploValue^18 = 35 } # IME
+    set_variable = { ITA_EM_Regions_DiploValue^19 = 25 } # Iraq
+    set_variable = { ITA_EM_Regions_DiploValue^20 = 0  } # Saudi Arabia
+    set_variable = { ITA_EM_Regions_DiploValue^21 = 40 } # Gulf
+    set_variable = { ITA_EM_Regions_DiploValue^22 = 35 } # Yemen
+    set_variable = { ITA_EM_Regions_DiploValue^23 = 0  } # Oman
+    set_variable = { ITA_EM_Regions_DiploValue^24 = 0  } # Algeria
+    set_variable = { ITA_EM_Regions_DiploValue^25 = 40 } # Tunisia
+    set_variable = { ITA_EM_Regions_DiploValue^26 = 40 } # Egypt
+
+    ## Starting econ values setup
+    # This array stores the region's current exploitation/dependency value
+    # Specific type is determined via the region status
+    add_to_array = { ITA_EM_Regions_EconValue = 0  }
+	resize_array = { ITA_EM_Regions_EconValue = 27 }
+
+    set_variable = { ITA_EM_Regions_EconValue^0  = 35 } # Libya
+    set_variable = { ITA_EM_Regions_EconValue^1  = 40 } # Sudan
+    set_variable = { ITA_EM_Regions_EconValue^2  = 50 } # Eritrea
+    set_variable = { ITA_EM_Regions_EconValue^3  = 25 } # Aksum
+    set_variable = { ITA_EM_Regions_EconValue^3  = 40 } # Ethiopia
+    set_variable = { ITA_EM_Regions_EconValue^4  = 40 } # Somalia
+    set_variable = { ITA_EM_Regions_EconValue^5  = 35 } # Kenya
+    set_variable = { ITA_EM_Regions_EconValue^6  = 0  } # France
+    set_variable = { ITA_EM_Regions_EconValue^7  = 0  } # Iberia
+    set_variable = { ITA_EM_Regions_EconValue^8  = 0  } # Switzerland
+    set_variable = { ITA_EM_Regions_EconValue^9  = 25 } # Croatia
+    set_variable = { ITA_EM_Regions_EconValue^10 = 0  } # Hungary
+    set_variable = { ITA_EM_Regions_EconValue^11 = 0  } # Romania
+    set_variable = { ITA_EM_Regions_EconValue^12 = 0  } # Serbia
+    set_variable = { ITA_EM_Regions_EconValue^13 = 25 } # Montenegro
+    set_variable = { ITA_EM_Regions_EconValue^14 = 40 } # Albania
+    set_variable = { ITA_EM_Regions_EconValue^15 = 0  } # Bulgaria
+    set_variable = { ITA_EM_Regions_EconValue^16 = 0  } # Greece
+    set_variable = { ITA_EM_Regions_EconValue^17 = 0  } # Turkey
+    set_variable = { ITA_EM_Regions_EconValue^18 = 35 } # IME
+    set_variable = { ITA_EM_Regions_EconValue^19 = 40 } # Iraq
+    set_variable = { ITA_EM_Regions_EconValue^20 = 0  } # Saudi Arabia
+    set_variable = { ITA_EM_Regions_EconValue^21 = 40 } # Gulf
+    set_variable = { ITA_EM_Regions_EconValue^22 = 35 } # Yemen
+    set_variable = { ITA_EM_Regions_EconValue^23 = 0  } # Oman
+    set_variable = { ITA_EM_Regions_EconValue^24 = 0  } # Algeria
+    set_variable = { ITA_EM_Regions_EconValue^25 = 40 } # Tunisia
+    set_variable = { ITA_EM_Regions_EconValue^26 = 30 } # Egypt
+
+    ## ENI oil availability setup
+    # This boolean array is used to check which regions have oil or not
+    # 1 = has oil / 0 = doesn't have oil
+    add_to_array = { ITA_EM_HasOil = 0  }
+	resize_array = { ITA_EM_HasOil = 27 }
+
+    set_variable = { ITA_EM_HasOil^0  = 1 } # Libya
+    set_variable = { ITA_EM_HasOil^1  = 2 } # Sudan
+    set_variable = { ITA_EM_HasOil^11 = ROM } # Romania
+    set_variable = { ITA_EM_HasOil^14 = ALB } # Albania
+    set_variable = { ITA_EM_HasOil^17 = TUR } # Turkey
+    set_variable = { ITA_EM_HasOil^19 = IRQ } # Iraq
+    set_variable = { ITA_EM_HasOil^20 = SAU } # Saudi Arabia
+    set_variable = { ITA_EM_HasOil^21 = GUL } # Gulf
+    set_variable = { ITA_EM_HasOil^22 = YEM } # Yemen
+    set_variable = { ITA_EM_HasOil^23 = OMA } # Oman
+    set_variable = { ITA_EM_HasOil^24 = ALG } # Algeria
+    set_variable = { ITA_EM_HasOil^25 = TUN } # Tunisia
+    set_variable = { ITA_EM_HasOil^26 = EGY } # Egypt
+
+    ## Starting oil exploitation setup
+    # This array stores the region's current oil exploitation value
+    # Ranges from 0-100 (percent)
+    add_to_array = { ITA_EM_OilExploitation = 0  }
+	resize_array = { ITA_EM_OilExploitation = 27 }
+
+    set_variable = { ITA_EM_OilExploitation^0  = 0.2 } # Libya
+    set_variable = { ITA_EM_OilExploitation^1  = 0.1 } # Sudan
+    set_variable = { ITA_EM_OilExploitation^14 = 0.4 } # Albania
+    set_variable = { ITA_EM_OilExploitation^17 = 0.1 } # Turkey
+    set_variable = { ITA_EM_OilExploitation^19 = 0.1 } # Iraq
+    set_variable = { ITA_EM_OilExploitation^20 = 0.1 } # Saudi Arabia
+    set_variable = { ITA_EM_OilExploitation^21 = 0.1 } # Gulf
+    set_variable = { ITA_EM_OilExploitation^22 = 0.1 } # Yemen
+    set_variable = { ITA_EM_OilExploitation^23 = 0.1 } # Oman
+    set_variable = { ITA_EM_OilExploitation^24 = 0.1 } # Algeria
+    set_variable = { ITA_EM_OilExploitation^25 = 0.1 } # Tunisia
+    set_variable = { ITA_EM_OilExploitation^26 = 0.3 } # Egypt
+
+    ## Oil Exploitation cooldown
+    # This array stores the cooldown (in days) of ENI Presence actions
+    add_to_array = { ITA_EM_OilExploitationCooldown = 0  }
+	resize_array = { ITA_EM_OilExploitationCooldown = 27 }
+
+    ## Policies
+    # Alright, these ones are painful so let's go over each individually
+    # This is the array where we store the *selected* policy IDs for each region
+    add_to_array = { ITA_EM_Policies = 0  }
+	resize_array = { ITA_EM_Policies = 27 }
+
+    # Now, this bad boy here is something more complicated
+    # Basically, we store the *total* policies (all available ones) for each region (plus their diplo/econ effects) in separate arrays which are themselves declared on these scopes stored in this array
+    # These numbered scopes are actually states - 1 is Corsica, for example
+    # This nifty trick allows us to pull sutff like parametized scripted effects and other things that help simplify code or checks
+    # This is also done so that we don't have a single monolithic >700 size array
+    # Now, is a big quantity of smaller arrays better than a single ginormous one? idk, but it's easier to work with
+    add_to_array = { ITA_EM_Policy_Region = 1.id  } # Libya
+    add_to_array = { ITA_EM_Policy_Region = 2.id  } # Sudan
+    add_to_array = { ITA_EM_Policy_Region = 3.id  } # Eritrea
+    add_to_array = { ITA_EM_Policy_Region = 4.id  } # Ethiopia
+    add_to_array = { ITA_EM_Policy_Region = 5.id  } # Somalia
+    add_to_array = { ITA_EM_Policy_Region = 6.id  } # Kenya
+    add_to_array = { ITA_EM_Policy_Region = 7.id  } # France
+    add_to_array = { ITA_EM_Policy_Region = 8.id  } # Iberia
+    add_to_array = { ITA_EM_Policy_Region = 9.id  } # Switzerland
+    add_to_array = { ITA_EM_Policy_Region = 10.id } # Croatia
+    add_to_array = { ITA_EM_Policy_Region = 11.id } # Hungary
+    add_to_array = { ITA_EM_Policy_Region = 12.id } # Romania
+    add_to_array = { ITA_EM_Policy_Region = 13.id } # Serbia
+    add_to_array = { ITA_EM_Policy_Region = 14.id } # Montenegro
+    add_to_array = { ITA_EM_Policy_Region = 15.id } # Albania
+    add_to_array = { ITA_EM_Policy_Region = 16.id } # Bulgaria
+    add_to_array = { ITA_EM_Policy_Region = 17.id } # Greece
+    add_to_array = { ITA_EM_Policy_Region = 18.id } # Turkey
+    add_to_array = { ITA_EM_Policy_Region = 19.id } # IME
+    add_to_array = { ITA_EM_Policy_Region = 20.id } # Iraq
+    add_to_array = { ITA_EM_Policy_Region = 21.id } # Saudi Arabia
+    add_to_array = { ITA_EM_Policy_Region = 22.id } # Gulf
+    add_to_array = { ITA_EM_Policy_Region = 23.id } # Yemen
+    add_to_array = { ITA_EM_Policy_Region = 24.id } # Oman
+    add_to_array = { ITA_EM_Policy_Region = 25.id } # Algeria
+    add_to_array = { ITA_EM_Policy_Region = 26.id } # Tunisia
+    add_to_array = { ITA_EM_Policy_Region = 27.id } # Egypt
+    # Why state IDs instead of tag IDs, considering we're mainly working with tags here? Easier to work with that way
+
+    # And these are the other arrays mentioned above, 3 per region
+    # So that's 81 arrays in total, not counting Italy's own ones
+    # *shudder*
+    for_each_scope_loop = {
+        array = ITA_EM_Policy_Region
+        clear_array = ITA_EM_Policy_ID
+        clear_array = ITA_EM_Policy_DiploEffect
+        clear_array = ITA_EM_Policy_EconEffect
+
+        add_to_array = { ITA_EM_Policy_ID = 1 }
+        add_to_array = { ITA_EM_Policy_ID = 2 }
+        add_to_array = { ITA_EM_Policy_DiploEffect = 0 }
+        add_to_array = { ITA_EM_Policy_EconEffect  = 0 }
+        resize_array = { ITA_EM_Policy_DiploEffect = 2 }
+        resize_array = { ITA_EM_Policy_EconEffect  = 2 }
+    }
+    ITA_EmpireManagement_Setup_StartingPolicyEffects = yes
+
+    # And finally, this one stores the cooldown for policy changes, in days
+    add_to_array = { ITA_EM_PolicySwitch_Cooldown = 0  }
+	resize_array = { ITA_EM_PolicySwitch_Cooldown = 27 }
+
+    ## Policy effects
+    # These arrays store the diplo and econ effects of policies and their special actions
+    # This is done so that they can be easily have their effects shown on tooltips 
+    # It also makes recalc easier to do
+    add_to_array = { ITA_EM_Policy_DiploEffect = 0  }
+	resize_array = { ITA_EM_Policy_DiploEffect = 27 }
+    add_to_array = { ITA_EM_Policy_EconEffect = 0  }
+	resize_array = { ITA_EM_Policy_EconEffect = 27 }
+
+    add_to_array = { ITA_EM_SpecialAction_DiploEffect = 0  }
+	resize_array = { ITA_EM_SpecialAction_DiploEffect = 27 }
+    add_to_array = { ITA_EM_SpecialAction_EconEffect = 0  }
+	resize_array = { ITA_EM_SpecialAction_EconEffect = 27 }
+
+    add_to_array = { ITA_EM_ImperialPolicy_DiploEffect = 0  }
+	resize_array = { ITA_EM_ImperialPolicy_DiploEffect = 27 }
+    add_to_array = { ITA_EM_ImperialPolicy_EconEffect = 0  }
+	resize_array = { ITA_EM_ImperialPolicy_EconEffect = 27 }
+
+    ## Special Action Cooldown
+    # This array determines if a region's Special Action is on cooldown or not
+    # Cooldown timeout is usually done through hidden timed ideas
+    # Precise values:
+    #   0 - Available
+    #   1 - Unnavailable
+    #   2 - Permanently Unnavailable (single-use)
+    add_to_array = { ITA_EM_SpecialAction_Cooldown = 0  }
+	resize_array = { ITA_EM_SpecialAction_Cooldown = 27 }
+
+    ### Setup variables
+    # Total available envoys
+    set_variable = { ITA_EM_TotalGarrisons = 45 }
+    set_variable = { ITA_EM_TotalDiplomats = 45 }
+
+    # Imperial policy (Mediterranean Supremacy)
+    set_variable = { ITA_EM_ImperialPolicy = 0 }
+    ITA_EmpireManagement_UpdateImperialPolicyEffects = yes
+
+    ### Calculations
+    ITA_EmpireManagement_Calculate_EnvoyUsage = yes
+
+    # Setup initial envoy modifiers
+    for_each_loop = {
+        array = ITA_EM_Regions_Envoys
+        multiply_temp_variable = { v = 10 } # Each envoy adds +10 control/favour
+        add_to_variable = { ITA_EM_Regions_DiploValue^i = v } # Add to relevant index
+    }
+
+    # Setup initial region resource factors
+    for_each_loop = {
+        array = ITA_EM_HasOil
+        if = {
+            limit = { check_variable = { v > 0 } }
+            set_temp_variable = { global.OilExploitationPerc = ITA_EM_OilExploitation^i }
+            var:ITA_EM_HasOil^i = {
+                set_variable = { EM_ENI_Resources_Factor = global.OilExploitationPerc }
+                divide_variable = { EM_ENI_Resources_Factor = 8 }
+                add_dynamic_modifier = { modifier = ITA_EM_Oil_Modifier }
+            }
+        }
+    }
+
+    # Setting up alerts
+    ITA_EmpireManagement_UpdateAlerts = yes
+
+    # DynMod
+    add_to_array = { ITA_EM_ModifierEffects = 0 }
+	resize_array = { ITA_EM_ModifierEffects = 5 }
+    add_dynamic_modifier = { modifier = ITA_EM_Modifier }
+    ITA_EmpireManagement_Calculate_DynamicModifier = yes
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup; Execution completed."
+}
+
+# Sets up econ and diplo effects for all starting policies
+ITA_EmpireManagement_Setup_StartingPolicyEffects = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup_StartingPolicyEffects; Executing."
+
+    ### Internal: 
+    ## Libya (1)
+    set_variable = { 1.ITA_EM_Policy_DiploEffect^0 = 10 }
+    set_variable = { 1.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 1.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 1.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ## Sudan (2)
+    set_variable = { 2.ITA_EM_Policy_DiploEffect^0 = 5 }
+    set_variable = { 2.ITA_EM_Policy_EconEffect^0  = 5 }
+    set_variable = { 2.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 2.ITA_EM_Policy_EconEffect^1  = 0 }
+    
+    ## Eritrea (3)
+    # The Red Sea Lifeline
+    set_variable = { 3.ITA_EM_Policy_DiploEffect^0 = 0  }
+    set_variable = { 3.ITA_EM_Policy_EconEffect^0  = 20 }
+    # Highlands Agriculture
+    set_variable = { 3.ITA_EM_Policy_DiploEffect^1 = 20 }
+    set_variable = { 3.ITA_EM_Policy_EconEffect^1  = 0  }
+
+    ## Ethiopia (4)
+    # Benign Neglect
+    set_variable = { 4.ITA_EM_Policy_DiploEffect^0 =  15 }
+    set_variable = { 4.ITA_EM_Policy_EconEffect^0  = -10 }
+    # Integrate the Oromo
+    set_variable = { 4.ITA_EM_Policy_DiploEffect^1 = -10 }
+    set_variable = { 4.ITA_EM_Policy_EconEffect^1  = 15  }
+
+    ## Somalia (5)
+    # Greater Somalian Nationalism
+    set_variable = { 5.ITA_EM_Policy_DiploEffect^0 = 15  }
+    set_variable = { 5.ITA_EM_Policy_EconEffect^0  = -15 }
+    #
+    set_variable = { 5.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 5.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ## Kenya (6)
+    set_variable = { 8.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 8.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 8.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 8.ITA_EM_Policy_EconEffect^1  = 0 }
+    
+    ### Western Europe:
+    ## France (7)
+    set_variable = { 7.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 7.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 7.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 7.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ## Iberia (8)
+    set_variable = { 8.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 8.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 8.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 8.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ## Switzerland (9)
+    set_variable = { 9.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 9.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 9.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 9.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ### Balkans:
+    ## Croatia (10)
+    set_variable = { 10.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 10.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 10.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 10.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ## Hungary (11)
+    set_variable = { 11.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 11.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 11.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 11.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ## Romania (12)
+    set_variable = { 12.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 12.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 12.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 12.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ## Serbia (13)
+    set_variable = { 13.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 13.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 13.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 13.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ## Montenegro (14)
+    # Regio Esercito Garrisons
+    set_variable = { 14.ITA_EM_Policy_DiploEffect^0 = 15  }
+    set_variable = { 14.ITA_EM_Policy_EconEffect^0  = -10 }
+    # The Montenegrin National Army
+    set_variable = { 14.ITA_EM_Policy_DiploEffect^1 = -10 }
+    set_variable = { 14.ITA_EM_Policy_EconEffect^1  = 15  }
+
+    ## Albania (15)
+    # The Puppet Party
+    set_variable = { 15.ITA_EM_Policy_DiploEffect^0 = 20  }
+    set_variable = { 15.ITA_EM_Policy_EconEffect^0  = -20 }
+    # The Viceroy's Own Kingdom
+    set_variable = { 15.ITA_EM_Policy_DiploEffect^1 = -20 }
+    set_variable = { 15.ITA_EM_Policy_EconEffect^1  = 20  }
+
+    ## Bulgaria (16)
+    # Our Friend Tsar Boris
+    set_variable = { 16.ITA_EM_Policy_DiploEffect^0 = -5 }
+    set_variable = { 16.ITA_EM_Policy_EconEffect^0  = 10 }
+    # Mutual Interests in Anatolia
+    set_variable = { 16.ITA_EM_Policy_DiploEffect^1 = 10 }
+    set_variable = { 16.ITA_EM_Policy_EconEffect^1  = -5 }
+
+    ## Greece (17)
+    set_variable = { 17.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 17.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 17.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 17.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ### Middle East:
+    ## Turkey (18)
+    set_variable = { 18.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 18.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 18.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 18.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ## IME (19)
+    set_variable = { 19.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 19.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 19.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 19.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ## Iraq (20)
+    set_variable = { 20.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 20.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 20.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 20.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ## Saudi Arabia (21)
+    set_variable = { 21.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 21.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 21.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 21.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ## Gulf (22)
+    # The Nine Emirs
+    set_variable = { 22.ITA_EM_Policy_DiploEffect^0 = -5 }
+    set_variable = { 22.ITA_EM_Policy_EconEffect^0  = 20 }
+    # The Unsinkable Battleship
+    set_variable = { 22.ITA_EM_Policy_DiploEffect^1 = 20  }
+    set_variable = { 22.ITA_EM_Policy_EconEffect^1  = -10 }
+
+    ## Yemen (23)
+    set_variable = { 23.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 23.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 23.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 23.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ## Oman (24)
+    set_variable = { 24.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 24.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 24.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 24.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ### Africa: 
+    ## Algeria (25)
+    set_variable = { 25.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 25.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 25.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 25.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ## Tunisia (26)
+    set_variable = { 26.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 26.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 26.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 26.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    ## Egypt (27)
+    set_variable = { 27.ITA_EM_Policy_DiploEffect^0 = 0 }
+    set_variable = { 27.ITA_EM_Policy_EconEffect^0  = 0 }
+    set_variable = { 27.ITA_EM_Policy_DiploEffect^1 = 0 }
+    set_variable = { 27.ITA_EM_Policy_EconEffect^1  = 0 }
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup_StartingPolicyEffects; Execution completed."
+}
+
+ITA_EmpireManagement_Setup_StartingPolicyEffects_Balbo = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup_StartingPolicyEffects_Balbo; Executing."
+
+    if = {
+        limit = { NOT = { has_country_flag = ITA_EM_Active } }
+        log = "(ERROR): [GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup_StartingPolicyEffects_Balbo; Empire Management is not active. Breaking."
+    }
+    else = {
+        ###Libya
+        ##Disable placeholder policy
+        set_temp_variable = { Region_i = 0 } # Libya
+        set_temp_variable = { Policy_i = 2 }
+        ITA_EmpireManagement_DisablePolicy = yes
+
+        set_temp_variable = { Region_i = 0 } # Libya
+        set_temp_variable = { Policy_i = 3 }
+        set_temp_variable = { DiploValue = -5 }
+        set_temp_variable = { EconValue = 15 }
+        ITA_EmpireManagement_EnablePolicy = yes
+
+        ###Sudan
+        ##Disable placeholder policy
+        set_temp_variable = { Region_i = 1 } # Sudan
+        set_temp_variable = { Policy_i = 2 }
+        ITA_EmpireManagement_DisablePolicy = yes
+
+        set_temp_variable = { Region_i = 1 } # Sudan
+        set_temp_variable = { Policy_i = 3 }
+        set_temp_variable = { DiploValue = 15 }
+        set_temp_variable = { EconValue = -5 }
+        ITA_EmpireManagement_EnablePolicy = yes
+    }
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup_StartingPolicyEffects_Balbo; Execution completed."
+}
+
+ITA_EmpireManagement_Setup_StartingPolicyEffects_Muti = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup_StartingPolicyEffects_Muti; Executing."
+
+    if = {
+        limit = { NOT = { has_country_flag = ITA_EM_Active } }
+        log = "(ERROR): [GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup_StartingPolicyEffects_Muti; Empire Management is not active. Breaking."
+    }
+    else = {
+        ###Libya
+        ##Disable placeholder policy
+        set_temp_variable = { Region_i = 0 } # Libya
+        set_temp_variable = { Policy_i = 2 }
+        ITA_EmpireManagement_DisablePolicy = yes
+
+        set_temp_variable = { Region_i = 0 } # Libya
+        set_temp_variable = { Policy_i = 4 }
+        set_temp_variable = { DiploValue = 15 }
+        set_temp_variable = { EconValue = -5 }
+        ITA_EmpireManagement_EnablePolicy = yes
+
+        ###Sudan
+        ##Disable placeholder policy
+        set_temp_variable = { Region_i = 1 } # Sudan
+        set_temp_variable = { Policy_i = 2 }
+        ITA_EmpireManagement_DisablePolicy = yes
+
+        set_temp_variable = { Region_i = 1 } # Sudan
+        set_temp_variable = { Policy_i = 4 }
+        set_temp_variable = { DiploValue = 10 }
+        set_temp_variable = { EconValue = -10 }
+        ITA_EmpireManagement_EnablePolicy = yes
+
+        ##Imperial Policy
+        set_variable = { ITA_EM_ImperialPolicy = 2 }
+        ITA_EmpireManagement_UpdateImperialPolicyEffects = yes
+    }
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup_StartingPolicyEffects_Muti; Execution completed."
+}
+
+ITA_EmpireManagement_Setup_StartingPolicyEffects_Giani = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup_StartingPolicyEffects_Giani; Executing."
+
+    if = {
+        limit = { NOT = { has_country_flag = ITA_EM_Active } }
+        log = "(ERROR): [GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup_StartingPolicyEffects_Giani; Empire Management is not active. Breaking."
+    }
+    else = {
+        ###Libya
+        ##Disable placeholder policy
+        set_temp_variable = { Region_i = 0 } # Libya
+        set_temp_variable = { Policy_i = 2 }
+        ITA_EmpireManagement_DisablePolicy = yes
+
+        set_temp_variable = { Region_i = 0 } # Libya
+        set_temp_variable = { Policy_i = 5 }
+        set_temp_variable = { DiploValue = -5 }
+        set_temp_variable = { EconValue = 10 }
+        ITA_EmpireManagement_EnablePolicy = yes
+
+        ###Sudan
+        ##Disable placeholder policy
+        set_temp_variable = { Region_i = 1 } # Sudan
+        set_temp_variable = { Policy_i = 2 }
+        ITA_EmpireManagement_DisablePolicy = yes
+
+        set_temp_variable = { Region_i = 1 } # Sudan
+        set_temp_variable = { Policy_i = 5 }
+        set_temp_variable = { DiploValue = 10 }
+        set_temp_variable = { EconValue = -5 }
+        ITA_EmpireManagement_EnablePolicy = yes
+
+        ##Imperial Policy
+        set_variable = { ITA_EM_ImperialPolicy = 4 }
+        ITA_EmpireManagement_UpdateImperialPolicyEffects = yes
+    }
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup_StartingPolicyEffects_Giani; Execution completed."
+}
+
+ITA_EmpireManagement_Setup_StartingPolicyEffects_Pavolini = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup_StartingPolicyEffects_Pavolini; Executing."
+
+    if = {
+        limit = { NOT = { has_country_flag = ITA_EM_Active } }
+        log = "(ERROR): [GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup_StartingPolicyEffects_Pavolini; Empire Management is not active. Breaking."
+    }
+    else = {
+        ###Libya
+        ##Disable placeholder policy
+        set_temp_variable = { Region_i = 0 } # Libya
+        set_temp_variable = { Policy_i = 2 }
+        ITA_EmpireManagement_DisablePolicy = yes
+
+        set_temp_variable = { Region_i = 0 } # Libya
+        set_temp_variable = { Policy_i = 6 }
+        set_temp_variable = { DiploValue = -10 }
+        set_temp_variable = { EconValue = 20 }
+        ITA_EmpireManagement_EnablePolicy = yes
+
+        ###Sudan
+        ##Disable placeholder policy
+        set_temp_variable = { Region_i = 1 } # Sudan
+        set_temp_variable = { Policy_i = 2 }
+        ITA_EmpireManagement_DisablePolicy = yes
+
+        set_temp_variable = { Region_i = 1 } # Sudan
+        set_temp_variable = { Policy_i = 6 }
+        set_temp_variable = { DiploValue = -5 }
+        set_temp_variable = { EconValue = 15 }
+        ITA_EmpireManagement_EnablePolicy = yes
+
+        ##Imperial Policy
+        set_variable = { ITA_EM_ImperialPolicy = 3 }
+        ITA_EmpireManagement_UpdateImperialPolicyEffects = yes
+    }
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Setup_StartingPolicyEffects_Pavolini; Execution completed."
+}
+
+# Adds Morocco to the map
+ITA_EmpireManagement_AddMorocco = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_AddMorocco; Executing."
+
+    # Position
+    add_to_array = { ITA_EM_Regions =   MOR }
+	add_to_array = { ITA_EM_Regions_X = 0   }
+	add_to_array = { ITA_EM_Regions_Y = 163 }
+
+	add_to_array = { ITA_EM_Alerts =   0   }
+	add_to_array = { ITA_EM_Alerts_X = 100 }
+	add_to_array = { ITA_EM_Alerts_Y = 185 }
+
+    # Values
+    add_to_array = { ITA_EM_Regions_Status = 3 } # Neutral State
+    add_to_array = { ITA_EM_Regions_MaxEnvoys = 4 }
+    resize_array = { ITA_EM_Regions_Envoys = 28 }
+    resize_array = { ITA_EM_Regions_DiploValue = 28 }
+    resize_array = { ITA_EM_Regions_EconValue = 28 }
+    resize_array = { ITA_EM_HasOil = 28 }
+    resize_array = { ITA_EM_OilExploitation = 28 }
+    resize_array = { ITA_EM_OilExploitationCooldown = 28 }
+
+    # Policies
+    add_to_array = { ITA_EM_Policy_Region = 28.id }
+	resize_array = { ITA_EM_Policy_DiploEffect = 28 }
+	resize_array = { ITA_EM_Policy_EconEffect = 28 }
+    resize_array = { ITA_EM_PolicySwitch_Cooldown = 28 }
+	resize_array = { ITA_EM_SpecialAction_DiploEffect = 28 }
+	resize_array = { ITA_EM_SpecialAction_EconEffect = 28 }
+	resize_array = { ITA_EM_ImperialPolicy_DiploEffect = 28 }
+	resize_array = { ITA_EM_ImperialPolicy_EconEffect = 28 }
+    resize_array = { ITA_EM_SpecialAction_Cooldown = 28 }
+
+    # Policies
+    28 = {
+        add_to_array = { ITA_EM_Policy_ID = 1 }
+        add_to_array = { ITA_EM_Policy_ID = 2 }
+        add_to_array = { ITA_EM_Policy_DiploEffect = 0 }
+        add_to_array = { ITA_EM_Policy_EconEffect  = 0 }
+        resize_array = { ITA_EM_Policy_DiploEffect = 2 }
+        resize_array = { ITA_EM_Policy_EconEffect  = 2 }
+
+        # Policy effects
+        set_variable = { ITA_EM_Policy_DiploEffect^0 = 0 }
+        set_variable = { ITA_EM_Policy_EconEffect^0  = 0 }
+        set_variable = { ITA_EM_Policy_DiploEffect^1 = 0 }
+        set_variable = { ITA_EM_Policy_EconEffect^1  = 0 }
+    }
+
+    add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_AddMorocco; Execution completed."
+}
+
+## Disables and clears the entire thing
+# Used when Red Italy forms
+ITA_EmpireManagement_Disable = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Disable; Executing."
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Disable; Disabling Empire Management mechanic."
+
+    remove_dynamic_modifier = { modifier = ITA_EM_Modifier }
+    clr_country_flag = ITA_EM_Active
+    clr_country_flag = ITA_Empire_GUI_open_flag
+    clr_country_flag = ITA_Empire_GUI_policy_change_open_flag
+    clr_country_flag = ITA_Empire_GUI_debug_flag
+
+    clear_array = ITA_EM_Regions
+	clear_array = ITA_EM_Regions_X
+	clear_array = ITA_EM_Regions_Y
+
+	clear_array = ITA_EM_Alerts
+	clear_array = ITA_EM_Alerts_Y
+	clear_array = ITA_EM_Alerts_X
+
+    for_each_scope_loop = {
+        array = ITA_EM_HasOil
+        if = {
+            limit = { has_dynamic_modifier = { modifier = ITA_EM_Oil_Modifier } }
+            remove_dynamic_modifier = { modifier = ITA_EM_Oil_Modifier }
+        }
+        clear_variable = EM_ENI_Resources_Factor
+    }
+
+	clear_array = ITA_EM_HasOil
+	clear_array = ITA_EM_OilExploitation
+	clear_array = ITA_EM_OilExploitationCooldown
+
+	clear_array = ITA_EM_Regions_Status
+	clear_array = ITA_EM_Regions_Envoys
+	clear_array = ITA_EM_Regions_MaxEnvoys
+	clear_array = ITA_EM_Regions_DiploValue
+	clear_array = ITA_EM_Regions_EconValue
+
+    for_each_scope_loop = {
+        array = ITA_EM_Policy_Region
+        clear_array = ITA_EM_Policy_ID
+        clear_array = ITA_EM_Policy_DiploEffect
+        clear_array = ITA_EM_Policy_EconEffect
+    }
+
+    clear_array = ITA_EM_Policies
+    clear_array = ITA_EM_Policy_Region
+    clear_array = ITA_EM_Policy_DiploEffect
+    clear_array = ITA_EM_Policy_EconEffect
+    clear_array = ITA_EM_PolicySwitch_Cooldown
+    clear_array = ITA_EM_SpecialAction_DiploEffect
+    clear_array = ITA_EM_SpecialAction_EconEffect
+    clear_array = ITA_EM_SpecialAction_Cooldown
+    clear_array = ITA_EM_ImperialPolicy_DiploEffect
+    clear_array = ITA_EM_ImperialPolicy_EconEffect
+
+    clear_array = ITA_EM_PolicyList
+    clear_array = ITA_EM_PolicyList_DiploEffect
+    clear_array = ITA_EM_PolicyList_EconEffect
+
+    clear_array = ITA_EM_ModifierEffects
+
+    clear_variable = ITA_EM_TotalGarrisons
+    clear_variable = ITA_EM_TotalDiplomats
+    clear_variable = ITA_EM_UsedGarrisons
+    clear_variable = ITA_EM_UsedDiplomats
+    clear_variable = ITA_EM_FreeGarrisons
+    clear_variable = ITA_EM_FreeDiplomats
+    clear_variable = ITA_EM_GarrisonUsagePerc
+    clear_variable = ITA_EM_DiplomatUsagePerc
+
+    clear_variable = ITA_EM_ImperialPolicy
+    clear_variable = EM_SelectedEntry_i
+    clear_variable = TNO_EmpireManagement_dirty
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Disable; Execution completed."
+}
+
+#################################################
+#				Calculation Effects				#
+#################################################
+## Used to calculate the variables tracking usage of envoys in regions
+ITA_EmpireManagement_Calculate_EnvoyUsage = {
+    # Reset variables
+    set_variable = { ITA_EM_UsedGarrisons = 0 }
+    set_variable = { ITA_EM_UsedDiplomats = 0 }
+
+    # Calculate envoy usage
+    for_each_loop = {
+        array = ITA_EM_Regions_Envoys
+        if = {
+            limit = { check_variable = { ITA_EM_Regions_Status^i > 1 } } # If allied or greater - uses Diplomats
+            add_to_variable = { ITA_EM_UsedDiplomats = v }
+        }
+        else = { # Else - uses garrisons
+            add_to_variable = { ITA_EM_UsedGarrisons = v }
+        }
+    }
+
+    # Calculate num of free envoys
+    set_variable = { ITA_EM_FreeGarrisons = ITA_EM_TotalGarrisons }
+    set_variable = { ITA_EM_FreeDiplomats = ITA_EM_TotalDiplomats }
+    subtract_from_variable = { ITA_EM_FreeGarrisons = ITA_EM_UsedGarrisons }
+    subtract_from_variable = { ITA_EM_FreeDiplomats = ITA_EM_UsedDiplomats }
+
+    # Calculate progbar percentages
+    set_variable = { ITA_EM_GarrisonUsagePerc = ITA_EM_FreeGarrisons }
+    set_variable = { ITA_EM_DiplomatUsagePerc = ITA_EM_FreeDiplomats }
+    divide_variable = { ITA_EM_GarrisonUsagePerc = ITA_EM_TotalGarrisons }
+    divide_variable = { ITA_EM_DiplomatUsagePerc = ITA_EM_TotalDiplomats }
+    multiply_variable = { ITA_EM_GarrisonUsagePerc = 100 }
+    multiply_variable = { ITA_EM_DiplomatUsagePerc = 100 }
+
+    add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+}
+
+# Updates the bonuses of EM's dynamic modifier
+ITA_EmpireManagement_Calculate_DynamicModifier = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Calculate_DynamicModifier; Executing."
+
+    # Reset array
+    set_variable = { ITA_EM_ModifierEffects^0 = 0 } # Political Power Factor
+    set_variable = { ITA_EM_ModifierEffects^1 = 0 } # Weekly Manpower
+    set_variable = { ITA_EM_ModifierEffects^2 = 0 } # Stability Factor
+    set_variable = { ITA_EM_ModifierEffects^3 = 0 } # Annual GDP Growth Factor
+    set_variable = { ITA_EM_ModifierEffects^4 = 0 } # Consumer Goods Use
+    set_variable = { ITA_EM_ModifierEffects^5 = 0 } # Oil
+    
+    for_each_loop = {
+        array = ITA_EM_Regions_Status
+        if = {
+            limit = { check_variable = { v < 2 } } # Is Colony or Vassal
+            add_to_variable = { ITA_EM_ModifierEffects^1 = ITA_EM_Regions_DiploValue^i } # Manpower (Control)
+            add_to_variable = { ITA_EM_ModifierEffects^2 = ITA_EM_Regions_DiploValue^i } # Stability (Control)
+            add_to_variable = { ITA_EM_ModifierEffects^4 = ITA_EM_Regions_EconValue^i  } # Consumer Goods Use (Exploitation)
+        }
+        else = { # Is anything else
+            add_to_variable = { ITA_EM_ModifierEffects^0 = ITA_EM_Regions_DiploValue^i } # Political Power (Favour)
+            add_to_variable = { ITA_EM_ModifierEffects^3 = ITA_EM_Regions_EconValue^i  } # Annual GDP Growth Factor (Dependency)
+        }
+    }
+    divide_variable = { ITA_EM_ModifierEffects^0 = 6000 }
+    multiply_variable = { ITA_EM_ModifierEffects^1 = 1.1 }
+    divide_variable = { ITA_EM_ModifierEffects^2 = 10000 }
+    divide_variable = { ITA_EM_ModifierEffects^3 = 5000 }
+    divide_variable = { ITA_EM_ModifierEffects^4 = -10000 }
+    round_variable = ITA_EM_ModifierEffects^1
+
+    # Oil (Oil Exploitation)
+    for_each_loop = {
+        array = ITA_EM_HasOil
+        var:ITA_EM_HasOil^i = { set_temp_variable = { ITA.RegionOil = resource_produced@oil } }
+        multiply_temp_variable = { RegionOil = ITA_EM_OilExploitation^i }
+        divide_temp_variable = { RegionOil = 5 }
+        add_to_variable = { ITA_EM_ModifierEffects^5 = RegionOil }
+    }
+    round_variable = ITA_EM_ModifierEffects^5
+
+    force_update_dynamic_modifier = yes
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Calculate_DynamicModifier; ITA_EM_ModifierEffects^0: [?ITA_EM_ModifierEffects^0|%] ([?ITA_EM_ModifierEffects^0])"
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Calculate_DynamicModifier; ITA_EM_ModifierEffects^1: [?ITA_EM_ModifierEffects^1]"
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Calculate_DynamicModifier; ITA_EM_ModifierEffects^2: [?ITA_EM_ModifierEffects^2|%] ([?ITA_EM_ModifierEffects^2])"
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Calculate_DynamicModifier; ITA_EM_ModifierEffects^3: [?ITA_EM_ModifierEffects^3|%] ([?ITA_EM_ModifierEffects^3])"
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Calculate_DynamicModifier; ITA_EM_ModifierEffects^4: [?ITA_EM_ModifierEffects^4|%] ([?ITA_EM_ModifierEffects^4])"
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Calculate_DynamicModifier; ITA_EM_ModifierEffects^5: [?ITA_EM_ModifierEffects^5]"
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_Calculate_DynamicModifier; Execution completed."
+}
+
+#################################################
+#                 Update Effects                #
+#################################################
+## Runs every month
+ITA_EmpireManagement_MonthlyUpdate = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_MonthlyUpdate; Executing."
+
+    ITA_EmpireManagement_UpdateAlerts = yes
+    ITA_EmpireManagement_UpdateImperialPolicyEffects = yes
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_MonthlyUpdate; Execution completed."
+}
+
+## Updates the display of alerts in the GUI
+ITA_EmpireManagement_UpdateAlerts = {
+    for_each_loop = {
+        array = ITA_EM_Regions
+
+        if = { # Ongoing Conflict
+            limit = {
+            	OR = {
+            		AND = { #normal check
+                		NOT = { check_variable = { ITA_EM_Regions^i = 0 } }
+                		NOT = { check_variable = { ITA_EM_Regions^i = 2 } } #isn't sudan
+                		check_variable = { ITA_EM_Regions_Status^i > 0 }
+                		var:ITA_EM_Regions^i = {
+                			#owner is used here because some scopes are states and some are countries
+                		    owner = { has_war = yes  }
+                		}
+            		}
+            		AND = { #sudan is marked as having an active conflict if egypt is at war
+            			check_variable = { ITA_EM_Regions^i = 2 } #is sudan
+            			EGY = {
+            				has_war = yes
+            			}
+            		}
+            		#IEA checks
+            		AND = {
+            			check_variable = { ITA_EM_Regions^i = 3 } # Eritrea 
+            			1108 = { # Asmara
+            				owner = { has_war = yes }
+            			}
+            		}
+            		AND = {
+            			check_variable = { ITA_EM_Regions^i = 4 } # Ethiopia
+            			271 = { #Addis Abeba
+            				owner = { has_war = yes }
+            			}
+            		}
+            		AND = {
+            			check_variable = { ITA_EM_Regions^i = 5 } # Somalia
+            			1113 = { #Mogadisco
+            				owner = { has_war = yes }
+            			}
+            		}
+            		AND = {
+            			check_variable = { ITA_EM_Regions^i = 6 } # Kenya
+            			1092 = { #Nairobi
+            				owner = { has_war = yes }
+            			}
+            		}
+            		AND = {
+            			check_variable = { ITA_EM_Regions^i = AGR }
+            			OR = {
+            				#either of the contenders in the Algerian civil war is still at war
+            				FLA = { has_war = yes }
+            				ALG = { has_war = yes }
+            				SLG = { has_war = yes }
+            				ILG = { has_war = yes }
+            			}
+            		}
+            	}
+            }
+            set_variable = { ITA_EM_Alerts^i = 1 }
+        }
+        else_if = { # German Confrontation
+            limit = {
+                NOT = { check_variable = { ITA_EM_Regions^i = 0 } }
+                check_variable = { ITA_EM_Regions_Status^i > 0 }
+                always = no #FIXME: needs proper trigger
+            }
+            set_variable = { ITA_EM_Alerts^i = 2 }
+        }
+        else_if = { # Low Control
+            limit = {
+                NOT = { check_variable = { ITA_EM_Regions^i = 0 } }
+                check_variable = { ITA_EM_Regions_Status^i < 2 }
+                check_variable = { ITA_EM_Regions_DiploValue^i < 20 }
+            }
+            set_variable = { ITA_EM_Alerts^i = 3 }
+        }
+        else_if = { # ENI Action Available
+            limit = { EmpireManagement_ENIActionIsAvailable = yes }
+            set_variable = { ITA_EM_Alerts^i = 4 }
+        }
+        else = { set_variable = { ITA_EM_Alerts^i = 0 } }
+    }
+
+    add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+}
+
+## Setups the arrays for the Policy selection menu by retrieving relevant values from the other arrays stored in the numbered scopes
+ITA_EmpireManagement_BuildPolicyArrays = {
+    ITA_EmpireManagement_ClearPolicyArrays = yes # Clear old arrays first
+    
+    var:ITA_EM_Policy_Region^ITA.EM_SelectedEntry_i = {
+        for_each_loop = {
+            array = ITA_EM_Policy_ID
+            add_to_array = { ITA.ITA_EM_PolicyList = v }
+            add_to_array = { ITA.ITA_EM_PolicyList_DiploEffect = ITA_EM_Policy_DiploEffect^i }
+            add_to_array = { ITA.ITA_EM_PolicyList_EconEffect = ITA_EM_Policy_EconEffect^i }
+        }
+    }
+}
+
+## Self-explanatory, clears Policy selection display arrays
+ITA_EmpireManagement_ClearPolicyArrays = {
+    clear_array = ITA_EM_PolicyList
+    clear_array = ITA_EM_PolicyList_DiploEffect
+    clear_array = ITA_EM_PolicyList_EconEffect
+}
+
+## Switches policies, duh
+ITA_EmpireManagement_PolicySwitch = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_PolicySwitch; Executing."
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_PolicySwitch; Region ID: [?EM_SelectedEntry_i] ([EmpireManagement_GetMetaRegionTitle])."
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_PolicySwitch; Old Policy: [EmpireManagement_GetPolicySwitchLogName] ([?ITA_EM_Policies^EM_SelectedEntry_i])."
+
+    # Setup new policy ID
+    set_variable = { ITA_EM_Policies^EM_SelectedEntry_i = Policy_v }
+    #add_to_variable = { ITA_EM_Policies^EM_SelectedEntry_i = 1 }
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_PolicySwitch; New Policy: [EmpireManagement_GetPolicySwitchLogName] ([?ITA_EM_Policies^EM_SelectedEntry_i])."
+
+    # Clearing up old policy effects
+    subtract_from_variable = { ITA_EM_Regions_DiploValue^EM_SelectedEntry_i = ITA_EM_Policy_DiploEffect^EM_SelectedEntry_i }
+    subtract_from_variable = { ITA_EM_Regions_EconValue^EM_SelectedEntry_i = ITA_EM_Policy_EconEffect^EM_SelectedEntry_i }
+
+    # Applying new policy effects
+    set_variable = { ITA_EM_Policy_DiploEffect^EM_SelectedEntry_i = ITA_EM_PolicyList_DiploEffect^Policy_v }
+    set_variable = { ITA_EM_Policy_EconEffect^EM_SelectedEntry_i = ITA_EM_PolicyList_EconEffect^Policy_v }
+    add_to_variable = { ITA_EM_Regions_DiploValue^EM_SelectedEntry_i = ITA_EM_Policy_DiploEffect^EM_SelectedEntry_i }
+    add_to_variable = { ITA_EM_Regions_EconValue^EM_SelectedEntry_i = ITA_EM_Policy_EconEffect^EM_SelectedEntry_i }
+
+    # Setup cooldowns
+    set_variable = { ITA_EM_SpecialAction_Cooldown^EM_SelectedEntry_i = 0 } # Reset Special Action cooldown
+    set_variable = { ITA_EM_PolicySwitch_Cooldown^EM_SelectedEntry_i = 180 } # Setup policy switch cooldown (180 days)
+
+    ITA_EmpireManagement_Calculate_DynamicModifier = yes
+    add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_PolicySwitch; Execution completed."
+}
+
+## Runs when the "Increase ENI Presence" button is clicked
+ITA_EmpireManagement_IncreaseENIPresence = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_IncreaseENIPresence; Executing."
+
+    # Increase exploitation
+    set_temp_variable = { Region_i = EM_SelectedEntry_i }
+    set_temp_variable = { OilExploitationChange_v = 0.1 }
+    ITA_EmpireManagement_OilExploitationChange = yes
+
+    # Setting the price
+    set_temp_variable = { PPCost = -50 }
+    set_temp_variable = { MoneyCost = 0.05 }
+    if = {
+        limit = {
+            OR = {
+                check_variable = { EM_SelectedEntry_i = 1  } # Sudan
+                check_variable = { EM_SelectedEntry_i = 23 } # Oman
+                check_variable = { EM_SelectedEntry_i = 26 } # Egypt
+            }
+        }
+        multiply_temp_variable = { PPCost = 2 }
+        multiply_temp_variable = { MoneyCost = 2 }
+    }
+    else_if = {
+        limit = {
+            OR = {
+                check_variable = { EM_SelectedEntry_i = 0  } # Libya
+                check_variable = { EM_SelectedEntry_i = 19 } # Iraq
+                check_variable = { EM_SelectedEntry_i = 20 } # Saudi Arabia
+                check_variable = { EM_SelectedEntry_i = 21 } # Gulf
+                check_variable = { EM_SelectedEntry_i = 24 } # Algeria
+            }
+        }
+        multiply_temp_variable = { PPCost = 3 }
+        multiply_temp_variable = { MoneyCost = 3 }
+    }
+
+    # Spend price cost
+    add_political_power = var:PPCost
+    set_temp_variable = { temp_econ_spending_amount = MoneyCost }
+    econ_spend_money_once_effect_raw_money = yes
+
+    # Recalc oil resources
+    ITA_EmpireManagement_Calculate_DynamicModifier = yes
+
+    # Cooldown
+    set_variable = { ITA_EM_OilExploitationCooldown^EM_SelectedEntry_i = 180 }
+
+    # Clear alert
+    if = {
+        limit = { check_variable = { ITA_EM_Alerts^EM_SelectedEntry_i = 4 } }
+        set_variable = { ITA_EM_Alerts^EM_SelectedEntry_i = 0 }
+    }
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_IncreaseENIPresence; Execution completed."
+}
+
+# Daily-run cooldown command for ENI actions and policy switches
+ITA_EmpireManagement_DailyCooldown = {
+    for_each_loop = {
+        array = ITA_EM_OilExploitationCooldown
+        add_to_variable = { ITA_EM_OilExploitationCooldown^i = -1 }
+        clamp_variable = { var = ITA_EM_OilExploitationCooldown^i min = 0 }
+    }
+    for_each_loop = {
+        array = ITA_EM_PolicySwitch_Cooldown
+        add_to_variable = { ITA_EM_PolicySwitch_Cooldown^i = -1 }
+        clamp_variable = { var = ITA_EM_PolicySwitch_Cooldown^i min = 0 }
+    }
+}
+
+#################################################
+#            Imperial Policy Effects            #
+#################################################
+
+## Applies Imperial Policy effects, automatically run every month
+# To change the Imperial Policy, just switch the ITA_EM_ImperialPolicy variable to the desired policy ID then run this command
+ITA_EmpireManagement_UpdateImperialPolicyEffects = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_UpdateImperialPolicyEffects; Executing."
+
+    # Remove previous values
+    for_each_loop = {
+        array = ITA_EM_Regions
+        subtract_from_variable = { ITA_EM_Regions_DiploValue^i = ITA_EM_ImperialPolicy_DiploEffect^i }
+        subtract_from_variable = { ITA_EM_Regions_EconValue^i = ITA_EM_ImperialPolicy_EconEffect^i }
+        set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = 0 }
+        set_variable = { ITA_EM_ImperialPolicy_EconEffect^i = 0 }
+    }
+
+    # Determine appropriate policy & effects
+    if = {
+        limit = { check_variable = { ITA_EM_ImperialPolicy = 0 } } # Mediterranean Supremacy
+        ITA_EmpireManagement_ApplyImperialPolicyEffect_Starter = yes
+    }
+    else_if = {
+        limit = { check_variable = { ITA_EM_ImperialPolicy = 1 } } # A New Concert of Europe
+        ITA_EmpireManagement_ApplyImperialPolicyEffect_Balbo = yes
+    }
+    else_if = {
+        limit = { check_variable = { ITA_EM_ImperialPolicy = 2 } } # An Imperial Brotherhood
+        ITA_EmpireManagement_ApplyImperialPolicyEffect_Muti = yes
+    }
+    else_if = {
+        limit = { check_variable = { ITA_EM_ImperialPolicy = 3 } } # All Roads Lead to Rome
+        ITA_EmpireManagement_ApplyImperialPolicyEffect_Pavolini = yes
+    }
+    else_if = {
+        limit = { check_variable = { ITA_EM_ImperialPolicy = 4 } } # The New Order
+        ITA_EmpireManagement_ApplyImperialPolicyEffect_Giani = yes
+    }
+    else_if = {
+        limit = { check_variable = { ITA_EM_ImperialPolicy = 5 } } # Una Nuova Italia
+        ITA_EmpireManagement_ApplyImperialPolicyEffect_LeftDem = yes
+    }
+    else_if = {
+        limit = { check_variable = { ITA_EM_ImperialPolicy = 6 } } # Steady as She Goes
+        ITA_EmpireManagement_ApplyImperialPolicyEffect_CenterDem = yes
+    }
+    else_if = {
+        limit = { check_variable = { ITA_EM_ImperialPolicy = 7 } } # Embers of a New Empire
+        ITA_EmpireManagement_ApplyImperialPolicyEffect_RightDem = yes
+    }
+
+    # Setup new values
+    for_each_loop = {
+        array = ITA_EM_Regions
+        add_to_variable = { ITA_EM_Regions_DiploValue^i = ITA_EM_ImperialPolicy_DiploEffect^i }
+        add_to_variable = { ITA_EM_Regions_EconValue^i = ITA_EM_ImperialPolicy_EconEffect^i }
+    }
+    
+    ITA_EmpireManagement_Calculate_DynamicModifier = yes
+    add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_UpdateImperialPolicyEffects; Execution completed."
+}
+
+## Mediterranean Supremacy (starter/Ciano)
+# -5 Control and Exploitation on Colonies
+# +5 Control and Exploitation on Vassals
+# -5 Favour with Iberia and Turkey
+ITA_EmpireManagement_ApplyImperialPolicyEffect_Starter = {
+    for_each_loop = {
+        array = ITA_EM_Regions_Status
+        if = {
+            limit = { check_variable = { v = 0 } } # Is Colony of the Empire
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = -5 }
+            set_variable = { ITA_EM_ImperialPolicy_EconEffect^i = -5 }
+        }
+        else_if = {
+            limit = { check_variable = { v = 1 } } # Is Vassal State
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = 5 }
+            set_variable = { ITA_EM_ImperialPolicy_EconEffect^i = 5 }
+        }
+    }
+
+    # Iberia & Turkey
+    set_variable = { ITA_EM_ImperialPolicy_DiploEffect^7 = -5 }
+    set_variable = { ITA_EM_ImperialPolicy_DiploEffect^17 = -5 }
+}
+
+## A New Concert of Europe (Balbo)
+# +5 Control in all Vassals and Colonies
+# +10 Favour with all Independent nations
+ITA_EmpireManagement_ApplyImperialPolicyEffect_Balbo = {
+    for_each_loop = {
+        array = ITA_EM_Regions_Status
+        if = {
+            limit = { check_variable = { v < 2 } } # Is Colony or Vassal
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = 5 }
+        }
+        else_if = {
+            limit = { check_variable = { v < 4 } } # Is Independent
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = 10 }
+        }
+    }
+}
+
+## An Imperial Brotherhood (Muti)
+# +5 Control in all Vassals and Colonies
+# -5 Exploitation in all Vassals and Colonies
+# +10 Favour with Authoritarian nations
+# -5 Favour with Democratic (in effect, non-Authoritarian) nations
+ITA_EmpireManagement_ApplyImperialPolicyEffect_Muti = {
+    for_each_loop = {
+        array = ITA_EM_Regions_Status
+        if = {
+            limit = { check_variable = { v < 2 } } # Is Colony or Vassal
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = 5 }
+            set_variable = { ITA_EM_ImperialPolicy_EconEffect^i = -5 }
+        }
+        else_if = {
+            limit = { var:ITA_EM_Regions^i = { has_dictatorship_government = yes } } # Is Authoritarian
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = 10 }
+        }
+        else_if = {
+            limit = { var:ITA_EM_Regions^i = { has_dictatorship_government = no } } # Is Democratic
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = -5 }
+        }
+    }
+}
+
+## All Roads Lead to Rome (Pavolini)
+# -10 Control/Favour in all regions
+# +10 Exploitation/Dependency in all regions
+ITA_EmpireManagement_ApplyImperialPolicyEffect_Pavolini = {
+    for_each_loop = {
+        array = ITA_EM_Regions_Status
+        set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = -10 }
+        set_variable = { ITA_EM_ImperialPolicy_EconEffect^i = 10 }
+    }
+}
+
+## The New Order (Giani)
+# -2 Control in all Colonies
+# +5 Control in all Vassals
+# -10 Favour with Independent nations
+# +5 Exploitation/Dependenct on all regions
+ITA_EmpireManagement_ApplyImperialPolicyEffect_Giani = {
+    for_each_loop = {
+        array = ITA_EM_Regions_Status
+        if = {
+            limit = { check_variable = { v = 0 } } # Is Colony of the Empire
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = -2 }
+        }
+        else_if = {
+            limit = { check_variable = { v = 1 } } # Is Vassal State
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = 5 }
+        }
+        else_if = {
+            limit = { check_variable = { v < 4 } } # Is Independent
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = -10 }
+        }
+
+        # All Regions
+        set_variable = { ITA_EM_ImperialPolicy_EconEffect^i = 5 }
+    }
+}
+
+## Una Nuova Italia (LeftDem)
+# -10 Control in all Vassals and Colonies
+# -20 Exploitation in all Colonies
+# -10 Exploitation in all Vassals
+# -20 Favour with Fascist nations
+# -10 Favour with Authoritarian nations
+# +15 Favour with Democratic nations
+ITA_EmpireManagement_ApplyImperialPolicyEffect_LeftDem = {
+    for_each_loop = {
+        array = ITA_EM_Regions_Status
+        if = {
+            limit = { check_variable = { v = 0 } } # Is Colony of the Empire
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = 10 }
+            set_variable = { ITA_EM_ImperialPolicy_EconEffect^i = -20 }
+        }
+        else_if = {
+            limit = { check_variable = { v = 1 } } # Is Vassal State
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = 10 }
+            set_variable = { ITA_EM_ImperialPolicy_EconEffect^i = -10 }
+        }
+        else_if = { # Is Fash/Nazi
+            limit = { var:ITA_EM_Regions^i = { has_fascist_government = yes } }
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = -20 }
+        }
+        else_if = { # Is Authoritarian
+            limit = { var:ITA_EM_Regions^i = { has_authoritarian_government = yes } }
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = -10 }
+        }
+        else = { # Is Democratic
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = 15 }
+        }
+    }
+}
+
+## Steady as She Goes (CenterDem)
+# +10 Control/Favour in all Democratic nations
+# +10 Exploitation in all Vassals
+# +5 Dependency in all Independent nations
+ITA_EmpireManagement_ApplyImperialPolicyEffect_CenterDem = {
+    for_each_loop = {
+        array = ITA_EM_Regions_Status
+        if = {
+            limit = { check_variable = { v = 1 } } # Is Vassal State
+            set_variable = { ITA_EM_ImperialPolicy_EconEffect^i = 10 }
+        }
+        else_if = {
+            limit = { check_variable = { v > 1 } } # Is Independent
+            set_variable = { ITA_EM_ImperialPolicy_EconEffect^i = 5 }
+
+            if = {
+                limit = { var:ITA_EM_Regions^i = { has_dictatorship_government = no } } # Is Democratic
+                set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = 10 }
+            }
+        }
+    }
+}
+
+## Embers of a New Empire (RightDem)
+# -10 Control in all Colonies
+# +10 Control in all Vassals
+# +15 Exploitation in all Vassals
+# +5 Dependency in all Independent nations
+ITA_EmpireManagement_ApplyImperialPolicyEffect_RightDem = {
+    for_each_loop = {
+        array = ITA_EM_Regions_Status
+        if = {
+            limit = { check_variable = { v = 0 } } # Is Colony of the Empire
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = -10 }
+        }
+        else_if = {
+            limit = { check_variable = { v = 1 } } # Is Vassal State
+            set_variable = { ITA_EM_ImperialPolicy_DiploEffect^i = 10 }
+            set_variable = { ITA_EM_ImperialPolicy_EconEffect^i = 15 }
+        }
+        else_if = {
+            limit = { check_variable = { v < 4 } } # Is Independent
+            set_variable = { ITA_EM_ImperialPolicy_EconEffect^i = 5 }
+        }
+    }
+}
+
+#################################################
+#				Interaction Effects				#
+#################################################
+
+## Adds/subtracts diplomats
+# Arguments: DiplomatChange (Default Value: 1)
+ITA_EmpireManagement_DiplomatChange = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DiplomatChange; Executing."
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DiplomatChange; Given DiplomatChange: [?DiplomatChange?1]"
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DiplomatChange; Operating. Old Total: [?ITA_EM_TotalDiplomats]"
+    
+    # Defining the tooltip
+	if = {
+		limit = { check_variable = { DiplomatChange?1 > 0 } }
+		custom_effect_tooltip = ITA_EmpireManagement_Diplomats_add_tt
+	}
+	else = {
+		custom_effect_tooltip = ITA_EmpireManagement_Diplomats_sub_tt
+	}
+
+	# The actual math
+    add_to_variable = { ITA_EM_TotalDiplomats = DiplomatChange?1 }
+    clamp_variable = { var = ITA_EM_TotalDiplomats min = 0 }
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DiplomatChange; Operating. New Total: [?ITA_EM_TotalDiplomats]"
+
+    if = { # Edge-case scenario where all diplomats are currently in use and the command is run to remove one or more
+        limit = { check_variable = { ITA_EM_TotalDiplomats < ITA_EM_UsedDiplomats } }
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DiplomatChange; ITA_EM_TotalDiplomats is inferior to ITA_EM_UsedDiplomats, running balancer script."
+        
+        # We'll basically just randomly remove diplomats from regions until the balance is achieved
+        set_temp_variable = { NumOfDiplomatRemovals = ITA_EM_UsedDiplomats }
+        subtract_from_temp_variable = { NumOfDiplomatRemovals = ITA_EM_TotalDiplomats }
+
+        # Create a new array containing all possible target regions
+        for_each_loop = {
+            array = ITA_EM_Regions_Envoys
+            if = {
+                limit = {
+                    check_variable = { ITA_EM_Regions_Status^i > 1 } # Has to be able to have diplomats in the first place
+                    check_variable = { ITA_EM_Regions_Envoys^i > 0 } # Has to have more than one diplomat
+                }
+                add_to_array = { TargetRegions = i } # Add region index to target array
+            }
+        }
+
+        # Now we'll run a loop over the amount of removals that we'll need to do
+        for_loop_effect = {
+            end = NumOfDiplomatRemovals
+            
+            # Set random variable
+            set_temp_variable = { RandomIndex = 0 }
+            set_temp_variable = { MaxIndex = TargetRegions^num }
+            subtract_from_temp_variable = { MaxIndex = 1 }
+            randomize_temp_variable = {
+                var = RandomIndex
+                distribution = uniform
+                min = 0
+                max = MaxIndex
+            }
+            round_temp_variable = RandomIndex # Just in case
+
+            # *Finally* remove the diplomat envoy from a region
+            set_temp_variable = { i = TargetRegions^RandomIndex } # Only doing this because array^array^index doesn't work
+            subtract_from_variable = { ITA_EM_Regions_Envoys^i = 1 }
+            if = { # Now remove the index from the array if the result of the subtraction is zero, so that when we run the loop once more we don't target it again
+                limit = { check_variable = { ITA_EM_Regions_Envoys^i = 0 } }
+                remove_from_array = { array = TargetRegions index = RandomIndex }
+            }
+        }
+        clear_array = TargetRegions
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DiplomatChange; Balancer script completed execution."
+    }
+    # Yes, the edge case resolver script alone comprises over two thirds of this single command, which normally only adds to a variable then clamps
+    # Very cool ain't it
+
+    # Final envoy update
+    ITA_EmpireManagement_Calculate_EnvoyUsage = yes
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DiplomatChange; Completed execution."
+}
+
+## Adds/subtracts garrisons
+# Arguments: GarrisonChange (Default Value: 1)
+ITA_EmpireManagement_GarrisonChange = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_GarrisonChange; Executing"
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_GarrisonChange; Given GarrisonChange: [?GarrisonChange?1]"
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_GarrisonChange; Operating. Old Total: [?ITA_EM_TotalGarrisons]"
+
+    # Defining the tooltip
+	if = {
+		limit = { check_variable = { GarrisonChange?1 > 0 } }
+		custom_effect_tooltip = ITA_EmpireManagement_Garrisons_add_tt
+	}
+	else = {
+		custom_effect_tooltip = ITA_EmpireManagement_Garrisons_sub_tt
+	}
+
+	# The actual math
+    add_to_variable = { ITA_EM_TotalGarrisons = GarrisonChange?1 }
+    clamp_variable = { var = ITA_EM_TotalGarrisons min = 0 }
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_GarrisonChange; Operating. New Total: [?ITA_EM_TotalGarrisons]"
+
+    if = { # Edge-case scenario where all garrisons are currently in use and the command is run to remove one or more
+        limit = { check_variable = { ITA_EM_TotalGarrisons < ITA_EM_UsedGarrisons } }
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_GarrisonChange; ITA_EM_TotalGarrisons is inferior to ITA_EM_UsedGarrisons, running balancer script."
+        
+        # We'll basically just randomly remove garrisons from regions until the balance is achieved
+        set_temp_variable = { NumOfGarrisonRemovals = ITA_EM_UsedGarrisons }
+        subtract_from_temp_variable = { NumOfGarrisonRemovals = ITA_EM_TotalGarrisons }
+
+        # Create a new array containing all possible target regions
+        for_each_loop = {
+            array = ITA_EM_Regions_Envoys
+            if = {
+                limit = {
+                    check_variable = { ITA_EM_Regions_Status^i < 2 } # Has to be able to have garrisons in the first place
+                    check_variable = { ITA_EM_Regions_Envoys^i > 0 } # Has to have more than one garrison
+                }
+                add_to_array = { TargetRegions = i } # Add region index to target array
+            }
+        }
+
+        # Now we'll run a loop over the amount of removals that we'll need to do
+        for_loop_effect = {
+            end = NumOfGarrisonRemovals
+            
+            # Set random variable
+            set_temp_variable = { RandomIndex = 0 }
+            set_temp_variable = { MaxIndex = TargetRegions^num }
+            subtract_from_temp_variable = { MaxIndex = 1 }
+            randomize_temp_variable = {
+                var = RandomIndex
+                distribution = uniform
+                min = 0
+                max = MaxIndex
+            }
+            round_temp_variable = RandomIndex # Just in case
+
+            # *Finally* remove the garrison envoy from a region
+            set_temp_variable = { i = TargetRegions^RandomIndex } # Only doing this because array^array^index doesn't work
+            subtract_from_variable = { ITA_EM_Regions_Envoys^i = 1 }
+            if = { # Now remove the index from the array if the result of the subtraction is zero, so that when we run the loop once more we don't target it again
+                limit = { check_variable = { ITA_EM_Regions_Envoys^i = 0 } }
+                remove_from_array = { array = TargetRegions index = RandomIndex }
+            }
+        }
+        clear_array = TargetRegions
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_GarrisonChange; Balancer script completed execution."
+    }
+    # Yes, the edge case resolver script alone comprises over two thirds of this single command, which normally only adds to a variable then clamps
+    # Very cool ain't it
+
+    # Final envoy update
+    ITA_EmpireManagement_Calculate_EnvoyUsage = yes
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_GarrisonChange; Completed execution."
+}
+
+## Adds/subtracts control/favour to a specific region
+# Arguments: Region_i, DiploValueChange_v (Default Value: 10)
+ITA_EmpireManagement_DiploValueChange = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DiploValueChange; Executing"
+
+    if = {
+        limit = { NOT = { has_variable = Region_i } }
+        log = "(ERROR): [GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DiploValueChange; Handed unset ID. Breaking."
+    }
+    else = {
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DiploValueChange; Given Region_i: [?Region_i] DiploValueChange_v: [?DiploValueChange_v?10]"
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DiploValueChange; Old Value: [?ITA.ITA_EM_Regions_DiploValue^Region_i]"
+        custom_effect_tooltip = ITA_EmpireManagement_DiploValueChange_tt
+
+        add_to_variable = { ITA.ITA_EM_Regions_DiploValue^Region_i = DiploValueChange_v?10 }
+        clamp_variable = { var = ITA.ITA_EM_Regions_DiploValue^Region_i min = 0 }
+        ITA_EmpireManagement_Calculate_DynamicModifier = yes # Recalc bonuses
+
+        add_to_variable = { ITA.TNO_EmpireManagement_dirty = 1 }
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DiploValueChange; New Value: [?ITA.ITA_EM_Regions_DiploValue^Region_i]"
+    }
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DiploValueChange; Completed execution."
+}
+
+## Adds/subtracts exploitation/dependency to a specific region
+# Arguments: Region_i, EconValueChange_v (Default Value: 10)
+ITA_EmpireManagement_EconValueChange = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_EconValueChange; Executing"
+
+    if = {
+        limit = { NOT = { has_variable = Region_i } }
+        log = "(ERROR): [GetDateText]: [THIS.GetName]: ITA_EmpireManagement_EconValueChange; Handed unset ID. Breaking."
+    }
+    else = {
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_EconValueChange; Given Region_i: [?Region_i] EconValueChange_v: [?EconValueChange_v?10]"
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_EconValueChange; Old Value: [?ITA.ITA_EM_Regions_EconValue^Region_i]"
+        custom_effect_tooltip = ITA_EmpireManagement_EconValueChange_tt
+
+        add_to_variable = { ITA.ITA_EM_Regions_EconValue^Region_i = EconValueChange_v?10 }
+        clamp_variable = { var = ITA.ITA_EM_Regions_EconValue^Region_i min = 0 }
+        ITA_EmpireManagement_Calculate_DynamicModifier = yes # Recalc bonuses
+
+        add_to_variable = { ITA.TNO_EmpireManagement_dirty = 1 }
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_EconValueChange; New Value: [?ITA.ITA_EM_Regions_EconValue^Region_i]"
+    }
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_EconValueChange; Completed execution."
+}
+
+## Adds/subtracts oil exploitation to a specific region
+# Arguments: Region_i, OilExploitationChange_v (Default Value: 0.1 (10%))
+# OilExploitationChange_v value is percentual, must be between 0 and 1
+ITA_EmpireManagement_OilExploitationChange = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_OilExploitationChange; Executing"
+
+    if = {
+        limit = { NOT = { has_variable = Region_i } }
+        log = "(ERROR): [GetDateText]: [THIS.GetName]: ITA_EmpireManagement_OilExploitationChange; Handed unset ID. Breaking."
+    }
+    else = {
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_OilExploitationChange; Given Region_i: [?Region_i] OilExploitationChange_v: [?OilExploitationChange_v?0.1]"
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_OilExploitationChange; Old Value: [?ITA.ITA_EM_OilExploitation^Region_i]"
+        custom_effect_tooltip = ITA_EmpireManagement_OilExploitationChange_tt
+
+        add_to_variable = { ITA.ITA_EM_OilExploitation^Region_i = OilExploitationChange_v?0.1 }
+        clamp_variable = { var = ITA.ITA_EM_OilExploitation^Region_i min = 0 max = 1 }
+
+        # Update local resources factor in the target tag
+        set_temp_variable = { global.OilExploitationPerc = ITA_EM_OilExploitation^ITA.Region_i } # Yes, this temp variable *has* to be on global scope. Array scopes are very finnicky to work with
+        if = {
+            limit = { check_variable = { Region_i > 5 } }
+            var:ITA_EM_HasOil^Region_i = {
+                set_variable = { EM_ENI_Resources_Factor = global.OilExploitationPerc }
+                divide_variable = { EM_ENI_Resources_Factor = 4 }
+                force_update_dynamic_modifier = yes
+            }
+        }
+
+        add_to_variable = { ITA.TNO_EmpireManagement_dirty = 1 }
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_OilExploitationChange; New Value: [?ITA.ITA_EM_OilExploitation^Region_i]"
+    }
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_OilExploitationChange; Completed execution."
+}
+
+## Modifies the envoy cap of a specific region
+# Arguments: Region_i, EnvoyCapChange_v (Default Value: 1)
+ITA_EmpireManagement_ModifyEnvoyCap = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_ModifyEnvoyCap; Executing"
+
+    if = {
+        limit = { NOT = { has_variable = Region_i } }
+        log = "(ERROR): [GetDateText]: [THIS.GetName]: ITA_EmpireManagement_ModifyEnvoyCap; Handed unset ID. Breaking."
+    }
+    else = {
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_ModifyEnvoyCap; Given Region_i: [?Region_i] EnvoyCapChange_v: [?EnvoyCapChange_v?1]"
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_ModifyEnvoyCap; Old Value: [?ITA.ITA_EM_Regions_MaxEnvoys^Region_i]"
+
+        add_to_variable = { ITA_EM_Regions_MaxEnvoys^Region_i = EnvoyCapChange_v?1 }
+        clamp_variable = { var = ITA_EM_Regions_MaxEnvoys^Region_i min = 1 max = 5 }
+        clamp_variable = { var = ITA_EM_Regions_Envoys^Region_i max = ITA_EM_Regions_MaxEnvoys^Region_i }
+        ITA_EmpireManagement_Calculate_EnvoyUsage = yes
+
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_ModifyEnvoyCap; New Value: [?ITA.ITA_EM_Regions_MaxEnvoys^Region_i]"
+    }
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_ModifyEnvoyCap; Completed execution."
+}
+
+## Enables the usage of a specific policy in a specific region
+# Arguments: Region_i, Policy_i, DiploValue, EconValue
+ITA_EmpireManagement_EnablePolicy = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_EnablePolicy; Executing"
+
+    if = {
+        limit = { NOT = { has_variable = Region_i } }
+        log = "(ERROR): [GetDateText]: [THIS.GetName]: ITA_EmpireManagement_EnablePolicy; Handed unset index. Breaking."
+    }
+    else_if = {
+        limit = { NOT = { has_variable = Policy_i } }
+        log = "(ERROR): [GetDateText]: [THIS.GetName]: ITA_EmpireManagement_EnablePolicy; Handed unset ID. Breaking."
+    }
+    else_if = {
+        limit = { NOT = { has_variable = DiploValue } }
+        log = "(ERROR): [GetDateText]: [THIS.GetName]: ITA_EmpireManagement_EnablePolicy; Handed unset diplo value. Breaking."
+    }
+    else_if = {
+        limit = { NOT = { has_variable = EconValue } }
+        log = "(ERROR): [GetDateText]: [THIS.GetName]: ITA_EmpireManagement_EnablePolicy; Handed unset econ value. Breaking."
+    }
+    else = {
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_EnablePolicy; Given Region_i: [?Region_i] Policy_i: [?Policy_i?1] DiploValue: [?DiploValue] EconValue: [?EconValue]"
+        set_temp_variable = { Policy_ID = Policy_i } # Tooltip stuff
+        custom_effect_tooltip = ITA_EmpireManagement_EnablePolicy_tt
+
+        add_to_temp_variable = { Region_i = 1 } # Adding one here because the numbered scopes we use to store policies start at 1, not 0
+        var:Region_i = {
+            add_to_array = { ITA_EM_Policy_ID = ITA.Policy_i }
+            add_to_array = { ITA_EM_Policy_DiploEffect = ITA.DiploValue }
+            add_to_array = { ITA_EM_Policy_EconEffect = ITA.EconValue }
+        }
+    }
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_EnablePolicy; Completed execution."
+}
+
+## Disables the usage of a specific policy in a specific region
+# Arguments: Region_i, Policy_i
+ITA_EmpireManagement_DisablePolicy = {
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DisablePolicy; Executing"
+
+    if = {
+        limit = { NOT = { has_variable = Region_i } }
+        log = "(ERROR): [GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DisablePolicy; Handed unset index. Breaking."
+    }
+    else_if = {
+        limit = { NOT = { has_variable = Policy_i } }
+        log = "(ERROR): [GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DisablePolicy; Handed unset ID. Breaking."
+    }
+    else = {
+        log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DisablePolicy; Given Region_i: [?Region_i] Policy_i: [?Policy_i?1]"
+        set_temp_variable = { Policy_ID = Policy_i } # Tooltip stuff
+        custom_effect_tooltip = ITA_EmpireManagement_DisablePolicy_tt
+
+        # In case the policy to be removed is currently being used, we reset the policy choice first
+        if = {
+            limit = { check_variable = { ITA_EM_Policies^Region_i = Policy_i } }
+            log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DisablePolicy; Policy_i under active use, resetting."
+            set_variable = { ITA_EM_Policies^Region_i = 0 }
+        }
+
+        add_to_temp_variable = { Region_i = 1 } # Adding one here because the numbered scopes we use to store policies start at 1, not 0
+        var:Region_i = {
+            # We run a check on the array to determine the index of the removed policy, so that we know where we clear the other arrays as well
+            for_each_loop = {
+                array = ITA_EM_Policy_ID
+                if = {
+                    limit = { check_variable = { v = ITA.Policy_i } }
+                    set_temp_variable = { TempIndex = i }
+                    set_temp_variable = { break = 1 } # This forcibly stops the loop once we get what we want
+                }
+            }
+            remove_from_array = { ITA_EM_Policy_ID = ITA.Policy_i }
+            remove_from_array = { array = ITA_EM_Policy_DiploEffect index = TempIndex }
+            remove_from_array = { array = ITA_EM_Policy_EconEffect  index = TempIndex }
+        }
+    }
+
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_DisablePolicy; Completed execution."
+}
+
+#################################################
+#          General Interaction Effects          #
+#################################################
+# Old effects that are put here for compatibility, please avoid using them
+
+ITA_EM_GUI_increase_control_BRHFS = {
+	custom_effect_tooltip = ITA_EM_GUI_increase_control_BRHFS_tt
+    set_temp_variable = { DiploValueChange_v = 5 }
+
+    hidden_effect = {
+        set_temp_variable = { Region_i = 15 } # Bulgaria
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 11 } # Romania
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 10 } # Hungary
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 6 } # France
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 12 } # Serbia
+        ITA_EmpireManagement_DiploValueChange = yes
+    }
+}
+ITA_EM_GUI_increase_control_IEA = {
+	custom_effect_tooltip = ITA_EM_GUI_increase_control_IEA_tt
+    set_temp_variable = { DiploValueChange_v = 5 }
+
+    hidden_effect = {
+        set_temp_variable = { Region_i = 2 } # Eritrea
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 3 } # Ethiopia
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 4 } # Somalia
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 5 } # Kenya
+        ITA_EmpireManagement_DiploValueChange = yes
+    }
+}
+ITA_EM_GUI_decrease_control_IEA = {
+	custom_effect_tooltip = ITA_EM_GUI_decrease_control_IEA_tt
+    set_temp_variable = { DiploValueChange_v = -5 }
+
+    hidden_effect = {
+        set_temp_variable = { Region_i = 2 } # Eritrea
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 3 } # Ethiopia
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 4 } # Somalia
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 5 } # Kenya
+        ITA_EmpireManagement_DiploValueChange = yes
+    }
+}
+ITA_EM_GUI_increase_control_colonies = {
+	custom_effect_tooltip = ITA_EM_GUI_increase_control_colonies_tt
+    set_temp_variable = { DiploValueChange_v = 5 }
+
+    hidden_effect = {
+        set_temp_variable = { Region_i = 0 } # Libya
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 2 } # Eritrea
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 3 } # Ethiopia
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 4 } # Somalia
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 5 } # Kenya
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 21 } # Gulf
+        ITA_EmpireManagement_DiploValueChange = yes
+    }
+}
+ITA_EM_GUI_increase_control_ISAO = {
+	custom_effect_tooltip = ITA_EM_GUI_increase_control_ISAO_tt
+    set_temp_variable = { DiploValueChange_v = 5 }
+
+    hidden_effect = {
+        set_temp_variable = { Region_i = 19 } # Iraq
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 20 } # Saudi Arabia
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 23 } # Oman
+        ITA_EmpireManagement_DiploValueChange = yes
+    }
+}
+ITA_EM_GUI_increase_control_HR = {
+	custom_effect_tooltip = ITA_EM_GUI_increase_control_HR_tt
+    set_temp_variable = { DiploValueChange_v = 5 }
+
+    hidden_effect = {
+        set_temp_variable = { Region_i = 10 } # Hungary
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 11 } # Romania
+        ITA_EmpireManagement_DiploValueChange = yes
+    }
+}
+ITA_EM_GUI_increase_control_HRF = {
+	custom_effect_tooltip = ITA_EM_GUI_increase_control_HRF_tt
+    set_temp_variable = { DiploValueChange_v = 5 }
+
+    hidden_effect = {
+        set_temp_variable = { Region_i = 10 } # Hungary
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 11 } # Romania
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 6 } # France
+        ITA_EmpireManagement_DiploValueChange = yes
+    }
+}
+ITA_EM_GUI_increase_control_IT = {
+	custom_effect_tooltip = ITA_EM_GUI_increase_control_IT_tt
+    set_temp_variable = { DiploValueChange_v = 5 }
+
+    hidden_effect = {
+        set_temp_variable = { Region_i = 7 } # Iberia
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 17 } # Turkey
+        ITA_EmpireManagement_DiploValueChange = yes
+    }
+}
+ITA_EM_GUI_increase_control_CMA = {
+	custom_effect_tooltip = ITA_EM_GUI_increase_control_CMA_tt
+    set_temp_variable = { DiploValueChange_v = 5 }
+
+    hidden_effect = {
+        set_temp_variable = { Region_i = 9 } # Croatia
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 13 } # Montenegro
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 14 } # Albania
+        ITA_EmpireManagement_DiploValueChange = yes
+    }
+}
+ITA_EM_GUI_increase_control_TES_SS = {
+	custom_effect_tooltip = ITA_EM_GUI_increase_control_TES_SS_tt
+    set_temp_variable = { DiploValueChange_v = 5 }
+
+    hidden_effect = {
+        set_temp_variable = { Region_i = 25 } # Tunisia
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 26 } # Egypt
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 1 } # Sudan
+        ITA_EmpireManagement_DiploValueChange = yes
+    }
+}
+ITA_EM_GUI_increase_control_europe = {
+	custom_effect_tooltip = ITA_EM_GUI_increase_control_europe_tt
+    set_temp_variable = { DiploValueChange_v = 10 }
+
+    hidden_effect = {
+        set_temp_variable = { Region_i = 15 } # Bulgaria
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 11 } # Romania
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 10 } # Hungary
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 6 } # France
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 12 } # Serbia
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 8 } # Switzerland
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 16 } # Greece
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 9 } # Croatia
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 13 } # Montenegro
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 14 } # Albania
+        ITA_EmpireManagement_DiploValueChange = yes
+    }
+}
+ITA_EM_GUI_increase_control_catholic = {
+	custom_effect_tooltip = ITA_EM_GUI_increase_control_catholic_tt
+    set_temp_variable = { DiploValueChange_v = 5 }
+
+    hidden_effect = {
+        set_temp_variable = { Region_i = 10 } # Hungary
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 6 } # France
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 7 } # Iberia
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 9 } # Croatia
+        ITA_EmpireManagement_DiploValueChange = yes
+    }
+}
+ITA_EM_GUI_increase_control_TIRHUFSBS = {
+	custom_effect_tooltip = ITA_EM_GUI_increase_control_TIRHUFSBS_tt
+    set_temp_variable = { DiploValueChange_v = 5 }
+
+    hidden_effect = {
+        set_temp_variable = { Region_i = 17 } # Turkey
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 7 } # Iberia
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 11 } # Romania
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 10 } # Hungary
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 6 } # France
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 12 } # Serbia
+        ITA_EmpireManagement_DiploValueChange = yes
+        set_temp_variable = { Region_i = 8 } # Switzerland
+        ITA_EmpireManagement_DiploValueChange = yes
+    }
+}
+
+#################################################
+#             Special Action Effects            #
+#################################################
+# If you implement any special actions in those effect slots who have already been created here, please be sure to edit the "Title" parts with the special action title, thank you
+
+## Internal
+# Libya
+ITA_EmpireManagement_SpecialAction_Libya_1_Effect = { # Anti-terorrism sweep
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Libya_1_Effect; Executing Special Action 'Anti-terorrism sweep'."
+
+    add_equipment_to_stockpile = {
+		type = infantry_equipment
+		amount = -1500
+	}
+    add_equipment_to_stockpile = {
+		type = support_equipment
+		amount = -50
+	}
+    add_equipment_to_stockpile = {
+		type = motorized_equipment
+		amount = -80
+	}
+
+    add_to_variable = { ITA_EM_Regions_DiploValue^0 = 4 }
+	set_variable = { ITA_EM_SpecialAction_EconEffect^0 = 20 }
+    add_to_variable = { ITA_EM_Regions_EconValue^0 = ITA_EM_SpecialAction_EconEffect^0 }
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^0 = 1 }
+
+    add_timed_idea = { idea = ITA_EM_SpecialAction_Libya_1_EffectIdea days = 180 }
+}
+ITA_EmpireManagement_SpecialAction_Libya_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Libya_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^0 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Libya_3_Effect = { # Expand ENI infrastructure
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Libya_3_Effect; Executing Special Action 'Expand ENI infrastructure'."
+
+    set_temp_variable = { temp_econ_spending_amount = 0.1 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    add_to_variable = { ITA_EM_Regions_DiploValue^0 = 2 }
+    add_to_variable = { ITA_EM_Regions_EconValue^0 = 6 }
+
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^0 = 2 }
+}
+ITA_EmpireManagement_SpecialAction_Libya_4_Effect = { # Native economic initiative
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Libya_4_Effect; Executing Special Action 'Native economic initiative'."
+
+    set_temp_variable = { temp_econ_spending_amount = 0.15 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    add_political_power = -20
+
+    add_to_variable = { ITA_EM_Regions_DiploValue^0 = 3 }
+    add_to_variable = { ITA_EM_Regions_EconValue^0 = 8 }
+
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^0 = 2 }
+
+    add_timed_idea = { idea = ITA_EM_SpecialAction_Libya_4_EffectIdea days = 360 }
+}
+ITA_EmpireManagement_SpecialAction_Libya_5_Effect = { # Expand ENI infrastructure
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Libya_5_Effect; Executing Special Action 'Expand ENI infrastructure'."
+
+    set_temp_variable = { temp_econ_spending_amount = 0.08 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    add_to_variable = { ITA_EM_Regions_DiploValue^0 = 2 }
+    add_to_variable = { ITA_EM_Regions_EconValue^0 = 4 }
+
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^0 = 2 }
+}
+ITA_EmpireManagement_SpecialAction_Libya_6_Effect = { # Expand refining facilities
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Libya_6_Effect; Executing Special Action 'Expand refining facilities'."
+
+    set_temp_variable = { temp_econ_spending_amount = 0.06 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    add_to_variable = { ITA_EM_Regions_DiploValue^0 = -2 }
+    add_to_variable = { ITA_EM_Regions_EconValue^0 = 8 }
+
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^0 = 2 }
+}
+
+# Sudan
+ITA_EmpireManagement_SpecialAction_Sudan_1_Effect = { # Organize Counter-Terrorism Sweep
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Sudan_1_Effect; Executing Special Action 'Organize Counter-Terrorism Sweep'."
+
+    add_equipment_to_stockpile = {
+		type = infantry_equipment
+		amount = -1500
+	}
+    add_equipment_to_stockpile = {
+		type = support_equipment
+		amount = -50
+	}
+    add_equipment_to_stockpile = {
+		type = motorized_equipment
+		amount = -80
+	}
+
+    add_to_variable = { ITA_EM_Regions_DiploValue^1 = 3 }
+    set_variable = { ITA_EM_SpecialAction_DiploEffect^1 = 10 }
+	set_variable = { ITA_EM_SpecialAction_EconEffect^1 = 10 }
+    add_to_variable = { ITA_EM_Regions_DiploValue^1 = ITA_EM_SpecialAction_DiploEffect^0 }
+    add_to_variable = { ITA_EM_Regions_EconValue^1 = ITA_EM_SpecialAction_EconEffect^0 }
+
+    add_timed_idea = { idea = ITA_EM_SpecialAction_Sudan_1_EffectIdea days = 180 }
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^1 = 1 }
+}
+
+ITA_EmpireManagement_SpecialAction_Sudan_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Sudan_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^1 = 1 }
+}
+
+ITA_EmpireManagement_SpecialAction_Sudan_3_Effect = { # Exchange Information for Favors
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Sudan_3_Effect; Executing Special Action 'Exchange Information for Favors'."
+
+    add_political_power = -60
+
+    add_to_variable = { ITA_EM_Regions_EconValue^1 = 2 }
+    set_variable = { ITA_EM_SpecialAction_DiploEffect^1 = 15 }
+	set_variable = { ITA_EM_SpecialAction_EconEffect^1 = 35 }
+    add_to_variable = { ITA_EM_Regions_DiploValue^1 = ITA_EM_SpecialAction_DiploEffect^0 }
+    add_to_variable = { ITA_EM_Regions_EconValue^1 = ITA_EM_SpecialAction_EconEffect^0 }
+
+    add_timed_idea = { idea = ITA_EM_SpecialAction_Sudan_1_EffectIdea days = 180 }
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^1 = 1 }
+}
+
+ITA_EmpireManagement_SpecialAction_Sudan_4_Effect = { # Expand the Gezira Scheme
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Sudan_2_Effect; Executing Special Action 'Expand the Gezira Scheme'."
+
+    set_temp_variable = { temp_econ_spending_amount = 0.1 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    add_to_variable = { ITA_EM_Regions_DiploValue^1 = 2 }
+    add_to_variable = { ITA_EM_Regions_EconValue^1 = 6 }
+    set_variable = { ITA_EM_SpecialAction_DiploEffect^1 = 10 }
+	set_variable = { ITA_EM_SpecialAction_EconEffect^1 = 10 }
+    add_to_variable = { ITA_EM_Regions_DiploValue^1 = ITA_EM_SpecialAction_DiploEffect^0 }
+    add_to_variable = { ITA_EM_Regions_EconValue^1 = ITA_EM_SpecialAction_EconEffect^0 }
+
+    add_timed_idea = { idea = ITA_EM_SpecialAction_Sudan_4_EffectIdea days = 180 }
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^1 = 2 }
+}
+
+
+ITA_EmpireManagement_SpecialAction_Sudan_5_Effect = { # Sponsor Migration Policies
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Sudan_2_Effect; Executing Special Action 'Sponsor Migration Policies'."
+
+    add_political_power = -50
+    set_temp_variable = { temp_econ_spending_amount = 0.1 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    add_to_variable = { ITA_EM_Regions_DiploValue^1 = 2 }
+    add_to_variable = { ITA_EM_Regions_EconValue^1 = 2 }
+    set_variable = { ITA_EM_SpecialAction_DiploEffect^1 = 10 }
+	set_variable = { ITA_EM_SpecialAction_EconEffect^1 = 25 }
+    add_to_variable = { ITA_EM_Regions_DiploValue^1 = ITA_EM_SpecialAction_DiploEffect^0 }
+    add_to_variable = { ITA_EM_Regions_EconValue^1 = ITA_EM_SpecialAction_EconEffect^0 }
+
+    add_timed_idea = { idea = ITA_EM_SpecialAction_Sudan_5_EffectIdea days = 180 }
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^1 = 2 }
+}
+
+ITA_EmpireManagement_SpecialAction_Sudan_6_Effect = { # Focus on Cotton Cultivation
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Sudan_2_Effect; Executing Special Action 'Focus on Cotton Cultivation'."
+
+    set_temp_variable = { temp_econ_spending_amount = 0.1 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    add_to_variable = { ITA_EM_Regions_DiploValue^1 = -4 }
+    add_to_variable = { ITA_EM_Regions_EconValue^1 = 8 }
+	set_variable = { ITA_EM_SpecialAction_EconEffect^1 = 20 }
+    add_to_variable = { ITA_EM_Regions_EconValue^1 = ITA_EM_SpecialAction_EconEffect^0 }
+
+    add_timed_idea = { idea = ITA_EM_SpecialAction_Sudan_6_EffectIdea days = 180 }
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^1 = 2 }
+}
+
+# Eritrea
+ITA_EmpireManagement_SpecialAction_Eritrea_1_Effect = { # New Urban Plans
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Eritrea_1_Effect; Executing Special Action 'New Urban Plans'."
+
+    # Costs
+    set_temp_variable = { temp_econ_spending_amount = 0.4 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    # Effects
+    IEA = { add_timed_idea = { idea = ITA_EM_SpecialAction_Eritrea_1_EffectIdea days = 180 } }
+    268 = {
+        add_extra_state_shared_building_slots = 2
+        set_building_level = {
+            type = infrastructure
+            level = 3
+            instant_build = yes
+        }
+        set_building_level = {
+            type = dockyard
+            level = 2
+            instant_build = yes
+        }
+    }
+    set_variable = { ITA_EM_SpecialAction_EconEffect^2 = 10 }
+    add_to_variable = { ITA_EM_Regions_EconValue^2 = ITA_EM_SpecialAction_EconEffect^2 }
+    set_variable = { ITA_EM_SpecialAction_Cooldown^2 = 2 }
+}
+ITA_EmpireManagement_SpecialAction_Eritrea_2_Effect = { # FIAT in Asmara
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Eritrea_2_Effect; Executing Special Action 'FIAT in Asmara'."
+
+    # Costs
+    set_temp_variable = { temp_econ_spending_amount = 0.9 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    # Effects
+    IEA = { add_timed_idea = { idea = ITA_EM_SpecialAction_Eritrea_2_EffectIdea days = 180 } }
+    set_variable = { ITA_EM_SpecialAction_DiploEffect^2 = -20 }
+    add_to_variable = { ITA_EM_Regions_DiploValue^2 = ITA_EM_SpecialAction_DiploEffect^2 }
+    set_variable = { ITA_EM_SpecialAction_Cooldown^2 = 2 }
+}
+ITA_EmpireManagement_SpecialAction_Eritrea_3_Effect = { # Recruitment Drive
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Eritrea_3_Effect; Executing Special Action 'Recruitment Drive'."
+
+    # Costs
+    set_temp_variable = { temp_econ_spending_amount = 0.3 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    # Effects
+    IEA = { add_timed_idea = { idea = ITA_EM_SpecialAction_Eritrea_3_EffectIdea days = 90 } }
+    add_manpower = 1000
+    set_temp_variable = { Region_i = 2 } # Eritrea
+    set_temp_variable = { EconValueChange_v = -5 }
+    ITA_EmpireManagement_EconValueChange = yes
+    set_variable = { ITA_EM_SpecialAction_Cooldown^2 = 1 }
+}
+
+# Ethiopia
+ITA_EmpireManagement_SpecialAction_Ethiopia_1_Effect = { # Scientific Expeditions
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Ethiopia_1_Effect; Executing Special Action 'Scientific Expeditions'."
+
+    # Costs
+    set_temp_variable = { temp_econ_spending_amount = 0.4 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    # Effects
+    IEA = { add_timed_idea = { idea = ITA_EM_SpecialAction_Ethiopia_1_EffectIdea days = 365 } }
+    set_variable = { ITA_EM_SpecialAction_Cooldown^3 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Ethiopia_2_Effect = { # Stoke Ethnic Conflict
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Ethiopia_2_Effect; Executing Special Action 'Stoke Ethnic Conflict'."
+
+    # Costs
+    set_temp_variable = { temp_econ_spending_amount = 0.25 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    # Effects
+    IEA = { add_timed_idea = { idea = ITA_EM_SpecialAction_Ethiopia_2_EffectIdea days = 365 } }
+    set_variable = { ITA_EM_SpecialAction_DiploEffect^3 = -10 }
+    set_variable = { ITA_EM_SpecialAction_EconEffect^3 = 15 }
+    add_to_variable = { ITA_EM_Regions_DiploValue^3 = ITA_EM_SpecialAction_DiploEffect^3 }
+    add_to_variable = { ITA_EM_Regions_EconValue^3 = ITA_EM_SpecialAction_EconEffect^3 }
+    set_variable = { ITA_EM_SpecialAction_Cooldown^3 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Ethiopia_3_Effect = { # Gold Rush!
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Ethiopia_3_Effect; Executing Special Action 'Gold Rush!'."
+
+    # Effects
+    add_timed_idea = { idea = ITA_EM_SpecialAction_Ethiopia_3_EffectIdea days = 1095 }
+    country_event = { id = ITA_EM.5 days = 365 }
+    country_event = { id = ITA_EM.5 days = 730 }
+    country_event = { id = ITA_EM.5 days = 1095 }
+    set_variable = { ITA_EM_SpecialAction_Cooldown^3 = 1 }
+}
+
+# Somalia
+ITA_EmpireManagement_SpecialAction_Somalia_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Somalia_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^4 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Somalia_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Somalia_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^4 = 1 }
+}
+
+# Kenya
+ITA_EmpireManagement_SpecialAction_Kenya_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Kenya_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^5 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Kenya_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Kenya_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^5 = 1 }
+}
+
+## Western Europe
+# France
+ITA_EmpireManagement_SpecialAction_France_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_France_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^6 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_France_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_France_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^6 = 1 }
+}
+
+# Iberia
+ITA_EmpireManagement_SpecialAction_Iberia_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Iberia_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^7 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Iberia_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Iberia_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^7 = 1 }
+}
+
+# Switzerland
+ITA_EmpireManagement_SpecialAction_Switzerland_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Switzerland_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^8 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Switzerland_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Switzerland_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^8 = 1 }
+}
+
+## Balkans
+# Croatia
+ITA_EmpireManagement_SpecialAction_Croatia_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Croatia_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^9 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Croatia_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Croatia_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^9 = 1 }
+}
+
+# Hungary
+ITA_EmpireManagement_SpecialAction_Hungary_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Hungary_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^10 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Hungary_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Hungary_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^10 = 1 }
+}
+
+# Romania
+ITA_EmpireManagement_SpecialAction_Romania_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Romania_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^11 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Romania_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Romania_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^11 = 1 }
+}
+
+# Serbia
+ITA_EmpireManagement_SpecialAction_Serbia_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Serbia_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^12 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Serbia_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Serbia_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^12 = 1 }
+}
+
+# Montenegro
+ITA_EmpireManagement_SpecialAction_Montenegro_1_Effect = { # Make Examples
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Montenegro_1_Effect; Executing Special Action 'Make Examples'."
+
+    # Effects
+    MNT = { add_timed_idea = { idea = ITA_EM_SpecialAction_Montenegro_1_EffectIdea days = 180 } }
+    set_variable = { ITA_EM_SpecialAction_DiploEffect^13 = 10 }
+    set_variable = { ITA_EM_SpecialAction_EconEffect^13 = -5 }
+    add_to_variable = { ITA_EM_Regions_DiploValue^13 = ITA_EM_SpecialAction_DiploEffect^13 }
+    add_to_variable = { ITA_EM_Regions_EconValue^13 = ITA_EM_SpecialAction_EconEffect^13 }
+    set_variable = { ITA_EM_SpecialAction_Cooldown^13 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Montenegro_2_Effect = { # Contacts into Serbia
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Montenegro_2_Effect; Executing Special Action 'Contacts into Serbia'."
+
+    # Effects
+    set_temp_variable = { Region_i = 12 } # Serbia
+    set_temp_variable = { DiploValueChange_v = 20 }
+    ITA_EmpireManagement_DiploValueChange = yes
+    set_variable = { ITA_EM_SpecialAction_Cooldown^13 = 2 }
+}
+ITA_EmpireManagement_SpecialAction_Montenegro_3_Effect = { # Renew Agricultural Loans
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Montenegro_3_Effect; Executing Special Action 'Renew Agricultural Loans'."
+
+    # Effects
+    MNT = { add_timed_idea = { idea = ITA_EM_SpecialAction_Montenegro_3_EffectIdea days = 180 } }
+    set_variable = { ITA_EM_SpecialAction_Cooldown^13 = 1 }
+}
+
+# Albania
+ITA_EmpireManagement_SpecialAction_Albania_1_Effect = { # Expand the MFSh
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Albania_1_Effect; Executing Special Action 'Expand the MFSh'."
+    
+    # Costs
+    add_equipment_to_stockpile = { type = infantry_equipment amount = -500 }
+    set_temp_variable = { temp_econ_spending_amount = 0.1 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    # Effects
+    ALB = { add_timed_idea = { idea = ITA_EM_SpecialAction_Albania_1_EffectIdea days = 180 } }
+    set_variable = { ITA_EM_SpecialAction_DiploEffect^14 = 10 }
+    set_variable = { ITA_EM_SpecialAction_EconEffect^14 = -10 }
+    add_to_variable = { ITA_EM_Regions_DiploValue^14 = ITA_EM_SpecialAction_DiploEffect^14 }
+    add_to_variable = { ITA_EM_Regions_EconValue^14 = ITA_EM_SpecialAction_EconEffect^14 }
+    set_variable = { ITA_EM_SpecialAction_Cooldown^14 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Albania_2_Effect = { # Renew Colonization Efforts
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Albania_2_Effect; Executing Special Action 'Renew Colonization Efforts'."
+
+    # Costs
+    add_equipment_to_stockpile = { type = infantry_equipment amount = -500 }
+    set_temp_variable = { temp_econ_spending_amount = 0.1 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    # Effects
+    ALB = { add_timed_idea = { idea = ITA_EM_SpecialAction_Albania_2_EffectIdea days = 180 } }
+    set_variable = { ITA_EM_SpecialAction_DiploEffect^14 = -10 }
+    set_variable = { ITA_EM_SpecialAction_EconEffect^14 = 10 }
+    add_to_variable = { ITA_EM_Regions_DiploValue^14 = ITA_EM_SpecialAction_DiploEffect^14 }
+    add_to_variable = { ITA_EM_Regions_EconValue^14 = ITA_EM_SpecialAction_EconEffect^14 }
+    set_variable = { ITA_EM_SpecialAction_Cooldown^14 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Albania_3_Effect = { # ENI Investment
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Albania_3_Effect; Executing Special Action 'ENI Investment'."
+
+    # Costs
+    set_temp_variable = { temp_econ_spending_amount = 0.15 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    # Effects
+    ALB = { add_timed_idea = { idea = ITA_EM_SpecialAction_Albania_3_EffectIdea days = 365 } }
+    set_variable = { ITA_EM_SpecialAction_EconEffect^14 = -20 }
+    add_to_variable = { ITA_EM_Regions_EconValue^14 = ITA_EM_SpecialAction_EconEffect^14 }
+    set_variable = { ITA_EM_SpecialAction_Cooldown^14 = 1 }
+}
+
+# Bulgaria
+ITA_EmpireManagement_SpecialAction_Bulgaria_1_Effect = { # A Dinner of Emperors
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Bulgaria_1_Effect; Executing Special Action 'A Dinner of Emperors'."
+
+    # Costs
+    add_political_power = -25
+    set_temp_variable = { temp_econ_spending_amount = 0.01 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    # Effects
+    set_variable = { ITA_EM_SpecialAction_DiploEffect^15 = 25 }
+    add_to_variable = { ITA_EM_Regions_DiploValue^15 = ITA_EM_SpecialAction_DiploEffect^15 }
+    set_variable = { ITA_EM_SpecialAction_Cooldown^15 = 2 }
+}
+ITA_EmpireManagement_SpecialAction_Bulgaria_2_Effect = { # Border Forts in Thrace
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Bulgaria_2_Effect; Executing Special Action 'Border Forts in Thrace'."
+
+    # Effects
+    set_variable = { ITA_EM_SpecialAction_EconEffect^15 = 10 }
+    add_to_variable = { ITA_EM_Regions_EconValue^15 = ITA_EM_SpecialAction_EconEffect^15 }
+    GRE = {
+        every_owned_state = {
+            limit = { any_neighbor_state = { is_owned_by = TUR } }
+            add_building_construction = {
+                type = bunker
+                level = 2
+                instant_build = yes
+                province = {
+                    all_provinces = yes
+                    limit_to_border = yes
+                }
+            }
+        }
+    }
+    set_variable = { ITA_EM_SpecialAction_Cooldown^15 = 2 }
+}
+ITA_EmpireManagement_SpecialAction_Bulgaria_3_Effect = { # Sealing the Deal
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Bulgaria_3_Effect; Executing Special Action 'Sealing the Deal'."
+
+    # Costs
+    add_political_power = -75
+
+    # Effects
+    set_variable = { ITA_EM_SpecialAction_EconEffect^15 = -10 }
+    add_to_variable = { ITA_EM_Regions_EconValue^15 = ITA_EM_SpecialAction_EconEffect^15 }
+    set_temp_variable = { money_reserves_temp = 0.5 }
+	econ_money_reserves_change_raw_money = yes
+    set_variable = { ITA_EM_SpecialAction_Cooldown^15 = 2 }
+}
+
+# Greece
+ITA_EmpireManagement_SpecialAction_Greece_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Greece_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^16 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Greece_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Greece_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^16 = 1 }
+}
+
+## Middle East
+# Turkey
+ITA_EmpireManagement_SpecialAction_Turkey_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Turkey_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^17 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Turkey_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Turkey_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^17 = 1 }
+}
+
+# IME
+ITA_EmpireManagement_SpecialAction_IME_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_IME_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^18 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_IME_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_IME_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^18 = 1 }
+}
+
+# Iraq
+ITA_EmpireManagement_SpecialAction_Iraq_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Iraq_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^19 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Iraq_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Iraq_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^19 = 1 }
+}
+
+# Saudi Arabia
+ITA_EmpireManagement_SpecialAction_SaudiArabia_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_SaudiArabia_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^20 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_SaudiArabia_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_SaudiArabia_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^20 = 1 }
+}
+
+# Gulf
+ITA_EmpireManagement_SpecialAction_Gulf_1_Effect = { # Buying Loyalty
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Gulf_1_Effect; Executing Special Action 'Buying Loyalty'."
+
+    # Costs
+    set_temp_variable = { temp_econ_spending_amount = 0.5 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    # Effects
+    GUL = { add_timed_idea = { idea = ITA_EM_SpecialAction_Gulf_1_EffectIdea days = 365 } }
+    set_variable = { ITA_EM_SpecialAction_EconEffect^21 = 10 }
+    add_to_variable = { ITA_EM_Regions_EconValue^21 = ITA_EM_SpecialAction_EconEffect^21 }
+    set_variable = { ITA_EM_SpecialAction_Cooldown^21 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Gulf_2_Effect = { # Power Projection
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Gulf_2_Effect; Executing Special Action 'Power Projection'."
+
+    # Costs
+    set_temp_variable = { temp_econ_spending_amount = 0.8 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    # Effects
+    GUL = { add_timed_idea = { idea = ITA_EM_SpecialAction_Gulf_2_EffectIdea days = 365 } }
+    set_temp_variable = { Region_i = 21 } # Gulf
+    set_temp_variable = { EconValueChange_v = -5 }
+    ITA_EmpireManagement_EconValueChange = yes
+
+    set_temp_variable = { DiploValueChange_v = 10 }
+    set_temp_variable = { Region_i = 19 } # Iraq
+    ITA_EmpireManagement_DiploValueChange = yes
+    set_temp_variable = { Region_i = 20 } # Saudi Arabia
+    ITA_EmpireManagement_DiploValueChange = yes
+    set_temp_variable = { Region_i = 22 } # Yemen
+    ITA_EmpireManagement_DiploValueChange = yes
+    set_temp_variable = { Region_i = 23 } # Oman
+    ITA_EmpireManagement_DiploValueChange = yes
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^21 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Gulf_3_Effect = { # Extraordinary Labour Programs
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Gulf_3_Effect; Executing Special Action 'Extraordinary Labour Programs'."
+
+    # Costs
+    set_temp_variable = { temp_econ_spending_amount = 0.3 }
+    econ_spend_money_once_effect_raw_money = yes
+
+    # Effects
+    GUL = { add_timed_idea = { idea = ITA_EM_SpecialAction_Gulf_3_EffectIdea days = 365 } }
+    set_variable = { ITA_EM_SpecialAction_DiploEffect^21 = -10 }
+    add_to_variable = { ITA_EM_Regions_DiploValue^21 = ITA_EM_SpecialAction_DiploEffect^21 }
+    set_variable = { ITA_EM_SpecialAction_Cooldown^21 = 1 }
+}
+
+# Yemen
+ITA_EmpireManagement_SpecialAction_Yemen_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Yemen_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^22 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Yemen_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Yemen_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^22 = 1 }
+}
+
+# Oman
+ITA_EmpireManagement_SpecialAction_Oman_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Oman_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^23 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Oman_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Oman_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^23 = 1 }
+}
+
+## Africa
+# Algeria
+ITA_EmpireManagement_SpecialAction_Algeria_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Algeria_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^24 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Algeria_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Algeria_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^24 = 1 }
+}
+
+# Tunisia
+ITA_EmpireManagement_SpecialAction_Tunisia_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Tunisia_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^25 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Tunisia_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Tunisia_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^25 = 1 }
+}
+
+# Egypt
+ITA_EmpireManagement_SpecialAction_Egypt_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Egypt_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^26 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Egypt_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Egypt_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^26 = 1 }
+}
+
+# Morocco
+ITA_EmpireManagement_SpecialAction_Morocco_1_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Morocco_1_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^27 = 1 }
+}
+ITA_EmpireManagement_SpecialAction_Morocco_2_Effect = { # Title
+    log = "[GetDateText]: [THIS.GetName]: ITA_EmpireManagement_SpecialAction_Morocco_2_Effect; Executing Special Action 'Title'."
+
+    set_variable = { ITA_EM_SpecialAction_Cooldown^27 = 1 }
+}

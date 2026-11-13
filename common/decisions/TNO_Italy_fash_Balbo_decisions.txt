@@ -1,0 +1,4872 @@
+############################################################################
+## ██╗████████╗ █████╗ ██╗         ██╗███╗   ███╗██████╗ ███████╗██████╗  ##
+## ██║╚══██╔══╝██╔══██╗██║         ██║████╗ ████║██╔══██╗██╔════╝██╔══██╗ ##
+## ██║   ██║   ███████║██║         ██║██╔████╔██║██████╔╝█████╗  ██████╔╝ ##
+## ██║   ██║   ██╔══██║██║         ██║██║╚██╔╝██║██╔═══╝ ██╔══╝  ██╔══██╗ ##
+## ██║   ██║   ██║  ██║███████╗    ██║██║ ╚═╝ ██║██║     ███████╗██║  ██║ ##
+## ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝ ##
+############################################################################
+#Decisions
+ 
+#Index; Search for these names using CTRL+F and you'll find the section they entitle.
+#	a) Balbo Imper Mechanic Decisions
+
+
+
+#####################################################
+###=====| a) Balbo Imper Mechanic Decisions |=====###
+#####################################################
+ITA_balbo_imper = {
+
+	#i think it's a good place for it, but dunno seriously
+
+	ITA_tour_the_construction_sites_decision = {
+	
+		icon = GFX_decision_black_market_money
+		visible = {
+			has_completed_focus = ITA_tour_the_construction_sites
+		}
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects > 0 }
+		}
+		days_re_enable = 90
+		fixed_random_seed = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_increasecosts_1"
+			hidden_effect = {
+				set_country_flag = ITA_decrease_by_15_days_flag
+				random_list = {
+					ITA_balboimper_chance_S1_1_NI = {
+						ITA_balboimper_monthly_gain_S1_1_NI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S1_1_NI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S1_1_NI = ITA_temp_15_days }
+						add_political_power = 1
+						subtract_from_variable = { ITA_balboimper_progress_change_S1_1_NI = ITA_balboimper_progress_change_S1_1_NI }
+						subtract_from_variable = { ITA_balboimper_months_S1_1_NI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S1_1_NI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S1_2_NI = {
+						ITA_balboimper_monthly_gain_S1_2_NI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S1_2_NI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S1_2_NI = ITA_temp_15_days }
+						add_political_power = 2
+						subtract_from_variable = { ITA_balboimper_progress_change_S1_2_NI = ITA_balboimper_progress_change_S1_2_NI }
+						subtract_from_variable = { ITA_balboimper_months_S1_2_NI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S1_2_NI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S1_3_NI = {
+						ITA_balboimper_monthly_gain_S1_3_NI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S1_3_NI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S1_3_NI = ITA_temp_15_days }
+						add_political_power = 3
+						subtract_from_variable = { ITA_balboimper_progress_change_S1_3_NI = ITA_balboimper_progress_change_S1_3_NI }
+						subtract_from_variable = { ITA_balboimper_months_S1_3_NI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S1_3_NI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S2_1_NI = {
+						ITA_balboimper_monthly_gain_S2_1_NI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S2_1_NI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S2_1_NI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S2_1_NI = ITA_balboimper_progress_change_S2_1_NI }
+						subtract_from_variable = { ITA_balboimper_months_S2_1_NI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S2_1_NI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S2_2_NI = {
+						ITA_balboimper_monthly_gain_S2_2_NI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S2_2_NI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S2_2_NI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S2_2_NI = ITA_balboimper_progress_change_S2_2_NI }
+						subtract_from_variable = { ITA_balboimper_months_S2_2_NI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S2_2_NI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S3_1_NI = {
+						ITA_balboimper_monthly_gain_S3_1_NI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S3_1_NI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S3_1_NI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S3_1_NI = ITA_balboimper_progress_change_S3_1_NI }
+						subtract_from_variable = { ITA_balboimper_months_S3_1_NI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S3_1_NI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S3_2_NI = {
+						ITA_balboimper_monthly_gain_S3_2_NI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S3_2_NI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S3_2_NI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S3_2_NI = ITA_balboimper_progress_change_S3_2_NI }
+						subtract_from_variable = { ITA_balboimper_months_S3_2_NI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S3_2_NI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S3_3_NI = {
+						ITA_balboimper_monthly_gain_S3_3_NI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S3_3_NI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S3_3_NI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S3_3_NI = ITA_balboimper_progress_change_S3_3_NI }
+						subtract_from_variable = { ITA_balboimper_months_S3_3_NI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S3_3_NI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S1_1_CI = {
+						ITA_balboimper_monthly_gain_S1_1_CI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S1_1_CI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S1_1_CI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S1_1_CI = ITA_balboimper_progress_change_S1_1_CI }
+						subtract_from_variable = { ITA_balboimper_months_S1_1_CI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S1_1_CI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S1_2_CI = {
+						ITA_balboimper_monthly_gain_S1_2_CI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S1_2_CI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S1_2_CI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S1_2_CI = ITA_balboimper_progress_change_S1_2_CI }
+						subtract_from_variable = { ITA_balboimper_months_S1_2_CI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S1_2_CI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S1_3_CI = {
+						ITA_balboimper_monthly_gain_S1_3_CI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S1_3_CI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S1_3_CI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S1_3_CI = ITA_balboimper_progress_change_S1_3_CI }
+						subtract_from_variable = { ITA_balboimper_months_S1_3_CI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S1_3_CI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S2_1_CI = {
+						ITA_balboimper_monthly_gain_S2_1_CI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S2_1_CI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S2_1_CI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S2_1_CI = ITA_balboimper_progress_change_S2_1_CI }
+						subtract_from_variable = { ITA_balboimper_months_S2_1_CI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S2_1_CI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S2_2_CI = {
+						ITA_balboimper_monthly_gain_S2_2_CI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S2_2_CI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S2_2_CI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S2_2_CI = ITA_balboimper_progress_change_S2_2_CI }
+						subtract_from_variable = { ITA_balboimper_months_S2_2_CI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S2_2_CI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S3_1_CI = {
+						ITA_balboimper_monthly_gain_S3_1_CI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S3_1_CI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S3_1_CI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S3_1_CI = ITA_balboimper_progress_change_S3_1_CI }
+						subtract_from_variable = { ITA_balboimper_months_S3_1_CI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S3_1_CI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S3_2_CI = {
+						ITA_balboimper_monthly_gain_S3_2_CI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S3_2_CI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S3_2_CI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S3_2_CI = ITA_balboimper_progress_change_S3_2_CI }
+						subtract_from_variable = { ITA_balboimper_months_S3_2_CI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S3_2_CI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S3_3_CI = {
+						ITA_balboimper_monthly_gain_S3_3_CI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S3_3_CI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S3_3_CI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S3_3_CI = ITA_balboimper_progress_change_S3_3_CI }
+						subtract_from_variable = { ITA_balboimper_months_S3_3_CI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S3_3_CI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S1_1_SI = {
+						ITA_balboimper_monthly_gain_S1_1_SI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S1_1_SI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S1_1_SI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S1_1_SI = ITA_balboimper_progress_change_S1_1_SI }
+						subtract_from_variable = { ITA_balboimper_months_S1_1_SI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S1_1_SI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S1_2_SI = {
+						ITA_balboimper_monthly_gain_S1_2_SI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S1_2_SI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S1_2_SI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S1_2_SI = ITA_balboimper_progress_change_S1_2_SI }
+						subtract_from_variable = { ITA_balboimper_months_S1_2_SI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S1_2_SI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S1_3_SI = {
+						ITA_balboimper_monthly_gain_S1_3_SI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S1_3_SI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S1_3_SI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S1_3_SI = ITA_balboimper_progress_change_S1_3_SI }
+						subtract_from_variable = { ITA_balboimper_months_S1_3_SI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S1_3_SI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S2_1_SI = {
+						ITA_balboimper_monthly_gain_S2_1_SI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S2_1_SI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S2_1_SI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S2_1_SI = ITA_balboimper_progress_change_S2_1_SI }
+						subtract_from_variable = { ITA_balboimper_months_S2_1_SI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S2_1_SI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S2_2_SI = {
+						ITA_balboimper_monthly_gain_S2_2_SI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S2_2_SI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S2_2_SI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S2_2_SI = ITA_balboimper_progress_change_S2_2_SI }
+						subtract_from_variable = { ITA_balboimper_months_S2_2_SI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S2_2_SI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S3_1_SI = {
+						ITA_balboimper_monthly_gain_S3_1_SI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S3_1_SI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S3_1_SI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S3_1_SI = ITA_balboimper_progress_change_S3_1_SI }
+						subtract_from_variable = { ITA_balboimper_months_S3_1_SI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S3_1_SI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S3_2_SI = {
+						ITA_balboimper_monthly_gain_S3_2_SI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S3_2_SI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S3_2_SI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S3_2_SI = ITA_balboimper_progress_change_S3_2_SI }
+						subtract_from_variable = { ITA_balboimper_months_S3_2_SI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S3_2_SI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S3_3_SI = {
+						ITA_balboimper_monthly_gain_S3_3_SI = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S3_3_SI }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S3_3_SI = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S3_3_SI = ITA_balboimper_progress_change_S3_3_SI }
+						subtract_from_variable = { ITA_balboimper_months_S3_3_SI = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S3_3_SI
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S1_1_L = {
+						ITA_balboimper_monthly_gain_S1_1_L = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S1_1_L }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S1_1_L = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S1_1_L = ITA_balboimper_progress_change_S1_1_L }
+						subtract_from_variable = { ITA_balboimper_months_S1_1_L = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S1_1_L
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S1_2_L = {
+						ITA_balboimper_monthly_gain_S1_2_L = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S1_2_L }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S1_2_L = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S1_2_L = ITA_balboimper_progress_change_S1_2_L }
+						subtract_from_variable = { ITA_balboimper_months_S1_2_L = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S1_2_L
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S1_3_L = {
+						ITA_balboimper_monthly_gain_S1_3_L = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S1_3_L }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S1_3_L = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S1_3_L = ITA_balboimper_progress_change_S1_3_L }
+						subtract_from_variable = { ITA_balboimper_months_S1_3_L = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S1_3_L
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S2_1_L = {
+						ITA_balboimper_monthly_gain_S2_1_L = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S2_1_L }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S2_1_L = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S2_1_L = ITA_balboimper_progress_change_S2_1_L }
+						subtract_from_variable = { ITA_balboimper_months_S2_1_L = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S2_1_L
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S2_2_L = {
+						ITA_balboimper_monthly_gain_S2_2_L = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S2_2_L }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S2_2_L = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S2_2_L = ITA_balboimper_progress_change_S2_2_L }
+						subtract_from_variable = { ITA_balboimper_months_S2_2_L = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S2_2_L
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S3_1_L = {
+						ITA_balboimper_monthly_gain_S3_1_L = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S3_1_L }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S3_1_L = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S3_1_L = ITA_balboimper_progress_change_S3_1_L }
+						subtract_from_variable = { ITA_balboimper_months_S3_1_L = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S3_1_L
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S3_2_L = {
+						ITA_balboimper_monthly_gain_S3_2_L = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S3_2_L }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S3_2_L = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S3_2_L = ITA_balboimper_progress_change_S3_2_L }
+						subtract_from_variable = { ITA_balboimper_months_S3_2_L = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S3_2_L
+							min = 0
+							max = 100
+						}
+					}
+					ITA_balboimper_chance_S3_3_L = {
+						ITA_balboimper_monthly_gain_S3_3_L = yes
+						set_temp_variable = { ITA_temp_15_days = ITA_balboimper_progress_change_S3_3_L }
+						divide_temp_variable = { ITA_temp_15_days = 2 }
+						add_to_variable = { ITA_balboimper_progress_S3_3_L = ITA_temp_15_days }
+						subtract_from_variable = { ITA_balboimper_progress_change_S3_3_L = ITA_balboimper_progress_change_S3_3_L }
+						subtract_from_variable = { ITA_balboimper_months_S3_3_L = 1 }
+						clamp_variable = {
+							var = ITA_balboimper_progress_S3_3_L
+							min = 0
+							max = 100
+						}
+					}
+				}
+				# ITA_balbo.8999 was scheduled here and is defined on neither branch. It is not the
+				# imperial tick - ITA_balbo.9008 runs corruption monthly, and the PULSE decisions run
+				# project progress. Its only job would have been to close the 90-day window this
+				# decision opens with ITA_decrease_by_15_days_flag, which nothing reads, and
+				# days_re_enable = 90 already enforces the wait.
+				#STRIP(dead_event) country_event = { id = ITA_balbo.8999 days = 90 }
+			}
+			custom_effect_tooltip = ITA_decrease_by_15_days_tooltip 
+		}
+	}
+
+	
+	####INCREASE COSTS DECISIONS####
+	
+	ita_balboimper_increasecosts_1 = {
+	
+		icon = GFX_decision_black_market_money
+		visible = {
+			check_variable = { ita_balboimper_costdecision_var = 1 }
+		}
+		available = {
+			has_country_flag = ITA_balboimper_costdecision_available
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_increasecosts_1"
+			
+			clr_country_flag = ITA_balboimper_costdecision_available
+			
+			custom_effect_tooltip = ita_balboimper_costdecision_1_tt #"Project costs will increase by 30%"
+			#also efficiency +0.04 in tooltip lol
+			
+			ITA_balboimper_increase_monthlycosts = yes
+			
+			hidden_effect = {
+				country_event = {
+					id = ITA_balbo.9009
+					days = 180
+				}
+			}
+		}
+	}
+	
+	ita_balboimper_increasecosts_2 = {
+	
+		icon = GFX_decision_black_market_money
+		visible = {
+			check_variable = { ita_balboimper_costdecision_var = 2 }
+		}
+		available = {
+			has_country_flag = ITA_balboimper_costdecision_available
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_increasecosts_2"
+			
+			clr_country_flag = ITA_balboimper_costdecision_available
+			
+			custom_effect_tooltip = ita_balboimper_costdecision_2_tt #"Project costs will increase by 30%"
+			#also efficiency +0.04 in tooltip lol
+			
+			ITA_balboimper_increase_monthlycosts = yes
+			
+			hidden_effect = {
+				country_event = {
+					id = ITA_balbo.9010
+					days = 180
+				}
+			}
+		}
+	}
+	
+	ita_balboimper_increasecosts_3 = {
+	
+		icon = GFX_decision_black_market_money
+		visible = {
+			check_variable = { ita_balboimper_costdecision_var = 3 }
+		}
+		available = {
+			has_country_flag = ITA_balboimper_costdecision_available
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_increasecosts_3"
+			
+			clr_country_flag = ITA_balboimper_costdecision_available
+			
+			custom_effect_tooltip = ita_balboimper_costdecision_3_tt #"Project costs will increase by 30%"
+			#also efficiency +0.04 in tooltip lol
+			
+			ITA_balboimper_increase_monthlycosts = yes
+			
+			hidden_effect = {
+				country_event = {
+					id = ITA_balbo.9011
+					days = 180
+				}
+			}
+		}
+	}
+	
+	ita_balboimper_increasecosts_4 = {
+	
+		icon = GFX_decision_black_market_money
+		visible = {
+			check_variable = { ita_balboimper_costdecision_var = 4 }
+		}
+		available = {
+			has_country_flag = ITA_balboimper_costdecision_available
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_increasecosts_4"
+			
+			clr_country_flag = ITA_balboimper_costdecision_available
+			
+			custom_effect_tooltip = ita_balboimper_costdecision_4_tt #"Project costs will increase by 30%"
+			#also efficiency +0.04 in tooltip lol
+			
+			ITA_balboimper_increase_monthlycosts = yes
+			
+			hidden_effect = {
+				country_event = {
+					id = ITA_balbo.9012
+					days = 180
+				}
+			}
+		}
+	}
+	
+	ita_balboimper_increasecosts_5 = {
+	
+		icon = GFX_decision_black_market_money
+		visible = {
+			check_variable = { ita_balboimper_costdecision_var = 5 }
+		}
+		available = {
+			has_country_flag = ITA_balboimper_costdecision_available
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_increasecosts_5"
+			
+			clr_country_flag = ITA_balboimper_costdecision_available
+			
+			custom_effect_tooltip = ita_balboimper_costdecision_5_tt #"Project costs will increase by 30%"
+			#also efficiency +0.04 in tooltip lol
+			
+			ITA_balboimper_increase_monthlycosts = yes
+			
+			hidden_effect = {
+				country_event = {
+					id = ITA_balbo.9013
+					days = 180
+				}
+			}
+		}
+	}
+	
+	ita_balboimper_increasecosts_6 = {
+	
+		icon = GFX_decision_black_market_money
+		visible = {
+			check_variable = { ita_balboimper_costdecision_var = 6 }
+		}
+		available = {
+			has_country_flag = ITA_balboimper_costdecision_available
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_increasecosts_6"
+			
+			clr_country_flag = ITA_balboimper_costdecision_available
+			
+			custom_effect_tooltip = ita_balboimper_costdecision_6_tt #"Project costs will increase by 30%"
+			#also efficiency +0.04 in tooltip lol
+			
+			ITA_balboimper_increase_monthlycosts = yes
+			
+			hidden_effect = {
+				country_event = {
+					id = ITA_balbo.9014
+					days = 1
+				}
+			}
+		}
+	}
+	
+	####NORTHERN ITALY####
+	
+	##DEBUG DECISIONS##
+	
+	#add em here if needed lol
+	
+	##Show/Hide Northern Italy
+	
+	ita_balboimper_show_northern_italy = {
+	
+		icon = decision_black_market_presence_increase
+		visible = {
+			NOT = {
+				has_country_flag = ITA_balboimper_show_northern_italy_flag
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_show_northern_italy"
+			set_country_flag = ITA_balboimper_show_northern_italy_flag
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_show_northern_italy"
+		}
+	}
+	ita_balboimper_hide_northern_italy = {
+	
+		icon = decision_black_market_shut_down
+		visible = {
+			has_country_flag = ITA_balboimper_show_northern_italy_flag
+		}
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_hide_northern_italy"
+			clr_country_flag = ITA_balboimper_show_northern_italy_flag
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_hide_northern_italy"
+		}
+	}
+	
+	###Stage 1 Projects Northern Italy###
+	
+	##Project 1 (Stage 1)
+	ita_balboimper_S1_project_1_northern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S1_1_NI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_northern_italy_flag
+			NOT = {
+				has_country_flag = ITA_balboimper_S1_finished_NI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_1_northern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S1_project_1_northern_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S1_1_NI = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S1_1_NI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_1_northern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S1_project_1_northern_italy_tt
+			
+			#set_temp_variable = { temp_ITA_GDP_boost_percentage_NI = 0.01 }
+			#ITA_GDP_boost_once_percentage_NI = yes
+			
+			###ACTUAL EFFECTS IN THE PULSE DECISION 
+			#(IF YOU WANT PDX TOOLTIPS HERE, JUST PUT EXTRA EFFECT HERE, IT WONT BE TRIGGERED ANYWAY) 
+		}
+	}
+	
+	#Project 1 (Stage 1) PULSE [For ZZZ]
+	ita_balboimper_S1_project_1_northern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_1_northern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_1_northern_italy_PULSE"
+
+			clear_variable = ITA_balboimper_chance_S1_1_NI
+			
+			ITA = { ITA_balboimper_monthly_gain_S1_1_NI = yes }
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S1_1_NI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S1_project_1_northern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					add_ideas = ITA_hidden_balboimper_S1_1_NI
+					
+					set_temp_variable = { temp_ITA_GDP_boost_percentage_NI = 0.005 }
+					ITA_GDP_boost_once_percentage_NI = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					
+					set_variable = { ITA_balboimper_GUI_S1_1_NI = 2 }
+					
+					clear_variable = ITA_balboimper_months_S1_1_NI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S1_1_NI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S1_1_NI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S1_1_NI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S1_NI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S1_project_1_northern_italy_PULSE
+			}
+		}
+	}
+	
+	##Project 2 (Stage 1)
+	ita_balboimper_S1_project_2_northern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S1_2_NI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_northern_italy_flag
+			NOT = {
+				has_country_flag = ITA_balboimper_S1_finished_NI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_2_northern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S1_project_2_northern_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S1_2_NI = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S1_2_NI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+			
+			#Event related to project
+			
+			hidden_effect = {
+				country_event = {
+					id = ITA_balbo.9020
+					days = 88
+				}
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_2_northern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S1_project_2_northern_italy_tt
+			
+			#set_temp_variable = { temp_ITA_GDP_boost_percentage_NI = 0.01 }
+			#ITA_GDP_boost_once_percentage_NI = yes
+		}
+	}
+	
+	#Project 2 (Stage 1) PULSE [For ZZZ]
+	ita_balboimper_S1_project_2_northern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_2_northern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_2_northern_italy_PULSE"
+
+			clear_variable = ITA_balboimper_chance_S1_2_NI
+			
+			ITA = { ITA_balboimper_monthly_gain_S1_2_NI = yes }
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S1_2_NI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S1_project_2_northern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					add_ideas = ITA_hidden_balboimper_S1_2_NI
+					
+					recalculate_GDP_and_PUs_on_demand = yes
+					
+					add_to_variable = { agriculture_monthly_change = 1 }
+					
+					set_temp_variable = { temp_ITA_GDP_boost_percentage_NI = 0.005 }
+					ITA_GDP_boost_once_percentage_NI = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					if = { #If accepted private partnership event 
+						limit = { has_country_flag = ITA_balboimper_acceptedpartnership }
+						
+						clr_country_flag = ITA_balboimper_acceptedpartnership
+						
+						add_to_variable = { ITA_balboimper_misccosts = S1_privatecost_povalley }
+						add_to_variable = { ITA_balboimper_misccosts_monthly = S1_privatecost_povalley_monthly }
+						
+						clear_variable = S1_privatecost_povalley
+						clear_variable = S1_privatecost_povalley_monthly
+						
+						remove_dynamic_modifier = { modifier = ITA_Balboimper_acceptedpartnership_dynmod }
+					}
+					
+					#gui stuff
+					set_variable = { ITA_balboimper_GUI_S1_2_NI = 2 }
+					
+					clear_variable = ITA_balboimper_months_S1_2_NI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S1_2_NI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S1_2_NI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S1_2_NI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S1_NI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S1_project_2_northern_italy_PULSE
+			}
+		}
+	}
+	
+	##Project 3 (Stage 1)
+	ita_balboimper_S1_project_3_northern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S1_3_NI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_northern_italy_flag
+			NOT = {
+				has_country_flag = ITA_balboimper_S1_finished_NI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_3_northern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S1_project_3_northern_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S1_3_NI = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S1_3_NI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_3_northern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S1_project_3_northern_italy_tt
+
+		}
+	}
+	
+	#Project 3 (Stage 1) PULSE [For ZZZ]
+	ita_balboimper_S1_project_3_northern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_3_northern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_3_northern_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S1_3_NI = yes }
+
+			clear_variable = ITA_balboimper_chance_S1_3_NI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S1_3_NI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S1_project_3_northern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					add_ideas = ITA_hidden_balboimper_S1_3_NI
+					
+					set_temp_variable = { temp_ITA_GDP_boost_percentage_NI = 0.005 }
+					ITA_GDP_boost_once_percentage_NI = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					set_variable = { ITA_balboimper_GUI_S1_3_NI = 2 }
+					
+					clear_variable = ITA_balboimper_months_S1_3_NI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S1_3_NI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S1_3_NI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S1_3_NI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S1_NI = yes 
+				}	
+			}
+			else = {
+				activate_decision = ita_balboimper_S1_project_3_northern_italy_PULSE
+			}
+		}
+	}
+	
+	###Stage 2 Projects Northern Italy###
+	
+	##Project 1 (Stage 2)
+	ita_balboimper_S2_project_1_northern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S2_1_NI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_northern_italy_flag
+			has_country_flag = ITA_balboimper_S1_finished_NI
+			NOT = {
+				has_country_flag = ITA_balboimper_S2_finished_NI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_1_northern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S2_project_1_northern_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S2_1_NI = 1 }
+			
+			if = {
+				limit = { check_variable = { ITA_balboimper_progress_S2_2_NI = 100 } }
+				
+				set_variable = { ITA_balboimper_GUI_S2_NI = 4 }
+			}
+			else = {
+				
+				set_variable = { ITA_balboimper_GUI_S2_NI = 1 }
+			}
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_1_northern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S2_project_1_northern_italy_tt
+			
+			#set_temp_variable = { temp_ITA_state_gdp_growth_NI = 0.5 }
+			#ITA_gdp_growth_change_NI = yes
+			
+		}
+	}
+	
+	#Project 1 (Stage 2) PULSE [For ZZZ]
+	ita_balboimper_S2_project_1_northern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_1_northern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_1_northern_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S2_1_NI = yes }
+
+			clear_variable = ITA_balboimper_chance_S2_1_NI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S2_1_NI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S2_project_1_northern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_S2_ideaupdate = yes
+					
+					ITA_balboimper_S2_NI_infrastructure = yes
+					
+					set_temp_variable = { temp_ITA_state_gdp_growth_NI = 0.25 }
+					ITA_gdp_growth_change_NI = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					
+					if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_2_NI = 100 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_NI = 6 }
+					}
+					else_if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_2_NI > 0 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_NI = 5 }
+					}
+					else = {
+						set_variable = { ITA_balboimper_GUI_S2_NI = 2 }
+					}
+					
+					clear_variable = ITA_balboimper_months_S2_1_NI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S2_1_NI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S2_1_NI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S2_1_NI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S2_NI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S2_project_1_northern_italy_PULSE
+			}
+		}
+	}
+	
+	##Project 2 (Stage 2)
+	ita_balboimper_S2_project_2_northern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S2_2_NI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_northern_italy_flag
+			has_country_flag = ITA_balboimper_S1_finished_NI
+			NOT = {
+				has_country_flag = ITA_balboimper_S2_finished_NI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_2_northern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S2_project_2_northern_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S2_2_NI = 1 }
+			
+			if = {
+				limit = { check_variable = { ITA_balboimper_progress_S2_1_NI = 100 } }
+				
+				set_variable = { ITA_balboimper_GUI_S2_NI = 5 }
+			}
+			else = {
+				
+				set_variable = { ITA_balboimper_GUI_S2_NI = 1 }
+			}
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_2_northern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S2_project_2_northern_italy_tt
+		
+		}
+	}
+	
+	
+	#Project 2 (Stage 2) PULSE [For ZZZ]
+	ita_balboimper_S2_project_2_northern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_2_northern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_2_northern_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S2_2_NI = yes }
+
+			clear_variable = ITA_balboimper_chance_S2_2_NI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S2_2_NI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S2_project_2_northern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_S2_ideaupdate = yes
+					
+					ITA_balboimper_S2_NI_infrastructure = yes
+					
+					set_temp_variable = { temp_ITA_state_gdp_growth_NI = 0.25 }
+					ITA_gdp_growth_change_NI = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					
+					if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_1_NI = 100 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_NI = 6 }
+					}
+					else_if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_1_NI > 0 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_NI = 4 }
+					}
+					else = {
+						set_variable = { ITA_balboimper_GUI_S2_NI = 3 }
+					}
+					
+					clear_variable = ITA_balboimper_months_S2_2_NI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S2_2_NI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S2_2_NI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S2_2_NI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S2_NI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S2_project_2_northern_italy_PULSE
+			}
+		}
+	}
+	
+	###Stage 3 Projects Northern Italy###
+	
+	##Project 1 (Stage 3)
+	ita_balboimper_S3_project_1_northern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S3_1_NI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_northern_italy_flag
+			has_country_flag = ITA_balboimper_S2_finished_NI
+			NOT = {
+				has_country_flag = ITA_balboimper_S3_finished_NI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_1_northern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S3_project_1_northern_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S3_1_NI = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S3_1_NI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S3_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			clear_variable = ITA_balboimper_progress_S1_1_NI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_2_NI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_3_NI #Total progress from 0 to 100 (Stage 1)
+			
+			ITA_balboimper_projectcost_monthly_4m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_1_northern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S3_project_1_northern_italy_tt
+			
+			ITA_Balboimper_EFFECT_S3_1_NI = yes
+
+		}
+	}
+	
+	#Project 1 (Stage 3) PULSE [For ZZZ]
+	ita_balboimper_S3_project_1_northern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_1_northern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_1_northern_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S3_1_NI = yes }
+
+			clear_variable = ITA_balboimper_chance_S3_1_NI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S3_1_NI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S3_project_1_northern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S3_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_projectcost_monthly_4m_sub = yes
+					
+					ITA_Balboimper_EFFECT_S3_1_NI = yes
+					
+					#gui stuff
+					
+					set_variable = { ITA_balboimper_GUI_S3_1_NI = 2 }
+					
+					clear_variable = ITA_balboimper_months_S3_1_NI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S3_1_NI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S3_1_NI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S3_1_NI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S3_NI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S3_project_1_northern_italy_PULSE
+			}
+		}
+	}
+	
+	##Project 2 (Stage 3)
+	ita_balboimper_S3_project_2_northern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S3_2_NI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_northern_italy_flag
+			has_country_flag = ITA_balboimper_S2_finished_NI
+			NOT = {
+				has_country_flag = ITA_balboimper_S3_finished_NI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_2_northern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+
+			set_variable = { ITA_balboimper_chance_S3_2_NI = 1 }
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S3_project_2_northern_italy_PULSE }
+			}
+			
+			set_variable = { ITA_balboimper_GUI_S3_2_NI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S3_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			clear_variable = ITA_balboimper_progress_S1_1_NI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_2_NI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_3_NI #Total progress from 0 to 100 (Stage 1)
+			
+			ITA_balboimper_projectcost_monthly_4m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_2_northern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S3_project_2_northern_italy_tt
+			
+			ITA_Balboimper_EFFECT_S3_2_NI = yes
+		}
+	}
+	
+	#Project 2 (Stage 3) PULSE [For ZZZ]
+	ita_balboimper_S3_project_2_northern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_2_northern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_2_northern_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S3_2_NI = yes }
+			
+			clear_variable = ITA_balboimper_chance_S3_2_NI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S3_2_NI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S3_project_2_northern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S3_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_projectcost_monthly_4m_sub = yes
+					
+					ITA_Balboimper_EFFECT_S3_2_NI = yes
+					
+					#gui stuff
+					
+					set_variable = { ITA_balboimper_GUI_S3_2_NI = 2 }
+					
+					clear_variable = ITA_balboimper_months_S3_2_NI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S3_2_NI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S3_2_NI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S3_2_NI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S3_NI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S3_project_2_northern_italy_PULSE
+			}
+		}
+	}
+	
+	##Project 3 (Stage 3) ###[THE BONUS PROJECT]###
+	ita_balboimper_S3_project_3_northern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S3_3_NI = 100 } }
+			
+			custom_trigger_tooltip = {
+				tooltip = ita_balboimper_S3_3_NI_available_tt
+				check_variable = { ITA_EM_Regions_DiploValue^6 > 39.99 } # France
+			}
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_northern_italy_flag
+			has_country_flag = ITA_balboimper_S2_finished_NI
+			NOT = {
+				has_country_flag = ITA_balboimper_S3_finished_NI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_3_northern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S3_project_3_northern_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S3_3_NI = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S3_3_NI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S3_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			clear_variable = ITA_balboimper_progress_S1_1_NI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_2_NI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_3_NI #Total progress from 0 to 100 (Stage 1)
+			
+			ITA_balboimper_projectcost_monthly_4m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_3_northern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S3_project_3_northern_italy_tt
+			
+			ITA_Balboimper_EFFECT_S3_3_NI = yes
+			
+			FRA = {
+				country_event = {
+					id = ITA_balbo.9000
+					days = 1
+				}
+			}
+		}
+	}
+	
+	#Project 3 (Stage 3) PULSE [For ZZZ]
+	ita_balboimper_S3_project_3_northern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_3_northern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_3_northern_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S3_3_NI = yes }
+
+			clear_variable = ITA_balboimper_chance_S3_3_NI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S3_3_NI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S3_project_3_northern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S3_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_projectcost_monthly_4m_sub = yes
+					
+					ITA_Balboimper_EFFECT_S3_3_NI = yes
+					
+					FRA = {
+						country_event = {
+							id = ITA_balbo.9000
+							days = 1
+						}
+					}
+					
+					#gui stuff
+					set_variable = { ITA_balboimper_GUI_S3_3_NI = 2 }
+					
+					clear_variable = ITA_balboimper_months_S3_3_NI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S3_3_NI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S3_3_NI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S3_3_NI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S3_NI = yes 
+					
+					set_variable = { ITA_balboimper_progress_S3_3_NI = 100 }
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S3_project_3_northern_italy_PULSE
+			}
+		}
+	}
+	
+	#Corruption Northern Italy 
+	
+	ita_balboimper_corruption_PP_northern_italy = {
+		
+		visible = {
+			has_country_flag = ITA_balboimper_show_northern_italy_flag
+		}
+		
+		cost = 75
+		ai_will_do = {
+			factor = 40
+		}
+
+		days_remove = 10
+		
+		complete_effect = {
+			add_to_variable = { ITA_balboimper_corruption_northern_italy = -0.05 }
+			custom_effect_tooltip = ita_balboimper_corruption_PP_northern_italy_tt
+			clamp_variable = {
+				var = ITA_balboimper_corruption_northern_italy
+				min = 0
+			}
+		}
+	}
+	
+	####CENTRAL ITALY####
+	
+	##DEBUG DECISIONS##
+	
+	#add em here if needed lol
+	
+	##Show/Hide Central Italy
+	
+	ita_balboimper_show_central_italy = {
+	
+		icon = decision_black_market_presence_increase
+		visible = {
+			NOT = {
+				has_country_flag = ITA_balboimper_show_central_italy_flag
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_show_central_italy"
+			set_country_flag = ITA_balboimper_show_central_italy_flag
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_show_central_italy"
+		}
+	}
+	ita_balboimper_hide_central_italy = {
+	
+		icon = decision_black_market_shut_down
+		visible = {
+			has_country_flag = ITA_balboimper_show_central_italy_flag
+		}
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_hide_central_italy"
+			clr_country_flag = ITA_balboimper_show_central_italy_flag
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_hide_central_italy"
+		}
+	}
+	
+	###Stage 1 Projects Central Italy###
+	
+	##Project 1 (Stage 1)
+	ita_balboimper_S1_project_1_central_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S1_1_CI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_central_italy_flag
+			NOT = {
+				has_country_flag = ITA_balboimper_S1_finished_CI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_1_central_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S1_project_1_central_italy_PULSE }
+			}
+			
+			set_variable = { ITA_balboimper_chance_S1_1_CI = 1 }
+
+			set_variable = { ITA_balboimper_GUI_S1_1_CI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_1_central_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S1_project_1_central_italy_tt
+			
+			###ACTUAL EFFECTS IN THE PULSE DECISION 
+			#(IF YOU WANT PDX TOOLTIPS HERE, JUST PUT EXTRA EFFECT HERE, IT WONT BE TRIGGERED ANYWAY) 
+		}
+	}
+	
+	#Project 1 (Stage 1) PULSE [For ZZZ]
+	ita_balboimper_S1_project_1_central_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_1_central_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_1_central_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S1_1_CI = yes }
+
+			clear_variable = ITA_balboimper_chance_S1_1_CI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S1_1_CI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S1_project_1_central_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					add_ideas = ITA_hidden_balboimper_S1_1_CI
+					
+					set_temp_variable = { temp_ITA_GDP_boost_percentage_CI = 0.01 }
+					ITA_GDP_boost_once_percentage_CI = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					
+					set_variable = { ITA_balboimper_GUI_S1_1_CI = 2 }
+					
+					clear_variable = ITA_balboimper_months_S1_1_CI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S1_1_CI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S1_1_CI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S1_1_CI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S1_CI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S1_project_1_central_italy_PULSE
+			}
+		}
+	}
+	
+	##Project 2 (Stage 1)
+	ita_balboimper_S1_project_2_central_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S1_2_CI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_central_italy_flag
+			NOT = {
+				has_country_flag = ITA_balboimper_S1_finished_CI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_2_central_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S1_project_2_central_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S1_2_CI = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S1_2_CI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_2_central_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S1_project_2_central_italy_tt
+			
+		}
+	}
+	
+	#Project 2 (Stage 1) PULSE [For ZZZ]
+	ita_balboimper_S1_project_2_central_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_2_central_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_2_central_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S1_2_CI = yes }
+
+			clear_variable = ITA_balboimper_chance_S1_2_CI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S1_2_CI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S1_project_2_central_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					add_ideas = ITA_hidden_balboimper_S1_2_CI
+					
+					ITA_balboimper_S1_2_CI_infrastructure = yes 
+
+					set_temp_variable = { Region_i = 9 } # Croatia
+					set_temp_variable = { DiploValueChange_v = 5 }
+					ITA_EmpireManagement_DiploValueChange = yes
+					
+					set_temp_variable = { temp_ITA_GDP_boost_percentage_CI = 0.01 }
+					ITA_GDP_boost_once_percentage_CI = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					
+					set_variable = { ITA_balboimper_GUI_S1_2_CI = 2 }
+					
+					clear_variable = ITA_balboimper_months_S1_2_CI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S1_2_CI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S1_2_CI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S1_2_CI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S1_CI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S1_project_2_central_italy_PULSE
+			}
+		}
+	}
+	
+	##Project 3 (Stage 1)
+	ita_balboimper_S1_project_3_central_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S1_3_CI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_central_italy_flag
+			NOT = {
+				has_country_flag = ITA_balboimper_S1_finished_CI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_3_central_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S1_project_3_central_italy_PULSE }
+			}
+			
+			set_variable = { ITA_balboimper_chance_S1_3_CI = 1 }
+
+			set_variable = { ITA_balboimper_GUI_S1_3_CI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_3_central_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S1_project_3_central_italy_tt
+
+		}
+	}
+	
+	#Project 3 (Stage 1) PULSE [For ZZZ]
+	ita_balboimper_S1_project_3_central_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_3_central_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_3_central_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S1_3_CI = yes }
+
+			clear_variable = ITA_balboimper_chance_S1_3_CI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S1_3_CI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S1_project_3_central_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					add_ideas = ITA_hidden_balboimper_S1_3_CI
+					
+					set_temp_variable = { temp_ITA_GDP_boost_percentage_CI = 0.01 }
+					ITA_GDP_boost_once_percentage_CI = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					
+					set_variable = { ITA_balboimper_GUI_S1_3_CI = 2 }
+					
+					clear_variable = ITA_balboimper_months_S1_3_CI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S1_3_CI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S1_3_CI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S1_3_CI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S1_CI = yes 
+				}	
+			}
+			else = {
+				activate_decision = ita_balboimper_S1_project_3_central_italy_PULSE
+			}
+		}
+	}
+	
+	###Stage 2 Projects Central Italy###
+	
+	##Project 1 (Stage 2)
+	ita_balboimper_S2_project_1_central_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S2_1_CI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_central_italy_flag
+			has_country_flag = ITA_balboimper_S1_finished_CI
+			NOT = {
+				has_country_flag = ITA_balboimper_S2_finished_CI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_1_central_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S2_project_1_central_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S2_1_CI = 1 }
+			
+			if = {
+				limit = { check_variable = { ITA_balboimper_progress_S2_2_CI = 100 } }
+				
+				set_variable = { ITA_balboimper_GUI_S2_CI = 4 }
+			}
+			else = {
+				
+				set_variable = { ITA_balboimper_GUI_S2_CI = 1 }
+			}
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_1_central_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S2_project_1_central_italy_tt
+
+		}
+	}
+	
+	#Project 1 (Stage 2) PULSE [For ZZZ]
+	ita_balboimper_S2_project_1_central_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_1_central_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_1_central_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S2_1_CI = yes }
+
+			clear_variable = ITA_balboimper_chance_S2_1_CI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S2_1_CI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S2_project_1_central_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_S2_ideaupdate = yes
+					
+					ITA_balboimper_S2_CI_infrastructure = yes
+					
+					set_temp_variable = { temp_ITA_state_gdp_growth_CI = 0.5 }
+					ITA_gdp_growth_change_CI = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					
+					if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_2_CI = 100 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_CI = 6 }
+					}
+					else_if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_2_CI > 0 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_CI = 5 }
+					}
+					else = {
+						set_variable = { ITA_balboimper_GUI_S2_CI = 2 }
+					}
+					
+					clear_variable = ITA_balboimper_months_S2_1_CI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S2_1_CI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S2_1_CI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S2_1_CI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S2_CI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S2_project_1_central_italy_PULSE
+			}
+		}
+	}
+	
+	##Project 2 (Stage 2)
+	ita_balboimper_S2_project_2_central_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S2_2_CI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_central_italy_flag
+			has_country_flag = ITA_balboimper_S1_finished_CI
+			NOT = {
+				has_country_flag = ITA_balboimper_S2_finished_CI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_2_central_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S2_project_2_central_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S2_2_CI = 1 } 
+			
+			if = {
+				limit = { check_variable = { ITA_balboimper_progress_S2_1_CI = 100 } }
+				
+				set_variable = { ITA_balboimper_GUI_S2_CI = 5 }
+			}
+			else = {
+				
+				set_variable = { ITA_balboimper_GUI_S2_CI = 1 }
+			}
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_2_central_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S2_project_2_central_italy_tt
+		
+		}
+	}
+	
+	
+	#Project 2 (Stage 2) PULSE [For ZZZ]
+	ita_balboimper_S2_project_2_central_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_2_central_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_2_central_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S2_2_CI = yes }
+
+			clear_variable = ITA_balboimper_chance_S2_2_CI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S2_2_CI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S2_project_2_central_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_S2_ideaupdate = yes
+					
+					ITA_balboimper_S2_CI_infrastructure = yes
+					
+					set_temp_variable = { temp_ITA_state_gdp_growth_CI = 0.5 }
+					ITA_gdp_growth_change_CI = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					
+					if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_1_CI = 100 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_CI = 6 }
+					}
+					else_if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_1_CI > 0 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_CI = 4 }
+					}
+					else = {
+						set_variable = { ITA_balboimper_GUI_S2_CI = 3 }
+					}
+					
+					clear_variable = ITA_balboimper_months_S2_2_CI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S2_2_CI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S2_2_CI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S2_2_CI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S2_CI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S2_project_2_central_italy_PULSE
+			}
+		}
+	}
+	
+	###Stage 3 Projects Central Italy###
+	
+	##Project 1 (Stage 3)
+	ita_balboimper_S3_project_1_central_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S3_1_CI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_central_italy_flag
+			has_country_flag = ITA_balboimper_S2_finished_CI
+			NOT = {
+				has_country_flag = ITA_balboimper_S3_finished_CI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_1_central_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S3_project_1_central_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S3_1_CI = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S3_1_CI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S3_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			clear_variable = ITA_balboimper_progress_S1_1_CI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_2_CI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_3_CI #Total progress from 0 to 100 (Stage 1)
+			
+			ITA_balboimper_projectcost_monthly_4m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_1_central_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S3_project_1_central_italy_tt
+			
+			ITA_Balboimper_EFFECT_S3_1_CI = yes
+		}
+	}
+	
+	#Project 1 (Stage 3) PULSE [For ZZZ]
+	ita_balboimper_S3_project_1_central_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_1_central_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_1_central_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S3_1_CI = yes }
+
+			clear_variable = ITA_balboimper_chance_S3_1_CI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S3_1_CI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S3_project_1_central_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S3_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_projectcost_monthly_4m_sub = yes
+					
+					ITA_Balboimper_EFFECT_S3_1_CI = yes
+					
+					#gui stuff
+					
+					set_variable = { ITA_balboimper_GUI_S3_1_CI = 3 }
+					
+					clear_variable = ITA_balboimper_months_S3_1_CI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S3_1_CI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S3_1_CI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S3_1_CI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S3_CI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S3_project_1_central_italy_PULSE
+			}
+		}
+	}
+	
+	##Project 2 (Stage 3)
+	ita_balboimper_S3_project_2_central_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S3_2_CI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_central_italy_flag
+			has_country_flag = ITA_balboimper_S2_finished_CI
+			NOT = {
+				has_country_flag = ITA_balboimper_S3_finished_CI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_2_central_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S3_project_2_central_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S3_2_CI = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S3_2_CI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S3_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			clear_variable = ITA_balboimper_progress_S1_1_CI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_2_CI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_3_CI #Total progress from 0 to 100 (Stage 1)
+			
+			ITA_balboimper_projectcost_monthly_4m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_2_central_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S3_project_2_central_italy_tt
+			
+			ITA_Balboimper_EFFECT_S3_2_CI = yes
+		}
+	}
+	
+	#Project 2 (Stage 3) PULSE [For ZZZ]
+	ita_balboimper_S3_project_2_central_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_2_central_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_2_central_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S3_2_CI = yes }
+
+			clear_variable = ITA_balboimper_chance_S3_2_CI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S3_2_CI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S3_project_2_central_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S3_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_projectcost_monthly_4m_sub = yes
+					
+					ITA_Balboimper_EFFECT_S3_2_CI = yes
+					
+					#gui stuff
+					
+					set_variable = { ITA_balboimper_GUI_S3_2_CI = 2 }
+					
+					clear_variable = ITA_balboimper_months_S3_2_CI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S3_2_CI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S3_2_CI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S3_2_CI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S3_CI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S3_project_2_central_italy_PULSE
+			}
+		}
+	}
+	
+	##Project 3 (Stage 3) ###[THE BONUS PROJECT]###
+	ita_balboimper_S3_project_3_central_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S3_3_CI = 100 } }
+			
+			custom_trigger_tooltip = {
+				tooltip = ita_balboimper_S3_3_CI_available_tt
+				
+				check_variable = { ITA_EM_Regions_DiploValue^16 > 39.99 } # Greece
+				check_variable = { ITA_EM_Regions_DiploValue^9  > 39.99 } # Croatia
+				check_variable = { ITA_EM_Regions_DiploValue^13 > 39.99 } # Montenegro
+				check_variable = { ITA_EM_Regions_DiploValue^14 > 39.99 } # Albania
+			}
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_central_italy_flag
+			has_country_flag = ITA_balboimper_S2_finished_CI
+			NOT = {
+				has_country_flag = ITA_balboimper_S3_finished_CI
+			}
+			
+			#ADD WHAT IS NEEDED TO SEE THIS BONUS PROJECT HERE.. ITS PROBABLY RELATIONS WITH SOME COUNTRY OR SOMETHING
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_3_central_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S3_project_3_central_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S3_3_CI = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S3_3_CI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S3_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			clear_variable = ITA_balboimper_progress_S1_1_CI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_2_CI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_3_CI #Total progress from 0 to 100 (Stage 1)
+			
+			ITA_balboimper_projectcost_monthly_4m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_3_central_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S3_project_3_central_italy_tt
+			
+			ITA_Balboimper_EFFECT_S3_3_CI = yes
+			
+			GRE = {
+				country_event = {
+					id = ITA_balbo.9001
+					days = 1
+				}
+			}
+			
+		}
+	}
+	
+	#Project 3 (Stage 3) PULSE [For ZZZ]
+	ita_balboimper_S3_project_3_central_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_3_central_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_3_central_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S3_3_CI = yes }
+
+			clear_variable = ITA_balboimper_chance_S3_3_CI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S3_3_CI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S3_project_3_central_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S3_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_projectcost_monthly_4m_sub = yes
+					
+					GRE = {
+						country_event = {
+							id = ITA_balbo.9001
+							days = 1
+						}
+					}
+					
+					ITA_Balboimper_EFFECT_S3_3_CI = yes
+					
+					#gui stuff
+					
+					set_variable = { ITA_balboimper_GUI_S3_3_CI = 2 }
+					
+					clear_variable = ITA_balboimper_months_S3_3_CI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S3_3_CI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S3_3_CI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S3_3_CI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S3_CI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S3_project_3_central_italy_PULSE
+			}
+		}
+	}
+	
+	#Corruption Central Italy 
+	
+	ita_balboimper_corruption_PP_central_italy = {
+		
+		visible = {
+			has_country_flag = ITA_balboimper_show_central_italy_flag
+		}
+		
+		cost = 75
+		ai_will_do = {
+			factor = 40
+		}
+
+		days_remove = 10
+		
+		complete_effect = {
+			add_to_variable = { ITA_balboimper_corruption_central_italy = -0.05 }
+			custom_effect_tooltip = ita_balboimper_corruption_PP_central_italy_tt
+			clamp_variable = {
+				var = ITA_balboimper_corruption_central_italy
+				min = 0
+			}
+		}
+	}
+	
+	####SOUTHERN ITALY####
+	
+	##DEBUG DECISIONS##
+	
+	#add em here if needed lol
+	
+	##Show/Hide Southern Italy
+	
+	ita_balboimper_show_southern_italy = {
+	
+		icon = decision_black_market_presence_increase
+		visible = {
+			NOT = {
+				has_country_flag = ITA_balboimper_show_southern_italy_flag
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_show_southern_italy"
+			set_country_flag = ITA_balboimper_show_southern_italy_flag
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_show_southern_italy"
+		}
+	}
+	ita_balboimper_hide_southern_italy = {
+	
+		icon = decision_black_market_shut_down
+		visible = {
+			has_country_flag = ITA_balboimper_show_southern_italy_flag
+		}
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_hide_southern_italy"
+			clr_country_flag = ITA_balboimper_show_southern_italy_flag
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_hide_southern_italy"
+		}
+	}
+	
+	###Stage 1 Projects Southern Italy###
+	
+	##Project 1 (Stage 1)
+	ita_balboimper_S1_project_1_southern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S1_1_SI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_southern_italy_flag
+			NOT = {
+				has_country_flag = ITA_balboimper_S1_finished_SI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_1_southern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S1_project_1_southern_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S1_1_SI = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S1_1_SI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_1_southern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S1_project_1_southern_italy_tt
+			
+			###ACTUAL EFFECTS IN THE PULSE DECISION 
+			#(IF YOU WANT PDX TOOLTIPS HERE, JUST PUT EXTRA EFFECT HERE, IT WONT BE TRIGGERED ANYWAY) 
+		}
+	}
+	
+	#Project 1 (Stage 1) PULSE [For ZZZ]
+	ita_balboimper_S1_project_1_southern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_1_southern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_1_southern_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S1_1_SI = yes }
+
+			clear_variable = ITA_balboimper_chance_S1_1_SI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S1_1_SI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S1_project_1_southern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					add_ideas = ITA_hidden_balboimper_S1_1_SI
+					
+					set_temp_variable = { temp_ITA_GDP_boost_percentage_SI = 0.01 }
+					ITA_GDP_boost_once_percentage_SI = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					
+					set_variable = { ITA_balboimper_GUI_S1_1_SI = 2 }
+					
+					clear_variable = ITA_balboimper_months_S1_1_SI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S1_1_SI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S1_1_SI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S1_1_SI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S1_SI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S1_project_1_southern_italy_PULSE
+			}
+		}
+	}
+	
+	##Project 2 (Stage 1)
+	ita_balboimper_S1_project_2_southern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S1_2_SI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_southern_italy_flag
+			NOT = {
+				has_country_flag = ITA_balboimper_S1_finished_SI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_2_southern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S1_project_2_southern_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S1_2_SI = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S1_2_SI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_2_southern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S1_project_2_southern_italy_tt
+			
+		}
+	}
+	
+	#Project 2 (Stage 1) PULSE [For ZZZ]
+	ita_balboimper_S1_project_2_southern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_2_southern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_2_southern_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S1_2_SI = yes }
+
+			clear_variable = ITA_balboimper_chance_S1_2_SI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S1_2_SI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S1_project_2_southern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					add_ideas = ITA_hidden_balboimper_S1_2_SI
+					
+					recalculate_GDP_and_PUs_on_demand = yes
+					
+					add_to_variable = { agriculture_monthly_change = 1 }
+					
+					set_temp_variable = { temp_ITA_GDP_boost_percentage_SI = 0.01 }
+					ITA_GDP_boost_once_percentage_SI = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					set_variable = { ITA_balboimper_GUI_S1_2_SI = 2 }
+					
+					clear_variable = ITA_balboimper_months_S1_2_SI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S1_2_SI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S1_2_SI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S1_2_SI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S1_SI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S1_project_2_southern_italy_PULSE
+			}
+		}
+	}
+	
+	##Project 3 (Stage 1)
+	ita_balboimper_S1_project_3_southern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S1_3_SI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_southern_italy_flag
+			NOT = {
+				has_country_flag = ITA_balboimper_S1_finished_SI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_3_southern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S1_project_3_southern_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S1_3_SI = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S1_3_SI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_3_southern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S1_project_3_southern_italy_tt
+
+		}
+	}
+	
+	#Project 3 (Stage 1) PULSE [For ZZZ]
+	ita_balboimper_S1_project_3_southern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_3_southern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_3_southern_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S1_3_SI = yes }
+
+			clear_variable = ITA_balboimper_chance_S1_3_SI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S1_3_SI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S1_project_3_southern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					add_ideas = ITA_hidden_balboimper_S1_3_SI
+					
+					set_temp_variable = { temp_ITA_GDP_boost_percentage_SI = 0.01 }
+					ITA_GDP_boost_once_percentage_SI = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					set_variable = { ITA_balboimper_GUI_S1_3_SI = 2 }
+					
+					clear_variable = ITA_balboimper_months_S1_3_SI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S1_3_SI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S1_3_SI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S1_3_SI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S1_SI = yes 
+				}	
+			}
+			else = {
+				activate_decision = ita_balboimper_S1_project_3_southern_italy_PULSE
+			}
+		}
+	}
+	
+	###Stage 2 Projects Southern Italy###
+	
+	##Project 1 (Stage 2)
+	ita_balboimper_S2_project_1_southern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S2_1_SI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_southern_italy_flag
+			has_country_flag = ITA_balboimper_S1_finished_SI
+			NOT = {
+				has_country_flag = ITA_balboimper_S2_finished_SI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_1_southern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S2_project_1_southern_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S2_1_SI = 1 }
+			
+			if = {
+				limit = { check_variable = { ITA_balboimper_progress_S2_2_SI = 100 } }
+				
+				set_variable = { ITA_balboimper_GUI_S2_SI = 4 }
+			}
+			else = {
+				
+				set_variable = { ITA_balboimper_GUI_S2_SI = 1 }
+			}
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_1_southern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S2_project_1_southern_italy_tt
+
+		}
+	}
+	
+	#Project 1 (Stage 2) PULSE [For ZZZ]
+	ita_balboimper_S2_project_1_southern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_1_southern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_1_southern_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S2_1_SI = yes }
+
+			clear_variable = ITA_balboimper_chance_S2_1_SI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S2_1_SI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S2_project_1_southern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_S2_ideaupdate = yes
+					
+					ITA_balboimper_S2_SI_infrastructure = yes
+					
+					set_temp_variable = { temp_ITA_state_gdp_growth_SI = 0.5 }
+					ITA_gdp_growth_change_SI = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					
+					if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_2_SI = 100 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_SI = 6 }
+					}
+					else_if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_2_SI > 0 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_SI = 5 }
+					}
+					else = {
+						set_variable = { ITA_balboimper_GUI_S2_SI = 2 }
+					}
+					
+					clear_variable = ITA_balboimper_months_S2_1_SI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S2_1_SI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S2_1_SI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S2_1_SI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S2_SI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S2_project_1_southern_italy_PULSE
+			}
+		}
+	}
+	
+	##Project 2 (Stage 2)
+	ita_balboimper_S2_project_2_southern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S2_2_SI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_southern_italy_flag
+			has_country_flag = ITA_balboimper_S1_finished_SI
+			NOT = {
+				has_country_flag = ITA_balboimper_S2_finished_SI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_2_southern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S2_project_2_southern_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S2_2_SI = 1 }
+			
+			if = {
+				limit = { check_variable = { ITA_balboimper_progress_S2_1_SI = 100 } }
+				
+				set_variable = { ITA_balboimper_GUI_S2_SI = 5 }
+			}
+			else = {
+				
+				set_variable = { ITA_balboimper_GUI_S2_SI = 1 }
+			}
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_2_southern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S2_project_2_southern_italy_tt
+		
+		}
+	}
+	
+	
+	#Project 2 (Stage 2) PULSE [For ZZZ]
+	ita_balboimper_S2_project_2_southern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_2_southern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_2_southern_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S2_2_SI = yes }
+
+			clear_variable = ITA_balboimper_chance_S2_2_SI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S2_2_SI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S2_project_2_southern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_S2_ideaupdate = yes
+					
+					ITA_balboimper_S2_SI_infrastructure = yes
+					
+					set_temp_variable = { temp_ITA_state_gdp_growth_SI = 0.5 }
+					ITA_gdp_growth_change_SI = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					
+					if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_1_SI = 100 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_SI = 6 }
+					}
+					else_if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_1_SI > 0 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_SI = 4 }
+					}
+					else = {
+						set_variable = { ITA_balboimper_GUI_S2_SI = 3 }
+					}
+					
+					clear_variable = ITA_balboimper_months_S2_2_SI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S2_2_SI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S2_2_SI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S2_2_SI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S2_SI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S2_project_2_southern_italy_PULSE
+			}
+		}
+	}
+	
+	###Stage 3 Projects Southern Italy###
+	
+	##Project 1 (Stage 3)
+	ita_balboimper_S3_project_1_southern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S3_1_SI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_southern_italy_flag
+			has_country_flag = ITA_balboimper_S2_finished_SI
+			NOT = {
+				has_country_flag = ITA_balboimper_S3_finished_SI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_1_southern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S3_project_1_southern_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S3_1_SI = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S3_1_SI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S3_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			clear_variable = ITA_balboimper_progress_S1_1_SI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_2_SI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_3_SI #Total progress from 0 to 100 (Stage 1)
+			
+			ITA_balboimper_projectcost_monthly_4m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_1_southern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S3_project_1_southern_italy_tt
+			
+			ITA_Balboimper_EFFECT_S3_1_SI = yes
+		}
+	}
+	
+	#Project 1 (Stage 3) PULSE [For ZZZ]
+	ita_balboimper_S3_project_1_southern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_1_southern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_1_southern_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S3_1_SI = yes }
+
+			clear_variable = ITA_balboimper_chance_S3_1_SI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S3_1_SI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S3_project_1_southern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S3_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_projectcost_monthly_4m_sub = yes
+					
+					ITA_Balboimper_EFFECT_S3_1_SI = yes
+					
+					#gui stuff
+					
+					set_variable = { ITA_balboimper_GUI_S3_1_SI = 6 }
+					
+					clear_variable = ITA_balboimper_months_S3_1_SI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S3_1_SI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S3_1_SI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S3_1_SI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S3_SI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S3_project_1_southern_italy_PULSE
+			}
+		}
+	}
+	
+	##Project 2 (Stage 3)
+	ita_balboimper_S3_project_2_southern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S3_2_SI = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_southern_italy_flag
+			has_country_flag = ITA_balboimper_S2_finished_SI
+			NOT = {
+				has_country_flag = ITA_balboimper_S3_finished_SI
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_2_southern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S3_project_2_southern_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S3_2_SI = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S3_2_SI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S3_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			clear_variable = ITA_balboimper_progress_S1_1_SI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_2_SI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_3_SI #Total progress from 0 to 100 (Stage 1)
+			
+			ITA_balboimper_projectcost_monthly_4m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_2_southern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S3_project_2_southern_italy_tt
+			
+			ITA_Balboimper_EFFECT_S3_2_SI = yes
+		}
+	}
+	
+	#Project 2 (Stage 3) PULSE [For ZZZ]
+	ita_balboimper_S3_project_2_southern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_2_southern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_2_southern_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S3_2_SI = yes }
+
+			clear_variable = ITA_balboimper_chance_S3_2_SI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S3_2_SI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S3_project_2_southern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S3_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_projectcost_monthly_4m_sub = yes
+					
+					ITA_Balboimper_EFFECT_S3_2_SI = yes
+					
+					#gui stuff
+					
+					set_variable = { ITA_balboimper_GUI_S3_2_SI = 3 }
+					
+					clear_variable = ITA_balboimper_months_S3_2_SI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S3_2_SI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S3_2_SI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S3_2_SI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S3_SI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S3_project_2_southern_italy_PULSE
+			}
+		}
+	}
+	
+	##Project 3 (Stage 3) ###[THE BONUS PROJECT]###
+	ita_balboimper_S3_project_3_southern_italy = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S3_3_SI = 100 } }
+			
+			custom_trigger_tooltip = {
+				tooltip = ita_balboimper_S3_3_SI_available_tt
+				check_variable = { ITA_EM_Regions_DiploValue^7 > 39.99 } # Iberia
+			}
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_southern_italy_flag
+			has_country_flag = ITA_balboimper_S2_finished_SI
+			NOT = {
+				has_country_flag = ITA_balboimper_S3_finished_SI
+			}
+			
+			#ADD WHAT IS NEEDED TO SEE THIS BONUS PROJECT HERE.. ITS PROBABLY RELATIONS WITH SOME COUNTRY OR SOMETHING
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_3_southern_italy"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S3_project_3_southern_italy_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S3_3_SI = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S3_3_SI = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S3_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			clear_variable = ITA_balboimper_progress_S1_1_SI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_2_SI #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_3_SI #Total progress from 0 to 100 (Stage 1)
+			
+			ITA_balboimper_projectcost_monthly_4m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_3_southern_italy"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S3_project_3_southern_italy_tt
+			
+			ITA_Balboimper_EFFECT_S3_3_SI = yes
+			
+			IBR = {
+				country_event = {
+					id = ITA_balbo.9005
+					days = 1
+				}
+			}
+		}
+	}
+	
+	#Project 3 (Stage 3) PULSE [For ZZZ]
+	ita_balboimper_S3_project_3_southern_italy_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_3_southern_italy_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_3_southern_italy_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S3_3_SI = yes }
+
+			clear_variable = ITA_balboimper_chance_S3_3_SI
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S3_3_SI = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S3_project_3_southern_italy }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S3_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_projectcost_monthly_4m_sub = yes
+					
+					IBR = {
+						country_event = {
+							id = ITA_balbo.9005
+							days = 1
+						}
+					}
+					
+					ITA_Balboimper_EFFECT_S3_3_SI = yes
+					
+					#gui stuff
+					set_variable = { ITA_balboimper_GUI_S3_3_SI = 2 }
+					
+					clear_variable = ITA_balboimper_months_S3_3_SI #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S3_3_SI #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S3_3_SI #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S3_3_SI #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S3_SI = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S3_project_3_southern_italy_PULSE
+			}
+		}
+	}
+	
+	#Corruption Southern Italy 
+	
+	ita_balboimper_corruption_PP_southern_italy = {
+		
+		visible = {
+			has_country_flag = ITA_balboimper_show_southern_italy_flag
+		}
+		
+		cost = 75
+		ai_will_do = {
+			factor = 40
+		}
+
+		days_remove = 10
+		
+		complete_effect = {
+			add_to_variable = { ITA_balboimper_corruption_southern_italy = -0.05 }
+			custom_effect_tooltip = ita_balboimper_corruption_PP_southern_italy_tt
+			clamp_variable = {
+				var = ITA_balboimper_corruption_southern_italy
+				min = 0
+			}
+		}
+	}
+	
+	####LIBYA####
+	
+	##DEBUG DECISIONS##
+	
+	#add em here if needed lol
+	
+	##Show/Hide Libya
+	
+	ita_balboimper_show_libya = {
+	
+		icon = decision_black_market_presence_increase
+		visible = {
+			NOT = {
+				has_country_flag = ITA_balboimper_show_libya_flag
+			}
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_show_libya"
+			set_country_flag = ITA_balboimper_show_libya_flag
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_show_libya"
+		}
+	}
+	ita_balboimper_hide_libya = {
+	
+		icon = decision_black_market_shut_down
+		visible = {
+			has_country_flag = ITA_balboimper_show_libya_flag
+		}
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_hide_libya"
+			clr_country_flag = ITA_balboimper_show_libya_flag
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_hide_libya"
+		}
+	}
+	
+	###Stage 1 Projects Libya###
+	
+	##Project 1 (Stage 1)
+	ita_balboimper_S1_project_1_libya = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S1_1_L = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_libya_flag
+			NOT = {
+				has_country_flag = ITA_balboimper_S1_finished_L
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_1_libya"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S1_project_1_libya_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S1_1_L = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S1_1_L = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_1_libya"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S1_project_1_libya_tt
+			
+			###ACTUAL EFFECTS IN THE PULSE DECISION 
+			#(IF YOU WANT PDX TOOLTIPS HERE, JUST PUT EXTRA EFFECT HERE, IT WONT BE TRIGGERED ANYWAY) 
+		}
+	}
+	
+	#Project 1 (Stage 1) PULSE [For ZZZ]
+	ita_balboimper_S1_project_1_libya_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_1_libya_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_1_libya_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S1_1_L = yes }
+
+			clear_variable = ITA_balboimper_chance_S1_1_L
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S1_1_L = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S1_project_1_libya }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					add_ideas = ITA_hidden_balboimper_S1_1_L
+					
+					set_temp_variable = { temp_ITA_GDP_boost_percentage_L = 0.1 }
+					ITA_GDP_boost_once_percentage_L = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					
+					set_variable = { ITA_balboimper_GUI_S1_1_L = 2 }
+					
+					clear_variable = ITA_balboimper_months_S1_1_L #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S1_1_L #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S1_1_L #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S1_1_L #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S1_L = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S1_project_1_libya_PULSE
+			}
+		}
+	}
+	
+	##Project 2 (Stage 1)
+	ita_balboimper_S1_project_2_libya = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S1_2_L = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_libya_flag
+			NOT = {
+				has_country_flag = ITA_balboimper_S1_finished_L
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_2_libya"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S1_project_2_libya_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S1_2_L = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S1_2_L = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_2_libya"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S1_project_2_libya_tt
+			
+		}
+	}
+	
+	#Project 2 (Stage 1) PULSE [For ZZZ]
+	ita_balboimper_S1_project_2_libya_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_2_libya_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_2_libya_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S1_2_L = yes }
+
+			clear_variable = ITA_balboimper_chance_S1_2_L
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S1_2_L = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S1_project_2_libya }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_ideas = ITA_hidden_balboimper_S1_2_L
+					
+					recalculate_GDP_and_PUs_on_demand = yes
+					
+					add_to_variable = { agriculture_monthly_change = 1 }
+					
+					set_temp_variable = { temp_ITA_GDP_boost_percentage_L = 0.1 }
+					ITA_GDP_boost_once_percentage_L = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					set_variable = { ITA_balboimper_GUI_S1_2_L = 2 }
+					
+					clear_variable = ITA_balboimper_months_S1_2_L #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S1_2_L #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S1_2_L #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S1_2_L #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S1_L = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S1_project_2_libya_PULSE
+			}
+		}
+	}
+	
+	##Project 3 (Stage 1)
+	ita_balboimper_S1_project_3_libya = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S1_3_L = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_libya_flag
+			NOT = {
+				has_country_flag = ITA_balboimper_S1_finished_L
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_3_libya"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S1_project_3_libya_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S1_3_L = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S1_3_L = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_3_libya"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S1_project_3_libya_tt
+
+		}
+	}
+	
+	#Project 3 (Stage 1) PULSE [For ZZZ]
+	ita_balboimper_S1_project_3_libya_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S1_project_3_libya_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S1_project_3_libya_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S1_3_L = yes }
+			
+			clear_variable = ITA_balboimper_chance_S1_3_L
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S1_3_L = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S1_project_3_libya }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					add_ideas = ITA_hidden_balboimper_S1_3_L
+					
+					ITA_balboimper_S1_3_L_infrastructure = yes
+					
+					set_temp_variable = { Region_i = 0 } # Libya
+					set_temp_variable = { DiploValueChange_v = 5 }
+					ITA_EmpireManagement_DiploValueChange = yes
+					
+					set_temp_variable = { temp_ITA_GDP_boost_percentage_L = 0.1 }
+					ITA_GDP_boost_once_percentage_L = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#Event related to project
+			
+					hidden_effect = {
+						country_event = {
+							id = ITA_balbo.9060
+							days = 32
+						}
+					}
+					
+					#gui stuff
+					set_variable = { ITA_balboimper_GUI_S1_3_L = 2 }
+					
+					clear_variable = ITA_balboimper_months_S1_3_L #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S1_3_L #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S1_3_L #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S1_3_L #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S1_L = yes 
+				}	
+			}
+			else = {
+				activate_decision = ita_balboimper_S1_project_3_libya_PULSE
+			}
+		}
+	}
+	
+	###Stage 2 Projects Libya###
+	
+	##Project 1 (Stage 2)
+	ita_balboimper_S2_project_1_libya = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S2_1_L = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_libya_flag
+			has_country_flag = ITA_balboimper_S1_finished_L
+			NOT = {
+				has_country_flag = ITA_balboimper_S2_finished_L
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_1_libya"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S2_project_1_libya_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S2_1_L = 1 }
+			
+			if = {
+				limit = { check_variable = { ITA_balboimper_progress_S2_2_L = 100 } }
+				
+				set_variable = { ITA_balboimper_GUI_S2_L = 4 }
+			}
+			else = {
+				
+				set_variable = { ITA_balboimper_GUI_S2_L = 1 }
+			}
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_1_libya"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S2_project_1_libya_tt
+
+		}
+	}
+	
+	#Project 1 (Stage 2) PULSE [For ZZZ]
+	ita_balboimper_S2_project_1_libya_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_1_libya_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_1_libya_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S2_1_L = yes }
+
+			clear_variable = ITA_balboimper_chance_S2_1_L
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S2_1_L = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S2_project_1_libya }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_S2_ideaupdate = yes
+					
+					ITA_balboimper_S2_L_infrastructure = yes
+					
+					set_temp_variable = { temp_ITA_state_gdp_growth_L = 5 }
+					ITA_gdp_growth_change_L = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					
+					if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_2_L = 100 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_L = 6 }
+					}
+					else_if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_2_L > 0 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_L = 5 }
+					}
+					else = {
+						set_variable = { ITA_balboimper_GUI_S2_L = 2 }
+					}
+					
+					clear_variable = ITA_balboimper_months_S2_1_L #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S2_1_L #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S2_1_L #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S2_1_L #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S2_L = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S2_project_1_libya_PULSE
+			}
+		}
+	}
+	
+	##Project 2 (Stage 2)
+	ita_balboimper_S2_project_2_libya = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S2_2_L = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_libya_flag
+			has_country_flag = ITA_balboimper_S1_finished_L
+			NOT = {
+				has_country_flag = ITA_balboimper_S2_finished_L
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_2_libya"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S2_project_2_libya_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S2_2_L = 1 }
+			
+			if = {
+				limit = { check_variable = { ITA_balboimper_progress_S2_1_L = 100 } }
+				
+				set_variable = { ITA_balboimper_GUI_S2_L = 5 }
+			}
+			else = {
+				
+				set_variable = { ITA_balboimper_GUI_S2_L = 1 }
+			}
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			ITA_balboimper_projectcost_monthly_2m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_2_libya"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S2_project_2_libya_tt
+		
+		}
+	}
+	
+	
+	#Project 2 (Stage 2) PULSE [For ZZZ]
+	ita_balboimper_S2_project_2_libya_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S2_project_2_libya_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S2_project_2_libya_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S2_2_L = yes }
+
+			clear_variable = ITA_balboimper_chance_S2_2_L
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S2_2_L = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S2_project_2_libya }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S1S2_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_S2_ideaupdate = yes
+					
+					ITA_balboimper_S2_L_infrastructure = yes
+					
+					set_temp_variable = { temp_ITA_state_gdp_growth_L = 5 }
+					ITA_gdp_growth_change_L = yes
+					
+					ITA_balboimper_projectcost_monthly_2m_sub = yes
+					
+					#gui stuff
+					
+					if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_1_L = 100 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_L = 6 }
+					}
+					else_if = {
+						limit = { check_variable = { ITA_balboimper_progress_S2_1_L > 0 } }
+						
+						set_variable = { ITA_balboimper_GUI_S2_L = 4 }
+					}
+					else = {
+						set_variable = { ITA_balboimper_GUI_S2_L = 3 }
+					}
+					
+					clear_variable = ITA_balboimper_months_S2_2_L #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S2_2_L #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S2_2_L #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S2_2_L #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S2_L = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S2_project_2_libya_PULSE
+			}
+		}
+	}
+	
+	###Stage 3 Projects Libya###
+	
+	##Project 1 (Stage 3)
+	ita_balboimper_S3_project_1_libya = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S3_1_L = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_libya_flag
+			has_country_flag = ITA_balboimper_S2_finished_L
+			NOT = {
+				has_country_flag = ITA_balboimper_S3_finished_L
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_1_libya"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S3_project_1_libya_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S3_1_L = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S3_1_L = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S3_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			clear_variable = ITA_balboimper_progress_S1_1_L #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_2_L #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_3_L #Total progress from 0 to 100 (Stage 1)
+			
+			ITA_balboimper_projectcost_monthly_4m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_1_libya"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S3_project_1_libya_tt
+			
+			ITA_Balboimper_EFFECT_S3_1_L = yes
+		}
+	}
+	
+	#Project 1 (Stage 3) PULSE [For ZZZ]
+	ita_balboimper_S3_project_1_libya_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_1_libya_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_1_libya_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S3_1_L = yes }
+
+			clear_variable = ITA_balboimper_chance_S3_1_L
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S3_1_L = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S3_project_1_libya }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S3_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_projectcost_monthly_4m_sub = yes
+					
+					ITA_Balboimper_EFFECT_S3_1_L = yes
+					
+					#gui stuff
+					
+					set_variable = { ITA_balboimper_GUI_S3_1_L = 3 }
+					
+					clear_variable = ITA_balboimper_months_S3_1_L #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S3_1_L #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S3_1_L #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S3_1_L #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S3_L = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S3_project_1_libya_PULSE
+			}
+		}
+	}
+	
+	##Project 2 (Stage 3)
+	ita_balboimper_S3_project_2_libya = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S3_2_L = 100 } }
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_libya_flag
+			has_country_flag = ITA_balboimper_S2_finished_L
+			NOT = {
+				has_country_flag = ITA_balboimper_S3_finished_L
+			}
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_2_libya"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S3_project_2_libya_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S3_2_L = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S3_2_L = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S3_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			clear_variable = ITA_balboimper_progress_S1_1_L #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_2_L #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_3_L #Total progress from 0 to 100 (Stage 1)
+			
+			ITA_balboimper_projectcost_monthly_4m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_2_libya"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S3_project_2_libya_tt
+			
+			ITA_Balboimper_EFFECT_S3_2_L = yes
+		}
+	}
+	
+	#Project 2 (Stage 3) PULSE [For ZZZ]
+	ita_balboimper_S3_project_2_libya_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_2_libya_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_2_libya_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S3_2_L = yes }
+
+			clear_variable = ITA_balboimper_chance_S3_2_L
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S3_2_L = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S3_project_2_libya }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S3_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_projectcost_monthly_4m_sub = yes
+					
+					ITA_Balboimper_EFFECT_S3_2_L = yes
+					
+					#gui stuff
+					
+					set_variable = { ITA_balboimper_GUI_S3_2_L = 2 }
+					
+					clear_variable = ITA_balboimper_months_S3_2_L #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S3_2_L #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S3_2_L #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S3_2_L #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S3_L = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S3_project_2_libya_PULSE
+			}
+		}
+	}
+	
+	##Project 3 (Stage 3) ###[THE BONUS PROJECT]###
+	ita_balboimper_S3_project_3_libya = {
+	
+		#icon = 
+		
+		available = {
+			check_variable = { ITA_balboimper_ongoing_projects < 9 }
+			NOT = { check_variable = { ITA_balboimper_progress_S3_3_L = 100 } }
+			
+			custom_trigger_tooltip = {
+				tooltip = ita_balboimper_S3_3_L_available_tt
+				
+				check_variable = { ITA_EM_Regions_DiploValue^25 > 39.99 } # Tunisia
+				check_variable = { ITA_EM_Regions_DiploValue^26 > 39.99 } # Egypt
+			}
+		}
+		visible = {
+			has_country_flag = ITA_balboimper_show_libya_flag
+			has_country_flag = ITA_balboimper_S2_finished_L
+			NOT = {
+				has_country_flag = ITA_balboimper_S3_finished_L
+			}
+			
+			#ADD WHAT IS NEEDED TO SEE THIS BONUS PROJECT HERE.. ITS PROBABLY RELATIONS WITH SOME COUNTRY OR SOMETHING
+		}
+		
+		fire_only_once = yes
+        days_remove = -1 
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_3_libya"
+			
+			custom_effect_tooltip = ITA_balboimper_generic_projectstart_tt
+			
+			hidden_effect = {
+			ZZZ = { activate_decision = ita_balboimper_S3_project_3_libya_PULSE }
+			}
+
+			set_variable = { ITA_balboimper_chance_S3_3_L = 1 }
+			
+			set_variable = { ITA_balboimper_GUI_S3_3_L = 1 }
+			
+			add_to_variable = { ITA_balboimper_ongoing_projects = 1 } #this variable is mainly for scripted loc and the gui to yell at you
+			add_to_variable = { ITA_balboimper_ongoing_S3_projects = 1 } #this is for keeping track of project costs in a cursed way
+			
+			clear_variable = ITA_balboimper_progress_S1_1_L #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_2_L #Total progress from 0 to 100 (Stage 1)
+			clear_variable = ITA_balboimper_progress_S1_3_L #Total progress from 0 to 100 (Stage 1)
+			
+			ITA_balboimper_projectcost_monthly_4m_add = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_3_libya"
+			
+			#Show scripted loc of progress in this (same as in GUI)
+			#also show monthly gain (+corruption effect)
+			#In scripted loc: Show how much money per month it costs!!
+			
+			custom_effect_tooltip = ita_balboimper_S3_project_3_libya_tt
+			
+			ITA_Balboimper_EFFECT_S3_3_L = yes
+			
+			EGY = {
+				country_event = {
+					id = ITA_balbo.9006
+					days = 1
+				}
+			}
+			TUN = {
+				country_event = {
+					id = ITA_balbo.9007
+					days = 1
+				}
+			}
+			
+		}
+	}
+	
+	#Project 3 (Stage 3) PULSE [For ZZZ]
+	ita_balboimper_S3_project_3_libya_PULSE = {
+		
+		visible = {
+			# has_country_flag = ITA_balboimper_this_flag_doesnt_exist_lol
+			always = no   # background timer: activated by script, never shown
+		}
+		
+		fire_only_once = no
+        days_remove = 30
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ita_balboimper_S3_project_3_libya_PULSE"
+			
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ita_balboimper_S3_project_3_libya_PULSE"
+			
+			ITA = { ITA_balboimper_monthly_gain_S3_3_L = yes }
+
+			clear_variable = ITA_balboimper_chance_S3_3_L
+			
+			if = {
+				limit = { ITA = { check_variable = { ITA_balboimper_progress_S3_3_L = 100 } } }
+				
+				ITA = { remove_decision = ita_balboimper_S3_project_3_libya }
+				
+				ITA = {
+					add_to_variable = { ITA_balboimper_ongoing_projects = -1 }
+					add_to_variable = { ITA_balboimper_ongoing_S3_projects = -1 } #this is for keeping track of project costs in a cursed way
+					
+					add_to_variable = { ITA_balboimper_Efficiency = 0.01 }
+					add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 1 }
+					ITA_balboimper_clamp_efficiency = yes
+					
+					ITA_balboimper_projectcost_monthly_4m_sub = yes
+					
+					ITA_Balboimper_EFFECT_S3_3_L = yes
+					
+					EGY = {
+						country_event = {
+							id = ITA_balbo.9006
+							days = 1
+						}
+					}
+					TUN = {
+						country_event = {
+							id = ITA_balbo.9007
+							days = 1
+						}
+					}
+					
+					#gui stuff
+					set_variable = { ITA_balboimper_GUI_S3_3_L = 2 }
+					
+					clear_variable = ITA_balboimper_months_S3_3_L #months spent doing the project
+					clear_variable = ITA_balboimper_progress_change_S3_3_L #Progress change last tick
+					clear_variable = ITA_balboimper_local_efficiency_S3_3_L #Local efficiency for project
+					clear_variable = ITA_balboimper_progress_CORR_S3_3_L #Local efficiency malus from corruption last tick
+					
+					ITA_balboimper_FinishedCheck_S3_L = yes 
+				}
+			}
+			else = {
+				activate_decision = ita_balboimper_S3_project_3_libya_PULSE
+			}
+		}
+	}
+	
+	#Corruption Libya 
+	
+	ita_balboimper_corruption_PP_libya = {
+		
+		visible = {
+			has_country_flag = ITA_balboimper_show_libya_flag
+		}
+		
+		cost = 75
+		ai_will_do = {
+			factor = 40
+		}
+
+		days_remove = 10
+		
+		complete_effect = {
+			add_to_variable = { ITA_balboimper_corruption_libya = -0.05 }
+			custom_effect_tooltip = ita_balboimper_corruption_PP_libya_tt
+			clamp_variable = {
+				var = ITA_balboimper_corruption_libya
+				min = 0
+			}
+		}
+	}
+
+	#triggered by the focus "ITA_out_with_the_old_in_with_the_new"
+	ITA_balboimper_expand_navy_mission = {
+		allowed = {
+			tag = ITA
+		}
+		activation = {
+			always = no
+		}
+		available = {
+			has_navy_size = {
+				size > 7
+				unit = heavy_cruiser
+			}
+			has_navy_size = {
+				size > 3
+				type = carrier
+			}
+		}
+		is_good = no
+		days_mission_timeout = 1000
+		complete_effect = {
+			add_war_support = 0.05
+			add_political_power = 100
+			set_temp_variable = { gdp_growth_temp = 0.0015 }
+			econ_gdp_growth_change = yes
+			set_temp_variable = { Region_i = 21 } # Gulf
+			set_temp_variable = { DiploValueChange_v = 2 }
+			ITA_EmpireManagement_DiploValueChange = yes
+			set_temp_variable = { Region_i = 21 } # Gulf
+			set_temp_variable = { EconValueChange_v = 2 }
+			ITA_EmpireManagement_EconValueChange = yes
+		}
+		timeout_effect = {
+			add_war_support = -0.05
+			add_political_power = -100
+		}
+	}
+	
+}

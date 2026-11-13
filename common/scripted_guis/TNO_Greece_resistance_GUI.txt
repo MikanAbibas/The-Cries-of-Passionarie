@@ -1,0 +1,776 @@
+scripted_gui = {
+    TNO_GRE_Resistance_Decisions_GUI = {
+		context_type = decision_category
+		window_name = "TNO_GRE_Resistance_Decisions_GUI"
+		dirty = resistance_gui_dirty
+		ai_check = {
+			GRE = {	has_country_flag = GRE_resistance_mechanic }
+		}
+		ai_enabled = {
+			always = yes
+		}
+		ai_test_interval = 120 # Every 5 days
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			always = yes
+		}
+
+		effects = {
+			GFX_GRE_strenghten_govt_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -3
+				}
+				for_each_loop = { #Uses index as state modified var
+					array = GRE_Resistance_Government_Control
+					set_temp_variable = {
+						GRE_Resistance_State_Mod = i
+					}
+					set_temp_variable = {
+						GRE_Resistance_Amount = 10
+					}
+					set_temp_variable = {
+						GRE_Resistance_Array = 1
+					}
+					GRE_Resistance_Modify_Control = yes
+				}
+			}
+			# State
+			GFX_GUI_GRE_state0_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				set_variable = {
+					GRE_resistance_state_view = 1
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}
+			}
+			GFX_GUI_GRE_state1_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				set_variable = {
+					GRE_resistance_state_view = 2
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}
+			}
+			GFX_GUI_GRE_state2_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				set_variable = {
+					GRE_resistance_state_view = 3
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}
+			}
+			GFX_GUI_GRE_state3_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				set_variable = {
+					GRE_resistance_state_view = 4
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}
+			}
+			GFX_GUI_GRE_state4_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				set_variable = {
+					GRE_resistance_state_view = 5
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}
+			}
+			GFX_GUI_GRE_state5_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				set_variable = {
+					GRE_resistance_state_view = 6
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}
+			}
+			GFX_GUI_GRE_state6_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				set_variable = {
+					GRE_resistance_state_view = 7
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}
+			}
+			GFX_GUI_GRE_state7_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				set_variable = {
+					GRE_resistance_state_view = 8
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}
+			}
+		}
+		
+		triggers = {
+			GFX_GRE_strenghten_govt_click_enabled = {
+				check_variable = { GRE_resistance_actions_left = 3 }
+			}
+		}
+		properties = {
+			GFX_GUI_GRE_state0 = {
+				frame = GRE_Resistance_State_Controller^0
+			}
+			GFX_GUI_GRE_state1 = {
+				frame = GRE_Resistance_State_Controller^1
+			}
+			GFX_GUI_GRE_state2 = {
+				frame = GRE_Resistance_State_Controller^2
+			}
+			GFX_GUI_GRE_state3 = {
+				frame = GRE_Resistance_State_Controller^3
+			}
+			GFX_GUI_GRE_state4 = {
+				frame = GRE_Resistance_State_Controller^4
+			}
+			GFX_GUI_GRE_state5 = {
+				frame = GRE_Resistance_State_Controller^5
+			}
+			GFX_GUI_GRE_state6 = {
+				frame = GRE_Resistance_State_Controller^6
+			}
+			GFX_GUI_GRE_state7 = {
+				frame = GRE_Resistance_State_Controller^7
+			}
+		}
+    }
+
+	GRE_resistance_info_box0 = {
+		context_type = player_context
+		window_name = "GRE_resistance_info_box0"
+		ai_check = {
+			GRE = {	has_country_flag = GRE_resistance_mechanic }
+		}
+		ai_enabled = {
+			always = yes
+		}
+		ai_test_interval = 120 # Every 5 days
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			check_variable = {
+				GRE_resistance_state_view = 1
+			}
+		}
+		effects = {
+			close_button0_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}
+			}
+			GFX_GRE_attack_edes_rebels_active0_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 0
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 2
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+			GFX_GRE_suppress_eam_terrorists_active0_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 0
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 3
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+		}
+		triggers = {
+			GFX_GRE_attack_edes_rebels_active0_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+			GFX_GRE_suppress_eam_terrorists_active0_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+		}
+
+		properties = {
+			GFX_state0_eam_control_bar = {
+        		frame = GRE_Resistance_EAM_Control^0
+    		}
+			GFX_state0_edes_control_bar = {
+        		frame = GRE_Resistance_EDES_Control^0
+    		}
+		}
+	}
+	GRE_resistance_info_box1 = {
+		context_type = player_context
+		window_name = "GRE_resistance_info_box1"
+		ai_check = {
+			GRE = {	has_country_flag = GRE_resistance_mechanic }
+		}
+		ai_enabled = {
+			always = yes
+		}
+		ai_test_interval = 120 # Every 5 days
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			check_variable = {
+				GRE_resistance_state_view = 2
+			}
+		}
+		effects = {
+			close_button1_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}	
+			}
+			GFX_GRE_attack_edes_rebels_active1_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 1
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 2
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+			GFX_GRE_suppress_eam_terrorists_active1_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 1
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 3
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+		}
+		triggers = {
+			GFX_GRE_attack_edes_rebels_active1_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+			GFX_GRE_suppress_eam_terrorists_active1_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+		}
+
+		properties = {
+			GFX_state1_eam_control_bar = {
+        		frame = GRE_Resistance_EAM_Control^1
+    		}
+			GFX_state1_edes_control_bar = {
+        		frame = GRE_Resistance_EDES_Control^1
+    		}
+		}
+	}
+	GRE_resistance_info_box2 = {
+		context_type = player_context
+		window_name = "GRE_resistance_info_box2"
+		ai_check = {
+			GRE = {	has_country_flag = GRE_resistance_mechanic }
+		}
+		ai_enabled = {
+			always = yes
+		}
+		ai_test_interval = 120 # Every 5 days
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			check_variable = {
+				GRE_resistance_state_view = 3
+			}
+		}
+		effects = {
+			close_button2_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}	
+			}
+			GFX_GRE_attack_edes_rebels_active2_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 2
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 2
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+			GFX_GRE_suppress_eam_terrorists_active2_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 2
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 3
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+		}
+		triggers = {
+			GFX_GRE_attack_edes_rebels_active2_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+			GFX_GRE_suppress_eam_terrorists_active2_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+		}
+
+		properties = {
+			GFX_state2_eam_control_bar = {
+        		frame = GRE_Resistance_EAM_Control^2
+    		}
+			GFX_state2_edes_control_bar = {
+        		frame = GRE_Resistance_EDES_Control^2
+    		}
+		}
+	}
+	GRE_resistance_info_box3 = {
+		context_type = player_context
+		window_name = "GRE_resistance_info_box3"
+		ai_check = {
+			GRE = {	has_country_flag = GRE_resistance_mechanic }
+		}
+		ai_enabled = {
+			always = yes
+		}
+		ai_test_interval = 120 # Every 5 days
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			check_variable = {
+				GRE_resistance_state_view = 4
+			}
+		}
+		effects = {
+			close_button3_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}	
+			}
+			GFX_GRE_attack_edes_rebels_active3_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 3
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 2
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+			GFX_GRE_suppress_eam_terrorists_active3_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 3
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 3
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+		}
+		triggers = {
+			GFX_GRE_attack_edes_rebels_active3_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+			GFX_GRE_suppress_eam_terrorists_active3_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+		}
+
+		properties = {
+			GFX_state3_eam_control_bar = {
+        		frame = GRE_Resistance_EAM_Control^3
+    		}
+			GFX_state3_edes_control_bar = {
+        		frame = GRE_Resistance_EDES_Control^3
+    		}
+		}
+	}
+	GRE_resistance_info_box4 = {
+		context_type = player_context
+		window_name = "GRE_resistance_info_box4"
+		ai_check = {
+			GRE = {	has_country_flag = GRE_resistance_mechanic }
+		}
+		ai_enabled = {
+			always = yes
+		}
+		ai_test_interval = 120 # Every 5 days
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			check_variable = {
+				GRE_resistance_state_view = 5
+			}
+		}
+		effects = {
+			close_button4_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}	
+			}
+			GFX_GRE_attack_edes_rebels_active4_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 4
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 2
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+			GFX_GRE_suppress_eam_terrorists_active4_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 4
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 3
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+		}
+		triggers = {
+			GFX_GRE_attack_edes_rebels_active4_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+			GFX_GRE_suppress_eam_terrorists_active4_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+		}
+
+		properties = {
+			GFX_state4_eam_control_bar = {
+        		frame = GRE_Resistance_EAM_Control^4
+    		}
+			GFX_state4_edes_control_bar = {
+        		frame = GRE_Resistance_EDES_Control^4
+    		}
+		}
+	}
+	GRE_resistance_info_box5 = {
+		context_type = player_context
+		window_name = "GRE_resistance_info_box5"
+		ai_check = {
+			GRE = {	has_country_flag = GRE_resistance_mechanic }
+		}
+		ai_enabled = {
+			always = yes
+		}
+		ai_test_interval = 120 # Every 5 days
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			check_variable = {
+				GRE_resistance_state_view = 6
+			}
+		}
+		effects = {
+			close_button5_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}	
+			}
+			GFX_GRE_attack_edes_rebels_active5_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 2
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+			GFX_GRE_suppress_eam_terrorists_active5_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 3
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+		}
+		triggers = {
+			GFX_GRE_attack_edes_rebels_active5_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+			GFX_GRE_suppress_eam_terrorists_active5_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+		}
+
+		properties = {
+			GFX_state5_eam_control_bar = {
+        		frame = GRE_Resistance_EAM_Control^5
+    		}
+			GFX_state5_edes_control_bar = {
+        		frame = GRE_Resistance_EDES_Control^5
+    		}
+		}
+	}
+	GRE_resistance_info_box6 = {
+		context_type = player_context
+		window_name = "GRE_resistance_info_box6"
+		ai_check = {
+			GRE = {	has_country_flag = GRE_resistance_mechanic }
+		}
+		ai_enabled = {
+			always = yes
+		}
+		ai_test_interval = 120 # Every 5 days
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			check_variable = {
+				GRE_resistance_state_view = 7
+			}
+		}
+		effects = {
+			close_button6_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}	
+			}
+			GFX_GRE_attack_edes_rebels_active6_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 6
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 2
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+			GFX_GRE_suppress_eam_terrorists_active6_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 6
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 3
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+		}
+		triggers = {
+			GFX_GRE_attack_edes_rebels_active6_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+			GFX_GRE_suppress_eam_terrorists_active6_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+		}
+
+		properties = {
+			GFX_state6_eam_control_bar = {
+        		frame = GRE_Resistance_EAM_Control^6
+    		}
+			GFX_state6_edes_control_bar = {
+        		frame = GRE_Resistance_EDES_Control^6
+    		}
+		}
+	}
+	GRE_resistance_info_box7 = {
+		context_type = player_context
+		window_name = "GRE_resistance_info_box7"
+		ai_check = {
+			GRE = {	has_country_flag = GRE_resistance_mechanic }
+		}
+		ai_enabled = {
+			always = yes
+		}
+		ai_test_interval = 120 # Every 5 days
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			check_variable = {
+				GRE_resistance_state_view = 8
+			}
+		}
+		effects = {
+			close_button7_click = {
+				set_variable = {
+					GRE_resistance_state_view = -1
+				}
+				add_to_variable = {
+					resistance_gui_dirty = 1
+				}	
+			}
+			GFX_GRE_attack_edes_rebels_active7_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 7
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 2
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+			GFX_GRE_suppress_eam_terrorists_active7_click = {
+				add_to_variable = {
+					GRE_resistance_actions_left = -1
+				}
+				set_temp_variable = {
+					GRE_Resistance_State_Mod = 7
+				}
+				set_temp_variable = {
+					GRE_Resistance_Amount = -5
+				}
+				set_temp_variable = {
+					GRE_Resistance_Array = 3
+				}
+				GRE_Resistance_Modify_Control = yes
+			}
+		}
+		triggers = {
+			GFX_GRE_attack_edes_rebels_active7_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+			GFX_GRE_suppress_eam_terrorists_active7_click_enabled = {
+				check_variable = {
+					GRE_resistance_actions_left > 0
+				}
+			}
+		}
+
+		properties = {
+			GFX_state7_eam_control_bar = {
+        		frame = GRE_Resistance_EAM_Control^7
+    		}
+			GFX_state7_edes_control_bar = {
+        		frame = GRE_Resistance_EDES_Control^7
+    		}
+		}
+	}
+}

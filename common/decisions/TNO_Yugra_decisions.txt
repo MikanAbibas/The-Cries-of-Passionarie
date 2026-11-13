@@ -1,0 +1,1253 @@
+#The Epic Power struggle suicide minigame
+#Now with smuggling free DLC!!!11111!!1!11!ONE1!
+#Cause people really like these (not so much after SMUTA)
+YGR_PowerStruggle_category = {
+	YGR_Ioseliani_side = {
+		#Ioseliani's Decisions here
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_ioseliani_support
+			}
+		}
+		available = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+		}
+	}
+	YGR_usoyan_influence_ticker = {
+		icon = GFX_decision_generic_ignite_civil_war
+		allowed = {
+			always = no
+		}
+		visible = {
+			hidden_trigger = {
+				tag = KOM
+				has_country_flag = YGR_ioseliani_support
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		cancel_if_not_visible = yes
+		is_good = yes
+		days_mission_timeout = 16
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout YGR_usoyan_influence_ticker"
+			YGR_raise_usoyan_influence_low = yes
+			hidden_effect = {
+				activate_mission = YGR_usoyan_influence_ticker
+			}
+		}
+	}
+	YGR_meet_with_pakhans = {
+		icon = GFX_decision_generic_shake_hands
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			NOT = {
+				has_country_flag = YGR_influence_action_in_progress
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_ioseliani_support
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		cost = 10
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_meet_with_pakhans"
+			set_country_flag = YGR_influence_action_in_progress
+			YGR_raise_ioseliani_influence_low = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_meet_with_pakhans"
+			clr_country_flag = YGR_influence_action_in_progress
+		}
+	}
+	YGR_give_speech = {
+		icon = GFX_decision_generic_propaganda
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			NOT = {
+				has_country_flag = YGR_influence_action_in_progress
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_ioseliani_support
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		cost = 10
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_give_speech"
+			set_country_flag = YGR_influence_action_in_progress
+			YGR_raise_ioseliani_influence_low = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_give_speech"
+			clr_country_flag = YGR_influence_action_in_progress
+		}
+	}
+	YGR_create_feuds_between_gangs = {
+		icon = GFX_decision_generic_prepare_civil_war
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			NOT = {
+				has_country_flag = YGR_influence_action_in_progress
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_ioseliani_support
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+		cost = 10
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_create_feuds_between_gangs"
+			set_country_flag = YGR_influence_action_in_progress
+			YGR_lower_usoyan_influence_low = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_create_feuds_between_gangs"
+			clr_country_flag = YGR_influence_action_in_progress
+		}
+	}
+	YGR_arrange_assassination = {
+		icon = GFX_decision_generic_assault
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			NOT = {
+				has_country_flag = YGR_influence_action_in_progress
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_ioseliani_support
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+		custom_cost_trigger = {
+			has_equipment = {
+				infantry_equipment > 149
+			}
+			has_manpower > 99
+		}
+		custom_cost_text = YGR_assassination_cost
+		fire_only_once = no
+		days_remove = 2
+		days_re_enable = 35
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_arrange_assassination"
+			set_country_flag = YGR_influence_action_in_progress
+			YGR_lower_usoyan_influence_mid = yes
+			add_stability = 0.015
+			army_experience = 5
+			hidden_effect = {
+				add_political_power = -20
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = -150
+					producer = KOM
+				}
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_arrange_assassination"
+			clr_country_flag = YGR_influence_action_in_progress
+		}
+	}
+	YGR_destroy_opposition_gang = {
+		icon = GFX_decision_generic_use_force
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			NOT = {
+				has_country_flag = YGR_influence_action_in_progress
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_ioseliani_support
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+		days_remove = 10
+		fire_only_once = yes
+		custom_cost_trigger = {
+			has_political_power > 49
+			command_power > 24.99
+		}
+		custom_cost_text = decision_cost_50_pp_25_cp
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_destroy_opposition_gang"
+			set_country_flag = YGR_influence_action_in_progress
+			country_event = {
+				id = YGR_powerstruggle.3
+			}
+			hidden_effect = {
+				add_command_power = -30
+				add_political_power = -30
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_destroy_opposition_gang"
+			clr_country_flag = YGR_influence_action_in_progress
+		}
+	}
+	YGR_stabilize_government = {
+		icon = GFX_decision_generic_political_action
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			NOT = {
+				has_country_flag = YGR_influence_action_in_progress
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_ioseliani_support
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+		cost = 50
+		days_remove = 10
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_stabilize_government"
+			set_country_flag = YGR_influence_action_in_progress
+			country_event = {
+				id = YGR_powerstruggle.6
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_stabilize_government"
+			clr_country_flag = YGR_influence_action_in_progress
+		}
+	}
+	YGR_random_event_usoyan = {
+		icon = GFX_decision_revolt
+		allowed = {
+			tag = KOM
+		}
+		visible = {
+			has_country_flag = YGR_ioseliani_support
+		}
+		activation = {
+			has_country_flag = YGR_ioseliani_support
+		}
+		available = {
+			hidden_trigger = {
+				NOT = {
+					has_country_flag = YGR_powerstruggle
+					has_country_flag = YGR_ioseliani_support
+				}
+			}
+		}
+		days_mission_timeout = 200
+		is_good = yes
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision Timeout YGR_random_event_usoyan"
+			activate_mission = YGR_random_event_usoyan
+			custom_effect_tooltip = RANDOM_EVENT_DESC
+			hidden_effect = {
+				random_list = {
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.7
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.8
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.9
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.10
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.11
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.12
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.13
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.14
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.15
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.16
+						}
+					}
+				}
+			}
+		}
+	}
+	YGR_usoyan_side = {
+		#usoyan shit here
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_usoyan_support
+			}
+		}
+		available = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		complete_effect = {
+		}
+	}
+	YGR_ioseliani_influence_ticker = {
+		allowed = {
+			always = no
+		}
+		visible = {
+			hidden_trigger = {
+				tag = KOM
+				has_country_flag = YGR_usoyan_support
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		cancel_if_not_visible = yes
+		is_good = yes
+		days_mission_timeout = 16
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision timeout YGR_ioseliani_influence_ticker"
+			YGR_raise_ioseliani_influence_low = yes
+			hidden_effect = {
+				activate_mission = YGR_ioseliani_influence_ticker
+			}
+		}
+	}
+	YGR_meet_with_dissenting_pakhans = {
+		icon = GFX_decision_generic_civil_support
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			NOT = {
+				has_country_flag = YGR_influence_action_in_progress
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_usoyan_support
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		cost = 10
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_meet_with_dissenting_pakhans"
+			set_country_flag = YGR_influence_action_in_progress
+			YGR_raise_usoyan_influence_low = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_meet_with_dissenting_pakhans"
+			clr_country_flag = YGR_influence_action_in_progress
+		}
+	}
+	YGR_denounce_ioseliani = {
+		icon = GFX_decision_generic_propaganda
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			NOT = {
+				has_country_flag = YGR_influence_action_in_progress
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_usoyan_support
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+		cost = 10
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_denounce_ioseliani"
+			set_country_flag = YGR_influence_action_in_progress
+			YGR_lower_ioseliani_influence_low = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_denounce_ioseliani"
+			clr_country_flag = YGR_influence_action_in_progress
+		}
+	}
+	YGR_search_support_with_the_bandits = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			NOT = {
+				has_country_flag = YGR_influence_action_in_progress
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_usoyan_support
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+		cost = 20
+		fire_only_once = no
+		days_remove = 2
+		days_re_enable = 30
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_search_support_with_the_bandits"
+			set_country_flag = YGR_influence_action_in_progress
+			YGR_raise_usoyan_influence_mid = yes
+			add_stability = 0.015
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_search_support_with_the_bandits"
+			clr_country_flag = YGR_influence_action_in_progress
+		}
+	}
+	YGR_arrange_an_incident = {
+		icon = GFX_decision_generic_ignite_civil_war
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			NOT = {
+				has_country_flag = YGR_influence_action_in_progress
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_usoyan_support
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+		days_remove = 10
+		fire_only_once = yes
+		custom_cost_trigger = {
+			has_political_power > 29
+			command_power > 29.99
+		}
+		custom_cost_text = decision_cost_30_cp_30_pp
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_arrange_an_incident"
+			set_country_flag = YGR_influence_action_in_progress
+			country_event = {
+				id = YGR_flavour.27
+			}
+			hidden_effect = {
+				add_command_power = -30
+				add_political_power = -30
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_arrange_an_incident"
+			clr_country_flag = YGR_influence_action_in_progress
+		}
+	}
+	YGR_search_help_from_outside = {
+		icon = GFX_decision_generic_phone_call
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			NOT = {
+				has_country_flag = YGR_influence_action_in_progress
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_usoyan_support
+			}
+		}
+		ai_will_do = {
+			factor = 15
+		}
+		cost = 50
+		days_remove = 10
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_search_help_from_outside"
+			set_country_flag = YGR_influence_action_in_progress
+			country_event = {
+				id = YGR_powerstruggle.5
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_search_help_from_outside"
+			clr_country_flag = YGR_influence_action_in_progress
+		}
+	}
+	YGR_random_event_ioseliani = {
+		icon = GFX_decision_generic_use_force
+		allowed = {
+			tag = KOM
+		}
+		visible = {
+			has_country_flag = YGR_usoyan_support
+		}
+		activation = {
+			has_country_flag = YGR_usoyan_support
+		}
+		available = {
+			hidden_trigger = {
+				NOT = {
+					has_country_flag = YGR_powerstruggle
+					has_country_flag = YGR_usoyan_support
+				}
+			}
+		}
+		days_mission_timeout = 200
+		is_good = yes
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision Timeout YGR_random_event_ioseliani"
+			activate_mission = YGR_random_event_ioseliani
+			custom_effect_tooltip = RANDOM_EVENT_DESC
+			hidden_effect = {
+				random_list = {
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.17
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.18
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.19
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.20
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.21
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.22
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.23
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.24
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.25
+						}
+					}
+					10 = {
+						country_event = {
+							id = YGR_powerstruggle.26
+						}
+					}
+				}
+			}
+		}
+	}
+	YGR_end_struggle = {
+		icon = GFX_decision_chess_knight_rook_bishop_pawn
+		allowed = {
+			tag = KOM
+		}
+		visible = {
+			has_country_flag = YGR_powerstruggle
+		}
+		activation = {
+			has_completed_focus = YGR_unforseen_developments
+		}
+		available = {
+			hidden_trigger = {
+				NOT = {
+					has_country_flag = YGR_powerstruggle
+				}
+			}
+		}
+		days_mission_timeout = 1225
+		is_good = yes
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision Timeout YGR_end_struggle"
+			custom_effect_tooltip = YGR_end_struggle_resutls_ct
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							YGR_usoyan_influence > YGR_ioseliani_influence
+						}
+					}
+					country_event = {
+						id = YGR_powerstruggle.1
+					}
+					YGR_usoyan_wins = yes
+				}
+				else_if = {
+					limit = {
+						check_variable = {
+							YGR_usoyan_influence < YGR_ioseliani_influence
+						}
+					}
+					country_event = {
+						id = YGR_powerstruggle.2
+					}
+					YGR_ioseliani_wins = yes
+				}
+			}
+		}
+	}
+}
+
+YGR_Smuggling_category = {
+	YGR_steal_valuables = {
+		icon = GFX_decision_generic_money
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			hidden_trigger = {
+				has_country_flag = YGR_Smuggling_enabled
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_Smuggling_enabled
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		cost = 40
+		days_remove = 10
+		fire_only_once = no
+		days_re_enable = 95
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_steal_valuables"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_steal_valuables"
+			random_list = {
+				60 = {
+					set_temp_variable = {
+						gdp_growth_temp = 0.4
+					}
+					econ_gdp_growth_change = yes
+				}
+				10 = {
+					set_temp_variable = {
+						gdp_growth_temp = 0.6
+					}
+					econ_gdp_growth_change = yes
+				}
+				10 = {
+					set_temp_variable = {
+						gdp_growth_temp = 0.9
+					}
+					econ_gdp_growth_change = yes
+				}
+				10 = {
+					set_temp_variable = {
+						gdp_growth_temp = 1.1
+					}
+					econ_gdp_growth_change = yes
+				}
+				10 = {
+					set_temp_variable = {
+						gdp_growth_temp = 1.4
+					}
+					econ_gdp_growth_change = yes
+				}
+			}
+		}
+	}
+	YGR_smuggle_zlatoust_weapons = {
+		icon = GFX_decision_generic_prepare_civil_war
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			hidden_trigger = {
+				has_country_flag = YGR_Smuggling_enabled
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_Smuggling_enabled
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		cost = 40
+		days_remove = 10
+		fire_only_once = no
+		days_re_enable = 95
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_smuggle_zlatoust_weapons"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_smuggle_zlatoust_weapons"
+			random_list = {
+				50 = {
+					add_equipment_to_stockpile = {
+						type = infantry_equipment
+						amount = 300
+						producer = ZLT
+					}
+				}
+				30 = {
+					add_equipment_to_stockpile = {
+						type = infantry_equipment
+						amount = 500
+						producer = ZLT
+					}
+				}
+				20 = {
+					add_equipment_to_stockpile = {
+						type = infantry_equipment
+						amount = 700
+						producer = ZLT
+					}
+				}
+			}
+		}
+	}
+	YGR_smuggle_civilian_supplies = {
+		icon = GFX_decision_generic_consumer_goods
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			hidden_trigger = {
+				has_country_flag = YGR_Smuggling_enabled
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_Smuggling_enabled
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		cost = 50
+		days_remove = 10
+		fire_only_once = no
+		days_re_enable = 120
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_smuggle_civilian_supplies"
+			add_stability = 0.05
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_smuggle_civilian_supplies"
+			TNO_improve_poverty_low = yes
+		}
+	}
+	YGR_show_weapon_smuggling = {
+		icon = GFX_generic_decision
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			hidden_trigger = {
+				has_country_flag = YGR_Weapon_smuggling_enabled
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_Weapon_smuggling_enabled
+				NOT = {
+					has_country_flag = YGR_show_smuggling_weapons
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		cost = 0
+		days_remove = 0
+		fire_only_once = no
+		days_re_enable = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_show_weapon_smuggling"
+			set_country_flag = YGR_show_smuggling_weapons
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_show_weapon_smuggling"
+		}
+	}
+	YGR_hide_weapon_smuggling = {
+		icon = GFX_generic_decision
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			hidden_trigger = {
+				has_country_flag = YGR_Weapon_smuggling_enabled
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_Weapon_smuggling_enabled
+				has_country_flag = YGR_show_smuggling_weapons
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		cost = 0
+		days_remove = 0
+		fire_only_once = no
+		days_re_enable = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_hide_weapon_smuggling"
+			clr_country_flag = YGR_show_smuggling_weapons
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_hide_weapon_smuggling"
+		}
+	}
+	YGR_sell_smuggled_weapons = {
+		icon = GFX_decision_generic_consumer_goods
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			hidden_trigger = {
+				has_country_flag = YGR_Weapon_smuggling_enabled
+			}
+			has_equipment = {
+				infantry_equipment > 199
+			}
+		}
+		target_array = global.russian_warlords
+		target_trigger = {
+			FROM = {
+				is_wasteland = no
+				NOT = {
+					has_war_with = ROOT
+				}
+				AND = {
+					if = {
+						limit = {
+							is_west_siberian_nation = yes
+						}
+					}
+					else_if = {
+						limit = {
+							is_central_russian_nation = yes
+						}
+					}
+					else = {
+						always = no
+					}
+				}
+			}
+		}
+		cancel_trigger = {
+			OR = {
+				FROM = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_Smuggling_enabled
+				has_country_flag = YGR_show_smuggling_weapons
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		cost = 50
+		days_remove = 10
+		fire_only_once = no
+		days_re_enable = 60
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_sell_smuggled_weapons"
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -200
+			}
+			set_temp_variable = {
+				temp_month_income_gained = 2
+			}
+			econ_money_reserves_change_month_income = yes
+			FROM = {
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 200
+				}
+				set_temp_variable = {
+					temp_econ_spending_amount = 0.03
+				}
+				econ_spend_money_once_effect_raw_money = yes
+			}
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_sell_smuggled_weapons"
+		}
+	}
+	YGR_show_sabotation_decisions = {
+		icon = GFX_generic_decision
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			hidden_trigger = {
+				has_country_flag = YGR_sabotaging_enabled
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_Smuggling_enabled
+				has_country_flag = YGR_sabotaging_enabled
+				NOT = {
+					has_country_flag = YGR_show_sabotation_decisions
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		cost = 0
+		days_remove = 0
+		fire_only_once = no
+		days_re_enable = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_show_sabotation_decisions"
+			set_country_flag = YGR_show_sabotation_decisions
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_show_sabotation_decisions"
+		}
+	}
+	YGR_hide_sabotation_decisions = {
+		icon = GFX_generic_decision
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			hidden_trigger = {
+				has_country_flag = YGR_sabotaging_enabled
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_Smuggling_enabled
+				has_country_flag = YGR_sabotaging_enabled
+				has_country_flag = YGR_show_sabotation_decisions
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		cost = 0
+		days_remove = 0
+		fire_only_once = no
+		days_re_enable = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_hide_weapon_smuggling"
+			clr_country_flag = YGR_show_sabotation_decisions
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_hide_weapon_smuggling"
+		}
+	}
+	YGR_infiltrate_enemy_army = {
+		icon = GFX_decision_generic_consumer_goods
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			hidden_trigger = {
+				has_country_flag = YGR_sabotaging_enabled
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_sabotaging_enabled
+				has_country_flag = YGR_show_sabotation_decisions
+			}
+		}
+		target_array = global.russian_warlords
+		target_trigger = {
+			FROM = {
+				is_wasteland = no
+				is_west_siberian_nation = yes
+				has_war_with = ROOT
+			}
+		}
+		ai_will_do = {
+			factor = 5
+		}
+		cost = 50
+		days_remove = 10
+		fire_only_once = no
+		days_re_enable = 200
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_infiltrate_enemy_army"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_infiltrate_enemy_army"
+			FROM = {
+				add_timed_idea = {
+					idea = YGR_infiltrate_enemy_army
+					days = 60
+				}
+			}
+		}
+	}
+	YGR_disrupt_supply_lines = {
+		icon = GFX_decision_generic_consumer_goods
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			hidden_trigger = {
+				has_country_flag = YGR_sabotaging_enabled
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_sabotaging_enabled
+				has_country_flag = YGR_show_sabotation_decisions
+			}
+		}
+		target_array = global.russian_warlords
+		target_trigger = {
+			FROM = {
+				is_wasteland = no
+				is_west_siberian_nation = yes
+				has_war_with = ROOT
+			}
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		cost = 50
+		days_remove = 10
+		fire_only_once = no
+		days_re_enable = 200
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_disrupt_supply_lines"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_disrupt_supply_lines"
+			FROM = {
+				add_timed_idea = {
+					idea = YGR_disrupted_supplies
+					days = 60
+				}
+			}
+		}
+	}
+	YGR_sabotage_production = {
+		icon = GFX_decision_generic_consumer_goods
+		allowed = {
+			tag = KOM
+		}
+		available = {
+			hidden_trigger = {
+				has_country_flag = YGR_sabotaging_enabled
+			}
+		}
+		visible = {
+			hidden_trigger = {
+				has_country_flag = YGR_sabotaging_enabled
+				has_country_flag = YGR_show_sabotation_decisions
+			}
+		}
+		target_array = global.russian_warlords
+		target_trigger = {
+			FROM = {
+				is_wasteland = no
+				is_west_siberian_nation = yes
+				has_war_with = ROOT
+			}
+		}
+		ai_will_do = {
+			factor = 8
+		}
+		cost = 50
+		days_remove = 10
+		fire_only_once = no
+		days_re_enable = 200
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YGR_disrupt_supply_lines"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove YGR_disrupt_supply_lines"
+			FROM = {
+				add_timed_idea = {
+					idea = YGR_production_sabotaged
+					days = 60
+				}
+			}
+		}
+	}
+}
+
+KOM_warlord_expansion = {
+	KOM_declare_war_on_warlord = {
+		icon = GFX_decision_generic_ignite_civil_war
+		target_array = global.russian_warlords
+		target_trigger = {
+			FROM = {
+				is_west_siberian_nation = yes
+				is_neighbor_of = KOM
+			}
+		}
+		ai_will_do = {
+			factor = 80
+			modifier = {
+				add = -90
+				ROOT = {
+					has_war = yes
+				}
+			}
+		}
+		cost = 50
+		days_remove = 20
+		modifier = {
+			political_power_gain = -0.1
+		}
+		war_with_target_on_remove = yes
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision KOM_declare_war_on_warlord"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove KOM_declare_war_on_warlord"
+			declare_war_on = {
+				type = russian_reclaimation
+				target = FROM
+			}
+		}
+	}
+}
+
+KOM_debug = {
+	KOM_load_starting_tree = {
+		fire_only_once = no
+		complete_effect = {
+			load_focus_tree = YGR_warlord_yugra_tree
+		}
+	}
+	KOM_load_expansion_tree = {
+		fire_only_once = no
+		complete_effect = {
+			load_focus_tree = YGR_warlord_war_yugra_tree
+		}
+	}
+	KOM_load_regional_tree = {
+		fire_only_once = no
+		complete_effect = {
+			load_focus_tree = YGR_regional_tree
+		}
+	}
+	KOM_load_superregional_ioseliani_tree = {
+		fire_only_once = no
+		complete_effect = {
+			load_focus_tree = YGR_superregional_ioseliani
+		}
+	}
+	KOM_load_superregional_usoyan_tree = {
+		fire_only_once = no
+		complete_effect = {
+			load_focus_tree = YGR_superregional_usoyan
+		}
+	}
+}

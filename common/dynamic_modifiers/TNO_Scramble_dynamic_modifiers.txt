@@ -1,0 +1,90 @@
+# New Scramble for Africa: dynamic modifiers (plan 4.9, 4.10). Their values are variables that
+# common/scripted_effects/TNO_Scramble_land_scripted_effects.txt sets.
+
+SFA_land_strength = {
+	# plan 4.10 (user, 2026-10-18): a scramble nation grows with the value of its land, up to a cap
+	icon = "GFX_idea_ARL_breakneck_industrialization"
+	enable = {
+		always = yes
+	}
+	industrial_capacity_factory = SFA_ls_factory
+	production_speed_buildings_factor = SFA_ls_construction
+	production_factory_efficiency_gain_factor = SFA_ls_efficiency
+	consumer_goods_factor = SFA_ls_consumer_goods
+	recruitable_population_factor = SFA_ls_manpower
+	army_org_factor = SFA_ls_organisation
+	stability_factor = SFA_ls_stability
+}
+
+SFA_state_supply = {
+	# plan 4.9 (user, 2026-10-18), on a state: its supply improved by a patron or sabotaged by Burgundy
+	icon = "GFX_idea_OFN_CAR_idea_logistical_preparations"
+	enable = {
+		always = yes
+	}
+	local_supplies = SFA_sup_local
+	army_speed_factor_for_controller = SFA_sup_speed
+	attrition_for_controller = SFA_sup_attrition
+}
+
+# Burgundy's covert actions (plan 4.8; user's names, 2026-10-18). Each is added with days = its duration, so it removes
+# itself; the action cannot hit the same nation again until then (user, 2026-10-18). The names the target sees are
+# neutral: never who did it.
+
+SFA_wrecked_mines = {
+	# Wreck the Mines, on a state: 180 days
+	icon = "GFX_idea_mines"
+	enable = {
+		always = yes
+	}
+	local_resources_factor = -0.5
+}
+
+SFA_sabotaged_construction = {
+	# Sabotage Construction, on a state: 180 days
+	icon = "GFX_idea_construction_level_0"
+	enable = {
+		always = yes
+	}
+	state_production_speed_buildings_factor = -0.5
+}
+
+SFA_pathogen_outbreak = {
+	# Deploy Pathogens, on a state: 120 days
+	icon = "GFX_idea_PAV_The_Great_Opioid_Epidemic"
+	enable = {
+		always = yes
+	}
+	attrition_for_controller = 0.1
+}
+
+SFA_terrorized_population = {
+	# Terrorize Population, on a nation: 180 days
+	icon = "GFX_idea_RUS_terror_bombing"
+	enable = {
+		always = yes
+	}
+	stability_factor = -0.1
+	war_support_factor = -0.1
+}
+
+SFA_bribed_officers = {
+	# Bribe Officers, on a nation at war: 90 days
+	icon = "GFX_idea_LIB_idea_widespread_corruption"
+	enable = {
+		always = yes
+	}
+	army_attack_factor = -0.1
+	army_defence_factor = -0.1
+}
+
+SFA_ss_presence = {
+	# Increase SS Presence In Africa, on one of Burgundy's own nations: 180 days, once a year
+	icon = "GFX_idea_HGR_ss_idealist_support"
+	enable = {
+		always = yes
+	}
+	army_attack_factor = 0.15
+	army_defence_factor = 0.15
+	army_org_factor = 0.1
+}

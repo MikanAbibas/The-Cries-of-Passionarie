@@ -1,0 +1,2056 @@
+###########################
+#FASCIST RESISTANCE EVENTS#
+###########################
+
+add_namespace = ITA_fash_resistance 
+add_namespace = ITA_fash_resistance_investigations
+# 0XX = investigations
+# 1XX = investigation fail
+# 2XX = investigation partial
+# 3XX = investigation success
+# 4XX = investigation clues
+# 5XX = CLA member intros
+add_namespace = ITA_fash_resistance_EM_temp
+# for temp EM changes
+
+##############
+#INTRO EVENTS#
+##############
+country_event = { #terrorist attack in milan.
+	id = ITA_fash_resistance.0
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance.0" }
+	title = ITA_fash_resistance.0.t
+	desc = ITA_fash_resistance.0.desc
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { # 
+		name = ITA_fash_resistance.0.a
+		ai_chance = { factor = 1 }
+		country_event = {
+			id = ITA_fash_resistance.1
+			days = 3
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.500
+			days = 4
+		}
+		add_manpower = -20
+		add_timed_idea = {
+			idea = ITA_fash_milan_terrorism
+			days = 45
+		}
+	}
+}
+country_event = { #patrol slaughtered in mogadiscio
+	id = ITA_fash_resistance.1
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance.1" }
+	title = ITA_fash_resistance.1.t
+	desc = ITA_fash_resistance.1.desc
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { 
+		name = ITA_fash_resistance.1.a
+		ai_chance = { factor = 1 }
+		country_event = {
+			id = ITA_fash_resistance.2
+			days = 4
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.501
+			days = 3
+		}
+		add_manpower = -50
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -50
+		}
+		add_equipment_to_stockpile = {
+			type = motorized_equipment
+			amount = -5
+		}
+	}
+}
+country_event = { #series of unfortunate events
+	id = ITA_fash_resistance.2
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance.2" }
+	title = ITA_fash_resistance.2.t
+	desc = ITA_fash_resistance.2.desc
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { # this is bad
+		name = ITA_fash_resistance.2.a
+		ai_chance = { factor = 1 }
+		country_event = {
+			id = ITA_fash_resistance.3
+			days = 3
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.502
+			days = 4
+		}
+	}
+}
+country_event = { #vacation in tunis
+	id = ITA_fash_resistance.3
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance.3" }
+	title = ITA_fash_resistance.3.t
+	desc = ITA_fash_resistance.3.desc
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { # this is bad
+		name = ITA_fash_resistance.3.a
+		ai_chance = { factor = 1 }
+		country_event = {
+			id = ITA_fash_resistance.6
+			days = 4
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.503
+			days = 3
+		}
+	}
+}
+
+country_event = { #emergency meeting. start the mechanic
+	id = ITA_fash_resistance.6
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance.6" }
+	title = ITA_fash_resistance.6.t
+	desc = ITA_fash_resistance.6.desc
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = no
+
+	option = { # o shit
+		name = ITA_fash_resistance.6.a
+		ai_chance = { factor = 1 }
+		set_country_flag = ITA_fash_resistance_mechanic_enabled
+
+		country_event = {
+			id = ITA_fash_resistance_investigations.000
+			days = 7
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.504
+			days = 3
+		}
+	}
+}
+country_event = { #enhanced interrogation techniques
+	id = ITA_fash_resistance.7
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance.6" }
+	title = ITA_fash_resistance.7.t
+	desc = ITA_fash_resistance.7.desc
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_fash_resistance.7.a
+		ai_chance = { factor = 1 }
+	}
+}
+######################
+#INVESTIGATION EVENTS#
+######################
+
+country_event = { #first investigation event: right place wrong time
+	id = ITA_fash_resistance_investigations.000
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.000" 
+	}
+
+	is_triggered_only = yes
+
+	title = ITA_fash_resistance_investigations.000.t
+	desc = ITA_fash_resistance_investigations.000.desc
+
+	# add_to_variable = {ITA_fash_resistance_meh_threshold = 5 } #meh
+	# add_to_variable = {ITA_fash_resistance_success_threshold = 10 } #success
+
+	option = {
+		name = ITA_fash_resistance_investigations.000.a
+		# trigger = {
+		# 	ITA_fash_resistance_investigation_fail = yes
+		# }
+		# country_event = {
+		# 	id = ITA_fash_resistance_investigations.100
+		# 	days = 7
+		# }
+		# trigger = {
+		# 	ITA_fash_resistance_investigation_meh = yes
+		# }
+		# country_event = {
+		# 	id = ITA_fash_resistance_investigations.200
+		# 	days = 7
+		# }
+		# trigger = {
+		# 	ITA_fash_resistance_investigation_success = yes
+		# }
+		country_event = {
+			id = ITA_fash_resistance_investigations.300
+			days = 7
+		}
+	}
+}
+
+country_event = { #second investigation event: racing against death
+	id = ITA_fash_resistance_investigations.001
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.001" 
+
+		add_to_variable = {ITA_fash_resistance_meh_threshold = 5 } #meh
+		add_to_variable = {ITA_fash_resistance_success_threshold = 10 } #success
+	}
+
+	is_triggered_only = yes
+
+	title = ITA_fash_resistance_investigations.001.t
+	desc = ITA_fash_resistance_investigations.001.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.001.a
+		trigger = {
+			ITA_fash_resistance_investigation_fail = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.101
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.001.a
+		trigger = {
+			ITA_fash_resistance_investigation_meh = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.201
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.001.a
+		trigger = {
+			ITA_fash_resistance_investigation_success = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.301
+			days = 7
+		}
+	}
+}
+
+country_event = { #third investigation event: for a fistful of liras
+	id = ITA_fash_resistance_investigations.002
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.002" 
+
+		add_to_variable = {ITA_fash_resistance_meh_threshold = 5 } #meh
+		add_to_variable = {ITA_fash_resistance_success_threshold = 10 } #success
+	}
+
+	title = ITA_fash_resistance_investigations.002.t
+	desc = ITA_fash_resistance_investigations.002.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.002.a
+		trigger = {
+			ITA_fash_resistance_investigation_fail = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.102
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.002.a
+		trigger = {
+			ITA_fash_resistance_investigation_meh = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.202
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.002.a
+		trigger = {
+			ITA_fash_resistance_investigation_success = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.302
+			days = 7
+		}
+	}
+}
+
+country_event = { #fourth investigation event: they call us trinity
+	id = ITA_fash_resistance_investigations.003
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.003" 
+
+		add_to_variable = {ITA_fash_resistance_meh_threshold = 5 } #meh
+		add_to_variable = {ITA_fash_resistance_success_threshold = 10 } #success
+		set_country_flag = ITA_fash_resistance_medium_enabled
+	}
+
+	title = ITA_fash_resistance_investigations.003.t
+	desc = ITA_fash_resistance_investigations.003.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.003.a
+		trigger = {
+			ITA_fash_resistance_investigation_fail = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.103
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.003.a
+		trigger = {
+			ITA_fash_resistance_investigation_meh = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.203
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.003.a
+		trigger = {
+			ITA_fash_resistance_investigation_success = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.303
+			days = 7
+		}
+	}
+}
+
+country_event = { #fifth investigation event: the good the bad the fascist
+	id = ITA_fash_resistance_investigations.004
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.004" 
+
+		add_to_variable = {ITA_fash_resistance_meh_threshold = 5 } #meh
+		add_to_variable = {ITA_fash_resistance_success_threshold = 10 } #success
+	}
+
+	title = ITA_fash_resistance_investigations.004.t
+	desc = ITA_fash_resistance_investigations.004.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.004.a
+		trigger = {
+			ITA_fash_resistance_investigation_fail = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.104
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.004.a
+		trigger = {
+			ITA_fash_resistance_investigation_meh = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.204
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.004.a
+		trigger = {
+			ITA_fash_resistance_investigation_success = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.304
+			days = 7
+		}
+	}
+}
+
+country_event = { #sixth investigation event: the four of the apocalypse
+	id = ITA_fash_resistance_investigations.005
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.005" 
+
+		add_to_variable = {ITA_fash_resistance_meh_threshold = 5 } #meh
+		add_to_variable = {ITA_fash_resistance_success_threshold = 10 } #success
+	}
+
+	title = ITA_fash_resistance_investigations.005.t
+	desc = ITA_fash_resistance_investigations.005.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.005.a
+		trigger = {
+			ITA_fash_resistance_investigation_fail = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.105
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.005.a
+		trigger = {
+			ITA_fash_resistance_investigation_meh = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.205
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.005.a
+		trigger = {
+			ITA_fash_resistance_investigation_success = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.305
+			days = 7
+		}
+	}
+}
+
+country_event = { #seventh investigation event: red sun black oil
+	id = ITA_fash_resistance_investigations.006
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.006" 
+
+		add_to_variable = {ITA_fash_resistance_meh_threshold = 5 } #meh
+		add_to_variable = {ITA_fash_resistance_success_threshold = 10 } #success
+	}
+
+	title = ITA_fash_resistance_investigations.006.t
+	desc = ITA_fash_resistance_investigations.006.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.006.a
+		trigger = {
+			ITA_fash_resistance_investigation_fail = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.106
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.006.a
+		trigger = {
+			ITA_fash_resistance_investigation_meh = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.206
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.006.a
+		trigger = {
+			ITA_fash_resistance_investigation_success = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.306
+			days = 7
+		}
+	}
+}
+
+country_event = { #eighth investigation event: and god said to cain
+	id = ITA_fash_resistance_investigations.007
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.007" 
+
+		add_to_variable = {ITA_fash_resistance_meh_threshold = 5 } #meh
+		add_to_variable = {ITA_fash_resistance_success_threshold = 10 } #success
+		set_country_flag = ITA_fash_resistance_large_enabled
+	}
+
+	title = ITA_fash_resistance_investigations.007.t
+	desc = ITA_fash_resistance_investigations.007.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.007.a
+		trigger = {
+			ITA_fash_resistance_investigation_fail = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.107
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.007.a
+		trigger = {
+			ITA_fash_resistance_investigation_meh = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.207
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.007.a
+		trigger = {
+			ITA_fash_resistance_investigation_success = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.307
+			days = 7
+		}
+	}
+}
+
+country_event = { #ninth investigation event: the price of revenge
+	id = ITA_fash_resistance_investigations.008
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.008" 
+
+		add_to_variable = {ITA_fash_resistance_meh_threshold = 5 } #meh
+		add_to_variable = {ITA_fash_resistance_success_threshold = 10 } #success
+	}
+
+	title = ITA_fash_resistance_investigations.008.t
+	desc = ITA_fash_resistance_investigations.008.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.008.a
+		trigger = {
+			ITA_fash_resistance_investigation_fail = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.108
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.008.a
+		trigger = {
+			ITA_fash_resistance_investigation_meh = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.208
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.008.a
+		trigger = {
+			ITA_fash_resistance_investigation_success = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.308
+			days = 7
+		}
+	}
+}
+
+country_event = { #tenth investigation event: ine upon a time in tripolitania
+	id = ITA_fash_resistance_investigations.009
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.009" 
+
+		add_to_variable = {ITA_fash_resistance_meh_threshold = 5 } #meh
+		add_to_variable = {ITA_fash_resistance_success_threshold = 10 } #success
+	}
+
+	title = ITA_fash_resistance_investigations.009.t
+	desc = ITA_fash_resistance_investigations.009.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.009.a
+		trigger = {
+			ITA_fash_resistance_investigation_fail = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.109
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.009.a
+		trigger = {
+			ITA_fash_resistance_investigation_meh = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.209
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.009.a
+		trigger = {
+			ITA_fash_resistance_investigation_success = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.309
+			days = 7
+		}
+	}
+}
+
+country_event = { #eleventh investigation event: oil and lead
+	id = ITA_fash_resistance_investigations.010
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.010" 
+
+		add_to_variable = {ITA_fash_resistance_meh_threshold = 5 } #meh
+		add_to_variable = {ITA_fash_resistance_success_threshold = 10 } #success
+	}
+
+	title = ITA_fash_resistance_investigations.010.t
+	desc = ITA_fash_resistance_investigations.010.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.010.a
+		trigger = {
+			ITA_fash_resistance_investigation_fail = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.110
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.010.a
+		trigger = {
+			ITA_fash_resistance_investigation_meh = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.210
+			days = 7
+		}
+	}
+	option = {
+		name = ITA_fash_resistance_investigations.010.a
+		trigger = {
+			ITA_fash_resistance_investigation_success = yes
+		}
+		country_event = {
+			id = ITA_fash_resistance_investigations.310
+			days = 7
+		}
+	}
+}
+
+country_event = { #first success
+	id = ITA_fash_resistance_investigations.300
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.300" 
+	}
+
+	title = ITA_fash_resistance_investigations.300.t
+	desc = ITA_fash_resistance_investigations.300.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.300.a
+		add_to_variable = { ITA_fash_resistance_clues = 10 }
+		set_variable = { ITA_fash_resistance_event_results^0 = 3 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.001
+			days = 7
+		}
+	}
+}
+
+country_event = { #second success
+	id = ITA_fash_resistance_investigations.301
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.301" 
+	}
+
+	title = ITA_fash_resistance_investigations.301.t
+	desc = ITA_fash_resistance_investigations.301.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.301.a
+		add_to_variable = { ITA_fash_resistance_clues = 10 }
+		set_variable = { ITA_fash_resistance_event_results^1 = 3 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.002
+			days = 21
+		}
+	}
+}
+
+country_event = { #third success
+	id = ITA_fash_resistance_investigations.302
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.302" 
+	}
+
+	title = ITA_fash_resistance_investigations.302.t
+	desc = ITA_fash_resistance_investigations.302.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.302.a
+		add_to_variable = { ITA_fash_resistance_clues = 10 }
+		set_variable = { ITA_fash_resistance_event_results^2 = 3 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.003
+			days = 21
+		}
+	}
+}
+
+country_event = { #fourth success
+	id = ITA_fash_resistance_investigations.303
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.303" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.303.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.303.a
+		add_to_variable = { ITA_fash_resistance_clues = 10 }
+		set_variable = { ITA_fash_resistance_event_results^3 = 3 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.004
+			days = 21
+		}
+	}
+}
+
+country_event = { #fifth success
+	id = ITA_fash_resistance_investigations.304
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.304" 
+	}
+
+	title = ITA_fash_resistance_investigations.304.t
+	desc = ITA_fash_resistance_investigations.304.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.304.a
+		add_to_variable = { ITA_fash_resistance_clues = 10 }
+		set_variable = { ITA_fash_resistance_event_results^4 = 3 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.005
+			days = 7
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 500
+		}
+		add_equipment_to_stockpile = {
+			type = support_equipment
+			amount = 100
+		}
+	}
+}
+
+country_event = { #sixth success
+	id = ITA_fash_resistance_investigations.305
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.305" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.305.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.305.a
+		add_to_variable = { ITA_fash_resistance_clues = 10 }
+		set_variable = { ITA_fash_resistance_event_results^5 = 3 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.006
+			days = 21
+		}
+	}
+}
+
+country_event = { #seventh success
+	id = ITA_fash_resistance_investigations.306
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.306" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.306.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.306.a
+		add_to_variable = { ITA_fash_resistance_clues = 10 }
+		set_variable = { ITA_fash_resistance_event_results^6 = 3 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.007
+			days = 21
+		}
+	}
+}
+
+country_event = { #eighth success
+	id = ITA_fash_resistance_investigations.307
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.307" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.307.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.307.a
+		add_to_variable = { ITA_fash_resistance_clues = 10 }
+		set_variable = { ITA_fash_resistance_event_results^7 = 3 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.008
+			days = 21
+		}
+	}
+}
+
+country_event = { #ninth success
+	id = ITA_fash_resistance_investigations.308
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.308" 
+	}
+
+	title = ITA_fash_resistance_investigations.308.t
+	desc = ITA_fash_resistance_investigations.308.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.308.a
+		add_to_variable = { ITA_fash_resistance_clues = 10 }
+		set_variable = { ITA_fash_resistance_event_results^8 = 3 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.009
+			days = 21
+		}
+	}
+}
+
+country_event = { #tenth success
+	id = ITA_fash_resistance_investigations.309
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.309" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.309.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.309.a
+		add_to_variable = { ITA_fash_resistance_clues = 10 }
+		set_variable = { ITA_fash_resistance_event_results^9 = 3 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.010
+			days = 21
+		}
+	}
+}
+
+country_event = { #eleventh success
+	id = ITA_fash_resistance_investigations.310
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.310" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.310.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.310.a
+		add_to_variable = { ITA_fash_resistance_clues = 10 }
+		clamp_variable = {
+			var = ITA_fash_resistance_clues
+			min = 0
+			max = 100
+		}
+		
+		set_variable = { ITA_fash_resistance_event_results^10 = 3 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.999
+			days = 21
+		}
+	}
+}
+
+country_event = { #second meh
+	id = ITA_fash_resistance_investigations.201
+	immediate = { 
+		set_variable = {ITA_EM_sel_region = 3 } # Ethiopia
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.201" 
+		}
+	
+
+	title = ITA_fash_resistance_investigations.301.t
+	desc = ITA_fash_resistance_investigations.201.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	#fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.201.a
+		add_to_variable = { ITA_fash_resistance_clues = 5 }
+		set_variable = { ITA_fash_resistance_event_results^1 = 2 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.002
+			days = 21
+		}
+		add_manpower = -50
+		add_political_power = -10
+		271 = {
+			damage_building = {
+				type = infrastructure
+				damage = 1
+			}
+		}
+		
+		set_temp_variable = { Region_i = 3 } # Ethiopia
+		set_variable = {ITA_EM_sel_region = Region_i } # Ethiopia
+		set_temp_variable = { exploit_amt = 10 } 
+		set_temp_variable = {ITA_EM_dec_days = 10}
+		
+		ITA_fash_resistance_dec_exploit = yes
+	}
+}
+
+country_event = { #third meh
+	id = ITA_fash_resistance_investigations.202
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.202" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.202.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.302.a
+		add_to_variable = { ITA_fash_resistance_clues = 5 }
+		set_variable = { ITA_fash_resistance_event_results^2 = 2 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.003
+			days = 21
+		}
+		add_political_power = -10
+		add_manpower = -30
+		set_temp_variable = { temp_econ_spending_amount = 0.025 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+country_event = { #fourth meh
+	id = ITA_fash_resistance_investigations.203
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.203" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.203.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.203.a
+		add_to_variable = { ITA_fash_resistance_clues = 5 }
+		set_variable = { ITA_fash_resistance_event_results^3 = 2 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.004
+			days = 21
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.025
+		}
+		add_political_power = -15
+		add_stability = -0.01
+	}
+}
+
+country_event = { #fifth meh
+	id = ITA_fash_resistance_investigations.204
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.204" 
+	}
+
+	title = ITA_fash_resistance_investigations.204.t
+	desc = ITA_fash_resistance_investigations.204.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.204.a
+		add_to_variable = { ITA_fash_resistance_clues = 5 }
+		set_variable = { ITA_fash_resistance_event_results^4 = 2 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.005
+			days = 21
+		}
+	}
+}
+
+country_event = { #sixth meh
+	id = ITA_fash_resistance_investigations.205
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.205" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.205.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.205.a
+		add_to_variable = { ITA_fash_resistance_clues = 5 }
+		set_variable = { ITA_fash_resistance_event_results^5 = 2 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.006
+			days = 21
+		}
+		add_political_power = -10
+		add_stability = -0.01
+	}
+}
+
+country_event = { #seventh meh
+	id = ITA_fash_resistance_investigations.206
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.206" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.206.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.206.a
+		add_to_variable = { ITA_fash_resistance_clues = 5 }
+		set_variable = { ITA_fash_resistance_event_results^6 = 2 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.007
+			days = 21
+		}
+		set_temp_variable = { temp_econ_spending_amount = 0.025 }
+		econ_spend_money_once_effect_raw_money = yes
+		#reduce econ growth idea
+	}
+}
+
+country_event = { #eighth meh
+	id = ITA_fash_resistance_investigations.207
+	immediate = { 
+		set_variable = {ITA_EM_sel_region = 3 } # Ethiopia
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.207" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.207.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.207.a
+		add_to_variable = { ITA_fash_resistance_clues = 5 }
+		set_variable = { ITA_fash_resistance_event_results^7 = 2 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.008
+			days = 21
+		}
+
+		set_temp_variable = { Region_i = 3 } # Ethiopia
+		set_variable = {ITA_EM_sel_region = Region_i } # Ethiopia
+		set_temp_variable = { exploit_amt = 10 } 
+		set_temp_variable = {ITA_EM_dec_days = 45}
+		
+		ITA_fash_resistance_dec_exploit = yes
+	}
+}
+
+country_event = { #ninth meh
+	id = ITA_fash_resistance_investigations.208
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.208" 
+	}
+
+	title = ITA_fash_resistance_investigations.208.t
+	desc = ITA_fash_resistance_investigations.208.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.208.a
+		add_to_variable = { ITA_fash_resistance_clues = 5 }
+		set_variable = { ITA_fash_resistance_event_results^8 = 2 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.009
+			days = 21
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.025
+		}
+		add_political_power = -10
+	}
+}
+
+country_event = { #tenth meh
+	id = ITA_fash_resistance_investigations.209
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.209" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.209.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.209.a
+		add_to_variable = { ITA_fash_resistance_clues = 5 }
+		set_variable = { ITA_fash_resistance_event_results^9 = 2 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.010
+			days = 21
+		}
+		add_manpower = -200
+		ITA_fash_resistance_tripoli_insurgency_add = yes
+	}
+}
+
+country_event = { #eleventh meh
+	id = ITA_fash_resistance_investigations.210
+	immediate = { 
+		set_variable = {ITA_EM_sel_region = 21 } # gulf
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.210" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.210.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.210.a
+		add_to_variable = { ITA_fash_resistance_clues = 5 }
+		clamp_variable = {
+			var = ITA_fash_resistance_clues
+			min = 0
+			max = 100
+		}
+		
+		set_variable = { ITA_fash_resistance_event_results^10 = 2 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.999
+			days = 21
+		}
+		add_political_power = -10
+		set_temp_variable = { Region_i = 21 } # gulf
+		set_variable = {ITA_EM_sel_region = Region_i } # gulf
+		set_temp_variable = { exploit_amt = 10 } 
+		set_temp_variable = {ITA_EM_dec_days = 45}
+		
+		ITA_fash_resistance_dec_exploit = yes
+		#reduce gulf control for 45 days
+	}
+}
+
+country_event = { #second fail
+	id = ITA_fash_resistance_investigations.101
+	immediate = { 
+		set_variable = {ITA_EM_sel_region = 3 } # Ethiopia
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.101" 
+	}
+
+	title = ITA_fash_resistance_investigations.101.t
+	desc = ITA_fash_resistance_investigations.101.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.101.a
+		add_to_variable = { ITA_fash_resistance_clues = 0 }
+		set_variable = { ITA_fash_resistance_event_results^1 = 1 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.002
+			days = 21
+		}
+		add_manpower = -100
+		271 = {
+			damage_building = {
+				type = infrastructure
+				damage = 1
+			}
+		}
+		set_temp_variable = { Region_i = 3 } # Ethiopia
+		set_variable = {ITA_EM_sel_region = Region_i } # Ethiopia
+		set_temp_variable = { exploit_amt = 10 } 
+		set_temp_variable = {ITA_EM_dec_days = 45}
+		
+		ITA_fash_resistance_dec_exploit = yes
+	}
+}
+
+country_event = { #third fail
+	id = ITA_fash_resistance_investigations.102
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.102" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.102.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.102.a
+		add_to_variable = { ITA_fash_resistance_clues = 0 }
+		set_variable = { ITA_fash_resistance_event_results^2 = 1 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.003
+			days = 21
+		}
+		add_manpower = -60
+		add_political_power = -20
+		set_temp_variable = { temp_econ_spending_amount = 0.05 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+country_event = { #fourth fail
+	id = ITA_fash_resistance_investigations.103
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.103" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.103.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.103.a
+		add_to_variable = { ITA_fash_resistance_clues = 0 }
+		set_variable = { ITA_fash_resistance_event_results^3 = 1 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.004
+			days = 21
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.05
+		}
+		add_political_power = -30
+		add_stability = -0.02
+	}
+}
+
+country_event = { #fifth fail
+	id = ITA_fash_resistance_investigations.104
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.104" 
+	}
+
+	title = ITA_fash_resistance_investigations.104.t
+	desc = ITA_fash_resistance_investigations.104.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.104.a
+		add_to_variable = { ITA_fash_resistance_clues = 0 }
+		set_variable = { ITA_fash_resistance_event_results^4 = 1 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.005
+			days = 21
+		}
+		add_manpower = -100
+		1113 = {
+			damage_building = {
+				type = infrastructure
+				damage = 1
+			}
+		}
+	}
+}
+
+country_event = { #sixth fail
+	id = ITA_fash_resistance_investigations.105
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.105" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.105.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.105.a
+		add_to_variable = { ITA_fash_resistance_clues = 0 }
+		set_variable = { ITA_fash_resistance_event_results^5 = 1 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.006
+			days = 21
+		}
+		add_political_power = -20
+		add_stability = -0.02
+	}
+}
+
+country_event = { #seventh fail
+	id = ITA_fash_resistance_investigations.106
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.106" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.106.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.106.a
+		add_to_variable = { ITA_fash_resistance_clues = 0 }
+		set_variable = { ITA_fash_resistance_event_results^6 = 1 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.007
+			days = 21
+		}
+		set_temp_variable = { temp_econ_spending_amount = 0.05 }
+		econ_spend_money_once_effect_raw_money = yes
+		add_timed_idea = {
+			idea = ITA_fash_oil_attack
+			days = 60
+		}
+	}
+}
+
+country_event = { #eighth fail
+	id = ITA_fash_resistance_investigations.107
+	immediate = { 
+		set_variable = {ITA_EM_sel_region = 3 } # Ethiopia
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.107" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.107.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.107.a
+		add_to_variable = { ITA_fash_resistance_clues = 0 }
+		set_variable = { ITA_fash_resistance_event_results^7 = 1 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.008
+			days = 21
+		}
+		add_manpower = -10
+		set_temp_variable = { Region_i = 3 } # Ethiopia
+		set_variable = {ITA_EM_sel_region = Region_i } # Ethiopia
+		set_temp_variable = { exploit_amt = 10 } 
+		set_temp_variable = {ITA_EM_dec_days = 90}
+		
+		ITA_fash_resistance_dec_exploit = yes
+		add_political_power = -20
+	}
+}
+
+country_event = { #ninth fail
+	id = ITA_fash_resistance_investigations.108
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.108" 
+	}
+
+	title = ITA_fash_resistance_investigations.108.t
+	desc = ITA_fash_resistance_investigations.108.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.108.a
+		add_to_variable = { ITA_fash_resistance_clues = 0 }
+		set_variable = { ITA_fash_resistance_event_results^8 = 1 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.009
+			days = 21
+		}
+		add_political_power = -20
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.02
+		}
+	}
+}
+
+country_event = { #tenth fail
+	id = ITA_fash_resistance_investigations.109
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.109" 
+	}
+
+	title = ITA_fash_resistance_investigations.t
+	desc = ITA_fash_resistance_investigations.109.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.109.a
+		add_to_variable = { ITA_fash_resistance_clues = 0 }
+		set_variable = { ITA_fash_resistance_event_results^9 = 1 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.010
+			days = 21
+		}
+		add_manpower = -200
+		ITA_fash_resistance_tripoli_insurgency_add = yes
+	}
+}
+
+country_event = { #eleventh fail
+	id = ITA_fash_resistance_investigations.110
+	immediate = { 
+		set_variable = {ITA_EM_sel_region = 21 } # gulf
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.110" 
+	}
+
+	title = ITA_fash_resistance_investigations.110.t
+	desc = ITA_fash_resistance_investigations.110.desc
+	
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.110.a
+		add_to_variable = { ITA_fash_resistance_clues = 0 }
+		clamp_variable = {
+			var = ITA_fash_resistance_clues
+			min = 0
+			max = 100
+		}
+		
+		set_variable = { ITA_fash_resistance_event_results^10 = 2 }
+		country_event = {
+			id = ITA_fash_resistance_investigations.999
+			days = 21
+		}
+		add_political_power = -20
+		add_manpower = -100
+
+		set_temp_variable = { Region_i = 21 } # GULF
+		set_variable = {ITA_EM_sel_region = Region_i } # GULF
+		set_temp_variable = { exploit_amt = 10 } 
+		set_temp_variable = {ITA_EM_dec_days = 60}
+		
+		ITA_fash_resistance_dec_exploit = yes
+
+		set_temp_variable = { Region_i = 21 } # GULF
+		set_variable = {ITA_EM_sel_region = Region_i } # GULF
+		set_temp_variable = { control_amt = 10 } 
+		set_temp_variable = {ITA_EM_dec_days = 60}
+		
+		ITA_fash_resistance_dec_control = yes
+
+		add_timed_idea = {
+			idea = ITA_fash_oil_attack
+			days = 60
+		}
+
+	}
+}
+
+country_event = { #first clue
+	id = ITA_fash_resistance_investigations.400
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.400" 
+	}
+
+	title = ITA_fash_resistance_investigations.400.t
+	desc = ITA_fash_resistance_investigations.400.desc
+	
+	#picture = 
+
+	trigger = {
+		has_country_flag = ITA_med_rework_active 
+		check_variable = { ITA_fash_resistance_clues > 9 }
+	}
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.400.a
+		set_variable = { ITA_fash_resistance_leader_status^0 = 1 }
+		add_to_variable = { ITA_fash_resistance_dirty = 1 }
+	}
+}
+country_event = { #second clue
+	id = ITA_fash_resistance_investigations.401
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.401" 
+	}
+
+	title = ITA_fash_resistance_investigations.401.t
+	desc = ITA_fash_resistance_investigations.401.desc
+	
+	#picture = 
+
+	trigger = {
+		has_country_flag = ITA_med_rework_active 
+		check_variable = { ITA_fash_resistance_clues > 19 }
+	}
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.401.a
+		set_variable = { ITA_fash_resistance_leader_status^1 = 1 }
+		add_to_variable = { ITA_fash_resistance_dirty = 1 }
+	}
+}
+country_event = { #third clue
+	id = ITA_fash_resistance_investigations.402
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.402" 
+	}
+
+	title = ITA_fash_resistance_investigations.402.t
+	desc = ITA_fash_resistance_investigations.402.desc
+	
+	#picture = 
+
+	trigger = {
+		has_country_flag = ITA_med_rework_active 
+		check_variable = { ITA_fash_resistance_clues > 29 }
+	}
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.402.a
+		set_variable = { ITA_fash_resistance_leader_status^2 = 1 }
+		add_to_variable = { ITA_fash_resistance_dirty = 1 }
+	}
+}
+country_event = { #fourth clue
+	id = ITA_fash_resistance_investigations.403
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.403" 
+	}
+
+	title = ITA_fash_resistance_investigations.403.t
+	desc = ITA_fash_resistance_investigations.403.desc
+	
+	#picture = 
+
+	trigger = {
+		has_country_flag = ITA_med_rework_active 
+		check_variable = { ITA_fash_resistance_clues > 39 }
+	}
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.403.a
+		set_variable = { ITA_fash_resistance_leader_status^3 = 1 }
+		add_to_variable = { ITA_fash_resistance_dirty = 1 }
+	}
+}
+country_event = { #fifth clue
+	id = ITA_fash_resistance_investigations.404
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.404" 
+	}
+
+	title = ITA_fash_resistance_investigations.404.t
+	desc = ITA_fash_resistance_investigations.404.desc
+	
+	#picture = 
+
+	trigger = {
+		has_country_flag = ITA_med_rework_active 
+		check_variable = { ITA_fash_resistance_clues > 49 }
+	}
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.404.a
+		set_variable = { ITA_fash_resistance_leader_status^4 = 1 }
+		add_to_variable = { ITA_fash_resistance_dirty = 1 }
+	}
+}
+country_event = { #sixth clue
+	id = ITA_fash_resistance_investigations.405
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.405" 
+	}
+
+	title = ITA_fash_resistance_investigations.405.t
+	desc = ITA_fash_resistance_investigations.405.desc
+	
+	#picture = 
+
+	trigger = {
+		has_country_flag = ITA_med_rework_active 
+		check_variable = { ITA_fash_resistance_clues > 59 }
+	}
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.405.a
+		set_variable = { ITA_fash_resistance_leader_status^0 = 2 }
+		add_to_variable = { ITA_fash_resistance_dirty = 1 }
+	}
+}
+country_event = { #seventh clue
+	id = ITA_fash_resistance_investigations.406
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.406" 
+	}
+
+	title = ITA_fash_resistance_investigations.406.t
+	desc = ITA_fash_resistance_investigations.406.desc
+	
+	#picture = 
+
+	trigger = {
+		has_country_flag = ITA_med_rework_active 
+		check_variable = { ITA_fash_resistance_clues > 69 }
+	}
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.406.a
+		set_variable = { ITA_fash_resistance_leader_status^3 = 2 }
+		add_to_variable = { ITA_fash_resistance_dirty = 1 }
+	}
+}
+country_event = { #eighth clue
+	id = ITA_fash_resistance_investigations.407
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.407" 
+	}
+
+	title = ITA_fash_resistance_investigations.407.t
+	desc = ITA_fash_resistance_investigations.407.desc
+	
+	#picture = 
+
+	trigger = {
+		has_country_flag = ITA_med_rework_active 
+		check_variable = { ITA_fash_resistance_clues > 79 }
+	}
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.407.a
+		set_variable = { ITA_fash_resistance_leader_status^2 = 2 }
+		add_to_variable = { ITA_fash_resistance_dirty = 1 }
+	}
+}
+country_event = { #ninth clue
+	id = ITA_fash_resistance_investigations.408
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.408" 
+	}
+
+	title = ITA_fash_resistance_investigations.408.t
+	desc = ITA_fash_resistance_investigations.408.desc
+	
+	#picture = 
+
+	trigger = {
+		has_country_flag = ITA_med_rework_active 
+		check_variable = { ITA_fash_resistance_clues > 89 }
+	}
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.408.a
+		set_variable = { ITA_fash_resistance_leader_status^1 = 2 }
+		add_to_variable = { ITA_fash_resistance_dirty = 1 }
+	}
+}
+country_event = { #tenth clue
+	id = ITA_fash_resistance_investigations.409
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.409" 
+	}
+
+	title = ITA_fash_resistance_investigations.409.t
+	desc = ITA_fash_resistance_investigations.409.desc
+	
+	#picture = 
+
+	trigger = {
+		has_country_flag = ITA_med_rework_active 
+		check_variable = { ITA_fash_resistance_clues > 99 }
+	}
+	fire_only_once = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.409.a
+		set_variable = { ITA_fash_resistance_leader_status^4 = 2 }
+		add_to_variable = { ITA_fash_resistance_dirty = 1 }
+	}
+}
+
+country_event = { # coup attempt end thing
+	id = ITA_fash_resistance_investigations.999
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.999" 
+	}
+
+	title = ITA_fash_resistance_investigations.999.t
+	desc = {
+		trigger = {
+			check_variable = { ITA_fash_resistance_clues > 79 }
+		}
+		text = ITA_fash_resistance_investigations.999.desc_success
+	}
+	desc = {
+		trigger = {
+			AND = {
+				check_variable = { ITA_fash_resistance_clues > 59 }
+				check_variable = { ITA_fash_resistance_clues < 80 }
+			}
+		}
+		text = ITA_fash_resistance_investigations.999.desc_meh
+	}
+	desc = {
+		trigger = {
+			check_variable = { ITA_fash_resistance_clues < 60 }
+		}
+		text = ITA_fash_resistance_investigations.999.desc_fail
+	}
+
+	#picture = 
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { # fail
+		name = ITA_fash_resistance_investigations.999.a
+		trigger = {
+			check_variable = { ITA_fash_resistance_clues < 60 }
+		}
+		set_variable = { ITA_fash_resistance_event_results^10 = 1 }
+		
+		ai_chance = { factor = 1 }
+	}
+
+	option = { # meh
+		name = ITA_fash_resistance_investigations.999.b
+		trigger = {
+			AND = {
+				check_variable = { ITA_fash_resistance_clues > 59 }
+				check_variable = { ITA_fash_resistance_clues < 80 }
+			}
+		}
+		
+		ai_chance = { factor = 1 }
+	}
+
+	option = { # success
+		name = ITA_fash_resistance_investigations.999.c
+		trigger = {
+			ITA_fash_resistance_investigation_success = yes
+		}
+		ai_chance = { factor = 1 }
+	}
+}
+country_event = { #in the halls of the mountain king
+	id = ITA_fash_resistance_investigations.500
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+
+	title = ITA_fash_resistance_investigations.500.t
+	desc = ITA_fash_resistance_investigations.500.desc
+
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.500"
+	}
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_fash_resistance_investigations.500.a
+	}
+}
+
+country_event = { #Chivalry is not yet dead
+	id = ITA_fash_resistance_investigations.501
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+
+	title = ITA_fash_resistance_investigations.501.t
+	desc = ITA_fash_resistance_investigations.501.desc
+	
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.501"
+	}
+	is_triggered_only = yes
+	option = {
+		name = ITA_fash_resistance_investigations.501.a
+	}
+}
+
+country_event = { #Passing the Mantle
+	id = ITA_fash_resistance_investigations.502
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+
+	title = ITA_fash_resistance_investigations.502.t
+	desc = ITA_fash_resistance_investigations.502.desc
+	
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.502"
+	}
+	is_triggered_only = yes
+	option = {
+		name = ITA_fash_resistance_investigations.502.a
+	}
+}
+
+country_event = { #Hammer and Freedom
+	id = ITA_fash_resistance_investigations.503
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+
+	title = ITA_fash_resistance_investigations.503.t
+	desc = ITA_fash_resistance_investigations.503.desc
+	
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.503"
+	}
+	is_triggered_only = yes
+	option = {
+		name = ITA_fash_resistance_investigations.503.a
+	}
+}
+
+country_event = { #smiles and daggers
+	id = ITA_fash_resistance_investigations.504
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+
+	title = ITA_fash_resistance_investigations.504.t
+	desc = ITA_fash_resistance_investigations.504.desc
+	
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_investigations.504"
+	}
+	is_triggered_only = yes
+	option = {
+		name = ITA_fash_resistance_investigations.503.a
+	}
+}
+#############################
+### END OF INVESTIGATIONS ###
+#############################
+
+country_event = { #increase colonial control by 3
+	id = ITA_fash_resistance_EM_temp.1
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_EM_temp.1"
+		set_temp_variable = { DiploValueChange_v = 3 }
+		ITA_FashResistance_modify_colony_control = yes
+	}
+	is_triggered_only = yes
+	hidden = yes
+}
+country_event = { #increase colonial control by 4
+	id = ITA_fash_resistance_EM_temp.2
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_EM_temp.2"
+		set_temp_variable = { DiploValueChange_v = 4 }
+		ITA_FashResistance_modify_colony_control = yes
+	}
+	is_triggered_only = yes
+	hidden = yes
+}
+country_event = { #increase colonial control by 10
+	id = ITA_fash_resistance_EM_temp.3
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_EM_temp.3"
+		set_temp_variable = { DiploValueChange_v = 10 }
+		ITA_FashResistance_modify_colony_control = yes
+	}
+	is_triggered_only = yes
+	hidden = yes
+}
+country_event = { #increase colonial exploitation by 10
+	id = ITA_fash_resistance_EM_temp.4
+	immediate = { 
+		log = "[GetDateText]: [Root.GetName]: event ITA_fash_resistance_EM_temp.4"
+		set_temp_variable = { EconValueChange_v = 10 }
+		ITA_FashResistance_modify_colony_exploitation = yes
+	}
+	is_triggered_only = yes
+	hidden = yes
+}

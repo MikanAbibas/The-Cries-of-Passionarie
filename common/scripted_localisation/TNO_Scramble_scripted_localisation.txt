@@ -1,0 +1,633 @@
+# New Scramble for Africa: the GUI's text (phase 6). Every switch reads variables the scramble already computed
+# (plan 7.4); none counts or loops. The per-region switches are generated:
+# TNO_Scramble_generated_scripted_localisation.txt (tools/scramble/gen_data.py).
+
+# ------------------------------------------------------------------ the topbar box (step 3), in the viewer's scope
+
+defined_text = {
+	name = SFA_GetTopbarIncome
+	text = {
+		trigger = { check_variable = { SFA_income > 0 } }
+		localization_key = SFA_topbar_income_some
+	}
+	text = {
+		localization_key = SFA_topbar_income_none
+	}
+}
+
+defined_text = {
+	name = SFA_GetTopbarRegion
+	text = {
+		trigger = {
+			check_variable = { SFA_home_region > 0 }
+			check_variable = { global.SFA_consolidated^SFA_home_region = 1 }
+		}
+		localization_key = SFA_topbar_region_done
+	}
+	text = {
+		localization_key = SFA_topbar_region_open
+	}
+}
+
+defined_text = {
+	name = SFA_GetTopbarTooltip
+	text = {
+		trigger = { has_country_flag = SFA_patron }
+		localization_key = SFA_topbar_tt_patron
+	}
+	text = {
+		localization_key = SFA_topbar_tt_nation
+	}
+}
+
+defined_text = {
+	name = SFA_GetTopbarRegionsLine
+	text = {
+		localization_key = SFA_topbar_tt_regions
+	}
+}
+
+defined_text = {
+	# a patron's proxies at war, named with one enemy each: the first four (SFA_count_proxies_at_war)
+	name = SFA_GetTopbarWars
+	text = {
+		trigger = { check_variable = { SFA_proxies_at_war = 0 } }
+		localization_key = SFA_topbar_wars_0
+	}
+	text = {
+		trigger = { check_variable = { SFA_war_proxies^num > 3 } }
+		localization_key = SFA_topbar_wars_4
+	}
+	text = {
+		trigger = { check_variable = { SFA_war_proxies^num = 3 } }
+		localization_key = SFA_topbar_wars_3
+	}
+	text = {
+		trigger = { check_variable = { SFA_war_proxies^num = 2 } }
+		localization_key = SFA_topbar_wars_2
+	}
+	text = {
+		trigger = { check_variable = { SFA_war_proxies^num = 1 } }
+		localization_key = SFA_topbar_wars_1
+	}
+	text = {
+		localization_key = SFA_topbar_wars_unnamed
+	}
+}
+
+defined_text = {
+	name = SFA_GetTopbarWarsMore
+	text = {
+		trigger = { check_variable = { SFA_war_more > 0 } }
+		localization_key = SFA_topbar_wars_more
+	}
+	text = {
+		localization_key = SFA_topbar_wars_more_none
+	}
+}
+
+defined_text = {
+	# the date is fixed when the order is given (SFA_give_order), so the tooltip never counts down
+	name = SFA_GetTopbarOrder
+	text = {
+		trigger = { has_country_flag = SFA_order_cooldown }
+		localization_key = SFA_topbar_order_date
+	}
+	text = {
+		localization_key = SFA_topbar_order_ready
+	}
+}
+
+defined_text = {
+	# a nation's backer. Only Burgundy's own nations ever see Burgundy named here.
+	name = SFA_GetTopbarPatron
+	text = {
+		trigger = { has_country_flag = SFA_patron_USA }
+		localization_key = SFA_topbar_patron_USA
+	}
+	text = {
+		trigger = { has_country_flag = SFA_patron_GER }
+		localization_key = SFA_topbar_patron_GER
+	}
+	text = {
+		trigger = { has_country_flag = SFA_patron_ITA }
+		localization_key = SFA_topbar_patron_ITA
+	}
+	text = {
+		trigger = { has_country_flag = SFA_patron_JAP }
+		localization_key = SFA_topbar_patron_JAP
+	}
+	text = {
+		trigger = { has_country_flag = SFA_patron_BRG }
+		localization_key = SFA_topbar_patron_BRG
+	}
+	text = {
+		trigger = { has_country_flag = SFA_patron_IBR }
+		localization_key = SFA_topbar_patron_IBR
+	}
+	text = {
+		localization_key = SFA_topbar_patron_none
+	}
+}
+
+# ------------------------------------------------------------------ the board (step 4), in the viewer's scope
+# Per-card, per-row and per-dispatch switches are generated (TNO_Scramble_generated_scripted_localisation.txt).
+
+defined_text = {
+	# the key's fifth label: Burgundy is "???" to everyone but Burgundy and its own nations (user, 2026-10-18)
+	name = SFA_GetBurgundyLong
+	text = {
+		trigger = { SFA_viewer_knows_burgundy = yes }
+		localization_key = SFA_burgundy_long
+	}
+	text = {
+		localization_key = SFA_burgundy_unknown
+	}
+}
+
+defined_text = {
+	# how the South African War ended (global.SAW_outcome, SAW_record_outcome)
+	name = SFA_GetOutcomeName
+	text = {
+		trigger = { check_variable = { global.SAW_outcome = 1 } }
+		localization_key = SFA_outcome_1
+	}
+	text = {
+		trigger = { check_variable = { global.SAW_outcome = 2 } }
+		localization_key = SFA_outcome_2
+	}
+	text = {
+		trigger = { check_variable = { global.SAW_outcome = 3 } }
+		localization_key = SFA_outcome_3
+	}
+	text = {
+		trigger = { check_variable = { global.SAW_outcome = 4 } }
+		localization_key = SFA_outcome_4
+	}
+	text = {
+		trigger = { check_variable = { global.SAW_outcome = 5 } }
+		localization_key = SFA_outcome_5
+	}
+	text = {
+		localization_key = SFA_outcome_none
+	}
+}
+
+# ------------------------------------------------------------------ the pins (step 5)
+# Each pin's tooltip (SFA_pin_<id>_tt) and its proxy line are generated; this part is called on the state itself.
+
+defined_text = {
+	# [<id>.SFA_GetPinAlignment]: who backs the state's holder, by the board's own colour for it (SFA_frame: 1
+	# independent, 2 US, 3 Germany, 4 Italy, 5 Japan, 6 Burgundy, 7 Iberia). Burgundy is named through the viewer.
+	name = SFA_GetPinAlignment
+	text = {
+		trigger = { check_variable = { SFA_frame = 2 } }
+		localization_key = SFA_pin_align_2
+	}
+	text = {
+		trigger = { check_variable = { SFA_frame = 3 } }
+		localization_key = SFA_pin_align_3
+	}
+	text = {
+		trigger = { check_variable = { SFA_frame = 4 } }
+		localization_key = SFA_pin_align_4
+	}
+	text = {
+		trigger = { check_variable = { SFA_frame = 5 } }
+		localization_key = SFA_pin_align_5
+	}
+	text = {
+		trigger = { check_variable = { SFA_frame = 6 } }
+		localization_key = SFA_pin_align_6
+	}
+	text = {
+		trigger = { check_variable = { SFA_frame = 7 } }
+		localization_key = SFA_pin_align_7
+	}
+	text = {
+		localization_key = SFA_pin_align_1
+	}
+}
+
+defined_text = {
+	# [<id>.SFA_GetPinSupply]: the state's supply when it is not Normal (plan 4.9). Covert: never who sabotaged it.
+	name = SFA_GetPinSupply
+	text = {
+		trigger = { check_variable = { SFA_supply_level = 1 } }
+		localization_key = SFA_pin_supply_up
+	}
+	text = {
+		trigger = { check_variable = { SFA_supply_level = -1 } }
+		localization_key = SFA_pin_supply_down
+	}
+	text = {
+		localization_key = SFA_pin_empty
+	}
+}
+
+defined_text = {
+	# a scramble nation's own land in its topbar box's tooltip (plan 4.10)
+	name = SFA_GetTopbarLand
+	text = {
+		trigger = { has_country_flag = SFA_african_nation }
+		localization_key = SFA_topbar_land
+	}
+	text = {
+		localization_key = SFA_pin_empty
+	}
+}
+
+# ------------------------------------------------------------------ the state popup (step 6), in the viewer's scope
+# Each line says what its action does, or why it cannot; the checks run in the order a player would want them explained.
+
+defined_text = {
+	# an order's political power: 60, or 45 after winning Madagascar
+	name = SFA_GetOrderCost
+	text = {
+		trigger = {
+			has_country_flag = MAD_proxy_war_won
+		}
+		localization_key = SFA_order_cost_45
+	}
+	text = {
+		localization_key = SFA_order_cost_60
+	}
+}
+
+defined_text = {
+	# Order an attack
+	name = SFA_GetPopupOrderLine
+	text = {
+		trigger = {
+			has_country_flag = SFA_order_cooldown
+		}
+		localization_key = SFA_popup_order_cooldown
+	}
+	text = {
+		trigger = {
+			set_temp_variable = { sfa_order_code = SFA_patron_code }
+			var:SFA_selected_state = { OWNER = { SFA_has_patron_code = yes } }
+		}
+		localization_key = SFA_popup_own_side
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { SFA_keeps_out_of_wars = yes } }
+		}
+		localization_key = SFA_popup_saf
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { has_country_flag = SFA_zanzibar } }
+		}
+		localization_key = SFA_popup_zanzibar
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { NOT = { OR = { has_country_flag = SFA_african_nation has_country_flag = SFA_sovereign_ally } } } }
+		}
+		localization_key = SFA_popup_not_scramble
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { OR = { is_subject = yes is_in_faction = yes } } }
+		}
+		localization_key = SFA_popup_protected
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { has_state_flag = SFA_order_target }
+		}
+		localization_key = SFA_popup_targeted
+	}
+	text = {
+		trigger = {
+			set_temp_variable = { sfa_order_code = SFA_patron_code }
+			var:SFA_selected_state = { NOT = { any_neighbor_state = { OWNER = { SFA_is_order_proxy = yes } } } }
+		}
+		localization_key = SFA_popup_no_proxy
+	}
+	text = {
+		# warlords take land only in their own home region (user, 2026-10-18)
+		trigger = {
+			set_temp_variable = { sfa_order_code = SFA_patron_code }
+			var:SFA_selected_state = {
+				OWNER = { NOT = { has_country_flag = SFA_regional_state } }
+				set_temp_variable = { sfa_tr = SFA_region }
+				any_neighbor_state = {
+					OWNER = {
+						SFA_is_order_proxy = yes
+						NOT = { has_country_flag = SFA_regional_state }
+					}
+				}
+				NOT = {
+					any_neighbor_state = { SFA_neighbor_can_take = yes }
+				}
+			}
+		}
+		localization_key = SFA_popup_region
+	}
+	text = {
+		trigger = {
+			set_temp_variable = { sfa_order_code = SFA_patron_code }
+			var:SFA_selected_state = { NOT = { SFA_can_order_state = yes } }
+		}
+		localization_key = SFA_popup_tier
+	}
+	text = {
+		trigger = {
+			NOT = { SFA_has_order_pp = yes }
+		}
+		localization_key = SFA_popup_order_pp
+	}
+	text = {
+		localization_key = SFA_popup_order_ok
+	}
+}
+
+defined_text = {
+	# Improve Supply
+	name = SFA_GetPopupImproveLine
+	text = {
+		trigger = {
+			set_temp_variable = { sfa_order_code = SFA_patron_code }
+			var:SFA_selected_state = { NOT = { OWNER = { SFA_has_patron_code = yes } } }
+		}
+		localization_key = SFA_popup_not_ours
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { check_variable = { SFA_supply_level = 1 } }
+		}
+		localization_key = SFA_popup_already_improved
+	}
+	text = {
+		trigger = {
+			NOT = { has_political_power > 14 }
+		}
+		localization_key = SFA_popup_improve_pp
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { check_variable = { SFA_supply_level = -1 } }
+		}
+		localization_key = SFA_popup_improve_sabotaged
+	}
+	text = {
+		localization_key = SFA_popup_improve_normal
+	}
+}
+
+defined_text = {
+	# Strategic Supply Drop
+	name = SFA_GetPopupDropLine
+	text = {
+		trigger = {
+			set_temp_variable = { sfa_order_code = SFA_patron_code }
+			var:SFA_selected_state = { NOT = { SFA_takes_supply_drop = yes } }
+		}
+		localization_key = SFA_popup_not_ours
+	}
+	text = {
+		trigger = {
+			NOT = { SFA_has_drop_stock = yes }
+		}
+		localization_key = SFA_popup_drop_stock
+	}
+	text = {
+		localization_key = SFA_popup_drop_ok
+	}
+}
+
+# ------------------------------------------------------------------ Burgundy's covert actions (step 7), in Burgundy's scope
+# Each line says what the action does, or why it cannot: its target is our own side, it is already in force, the
+# nation is still locked (user, 2026-10-18: no debuff hits the same nation again before it runs out), or supplies.
+
+defined_text = {
+	name = SFA_GetCovSupplyLine
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { SFA_brg_side = yes } }
+		}
+		localization_key = SFA_cov_own_side
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { check_variable = { SFA_supply_level = -1 } }
+		}
+		localization_key = SFA_cov_already_sabotaged
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { check_variable = { SFA_supply_level = 0 } OWNER = { has_country_flag = SFA_lock_supply_sabotage } }
+		}
+		localization_key = SFA_cov_locked
+	}
+	text = {
+		trigger = {
+			NOT = { check_variable = { BRG_supplies > 0 } }
+		}
+		localization_key = SFA_cov_need_1
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { check_variable = { SFA_supply_level = 1 } }
+		}
+		localization_key = SFA_cov_supply_ok_improved
+	}
+	text = {
+		localization_key = SFA_cov_supply_ok
+	}
+}
+
+defined_text = {
+	name = SFA_GetCovMinesLine
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { SFA_brg_side = yes } }
+		}
+		localization_key = SFA_cov_own_side
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { has_dynamic_modifier = { modifier = SFA_wrecked_mines } }
+		}
+		localization_key = SFA_cov_in_force
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { has_country_flag = SFA_lock_wrecked_mines } }
+		}
+		localization_key = SFA_cov_locked
+	}
+	text = {
+		trigger = {
+			NOT = { check_variable = { BRG_supplies > 0 } }
+		}
+		localization_key = SFA_cov_need_1
+	}
+	text = {
+		localization_key = SFA_cov_mines_ok
+	}
+}
+
+defined_text = {
+	name = SFA_GetCovConstructionLine
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { SFA_brg_side = yes } }
+		}
+		localization_key = SFA_cov_own_side
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { has_dynamic_modifier = { modifier = SFA_sabotaged_construction } }
+		}
+		localization_key = SFA_cov_in_force
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { has_country_flag = SFA_lock_sabotaged_construction } }
+		}
+		localization_key = SFA_cov_locked
+	}
+	text = {
+		trigger = {
+			NOT = { check_variable = { BRG_supplies > 0 } }
+		}
+		localization_key = SFA_cov_need_1
+	}
+	text = {
+		localization_key = SFA_cov_construction_ok
+	}
+}
+
+defined_text = {
+	name = SFA_GetCovPathogensLine
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { SFA_brg_side = yes } }
+		}
+		localization_key = SFA_cov_own_side
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { has_dynamic_modifier = { modifier = SFA_pathogen_outbreak } }
+		}
+		localization_key = SFA_cov_in_force
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { has_country_flag = SFA_lock_pathogen_outbreak } }
+		}
+		localization_key = SFA_cov_locked
+	}
+	text = {
+		trigger = {
+			NOT = { check_variable = { BRG_supplies > 1 } }
+		}
+		localization_key = SFA_cov_need_2
+	}
+	text = {
+		localization_key = SFA_cov_pathogens_ok
+	}
+}
+
+defined_text = {
+	name = SFA_GetCovTerrorLine
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { SFA_brg_side = yes } }
+		}
+		localization_key = SFA_cov_own_side
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { NOT = { OR = { has_country_flag = SFA_african_nation has_country_flag = SFA_sovereign_ally } } } }
+		}
+		localization_key = SFA_cov_not_scramble
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { has_dynamic_modifier = { modifier = SFA_terrorized_population } } }
+		}
+		localization_key = SFA_cov_in_force
+	}
+	text = {
+		trigger = {
+			NOT = { check_variable = { BRG_supplies > 1 } }
+		}
+		localization_key = SFA_cov_need_2
+	}
+	text = {
+		localization_key = SFA_cov_terror_ok
+	}
+}
+
+defined_text = {
+	name = SFA_GetCovBribeLine
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { SFA_brg_side = yes } }
+		}
+		localization_key = SFA_cov_own_side
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { NOT = { OR = { has_country_flag = SFA_african_nation has_country_flag = SFA_sovereign_ally } } } }
+		}
+		localization_key = SFA_cov_not_scramble
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { has_war = no } }
+		}
+		localization_key = SFA_cov_not_at_war
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { has_dynamic_modifier = { modifier = SFA_bribed_officers } } }
+		}
+		localization_key = SFA_cov_in_force
+	}
+	text = {
+		trigger = {
+			NOT = { check_variable = { BRG_supplies > 1 } }
+		}
+		localization_key = SFA_cov_need_2
+	}
+	text = {
+		localization_key = SFA_cov_bribe_ok
+	}
+}
+
+defined_text = {
+	name = SFA_GetCovSSLine
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { NOT = { AND = { has_country_flag = SFA_patron_BRG has_country_flag = SFA_african_nation } } } }
+		}
+		localization_key = SFA_cov_ss_ours_only
+	}
+	text = {
+		trigger = {
+			has_country_flag = SFA_ss_presence_cooldown
+		}
+		localization_key = SFA_cov_ss_cooldown
+	}
+	text = {
+		trigger = {
+			var:SFA_selected_state = { OWNER = { has_dynamic_modifier = { modifier = SFA_ss_presence } } }
+		}
+		localization_key = SFA_cov_in_force
+	}
+	text = {
+		trigger = {
+			NOT = { check_variable = { BRG_supplies > 3 } }
+		}
+		localization_key = SFA_cov_need_4
+	}
+	text = {
+		localization_key = SFA_cov_ss_ok
+	}
+}

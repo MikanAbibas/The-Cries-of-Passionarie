@@ -1,0 +1,567 @@
+TNO_calculate_superpower_score = {
+	#this calculates the total score for each nation
+	#total score = mil score + econ score + prestige
+	#mil score = deployed manpower/50 + number of allies + points for nuclear stockpile
+	#econ score = gdp/10k - debt/10k (to a minimum of 0) + number of civ factories/20
+	#calc mil score
+	set_variable = {
+		var = mil_score
+		value = 0
+	}
+	set_variable = {
+		var = manpower_score
+		value = deployed_army_manpower_k
+	}
+	add_to_variable = {
+		var = manpower_score
+		value = deployed_navy_manpower_k
+	}
+	add_to_variable = {
+		var = manpower_score
+		value = deployed_airforce_manpower_k
+	}
+	set_variable = {
+		var = allies_score
+		value = allies
+	}
+	divide_variable = {
+		var = manpower_score
+		value = 400
+	}
+	add_to_variable = {
+		var = mil_score
+		value = manpower_score
+	}
+	add_to_variable = {
+		var = mil_score
+		value = allies_score
+	}
+	if = {
+		limit = {
+			has_idea = tno_nuclear_stockpile_one
+		}
+		add_to_variable = {
+			var = mil_score
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			has_idea = tno_nuclear_stockpile_few
+		}
+		add_to_variable = {
+			var = mil_score
+			value = 10
+		}
+	}
+	if = {
+		limit = {
+			has_idea = tno_nuclear_stockpile_many
+		}
+		add_to_variable = {
+			var = mil_score
+			value = 20
+		}
+	}
+	if = {
+		limit = {
+			has_idea = tno_nuclear_stockpile_massive
+		}
+		add_to_variable = {
+			var = mil_score
+			value = 25
+		}
+	}
+	if = {
+		limit = {
+			has_idea = tno_nuclear_stockpile_apocalyptic
+		}
+		add_to_variable = {
+			var = mil_score
+			value = 30
+		}
+	}
+
+	#calc econ score
+	set_variable = {
+		var = econ_score
+		value = 0
+	}
+	set_variable = {
+		var = factory_score
+		value = num_of_civilian_factories
+	}
+	divide_variable = {
+		var = factory_score
+		value = 15
+	}
+	set_variable = {
+		var = gdp_score
+		value = gdp
+	}
+	subtract_from_variable = {
+		var = gdp_score
+		value = national_debt
+	}
+	#set gdp score to 0 if it is negative
+	if = {
+		limit = {
+			check_variable = {
+				var = gdp_score
+				value = 0
+				compare = less_than_or_equals
+			}
+		}
+		set_variable = {
+			var = gdp_score
+			value = 0
+		}
+	}
+	else = {
+		divide_variable = {
+			var = gdp_score
+			value = 30000
+		}
+	}
+	add_to_variable = {
+		var = econ_score
+		value = factory_score
+	}
+	add_to_variable = {
+		var = econ_score
+		value = gdp_score
+	}
+
+	#add them all together
+	set_variable = {
+		var = rank_score_total
+		value = 0
+	}
+	add_to_variable = {
+		var = rank_score_total
+		value = mil_score
+	}
+	add_to_variable = {
+		var = rank_score_total
+		value = econ_score
+	}
+	add_to_variable = {
+		var = rank_score_total
+		value = prestige
+	}
+	add_to_array = {
+		array = global.superpowers_scores
+		value = rank_score_total
+	}
+}
+
+superpower_bubble_sort = {
+	#yes I know bubble sort isn't the most efficient but it's only a few items in the array so shut up
+	#also the quicksort function for the ledger is too convoluted and I have no idea what's going on with it
+	#note this sorts from greatest to least values
+	#also sorts corresponding tag array
+	#break variable
+	set_temp_variable = {
+		var = tmp_break
+		value = 1
+	}
+	#max value for 1st loop. Recall arrays start at index 0
+	set_temp_variable = {
+		var = tmp_i_stop
+		value = global.superpower_array_size
+	}
+	# subtract_from_temp_variable = {
+	# 	var = tmp_i_stop
+	# 	value = 1
+	# }
+	set_temp_variable = {
+		var = tmp_i
+		value = 0
+	}
+
+	for_loop_effect = {
+		end = tmp_i_stop
+		value = tmp_i
+		break = tmp_break
+
+
+		set_temp_variable = {
+			var = tmp_swapped
+			value = 0
+		}
+		set_temp_variable = {
+			var = tmp_j
+			value = 0
+		}
+		set_temp_variable = {
+			var = tmp_j_stop
+			value = tmp_i_stop
+		}
+		subtract_from_temp_variable = {
+			var = tmp_j_stop
+			value = tmp_i
+		}
+		for_loop_effect = {
+			end = tmp_j_stop
+			value = tmp_j
+			set_temp_variable = {
+				var = tmp_j_next
+				value = tmp_j
+			}
+			add_to_temp_variable = {
+				var = tmp_j_next
+				value = 1
+			}
+			set_temp_variable = {
+				var = tmp_arr_j
+				value = global.superpowers_scores^tmp_j
+			}
+			set_temp_variable = {
+				var = tmp_arr_j_next
+				value = global.superpowers_scores^tmp_j_next
+			}
+			# set_variable = {
+			# 	var = global.test1
+			# 	value = tmp_arr_j
+			# }
+			# set_variable = {
+			# 	var = global.test2
+			# 	value = tmp_arr_j_next
+			# }
+			#checks if value and next should be swapped
+			if = {
+				limit = {
+					check_variable = {
+						var = tmp_arr_j
+						value = tmp_arr_j_next
+						compare = less_than
+					}
+				}
+				#swap positions
+				set_temp_variable = {
+					var = swap1
+					value = global.superpowers_scores^tmp_j
+				}
+				set_temp_variable = {
+					var = swap2
+					value = global.superpowers_scores^tmp_j_next
+				}
+				set_variable = {
+					var = global.superpowers_scores^tmp_j
+					value = swap2
+				}
+				set_variable = {
+					var = global.superpowers_scores^tmp_j_next
+					value = swap1
+				}
+				#swap position for corresponding tag array
+				set_temp_variable = {
+					var = tag_swap1
+					value = global.superpowers^tmp_j
+				}
+				set_temp_variable = {
+					var = tag_swap2
+					value = global.superpowers^tmp_j_next
+				}
+				set_variable = {
+					var = global.superpowers^tmp_j
+					value = tag_swap2
+				}
+				set_variable = {
+					var = global.superpowers^tmp_j_next
+					value = tag_swap1
+				}
+				#there has been at least one swap
+				set_temp_variable = {
+					var = tmp_swapped
+					value = 1
+				}
+			}
+		}
+
+		#if no swaps take place, break out of the loop
+		if = {
+			limit = { 
+				check_variable = {
+					value = tmp_swapped
+					value = 0
+					compare = equals
+				}
+			}
+			set_temp_variable = {
+				var = tmp_break
+				value = 0
+			}
+		}
+	}
+}
+
+TNO_set_superpower_status = {
+	set_country_flag = ZZZ_superpower
+	custom_effect_tooltip = TNO_set_superpower_status_tt
+}
+
+TNO_assign_superpower_ranks = {
+	set_temp_variable = {
+		var = tmp_i
+		value = 0
+	}
+
+	for_each_scope_loop = {
+		array = global.superpowers
+		#clears ideas
+		if = {
+			limit = {
+				has_idea = ZZZ_superpower_rank_1
+			}
+			remove_ideas = ZZZ_superpower_rank_1
+		}
+		if = {
+			limit = {
+				has_idea = ZZZ_superpower_rank_2
+			}
+			remove_ideas = ZZZ_superpower_rank_2
+		}
+		if = {
+			limit = {
+				has_idea = ZZZ_superpower_rank_3
+			}
+			remove_ideas = ZZZ_superpower_rank_3
+		}
+		add_to_temp_variable = {
+			var = tmp_i
+			value = 1
+		}
+		set_variable = {
+			var = superpower_rank
+			value = tmp_i
+		}
+		#adds bonuses for top 3 powers
+		if = {
+			limit = {
+				check_variable = {
+					var = superpower_rank
+					value = 1
+					compare = equals
+				}
+			}
+			#add rank 1 idea
+			add_ideas = ZZZ_superpower_rank_1
+		}
+		if = {
+			limit = {
+				check_variable = {
+					var = superpower_rank
+					value = 2
+					compare = equals
+				}
+			}
+			#add rank 2 idea
+			add_ideas = ZZZ_superpower_rank_2
+		}
+		if = {
+			limit = {
+				check_variable = {
+					var = superpower_rank
+					value = 3
+					compare = equals
+				}
+			}
+			#add rank 3 idea
+			add_ideas = ZZZ_superpower_rank_3
+		}
+	}
+}
+
+TNO_check_for_detentes = {
+	#Detentes will be assoicated with global flags
+	#if a global flag is active, the appropritate variable will be added to the array
+	#scripted loc will then check for that variable and print out a name
+	#all active detentes will appear in the gui
+	#Variable: Detente
+	#1: USA-Japan
+	#2: USA-Germany
+	#3: Italy-USA
+	#4: Italy-Japan
+	#5: Italy-Germany
+	#6: RUS-USA
+	#7: RUS-Italy
+	#8: China-RUS
+	#9: China-USA
+	#10: China-Germany
+	#11: Japan-Germany
+	#more to be added (like KN), but this should cover phase 1 content and then some -GWS
+	clear_array = global.detentes_list
+	set_variable = {
+		var = global.detente_active
+		value = 0
+	}
+	if = {
+		limit = {
+			has_global_flag = ZZZ_detente_usa_japan
+		}
+		set_temp_variable = {
+			temp_num = 1
+		}
+		add_to_array = {
+			array = global.detentes_list
+			value = temp_num
+		}
+		#disables no detente alert
+		set_variable = {
+			var = global.detente_active
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			has_global_flag = ZZZ_detente_usa_germany
+		}
+		add_to_array = {
+			array = global.detentes_list
+			value = 2
+		}
+		#disables no detente alert
+		set_variable = {
+			var = global.detente_active
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			has_global_flag = ZZZ_detente_italy_usa
+		}
+		add_to_array = {
+			array = global.detentes_list
+			value = 3
+		}
+		#disables no detente alert
+		set_variable = {
+			var = global.detente_active
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			has_global_flag = ZZZ_detente_italy_jap
+		}
+		add_to_array = {
+			array = global.detentes_list
+			value = 4
+		}
+		#disables no detente alert
+		set_variable = {
+			var = global.detente_active
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			has_global_flag = ZZZ_detente_italy_germany
+		}
+		add_to_array = {
+			array = global.detentes_list
+			value = 5
+		}
+		#disables no detente alert
+		set_variable = {
+			var = global.detente_active
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			has_global_flag = ZZZ_detente_rus_usa
+		}
+		add_to_array = {
+			array = global.detentes_list
+			value = 6
+		}
+		#disables no detente alert
+		set_variable = {
+			var = global.detente_active
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			has_global_flag = ZZZ_detente_rus_italy
+		}
+		add_to_array = {
+			array = global.detentes_list
+			value = 7
+		}
+		#disables no detente alert
+		set_variable = {
+			var = global.detente_active
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			has_global_flag = ZZZ_detente_china_rus
+		}
+		add_to_array = {
+			array = global.detentes_list
+			value = 8
+		}
+		#disables no detente alert
+		set_variable = {
+			var = global.detente_active
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			has_global_flag = ZZZ_detente_china_usa
+		}
+		add_to_array = {
+			array = global.detentes_list
+			value = 9
+		}
+		#disables no detente alert
+		set_variable = {
+			var = global.detente_active
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			has_global_flag = ZZZ_detente_china_germany
+		}
+		add_to_array = {
+			array = global.detentes_list
+			value = 10
+		}
+		#disables no detente alert
+		set_variable = {
+			var = global.detente_active
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			has_global_flag = ZZZ_detente_japan_germany
+		}
+		add_to_array = {
+			array = global.detentes_list
+			value = 11
+		}
+		#disables no detente alert
+		set_variable = {
+			var = global.detente_active
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				global.detente_active = 0
+			}
+		}
+		add_to_array = {
+			array = global.detentes_list
+			value = 0
+		}
+	}
+}

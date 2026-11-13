@@ -1,0 +1,391 @@
+# New Scramble for Africa: what the board reads (phase 6, step 1; plan 7.1, 7.4).
+# The GUI only reads variables; everything it shows is computed here, never in scripted loc or GUI triggers.
+# SFA_board_recompute runs at the start, on each pulse, after each declaration and peace, and when the board opens.
+# SFA_gui_refresh then bumps SFA_gui_dirty so the board and the topbar box re-read.
+
+SFA_board_recompute = {
+	SFA_update_home_regions = yes
+	SFA_update_state_frames = yes
+	SFA_update_region_cells = yes
+	SFA_update_war_markers = yes
+	SFA_update_leader = yes
+	SFA_set_patron_codes = yes
+	SFA_setup_pins = yes
+	# the board's own date: a dirty GUI must not read the clock (plan 7.4), so it shows when it was last computed
+	set_variable = { global.SFA_board_date = global.date }
+	# the lists only an open board reads, per viewer (steps 5-6): borders and holders change with every war
+	every_country = {
+		limit = {
+			is_ai = no
+			has_country_flag = SFA_board_open
+		}
+		SFA_build_target_list = yes
+		SFA_build_pin_proxies = yes
+	}
+	log = "[GetDateText]: New Scramble for Africa: board recomputed; leader [?global.SFA_leader_code], Kongo cells [?global.SFA_cells_2^num]"
+}
+
+SFA_gui_refresh = {
+	# plan 7.4: only players look at GUIs, so only their dirty counters move
+	every_country = {
+		limit = { is_ai = no }
+		add_to_variable = { SFA_gui_dirty = 1 }
+	}
+}
+
+SFA_update_state_frames = {
+	# plan 7.1: each state's allegiance colour SFA_frame, from its owner's patron: 1 independent, 2 US, 3 Germany,
+	# 4 Italy, 5 Japan, 6 Burgundy (the SS nation is purple; the remnant is Germany's), 7 Iberia (lime green). The
+	# map sprite's frame SFA_map_frame is the same, plus 7 once its region has consolidated (stripes, green region
+	# edge; tools/scramble_gui/build_assets.py draws the 14 frames).
+	# the board reads the frames from global.SFA_map_frames, in global.SFA_states' order: a GUI token like
+	# "1027.SFA_map_frame" may not start with a digit (lexer.cpp, in-game test 2026-10-18)
+	clear_array = global.SFA_map_frames
+	for_each_scope_loop = {
+		array = global.SFA_states
+		OWNER = { SFA_get_patron_code = yes }
+		if = {
+			limit = { check_variable = { sfa_code < 9 } }
+			set_variable = { SFA_frame = sfa_code }
+			add_to_variable = { SFA_frame = 1 }
+		}
+		else = {
+			set_variable = { SFA_frame = 1 }
+		}
+		set_variable = { SFA_map_frame = SFA_frame }
+		if = {
+			limit = { check_variable = { global.SFA_consolidated^SFA_region = 1 } }
+			add_to_variable = { SFA_map_frame = 7 }
+		}
+		add_to_array = { global.SFA_map_frames = SFA_map_frame }
+	}
+}
+
+SFA_update_war_markers = {
+	# plan 7.1: global.SFA_region_war^<n> is 1 while a scramble war involves a nation whose home region is n
+	if = {
+		limit = { check_variable = { global.SFA_region_war^num < 14 } }
+		resize_array = { array = global.SFA_region_war size = 14 value = 0 }
+	}
+	for_loop_effect = {
+		start = 0
+		end = 14
+		value = sfa_i
+		set_variable = { global.SFA_region_war^sfa_i = 0 }
+	}
+	for_each_scope_loop = {
+		array = global.SFA_nations
+		if = {
+			limit = {
+				exists = yes
+				has_country_flag = SFA_in_scramble_war
+				check_variable = { SFA_home_region > 0 }
+			}
+			set_temp_variable = { sfa_h = SFA_home_region }
+			set_variable = { global.SFA_region_war^sfa_h = 1 }
+		}
+	}
+}
+
+SFA_update_leader = {
+	# plan 7.1: global.SFA_leader_code, the patron with the most consolidated regions, ties to income; 0 while nobody
+	# has one. The race strip draws its count in yellow.
+	set_variable = { global.SFA_leader_code = 0 }
+	set_temp_variable = { sfa_best = 0 }
+	every_country = {
+		limit = {
+			has_country_flag = SFA_patron
+			check_variable = { SFA_regions > 0 }
+		}
+		set_temp_variable = { sfa_s = SFA_regions }
+		multiply_temp_variable = { sfa_s = 100000 }
+		add_to_temp_variable = { sfa_s = SFA_income }
+		if = {
+			limit = { check_variable = { sfa_s > sfa_best } }
+			set_temp_variable = { sfa_best = sfa_s }
+			SFA_get_own_patron_code = yes
+			set_variable = { global.SFA_leader_code = sfa_order_code }
+		}
+	}
+	# each race card's bar: frame global.SFA_race_frame_<TAG> shows (frame - 1) regions filled. A patron out of the
+	# scramble (Iberia after the Iberian Wars) shows an empty bar.
+	set_variable = { global.SFA_race_frame_USA = 1 }
+	if = {
+		limit = {
+			country_exists = USA
+			USA = { has_country_flag = SFA_patron }
+		}
+		add_to_variable = { global.SFA_race_frame_USA = USA.SFA_regions }
+	}
+	set_variable = { global.SFA_race_frame_GER = 1 }
+	if = {
+		limit = {
+			country_exists = GER
+			GER = { has_country_flag = SFA_patron }
+		}
+		add_to_variable = { global.SFA_race_frame_GER = GER.SFA_regions }
+	}
+	set_variable = { global.SFA_race_frame_ITA = 1 }
+	if = {
+		limit = {
+			country_exists = ITA
+			ITA = { has_country_flag = SFA_patron }
+		}
+		add_to_variable = { global.SFA_race_frame_ITA = ITA.SFA_regions }
+	}
+	set_variable = { global.SFA_race_frame_JAP = 1 }
+	if = {
+		limit = {
+			country_exists = JAP
+			JAP = { has_country_flag = SFA_patron }
+		}
+		add_to_variable = { global.SFA_race_frame_JAP = JAP.SFA_regions }
+	}
+	set_variable = { global.SFA_race_frame_BRG = 1 }
+	if = {
+		limit = {
+			country_exists = BRG
+			BRG = { has_country_flag = SFA_patron }
+		}
+		add_to_variable = { global.SFA_race_frame_BRG = BRG.SFA_regions }
+	}
+	set_variable = { global.SFA_race_frame_IBR = 1 }
+	if = {
+		limit = {
+			country_exists = IBR
+			IBR = { has_country_flag = SFA_patron }
+		}
+		add_to_variable = { global.SFA_race_frame_IBR = IBR.SFA_regions }
+	}
+}
+
+SFA_build_target_list = {
+	# plan 7.1 and step 6, in the viewer's scope, when the board opens and at each recompute while it is open: its 6
+	# most valuable states it may order taken, best first, in the array SFA_target_list and as SFA_target_1..6 (a target
+	# row's button scopes into its state). Per row, for the Value view: the region, value band, holder, the holder's
+	# patron code (1-6, 9 none) and whether the holder is at war (SFA_target_region/_band/_holder/_hpat/_war).
+	# Empty for a nation that is not a patron.
+	save_event_target_as = SFA_viewer
+	clear_array = SFA_target_list
+	clear_array = SFA_target_region
+	clear_array = SFA_target_band
+	clear_array = SFA_target_holder
+	clear_array = SFA_target_hpat
+	clear_array = SFA_target_war
+	SFA_get_own_patron_code = yes
+	clear_temp_array = sfa_cands
+	for_each_scope_loop = {
+		array = global.SFA_states
+		if = {
+			limit = { SFA_can_order_state = yes }
+			add_to_temp_array = { sfa_cands = THIS }
+		}
+	}
+	for_loop_effect = {
+		start = 0
+		end = 6
+		value = sfa_i
+		set_temp_variable = { sfa_best_v = -1 }
+		for_each_scope_loop = {
+			array = sfa_cands
+			if = {
+				limit = {
+					NOT = { has_state_flag = SFA_listed }
+					check_variable = { SFA_value > sfa_best_v }
+				}
+				set_temp_variable = { sfa_best_v = SFA_value }
+				save_event_target_as = SFA_best_target
+			}
+		}
+		if = {
+			limit = { check_variable = { sfa_best_v > -1 } }
+			event_target:SFA_best_target = {
+				set_state_flag = SFA_listed
+				set_temp_variable = { sfa_t_region = SFA_region }
+				set_temp_variable = { sfa_t_band = SFA_value_band }
+				set_temp_variable = { sfa_t_war = 0 }
+				OWNER = {
+					set_temp_variable = { sfa_t_holder = THIS }
+					SFA_get_patron_code = yes
+					if = {
+						limit = { has_war = yes }
+						set_temp_variable = { sfa_t_war = 1 }
+					}
+				}
+				event_target:SFA_viewer = {
+					add_to_array = { SFA_target_list = PREV }
+					add_to_array = { SFA_target_region = sfa_t_region }
+					add_to_array = { SFA_target_band = sfa_t_band }
+					add_to_array = { SFA_target_holder = sfa_t_holder }
+					add_to_array = { SFA_target_hpat = sfa_code }
+					add_to_array = { SFA_target_war = sfa_t_war }
+				}
+			}
+		}
+	}
+	for_each_scope_loop = {
+		array = sfa_cands
+		clr_state_flag = SFA_listed
+	}
+	clear_variable = SFA_target_1
+	clear_variable = SFA_target_2
+	clear_variable = SFA_target_3
+	clear_variable = SFA_target_4
+	clear_variable = SFA_target_5
+	clear_variable = SFA_target_6
+	if = {
+		limit = { check_variable = { SFA_target_list^num > 0 } }
+		set_variable = { SFA_target_1 = SFA_target_list^0 }
+	}
+	if = {
+		limit = { check_variable = { SFA_target_list^num > 1 } }
+		set_variable = { SFA_target_2 = SFA_target_list^1 }
+	}
+	if = {
+		limit = { check_variable = { SFA_target_list^num > 2 } }
+		set_variable = { SFA_target_3 = SFA_target_list^2 }
+	}
+	if = {
+		limit = { check_variable = { SFA_target_list^num > 3 } }
+		set_variable = { SFA_target_4 = SFA_target_list^3 }
+	}
+	if = {
+		limit = { check_variable = { SFA_target_list^num > 4 } }
+		set_variable = { SFA_target_5 = SFA_target_list^4 }
+	}
+	if = {
+		limit = { check_variable = { SFA_target_list^num > 5 } }
+		set_variable = { SFA_target_6 = SFA_target_list^5 }
+	}
+}
+
+SFA_board_set_view = {
+	# the board's tabs (step 4), in the viewer's scope: temp sfa_view 1 Allegiance, 2 Value. Only the viewer's board
+	# redraws.
+	set_variable = { SFA_board_view = sfa_view }
+	add_to_variable = { SFA_gui_dirty = 1 }
+}
+
+SFA_board_close = {
+	# the board's close button and ESC, in the viewer's scope; the selection goes with it
+	clr_country_flag = SFA_board_open
+	SFA_board_deselect = yes
+}
+
+SFA_board_select = {
+	# a pin was clicked (step 5), in the viewer's scope: its click effect has set SFA_selected_state and the ring's
+	# place (SFA_select_x/_y). A patron's order popup opens (step 6); a nation only sees the ring.
+	set_country_flag = SFA_state_selected
+	if = {
+		limit = { has_country_flag = SFA_patron }
+		set_country_flag = SFA_order_open
+	}
+	add_to_variable = { SFA_gui_dirty = 1 }
+}
+
+SFA_board_deselect = {
+	# the ring clicked, or the board closed, in the viewer's scope
+	clr_country_flag = SFA_state_selected
+	clr_country_flag = SFA_order_open
+	clear_variable = SFA_selected_state
+	add_to_variable = { SFA_gui_dirty = 1 }
+}
+
+SFA_build_pin_proxies = {
+	# step 5, in the viewer's scope, when the board opens and at each recompute while it is open: for each state of
+	# global.SFA_states, in that order, the pins' tooltips read
+	#   SFA_pin_has_proxy^k   0 none of the viewer's proxies borders it; 1 one does and may be ordered against it
+	#                         (SFA_can_order_state, the order's own rule); 2 the viewer's own side holds it; 3 a proxy
+	#                         borders it but no order is possible (wrong tier or region, a protected holder, already
+	#                         targeted)
+	#   SFA_pin_proxy^k       when 1, the proxy the order would send (SFA_neighbor_can_take)
+	# Per viewer, so two players never see each other's.
+	save_event_target_as = SFA_viewer
+	clear_array = SFA_pin_has_proxy
+	clear_array = SFA_pin_proxy
+	SFA_get_own_patron_code = yes
+	for_each_scope_loop = {
+		array = global.SFA_states
+		set_temp_variable = { sfa_pin = 0 }
+		set_temp_variable = { sfa_pin_proxy = 0 }
+		if = {
+			limit = { check_variable = { sfa_order_code > 0 } }
+			if = {
+				limit = { OWNER = { SFA_has_patron_code = yes } }
+				set_temp_variable = { sfa_pin = 2 }
+			}
+			else_if = {
+				limit = { SFA_can_order_state = yes }
+				set_temp_variable = { sfa_tr = SFA_region }
+				random_neighbor_state = {
+					limit = { SFA_neighbor_can_take = yes }
+					OWNER = { set_temp_variable = { sfa_pin_proxy = THIS } }
+				}
+				set_temp_variable = { sfa_pin = 1 }
+			}
+			else_if = {
+				limit = {
+					any_neighbor_state = {
+						OWNER = { SFA_is_order_proxy = yes }
+					}
+				}
+				set_temp_variable = { sfa_pin = 3 }
+			}
+		}
+		event_target:SFA_viewer = {
+			add_to_array = { SFA_pin_has_proxy = sfa_pin }
+			add_to_array = { SFA_pin_proxy = sfa_pin_proxy }
+		}
+	}
+}
+
+SFA_set_patron_codes = {
+	# step 6, at each recompute: each patron's code as a variable (1 US, 2 Germany, 3 Italy, 4 Japan, 5 Burgundy,
+	# 6 Iberia), so a GUI trigger can set temp sfa_order_code from it (a trigger cannot run SFA_get_own_patron_code)
+	if = {
+		limit = { country_exists = USA }
+		USA = { set_variable = { SFA_patron_code = 1 } }
+	}
+	if = {
+		limit = { country_exists = GER }
+		GER = { set_variable = { SFA_patron_code = 2 } }
+	}
+	if = {
+		limit = { country_exists = ITA }
+		ITA = { set_variable = { SFA_patron_code = 3 } }
+	}
+	if = {
+		limit = { country_exists = JAP }
+		JAP = { set_variable = { SFA_patron_code = 4 } }
+	}
+	if = {
+		limit = { country_exists = BRG }
+		BRG = { set_variable = { SFA_patron_code = 5 } }
+	}
+	if = {
+		limit = { country_exists = IBR }
+		IBR = { set_variable = { SFA_patron_code = 6 } }
+	}
+}
+
+SFA_board_pick = {
+	# steps 5-6, in the scope of the state the viewer picked on the board (its pin, or a target row's button); ROOT is
+	# the viewer. It becomes the viewer's selection, the ring moves to its pin (SFA_ring_x/_y, SFA_setup_pins) and a
+	# patron's popup opens.
+	set_temp_variable = { sfa_pick_region = SFA_region }
+	set_temp_variable = { sfa_pick_x = SFA_ring_x }
+	set_temp_variable = { sfa_pick_y = SFA_ring_y }
+	ROOT = {
+		set_variable = { SFA_selected_state = PREV }
+		set_variable = { SFA_selected_region = sfa_pick_region }
+		set_variable = { SFA_select_x = sfa_pick_x }
+		set_variable = { SFA_select_y = sfa_pick_y }
+		SFA_board_select = yes
+	}
+}
+
+SFA_board_popup_close = {
+	# the popup's close button, in the viewer's scope: the popup closes, the selection stays
+	clr_country_flag = SFA_order_open
+	add_to_variable = { SFA_gui_dirty = 1 }
+}

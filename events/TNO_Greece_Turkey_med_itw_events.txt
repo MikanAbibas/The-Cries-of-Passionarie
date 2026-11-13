@@ -1,0 +1,25 @@
+﻿add_namespace = turitw
+
+# Phase D of the Greece and Turkey import (GREECE_INTEGRATION_PLAN.md), _WIP rule only.
+# A side capitulating in the Mediterranean branch's Italo-Turkish War is settled a day later by
+# Turkey's own peace effects; TNO_peace_on_actions.txt skips the default annexation and fires this.
+# The day lets the capitulated side's territory pass to its enemies first.
+country_event = {
+	id = turitw.1
+	immediate = { log = "[GetDateText]: [Root.GetName]: event turitw.1" }
+	is_triggered_only = yes
+	hidden = yes
+	option = {
+		name = turitw.1.a
+		if = {
+			limit = { has_global_flag = TUR_ITW_greece_capitulated }
+			clr_global_flag = TUR_ITW_greece_capitulated
+			TUR_ITW_settle_greece = yes
+		}
+		if = {
+			limit = { has_global_flag = TUR_ITW_levant_capitulated }
+			clr_global_flag = TUR_ITW_levant_capitulated
+			TUR_ITW_settle_levant = yes
+		}
+	}
+}

@@ -1,0 +1,203 @@
+GRE_resistance_category = {
+	picture = generic_prepare_civil_war
+	icon = GFX_decision_category_border_conflicts
+    visible_when_empty = yes
+    scripted_gui = TNO_GRE_Resistance_Decisions_GUI
+	allowed = {
+		original_tag = GRE
+	}
+	visible = { has_global_flag = ITA_MED_WIP_PATHS
+		has_country_flag = GRE_resistance_mechanic
+	}
+}
+
+GRE_far_right_category = {
+	icon = GFX_decision_category_generic_fascism
+    visible_when_empty = yes
+    scripted_gui = TNO_GRE_Far_Right_Decisions_GUI
+	allowed = {
+		original_tag = GRE
+	}
+	visible = { has_global_flag = ITA_MED_WIP_PATHS
+		has_country_flag = GRE_far_right_mechanic
+		#always = yes
+	}
+}
+
+GRE_ITW_Prep_category = {
+	icon = GFX_decision_category_border_conflicts
+	picture = GFX_GRE_Decision_Army_Collabs
+	visible_when_empty = yes
+	allowed = {
+		original_tag = GRE
+	}
+	visible = { has_global_flag = ITA_MED_WIP_PATHS
+		has_country_flag = Prep_ITW
+	}
+}
+
+GRE_ITW_category = {
+	icon = border_conflicts
+	picture = GFX_GRE_Decision_ITW
+	visible_when_empty = yes
+	allowed = {
+		original_tag = GRE
+	}
+	visible = { has_global_flag = ITA_MED_WIP_PATHS
+		has_country_flag = ITW_War
+	}
+}
+
+GRE_debug_category = {
+	icon = GFX_decision_category_generic
+    visible_when_empty = yes
+    priority = {
+		base = 10000
+	}
+	allowed = {
+		original_tag = GRE
+	}
+	visible = { has_global_flag = ITA_MED_WIP_PATHS is_debug = yes is_ai = no
+		always = yes
+	}
+}
+
+GRE_democratic_politics_category = {
+	icon = GFX_decision_category_generic_political_actions
+
+	picture = GFX_decision_RUS_decision_political_situation
+	
+	scripted_gui = GRE_election_gui
+
+	allowed = {
+		original_tag = GRE
+	}
+	visible = { has_global_flag = ITA_MED_WIP_PATHS
+		has_completed_focus = GRE_The_Elections_of_1964
+	}
+	priority = {
+		base = 55
+	}
+	visible_when_empty = yes
+}
+
+GRE_projects_category = {
+	icon = GFX_decision_category_generic_political_actions
+
+	scripted_gui = GRE_projects_gui
+
+	allowed = {
+		original_tag = GRE
+	}
+	visible = { has_global_flag = ITA_MED_WIP_PATHS
+		check_variable = {GRE_projects_total_completion < 14}
+		OR = {
+			has_completed_focus = GRE_EDA_Rebuild_The_Ports
+			has_completed_focus = GRE_EDA_The_Greek_Mechanization
+			has_completed_focus = GRE_EDA_The_Industrialization
+			has_completed_focus = GRE_EDA_The_Hellenic_Education
+			has_completed_focus = GRE_EDA_Greek_Infrastructure_Projects
+			has_completed_focus = GRE_EDA_Jobs_For_The_People
+			has_completed_focus = GRE_EDA_Ethniko_Metsovio_Polytechneio
+		}
+	}
+	priority = {
+		base = 9999
+	}
+	visible_when_empty = yes
+}
+GRE_party_tension = {
+	icon = GFX_decision_category_generic_political_actions
+
+	scripted_gui = GRE_party_tension_gui
+
+	allowed = {
+		original_tag = GRE
+	}
+	visible = { has_global_flag = ITA_MED_WIP_PATHS
+		has_country_flag = GRE_Party_enabled
+	}
+	priority = {
+		base = 1000
+	}
+	visible_when_empty = yes
+}
+GRE_national_reconciliation = {
+	icon = GFX_decision_category_generic_political_actions
+	
+	picture = GFX_decision_RUS_decision_political_situation
+	
+	allowed = {
+		original_tag = GRE
+	}
+	visible = { has_global_flag = ITA_MED_WIP_PATHS
+		OR = {
+			has_country_flag = GRE_full_reconciliation_enabled
+			has_country_flag = GRE_partial_reconciliation_enabled
+		}
+	}
+}
+GRE_in_persuit_of_autonomy = {
+	icon = GFX_decision_category_generic_political_actions
+
+	scripted_gui = TNO_GRE_autonomy_gui
+
+	priority = 1000
+
+	visible_when_empty = yes
+	
+	allowed = {
+		original_tag = GRE
+	}
+	visible = { has_global_flag = ITA_MED_WIP_PATHS
+		has_country_flag = GRE_autonomy_enabled
+	}
+}
+GRE_kyrkos_referendum = {
+	icon = GFX_decision_category_generic_political_actions
+
+	scripted_gui = TNO_GRE_kyrkos_referendum_gui
+
+	priority = {
+		base = 2000
+	}
+
+	visible_when_empty = yes
+	
+	allowed = {
+		original_tag = GRE
+	}
+	visible = { has_global_flag = ITA_MED_WIP_PATHS
+		has_country_flag = GRE_kyrkos_referendum_enabled
+	}
+}
+GRE_control_of_the_state = {
+	icon = GFX_decision_category_generic_political_actions
+
+	scripted_gui = GRE_control_of_the_state_gui
+
+	priority = {
+		base = 2000
+	}
+
+	visible_when_empty = yes
+	
+	allowed = {
+		original_tag = GRE
+	}
+	visible = { has_global_flag = ITA_MED_WIP_PATHS
+		has_country_flag = GRE_ERE_control_gui_enabled
+	}
+}
+GRE_war_category = {
+	icon = border_conflicts
+		
+	allowed = {
+		original_tag = GRE
+	}
+	visible = { has_global_flag = ITA_MED_WIP_PATHS
+		OR = {
+			has_country_flag = eam_war_liberation
+		}
+	}
+}

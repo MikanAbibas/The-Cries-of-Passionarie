@@ -1,0 +1,2441 @@
+scripted_gui = {
+	TNO_Turkey_DTS_OpenButtonContainer = {
+		window_name = "TNO_Turkey_DTS_AccessButton"
+		context_type = player_context
+		parent_window_token = politics_tab
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			tag = TUR
+		}
+		effects = {
+			TNO_Turkey_DTS_OpenButton_click = {
+				set_variable = { TUR_HB_selected_operation = 0 }
+				if = {
+					limit = { NOT = { has_country_flag = TUR_DTS_GUI_Open } }
+					set_country_flag = TUR_DTS_GUI_Open
+				}
+				else_if = {
+					limit = { has_country_flag = TUR_DTS_GUI_Open }
+					clr_country_flag = TUR_DTS_GUI_Open
+					TUR_HB_GUI_deselect_any_operation = yes
+					TUR_DtS_Hide_Warning_Popup = yes
+				}
+				
+				if = {
+					limit = { NOT = { has_country_flag = TUR_DtS_has_initialized } }
+					TUR_DtS_initialize = yes
+				}
+				clr_country_flag = gui_alert_visible
+			}
+		}
+		triggers = {
+			gui_alert_visible = {
+				has_country_flag = gui_alert_visible
+			}
+		}
+	}
+	TUR_GUI_Window = {
+		context_type = player_context
+		parent_window_token = "TNO_Turkey_DTS_OpenButtonContainer"
+		window_name = "TUR_GUI_Window"
+		visible = { has_global_flag = ITA_MED_WIP_PATHS 
+			has_country_flag = TUR_DTS_GUI_Open
+		}
+ 		effects = {
+			close_button_click = {
+				clr_country_flag = TUR_DTS_GUI_Open
+				TUR_HB_GUI_deselect_any_operation = yes
+				TUR_DtS_Hide_Warning_Popup = yes
+			}
+			TUR_GUI_cycle_arrow_left_click = {
+				set_variable = { TUR.TUR_GUI_Darkening_the_Sun = 1 }
+				if = {
+					limit = {
+						check_variable = { TUR_GUI_select = 1 }
+					}
+					set_variable = { TUR_GUI_select = 3 }
+				}
+				else = {
+					add_to_variable = { TUR_GUI_select = -1 }
+				}
+			}
+			TUR_GUI_cycle_arrow_right_click = {
+				set_variable = { TUR.TUR_GUI_Darkening_the_Sun = 1 }
+				if = {
+					limit = {
+						check_variable = { TUR_GUI_select = 3 }
+					}
+					set_variable = { TUR_GUI_select = 1 }
+				}
+				else = {
+					add_to_variable = { TUR_GUI_select = 1 }
+				}
+			}
+		}
+		triggers = {
+			FoundationLines_visible = {
+				check_variable = {TUR_GUI_select = 1}
+			}
+			FoundationLinesHB_visible = {
+				check_variable = {TUR_GUI_select = 2}
+			}
+			FoundationLinesStC_visible = {
+				check_variable = {TUR_GUI_select = 3}
+			}
+		}
+	}
+	TUR_GUI_Darkening_the_Sun = {
+		context_type = player_context
+		parent_window_name = "TUR_GUI_Window"
+		window_name = "TUR_GUI_Darkening_the_Sun"
+		
+		#dirty = TUR_DtS_dirty_update #todo at a later date :trellwater:
+		
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			has_country_flag = TUR_DTS_GUI_Open
+			check_variable = { TUR_GUI_select = 1 }
+		}
+		
+		
+		effects = {
+ 			TUR_GUI_DtS_Georgia_click = {
+				set_temp_variable = { DtS_temp_selected_region = 1397 }
+				TUR_DtS_Change_Selected_Region = yes
+				
+			}
+ 			TUR_GUI_DtS_Armenia_click = {
+				set_temp_variable = { DtS_temp_selected_region = 230 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_Afrin_click = {
+				set_temp_variable = { DtS_temp_selected_region = 677 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_Kurdistan_click = {
+				set_temp_variable = { DtS_temp_selected_region = 352 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_Idlib_click = {
+				set_temp_variable = { DtS_temp_selected_region = 1242 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_Mosul_click = {
+				set_temp_variable = { DtS_temp_selected_region = 781 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_Rojava_click = {
+				set_temp_variable = { DtS_temp_selected_region = 1369 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_Rojava_w_Marakada_click = {
+				set_temp_variable = { DtS_temp_selected_region = 1369 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_Northern_Syria_click = {
+				set_temp_variable = { DtS_temp_selected_region = 680 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_Northern_Syria_No_Deyrizor_click = {
+				set_temp_variable = { DtS_temp_selected_region = 680 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_Northern_Syria_Only_Halab_click = {
+				set_temp_variable = { DtS_temp_selected_region = 680 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_Damascus_click = {
+				set_temp_variable = { DtS_temp_selected_region = 554 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_Rodos_click = {
+				set_temp_variable = { DtS_temp_selected_region = 164 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_Rodos_and_Naxos_click = {
+				set_temp_variable = { DtS_temp_selected_region = 164 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_Naxos_click = {
+				set_temp_variable = { DtS_temp_selected_region = 164 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_TRAKYA_click = {
+				set_temp_variable = { DtS_temp_selected_region = 1266 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_CENTRAL_TRAKYA_click = {
+				set_temp_variable = { DtS_temp_selected_region = 1266 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_LEBANON_click = {
+				set_temp_variable = { DtS_temp_selected_region = 1240 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+			TUR_GUI_DtS_NORTH_LEBANON_click = {
+				set_temp_variable = { DtS_temp_selected_region = 1240 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+ 			TUR_GUI_DtS_CYPRUS_click = {
+				set_temp_variable = { DtS_temp_selected_region = 1328 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+			TUR_GUI_DtS_NORTH_CYPRUS_click = {
+				set_temp_variable = { DtS_temp_selected_region = 1328 }
+				TUR_DtS_Change_Selected_Region = yes
+			}
+			
+			DevelopmentBar_Advance_Stage_Button_click = {
+				if = {
+					limit = { check_variable = { TUR_DtS_Selected_Region:TUR_DtS_development_STAGE = 3 } }
+					#If you're on stage 4, don't show a warning, just immediately declare poor economies SOLVED!!!!
+					TUR = { TUR_DtS_Resolve_Stage_Increase = yes }
+					var:TUR_DtS_Selected_Region = { set_state_flag = TUR_DtS_Development_Done }
+				}
+				else = {
+					set_country_flag = DevelopmentBar_Show_Warning
+					set_country_flag = DevelopmentBar_Show_Warning_ADVANCE
+				}
+			}
+			DevelopmentBar_Cancel_Development_Button_click = {
+				set_country_flag = DevelopmentBar_Show_Warning
+				set_country_flag = DevelopmentBar_Show_Warning_CANCEL
+			}
+			
+			BUTTON_RESOURCE_EXPLOITATION_click = {
+				if = {
+					limit = { TUR_DtS_development_action_1_can_take = yes }
+					
+					#Remove PP and monetary costs
+					set_temp_variable = { pp_cost = TUR_DtS_Selected_Region:TUR_DtS_dev1_action_pp_cost }
+					multiply_temp_variable = { pp_cost = -1 }
+					add_political_power = var:pp_cost
+					
+					set_temp_variable = { temp_econ_spending_amount = TUR_DtS_Selected_Region:TUR_DtS_dev1_action_money_cost }
+					divide_temp_variable = { temp_econ_spending_amount = 1000 } #from M to B
+					econ_spend_money_once_effect_raw_money = yes
+					
+					var:TUR_DtS_Selected_Region = {
+						#1: Change regional GDP growth
+						add_to_variable = { TUR_DtS_regional_GDP_growth_monthly = TUR_DtS_dev1_action_impact }
+						
+						#2: Put in when to remove the regional GDP growth
+						add_to_array = { TUR_DtS_regional_modifiers_VALUE = TUR_DtS_dev1_action_impact }
+						add_to_array = { TUR_DtS_regional_modifiers_MONTHS = TUR_DtS_dev1_action_impact_time }
+						
+						#3: Lean more towards extraction #Takes a (weighted) average of the current ratio and 0 (which is 100% extraction)
+						multiply_variable = { TUR_DtS_extract_industrialize_ratio = 3 }
+						divide_variable = { TUR_DtS_extract_industrialize_ratio = 4 }
+						
+						#4: Increase infrastructure bottlenecks, to slow down over-investing
+						add_to_variable = { TUR_DtS_dev1_money_cost_bottleneck = 1 } 
+						multiply_variable = { TUR_DtS_dev1_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_SAME_ACTION }
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region } #hit harder in tiny regions
+							multiply_variable = { TUR_DtS_dev1_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_SAME_ACTION }
+							multiply_variable = { TUR_DtS_dev1_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_SAME_ACTION }
+						}
+						add_to_variable = {TUR_DtS_dev1_money_cost_bottleneck = -1 }
+						
+						add_to_variable = { TUR_DtS_dev1_pp_cost_bottleneck = 1 } 
+						multiply_variable = { TUR_DtS_dev1_pp_cost_bottleneck = TUR.DTS_BOTTLENECK_PP_SAME_ACTION }
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region } #hit harder in tiny regions
+							multiply_variable = { TUR_DtS_dev1_pp_cost_bottleneck = TUR.DTS_BOTTLENECK_PP_SAME_ACTION }
+							multiply_variable = { TUR_DtS_dev1_pp_cost_bottleneck = TUR.DTS_BOTTLENECK_PP_SAME_ACTION }
+						}
+						add_to_variable = {TUR_DtS_dev1_pp_cost_bottleneck = -1 }
+						
+						add_to_variable = { TUR_DtS_dev1_impact_bottleneck = TUR.DTS_BOTTLENECK_IMPACT_SAME_ACTION } 
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region } #hit harder in tiny regions
+							add_to_variable = { TUR_DtS_dev1_impact_bottleneck = TUR.DTS_BOTTLENECK_IMPACT_SAME_ACTION } 
+							add_to_variable = { TUR_DtS_dev1_impact_bottleneck = TUR.DTS_BOTTLENECK_IMPACT_SAME_ACTION } 
+						}
+						clamp_variable = { var = TUR_DtS_dev1_impact_bottleneck min = -0.9 max = 0 }
+						
+							#also have smaller impacts on other costs
+						add_to_variable = { TUR_DtS_dev2_money_cost_bottleneck = 1 }
+						multiply_variable = { TUR_DtS_dev2_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_OFF_ACTION }
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region } #hit harder in tiny regions
+							multiply_variable = { TUR_DtS_dev2_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_OFF_ACTION }
+							multiply_variable = { TUR_DtS_dev2_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_OFF_ACTION }
+						}
+						add_to_variable = {TUR_DtS_dev2_money_cost_bottleneck = -1 }
+						
+						add_to_variable = { TUR_DtS_dev2_pp_cost_bottleneck = 1 } 
+						multiply_variable = { TUR_DtS_dev2_pp_cost_bottleneck = TUR.DTS_BOTTLENECK_PP_OFF_ACTION }
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region } #hit harder in tiny regions
+							multiply_variable = { TUR_DtS_dev2_pp_cost_bottleneck = TUR.DTS_BOTTLENECK_PP_OFF_ACTION }
+							multiply_variable = { TUR_DtS_dev2_pp_cost_bottleneck = TUR.DTS_BOTTLENECK_PP_OFF_ACTION }
+						}
+						add_to_variable = {TUR_DtS_dev2_pp_cost_bottleneck = -1 }
+						
+						add_to_variable = { TUR_DtS_dev2_impact_bottleneck = TUR.DTS_BOTTLENECK_IMPACT_OFF_ACTION } 
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region } #hit harder in tiny regions
+							add_to_variable = { TUR_DtS_dev2_impact_bottleneck = TUR.DTS_BOTTLENECK_IMPACT_OFF_ACTION } 
+							add_to_variable = { TUR_DtS_dev2_impact_bottleneck = TUR.DTS_BOTTLENECK_IMPACT_OFF_ACTION } 
+						}
+						clamp_variable = { var = TUR_DtS_dev2_impact_bottleneck min = -0.9 max = 0 }
+						
+						add_to_variable = { TUR_DtS_dev3_money_cost_bottleneck = 1 }
+						multiply_variable = { TUR_DtS_dev3_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_INFRA_FROM_OTHERS }
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region } #hit harder in tiny regions
+							multiply_variable = { TUR_DtS_dev3_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_INFRA_FROM_OTHERS } 
+							multiply_variable = { TUR_DtS_dev3_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_INFRA_FROM_OTHERS } 
+						}
+						add_to_variable = {TUR_DtS_dev3_money_cost_bottleneck = -1 }
+						
+						#5: Recalculate costs with new bottlenecks.
+						TUR_DtS_Calculate_Development_Button_Costs = yes
+						
+						#6: Undo Underinvestment, then provide a small buffer
+						clamp_variable = { 
+							var = TUR_DtS_months_without_investment
+							max = 0 #an investment happened this month, so the months without investment is either 0 or buffered
+							min = TUR.TUR_DTS_MAX_UNDERINVEST_BUFFER
+						}
+						add_to_variable = { TUR_DtS_months_without_investment = TUR.TUR_DTS_UNDERINVESTMENT_BUFFER }
+						#7: Make people angry
+						set_temp_variable = { tur_dts_overinvest_con = TUR.DTS_DEV1_CONSCIOUSNESS }
+						set_temp_variable = { tur_dts_overinvest_unr = TUR.DTS_DEV1_UNREST }
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region }
+							multiply_temp_variable = { tur_dts_overinvest_con = TUR.DTS_SMALL_STATE_UNREST_INCREASE }
+							multiply_temp_variable = { tur_dts_overinvest_unr = TUR.DTS_SMALL_STATE_UNREST_INCREASE }
+						}
+						add_to_variable = { TUR_DtS_dCon_Overinvestment_Hidden = TUR.tur_dts_overinvest_con }
+						add_to_variable = { TUR_DtS_dUnr_Overinvestment_Hidden = TUR.tur_dts_overinvest_unr }
+						TUR_DtS_Calculate_Minor_Tooltip_Details = yes #And show player their anger
+					}
+				}
+			}
+			BUTTON_CONSTRUCT_FACTORY_click = {
+				if = {
+					limit = { TUR_DtS_development_action_2_can_take = yes }
+					
+					#Remove PP and monetary costs
+					set_temp_variable = { pp_cost = TUR_DtS_Selected_Region:TUR_DtS_dev2_action_pp_cost }
+					multiply_temp_variable = { pp_cost = -1 }
+					add_political_power = var:pp_cost
+					
+					set_temp_variable = { temp_econ_spending_amount = TUR_DtS_Selected_Region:TUR_DtS_dev2_action_money_cost }
+					divide_temp_variable = { temp_econ_spending_amount = 1000 } #from M to B
+					econ_spend_money_once_effect_raw_money = yes
+					
+					var:TUR_DtS_Selected_Region = {
+						#1: Change regional GDP growth
+						add_to_variable = { TUR_DtS_regional_GDP_growth_monthly = TUR_DtS_dev2_action_impact }
+						
+						#2: Put in when to remove the regional GDP growth
+						add_to_array = { TUR_DtS_regional_modifiers_VALUE = TUR_DtS_dev2_action_impact }
+						add_to_array = { TUR_DtS_regional_modifiers_MONTHS = TUR_DtS_dev2_action_impact_time }
+						
+						#3: Lean more towards industrialization #Takes a (weighted) average of the current ratio and 1 (which is 100% industry)
+						multiply_variable = { TUR_DtS_extract_industrialize_ratio = 3 }
+						add_to_variable = { TUR_DtS_extract_industrialize_ratio = 1 }
+						divide_variable = { TUR_DtS_extract_industrialize_ratio = 4 }
+						
+						#4: Increase infrastructure bottlenecks, to slow down over-investing
+						add_to_variable = { TUR_DtS_dev2_money_cost_bottleneck = 1 } 
+						multiply_variable = { TUR_DtS_dev2_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_SAME_ACTION }
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region } #hit harder in tiny regions
+							multiply_variable = { TUR_DtS_dev2_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_SAME_ACTION }
+							multiply_variable = { TUR_DtS_dev2_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_SAME_ACTION }
+						}
+						add_to_variable = {TUR_DtS_dev2_money_cost_bottleneck = -1 }
+						
+						add_to_variable = { TUR_DtS_dev2_pp_cost_bottleneck = 1 } 
+						multiply_variable = { TUR_DtS_dev2_pp_cost_bottleneck = TUR.DTS_BOTTLENECK_PP_SAME_ACTION }
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region } #hit harder in tiny regions
+							add_to_variable = { TUR_DtS_dev2_impact_bottleneck = TUR.DTS_BOTTLENECK_IMPACT_SAME_ACTION } 
+							add_to_variable = { TUR_DtS_dev2_impact_bottleneck = TUR.DTS_BOTTLENECK_IMPACT_SAME_ACTION } 
+						}
+						add_to_variable = {TUR_DtS_dev2_pp_cost_bottleneck = -1 }
+						
+						add_to_variable = { TUR_DtS_dev2_impact_bottleneck = TUR.DTS_BOTTLENECK_IMPACT_SAME_ACTION } 
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region } #hit harder in tiny regions
+							add_to_variable = { TUR_DtS_dev2_impact_bottleneck = TUR.DTS_BOTTLENECK_IMPACT_SAME_ACTION } 
+							add_to_variable = { TUR_DtS_dev2_impact_bottleneck = TUR.DTS_BOTTLENECK_IMPACT_SAME_ACTION } 
+						}
+						clamp_variable = { var = TUR_DtS_dev2_impact_bottleneck min = -0.9 max = 0 }
+						
+							#also have smaller impacts on other costs
+						add_to_variable = { TUR_DtS_dev1_money_cost_bottleneck = 1 }
+						multiply_variable = { TUR_DtS_dev1_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_OFF_ACTION }
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region } #hit harder in tiny regions
+							multiply_variable = { TUR_DtS_dev1_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_OFF_ACTION }
+							multiply_variable = { TUR_DtS_dev1_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_OFF_ACTION }
+						}
+						add_to_variable = {TUR_DtS_dev1_money_cost_bottleneck = -1 }
+						
+						add_to_variable = { TUR_DtS_dev1_pp_cost_bottleneck = 1 } 
+						multiply_variable = { TUR_DtS_dev1_pp_cost_bottleneck = TUR.DTS_BOTTLENECK_PP_OFF_ACTION }
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region } #hit harder in tiny regions
+							multiply_variable = { TUR_DtS_dev1_money_cost_bottleneck = TUR.DTS_BOTTLENECK_PP_OFF_ACTION }
+							multiply_variable = { TUR_DtS_dev1_money_cost_bottleneck = TUR.DTS_BOTTLENECK_PP_OFF_ACTION }
+						}
+						add_to_variable = {TUR_DtS_dev1_pp_cost_bottleneck = -1 }
+						
+						add_to_variable = { TUR_DtS_dev1_impact_bottleneck = TUR.DTS_BOTTLENECK_IMPACT_OFF_ACTION } 
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region } #hit harder in tiny regions
+							add_to_variable = { TUR_DtS_dev1_impact_bottleneck = TUR.DTS_BOTTLENECK_IMPACT_OFF_ACTION } 
+							add_to_variable = { TUR_DtS_dev1_impact_bottleneck = TUR.DTS_BOTTLENECK_IMPACT_OFF_ACTION } 
+						}
+						clamp_variable = { var = TUR_DtS_dev1_impact_bottleneck min = -0.9 max = 0 }
+						
+						add_to_variable = { TUR_DtS_dev3_money_cost_bottleneck = 1 }
+						multiply_variable = { TUR_DtS_dev3_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_INFRA_FROM_OTHERS }
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region } #hit harder in tiny regions
+							multiply_variable = { TUR_DtS_dev3_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_INFRA_FROM_OTHERS } 
+							multiply_variable = { TUR_DtS_dev3_money_cost_bottleneck = TUR.DTS_BOTTLENECK_COST_INFRA_FROM_OTHERS } 
+						}
+						add_to_variable = {TUR_DtS_dev3_money_cost_bottleneck = -1 }
+						
+						#5: Recalculate costs with new bottlenecks.
+						TUR_DtS_Calculate_Development_Button_Costs = yes
+
+						#6: Undo Underinvestment, then provide a small buffer
+						clamp_variable = { 
+							var = TUR_DtS_months_without_investment
+							max = 0 #an investment happened this month, so the months without investment is either 0 or buffered
+							min = TUR.TUR_DTS_MAX_UNDERINVEST_BUFFER
+						}
+						add_to_variable = { TUR_DtS_months_without_investment = TUR.TUR_DTS_UNDERINVESTMENT_BUFFER }
+						#7: Make people angry
+						set_temp_variable = { tur_dts_overinvest_con = TUR.DTS_DEV2_CONSCIOUSNESS }
+						set_temp_variable = { tur_dts_overinvest_unr = TUR.DTS_DEV2_UNREST }
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region }
+							multiply_temp_variable = { tur_dts_overinvest_con = TUR.DTS_SMALL_STATE_UNREST_INCREASE }
+							multiply_temp_variable = { tur_dts_overinvest_unr = TUR.DTS_SMALL_STATE_UNREST_INCREASE }
+						}
+						add_to_variable = { TUR_DtS_dCon_Overinvestment_Hidden = TUR.tur_dts_overinvest_con }
+						add_to_variable = { TUR_DtS_dUnr_Overinvestment_Hidden = TUR.tur_dts_overinvest_unr }
+						TUR_DtS_Calculate_Minor_Tooltip_Details = yes #And show player their anger
+					}
+				}
+			}
+			BUTTON_DEVELOP_INFRASTRUCTURE_click = {
+				if = {
+					limit = { TUR_DtS_development_action_3_can_take = yes }
+					
+					#Remove PP and monetary costs
+					set_temp_variable = { pp_cost = TUR_DtS_Selected_Region:TUR_DtS_dev3_action_pp_cost }
+					multiply_temp_variable = { pp_cost = -1 }
+					add_political_power = var:pp_cost
+					
+					set_temp_variable = { temp_econ_spending_amount = TUR_DtS_Selected_Region:TUR_DtS_dev3_action_money_cost }
+					divide_temp_variable = { temp_econ_spending_amount = 1000 } #from M to B
+					econ_spend_money_once_effect_raw_money = yes
+					
+					var:TUR_DtS_Selected_Region = {
+						#1: Completely undo effectiveness fading.
+						set_variable = { TUR_DtS_dev1_impact_bottleneck = 0 }
+						set_variable = { TUR_DtS_dev2_impact_bottleneck = 0 }
+						
+						#2: Strongly undo costs increasing
+						multiply_variable = { TUR_DtS_dev1_money_cost_bottleneck = 0.33 }
+						add_to_variable = { TUR_DtS_dev1_money_cost_bottleneck = -0.2 }
+						clamp_variable = { var = TUR_DtS_dev1_money_cost_bottleneck min = 0 max = 1.5 }
+						multiply_variable = { TUR_DtS_dev2_money_cost_bottleneck = 0.33 }
+						add_to_variable = { TUR_DtS_dev2_money_cost_bottleneck = -0.2 }
+						clamp_variable = { var = TUR_DtS_dev2_money_cost_bottleneck min = 0 max = 1.5 }
+						multiply_variable = { TUR_DtS_dev1_pp_cost_bottleneck = 0.33 }
+						add_to_variable = { TUR_DtS_dev1_pp_cost_bottleneck = -0.2 }
+						clamp_variable = { var = TUR_DtS_dev1_pp_cost_bottleneck min = 0 max = 1.5 }
+						multiply_variable = { TUR_DtS_dev2_pp_cost_bottleneck = 0.33 }
+						add_to_variable = { TUR_DtS_dev2_pp_cost_bottleneck = -0.2 }
+						clamp_variable = { var = TUR_DtS_dev2_pp_cost_bottleneck min = 0 max = 1.5 }
+						
+						#3: Massively increase costs for taking this decision again.
+						multiply_variable = { TUR_DtS_dev3_money_cost_bottleneck = 1.1 }
+						add_to_variable = { TUR_DtS_dev3_money_cost_bottleneck = 1 } #100% increase
+						
+						multiply_variable = { TUR_DtS_dev3_pp_cost_bottleneck = 1.1 }
+						add_to_variable = { TUR_DtS_dev3_pp_cost_bottleneck = 1 } #100% increase
+						
+						#4: Recalculate costs with new bottlenecks.
+						TUR_DtS_Calculate_Development_Button_Costs = yes
+
+						#7: Make people VERY angry
+						set_temp_variable = { tur_dts_overinvest_con = TUR.DTS_DEV3_CONSCIOUSNESS }
+						set_temp_variable = { tur_dts_overinvest_unr = TUR.DTS_DEV3_UNREST }
+						if = { limit = { has_state_flag = TUR_DtS_tiny_region }
+							multiply_temp_variable = { tur_dts_overinvest_con = TUR.DTS_SMALL_STATE_UNREST_INCREASE }
+							multiply_temp_variable = { tur_dts_overinvest_unr = TUR.DTS_SMALL_STATE_UNREST_INCREASE }
+						}
+						add_to_variable = { TUR_DtS_dCon_Overinvestment_Hidden = TUR.tur_dts_overinvest_con }
+						add_to_variable = { TUR_DtS_dUnr_Overinvestment_Hidden = TUR.tur_dts_overinvest_unr }
+						TUR_DtS_Calculate_Minor_Tooltip_Details = yes #And show player their anger
+					}
+				}
+			}
+			
+			BUTTON_SEND_GARRISONS_click = {
+				if = {
+					limit = {
+						TUR_DtS_unrest_action_1_can_take = yes
+					}
+					TUR_DtS_Send_Additional_Garrisons = yes
+				}
+			}
+			BUTTON_MILITARY_WITHDRAWAL_click = {
+				if = {
+					limit = {
+						TUR_DtS_unrest_action_2_can_take = yes
+					}
+					TUR_DtS_Military_Withdrawal = yes
+				}
+			}
+			BUTTON_POLITICAL_INTEGRATION_click = {
+				if = {
+					limit = {
+						TUR_DtS_unrest_action_3_can_take = yes
+					}
+					TUR_DtS_Political_Integration = yes
+				}
+			}
+			BUTTON_FRAMING_CAMPAIGNS_click = {
+				if = {
+					limit = {
+						TUR_DtS_unrest_action_4_can_take = yes
+					}
+					TUR_DtS_Framing_Campaigns = yes
+				}
+			}
+			BUTTON_PROPAGANDA_CAMPAIGN_click = {
+				if = {
+					limit = {
+						TUR_DtS_unrest_action_5_can_take = yes
+					}
+					TUR_DtS_Propaganda_Campaign = yes
+				}
+			}
+			BUTTON_DECLARE_MARTIAL_LAW_click = {
+				if = {
+					limit = {
+						TUR_DtS_unrest_action_6_can_take = yes
+					}
+					TUR_DtS_Declare_Martial_Law = yes
+				}
+			}
+		
+		}
+		properties = {
+			DevelopmentBar = {
+				frame = TUR_DtS_Selected_Region:TUR_DtS_development_LEVEL
+			}
+			
+			BUTTON_RESOURCE_EXPLOITATION = {
+				frame = TUR_DtS_Selected_Region:TUR_DtS_dev1_button_frame
+			}
+			BUTTON_CONSTRUCT_FACTORY = {
+				frame = TUR_DtS_Selected_Region:TUR_DtS_dev2_button_frame
+			}
+			BUTTON_DEVELOP_INFRASTRUCTURE = {
+				frame = TUR_DtS_Selected_Region:TUR_DtS_dev3_button_frame
+			}
+
+			BUTTON_SEND_GARRISONS = {
+				frame = TUR_DtS_Selected_Region:TUR_DtS_unr1_button_frame
+			}
+			BUTTON_MILITARY_WITHDRAWAL = {
+				frame = TUR_DtS_Selected_Region:TUR_DtS_unr2_button_frame
+			}
+			BUTTON_POLITICAL_INTEGRATION = {
+				frame = TUR_DtS_Selected_Region:TUR_DtS_unr3_button_frame
+			}
+			BUTTON_FRAMING_CAMPAIGNS = {
+				frame = TUR_DtS_Selected_Region:TUR_DtS_unr4_button_frame
+			}
+			BUTTON_PROPAGANDA_CAMPAIGN = {
+				frame = TUR_DtS_Selected_Region:TUR_DtS_unr5_button_frame
+			}
+			BUTTON_DECLARE_MARTIAL_LAW = {
+				frame = TUR_DtS_Selected_Region:TUR_DtS_unr6_button_frame
+			}
+			
+			TUR_GUI_DtS_Georgia = {
+				frame = 1397.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_Armenia = {
+				frame = 230.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_Afrin = {
+				frame = 677.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_Kurdistan = {
+				frame = 352.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_Idlib = {
+				frame = 1242.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_Mosul = {
+				frame = 781.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_Rojava = {
+				frame = 1369.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_Rojava_w_Marakada = {
+				frame = 1369.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_Northern_Syria = {
+				frame = 680.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_Northern_Syria_No_Deyrizor = {
+				frame = 680.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_Northern_Syria_Only_Halab = {
+				frame = 680.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_Damascus = {
+				frame = 554.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_Rodos = {
+				frame = 164.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_Rodos_and_Naxos = {
+				frame = 164.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_Naxos = {
+				frame = 164.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_TRAKYA = {
+				frame = 1266.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_CENTRAL_TRAKYA = {
+				frame = 1266.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_LEBANON = {
+				frame = 1240.TUR_DtS_Region_Is_Selected
+			}
+			TUR_GUI_DtS_NORTH_LEBANON = {
+				frame = 1240.TUR_DtS_Region_Is_Selected
+			}
+ 			TUR_GUI_DtS_CYPRUS = {
+				frame = 1328.TUR_DtS_Region_Is_Selected
+			}
+			TUR_GUI_DtS_NORTH_CYPRUS = {
+				frame = 1328.TUR_DtS_Region_Is_Selected
+			}
+			
+		}
+		triggers = {
+			DevelopmentBar_visible = {
+				check_variable = { TUR_DtS_Selected_Region:TUR_DtS_development_LEVEL > 0 }
+				NOT = { var:TUR_DtS_Selected_Region = { has_state_flag = TUR_DtS_development_LEVEL_below_0 } }
+				NOT = { var:TUR_DtS_Selected_Region = { has_state_flag = TUR_DtS_development_LEVEL_above_100 } }
+			}
+			DevelopmentBar_Fully_Green_visible = {
+				var:TUR_DtS_Selected_Region = { has_state_flag = TUR_DtS_development_LEVEL_above_100 }
+			}
+			DevelopmentBar_Fully_Red_visible = {
+				var:TUR_DtS_Selected_Region = { has_state_flag = TUR_DtS_development_LEVEL_below_0 }
+			}
+			DevelopmentBar_Advance_Stage_Button_visible = {
+				var:TUR_DtS_Selected_Region = { has_state_flag = TUR_DtS_development_LEVEL_above_100 }
+			}
+			DevelopmentBar_Cancel_Development_Button_visible = {
+				var:TUR_DtS_Selected_Region = { has_state_flag = TUR_DtS_development_LEVEL_below_0 }
+			}
+			TUR_DtS_Development_Done_Screen_visible = {
+				var:TUR_DtS_Selected_Region = { has_state_flag = TUR_DtS_Development_Done }
+			}
+			TUR_DtS_Development_Cancelled_Screen_visible = {
+				var:TUR_DtS_Selected_Region = { has_state_flag = TUR_DtS_Development_Cancelled }
+			}
+			
+			
+			
+			
+			TUR_GUI_DtS_Iraq_Syria_Border_visible = {
+				680 = {
+					owner = {
+						NOT = { owns_state = 675 }
+					}
+				}
+			}
+			TUR_GUI_DtS_Jordan_Iraq_Border_visible = {
+				1245 = {
+					owner = {
+						NOT = { owns_state = 675 }
+					}
+				}
+			}
+			TUR_GUI_DtS_Jordan_Syria_Border_visible = {
+				1245 = {
+					owner = {
+						NOT = { owns_state = 782 }
+					}
+				}
+			}
+			TUR_GUI_DtS_Israel_Jordan_Border_visible = {
+				1366 = {
+					owner = {
+						NOT = { owns_state = 455 }
+					}
+				}
+			}
+			TUR_GUI_DtS_Israel_Lebanon_Border_visible = {
+				1367 = {
+					owner = {
+						NOT = { owns_state = 553 }
+					}
+				}
+			}
+			TUR_GUI_DtS_Lebanon_Syria_Border_visible = {
+				554 = {
+					owner = {
+						NOT = { owns_state = 1240 }
+					}
+				}
+			}
+			TUR_GUI_DtS_South_Lebanon_Syria_Border_visible = {
+				554 = {
+					owner = {
+						owns_state = 1240
+						NOT = { owns_state = 553 }
+					}
+				}
+			}
+			
+			TUR_GUI_DtS_Georgia_visible = {
+				owns_state = 1397
+			}
+ 			TUR_GUI_DtS_Armenia_visible = {
+				owns_state = 230
+			}
+ 			TUR_GUI_DtS_Afrin_visible = {
+				owns_state = 677
+			}
+ 			TUR_GUI_DtS_Kurdistan_visible = {
+				owns_state = 352
+			}
+ 			TUR_GUI_DtS_Idlib_visible = {
+				owns_state = 1242
+			}
+ 			TUR_GUI_DtS_Mosul_visible = {
+				781 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+ 			TUR_GUI_DtS_Rojava_visible = {
+				1243 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				OR = {	#Either don't own Marakada at all, or own both Marakada and the rest of Northern Syria
+					1369 = { 
+						owner = {
+							NOT = { tag = TUR }
+							NOT = { is_puppet_of = TUR }
+						}
+					}
+					680 = { 
+						owner = {
+							OR = {
+								tag = TUR
+								is_puppet_of = TUR
+							}
+						}
+					}
+				}
+			}
+ 			TUR_GUI_DtS_Rojava_w_Marakada_visible = {
+				1243 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				#For Rojava to also include marakada, must own marakada but be missing big parts of northern syria
+				 1369 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				 680 = { 
+					owner = {
+						NOT = { tag = TUR }
+						NOT = { is_puppet_of = TUR }
+					}
+				}
+			}
+ 			TUR_GUI_DtS_Northern_Syria_visible = {
+				680 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+ 			TUR_GUI_DtS_Northern_Syria_No_Deyrizor_visible = {
+				680 = { 
+					owner = {
+						NOT = { tag = TUR }
+						NOT = { is_puppet_of = TUR }
+					}
+				}
+				1370 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+ 			TUR_GUI_DtS_Northern_Syria_Only_Halab_visible = {
+				680 = { 
+					owner = {
+						NOT = { tag = TUR }
+						NOT = { is_puppet_of = TUR }
+					}
+				}
+				1370 = { 
+					owner = {
+						NOT = { tag = TUR }
+						NOT = { is_puppet_of = TUR }
+					}
+				}
+				1395 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+ 			TUR_GUI_DtS_Damascus_visible = {
+				554 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+ 			TUR_GUI_DtS_Rodos_visible = {
+				owns_state = 164
+				NOT = { owns_state = 187 }
+			}
+ 			TUR_GUI_DtS_Rodos_and_Naxos_visible = {
+				owns_state = 164
+				owns_state = 187
+			}
+ 			TUR_GUI_DtS_Naxos_visible = {
+				NOT = { owns_state = 164 }
+				owns_state = 187
+			}
+ 			TUR_GUI_DtS_TRAKYA_visible = {
+				owns_state = 184
+				owns_state = 1266
+			}
+ 			TUR_GUI_DtS_CENTRAL_TRAKYA_visible = {
+				NOT = { owns_state = 184 }
+				owns_state = 1266
+			}
+ 			TUR_GUI_DtS_LEBANON_visible = {
+				1240 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				553 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+			TUR_GUI_DtS_NORTH_LEBANON_visible = {
+				1240 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				NOT = { 
+					553 = { 
+						owner = {
+							OR = {
+								tag = TUR
+								is_puppet_of = TUR
+							}
+						}
+					}
+				}
+			}
+ 			TUR_GUI_DtS_CYPRUS_visible = {
+				1328 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				183 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+			TUR_GUI_DtS_NORTH_CYPRUS_visible = {
+				1328 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				NOT = { 
+					183 = { 
+						owner = {
+							OR = {
+								tag = TUR
+								is_puppet_of = TUR
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	TUR_GUI_DtS_Warning = {
+		context_type = player_context
+		parent_window_name = "TUR_GUI_Window"
+		window_name = "TUR_GUI_DtS_Warning"
+		
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			has_country_flag = TUR_DTS_GUI_Open
+			check_variable = { TUR_GUI_select = 1 }
+			has_country_flag = DevelopmentBar_Show_Warning
+		}
+		
+		effects = {
+			TUR_DTS_Warning_OKButton_click = {
+				clr_country_flag = DevelopmentBar_Show_Warning
+				if = {
+					limit = { has_country_flag = DevelopmentBar_Show_Warning_ADVANCE }
+					clr_country_flag = DevelopmentBar_Show_Warning_ADVANCE
+					TUR = { TUR_DtS_Resolve_Stage_Increase = yes }
+				}
+				if = {
+					limit = { has_country_flag = DevelopmentBar_Show_Warning_CANCEL }
+					clr_country_flag = DevelopmentBar_Show_Warning_CANCEL
+					#real effects eventually :troll:
+					var:TUR_DtS_Selected_Region = { set_state_flag = TUR_DtS_Development_Cancelled } #it should do more...
+				}
+			}
+			TUR_DTS_Warning_GO_BACKButton_click = {
+				clr_country_flag = DevelopmentBar_Show_Warning
+				clr_country_flag = DevelopmentBar_Show_Warning_ADVANCE
+				clr_country_flag = DevelopmentBar_Show_Warning_CANCEL
+			}
+		}
+	}
+	
+	TUR_GUI_Shining_the_Crescent = {
+		context_type = player_context
+		parent_window_name = "TUR_GUI_Window"
+		window_name = "TUR_GUI_Shining_the_Crescent"
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			has_country_flag = TUR_DTS_GUI_Open
+			check_variable = { TUR_GUI_select = 3 }
+			NOT = {
+				has_country_flag = TUR_StC_parliament_visible
+			}
+		}
+		effects = {
+			TUR_GUI_StC_Switch_View_click = {
+				if = {
+					limit = {
+						has_country_flag = TUR_StC_parliament_visible
+					}
+					clr_country_flag = TUR_StC_parliament_visible
+				}
+				else = {
+					set_country_flag = TUR_StC_parliament_visible
+				}
+			}
+			TUR_GUI_StC_ISTANBUL_outline_click = {
+				set_variable = { TUR_StC_selected_region = 0 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_KASTAMONU_outline_click = {
+				set_variable = { TUR_StC_selected_region = 1 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_TRABZON_outline_click = {
+				set_variable = { TUR_StC_selected_region = 2 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_KARS_outline_click = {
+				set_variable = { TUR_StC_selected_region = 3 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_BURSA_outline_click = {
+				set_variable = { TUR_StC_selected_region = 4 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_ANKARA_outline_click = {
+				set_variable = { TUR_StC_selected_region = 5 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_SIVAS_outline_click = {
+				set_variable = { TUR_StC_selected_region = 6 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_ERZURUM_outline_click = {
+				set_variable = { TUR_StC_selected_region = 7 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_USAK_outline_click = {
+				set_variable = { TUR_StC_selected_region = 8 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_KONYA_outline_click = {
+				set_variable = { TUR_StC_selected_region = 9 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_IZMIR_outline_click = {
+				set_variable = { TUR_StC_selected_region = 10 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_ANTALYA_outline_click = {
+				set_variable = { TUR_StC_selected_region = 11 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_ADANA_outline_click = {
+				set_variable = { TUR_StC_selected_region = 12 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_Kurdistan_outline_click = {
+				set_variable = { TUR_StC_selected_region = 13 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_TRAKYA_outline_click = {
+				set_variable = { TUR_StC_selected_region = 14 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_CENTRAL_TRAKYA_outline_click = {
+				set_variable = { TUR_StC_selected_region = 14 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_Georgia_outline_click = {
+				set_variable = { TUR_StC_selected_region = 15 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_Armenia_outline_click = {
+				set_variable = { TUR_StC_selected_region = 16 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_Rodos_outline_click = {
+				set_variable = { TUR_StC_selected_region = 17 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_Rodos_and_Naxos_outline_click = {
+				set_variable = { TUR_StC_selected_region = 17 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_Naxos_outline_click = {
+				set_variable = { TUR_StC_selected_region = 17 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_CYPRUS_outline_click = {
+				set_variable = { TUR_StC_selected_region = 18 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_NORTH_CYPRUS_outline_click = {
+				set_variable = { TUR_StC_selected_region = 18 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_Idlib_outline_click = {
+				set_variable = { TUR_StC_selected_region = 19 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_Afrin_outline_click = {
+				set_variable = { TUR_StC_selected_region = 20 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_Damascus_outline_click = {
+				set_variable = { TUR_StC_selected_region = 21 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_Northern_Syria_outline_click = {
+				set_variable = { TUR_StC_selected_region = 22 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_Northern_Syria_No_Deyrizor_outline_click = {
+				set_variable = { TUR_StC_selected_region = 22 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_Northern_Syria_Only_Halab_outline_click = {
+				set_variable = { TUR_StC_selected_region = 22 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_Rojava_outline_click = {
+				set_variable = { TUR_StC_selected_region = 23 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_Rojava_w_Marakada_outline_click = {
+				set_variable = { TUR_StC_selected_region = 23 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_Mosul_outline_click = {
+				set_variable = { TUR_StC_selected_region = 24 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_LEBANON_outline_click = {
+				set_variable = { TUR_StC_selected_region = 25 }
+				TUR_update_demographic_display = yes
+			}
+			TUR_GUI_StC_NORTH_LEBANON_outline_click = {
+				set_variable = { TUR_StC_selected_region = 25 }
+				TUR_update_demographic_display = yes
+			}
+		}
+		properties = {
+			TUR_minorities_pie = {
+				frame = ethnic_minority_display
+			}
+			TUR_turkified_pie = {
+				frame = ethnic_turkified_display
+			}
+			TUR_turks_pie = {
+				frame = ethnic_turkish_display
+			}
+			TUR_upper_class_pie = {
+				frame = class_upper_class_display
+			}
+			TUR_middle_class_pie = {
+				frame = class_middle_class_display
+			}
+			TUR_lower_class_pie = {
+				frame = class_lower_class_display
+			}
+			TUR_socialism_pie = {
+				frame = political_socialism_display
+			}
+			TUR_social_liberal_pie = {
+				frame = political_social_liberal_display
+			}
+			TUR_kemalism_pie = {
+				frame = political_kemalism_display
+			}
+			TUR_nationalism_pie = {
+				frame = political_nationalism_display
+			}
+			TUR_islamism_pie = {
+				frame = political_islamism_display
+			}
+			TUR_regionalism_pie = {
+				frame = political_regionalism_display
+			}
+			TUR_Popularities_Bar_DYP = {
+				frame = TUR_DYP_popularity^TUR_StC_selected_region
+			}
+			TUR_Popularities_Bar_UDP = {
+				frame = TUR_UDP_popularity^TUR_StC_selected_region
+			}
+			TUR_GUI_StC_ADANA = {
+				frame = TUR_Region_Party_Display^12
+			}
+			TUR_GUI_StC_ANKARA = {
+				frame = TUR_Region_Party_Display^5
+			}
+			TUR_GUI_StC_ANTALYA = {
+				frame = TUR_Region_Party_Display^11
+			}
+			TUR_GUI_StC_BURSA = {
+				frame = TUR_Region_Party_Display^4
+			}
+			TUR_GUI_StC_ERZURUM = {
+				frame = TUR_Region_Party_Display^7
+			}
+			TUR_GUI_StC_ISTANBUL = {
+				frame = TUR_Region_Party_Display^0
+			}
+			TUR_GUI_StC_IZMIR = {
+				frame = TUR_Region_Party_Display^10
+			}
+			TUR_GUI_StC_KARS = {
+				frame = TUR_Region_Party_Display^3
+			}
+			TUR_GUI_StC_KASTAMONU = {
+				frame = TUR_Region_Party_Display^1
+			}
+			TUR_GUI_StC_KONYA = {
+				frame = TUR_Region_Party_Display^9
+			}
+			TUR_GUI_StC_SIVAS = {
+				frame = TUR_Region_Party_Display^6
+			}
+			TUR_GUI_StC_TRABZON = {
+				frame = TUR_Region_Party_Display^2
+			}
+			TUR_GUI_StC_USAK = {
+				frame = TUR_Region_Party_Display^8
+			}
+			TUR_GUI_StC_Georgia = {
+				frame = TUR_Region_Party_Display^15
+			}
+			TUR_GUI_StC_Armenia = {
+				frame = TUR_Region_Party_Display^16
+			}
+			TUR_GUI_StC_Afrin = {
+				frame = TUR_Region_Party_Display^20
+			}
+			TUR_GUI_StC_Kurdistan = {
+				frame = TUR_Region_Party_Display^13
+			}
+			TUR_GUI_StC_Idlib = {
+				frame = TUR_Region_Party_Display^19
+			}
+			TUR_GUI_StC_Mosul = {
+				frame = TUR_Region_Party_Display^24
+			}
+			TUR_GUI_StC_Rojava = {
+				frame = TUR_Region_Party_Display^23
+			}
+			TUR_GUI_StC_Rojava_w_Marakada = {
+				frame = TUR_Region_Party_Display^23
+			}
+			TUR_GUI_StC_Northern_Syria = {
+				frame = TUR_Region_Party_Display^22
+			}
+			TUR_GUI_StC_Northern_Syria_No_Deyrizor = {
+				frame = TUR_Region_Party_Display^22
+			}
+			TUR_GUI_StC_Northern_Syria_Only_Halab = {
+				frame = TUR_Region_Party_Display^22
+			}
+			TUR_GUI_StC_Damascus = {
+				frame = TUR_Region_Party_Display^21
+			}
+			TUR_GUI_StC_Rodos = {
+				frame = TUR_Region_Party_Display^17
+			}
+			TUR_GUI_StC_Rodos_and_Naxos = {
+				frame = TUR_Region_Party_Display^17
+			}
+			TUR_GUI_StC_Naxos = {
+				frame = TUR_Region_Party_Display^17
+			}
+			TUR_GUI_StC_TRAKYA = {
+				frame = TUR_Region_Party_Display^14
+			}
+			TUR_GUI_StC_CENTRAL_TRAKYA = {
+				frame = TUR_Region_Party_Display^14
+			}
+			TUR_GUI_StC_LEBANON = {
+				frame = TUR_Region_Party_Display^25
+			}
+			TUR_GUI_StC_NORTH_LEBANON = {
+				frame = TUR_Region_Party_Display^25
+			}
+			TUR_GUI_StC_CYPRUS = {
+				frame = TUR_Region_Party_Display^18
+			}
+			TUR_GUI_StC_NORTH_CYPRUS = {
+				frame = TUR_Region_Party_Display^18
+			}
+		}
+		triggers = {
+			TUR_minorities_pie_visible = {
+				NOT = { check_variable = { ethnic_minority_display = 0 } }
+			}
+			TUR_turkified_pie_visible = {
+				NOT = { check_variable = { ethnic_turkified_display = 0 } }
+			}
+			TUR_turks_pie_visible = {
+				NOT = { check_variable = { ethnic_turkish_display = 0 } }
+			}
+			TUR_upper_class_pie_visible = {
+				NOT = { check_variable = { class_upper_class_display = 0 } }
+			}
+			TUR_middle_class_pie_visible = {
+				NOT = { check_variable = { class_middle_class_display = 0 } }
+			}
+			TUR_lower_class_pie_visible = {
+				NOT = { check_variable = { class_lower_class_display = 0 } }
+			}
+			TUR_socialism_pie_visible = {
+				NOT = { check_variable = { political_socialism_display = 0 } }
+			}
+			TUR_social_liberal_pie_visible = {
+				NOT = { check_variable = { political_social_liberal_display = 0 } }
+			}
+			TUR_kemalism_pie_visible = {
+				NOT = { check_variable = { political_kemalism_display = 0 } }
+			}
+			TUR_nationalism_pie_visible = {
+				NOT = { check_variable = { political_nationalism_display = 0 } }
+			}
+			TUR_islamism_pie_visible = {
+				NOT = { check_variable = { political_islamism_display = 0 } }
+			}
+			TUR_regionalism_pie_visible = {
+				NOT = { check_variable = { political_regionalism_display = 0 } }
+			}
+			
+			TUR_GUI_StC_Iraq_Syria_Border_visible = {
+				680 = {
+					owner = {
+						NOT = { owns_state = 675 }
+					}
+				}
+			}
+			TUR_GUI_StC_Jordan_Iraq_Border_visible = {
+				1245 = {
+					owner = {
+						NOT = { owns_state = 675 }
+					}
+				}
+			}
+			TUR_GUI_StC_Jordan_Syria_Border_visible = {
+				1245 = {
+					owner = {
+						NOT = { owns_state = 782 }
+					}
+				}
+			}
+			TUR_GUI_StC_Israel_Jordan_Border_visible = {
+				1366 = {
+					owner = {
+						NOT = { owns_state = 455 }
+					}
+				}
+			}
+			TUR_GUI_StC_Israel_Lebanon_Border_visible = {
+				1367 = {
+					owner = {
+						NOT = { owns_state = 553 }
+					}
+				}
+			}
+			TUR_GUI_StC_Lebanon_Syria_Border_visible = {
+				554 = {
+					owner = {
+						NOT = { owns_state = 1240 }
+					}
+				}
+			}
+			TUR_GUI_StC_South_Lebanon_Syria_Border_visible = {
+				554 = {
+					owner = {
+						owns_state = 1240
+						NOT = { owns_state = 553 }
+					}
+				}
+			}
+			
+			TUR_GUI_StC_Georgia_visible = {
+				owns_state = 1397
+			}
+			TUR_GUI_StC_Georgia_outline_visible = {
+				owns_state = 1397
+			}
+ 			TUR_GUI_DtS_Armenia_visible = {
+				owns_state = 230
+			}
+			TUR_GUI_DtS_Armenia_outline_visible = {
+				owns_state = 230
+			}
+ 			TUR_GUI_StC_Afrin_visible = {
+				owns_state = 677
+			}
+			TUR_GUI_StC_Afrin_outline_visible = {
+				owns_state = 677
+			}
+ 			TUR_GUI_StC_Kurdistan_visible = {
+				owns_state = 352
+			}
+			TUR_GUI_StC_Kurdistan_outline_visible = {
+				owns_state = 352
+			}
+ 			TUR_GUI_StC_Idlib_visible = {
+				owns_state = 1242
+			}
+			TUR_GUI_StC_Idlib_outline_visible = {
+				owns_state = 1242
+			}
+ 			TUR_GUI_StC_Mosul_visible = {
+				781 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+			TUR_GUI_StC_Mosul_outline_visible = {
+				781 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+ 			TUR_GUI_StC_Rojava_visible = {
+				1369 = { #Haseke, the state the region's named after in loc
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				OR = {	#Either don't own Marakada at all, or own both Marakada and the rest of Northern Syria
+					1369 = { 
+						owner = {
+							NOT = { tag = TUR }
+							NOT = { is_puppet_of = TUR }
+						}
+					}
+					680 = { 
+						owner = {
+							OR = {
+								tag = TUR
+								is_puppet_of = TUR
+							}
+						}
+					}
+				}
+			}
+			TUR_GUI_StC_Rojava_outline_visible = {
+				1369 = { #Haseke, the state the region's named after in loc
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				OR = {	#Either don't own Marakada at all, or own both Marakada and the rest of Northern Syria
+					1369 = { 
+						owner = {
+							NOT = { tag = TUR }
+							NOT = { is_puppet_of = TUR }
+						}
+					}
+					680 = { 
+						owner = {
+							OR = {
+								tag = TUR
+								is_puppet_of = TUR
+							}
+						}
+					}
+				}
+			}
+ 			TUR_GUI_StC_Rojava_w_Marakada_visible = {
+				1369 = { #Haseke, the state the region's named after in loc
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				#For Rojava to also include marakada, must own marakada but be missing big parts of northern syria
+				 1369 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				 680 = { 
+					owner = {
+						NOT = { tag = TUR }
+						NOT = { is_puppet_of = TUR }
+					}
+				}
+			}
+			TUR_GUI_StC_Rojava_w_Marakada_outline_visible = {
+				1369 = { #Haseke, the state the region's named after in loc
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				#For Rojava to also include marakada, must own marakada but be missing big parts of northern syria
+				 1369 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				 680 = { 
+					owner = {
+						NOT = { tag = TUR }
+						NOT = { is_puppet_of = TUR }
+					}
+				}
+			}
+ 			TUR_GUI_StC_Northern_Syria_visible = {
+				680 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+			TUR_GUI_StC_Northern_Syria_outline_visible = {
+				680 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+ 			TUR_GUI_StC_Northern_Syria_No_Deyrizor_visible = {
+				680 = { 
+					owner = {
+						NOT = { tag = TUR }
+						NOT = { is_puppet_of = TUR }
+					}
+				}
+				1370 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+			TUR_GUI_StC_Northern_Syria_No_Deyrizor_outline_visible = {
+				680 = { 
+					owner = {
+						NOT = { tag = TUR }
+						NOT = { is_puppet_of = TUR }
+					}
+				}
+				1370 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+ 			TUR_GUI_StC_Northern_Syria_Only_Halab_visible = {
+				680 = { 
+					owner = {
+						NOT = { tag = TUR }
+						NOT = { is_puppet_of = TUR }
+					}
+				}
+				1370 = { 
+					owner = {
+						NOT = { tag = TUR }
+						NOT = { is_puppet_of = TUR }
+					}
+				}
+				1395 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+			TUR_GUI_StC_Northern_Syria_Only_Halab_outline_visible = {
+				680 = { 
+					owner = {
+						NOT = { tag = TUR }
+						NOT = { is_puppet_of = TUR }
+					}
+				}
+				1370 = { 
+					owner = {
+						NOT = { tag = TUR }
+						NOT = { is_puppet_of = TUR }
+					}
+				}
+				1395 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+ 			TUR_GUI_StC_Damascus_visible = {
+				554 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+			TUR_GUI_StC_Damascus_outline_visible = {
+				554 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+ 			TUR_GUI_StC_Rodos_visible = {
+				owns_state = 164
+				NOT = { owns_state = 187 }
+			}
+			TUR_GUI_StC_Rodos_outline_visible = {
+				owns_state = 164
+				NOT = { owns_state = 187 }
+			}
+ 			TUR_GUI_StC_Rodos_and_Naxos_visible = {
+				owns_state = 164
+				owns_state = 187
+			}
+			TUR_GUI_StC_Rodos_and_Naxos_outline_visible = {
+				owns_state = 164
+				owns_state = 187
+			}
+ 			TUR_GUI_StC_Naxos_visible = {
+				NOT = { owns_state = 164 }
+				owns_state = 187
+			}
+			TUR_GUI_StC_Naxos_outline_visible = {
+				NOT = { owns_state = 164 }
+				owns_state = 187
+			}
+ 			TUR_GUI_StC_TRAKYA_visible = {
+				owns_state = 184
+				owns_state = 1266
+			}
+			TUR_GUI_StC_TRAKYA_outline_visible = {
+				owns_state = 184
+				owns_state = 1266
+			}
+ 			TUR_GUI_StC_CENTRAL_TRAKYA_visible = {
+				NOT = { owns_state = 184 }
+				owns_state = 1266
+			}
+			TUR_GUI_StC_CENTRAL_TRAKYA_outline_visible = {
+				NOT = { owns_state = 184 }
+				owns_state = 1266
+			}
+ 			TUR_GUI_StC_LEBANON_visible = {
+				1240 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				553 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+			TUR_GUI_StC_LEBANON_outline_visible = {
+				1240 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				553 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+			TUR_GUI_StC_NORTH_LEBANON_visible = {
+				1240 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				NOT = { 
+					553 = { 
+						owner = {
+							OR = {
+								tag = TUR
+								is_puppet_of = TUR
+							}
+						}
+					}
+				}
+			}
+			TUR_GUI_StC_NORTH_LEBANON_outline_visible = {
+				1240 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				NOT = { 
+					553 = { 
+						owner = {
+							OR = {
+								tag = TUR
+								is_puppet_of = TUR
+							}
+						}
+					}
+				}
+			}
+ 			TUR_GUI_StC_CYPRUS_visible = {
+				1328 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				183 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+			TUR_GUI_StC_CYPRUS_outline_visible = {
+				1328 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				183 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+			}
+			TUR_GUI_StC_NORTH_CYPRUS_visible = {
+				1328 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				NOT = { 
+					183 = { 
+						owner = {
+							OR = {
+								tag = TUR
+								is_puppet_of = TUR
+							}
+						}
+					}
+				}
+			}
+			TUR_GUI_StC_NORTH_CYPRUS_outline_visible = {
+				1328 = { 
+					owner = {
+						OR = {
+							tag = TUR
+							is_puppet_of = TUR
+						}
+					}
+				}
+				NOT = { 
+					183 = { 
+						owner = {
+							OR = {
+								tag = TUR
+								is_puppet_of = TUR
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	TUR_GUI_Parliament = {
+		context_type = player_context
+		window_name = "TUR_GUI_Parliament"
+		parent_window_name = "TUR_GUI_Window"
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			has_country_flag = TUR_DTS_GUI_Open
+			check_variable = { TUR_GUI_select = 3 }
+			has_country_flag = TUR_StC_parliament_visible
+		}
+		effects = {
+			TUR_GUI_StC_Switch_View_click = {
+				if = {
+					limit = {
+						has_country_flag = TUR_StC_parliament_visible
+					}
+					clr_country_flag = TUR_StC_parliament_visible
+				}
+				else = {
+					set_country_flag = TUR_StC_parliament_visible
+				}
+			}
+			TUR_GUI_GNA_party_button_DYP_click = {
+				set_variable = { TUR_StC_selected_party = 1 }
+			}
+			TUR_GUI_GNA_party_button_CHP_click = {
+				set_variable = { TUR_StC_selected_party = 2 }
+			}
+			TUR_GUI_GNA_party_button_UDP_click = {
+				set_variable = { TUR_StC_selected_party = 3 }
+			}
+		}
+		dynamic_lists = {
+			parliament_diagram = {
+				array = TUR_GNA_Array_X
+				change_scope = no
+				entry_container = TUR_GNA_seats
+				index = i
+			}
+		}
+		properties = {
+			parliament_dot_icon = {
+				x = TUR_GNA_Array_X^i
+				y = TUR_GNA_Array_Y^i
+				frame = TUR_GNA_Array^i
+			}
+			Heading = {
+				frame = TUR_GNA_Heading_Frame
+			}
+			Bill_Support_Bar = {
+				frame = TUR_GNA_bill_support
+			}
+			Bill_Progress_Bar = {
+				frame = TUR_GNA_bill_progress
+			}
+			Kemalism_Arrow_1 = {
+				frame = TUR_Kemalism_principle_1_frame
+			}
+			Kemalism_Arrow_2 = {
+				frame = TUR_Kemalism_principle_2_frame
+			}
+			Kemalism_Arrow_3 = {
+				frame = TUR_Kemalism_principle_3_frame
+			}
+			Inonus_Dementia_Inonu_Icon = {
+				x = TUR_influence_ecevit_koruturk_x
+			}
+		}
+		triggers = {
+			Bill_Support_Bar_visible = {
+				has_country_flag = TUR_ongoing_bill
+			}
+			#### Six Arrows ####
+			Kemalism_six_arrows_visible = {
+				has_country_flag = kemalism_gui_enabled
+			}
+			Kemalism_Arrow_1_visible = {
+				has_country_flag = kemalism_gui_enabled
+			}
+			Kemalism_Arrow_2_visible = {
+				has_country_flag = kemalism_gui_enabled
+			}
+			Kemalism_Arrow_3_visible = {
+				has_country_flag = kemalism_gui_enabled
+			}
+			Kemalism_Arrow_1_Text_visible = {
+				has_country_flag = kemalism_gui_enabled
+			}
+			Kemalism_Arrow_2_Text_visible = {
+				has_country_flag = kemalism_gui_enabled
+			}
+			Kemalism_Arrow_3_Text_visible = {
+				has_country_flag = kemalism_gui_enabled
+			}
+			Content_Amount_visible = {
+				has_country_flag = kemalism_gui_enabled
+			}
+			Coup_Layer_visible = {
+				has_country_flag = kemalism_gui_enabled
+			}
+			Coup_Stages_visible = {
+				has_country_flag = kemalism_gui_enabled
+			}
+			Coup_Empty_Layer_visible = {
+				has_country_flag = kemalism_gui_enabled
+			}
+			#### Inonumeter ####
+			Ecevit_Picture_visible = {
+				has_country_flag = inonumeter_gui_enabled
+			}
+			Erim_Picture_visible = {
+				has_country_flag = inonumeter_gui_enabled
+			}
+			Inonus_influence_header_visible = {
+				has_country_flag = inonumeter_gui_enabled
+			}
+			Inonus_influence_person_visible = {
+				has_country_flag = inonumeter_gui_enabled
+			}
+			Inonus_Dementia_quote_visible = {
+				has_country_flag = inonumeter_gui_enabled
+			}
+			Tooltip_Inonus_Dementia_Ecevit_Tooltip_visible = {
+				has_country_flag = inonumeter_gui_enabled
+			}
+			Tooltip_Inonus_Dementia_Erim_Tooltip_visible = {
+				has_country_flag = inonumeter_gui_enabled
+			}
+			Inonus_Dementia_Alignment_Bar_visible = {
+				has_country_flag = inonumeter_gui_enabled
+			}
+			Inonus_Dementia_Inonu_Icon_visible = {
+				has_country_flag = inonumeter_gui_enabled
+			}
+			#### COUP STAGES ###
+			Coup_Stage_10_visible = {
+					AND = {
+					has_country_flag = kemalism_gui_enabled
+					has_country_flag = coup_stage_10_enabled
+				}
+			}
+			Coup_Stage_9_visible = {
+				AND = {
+					has_country_flag = kemalism_gui_enabled
+					has_country_flag = coup_stage_9_enabled
+				}
+			}
+			Coup_Stage_8_visible = {
+					AND = {
+					has_country_flag = kemalism_gui_enabled
+					has_country_flag = coup_stage_8_enabled
+				}
+			}
+			Coup_Stage_7_visible = {
+				AND = {
+					has_country_flag = kemalism_gui_enabled
+					has_country_flag = coup_stage_7_enabled
+				}
+			}
+			Coup_Stage_6_visible = {
+					AND = {
+					has_country_flag = kemalism_gui_enabled
+					has_country_flag = coup_stage_6_enabled
+				}
+			}
+			Coup_Stage_5_visible = {
+					AND = {
+					has_country_flag = kemalism_gui_enabled
+					has_country_flag = coup_stage_5_enabled
+				}
+			}
+			Coup_Stage_4_visible = {
+					AND = {
+					has_country_flag = kemalism_gui_enabled
+					has_country_flag = coup_stage_4_enabled
+				}
+			}
+			Coup_Stage_3_visible = {
+				AND = {
+					has_country_flag = kemalism_gui_enabled
+					has_country_flag = coup_stage_3_enabled
+				}
+			}
+			Coup_Stage_2_visible = {
+				AND = {
+					has_country_flag = kemalism_gui_enabled
+					has_country_flag = coup_stage_2_enabled
+				}
+			}
+			Coup_Stage_1_visible = {
+				AND = {
+					has_country_flag = kemalism_gui_enabled
+					has_country_flag = coup_stage_1_enabled
+				}
+			}
+		}
+	}
+	
+	TUR_GUI_Hidden_Blade = {
+		context_type = player_context
+		parent_window_name = "TUR_GUI_Window"
+		window_name = "TUR_GUI_Hidden_Blade"
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			has_country_flag = TUR_DTS_GUI_Open
+			check_variable = { TUR_GUI_select = 2 }
+		}
+		triggers = {
+			TUR_GUI_HB_book_closed_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book = 0}
+			}
+			TUR_GUI_HB_book_1_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book = 1}
+			}
+			TUR_GUI_HB_book_2_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book = 2}
+			}
+			TUR_GUI_HB_book_3_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book = 3}
+			}
+			TUR_GUI_HB_book_4_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book = 4}
+			}
+			TUR_GUI_HB_book_5_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book = 5}
+			}
+			TUR_GUI_HB_book_6_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book = 6}
+			}
+			TUR_GUI_HB_bookmark_1_right_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book = 0}
+			}
+			TUR_GUI_HB_bookmark_2_right_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book = 0}
+			}
+			TUR_GUI_HB_bookmark_3_right_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book = 0}
+			}
+			TUR_GUI_HB_bookmark_4_right_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book = 0}
+			}
+			TUR_GUI_HB_bookmark_5_right_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book = 0}
+			}
+			TUR_GUI_HB_bookmark_6_right_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book = 0}
+			}
+			TUR_GUI_HB_bookmark_2_right_p2_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book > 0}
+				check_variable = {TUR_GUI_DtS_HB_Book < 2}
+			}
+			TUR_GUI_HB_bookmark_3_right_p2_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book > 0}
+				check_variable = {TUR_GUI_DtS_HB_Book < 3}
+			}
+			TUR_GUI_HB_bookmark_4_right_p2_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book < 4}
+				check_variable = {TUR_GUI_DtS_HB_Book > 0}
+			}
+			TUR_GUI_HB_bookmark_5_right_p2_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book < 5}
+				check_variable = {TUR_GUI_DtS_HB_Book > 0}
+			}
+			TUR_GUI_HB_bookmark_6_right_p2_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book < 6}
+				check_variable = {TUR_GUI_DtS_HB_Book > 0}
+			}
+			TUR_GUI_HB_bookmark_1_left_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book > 1}
+			}
+			TUR_GUI_HB_bookmark_2_left_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book > 2}
+			}
+			TUR_GUI_HB_bookmark_3_left_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book > 3}
+			}
+			TUR_GUI_HB_bookmark_4_left_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book > 4}
+			}
+			TUR_GUI_HB_bookmark_5_left_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book > 5}
+			}
+			TUR_GUI_HB_book_close_button_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book > 0}
+			}
+			TUR_GUI_HB_operation_bg_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book > 0}
+			}
+			TUR_HB_book_available_operations_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book > 0}
+			}
+			TUR_GUI_HB_operation_bg_2_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book > 0}
+			}
+			TUR_HB_book_previous_operations_visible = {
+				check_variable = {TUR_GUI_DtS_HB_Book > 0}
+			}
+			TUR_GUI_HB_file_bg_visible = {
+				check_variable = { TUR_HB_selected_operation > 0 }
+			}
+		}
+		effects = {
+			TUR_GUI_HB_book_close_button_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 0}
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_1_right_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 1}
+				TUR_HB_setup_italy_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_2_right_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 2}
+				TUR_HB_setup_iraq_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_3_right_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 3}
+				TUR_HB_setup_syria_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_4_right_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 4}
+				TUR_HB_setup_kurdistan_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_5_right_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 5}
+				TUR_HB_setup_caucasia_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_6_right_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 6}
+				TUR_HB_setup_iran_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_2_right_p2_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 2}
+				TUR_HB_setup_iraq_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_3_right_p2_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 3}
+				TUR_HB_setup_syria_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_4_right_p2_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 4}
+				TUR_HB_setup_kurdistan_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_5_right_p2_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 5}
+				TUR_HB_setup_caucasia_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_6_right_p2_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 6}
+				TUR_HB_setup_iran_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_1_left_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 1}
+				TUR_HB_setup_italy_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_2_left_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 2}
+				TUR_HB_setup_iraq_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_3_left_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 3}
+				TUR_HB_setup_syria_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_4_left_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 4}
+				TUR_HB_setup_kurdistan_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+			TUR_GUI_HB_bookmark_5_left_click = {
+				set_variable = {TUR_GUI_DtS_HB_Book = 5}
+				TUR_HB_setup_caucasia_chapter = yes
+				TUR_HB_GUI_deselect_any_operation = yes
+			}
+		}
+	}
+	TUR_GUI_HB_operations_file_container = {
+		context_type = player_context
+		parent_window_name = "TUR_GUI_Window"
+		window_name = "TUR_GUI_HB_operations_file_container"
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			has_country_flag = TUR_DTS_GUI_Open
+			check_variable = { TUR_GUI_select = 2 }
+
+			check_variable = { TUR_HB_selected_operation > 0 }
+		}
+		properties = {
+			TUR_HB_operation_selected_leader_portrait = {
+				image = "[getTURHBSelectedLeaderPortrait]"
+			}
+			TUR_HB_operation_current_cohesion_bar = {
+				frame = TUR_HB_current_cohesion
+			}
+			TUR_HB_operation_current_cohesion_bar_red = {
+				frame = TUR_HB_current_cohesion_red
+			}
+			TUR_HB_operation_current_cohesion_bar_reverse = {
+				frame = TUR_HB_current_cohesion_reverse
+			}
+			TUR_HB_operation_stamp_frames = {
+				frame = TUR_HB_current_op_status_frame
+			}
+		}
+		triggers = {
+			TUR_HB_success_minus_visible = {
+				check_variable = {TUR_HB_cohesion_check > 0}
+				check_variable = {TUR_HB_op_preparation^TUR_HB_selected_operation > 0}
+				
+				check_variable = { TUR_HB_selected_operation > 0 }
+				check_variable = { TUR_HB_op_outcome^TUR_HB_selected_operation = 0 }
+
+				check_variable = { TUR_HB_op_ignore_prep^TUR_HB_selected_operation = 0 }
+			}
+			TUR_HB_success_plus_visible = {
+				check_variable = {TUR_HB_current_cohesion_red < 100}
+				check_variable = {TUR_HB_op_preparation^TUR_HB_selected_operation < 100}
+
+				check_variable = { TUR_HB_selected_operation > 0 }
+				check_variable = { TUR_HB_op_outcome^TUR_HB_selected_operation = 0 }
+
+				check_variable = { TUR_HB_op_ignore_prep^TUR_HB_selected_operation = 0 }
+			}
+			TUR_HB_operation_execute_button_visible = {
+				check_variable = { TUR_HB_selected_operation > 0 } #Has selected a "real" operation
+				check_variable = { TUR_HB_op_assigned_operative^TUR_HB_selected_operation > 0 } #Has a leader
+				check_variable = { TUR_HB_op_outcome^TUR_HB_selected_operation = 0 } #Operation hasn't already been done before
+			}
+			TUR_HB_operation_select_leader_visible = {
+				check_variable = { TUR_HB_selected_operation > 0 }
+				check_variable = { TUR_HB_op_outcome^TUR_HB_selected_operation = 0 }
+			}
+			TUR_HB_operation_recruit_operative_visible = {
+				check_variable = { TUR_HB_days_to_next_operative < 1 }
+			}
+		}
+		effects = {	
+			TUR_HB_operation_execute_button_click = {
+				TUR_HB_lights_camera_action = yes
+			}
+			TUR_HB_success_minus_click = {
+				add_to_variable = {TUR_HB_current_op_cohesion_cost = -2.5}
+				TUR_HB_GUI_calculate_reverse_cohesion_bars = yes
+				add_to_variable = { TUR_HB_op_preparation^TUR_HB_selected_operation = -5 }
+			}
+			TUR_HB_success_plus_click = {
+				add_to_variable = {TUR_HB_current_op_cohesion_cost = 2.5}
+				TUR_HB_GUI_calculate_reverse_cohesion_bars = yes
+				add_to_variable = { TUR_HB_op_preparation^TUR_HB_selected_operation = 5 }
+			}
+			TUR_HB_operation_select_leader_click = {
+				if = {
+					limit = {
+						NOT = {
+							has_country_flag = TUR_HB_select_leader_window_open
+						}
+					}
+					set_country_flag = TUR_HB_select_leader_window_open
+				}
+				else = {
+					clr_country_flag = TUR_HB_select_leader_window_open
+				}
+			}
+			TUR_HB_operation_recruit_operative_click = {
+				if = {
+					limit = {
+						NOT = {
+							has_country_flag = TUR_HB_recruit_leader_window_open
+						}
+					}
+					set_country_flag = TUR_HB_recruit_leader_window_open
+				}
+				else = {
+					clr_country_flag = TUR_HB_recruit_leader_window_open
+				}
+			}
+		}
+	}
+	TUR_GUI_HB_operations_select_leader_window = {
+		context_type = player_context
+		window_name = "TUR_GUI_HB_operations_select_leader_window"
+		parent_window_name = "TUR_GUI_Window"
+
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			has_country_flag = TUR_HB_select_leader_window_open
+			has_country_flag = TUR_DTS_GUI_Open
+			check_variable = { TUR_GUI_select = 2 }
+		}
+		effects = {
+			TUR_DtS_HB_calendar_close_button_click = {
+				clr_country_flag = TUR_HB_select_leader_window_open
+			}
+		}
+	}
+	TUR_GUI_HB_operations_select_leader_window_list = {
+		context_type = player_context
+		parent_window_name = "TUR_GUI_Window"
+		window_name = "TUR_GUI_HB_operations_select_leader_window_list"
+
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			has_country_flag = TUR_HB_select_leader_window_open
+			has_country_flag = TUR_DTS_GUI_Open
+			check_variable = { TUR_GUI_select = 2 }
+		}
+		dynamic_lists = {
+            TUR_GUI_HB_availabe_operative = {
+                array = TUR_HB_operatives_available
+                index = i
+                change_scope = no
+
+                entry_container = TUR_HB_operatives_available_outline
+            }
+		}
+		effects = {
+			TUR_HB_leader_select_button_click = {
+				TUR_HB_GUI_remove_leader_effects = yes
+				set_variable = { TUR_HB_op_assigned_operative^TUR_HB_selected_operation = TUR_HB_operatives_available^i }
+				TUR_HB_GUI_apply_leader_effects = yes
+				#set_variable = {TUR_HB_selected_operative = TUR_HB_operatives_available^i}
+				#set_country_flag = TUR_HB_operation_leader_set
+				clr_country_flag = TUR_HB_select_leader_window_open
+			}
+		}
+		properties = {
+			TUR_HB_leader_portrait = {
+				image = "[getTURHBLeaderPortrait]"
+			}
+		}
+	}
+	TUR_GUI_Hidden_Blade_Available_operations_container = {
+		context_type = player_context
+		parent_window_name = "TUR_GUI_Window"
+		window_name = "TUR_GUI_Hidden_Blade_Available_operations_container"
+
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			has_country_flag = TUR_DTS_GUI_Open
+			check_variable = { TUR_GUI_select = 2 }
+			check_variable = {TUR_GUI_DtS_HB_Book > 0}
+			NOT = { has_country_flag = TUR_HB_select_leader_window_open }
+		}
+		dynamic_lists = {
+            TUR_GUI_HB_operations_available = {
+                array = TUR_HB_operations_available
+                index = i
+                change_scope = no
+
+                entry_container = TUR_GUI_HB_operations_available_outline
+            }
+		}
+		effects = {
+			TUR_GUI_HB_operation_info_button_click = {
+				TUR_DtS_HB_clicked_an_available_operation = yes
+			}
+		}
+	}
+	TUR_GUI_Hidden_Blade_Previous_operations_container = {
+		context_type = player_context
+		parent_window_name = "TUR_GUI_Window"
+		window_name = "TUR_GUI_Hidden_Blade_Previous_operations_container"
+
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			has_country_flag = TUR_DTS_GUI_Open
+			check_variable = { TUR_GUI_select = 2 }
+			check_variable = {TUR_GUI_DtS_HB_Book > 0}
+			NOT = { has_country_flag = TUR_HB_select_leader_window_open }
+		}
+		dynamic_lists = {
+            TUR_GUI_HB_operations_previous = {
+                array = TUR_HB_operations_previous
+                index = i
+                change_scope = no
+
+                entry_container = TUR_GUI_HB_operations_previous_outline
+            }
+		}
+		effects = {
+			TUR_GUI_HB_operation_info_button_previous_click = {
+				TUR_DtS_HB_clicked_a_previous_operation = yes
+			}
+		}
+	}
+	TUR_GUI_HB_Recruit_Operative = {
+		context_type = player_context
+		#parent_window_name = "TUR_GUI_Window"
+		window_name = "TUR_GUI_HB_Recruit_Operative"
+
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			has_country_flag = TUR_DTS_GUI_Open
+			check_variable = { TUR_GUI_select = 2 }
+			has_country_flag = TUR_HB_recruit_leader_window_open
+		}
+
+		dynamic_lists = {
+			TUR_GUI_HB_Recruitable_Operatives_Gridbox = {
+				array = TUR_HB_recruitable_operative_picks
+				index = operative_pick
+
+				entry_container = TUR_GUI_HB_Recruitable_Operative_Box
+			}
+		}
+
+		effects = {
+			TUR_DtS_HB_recruitment_close_button_click = {
+				clr_country_flag = TUR_HB_recruit_leader_window_open
+			}
+		}
+
+		properties = {
+			TUR_HB_recruitable_leader_portrait = {
+				image = "[getTURHBRecruitableLeaderPortrait]"
+			}
+		}
+	}
+}

@@ -1,0 +1,249 @@
+add_namespace = vietnam
+add_namespace = VIN
+add_namespace = VIN_vietwar
+
+country_event = { #Dummy event for setting up  skeleton content
+	id = VIN.0
+	immediate = {log = "[GetDateText]: [Root.GetName]: event VIN.0"}
+ 	title = VIN.0.t
+ 	desc = VIN.0.d
+ 	picture = GFX_report_event_generic_military_parade
+
+	is_triggered_only = yes
+ 	fire_only_once = yes
+
+ 	option = {
+		name = VIN.0.a
+		trigger = { if = { has_country_flag = VIN_Ho_Chi_Minh_Dies } }
+        hidden_effect = {
+			every_country = { news_event = { id = WORLD.16507 days = 1400 } }
+			random_list = {
+				90 = { every_country = { news_event = { id = WORLD.16501 days = 2446 } } }
+				10 = { every_country = { news_event = { id = WORLD.16504 days = 2446 } } }
+			}
+		}
+	}
+
+	option = {
+		name = VIN.0.b
+		trigger = { if  = { has_country_flag = VIN_Ho_Chi_Minh_Lives } }
+		hidden_effect = {
+			every_country = {
+				news_event = { id = WORLD.16501 days = 1699 }
+				news_event = { id = WORLD.16502 days = 1729 }
+				news_event = { id = WORLD.16506 days = 2801 }
+			}
+		}
+	}
+}
+
+# Vietnam's civil war: skeleton content (user, 2026-10-28). Flow and flags: TNO_Vietnam_scripted_effects.txt.
+
+country_event = { # The Viet Minh rise in the Mekong Delta
+	id = VIN_vietwar.1
+	title = VIN_vietwar.1.t
+	desc = VIN_vietwar.1.d
+	picture = GFX_report_event_jungle_old_gun
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event VIN_vietwar.1"
+		VIN_war_viet_minh_rise = yes
+		country_event = { id = VIN_vietwar.2 days = 7 }
+	}
+
+	option = {
+		name = VIN_vietwar.1.a
+		ai_chance = { factor = 1 }
+	}
+
+	option = { # a player goes over to the Viet Minh
+		name = VIN_vietwar.1.b
+		trigger = {
+			is_ai = no
+			country_exists = VMN
+		}
+		ai_chance = { factor = 0 }
+		VMN = { change_tag_from = ROOT }
+	}
+}
+
+country_event = { # Saigon falls
+	id = VIN_vietwar.2
+	title = VIN_vietwar.2.t
+	desc = VIN_vietwar.2.d
+	picture = GFX_report_event_french_vietnam
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event VIN_vietwar.2"
+		VIN_war_viet_minh_take_saigon = yes
+		country_event = { id = VIN_vietwar.3 days = 13 }
+	}
+
+	option = {
+		name = VIN_vietwar.2.a
+	}
+}
+
+country_event = { # Vietnam leaves Japan's faction; the Viet Minh declare war
+	id = VIN_vietwar.3
+	title = VIN_vietwar.3.t
+	desc = VIN_vietwar.3.d
+	picture = GFX_report_event_jungle_old_gun
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event VIN_vietwar.3"
+		VIN_war_start = yes
+	}
+
+	option = {
+		name = VIN_vietwar.3.a
+	}
+}
+
+country_event = { # Japan: war in Vietnam
+	id = VIN_vietwar.4
+	title = VIN_vietwar.4.t
+	desc = VIN_vietwar.4.d
+	picture = GFX_report_event_french_vietnam
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = { log = "[GetDateText]: [Root.GetName]: event VIN_vietwar.4" }
+
+	option = {
+		name = VIN_vietwar.4.a
+		custom_effect_tooltip = VIN_war_volunteers_JAP_tt
+		custom_effect_tooltip = VIN_war_stakes_JAP_tt # VIN_war_viet_minh_victory / VIN_war_empire_victory
+	}
+}
+
+country_event = { # The US: war in Vietnam
+	id = VIN_vietwar.5
+	title = VIN_vietwar.5.t
+	desc = VIN_vietwar.5.d
+	picture = GFX_report_event_french_vietnam
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = { log = "[GetDateText]: [Root.GetName]: event VIN_vietwar.5" }
+
+	option = {
+		name = VIN_vietwar.5.a
+		custom_effect_tooltip = VIN_war_volunteers_USA_tt
+		custom_effect_tooltip = VIN_war_stakes_USA_tt # VIN_war_viet_minh_victory / VIN_war_empire_victory
+	}
+}
+
+country_event = { # Bao Dai appoints a Prime Minister
+	id = VIN_vietwar.10
+	title = VIN_vietwar.10.t
+	desc = VIN_vietwar.10.d
+	picture = GFX_report_event_french_vietnam
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = { log = "[GetDateText]: [Root.GetName]: event VIN_vietwar.10" }
+
+	option = { # Nguyen Ton Hoan: social conservatism
+		name = VIN_vietwar.10.a
+		ai_chance = { factor = 50 }
+		VIN_war_appoint_hoan = yes
+	}
+
+	option = { # Ngo Dinh Diem: fascism
+		name = VIN_vietwar.10.b
+		ai_chance = { factor = 50 }
+		VIN_war_appoint_diem = yes
+	}
+}
+
+country_event = { # Ho Chi Minh dies (1969-09-03); Truong Chinh takes over the Viet Minh
+	id = VIN_vietwar.11
+	title = VIN_vietwar.11.t
+	desc = VIN_vietwar.11.d
+	picture = GFX_report_event_french_vietnam
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = { log = "[GetDateText]: [Root.GetName]: event VIN_vietwar.11" }
+
+	option = {
+		name = VIN_vietwar.11.a
+		kill_country_leader = yes
+		set_politics = { ruling_party = communist }
+		add_popularity = { ideology = communist popularity = 0.5 }
+		hidden_effect = {
+			every_other_country = { news_event = { id = WORLD.16506 days = 1 } }
+		}
+	}
+}
+
+country_event = { # Vietnam in 1962 (day 1)
+	id = vietnam.1
+	title = vietnam.1.t
+	desc = vietnam.1.d
+	picture = GFX_report_event_french_vietnam
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = { log = "[GetDateText]: [Root.GetName]: event vietnam.1" }
+
+	option = {
+		name = vietnam.1.a
+	}
+}
+
+country_event = { # Phan Huy Quat assassinated; Bao Dai heads the government himself (1962-02-15)
+	id = vietnam.2
+	title = vietnam.2.t
+	desc = vietnam.2.d
+	picture = GFX_report_event_car_crash
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = { log = "[GetDateText]: [Root.GetName]: event vietnam.2" }
+
+	option = {
+		name = vietnam.2.a
+		add_political_power = -250
+		set_country_flag = Phan_Huy_Quat_has_died
+		if = {
+			limit = { has_idea = VIN_Phan_Huy_Quat_hog }
+			remove_ideas = VIN_Phan_Huy_Quat_hog
+		}
+		add_ideas = VIN_bao_dai_hog
+		hidden_effect = { country_event = { id = vietnam.3 days = 2 } }
+	}
+}
+
+country_event = { # Foreign Minister Diem denounces the attack
+	id = vietnam.3
+	title = vietnam.3.t
+	desc = vietnam.3.d
+	picture = GFX_report_event_generic_newspaper
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = { log = "[GetDateText]: [Root.GetName]: event vietnam.3" }
+
+	option = {
+		name = vietnam.3.a
+		add_political_power = -25
+	}
+}

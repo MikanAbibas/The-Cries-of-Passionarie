@@ -1,0 +1,2306 @@
+﻿###########
+#DSR Events | started by Alexmaths <------Mispelled Speidel
+###########
+
+add_namespace = spiedel
+add_namespace = GER_speidel_fuhrer
+add_namespace = GER_speidel_fuhrer_pol
+
+#Spiedel Wins Civil War
+country_event = {
+	id = spiedel.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event spiedel.1"}
+ 	title = spiedel.1.t
+ 	desc = spiedel.1.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = spiedel.1.a
+		set_cosmetic_tag = GER_reich
+		set_global_flag = german_civil_war_spiedelvic
+		clr_global_flag = german_civil_war
+        set_global_flag = german_civil_war_end
+		annex_country = { target = HGR }
+		annex_country = { target = GGR }
+		annex_country = { target = BGR }
+		annex_country = { target = SGR }
+		annex_country = { target = DSR }
+		annex_country = { target = RNW }
+		set_variable = { GDP_growth = 0.001 }
+		country_event = { id = reich.500 days = 20 }
+		hidden_effect = {
+			every_country = { news_event = WORLD.2059 }
+		}
+ 	}
+}
+
+country_event = {
+	id = spiedel.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event spiedel.2"}
+ 	title = spiedel.2.t
+ 	desc = spiedel.2.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		set_country_flag = big_event_democracy_germany
+ 	}
+}
+
+## RA CONTENT ##
+## WHEN SPEIDEL COUPS SCHROENER ##
+
+#appoint protektor of polska
+country_event = {
+	id = GER_speidel_fuhrer.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer.1"}
+ 	title = GER_speidel_fuhrer.1.t
+ 	desc = GER_speidel_fuhrer.1.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = GGN
+						is_core_of = POL
+					}
+				}
+				transfer_state_to = GGN
+			}
+			set_autonomy = {
+				target = GGN
+				autonomy_state = autonomy_reichsprotektorat
+			}
+			GGN = {
+				set_popularities = {
+					despotism = 30
+					national_socialism = 30
+					fascism = 30
+					ultranational_socialism = 10
+				}
+				set_cosmetic_tag = GGN_protectorate
+				set_party_name = {
+					ideology = despotism
+					long_name = "Kommando der Wehrmacht Polen"
+					name = "KWP"
+				}
+				set_party_name = {
+					ideology = national_socialism
+					long_name = "Kommando der Wehrmacht Polen"
+					name = "KWP"
+				}
+				set_party_name = {
+					ideology = fascism
+					long_name = "Kommando der Wehrmacht Polen"
+					name = "KWP"
+				}
+				set_party_name = {
+					ideology = ultranational_socialism
+					long_name = "Kommando der Wehrmacht Polen"
+					name = "KWP"
+				}
+				add_ideas = Pakt_Protektorat
+				add_dynamic_modifier = {
+					modifier = GER_speidel_readiness
+				}
+			}
+		}
+	}
+ 	
+ 	option = { #rommel
+ 		name = GER_speidel_fuhrer.1.a
+		trigger = {
+			NOT = {
+				has_country_flag = GER_rommel_protektor_assigned
+			}
+		}
+		set_country_flag = GER_rommel_protektor_assigned
+		add_to_variable = {
+			var = GER_rommel_influence
+			value = 10
+		}
+		GGN = {
+			set_country_flag = GER_rommel_protektor
+			set_politics = {
+				ruling_party = despotism
+			}
+			add_popularity = {
+				ideology = despotism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Erwin Rommel"
+				desc = "POLITICS_ERWIN_ROMMEL_DESC"
+				picture = "Portrait_Generalgovernment_Erwin_Rommel.dds"
+				expire = "1999.10.28"
+				ideology = despotism_subtype
+				traits = { }
+			}
+		}
+ 	}
+
+	option = { #QM
+ 		name = GER_speidel_fuhrer.1.b
+		trigger = {
+			NOT = {
+				has_country_flag = GER_wagner_protektor_assigned
+			}
+		}
+		set_country_flag = GER_wagner_protektor_assigned
+		add_to_variable = {
+			var = GER_wagner_influence
+			value = 10
+		}
+		GGN = {
+			set_country_flag = GER_wagner_protektor
+			set_politics = {
+				ruling_party = national_socialism
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Eduard Wagner"
+				desc = "POLITICS_EDUARD_WAGNER_DESC"
+				picture = "Portrait_Generalgouvernment_Eduard_Wagner.dds"
+				expire = "1984.10.28"
+				ideology = national_socialism_subtype
+				traits = { eco_military_entrepreneur }
+			}
+		}
+ 	}
+
+	option = { #Schwerin
+ 		name = GER_speidel_fuhrer.1.c
+		trigger = {
+			NOT = {
+				has_country_flag = GER_schwerin_protektor_assigned
+			}
+		}
+		set_country_flag = GER_schwerin_protektor_assigned
+		add_to_variable = {
+			var = GER_schwerin_influence
+			value = 10
+		}
+		GGN = {
+			set_country_flag = GER_schwerin_protektor
+			set_politics = {
+				ruling_party = fascism
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Gerhard von Schwerin"
+				#desc = "POLITICS_Eduard_Wagner_desc"
+				picture = "Portrait_GER_Gerhard_von_Schwerin.dds"
+				expire = "1985.8.30"
+				ideology = fascism_subtype
+			}
+		}
+ 	}
+
+	option = { #Baudissin
+ 		name = GER_speidel_fuhrer.1.e
+		trigger = {
+			NOT = {
+				has_country_flag = GER_baudissin_protektor_assigned
+			}
+		}
+		set_country_flag = GER_baudissin_protektor_assigned
+		add_to_variable = {
+			var = GER_baudissin_influence
+			value = 10
+		}
+		GGN = {
+			set_country_flag = GER_baudissin_protektor
+			set_politics = {
+				ruling_party = despotism
+			}
+			add_popularity = {
+				ideology = despotism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Wolf Graf von Baudissin"
+				#desc = "POLITICS_Eduard_Wagner_desc"
+				picture = "Portrait_GER_Wolf_Graf_von_Baudissin.dds"
+				expire = "1985.8.30"
+				ideology = despotism_subtype
+			}
+		}
+ 	}
+
+	option = { #Heusinger
+ 		name = GER_speidel_fuhrer.1.f
+		trigger = {
+			NOT = {
+				has_country_flag = GER_heusinger_protektor_assigned
+			}
+		}
+		set_country_flag = GER_heusinger_protektor_assigned
+		add_to_variable = {
+			var = GER_heusinger_influence
+			value = 10
+		}
+		GGN = {
+			set_country_flag = GER_heusinger_protektor
+			set_politics = {
+				ruling_party = national_socialism
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Adolf Heusinger"
+				picture = "Portrait_GER_Adolf_Heusinger.dds"
+				expire = "1985.8.30"
+				ideology = national_socialism_subtype
+			}
+		}
+ 	}
+
+	option = { #bormann
+ 		name = GER_speidel_fuhrer.1.g
+		trigger = {
+			NOT = {
+				has_country_flag = GER_bormann_protektor_assigned
+			}
+		}
+		set_country_flag = GER_bormann_protektor_assigned
+		add_to_variable = {
+			var = GER_bormann_influence
+			value = 10
+		}
+		GGN = {
+			set_country_flag = GER_bormann_protektor
+			set_politics = {
+				ruling_party = national_socialism
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Albert Bormann"
+				desc = "POLITICS_ALBERT_BORMANN_DESC"
+				picture = "Portrait_GER_Albert_Bormann.dds"
+				expire = "1989.04.08"
+				ideology = national_socialism_subtype
+			}
+		}
+ 	}
+}
+
+
+#appoint protektor of ostland
+country_event = {
+	id = GER_speidel_fuhrer.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer.2"}
+ 	title = GER_speidel_fuhrer.2.t
+ 	desc = GER_speidel_fuhrer.2.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = OST
+						is_core_of = MST
+						is_core_of = JST
+						is_core_of = DST
+						is_core_of = UPO
+						is_core_of = BLR
+					}
+				}
+				transfer_state_to = OST
+			}
+			set_autonomy = {
+				target = OST
+				autonomy_state = autonomy_reichsprotektorat
+			}
+			OST = {
+				set_popularities = {
+					despotism = 30
+					national_socialism = 30
+					fascism = 30
+					ultranational_socialism = 10
+				}
+				set_cosmetic_tag = OST_protectorate
+				set_party_name = {
+					ideology = despotism
+					long_name = "Kommando der Wehrmacht Baltenland"
+					name = "KWB"
+				}
+				set_party_name = {
+					ideology = national_socialism
+					long_name = "Kommando der Wehrmacht Baltenland"
+					name = "KWB"
+				}
+				set_party_name = {
+					ideology = fascism
+					long_name = "Kommando der Wehrmacht Baltenland"
+					name = "KWB"
+				}
+				set_party_name = {
+					ideology = ultranational_socialism
+					long_name = "Kommando der Wehrmacht Baltenland"
+					name = "KWB"
+				}
+				add_ideas = Pakt_Protektorat
+				add_dynamic_modifier = {
+					modifier = GER_speidel_readiness
+				}
+			}
+		}
+	}
+ 	
+ 	option = { #rommel
+ 		name = GER_speidel_fuhrer.2.a
+		trigger = {
+			NOT = {
+				has_country_flag = GER_rommel_protektor_assigned
+			}
+		}
+		set_country_flag = GER_rommel_protektor_assigned
+		add_to_variable = {
+			var = GER_rommel_influence
+			value = 10
+		}
+		OST = {
+			set_country_flag = GER_rommel_protektor
+			set_politics = {
+				ruling_party = despotism
+			}
+			add_popularity = {
+				ideology = despotism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Erwin Rommel"
+				desc = "POLITICS_ERWIN_ROMMEL_DESC"
+				picture = "Portrait_Ostland_Erwin_Rommel.dds"
+				expire = "1999.10.28"
+				ideology = despotism_subtype
+				traits = { }
+			}
+		}
+ 	}
+
+	option = { #QM
+ 		name = GER_speidel_fuhrer.2.b
+		trigger = {
+			NOT = {
+				has_country_flag = GER_wagner_protektor_assigned
+			}
+		}
+		set_country_flag = GER_wagner_protektor_assigned
+		add_to_variable = {
+			var = GER_wagner_influence
+			value = 10
+		}
+		OST = {
+			set_country_flag = GER_wagner_protektor
+			set_politics = {
+				ruling_party = national_socialism
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Eduard Wagner"
+				desc = "POLITICS_EDUARD_WAGNER_DESC"
+				picture = "Portrait_Ostland_Eduard_Wagner.dds"
+				expire = "1984.10.28"
+				ideology = national_socialism_subtype
+				traits = { eco_military_entrepreneur }
+			}
+		}
+ 	}
+
+	option = { #Schwerin
+ 		name = GER_speidel_fuhrer.2.c
+		trigger = {
+			NOT = {
+				has_country_flag = GER_schwerin_protektor_assigned
+			}
+		}
+		set_country_flag = GER_schwerin_protektor_assigned
+		add_to_variable = {
+			var = GER_schwerin_influence
+			value = 10
+		}
+		OST = {
+			set_country_flag = GER_schwerin_protektor
+			set_politics = {
+				ruling_party = fascism
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Gerhard von Schwerin"
+				#desc = "POLITICS_Eduard_Wagner_desc"
+				picture = "Portrait_GER_Gerhard_von_Schwerin.dds"
+				expire = "1985.8.30"
+				ideology = fascism_subtype
+			}
+		}
+ 	}
+
+	option = { #Baudissin
+ 		name = GER_speidel_fuhrer.2.e
+		trigger = {
+			NOT = {
+				has_country_flag = GER_baudissin_protektor_assigned
+			}
+		}
+		set_country_flag = GER_baudissin_protektor_assigned
+		add_to_variable = {
+			var = GER_baudissin_influence
+			value = 10
+		}
+		OST = {
+			set_country_flag = GER_baudissin_protektor
+			set_politics = {
+				ruling_party = despotism
+			}
+			add_popularity = {
+				ideology = despotism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Wolf Graf von Baudissin"
+				#desc = "POLITICS_Eduard_Wagner_desc"
+				picture = "Portrait_GER_Wolf_Graf_von_Baudissin.dds"
+				expire = "1985.8.30"
+				ideology = despotism_subtype
+			}
+		}
+ 	}
+
+	option = { #Heusinger
+ 		name = GER_speidel_fuhrer.2.f
+		trigger = {
+			NOT = {
+				has_country_flag = GER_heusinger_protektor_assigned
+			}
+		}
+		set_country_flag = GER_heusinger_protektor_assigned
+		add_to_variable = {
+			var = GER_heusinger_influence
+			value = 10
+		}
+		OST = {
+			set_country_flag = GER_heusinger_protektor
+			set_politics = {
+				ruling_party = national_socialism
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Adolf Heusinger"
+				picture = "Portrait_GER_Adolf_Heusinger.dds"
+				expire = "1985.8.30"
+				ideology = national_socialism_subtype
+			}
+		}
+ 	}
+
+	option = { #bormann
+ 		name = GER_speidel_fuhrer.2.g
+		trigger = {
+			NOT = {
+				has_country_flag = GER_bormann_protektor_assigned
+			}
+		}
+		set_country_flag = GER_bormann_protektor_assigned
+		add_to_variable = {
+			var = GER_bormann_influence
+			value = 10
+		}
+		OST = {
+			set_country_flag = GER_bormann_protektor
+			set_politics = {
+				ruling_party = national_socialism
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Albert Bormann"
+				desc = "POLITICS_ALBERT_BORMANN_DESC"
+				picture = "Portrait_GER_Albert_Bormann.dds"
+				expire = "1989.04.08"
+				ideology = national_socialism_subtype
+			}
+		}
+ 	}
+}
+
+#appoint protektor of ukraine
+country_event = {
+	id = GER_speidel_fuhrer.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer.3"}
+ 	title = GER_speidel_fuhrer.3.t
+ 	desc = GER_speidel_fuhrer.3.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = UKR
+					}
+					NOT = {
+						OR = {
+							is_core_of = CRI
+							is_core_of = POL
+							is_core_of = GGN
+						}
+					}
+				}
+				transfer_state_to = UKR
+			}
+			set_autonomy = {
+				target = UKR
+				autonomy_state = autonomy_reichsprotektorat
+			}
+			UKR = {
+				set_popularities = {
+					despotism = 30
+					national_socialism = 30
+					fascism = 30
+					ultranational_socialism = 10
+				}
+				set_cosmetic_tag = UKR_protectorate
+				set_party_name = {
+					ideology = despotism
+					long_name = "Kommando der Wehrmacht Ukraine"
+					name = "KWU"
+				}
+				set_party_name = {
+					ideology = national_socialism
+					long_name = "Kommando der Wehrmacht Ukraine"
+					name = "KWU"
+				}
+				set_party_name = {
+					ideology = fascism
+					long_name = "Kommando der Wehrmacht Ukraine"
+					name = "KWU"
+				}
+				set_party_name = {
+					ideology = ultranational_socialism
+					long_name = "Kommando der Wehrmacht Ukraine"
+					name = "KWU"
+				}
+				add_ideas = Pakt_Protektorat
+				add_dynamic_modifier = {
+					modifier = GER_speidel_readiness
+				}
+			}
+		}
+	}
+ 	
+ 	option = { #rommel
+ 		name = GER_speidel_fuhrer.3.a
+		trigger = {
+			NOT = {
+				has_country_flag = GER_rommel_protektor_assigned
+			}
+		}
+		set_country_flag = GER_rommel_protektor_assigned
+		add_to_variable = {
+			var = GER_rommel_influence
+			value = 10
+		}
+		UKR = {
+			set_country_flag = GER_rommel_protektor
+			set_politics = {
+				ruling_party = despotism
+			}
+			add_popularity = {
+				ideology = despotism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Erwin Rommel"
+				desc = "POLITICS_ERWIN_ROMMEL_DESC"
+				picture = "Portrait_Ukraine_Erwin_Rommel.dds"
+				expire = "1999.10.28"
+				ideology = despotism_subtype
+				traits = { }
+			}
+		}
+ 	}
+
+	option = { #QM
+ 		name = GER_speidel_fuhrer.3.b
+		trigger = {
+			NOT = {
+				has_country_flag = GER_wagner_protektor_assigned
+			}
+		}
+		set_country_flag = GER_wagner_protektor_assigned
+		add_to_variable = {
+			var = GER_wagner_influence
+			value = 10
+		}
+		UKR = {
+			set_country_flag = GER_wagner_protektor
+			set_politics = {
+				ruling_party = national_socialism
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Eduard Wagner"
+				desc = "POLITICS_EDUARD_WAGNER_DESC"
+				picture = "Portrait_Generalgouvernment_Eduard_Wagner.dds"
+				expire = "1984.10.28"
+				ideology = national_socialism_subtype
+				traits = { eco_military_entrepreneur }
+			}
+		}
+ 	}
+
+	option = { #Schwerin
+ 		name = GER_speidel_fuhrer.3.c
+		trigger = {
+			NOT = {
+				has_country_flag = GER_schwerin_protektor_assigned
+			}
+		}
+		set_country_flag = GER_schwerin_protektor_assigned
+		add_to_variable = {
+			var = GER_schwerin_influence
+			value = 10
+		}
+		UKR = {
+			set_country_flag = GER_schwerin_protektor
+			set_politics = {
+				ruling_party = fascism
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Gerhard von Schwerin"
+				#desc = "POLITICS_Eduard_Wagner_desc"
+				picture = "Portrait_GER_Gerhard_von_Schwerin.dds"
+				expire = "1985.8.30"
+				ideology = fascism_subtype
+			}
+		}
+ 	}
+
+	option = { #Baudissin
+ 		name = GER_speidel_fuhrer.3.e
+		trigger = {
+			NOT = {
+				has_country_flag = GER_baudissin_protektor_assigned
+			}
+		}
+		set_country_flag = GER_baudissin_protektor_assigned
+		add_to_variable = {
+			var = GER_baudissin_influence
+			value = 10
+		}
+		UKR = {
+			set_country_flag = GER_baudissin_protektor
+			set_politics = {
+				ruling_party = despotism
+			}
+			add_popularity = {
+				ideology = despotism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Wolf Graf von Baudissin"
+				#desc = "POLITICS_Eduard_Wagner_desc"
+				picture = "Portrait_GER_Wolf_Graf_von_Baudissin.dds"
+				expire = "1985.8.30"
+				ideology = despotism_subtype
+			}
+		}
+ 	}
+
+	option = { #Heusinger
+ 		name = GER_speidel_fuhrer.3.f
+		trigger = {
+			NOT = {
+				has_country_flag = GER_heusinger_protektor_assigned
+			}
+		}
+		set_country_flag = GER_heusinger_protektor_assigned
+		add_to_variable = {
+			var = GER_heusinger_influence
+			value = 10
+		}
+		UKR = {
+			set_country_flag = GER_heusinger_protektor
+			set_politics = {
+				ruling_party = national_socialism
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Adolf Heusinger"
+				picture = "Portrait_GER_Adolf_Heusinger.dds"
+				expire = "1985.8.30"
+				ideology = national_socialism_subtype
+			}
+		}
+ 	}
+
+	option = { #bormann
+ 		name = GER_speidel_fuhrer.3.g
+		trigger = {
+			NOT = {
+				has_country_flag = GER_bormann_protektor_assigned
+			}
+		}
+		set_country_flag = GER_bormann_protektor_assigned
+		add_to_variable = {
+			var = GER_bormann_influence
+			value = 10
+		}
+		UKR = {
+			set_country_flag = GER_bormann_protektor
+			set_politics = {
+				ruling_party = national_socialism
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Albert Bormann"
+				desc = "POLITICS_ALBERT_BORMANN_DESC"
+				picture = "Portrait_GER_Albert_Bormann.dds"
+				expire = "1989.04.08"
+				ideology = national_socialism_subtype
+			}
+		}
+ 	}
+}
+
+
+#appoint protektor of kaukasia
+country_event = {
+	id = GER_speidel_fuhrer.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer.4"}
+ 	title = GER_speidel_fuhrer.4.t
+ 	desc = GER_speidel_fuhrer.4.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = CAU
+					}
+					NOT = {
+						OR = {
+							is_owned_by = TUR
+						}
+					}
+				}
+				transfer_state_to = CAU
+			}
+			set_autonomy = {
+				target = CAU
+				autonomy_state = autonomy_reichsprotektorat
+			}
+			CAU = {
+				set_popularities = {
+					despotism = 30
+					national_socialism = 30
+					fascism = 30
+					ultranational_socialism = 10
+				}
+				set_cosmetic_tag = CAU_protectorate
+				set_party_name = {
+					ideology = despotism
+					long_name = "Kommando der Wehrmacht Kaukasia"
+					name = "KWK"
+				}
+				set_party_name = {
+					ideology = national_socialism
+					long_name = "Kommando der Wehrmacht Kaukasia"
+					name = "KWK"
+				}
+				set_party_name = {
+					ideology = fascism
+					long_name = "Kommando der Wehrmacht Kaukasia"
+					name = "KWK"
+				}
+				set_party_name = {
+					ideology = ultranational_socialism
+					long_name = "Kommando der Wehrmacht Kaukasia"
+					name = "KWK"
+				}
+				add_ideas = Pakt_Protektorat
+				add_dynamic_modifier = {
+					modifier = GER_speidel_readiness
+				}
+			}
+		}
+	}
+ 	
+ 	option = { #rommel
+ 		name = GER_speidel_fuhrer.4.a
+		trigger = {
+			NOT = {
+				has_country_flag = GER_rommel_protektor_assigned
+			}
+		}
+		set_country_flag = GER_rommel_protektor_assigned
+		add_to_variable = {
+			var = GER_rommel_influence
+			value = 10
+		}
+		CAU = {
+			set_country_flag = GER_rommel_protektor
+			set_politics = {
+				ruling_party = despotism
+			}
+			add_popularity = {
+				ideology = despotism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Erwin Rommel"
+				desc = "POLITICS_ERWIN_ROMMEL_DESC"
+				picture = "Portrait_Caucasus_Erwin_Rommel.dds"
+				expire = "1999.10.28"
+				ideology = despotism_subtype
+				traits = { }
+			}
+		}
+ 	}
+
+	option = { #QM
+ 		name = GER_speidel_fuhrer.4.b
+		trigger = {
+			NOT = {
+				has_country_flag = GER_wagner_protektor_assigned
+			}
+		}
+		set_country_flag = GER_wagner_protektor_assigned
+		add_to_variable = {
+			var = GER_wagner_influence
+			value = 10
+		}
+		CAU = {
+			set_country_flag = GER_wagner_protektor
+			set_politics = {
+				ruling_party = national_socialism
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Eduard Wagner"
+				desc = "POLITICS_EDUARD_WAGNER_DESC"
+				picture = "Portrait_Generalgouvernment_Eduard_Wagner.dds"
+				expire = "1984.10.28"
+				ideology = national_socialism_subtype
+				traits = { eco_military_entrepreneur }
+			}
+		}
+ 	}
+
+	option = { #Schwerin
+ 		name = GER_speidel_fuhrer.4.c
+		trigger = {
+			NOT = {
+				has_country_flag = GER_schwerin_protektor_assigned
+			}
+		}
+		set_country_flag = GER_schwerin_protektor_assigned
+		add_to_variable = {
+			var = GER_schwerin_influence
+			value = 10
+		}
+		CAU = {
+			set_country_flag = GER_schwerin_protektor
+			set_politics = {
+				ruling_party = fascism
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Gerhard von Schwerin"
+				#desc = "POLITICS_Eduard_Wagner_desc"
+				picture = "Portrait_GER_Gerhard_von_Schwerin.dds"
+				expire = "1985.8.30"
+				ideology = fascism_subtype
+			}
+		}
+ 	}
+
+	option = { #Baudissin
+ 		name = GER_speidel_fuhrer.4.e
+		trigger = {
+			NOT = {
+				has_country_flag = GER_baudissin_protektor_assigned
+			}
+		}
+		set_country_flag = GER_baudissin_protektor_assigned
+		add_to_variable = {
+			var = GER_baudissin_influence
+			value = 10
+		}
+		CAU = {
+			set_country_flag = GER_baudissin_protektor
+			set_politics = {
+				ruling_party = despotism
+			}
+			add_popularity = {
+				ideology = despotism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Wolf Graf von Baudissin"
+				#desc = "POLITICS_Eduard_Wagner_desc"
+				picture = "Portrait_GER_Wolf_Graf_von_Baudissin.dds"
+				expire = "1985.8.30"
+				ideology = despotism_subtype
+			}
+		}
+ 	}
+
+	option = { #Heusinger
+ 		name = GER_speidel_fuhrer.4.f
+		trigger = {
+			NOT = {
+				has_country_flag = GER_heusinger_protektor_assigned
+			}
+		}
+		set_country_flag = GER_heusinger_protektor_assigned
+		add_to_variable = {
+			var = GER_heusinger_influence
+			value = 10
+		}
+		CAU = {
+			set_country_flag = GER_heusinger_protektor
+			set_politics = {
+				ruling_party = national_socialism
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Adolf Heusinger"
+				picture = "Portrait_GER_Adolf_Heusinger.dds"
+				expire = "1985.8.30"
+				ideology = national_socialism_subtype
+			}
+		}
+ 	}
+
+	option = { #bormann
+ 		name = GER_speidel_fuhrer.4.g
+		trigger = {
+			NOT = {
+				has_country_flag = GER_bormann_protektor_assigned
+			}
+		}
+		set_country_flag = GER_bormann_protektor_assigned
+		add_to_variable = {
+			var = GER_bormann_influence
+			value = 10
+		}
+		CAU = {
+			set_country_flag = GER_bormann_protektor
+			set_politics = {
+				ruling_party = national_socialism
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Albert Bormann"
+				desc = "POLITICS_ALBERT_BORMANN_DESC"
+				picture = "Portrait_GER_Albert_Bormann.dds"
+				expire = "1989.04.08"
+				ideology = national_socialism_subtype
+			}
+		}
+ 	}
+}
+
+#appoint protektor of muscowien
+country_event = {
+	id = GER_speidel_fuhrer.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer.5"}
+ 	title = GER_speidel_fuhrer.5.t
+ 	desc = GER_speidel_fuhrer.5.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = MCW
+						is_core_of = MOS
+					}
+				}
+				transfer_state_to = MCW
+			}
+			set_autonomy = {
+				target = MCW
+				autonomy_state = autonomy_reichsprotektorat
+			}
+			MCW = {
+				set_popularities = {
+					despotism = 30
+					national_socialism = 30
+					fascism = 30
+					ultranational_socialism = 10
+				}
+				set_cosmetic_tag = MCW_protectorate
+				set_party_name = {
+					ideology = despotism
+					long_name = "Kommando der Wehrmacht Muscowien"
+					name = "KWM"
+				}
+				set_party_name = {
+					ideology = national_socialism
+					long_name = "Kommando der Wehrmacht Muscowien"
+					name = "KWM"
+				}
+				set_party_name = {
+					ideology = fascism
+					long_name = "Kommando der Wehrmacht Muscowien"
+					name = "KWM"
+				}
+				set_party_name = {
+					ideology = ultranational_socialism
+					long_name = "Kommando der Wehrmacht Muscowien"
+					name = "KWM"
+				}
+				add_ideas = Pakt_Protektorat
+				add_dynamic_modifier = {
+					modifier = GER_speidel_readiness
+				}
+			}
+		}
+	}
+ 	
+ 	option = { #rommel
+ 		name = GER_speidel_fuhrer.5.a
+		trigger = {
+			NOT = {
+				has_country_flag = GER_rommel_protektor_assigned
+			}
+		}
+		set_country_flag = GER_rommel_protektor_assigned
+		add_to_variable = {
+			var = GER_rommel_influence
+			value = 10
+		}
+		MCW = {
+			set_country_flag = GER_rommel_protektor
+			set_politics = {
+				ruling_party = despotism
+			}
+			add_popularity = {
+				ideology = despotism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Erwin Rommel"
+				desc = "POLITICS_ERWIN_ROMMEL_DESC"
+				picture = "Portrait_Muskowien_Erwin_Rommel.dds"
+				expire = "1999.10.28"
+				ideology = despotism_subtype
+				traits = { }
+			}
+		}
+ 	}
+
+	option = { #QM
+ 		name = GER_speidel_fuhrer.5.b
+		trigger = {
+			NOT = {
+				has_country_flag = GER_wagner_protektor_assigned
+			}
+		}
+		set_country_flag = GER_wagner_protektor_assigned
+		add_to_variable = {
+			var = GER_wagner_influence
+			value = 10
+		}
+		MCW = {
+			set_country_flag = GER_wagner_protektor
+			set_politics = {
+				ruling_party = national_socialism
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Eduard Wagner"
+				desc = "POLITICS_EDUARD_WAGNER_DESC"
+				picture = "Portrait_Generalgouvernment_Eduard_Wagner.dds"
+				expire = "1984.10.28"
+				ideology = national_socialism_subtype
+				traits = { eco_military_entrepreneur }
+			}
+		}
+ 	}
+
+	option = { #Schwerin
+ 		name = GER_speidel_fuhrer.5.c
+		trigger = {
+			NOT = {
+				has_country_flag = GER_schwerin_protektor_assigned
+			}
+		}
+		set_country_flag = GER_schwerin_protektor_assigned
+		add_to_variable = {
+			var = GER_schwerin_influence
+			value = 10
+		}
+		MCW = {
+			set_country_flag = GER_schwerin_protektor
+			set_politics = {
+				ruling_party = fascism
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Gerhard von Schwerin"
+				#desc = "POLITICS_Eduard_Wagner_desc"
+				picture = "Portrait_GER_Gerhard_von_Schwerin.dds"
+				expire = "1985.8.30"
+				ideology = fascism_subtype
+			}
+		}
+ 	}
+
+	option = { #Baudissin
+ 		name = GER_speidel_fuhrer.5.e
+		trigger = {
+			NOT = {
+				has_country_flag = GER_baudissin_protektor_assigned
+			}
+		}
+		set_country_flag = GER_baudissin_protektor_assigned
+		add_to_variable = {
+			var = GER_baudissin_influence
+			value = 10
+		}
+		MCW = {
+			set_country_flag = GER_baudissin_protektor
+			set_politics = {
+				ruling_party = despotism
+			}
+			add_popularity = {
+				ideology = despotism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Wolf Graf von Baudissin"
+				#desc = "POLITICS_Eduard_Wagner_desc"
+				picture = "Portrait_GER_Wolf_Graf_von_Baudissin.dds"
+				expire = "1985.8.30"
+				ideology = despotism_subtype
+			}
+		}
+ 	}
+
+	option = { #Heusinger
+ 		name = GER_speidel_fuhrer.5.f
+		trigger = {
+			NOT = {
+				has_country_flag = GER_heusinger_protektor_assigned
+			}
+		}
+		set_country_flag = GER_heusinger_protektor_assigned
+		add_to_variable = {
+			var = GER_heusinger_influence
+			value = 10
+		}
+		MCW = {
+			set_country_flag = GER_heusinger_protektor
+			set_politics = {
+				ruling_party = national_socialism
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Adolf Heusinger"
+				picture = "Portrait_GER_Adolf_Heusinger.dds"
+				expire = "1985.8.30"
+				ideology = national_socialism_subtype
+			}
+		}
+ 	}
+
+	option = { #bormann
+ 		name = GER_speidel_fuhrer.5.g
+		trigger = {
+			NOT = {
+				has_country_flag = GER_bormann_protektor_assigned
+			}
+		}
+		set_country_flag = GER_bormann_protektor_assigned
+		add_to_variable = {
+			var = GER_bormann_influence
+			value = 10
+		}
+		MCW = {
+			set_country_flag = GER_bormann_protektor
+			set_politics = {
+				ruling_party = national_socialism
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = 0.1
+			}
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Albert Bormann"
+				desc = "POLITICS_ALBERT_BORMANN_DESC"
+				picture = "Portrait_GER_Albert_Bormann.dds"
+				expire = "1989.04.08"
+				ideology = national_socialism_subtype
+			}
+		}
+ 	}
+}
+
+#who gets crimea
+country_event = {
+	id = GER_speidel_fuhrer.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer.6"}
+ 	title = GER_speidel_fuhrer.6.t
+ 	desc = GER_speidel_fuhrer.6.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer.6.a
+		UKR = {
+			annex_country = {
+				target = CRI
+				transfer_troops = yes
+			}
+			#add influence to protektor
+			GER_add_5_influence_points_to_protektor = yes
+		}
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer.6.b
+		CAU = {
+			annex_country = {
+				target = CRI
+				transfer_troops = yes
+			}
+			#add influence to protektor
+			GER_add_5_influence_points_to_protektor = yes
+		}
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer.6.c
+		GER = {
+			annex_country = {
+				target = CRI
+				transfer_troops = yes
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_readiness_change
+				READINESS_VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+3"
+				}
+			}
+			add_to_variable = { global.GER_readiness = 3 }
+		}
+ 	}
+}
+
+	
+#what base
+country_event = {
+	id = GER_speidel_fuhrer.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer.7"}
+ 	title = GER_speidel_fuhrer.7.t
+ 	desc = GER_speidel_fuhrer.7.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer.7.a
+		set_country_flag = GER_wilhelmshaven_port
+
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer.7.b
+		set_country_flag = GER_hamburg_port
+		
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer.7.c
+		set_country_flag = GER_konigsberg_port
+		
+ 	}
+}
+
+#slavery improve
+country_event = {
+	id = GER_speidel_fuhrer.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer.8"}
+ 	title = GER_speidel_fuhrer.8.t
+ 	desc = GER_speidel_fuhrer.8.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer.8.a
+		tno_slavery_improve = yes
+		hidden_effect = {
+			country_event = {
+				id = GER_speidel_fuhrer.9
+				days = 1095
+				random_days = 20
+			}
+		}
+ 	}
+}
+
+#slavery improve more
+country_event = {
+	id = GER_speidel_fuhrer.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer.9"}
+ 	title = GER_speidel_fuhrer.9.t
+ 	desc = GER_speidel_fuhrer.9.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer.9.a
+		tno_slavery_improve = yes
+		
+ 	}
+}
+
+#speidel realizes that his allies are plotting their own agendas
+country_event = {
+	id = GER_speidel_fuhrer_pol.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.1"}
+ 	title = GER_speidel_fuhrer_pol.1.t
+ 	desc = GER_speidel_fuhrer_pol.1.d
+ 	picture = GFX_report_event_german_Army2
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.1.a
+		set_country_flag = GER_speidel_political_trouble
+		mark_focus_tree_layout_dirty = yes
+		custom_effect_tooltip = "New Focuses Will Appear"
+ 	}
+}
+
+#speidel calls rommel
+country_event = {
+	id = GER_speidel_fuhrer_pol.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.2"}
+ 	title = GER_speidel_fuhrer_pol.2.t
+ 	desc = GER_speidel_fuhrer_pol.2.d
+ 	picture = GFX_report_event_german_Army
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.2.a
+		#rommel influence
+		add_to_variable = {
+			var = GER_rommel_influence
+			value = 8
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "8"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_rommel
+			}
+		}
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer_pol.2.b
+		#readiness
+		custom_effect_tooltip = {
+			localization_key = GER_readiness_change
+			READINESS_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+3"
+			}
+		}
+		add_to_variable = { global.GER_readiness = 3 }
+ 	}
+}
+
+#Wagner decides if he wants to divert resources for his own agenda or not
+country_event = {
+	id = GER_speidel_fuhrer_pol.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.3"}
+ 	title = GER_speidel_fuhrer_pol.3.t
+ 	desc = GER_speidel_fuhrer_pol.3.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.3.a
+		#wagner influence
+		add_to_variable = {
+			var = GER_wagner_influence
+			value = 8
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "8"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_wagner
+			}
+		}
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer_pol.3.b
+		#readiness
+		custom_effect_tooltip = {
+			localization_key = GER_readiness_change
+			READINESS_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+3"
+			}
+		}
+		add_to_variable = { global.GER_readiness = 3 }
+ 	}
+}
+
+#Schwerin goes out on manuevers
+country_event = {
+	id = GER_speidel_fuhrer_pol.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.4"}
+ 	title = GER_speidel_fuhrer_pol.4.t
+ 	desc = GER_speidel_fuhrer_pol.4.d
+ 	picture = GFX_report_event_MAD_phone_call
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.4.a
+		#Schwerin influence
+		add_to_variable = {
+			var = GER_schwerin_influence
+			value = 8
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "8"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_schwerin
+			}
+		}
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer_pol.4.b
+		#readiness
+		custom_effect_tooltip = {
+			localization_key = GER_readiness_change
+			READINESS_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+3"
+			}
+		}
+		add_to_variable = { global.GER_readiness = 3 }
+ 	}
+}
+
+#Baudissin works at the office
+country_event = {
+	id = GER_speidel_fuhrer_pol.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.5"}
+ 	title = GER_speidel_fuhrer_pol.5.t
+ 	desc = GER_speidel_fuhrer_pol.5.d
+ 	picture = GFX_report_event_german_radio_espionage
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.5.a
+		#Baudissin influence
+		add_to_variable = {
+			var = GER_baudissin_influence
+			value = 8
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "8"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_baudissin
+			}
+		}
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer_pol.5.b
+		#readiness
+		custom_effect_tooltip = {
+			localization_key = GER_readiness_change
+			READINESS_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+3"
+			}
+		}
+		add_to_variable = { global.GER_readiness = 3 }
+ 	}
+}
+
+#Heusinger meets with speidel
+country_event = {
+	id = GER_speidel_fuhrer_pol.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.6"}
+ 	title = GER_speidel_fuhrer_pol.6.t
+ 	desc = GER_speidel_fuhrer_pol.6.d
+ 	picture = GFX_report_event_reichstag
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.6.a
+		#Heusinger influence
+		add_to_variable = {
+			var = GER_heusinger_influence
+			value = 8
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "8"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_heusinger
+			}
+		}
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer_pol.6.b
+		#readiness
+		custom_effect_tooltip = {
+			localization_key = GER_readiness_change
+			READINESS_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+3"
+			}
+		}
+		add_to_variable = { global.GER_readiness = 3 }
+ 	}
+}
+
+#Albert Bormann plots
+country_event = {
+	id = GER_speidel_fuhrer_pol.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.7"}
+ 	title = GER_speidel_fuhrer_pol.7.t
+ 	desc = GER_speidel_fuhrer_pol.7.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.7.a
+		#Bormann influence
+		add_to_variable = {
+			var = GER_bormann_influence
+			value = 6
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "6"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_bormann
+			}
+		}
+ 	}
+}
+
+#Speidel finds out who wants who as a fuhrer
+country_event = {
+	id = GER_speidel_fuhrer_pol.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.8"}
+ 	title = GER_speidel_fuhrer_pol.8.t
+ 	desc = GER_speidel_fuhrer_pol.8.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.8.a
+		mark_focus_tree_layout_dirty = yes
+		custom_effect_tooltip = "New Focuses Will Appear"
+ 	}
+}
+
+#where should the meeting be held
+country_event = {
+	id = GER_speidel_fuhrer_pol.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.9"}
+ 	title = GER_speidel_fuhrer_pol.9.t
+ 	desc = GER_speidel_fuhrer_pol.9.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.9.a
+		#germania
+		custom_effect_tooltip = {
+			localization_key = GER_readiness_change
+			READINESS_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+2"
+			}
+		}
+		add_to_variable = { global.GER_readiness = 2 }
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer_pol.9.b
+		#moscow
+		MCW = {
+			GER_add_5_influence_points_to_protektor = yes
+		}
+ 	}
+
+}
+
+#should it be publicized
+country_event = {
+	id = GER_speidel_fuhrer_pol.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.10"}
+ 	title = GER_speidel_fuhrer_pol.10.t
+ 	desc = GER_speidel_fuhrer_pol.10.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.10.a
+		#yes
+		#influence to heusinger and bormann
+		add_to_variable = {
+			var = GER_heusinger_influence
+			value = 4
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "4"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_heusinger
+			}
+		}
+		add_to_variable = {
+			var = GER_bormann_influence
+			value = 4
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "4"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_bormann
+			}
+		}
+		add_to_variable = {
+			var = GER_rommel_influence
+			value = 4
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "4"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_rommel
+			}
+		}
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer_pol.10.b
+		#no
+		#influence to the rest
+		add_to_variable = {
+			var = GER_wagner_influence
+			value = 2
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "2"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_wagner
+			}
+		}
+		add_to_variable = {
+			var = GER_baudissin_influence
+			value = 2
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "2"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_baudissin
+			}
+		}
+		add_to_variable = {
+			var = GER_schwerin_influence
+			value = 2
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "2"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_schwerin
+			}
+		}
+ 	}
+}
+
+#last minute changes influence
+country_event = {
+	id = GER_speidel_fuhrer_pol.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.11"}
+ 	title = GER_speidel_fuhrer_pol.11.t
+ 	desc = GER_speidel_fuhrer_pol.11.d
+ 	picture = GFX_report_event_german_speech
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.11.a
+		trigger = {
+			has_country_flag = GER_rommel_protektor_assigned
+		}
+		add_to_variable = {
+			var = GER_rommel_influence
+			value = 5
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "5"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_rommel
+			}
+		}
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer_pol.11.b
+		trigger = {
+			has_country_flag = GER_wagner_protektor_assigned
+		}
+		add_to_variable = {
+			var = GER_wagner_influence
+			value = 5
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "5"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_wagner
+			}
+		}
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer_pol.11.c
+		trigger = {
+			has_country_flag = GER_schwerin_protektor_assigned
+		}
+		add_to_variable = {
+			var = GER_schwerin_influence
+			value = 5
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "5"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_schwerin
+			}
+		}
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer_pol.11.e
+		trigger = {
+			has_country_flag = GER_baudissin_protektor_assigned
+		}
+		add_to_variable = {
+			var = GER_baudissin_influence
+			value = 5
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "5"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_baudissin
+			}
+		}
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer_pol.11.f
+		trigger = {
+			has_country_flag = GER_heusinger_protektor_assigned
+		}
+		add_to_variable = {
+			var = GER_heusinger_influence
+			value = 5
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "5"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_heusinger
+			}
+		}
+ 	}
+
+	option = {
+ 		name = GER_speidel_fuhrer_pol.11.g
+		trigger = {
+			has_country_flag = GER_bormann_protektor_assigned
+		}
+		add_to_variable = {
+			var = GER_bormann_influence
+			value = 5
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_protektor_influence_gain
+			INFLUENCE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "5"
+			}
+			PROTEKTOR = {
+				localization_key = GER_protektor_bormann
+			}
+		}
+ 	}
+}
+
+#rommel wins and speidel remains
+country_event = {
+	id = GER_speidel_fuhrer_pol.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.12"}
+ 	title = GER_speidel_fuhrer_pol.12.t
+ 	desc = GER_speidel_fuhrer_pol.12.d
+ 	picture = GFX_report_event_german_officer
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.12.a
+		add_political_power = 100
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.1
+		}
+		hidden_effect = {
+			every_country = {
+				news_event = {
+					id = RA_GLOBAL_NEWS.24
+					days = 4
+				}
+			}
+		}
+ 	}
+}
+
+#wagner wins and Claus von Stauffenberg becomes fuhrer
+country_event = {
+	id = GER_speidel_fuhrer_pol.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.13"}
+ 	title = GER_speidel_fuhrer_pol.13.t
+ 	desc = GER_speidel_fuhrer_pol.13.d
+ 	picture = GFX_report_event_iberia_catholic_bible
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.13.a
+		
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.1
+		}
+		
+		retire_country_leader = yes
+
+		create_country_leader = {
+			name = "Claus von Stauffenberg"
+			desc = "POLITICS_CLAUS_VON_STAUFFENBERG_DESC"
+			picture = "Portrait_Germany_Claus_von_Stauffenberg.dds"
+			expire = "1999.10.28"
+			ideology = fascism_subtype
+			traits = { 
+				blood_of_the_reichsritter
+			}
+		}
+
+		hidden_effect = {
+			every_country = {
+				news_event = {
+					id = RA_GLOBAL_NEWS.25
+					days = 4
+				}
+			}
+		}
+ 	}
+}
+
+#schwerin wins and Hans-Ulrich Rudel becomes fuhrer
+country_event = {
+	id = GER_speidel_fuhrer_pol.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.14"}
+ 	title = GER_speidel_fuhrer_pol.14.t
+ 	desc = GER_speidel_fuhrer_pol.14.d
+ 	picture = GFX_report_event_german_arms
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.14.a
+		
+		add_popularity = {
+			ideology = national_socialism
+			popularity = 0.35
+		}
+		set_politics = {
+			ruling_party = national_socialism
+			elections_allowed = no
+		}
+		
+		retire_country_leader = yes
+
+		create_country_leader = {
+			name = "Hans-Ulrich Rudel"
+			desc = "POLITICS_HANS_ULRICH_RUDEL_DESC"
+			picture = "Portrait_Sudwestafrika_Hans_Ulrich_Rudel.dds"
+			expire = "1999.10.28"
+			ideology = national_socialism_subtype
+			traits = { 
+				unwavering_dedication
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				news_event = {
+					id = RA_GLOBAL_NEWS.26
+					days = 4
+				}
+			}
+		}
+ 	}
+}
+
+#bauddisin wins and Horst Mahler becomes fuhrer
+country_event = {
+	id = GER_speidel_fuhrer_pol.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.15"}
+ 	title = GER_speidel_fuhrer_pol.15.t
+ 	desc = GER_speidel_fuhrer_pol.15.d
+ 	picture = GFX_report_event_german_unemployment
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.15.a
+		#strasser time
+		
+		add_popularity = {
+			ideology = national_socialism
+			popularity = 0.35
+		}
+		set_politics = {
+			ruling_party = national_socialism
+			elections_allowed = no
+		}
+		
+		retire_country_leader = yes
+
+		create_country_leader = {
+			name = "Horst Mahler"
+			desc = "POLITICS_HORST_MAHLER_DESC"
+			picture = "Portrait_DSR_Horst_Mahler.dds"
+			expire = "1999.10.28"
+			ideology = national_socialism_subtype
+			traits = { 
+				heir_of_the_brave_revolution
+			}
+		}
+		hidden_effect = {
+			every_country = {
+				news_event = {
+					id = RA_GLOBAL_NEWS.27
+					days = 4
+				}
+			}
+		}
+ 	}
+}
+
+#heusinger wins and Alfred Rosenberg becomes fuhrer
+country_event = {
+	id = GER_speidel_fuhrer_pol.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.16"}
+ 	title = GER_speidel_fuhrer_pol.16.t
+ 	desc = GER_speidel_fuhrer_pol.16.d
+ 	picture = GFX_report_event_cossacks
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.16.a
+		
+		add_popularity = {
+			ideology = national_socialism
+			popularity = 0.35
+		}
+		set_politics = {
+			ruling_party = national_socialism
+			elections_allowed = no
+		}
+		
+		retire_country_leader = yes
+
+		create_country_leader = {
+			name = "Alfred Rosenberg"
+			desc = "POLITICS_ALFRED_ROSENBERG_DESC"
+			picture = "Portrait_UKR_Alfred_Rosenberg.dds"
+			expire = "1999.10.28"
+			ideology = national_socialism_subtype
+			traits = { 
+				fuhrer_of_the_east
+			}
+		}
+
+		hidden_effect = {
+			every_country = {
+				news_event = {
+					id = RA_GLOBAL_NEWS.28
+					days = 4
+				}
+			}
+		}
+ 	}
+}
+
+#Bormann wins and Albert Bormann becomes fuhrer
+country_event = {
+	id = GER_speidel_fuhrer_pol.17
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_speidel_fuhrer_pol.17"}
+ 	title = GER_speidel_fuhrer_pol.17.t
+ 	desc = GER_speidel_fuhrer_pol.17.d
+ 	picture = GFX_report_event_german_march
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = {
+ 		name = GER_speidel_fuhrer_pol.17.a
+		
+		add_popularity = {
+			ideology = national_socialism
+			popularity = 0.35
+		}
+		set_politics = {
+			ruling_party = national_socialism
+			elections_allowed = no
+		}
+		
+		retire_country_leader = yes
+
+		create_country_leader = {
+			name = "Albert Bormann"
+			desc = "POLITICS_ALBERT_BORMANN_DESC_2"
+			picture = "Portrait_GER_Albert_Bormann.dds"
+			expire = "1999.10.28"
+			ideology = national_socialism_subtype
+			traits = { 
+				the_man_who_held_hitlers_coat
+			}
+		}
+
+		hidden_effect = {
+			every_country = {
+				news_event = {
+					id = RA_GLOBAL_NEWS.29
+					days = 4
+				}
+			}
+		}
+ 	}
+}

@@ -1,0 +1,592 @@
+﻿############################
+## Burgundy Events
+############################
+
+add_namespace = A_SPRING
+
+########################################################################
+
+##### #   # ####  ##### ####  ##### #   # ####   ###  #   #  #### #####
+  #   ##  # #   # #     #   # #     ##  # #   # #   # ##  # #     #
+  #   # # # #   # ###   ####  ###   # # # #   # ##### # # # #     ###
+  #   #  ## #   # #     #     #     #  ## #   # #   # #  ## #     #
+##### #   # ####  ##### #     ##### #   # ####  #   # #   #  #### #####
+
+########################################################################
+
+country_event = { # The Independance of Orungu
+	id = A_SPRING.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.1"}
+	title = A_SPRING.1.t
+	desc = A_SPRING.1.d
+	picture = GFX_report_event_iberia_guinea_soldiers_plane_wreckage
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = A_SPRING.1.a
+		GAB = {
+			transfer_state = 297
+			transfer_state = 1186
+			add_state_core = 297
+			add_state_core = 1186
+		}
+	}
+}
+
+country_event = { # The Independance of Sao Tomé
+	id = A_SPRING.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.2"}
+	title = A_SPRING.2.t
+	desc = A_SPRING.2.d
+	picture = GFX_report_event_african_rebels2
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = A_SPRING.2.a
+		SAO = {
+			transfer_state = 705
+			add_state_core = 705
+		}
+	}
+}
+
+########################################################################
+
+####  #   # #   # #   # #   #
+#   # #   # ## ## ## ##  # #
+#   # #   # # # # # # #   #
+#   # #   # #   # #   #   #
+####   ###  #   # #   #   #
+
+########################################################################
+
+country_event = { # Zanzibar Revolution
+	id = A_SPRING.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.3"}
+	title = A_SPRING.3.t
+	desc = A_SPRING.3.desc
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = A_SPRING.3.a
+		ZZB = {
+			set_politics = {	
+				ruling_party = ultranational_socialism
+				elections_allowed = no
+			}
+			set_popularities = {
+				communist = 10
+				ultranational_socialism = 15
+				socialist = 10
+				social_democrat = 0
+				social_liberal = 0
+				market_liberal = 0
+				social_conservative = 20
+				authoritarian_democrat = 40
+				despotism = 5
+				fascism = 0
+				national_socialism = 0
+				burgundian_system = 0
+			}
+		}
+	}
+}
+
+country_event = { # Congolese Civil War
+	id = A_SPRING.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.4"}
+	title = A_SPRING.4.t
+	desc = A_SPRING.4.desc
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = A_SPRING.4.a
+		CFS = {
+			set_capital = { state = 1168 }
+		}
+		every_state = { # don't touch land held by South Africa (OFN-leaning ceasefires)
+			limit = {
+				OR = {
+					state = 718
+					state = 1170
+					state = 1175
+					state = 1176
+					state = 1177
+					state = 1178
+					state = 1180
+				}
+				NOT = { is_owned_by = SAF }
+				NOT = { is_controlled_by = SAF }
+			}
+			transfer_state_to = CPR
+			add_core_of = CPR
+		}
+		every_state = {
+			limit = {
+				OR = {
+					state = 1056
+					state = 1057
+				}
+				NOT = { is_owned_by = SAF }
+				NOT = { is_controlled_by = SAF }
+			}
+			transfer_state_to = KTG
+			add_core_of = KTG
+		}
+		every_state = {
+			limit = {
+				OR = {
+					state = 1055
+					state = 1169
+				}
+				NOT = { is_owned_by = SAF }
+				NOT = { is_controlled_by = SAF }
+			}
+			transfer_state_to = KSI
+			add_core_of = KSI
+		}
+		if = {
+			limit = { CPR = { num_of_controlled_states > 0 } }
+			CFS = {
+				declare_war_on = {
+				    target = CPR
+				    type = annex_everything
+				}
+			}
+			CPR = {
+				declare_war_on = {
+				    target = CFS
+				    type = annex_everything
+				}
+			}
+			AZD = {
+				declare_war_on = {
+				    target = CPR
+				    type = annex_everything
+				}
+			}
+		}
+		if = {
+			limit = { KSI = { num_of_controlled_states > 0 } }
+			CFS = {
+				declare_war_on = {
+				    target = KSI
+				    type = annex_everything
+				}
+			}
+			KSI = {
+				declare_war_on = {
+				    target = CFS
+				    type = annex_everything
+				}
+			}
+		}
+		AZD = {
+			declare_war_on = {
+			    target = CFS
+			    type = annex_everything
+			}
+		}
+	}
+}
+
+country_event = { # Angolan Civil War
+	id = A_SPRING.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.5"}
+	title = A_SPRING.5.t
+	desc = A_SPRING.5.desc
+
+	is_triggered_only = yes
+	trigger = { NOT = { has_global_flag = SFA_active } } # the New Scramble for Africa replaces the collapse's aftermath wars (user, 2026-10-19)
+	fire_only_once = yes
+	
+	
+	option = {
+		name = A_SPRING.5.a
+
+		every_state = { # don't touch land held by South Africa (OFN-leaning ceasefires)
+			limit = {
+				OR = {
+					state = 1032
+					state = 1033
+					state = 1034
+					state = 1036
+					state = 1051
+				}
+				NOT = { is_owned_by = SAF }
+				NOT = { is_controlled_by = SAF }
+			}
+			transfer_state_to = ANL
+			add_core_of = ANL
+		}
+
+		if = { # no rebel land left = no civil war
+			limit = { ANL = { num_of_controlled_states > 0 } }
+			ANG = {
+				set_cosmetic_tag = ANG_CIVIL_WAR
+			}
+			ANL = {
+				declare_war_on = {
+				    target = ANG
+				    type = annex_everything
+				}
+			}
+		}
+	}
+}
+
+country_event = { # Botswana-Zimbabwe War
+	id = A_SPRING.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.6"}
+	title = A_SPRING.6.t
+	desc = A_SPRING.6.desc
+
+	is_triggered_only = yes
+	trigger = { NOT = { has_global_flag = SFA_active } } # the New Scramble for Africa replaces the collapse's aftermath wars (user, 2026-10-19)
+	fire_only_once = yes
+
+	option = {
+		name = A_SPRING.6.a
+		ZIM = {
+			declare_war_on = {
+			    target = BTS
+			    type = annex_everything
+			}
+		}
+	}
+}
+
+country_event = { # Ovamboland War of Independance
+	id = A_SPRING.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.7"}
+	title = A_SPRING.7.t
+	desc = A_SPRING.7.desc
+
+	is_triggered_only = yes
+	trigger = { NOT = { has_global_flag = SFA_active } } # the New Scramble for Africa replaces the collapse's aftermath wars (user, 2026-10-19)
+	fire_only_once = yes
+
+	option = {
+		name = A_SPRING.7.a
+
+		if = { # don't touch land held by South Africa (OFN-leaning ceasefires)
+			limit = {
+				NOT = { 1030 = { is_owned_by = SAF } }
+				NOT = { 1030 = { is_controlled_by = SAF } }
+			}
+			OVB = {
+				set_state_owner = 1030
+				set_state_controller = 1030
+				add_state_core = 1030
+
+				declare_war_on = {
+				    target = NAM
+				    type = annex_everything
+				}
+			}
+		}
+	}
+}
+
+country_event = { # Rombesian Conflicts
+	id = A_SPRING.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.8"}
+	title = A_SPRING.8.t
+	desc = A_SPRING.8.desc
+
+	is_triggered_only = yes
+	trigger = { NOT = { has_global_flag = SFA_active } } # the New Scramble for Africa replaces the collapse's aftermath wars (user, 2026-10-19)
+	fire_only_once = yes
+
+	option = {
+		name = A_SPRING.8.a
+
+		every_state = { # don't touch land held by South Africa (OFN-leaning ceasefires)
+			limit = {
+				OR = {
+					state = 544
+					state = 879
+					state = 1071
+					state = 1072
+					state = 1073
+					state = 1074
+					state = 1075
+					state = 1076
+					state = 1083
+				}
+				NOT = { is_owned_by = SAF }
+				NOT = { is_controlled_by = SAF }
+			}
+			transfer_state_to = RMB
+			add_core_of = RMB
+		}
+	}
+}
+
+country_event = { # Brazavillian Revolution
+	id = A_SPRING.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.9"}
+	title = A_SPRING.9.t
+	desc = A_SPRING.9.desc
+
+	is_triggered_only = yes
+	trigger = { NOT = { has_global_flag = SFA_active } } # the New Scramble for Africa replaces the collapse's aftermath wars (user, 2026-10-19)
+	fire_only_once = yes
+
+	option = {
+		name = A_SPRING.9.a
+
+		every_state = { # don't touch land held by South Africa (OFN-leaning ceasefires)
+			limit = {
+				OR = {
+					state = 1163
+					state = 1164
+					state = 1165
+				}
+				NOT = { is_owned_by = SAF }
+				NOT = { is_controlled_by = SAF }
+			}
+			transfer_state_to = BZZ
+			add_core_of = BZZ
+		}
+	}
+}
+
+country_event = { # Saraland Counter-Revolution
+	id = A_SPRING.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.10"}
+	title = A_SPRING.10.t
+	desc = A_SPRING.10.desc
+
+	is_triggered_only = yes
+	trigger = { NOT = { has_global_flag = SFA_active } } # the New Scramble for Africa replaces the collapse's aftermath wars (user, 2026-10-19)
+	fire_only_once = yes
+
+	option = {
+		name = A_SPRING.10.a
+
+		every_state = { # don't touch land held by South Africa (OFN-leaning ceasefires)
+			limit = {
+				OR = {
+					state = 660
+					state = 1202
+					state = 1203
+					state = 1204
+					state = 1205
+					state = 1206
+					state = 1207
+				}
+				NOT = { is_owned_by = SAF }
+				NOT = { is_controlled_by = SAF }
+			}
+			transfer_state_to = CHD
+			add_core_of = CHD
+		}
+
+		hidden_effect = {
+ 			random_list = {
+ 				35 = {
+ 					country_event = {
+		 				id = A_SPRING.11
+		 				days = 2
+		 			}
+ 				}
+ 				65 = { }
+ 			}
+ 		}
+	}
+}
+
+country_event = { # Saraland Civil War
+	id = A_SPRING.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.11"}
+	title = A_SPRING.11.t
+	desc = A_SPRING.11.desc
+
+	is_triggered_only = yes
+	trigger = { NOT = { has_global_flag = SFA_active } } # the New Scramble for Africa replaces the collapse's aftermath wars (user, 2026-10-19)
+	fire_only_once = yes
+
+	option = {
+		name = A_SPRING.11.a
+
+		every_state = { # don't touch land held by South Africa (OFN-leaning ceasefires)
+			limit = {
+				OR = {
+					state = 660
+					state = 1205
+				}
+				NOT = { is_owned_by = SAF }
+				NOT = { is_controlled_by = SAF }
+			}
+			transfer_state_to = CHF
+			add_core_of = CHF
+		}
+
+		if = { # no rebel land left = no civil war
+			limit = { CHF = { num_of_controlled_states > 0 } }
+			CHF = {
+				declare_war_on = {
+				    target = CHD
+				    type = annex_everything
+				}
+			}
+		}
+	}
+}
+
+country_event = { # Katanga Wars
+	id = A_SPRING.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.12"}
+	title = A_SPRING.12.t
+	desc = A_SPRING.12.desc
+
+	is_triggered_only = yes
+	trigger = { NOT = { has_global_flag = SFA_active } } # the New Scramble for Africa replaces the collapse's aftermath wars (user, 2026-10-19)
+	fire_only_once = yes
+
+	option = {
+		name = A_SPRING.12.a
+
+		KSI = {
+			declare_war_on = {
+			    target = KTG
+			    type = annex_everything
+			}
+		}
+	}
+}
+
+country_event = { # Azandeland Proclamation
+	id = A_SPRING.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.13"}
+	title = A_SPRING.13.t
+	desc = A_SPRING.13.desc
+
+	is_triggered_only = yes
+	trigger = { NOT = { has_global_flag = SFA_active } } # the New Scramble for Africa replaces the collapse's aftermath wars (user, 2026-10-19)
+	fire_only_once = yes
+
+	option = {
+		name = A_SPRING.13.a
+
+		every_state = { # don't touch land held by South Africa (OFN-leaning ceasefires)
+			limit = {
+				OR = {
+					state = 1182
+					state = 1183
+					state = 1185
+				}
+				NOT = { is_owned_by = SAF }
+				NOT = { is_controlled_by = SAF }
+			}
+			transfer_state_to = AZD
+			add_core_of = AZD
+		}
+
+		hidden_effect = {
+ 			country_event = {
+ 				id = A_SPRING.14
+ 				days = 120
+ 			}
+ 		}
+	}
+}
+
+country_event = { # Assassination of Patrice Lumumba
+	id = A_SPRING.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.14"}
+	title = A_SPRING.14.t
+	desc = A_SPRING.14.desc
+
+	is_triggered_only = yes
+	trigger = { NOT = { has_global_flag = SFA_active } } # the New Scramble for Africa replaces the collapse's aftermath wars (user, 2026-10-19)
+	fire_only_once = yes
+
+	option = {
+		name = A_SPRING.14.a
+		CFS = {
+			kill_country_leader = yes
+
+			create_country_leader = {
+				name = "Joseph Kasa-Vubu"
+				desc = "POLITICS_JOSEPH_KASA_VUBU_DESC"
+				picture = "Portrait_Congo_Joseph_Kasa_Vubu.dds"
+				expire = "1999.1.23"
+				ideology = social_liberal_subtype
+				traits = { }
+			}
+		}
+
+		hidden_effect = {
+ 			country_event = {
+ 				id = A_SPRING.4
+ 				days = 60
+ 			}
+ 		}
+	}
+}
+
+country_event = { # Bemba Secession
+	id = A_SPRING.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.15"}
+	title = A_SPRING.15.t
+	desc = A_SPRING.15.desc
+
+	is_triggered_only = yes
+	trigger = { NOT = { has_global_flag = SFA_active } } # the New Scramble for Africa replaces the collapse's aftermath wars (user, 2026-10-19)
+	fire_only_once = yes
+
+	option = {
+		name = A_SPRING.15.a
+
+		every_state = { # don't touch land held by South Africa (OFN-leaning ceasefires)
+			limit = {
+				OR = {
+					state = 748
+					state = 1070
+				}
+				NOT = { is_owned_by = SAF }
+				NOT = { is_controlled_by = SAF }
+			}
+			transfer_state_to = BMB
+			add_core_of = BMB
+		}
+	}
+}
+
+country_event = { # Barotseland Accords
+	id = A_SPRING.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event A_SPRING.16"}
+	title = A_SPRING.16.t
+	desc = A_SPRING.16.desc
+
+	is_triggered_only = yes
+	trigger = { NOT = { has_global_flag = SFA_active } } # the New Scramble for Africa replaces the collapse's aftermath wars (user, 2026-10-19)
+	fire_only_once = yes
+
+	option = {
+		name = A_SPRING.16.a
+		
+		every_state = { # don't touch land held by South Africa (OFN-leaning ceasefires)
+			limit = {
+				OR = {
+					state = 884
+					state = 1052
+					state = 1053
+					state = 1054
+				}
+				NOT = { is_owned_by = SAF }
+				NOT = { is_controlled_by = SAF }
+			}
+			transfer_state_to = BRS
+			add_core_of = BRS
+		}
+	}
+}

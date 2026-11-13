@@ -1,0 +1,2323 @@
+#############################################
+###### Catholic Communist Italy Events ######
+#############################################
+
+add_namespace = ITA_RED_gallo
+add_namespace = ITA_RED_rodano
+add_namespace = ITA_RED_rodano_act_3
+add_namespace = ITA_RED_rodano_epilogue
+add_namespace = ITA_RED_labor
+add_namespace = ITA_RED_cath_com_misc
+add_namespace = ITA_RED_cath_com_econ
+add_namespace = ITA_RED_cath_com_forpol
+
+country_event = { #pre-election negotiation
+	id = ITA_RED_gallo.1 
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_gallo.1"}
+	title = ITA_RED_gallo.1.t
+	desc = ITA_RED_gallo.1.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		set_temp_variable = { Y = 2 }
+		set_temp_variable = { ITA_RED_election_orthodox_pop_temp = 0.10 }
+		ITA_RED_election_add_orthodox_popularity = yes
+		set_temp_variable = { ITA_RED_election_underclass_pop_temp = 0.10 }
+		ITA_RED_election_add_underclass_popularity = yes
+		name = ITA_RED_gallo.1.a
+	}
+}
+country_event = { # formin appointment
+	id = ITA_RED_gallo.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_gallo.2"}
+	title = ITA_RED_gallo.2.t
+	desc = ITA_RED_gallo.2.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_gallo.2.a
+	}
+}
+country_event = { # gallo goes to the front (IGW)
+	id = ITA_RED_gallo.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_gallo.3"}
+	title = ITA_RED_gallo.3.t
+	desc = ITA_RED_gallo.3.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_gallo.3.a
+		country_event = {
+			id = ITA_RED_gallo.4
+			days = 20
+		}
+	}
+}
+country_event = { # gallo tries to stop reprisals
+	id = ITA_RED_gallo.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_gallo.4"}
+	title = ITA_RED_gallo.4.t
+	desc = ITA_RED_gallo.4.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		add_command_power = -5
+		add_war_support = 0.01
+		tno_military_supervision_improve = yes
+		tno_military_supervision_improve = yes
+		name = ITA_RED_gallo.4.a
+		country_event = {
+			id = ITA_RED_gallo.5
+			days = 20
+		}
+	}
+}
+country_event = { #ministering at the front
+	id = ITA_RED_gallo.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_gallo.5"}
+	title = ITA_RED_gallo.5.t
+	desc = ITA_RED_gallo.5.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_gallo.5.a
+	}
+}
+country_event = { # helping with post-IGW reconstruction
+	id = ITA_RED_gallo.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_gallo.6"}
+	title = ITA_RED_gallo.6.t
+	desc = ITA_RED_gallo.6.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_gallo.6.a
+	}
+}
+country_event = { # gallo's CulRev begins
+	id = ITA_RED_gallo.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_gallo.7"}
+	title = ITA_RED_gallo.7.t
+	desc = ITA_RED_gallo.7.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		set_temp_variable = { ITA_RED_militant_approval_weekly_temp = -1 }
+		ITA_RED_cultrev_militant_approval_change_weekly = yes 
+		set_temp_variable = { ITA_RED_reaction_weekly_temp = 1 }
+		ITA_RED_cultrev_reaction_change_weekly = yes 
+		name = ITA_RED_gallo.7.a
+	}
+}
+country_event = {
+	id = ITA_RED_gallo.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_gallo.8"}
+	title = ITA_RED_gallo.8.t
+	desc = ITA_RED_gallo.8.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup	
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_gallo.8.a
+	}
+}
+
+country_event = { #student v church part 1
+	id = ITA_RED_gallo.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_gallo.9"}
+	title = ITA_RED_gallo.9.t
+	desc = ITA_RED_gallo.9.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup				
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_gallo.9.a
+		country_event = {
+			id = ITA_RED_gallo.10
+			days = 2
+		}
+	}
+}
+country_event = { #student v church part 2, the big choice
+	id = ITA_RED_gallo.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_gallo.10"}
+	title = ITA_RED_gallo.10.t
+	desc = ITA_RED_gallo.10.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup			
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_gallo.10.a
+		custom_effect_tooltip = ITA_RED_gallo_choosemediator_tt
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_gallo.12
+				hours = 8
+			}
+		}
+	}
+	option = {
+		name = ITA_RED_gallo.10.b
+		custom_effect_tooltip = ITA_RED_gallo_choosestudents_tt
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_gallo.11
+				hours = 16
+			}
+		}
+	}
+}
+country_event = { #chose students
+	id = ITA_RED_gallo.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_gallo.11"}
+	title = ITA_RED_gallo.11.t
+	desc = ITA_RED_gallo.11.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup			
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_gallo.11.a
+		set_country_flag = ITA_RED_gallo_chose_students
+	}
+}
+country_event = { #chose mediator
+	id = ITA_RED_gallo.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_gallo.12"}
+	title = ITA_RED_gallo.12.t
+	desc = ITA_RED_gallo.12.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup	
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_gallo.12.a
+		set_country_flag = ITA_RED_gallo_chose_mediator
+	}
+}
+
+country_event = { 
+	id = ITA_RED_rodano.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_rodano.5"}
+	title = ITA_RED_rodano.5.t
+	desc = ITA_RED_rodano.5.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup	
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.5.a
+	}
+}
+country_event = { 
+	id = ITA_RED_rodano.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_rodano.6"}
+	title = ITA_RED_rodano.6.t
+	desc = ITA_RED_rodano.6.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.6.a
+	}
+}
+country_event = { 
+	id = ITA_RED_rodano.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_rodano.7"}
+	title = ITA_RED_rodano.7.t
+	desc = ITA_RED_rodano.7.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		#STRIP(vatican) add_opinion_modifier = { 
+			#STRIP(vatican) target = VAC
+			#STRIP(vatican) modifier = ITA_closer_ties_to_vatican
+		#STRIP(vatican) }
+		name = ITA_RED_rodano.7.a
+	}
+}
+country_event = { 
+	id = ITA_RED_rodano.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_rodano.8"}
+	title = ITA_RED_rodano.8.t
+	desc = ITA_RED_rodano.8.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.8.a
+	}
+}
+country_event = { 
+	id = ITA_RED_rodano.9
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_rodano.9"}
+	title = ITA_RED_rodano.9.t
+	desc = ITA_RED_rodano.9.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup			
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.9.a
+	}
+}
+country_event = { 
+	id = ITA_RED_rodano.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_rodano.10"}
+	title = ITA_RED_rodano.10.t
+	desc = ITA_RED_rodano.10.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup			
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.10.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.11
+				days = 2
+			}
+		}
+	}
+}
+country_event = { 
+	id = ITA_RED_rodano.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_rodano.11"}
+	title = ITA_RED_rodano.11.t
+	desc = ITA_RED_rodano.11.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup	
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.11.a
+		hidden_effect = {
+			set_country_flag = ITA_RED_rodano_act_2
+			load_focus_tree = { tree = ITA_RED_rodano keep_completed = yes }
+		}
+		custom_effect_tooltip = ITA_RED_rodano_act_2_tt
+	}
+}
+
+country_event = { 
+	id = ITA_RED_rodano.12
+	title = ITA_RED_rodano.12.t
+	desc = ITA_RED_rodano.12.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano.12.a
+		# Comecon. TNORA has no CME_ framework, so this call did nothing.
+		#set_temp_variable = { CME_delegates_temp = 1 }
+		#set_temp_variable = { CME_faction_temp = 1 }
+		#CME_add_faction_delegates = yes
+		
+		set_temp_variable = {ITA_RED_militant_approval_temp = 5}
+		ITA_RED_cultrev_militant_approval_change = yes 
+	}
+	option = {
+		name = ITA_RED_rodano.12.b
+		
+		add_political_power = 25
+		set_temp_variable = {ITA_RED_militant_approval_temp = -5}
+		ITA_RED_cultrev_militant_approval_change = yes 
+	}
+}
+
+country_event = { 
+	id = ITA_RED_rodano.13
+	title = ITA_RED_rodano.13.t
+	desc = ITA_RED_rodano.13.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano.13.a
+		#set_temp_variable = { CME_delegates_temp = ITA.CME_leading_local_faction }
+		#set_temp_variable = { CME_faction_temp = 1 }
+		#CME_add_faction_delegates = yes
+		
+		set_temp_variable = {ITA_RED_militant_approval_temp = -10}
+		ITA_RED_cultrev_militant_approval_change = yes
+	}
+	option = {
+		name = ITA_RED_rodano.13.b
+		
+		add_political_power = 25
+	}
+}
+
+country_event = { 
+	id = ITA_RED_rodano.14
+	title = ITA_RED_rodano.14.t
+	desc = ITA_RED_rodano.14.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano.14.a
+		#set_temp_variable = { CME_ideology_1_temp = 1 }
+		#set_temp_variable = { CME_ideology_2_temp = ITA.CME_leading_local_faction }
+		#set_temp_variable = { CME_opinion_add_temp = 2 }
+		#CME_add_opinion = yes
+	}
+	option = {
+		name = ITA_RED_rodano.14.b
+		
+		set_temp_variable = { ITA_RED_reaction_temp = -5 }
+		ITA_RED_cultrev_reaction_change = yes
+		set_temp_variable = { ITA_RED_militant_approval_temp = 5 }
+		ITA_RED_cultrev_militant_approval_change = yes
+		set_temp_variable = { ITA_RED_rodano_opinions_temp = 5 }
+		ITA_RED_rodano_increase_middle_opinion = yes
+	}
+}
+
+country_event = { 
+	id = ITA_RED_rodano.15
+	title = ITA_RED_rodano.15.t
+	desc = ITA_RED_rodano.15.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano.15.a
+		trigger = {
+			has_country_flag = ITA_RED_sent_lombardi
+		}
+		
+		set_temp_variable = { ITA_RED_cultrev_selected_pillar_temp = 4 }
+		set_temp_variable = { ITA_RED_add_specific_perk_temp = 83 }
+		ITA_RED_add_specific_perk = yes
+	}
+	option = {
+		name = ITA_RED_rodano.15.b
+		trigger = {
+			has_country_flag = ITA_RED_sent_rodano
+		}
+		
+		set_temp_variable = { ITA_RED_cultrev_selected_pillar_temp = 4 }
+		set_temp_variable = { ITA_RED_add_specific_perk_temp = 84 }
+		ITA_RED_add_specific_perk = yes
+	}
+}
+
+# misc rodano flavor events, non-focus related/stuff to add to future focuses
+
+country_event = { # Rodano reads Bukharin
+	id = ITA_RED_rodano.101
+	title = ITA_RED_rodano.101.t
+	desc = ITA_RED_rodano.101.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup		
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.101.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.102
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # Secchia condemns Rodano's reformist approach, especially towards the church
+	id = ITA_RED_rodano.102
+	title = ITA_RED_rodano.102.t
+	desc = ITA_RED_rodano.102.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup	
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.102.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.103
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # NEPmen manifesting themselves due to Rodano's Bolshevik trends
+	id = ITA_RED_rodano.103
+	title = ITA_RED_rodano.103.t
+	desc = ITA_RED_rodano.103.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup	
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.103.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.104
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # Churches discussing communism in their sermons, less radical than the revolutionary phase but still radical
+	id = ITA_RED_rodano.104
+	title = ITA_RED_rodano.104.t
+	desc = ITA_RED_rodano.104.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup		
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.104.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.105
+				days = 30
+			}
+		}
+	}
+}
+country_event = { # Same parish priest as before is excommunicated, new parish priest more apolitical
+	id = ITA_RED_rodano.105
+	title = ITA_RED_rodano.105.t
+	desc = ITA_RED_rodano.105.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.105.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.117
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # Rodano meets with one of his few political allies, his wife, and discuss how to emphasize more feminist policy in the Central Committee both drafting up policies.
+	id = ITA_RED_rodano.117
+	title = ITA_RED_rodano.117.t
+	desc = ITA_RED_rodano.117.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.117.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.106
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # Propaganda towards the peasantry, benefits of socialism and such
+	id = ITA_RED_rodano.106
+	title = ITA_RED_rodano.106.t
+	desc = ITA_RED_rodano.106.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup	
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.106.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.107
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # Rodano figuring out how to translate Bolshevik policies to Italy's circumstances, and considering the failures of Russia
+	id = ITA_RED_rodano.107
+	title = ITA_RED_rodano.107.t
+	desc = ITA_RED_rodano.107.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.107.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.108
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # NEPmen becoming more influential in the party (act 1 conclusion)
+	id = ITA_RED_rodano.108
+	title = ITA_RED_rodano.108.t
+	desc = ITA_RED_rodano.108.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.108.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.109
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # Rodano expressing remorse at the growing lack of change
+	id = ITA_RED_rodano.109
+	title = ITA_RED_rodano.109.t
+	desc = ITA_RED_rodano.109.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.109.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.110
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # Church resisting reform, spouting nationalist and reactionary talking points in the sermon
+	id = ITA_RED_rodano.110
+	title = ITA_RED_rodano.110.t
+	desc = ITA_RED_rodano.110.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.110.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.111
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # Rodano speaks with his old resistance friend Adriano Ossicini about the past, and how it was unfortunate Ossicini did not join the new government
+	id = ITA_RED_rodano.111
+	title = ITA_RED_rodano.111.t
+	desc = ITA_RED_rodano.111.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.111.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.112
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # Propaganda displaying the PCdI as the representors of both the proletariat, peasants, and Catholics in politics
+	id = ITA_RED_rodano.112
+	title = ITA_RED_rodano.112.t
+	desc = ITA_RED_rodano.112.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.112.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.113
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # Going to work to my proletarian job, for the proletarian state, with my proletariat boss
+	id = ITA_RED_rodano.113
+	title = ITA_RED_rodano.113.t
+	desc = ITA_RED_rodano.113.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.113.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.114
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # Showcase of freedom of media and stories that represent Catholic-Marxist humanism and the triumph of the worker's state (symbolically) 
+	id = ITA_RED_rodano.114
+	title = ITA_RED_rodano.114.t
+	desc = ITA_RED_rodano.114.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.114.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.115
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # Rodano visits the grave of Felice Balbo, one of the other founders of Catholic Communism. Rodano again expresses this idea that he is alone politically.
+	id = ITA_RED_rodano.115
+	title = ITA_RED_rodano.115.t
+	desc = ITA_RED_rodano.115.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.115.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.116
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # Rodano meets his wife. They passionately discuss politics, but also have a more tender moment with their children, giving both of them relief from politics.
+	id = ITA_RED_rodano.116
+	title = ITA_RED_rodano.116.t
+	desc = ITA_RED_rodano.116.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.116.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.118
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # The beginning of the crisis is near, as Rodano is struggling to figure out how to deal with the rise of bureaucrats and their influence in politics without giving up his own political power to the Stalinists.
+	id = ITA_RED_rodano.118
+	title = ITA_RED_rodano.118.t
+	desc = ITA_RED_rodano.118.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.118.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.119
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # Due to Rodano's lax cultural control, there is the spread of both Marxist-Leninist and moderate ChristSoc propaganda
+	id = ITA_RED_rodano.119
+	title = ITA_RED_rodano.119.t
+	desc = ITA_RED_rodano.119.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.119.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.120
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # Event showing the greater politicization of the Vatican's influence on Italian politics
+	id = ITA_RED_rodano.120
+	title = ITA_RED_rodano.120.t
+	desc = ITA_RED_rodano.120.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.120.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.121
+				days = 60
+			}
+		}
+	}
+}
+country_event = { # The Congress falls into disarray with controversial debate over how to deal with the antagonistic behavior of the Catholic Church and who to cast blame at
+	id = ITA_RED_rodano.121
+	title = ITA_RED_rodano.121.t
+	desc = ITA_RED_rodano.121.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.121.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.122
+				days = 20
+			}
+		}
+	}
+}
+country_event = { # Rodano talks to Ossicini again, discussing the stress and the sectarianism of the Congress and how frustrated he is at their hostility. 
+	id = ITA_RED_rodano.122
+	title = ITA_RED_rodano.122.t
+	desc = ITA_RED_rodano.122.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.122.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.123
+				days = 20
+			}
+		}
+	}
+}
+country_event = { # A prominent Catholic Communist party member, a rising star, quits after being excommunicated. He did everything he was supposed to. And still he lost. 
+	id = ITA_RED_rodano.123
+	title = ITA_RED_rodano.123.t
+	desc = ITA_RED_rodano.123.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.123.a
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_rodano.124
+				days = 20
+			}
+		}
+	}
+}
+country_event = { # Rodano feels powerless, and can barely write without fearing the criticisms and the various factions dragging him around. He needs to gain control back from his party and push through his goals, and he needs to use his position of power. Rodano writes ferverously.
+	id = ITA_RED_rodano.124
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano.124.t
+	desc = ITA_RED_rodano.124.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_rodano.124.a
+	}
+}
+
+
+# Rodano Act 3
+
+country_event = { # The Bolshevists Split (Rodano unique, Italy POV)
+	id = ITA_RED_rodano_act_3.30
+	title = ITA_RED_rodano_act_3.30.t
+	desc = ITA_RED_rodano_act_3.30.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_act_3.30.a
+		
+		#set_temp_variable = { CME_add_unity_temp = -10 }
+		#CME_add_unity = yes
+		
+		#CME_setup_faction_opposition_0 = yes
+		set_country_flag = ITA_RED_rodano_act_3
+		load_focus_tree = { tree = ITA_RED_rodano_3 keep_completed = yes }
+		custom_effect_tooltip = ITA_RED_rodano_act_3.30.tt
+		
+		for_each_scope_loop = {
+			array = global.CominternMembers
+			if = {
+				limit = { 
+					has_country_flag = is_comintern_member 
+					NOT = { original_tag = ITA }
+				}
+				country_event = {
+					id = ITA_RED_rodano_act_3.31
+					days = 3 
+				}
+			}
+		}
+	}
+}
+
+country_event = { # The Bolshevists Split (Rodano unique, Non-Italy POV)
+	id = ITA_RED_rodano_act_3.31
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_act_3.31.t
+	desc = ITA_RED_rodano_act_3.31.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_act_3.31.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_act_3.101
+	title = ITA_RED_rodano_act_3.101.t
+	desc = ITA_RED_rodano_act_3.101.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		load_focus_tree = { tree = ITA_RED_rodano_epilogue keep_completed = no }
+		name = ITA_RED_rodano_act_3.101.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_act_3.102
+	title = ITA_RED_rodano_act_3.102.t
+	desc = ITA_RED_rodano_act_3.102.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		load_focus_tree = { tree = ITA_RED_rodano_epilogue keep_completed = no }
+		name = ITA_RED_rodano_act_3.102.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_act_3.103
+	title = ITA_RED_rodano_act_3.103.t
+	desc = ITA_RED_rodano_act_3.103.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		load_focus_tree = { tree = ITA_RED_rodano_epilogue keep_completed = no }
+		name = ITA_RED_rodano_act_3.103.a
+	}
+}
+
+# Rodano Epilogue
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.1
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.1.t
+	desc = ITA_RED_rodano_epilogue.1.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.1.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.2
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.2.t
+	desc = ITA_RED_rodano_epilogue.2.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.2.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.3
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.3.t
+	desc = ITA_RED_rodano_epilogue.3.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.3.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.4
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.4.t
+	desc = ITA_RED_rodano_epilogue.4.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.4.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.5
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.5.t
+	desc = ITA_RED_rodano_epilogue.5.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.5.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.6
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.6.t
+	desc = ITA_RED_rodano_epilogue.6.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.6.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.7
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.7.t
+	desc = ITA_RED_rodano_epilogue.7.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.7.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.8
+	title = ITA_RED_rodano_epilogue.8.t
+	desc = ITA_RED_rodano_epilogue.8.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		if = {
+			limit = { has_country_flag = ITA_RED_rodano_branch_1 }
+			set_country_flag = ITA_RED_rodano_epilogue_1
+		}
+		else_if = {
+			limit = { has_country_flag = ITA_RED_rodano_branch_2 }
+			set_country_flag = ITA_RED_rodano_epilogue_2
+		}
+		else = {
+			set_country_flag = ITA_RED_rodano_epilogue_3
+		}
+		load_focus_tree = { tree = ITA_RED_rodano_epilogue keep_completed = yes }
+		name = ITA_RED_rodano_epilogue.8.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.9
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.9.t
+	desc = ITA_RED_rodano_epilogue.9.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.9.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.10
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.10.t
+	desc = ITA_RED_rodano_epilogue.10.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.10.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.11
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.11.t
+	desc = ITA_RED_rodano_epilogue.11.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.11.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.12
+	title = ITA_RED_rodano_epilogue.12.t
+	desc = ITA_RED_rodano_epilogue.12.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.12.a
+			# Hands the player to the TNORA end screen.
+		set_country_flag = endscreen_flag_open
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.13
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.13.t
+	desc = ITA_RED_rodano_epilogue.13.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.13.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.14
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.14.t
+	desc = ITA_RED_rodano_epilogue.14.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.14.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.15
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.15.t
+	desc = ITA_RED_rodano_epilogue.15.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.15.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.16
+	title = ITA_RED_rodano_epilogue.16.t
+	desc = ITA_RED_rodano_epilogue.16.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.16.a
+			# Hands the player to the TNORA end screen.
+		set_country_flag = endscreen_flag_open
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.17
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.17.t
+	desc = ITA_RED_rodano_epilogue.17.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.17.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.18
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.18.t
+	desc = ITA_RED_rodano_epilogue.18.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		tno_political_parties_improve = yes 
+		name = ITA_RED_rodano_epilogue.18.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.19
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.19.t
+	desc = ITA_RED_rodano_epilogue.19.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.19.a
+	}
+}
+
+country_event = {
+	id = ITA_RED_rodano_epilogue.20
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_RED_rodano_epilogue.20.t
+	desc = ITA_RED_rodano_epilogue.20.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+	}
+
+	option = {
+		name = ITA_RED_rodano_epilogue.20.a
+	}
+}
+
+#
+
+country_event = { 
+	id = ITA_RED_labor.1
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.1"}
+	title = ITA_RED_labor.1.t
+	desc = ITA_RED_labor.1.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.1.a
+	}
+}
+country_event = { 
+	id = ITA_RED_labor.2
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.2"}
+	title = ITA_RED_labor.2.t
+	desc = ITA_RED_labor.2.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.2.a
+	}
+}
+country_event = { 
+	id = ITA_RED_labor.3
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.3"}
+	title = ITA_RED_labor.3.t
+	desc = ITA_RED_labor.3.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.3.a
+	}
+}
+country_event = { 
+	id = ITA_RED_labor.4
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.4"}
+	title = ITA_RED_labor.4.t
+	desc = ITA_RED_labor.4.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.4.a
+	}
+}
+country_event = { 
+	id = ITA_RED_labor.5
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.5"}
+	title = ITA_RED_labor.5.t
+	desc = ITA_RED_labor.5.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.5.a
+	}
+}
+country_event = { 
+	id = ITA_RED_labor.6
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.6"}
+	title = ITA_RED_labor.6.t
+	desc = ITA_RED_labor.6.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup			
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.6.a
+	}
+}
+country_event = { 
+	id = ITA_RED_labor.7
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.7"}
+	title = ITA_RED_labor.7.t
+	desc = ITA_RED_labor.7.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup			
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.7.a
+	}
+}
+country_event = { 
+	id = ITA_RED_labor.8
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.8"}
+	title = ITA_RED_labor.8.t
+	desc = ITA_RED_labor.8.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.8.a
+	}
+}
+country_event = { 
+	id = ITA_RED_labor.9
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.9"}
+	title = ITA_RED_labor.9.t
+	desc = ITA_RED_labor.9.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.9.a
+	}
+}
+country_event = { 
+	id = ITA_RED_labor.10
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.10"}
+	title = ITA_RED_labor.10.t
+	desc = ITA_RED_labor.10.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.10.a
+	}
+}
+country_event = { 
+	id = ITA_RED_labor.11
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.11"}
+	title = ITA_RED_labor.11.t
+	desc = ITA_RED_labor.11.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.11.a
+	}
+}
+country_event = { 
+	id = ITA_RED_labor.12
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.12"}
+	title = ITA_RED_labor.12.t
+	desc = ITA_RED_labor.12.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.12.a
+	}
+}
+country_event = { 
+	id = ITA_RED_labor.13
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.13"}
+	title = ITA_RED_labor.13.t
+	desc = ITA_RED_labor.13.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.13.a
+	}
+}
+country_event = { 
+	id = ITA_RED_labor.14
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.14"}
+	title = ITA_RED_labor.14.t
+	desc = ITA_RED_labor.14.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.14.a
+	}
+}
+country_event = { 
+	id = ITA_RED_labor.15
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.15"}
+	title = ITA_RED_labor.15.t
+	desc = ITA_RED_labor.15.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.15.a
+	}
+}
+country_event = { 
+	id = ITA_RED_labor.16
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.16"}
+	title = ITA_RED_labor.16.t
+	desc = ITA_RED_labor.16.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.16.a
+	}
+}
+
+country_event = { 
+	id = ITA_RED_cath_com_econ.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_cath_com_econ.1"}
+	title = ITA_RED_cath_com_econ.1.t
+	desc = ITA_RED_cath_com_econ.1.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_cath_com_econ.1.a
+	}
+}
+country_event = { 
+	id = ITA_RED_cath_com_econ.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_cath_com_econ.2"}
+	title = ITA_RED_cath_com_econ.2.t
+	desc = ITA_RED_cath_com_econ.2.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_cath_com_econ.2.a
+	}
+}
+country_event = { 
+	id = ITA_RED_cath_com_econ.3
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_cath_com_econ.3"}
+	title = ITA_RED_cath_com_econ.3.t
+	desc = ITA_RED_cath_com_econ.3.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_cath_com_econ.3.a
+	}
+}
+
+country_event = { 
+	id = ITA_RED_labor.99
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.99"}
+	title = ITA_RED_labor.99.t
+	desc = ITA_RED_labor.99.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.99.a
+		trigger = { NOT = { has_country_flag = ITA_Bruno_Storti_CISL } }
+		if = {
+		limit = {
+			has_country_flag = ITA_Pierre_Carniti_CISL
+			}
+			clr_country_flag = ITA_Pierre_Carniti_CISL
+			set_country_flag = ITA_Bruno_Storti_CISL
+		}
+		else_if = {
+		limit = {
+			has_country_flag = ITA_Franco_Marini_CISL
+			}
+			clr_country_flag = ITA_Franco_Marini_CISL
+			set_country_flag = ITA_Bruno_Storti_CISL
+		}
+	}
+	option = {
+		name = ITA_RED_labor.99.b
+		trigger = { NOT = { has_country_flag = ITA_Franco_Marini_CISL } }
+		if = {
+		limit = {
+			has_country_flag = ITA_Pierre_Carniti_CISL
+			}
+			clr_country_flag = ITA_Pierre_Carniti_CISL
+			set_country_flag = ITA_Franco_Marini_CISL
+		}
+		else_if = {
+		limit = {
+			has_country_flag = ITA_Bruno_Storti_CISL
+			}
+			clr_country_flag = ITA_Bruno_Storti_CISL
+			set_country_flag = ITA_Franco_Marini_CISL
+		}
+	}
+	option = {
+		name = ITA_RED_labor.99.c
+		trigger = { NOT = { has_country_flag = ITA_Pierre_Carniti_CISL } }
+		if = {
+		limit = {
+			has_country_flag = ITA_Bruno_Storti_CISL
+			}
+			clr_country_flag = ITA_Bruno_Storti_CISL
+			set_country_flag = ITA_Pierre_Carniti_CISL
+		}
+		else_if = {
+		limit = {
+			has_country_flag = ITA_Franco_Marini_CISL
+			}
+			clr_country_flag = ITA_Franco_Marini_CISL
+			set_country_flag = ITA_Pierre_Carniti_CISL
+		}
+	}
+}
+
+country_event = { 
+	id = ITA_RED_labor.100
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.100"}
+	title = ITA_RED_labor.100.t
+	desc = ITA_RED_labor.100.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.100.a
+		trigger = { NOT = { has_country_flag = ITA_Luciano_Lama_CGIL } }
+		if = {
+		limit = {
+			has_country_flag = ITA_Bruno_Trentin_CGIL
+			}
+			clr_country_flag = ITA_Bruno_Trentin_CGIL
+			set_country_flag = ITA_Luciano_Lama_CGIL
+		}
+		else_if = {
+		limit = {
+			has_country_flag = ITA_Agostino_Novella_CGIL
+			}
+			clr_country_flag = ITA_Agostino_Novella_CGIL
+			set_country_flag = ITA_Luciano_Lama_CGIL
+		}
+	}
+	option = {
+		name = ITA_RED_labor.100.b
+		trigger = { NOT = { has_country_flag = ITA_Agostino_Novella_CGIL } }
+		if = {
+		limit = {
+			has_country_flag = ITA_Bruno_Trentin_CGIL
+			}
+			clr_country_flag = ITA_Bruno_Trentin_CGIL
+			set_country_flag = ITA_Agostino_Novella_CGIL
+		}
+		else_if = {
+		limit = {
+			has_country_flag = ITA_Luciano_Lama_CGIL
+			}
+			clr_country_flag = ITA_Luciano_Lama_CGIL
+			set_country_flag = ITA_Agostino_Novella_CGIL
+		}
+	}
+	option = {
+		name = ITA_RED_labor.100.c
+		trigger = { NOT = { has_country_flag = ITA_Bruno_Trentin_CGIL } }
+		if = {
+		limit = {
+			has_country_flag = ITA_Agostino_Novella_CGIL
+			}
+			clr_country_flag = ITA_Agostino_Novella_CGIL
+			set_country_flag = ITA_Bruno_Trentin_CGIL
+		}
+		else_if = {
+		limit = {
+			has_country_flag = ITA_Agostino_Novella_CGIL
+			}
+			clr_country_flag = ITA_Agostino_Novella_CGIL
+			set_country_flag = ITA_Bruno_Trentin_CGIL
+		}
+	}
+}
+
+country_event = { 
+	id = ITA_RED_labor.101
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_RED_labor.101"}
+	title = ITA_RED_labor.101.t
+	desc = ITA_RED_labor.101.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			OR = {
+				has_global_flag = ITA_Vidali_coup
+				has_global_flag = ITA_counterrevolutionary_coup
+				
+			}
+		}
+	}
+
+	option = {
+		name = ITA_RED_labor.101.a
+		trigger = { NOT = { has_country_flag = ITA_Ruggero_Ravenna_UIL } }
+		if = {
+		limit = {
+			has_country_flag = ITA_Giorgio_Benvenuto_UIL
+			}
+			clr_country_flag = ITA_Giorgio_Benvenuto_UIL
+			set_country_flag = ITA_Ruggero_Ravenna_UIL
+		}
+		else_if = {
+		limit = {
+			has_country_flag = ITA_Raffaele_Vanni_UIL
+			}
+			clr_country_flag = ITA_Raffaele_Vanni_UIL
+			set_country_flag = ITA_Ruggero_Ravenna_UIL
+		}
+	}
+	option = {
+		name = ITA_RED_labor.101.b
+		trigger = { NOT = { has_country_flag = ITA_Raffaele_Vanni_UIL } }
+		if = {
+		limit = {
+			has_country_flag = ITA_Giorgio_Benvenuto_UIL
+			}
+			clr_country_flag = ITA_Giorgio_Benvenuto_UIL
+			set_country_flag = ITA_Raffaele_Vanni_UIL
+		}
+		else_if = {
+		limit = {
+			has_country_flag = ITA_Ruggero_Ravenna_UIL
+			}
+			clr_country_flag = ITA_Ruggero_Ravenna_UIL
+			set_country_flag = ITA_Raffaele_Vanni_UIL
+		}
+	}
+	option = {
+		name = ITA_RED_labor.101.c
+		trigger = { NOT = { has_country_flag = ITA_Giorgio_Benvenuto_UIL } }
+		if = {
+		limit = {
+			has_country_flag = ITA_Ruggero_Ravenna_UIL
+			}
+			clr_country_flag = ITA_Ruggero_Ravenna_UIL
+			set_country_flag = ITA_Giorgio_Benvenuto_UIL
+		}
+		else_if = {
+		limit = {
+			has_country_flag = ITA_Raffaele_Vanni_UIL
+			}
+			clr_country_flag = ITA_Raffaele_Vanni_UIL
+			set_country_flag = ITA_Giorgio_Benvenuto_UIL
+		}
+	}
+}

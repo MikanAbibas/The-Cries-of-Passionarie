@@ -1,0 +1,124 @@
+# United Arab Republic formation.
+#
+# The only route that creates the UAR. Any country passing UAR_is_baathist_nation
+# (common/scripted_triggers/TNO_oil_crisis_scripted_triggers.txt) can proclaim it
+# while at peace, through UAR_proclaim_the_united_arab_republic. To make a new
+# Ba'athist tag eligible, add it to that trigger; the proclamation, the invitation
+# (UAR_invite_baathist_nation), the rebel support and the wind-down all read it.
+#
+# Call in the scope of the proclaiming country, with ROOT being that country.
+UAR_proclaim_from_root = {
+	set_global_flag = UAR_proclaimed
+	set_country_flag = UAR_founder
+	# Every core the proclaiming country holds becomes a UAR core, owned or not.
+	every_core_state = {
+		add_core_of = UAR
+	}
+	capital_scope = { save_event_target_as = UAR_proclamation_capital }
+	# Hand a human player over before the annexation, as the other formables do.
+	if = {
+		limit = { is_ai = no }
+		UAR = { change_tag_from = ROOT }
+	}
+	UAR = {
+		annex_country = {
+			target = ROOT
+			transfer_troops = yes
+		}
+	}
+	event_target:UAR_proclamation_capital = {
+		UAR = { set_capital = { state = PREV } }
+	}
+	UAR_check_baathist_struggle = yes
+}
+
+# The Ba'athist struggle is over once no Ba'athist nation other than the UAR still
+# stands: each has been absorbed by the UAR or has capitulated. Checked when the UAR is
+# proclaimed, when it absorbs a nation, and when a Ba'athist nation capitulates.
+# A UAR standing at the end is a Ba'athist victory and pays Germany's reward; without
+# one it is a defeat, and only the clean-up runs. This was the tail of OIL.6. Safe to
+# run again if new Ba'athist nations rise later: the clean-up repeats harmlessly and
+# both reward events fire only once.
+UAR_check_baathist_struggle = {
+	if = {
+		limit = {
+			NOT = { UAR_baathists_still_standing = yes }
+		}
+		set_global_flag = UAR_baathist_struggle_resolved
+		UAR_oil_crisis_cleanup = yes
+		UAR_oil_crisis_scorza_ending = yes
+		if = {
+			limit = { country_exists = UAR }
+			UAR_oil_crisis_german_reward = yes
+		}
+	}
+}
+
+# Germany's Oil Crisis intervention winds down.
+UAR_oil_crisis_cleanup = {
+	hidden_effect = {
+		GER = {
+			clr_country_flag = GER_OC_intervention
+			clr_country_flag = GER_OC_Oman_CW
+			clr_country_flag = GER_OC_Iraq_CW
+			clr_country_flag = GER_OC_Egypt_CW
+			if = {
+				limit = { has_idea = GER_Bormann_OC_heat_of_the_desert }
+				remove_ideas = GER_Bormann_OC_heat_of_the_desert
+			}
+			if = {
+				limit = { has_idea = GER_Bormann_OC_intervention }
+				remove_ideas = GER_Bormann_OC_intervention
+			}
+			if = {
+				limit = { has_dynamic_modifier = { modifier = GER_BOR_lost_generation_dynamic_modifier } }
+				remove_dynamic_modifier = { modifier = GER_BOR_lost_generation_dynamic_modifier }
+			}
+			clear_variable = BOR_OC_send_volunteer_size
+		}
+		every_country = { # Germany stops bombing the Saudis
+			limit = { has_idea = GER_Bormann_OC_bombing_runs }
+			remove_ideas = GER_Bormann_OC_bombing_runs
+		}
+		# German AI volunteers. The UAR is included because annexation carried
+		# any volunteers of the nations it absorbed over to it.
+		every_country = {
+			limit = {
+				OR = {
+					tag = UAR
+					UAR_is_baathist_nation = yes
+				}
+			}
+			if = {
+				limit = { has_template = "German Volunteers" }
+				delete_unit_template_and_units = { division_template = "German Volunteers" }
+			}
+			clear_variable = german_volunteers_num
+		}
+	}
+}
+
+# Scorza's ending is legacy-Italy content: its flag is set only in the legacy Verona
+# chain, and its finales (nscorza.1201 / .1301) would clobber the Mediterranean rework.
+UAR_oil_crisis_scorza_ending = {
+	ITA = {
+		if = {
+			limit = {
+				has_country_flag = ita_scorza_wins
+				NOT = { has_country_flag = ITA_med_rework_active }
+			}
+			country_event = {
+				id = ITA_scorza_ending.1
+				hours = 5
+			}
+		}
+	}
+}
+
+# Bormann's Germany is paid for backing the Ba'athists, only if the UAR stands.
+UAR_oil_crisis_german_reward = {
+	if = {
+		limit = { has_global_flag = german_civil_war_bormannvic }
+		GER = { country_event = { id = bormann.1213 days = 4 } }
+	}
+}

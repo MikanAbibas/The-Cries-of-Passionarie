@@ -1,0 +1,5564 @@
+﻿############################
+#  		Turkey Events	   #
+############################
+
+add_namespace = turkey ##Dont use this one, uses base hoi4 loc for some reason##
+add_namespace = tur ##use this instead
+add_namespace = tur_dyp
+add_namespace = TUR_DTS
+add_namespace = TUR_HB
+add_namespace = tur_debug
+add_namespace = turp ##merge these with tur later on, pre-war events
+add_namespace = turkey_essential
+add_namespace = tur_elections
+add_namespace = tur_bills
+add_namespace = tur_flavor
+
+#Index; Search for these names using CTRL+F and you'll find the section they entitle.
+#
+#	PRE-WAR
+#		a) Intro Tree Events
+#		b) JITEM Event Chain
+#		c) Pre War Events
+#		d) ITW Events
+#		e) Post-Defeat Crisis
+#		f) Elections
+#		g) Bills
+#		h) CHP-ITW Victory Events
+#		i) CHP-ITW Defeat Events
+#		j) DYP Events
+#		k) UDP Events
+#		l) Darkening the Sun
+#		m) Flavor Events
+#	GENERALLY ESSENTIAL EVENTS
+#		a) Minority Uprisings
+
+############################
+# 	a) Intro Tree Events   #
+############################
+country_event = { #İnönü's Glory, appointing Korutürk
+	id = tur.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.1"}
+ 	title = tur.1.t
+ 	desc = tur.1.d
+ 	picture = GFX_TUR_Fahri_Koruturk
+ 	fire_only_once = yes
+ 	is_triggered_only = yes
+ 	option = {
+ 		name = tur.1.a
+		hidden_effect = {
+			country_event = { id = tur.21 days = 5 }
+			swap_ideas = {
+				remove_idea = TUR_Ismet_Inonu_hog
+				add_idea = TUR_Fahri_Koruturk_hog
+			}
+		}
+		custom_effect_tooltip = TUR_fahri_koruturk_changed_ttip
+ 	}
+}
+
+country_event = { #Domestic Issues, shits wild in Syria
+	id = tur.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.2"}
+ 	title = tur.2.t
+ 	desc = tur.2.d
+ 	picture = GFX_TUR_JITEM_Domestic_Issues
+	is_triggered_only = yes
+	immediate = {
+		TUR = {
+			set_country_flag = Domestic_Issue_Focus_Complete
+		}
+	}
+ 	option = {
+ 		name = tur.2.a
+	}
+}
+
+country_event = { #International Issues
+	id = tur.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.3"}
+ 	title = tur.3.t
+ 	desc = tur.3.d
+	picture = GFX_TUR_International_Issues
+	is_triggered_only = yes
+	immediate = {
+		TUR = {
+			set_country_flag = International_Issue_Focus_Complete
+		}
+	}
+ 	option = {
+ 		name = tur.3.a
+		hidden_effect = {
+			country_event = { id = tur.22 days = 5 }
+		}
+ 	}
+}
+
+country_event = { #Korutürk in Rome
+	id = tur.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.5"}
+ 	title = tur.5.t
+ 	desc = tur.5.d
+	picture = GFX_TUR_Koruturk_In_Rome_event
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.5.a
+ 	}
+}
+
+country_event = { #Anatolian Rhapsody
+	id = tur.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.6"}
+ 	title = tur.6.t
+ 	desc = tur.6.d
+	picture = GFX_TUR_Anatolian_Rhapsody_Event
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.6.a
+		hidden_effect = {
+			country_event = { id = tur.23 days = 10 }
+		}
+	}
+}
+
+country_event = { #Barış Manço
+	id = tur.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.7"}
+ 	title = tur.7.t
+ 	desc = tur.7.d
+	picture = GFX_TUR_Baris_Manco_promising_youth
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.7.a
+	}
+}
+
+country_event = { #Veteran, dissappointment
+	id = tur.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.8"}
+ 	title = tur.8.t
+ 	desc = tur.8.d
+ 	picture = GFX_TUR_Veteran_WhatYouDoneToMe
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.8.a
+ 	}
+}
+
+country_event = { #A Nation is Awakening
+	id = tur.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.9"}
+ 	title = tur.9.t
+ 	desc = [GetTUR_NationAwakening_loc]
+ 	picture = GFX_TUR_NationIsAwakening
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.9.a
+ 	}
+}
+
+country_event = { #Choose Your Destiny
+	id = tur.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.10"}
+ 	title = tur.10.t
+ 	desc = tur.10.d
+ 	picture = GFX_TUR_Selim_the_Grim
+	is_triggered_only = yes
+ 	option = { #greece
+ 		name = tur.10.a
+		ai_chance = { factor = 1 }
+		set_country_flag = TUR_suleiman_the_first_flag
+ 	}
+	option = { #ime
+		name = tur.10.b
+        ai_chance = { factor = 1 }
+		set_country_flag = TUR_selim_the_grim_flag
+	}
+}
+
+country_event = { #Reassure Masters of Europe
+	id = tur.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.11"}
+ 	title = tur.11.t
+ 	desc = tur.11.d
+ 	picture = GFX_TUR_Doenitz_and_Admiral
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.11.a
+		custom_effect_tooltip = TUR_Masters_of_Europe_event_ttip
+ 	}
+}
+
+country_event = { #Şenay Günay
+	id = tur.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.12"}
+ 	title = tur.12.t
+ 	desc = tur.12.d
+ 	picture = GFX_TUR_Senay_Gunay
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.12.a
+ 	}
+}
+
+country_event = { #Peace at Home
+	id = tur.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.13"}
+ 	title = tur.13.t
+ 	desc = tur.13.d
+ 	picture = GFX_TUR_Fahri_Koruturk2
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.13.a
+ 	}
+}
+
+country_event = { #Silas and Ari
+	id = tur.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.14"}
+ 	title = tur.14.t
+ 	desc = tur.14.d
+ 	picture = GFX_TUR_Holiday_in_Cyprus
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.14.a
+ 	}
+}
+
+country_event = { #Yörük
+	id = tur.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.15"}
+ 	title = tur.15.t
+ 	desc = tur.15.d
+ 	picture = GFX_TUR_Eyes_of_Fury
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.15.a
+ 	}
+}
+
+country_event = { #Deacon Bartholemew
+	id = tur.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.16"}
+ 	title = tur.16.t
+ 	desc = tur.16.d
+ 	picture = GFX_TUR_Deacon_Bartholomew
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.16.a
+ 	}
+}
+
+country_event = { #Evening in Elazığ
+	id = tur.17
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.17"}
+ 	title = tur.17.t
+ 	desc = tur.17.d
+ 	picture = GFX_TUR_Evening_in_Elazig
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.17.a
+		custom_effect_tooltip = TUR_Evening_in_Elazig_event_ttip
+ 	}
+}
+
+country_event = { #Daybreak in Diyarbekir
+	id = tur.18
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.18"}
+ 	title = tur.18.t
+ 	desc = tur.18.d
+ 	picture = GFX_TUR_Daybreak_in_Diyarbekir
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.18.a
+		custom_effect_tooltip = TUR_Daybreak_in_Diyarbekir_event_ttip
+ 	}
+}
+
+country_event = { #Death of a Romantic Socialist
+	id = tur.19
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.19"}
+ 	title = tur.19.t
+ 	desc = tur.19.d
+ 	picture = GFX_TUR_Romantic_Socialist
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.19.a
+ 	}
+}
+
+country_event = { #Auspicious Meeting
+	id = tur.20
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.20"}
+ 	title = tur.20.t
+ 	desc = tur.20.d
+ 	picture = GFX_TUR_Auspicious_Meeting
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.20.a
+ 	}
+}
+
+country_event = { #Introduction of Korutürk
+	id = tur.21
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.21"}
+ 	title = tur.21.t
+ 	desc = tur.21.d
+ 	picture = GFX_TUR_Old_Admiral
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.21.a
+ 	}
+}
+
+country_event = { #Suspicious Meeting
+	id = tur.22
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.22"}
+ 	title = tur.22.t
+ 	desc = tur.22.d
+ 	picture = GFX_TUR_Suspicious_Meeting
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.22.a
+ 	}
+}
+
+country_event = { #They Have Hearts Too
+	id = tur.24
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.24"}
+ 	title = tur.24.t
+ 	desc = tur.24.d
+	picture = GFX_TUR_They_Have_Hearts
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = tur.24.a
+	}
+}
+country_event = { #End the Agha System
+	id = tur.25
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.25"}
+ 	title = tur.25.t
+ 	desc = tur.25.d
+	picture = GFX_TUR_End_Agha_System
+	is_triggered_only = yes
+	option = {
+		name = tur.25.a
+	}
+}
+
+country_event = { #To Malta bitch
+	id = tur.26
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.26"}
+ 	title = tur.26.t
+ 	desc = tur.26.d
+	picture = GFX_TUR_To_Malta
+	is_triggered_only = yes
+	option = {
+		name = tur.26.a
+	}
+}
+country_event = { #Only a Nightmare
+	id = tur.78
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.78"}
+ 	title = tur.78.t
+ 	desc = tur.78.d
+	#STRIP(art) picture = GFX_report_event_TUR_Inonu_Sitting
+	is_triggered_only = yes
+	option = {
+		name = tur.78.a
+	}
+}
+
+country_event = { #Silence
+	id = tur.79
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.79"}
+ 	title = tur.79.t
+ 	desc = tur.79.d
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	#STRIP(art) picture = GFX_report_event_TUR_Inonu_Anitkabir
+	option = {
+		name = tur.79.a
+	}
+}
+############################
+# 	b) JITEM Event Chain   #
+############################
+
+country_event = { #JITEM Plotline, Anatolian Rhapsody shit
+	id = tur.23
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.23"}
+ 	title = tur.23.t
+ 	desc = tur.23.d
+	picture = GFX_TUR_JITEM_Plotline_1
+	is_triggered_only = yes
+	option = {
+		name = tur.23.a
+		country_event = { id = tur.27 days = 3 }
+	}
+}
+country_event = { #JITEM Plotline, second event
+	id = tur.27
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.27"}
+ 	title = tur.27.t
+ 	desc = tur.27.d
+	picture = GFX_TUR_JITEM_Plotline_2
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = tur.27.a
+		country_event = { id = tur.28 days = 3 }
+	}
+	option = {
+		name = tur.27.b
+		country_event = { id = tur.29 days = 3 }
+	}
+}
+country_event = { #JITEM Plotline, tutorial
+	id = tur.28
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.28"}
+ 	title = tur.28.t
+ 	desc = tur.28.d
+	picture = GFX_TUR_JITEM_Plotline_14
+	is_triggered_only = yes
+	option = {
+		name = tur.28.a
+		country_event = { id = tur.29 days = 2 }
+	}
+}
+
+country_event = { #JITEM Plotline, third
+	id = tur.29
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.29"}
+ 	title = tur.29.t
+ 	desc = tur.29.d
+	picture = GFX_TUR_JITEM_Plotline_3
+	is_triggered_only = yes
+	option = {
+		name = tur.29.a
+		country_event = { id = tur.30 days = 3 } #raki
+	}
+	option = {
+		name = tur.29.b
+		country_event = { id = tur.31 days = 3 } #knock
+	}
+	option = {
+		name = tur.29.c
+		country_event = { id = tur.42 days = 3 } #aggressive
+	}
+}
+country_event = { #JITEM Plotline, fourth/drinking raki
+	id = tur.30
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.30"}
+ 	title = tur.30.t
+ 	desc = tur.30.d
+	picture = GFX_TUR_JITEM_Plotline_4
+	is_triggered_only = yes
+	option = {
+		name = tur.30.a
+		country_event = { id = tur.40 days = 2 }
+	}
+}
+
+country_event = { #JITEM Plotline, fifth/drinking raki
+	id = tur.40
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.40"}
+ 	title = tur.40.t
+ 	desc = tur.40.d
+	picture = GFX_TUR_JITEM_Plotline_5
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = tur.40.a
+		country_event = { id = tur.41 days = 2 }
+	}
+}
+country_event = { #JITEM Plotline, sixth/drinking raki
+	id = tur.41
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.41"}
+ 	title = tur.41.t
+ 	desc = tur.41.d
+	picture = GFX_TUR_JITEM_Plotline_6
+	is_triggered_only = yes
+	option = {
+		name = tur.41.a
+		country_event = { id = tur.69 days = 2 }
+	}
+}
+
+country_event = { #JITEM Plotline, seventh/knock
+	id = tur.31
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.31"}
+ 	title = tur.31.t
+ 	desc = tur.31.d
+	picture = GFX_TUR_JITEM_Plotline_7
+	is_triggered_only = yes
+	option = {
+		name = tur.31.a
+		country_event = { id = tur.32 days = 2 }
+	}
+}
+country_event = { #JITEM Plotline, nine/answering door
+	id = tur.32
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.32"}
+ 	title = tur.32.t
+ 	desc = tur.32.d
+	picture = GFX_TUR_JITEM_Plotline_8
+	is_triggered_only = yes
+	option = {
+		name = tur.32.a
+		country_event = { id = tur.33 days = 2 }
+	}
+	option = {
+		name = tur.32.b
+		country_event = { id = tur.34 days = 2 }
+	}
+}
+
+country_event = { #JITEM Plotline, ten/go or nah
+	id = tur.33
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.33"}
+ 	title = tur.33.t
+ 	desc = tur.33.d
+	picture = GFX_TUR_JITEM_Plotline_9
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = tur.33.a
+		country_event = { id = tur.36 days = 2 }
+	}
+	option = {
+		name = tur.33.b
+		country_event = { id = tur.68 days = 2 }
+	}
+}
+country_event = { #JITEM Plotline, dont answer the door
+	id = tur.34
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.34"}
+ 	title = tur.34.t
+ 	desc = tur.34.d
+	picture = GFX_TUR_JITEM_Plotline_10
+	is_triggered_only = yes
+	option = {
+		name = tur.34.a
+		country_event = { id = tur.42 days = 2 } #aggressive
+	}
+	option = {
+		name = tur.34.b
+		country_event = { id = tur.35 days = 2 } #knock harder
+	}
+}
+
+country_event = { #JITEM Plotline, knock harder
+	id = tur.35
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.35"}
+ 	title = tur.35.t
+ 	desc = tur.35.d
+	picture = GFX_TUR_JITEM_Plotline_11
+	is_triggered_only = yes
+	option = {
+		name = tur.35.a
+		country_event = { id = tur.69 days = 2 }
+	}
+}
+country_event = { #JITEM Plotline, go with the police
+	id = tur.36
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.36"}
+ 	title = tur.36.t
+ 	desc = tur.36.d
+	picture = GFX_TUR_JITEM_Plotline_15
+	is_triggered_only = yes
+	option = {
+		name = tur.36.a
+		country_event = { id = tur.69 days = 2 }
+	}
+}
+
+country_event = { #JITEM Plotline, who did you shot
+	id = tur.37
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.37"}
+ 	title = tur.37.t
+ 	desc = [GetAfterTURLoc]
+	picture = GFX_TUR_JITEM_Plotline_16
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = tur.37.a
+		country_event = { id = tur.69 days = 2 }
+	}
+}
+country_event = { #JITEM Plotline, aggressive approach
+	id = tur.42
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.42"}
+ 	title = tur.42.t
+ 	desc = tur.42.d
+	picture = GFX_TUR_JITEM_Plotline_12
+	is_triggered_only = yes
+	option = {
+		name = tur.42.a
+		country_event = { id = tur.43 days = 2 }
+	}
+}
+
+country_event = { #JITEM Plotline, shoot
+	id = tur.43
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.43"}
+ 	title = tur.43.t
+ 	desc = tur.43.d
+	picture = GFX_TUR_JITEM_Plotline_13
+	is_triggered_only = yes
+	option = {
+		name = tur.43.a
+		set_country_flag = kidshot
+		country_event = { id = tur.37 days = 2 }
+	}
+	option = {
+		name = tur.43.b
+		set_country_flag = momshot
+		country_event = { id = tur.37 days = 2 }
+	}
+}
+country_event = { #JITEM Plotline, shit i forgot lol
+	id = tur.68
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.68"}
+ 	title = tur.68.t
+ 	desc = tur.68.d
+	picture = GFX_TUR_JITEM_Plotline_17
+	is_triggered_only = yes
+	option = {
+		name = tur.68.a
+		country_event = { id = tur.69 days = 3 } #aggressive
+	}
+}
+
+country_event = { #JITEM Plotline, riots escalate
+	id = tur.69
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.69"}
+ 	title = tur.69.t
+ 	desc = tur.69.d
+	picture = GFX_TUR_JITEM_Plotline_18
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = tur.69.a
+		custom_effect_tooltip = tur.69.tt
+		hidden_effect = {
+			352 = {
+				if = {
+					limit = { #Should be impossible. But coding for edge cases is smart.
+						NOT = { check_variable = { TUR_DtS_current_incident = 8} }
+					} 
+
+					#If there's already an ongoing CU event, its effects are moved to General Events instead
+					add_to_variable = { TUR_DtS_dCon_From_Recent_Events = TUR_DtS_dCon_From_Recent_CU_Events } 
+					set_variable = { TUR_DtS_dCon_From_Recent_CU_Events = 0 } 
+					add_to_variable = { TUR_DtS_dUnr_From_Recent_Events = TUR_DtS_dUnr_From_Recent_CU_Events } 
+					set_variable = { TUR_DtS_dUnr_From_Recent_CU_Events = 0 } 
+
+					#Copied from the effects of a riot in the TUR_DtS_Cause_Incident scripted effect
+					set_variable = { TUR_DtS_current_incident = 4 }
+					add_to_variable = { TUR_DtS_Unrest = 15 }
+					add_to_variable = { TUR_DtS_dUnr_From_Recent_CU_Events = 15 }
+
+					#this gdp section might be a tiny bugged
+					set_temp_variable = { noooo_my_dev_projects = -0.04 }
+					multiply_temp_variable = { noooo_my_dev_projects = TUR_DtS_extract_industrialize_ratio } 
+					add_to_temp_variable = { noooo_my_dev_projects = 1 } 
+					for_each_scope_loop = {
+						array = TUR_DtS_states_in_this_region
+						set_temp_variable = { state_value_multiplier_temp = PREV.noooo_my_dev_projects }
+						econ_state_value_change_multiply_specified_state = yes
+					}
+
+					TUR_DtS_Calculate_Regional_GDPs = yes
+				}
+			}
+		}
+		set_temp_variable = { tur_dts_unr_change_amount = 10 }
+		set_temp_variable = { tur_dts_targeted_state = 200 } #all kurdish states
+		TUR_DtS_Change_Unrest = yes
+	}
+}
+############################
+#    c) Pre War Events     #
+############################
+
+country_event = { #Righteous Claim
+	id = tur.44
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.44"}
+ 	title = tur.44.t
+ 	desc = tur.44.d
+	picture = GFX_TUR_Righteous_Claim
+	is_triggered_only = yes
+	option = {
+		name = tur.44.a
+	}
+}
+country_event = { #Postals on the Street
+	id = tur.45
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.45"}
+ 	title = tur.45.t
+ 	desc = tur.45.d
+	picture = GFX_TUR_Postals_on_da_Street
+	is_triggered_only = yes
+	option = {
+		name = tur.45.a
+	}
+}
+
+country_event = { #Hands on da Neck
+	id = tur.46
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.46"}
+ 	title = tur.46.t
+ 	desc = tur.46.d
+	picture = GFX_TUR_Hands_on_da_Neck
+	is_triggered_only = yes
+	option = {
+		name = tur.46.a
+	}
+}
+country_event = { #War at Home
+	id = tur.47
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.47"}
+ 	title = tur.47.t
+ 	desc = tur.47.d
+	picture = GFX_TUR_coast
+	is_triggered_only = yes
+	option = {
+		name = tur.47.a
+	}
+}
+
+country_event = { #War at World
+	id = tur.48
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.48"}
+ 	title = tur.48.t
+ 	desc = tur.48.d
+	picture = GFX_TUR_Hands_on_da_Neck
+	is_triggered_only = yes
+	option = {
+		name = tur.48.a
+	}
+}
+
+country_event = { #A Baker's Dozen / Bank of Work
+	id = tur.49
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.49"}
+ 	title = tur.49.t
+ 	desc = tur.49.d
+	picture = GFX_TUR_bakery
+	is_triggered_only = yes
+	option = {
+		name = tur.49.a
+		add_stability = 0.05
+	}
+}
+
+country_event = { #Echoes of May '20
+	id = tur.50
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.50"}
+ 	title = tur.50.t
+ 	desc = tur.50.d
+	picture = GFX_TUR_Echoes_of_May
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = tur.50.a
+	}
+}
+country_event = { #Salute da Navy
+	id = tur.51
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.51"}
+ 	title = tur.51.t
+ 	desc = tur.51.d
+	picture = GFX_TUR_Salute_the_Navy
+	is_triggered_only = yes
+	option = {
+		name = tur.51.a
+	}
+}
+
+country_event = { #Deafen by Artillery
+	id = tur.55
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.55"}
+ 	title = tur.55.t
+ 	desc = tur.55.d
+	#STRIP(art) picture = GFX_TUR_Deafen_by_Artillery_event
+	is_triggered_only = yes
+	option = {
+		name = tur.55.a
+		add_war_support = 0.02
+	}
+}
+
+country_event = { #Independence Tribunals
+	id = tur.57
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.57"}
+ 	title = tur.57.t
+ 	desc = tur.57.d
+ 	picture = GFX_TUR_Anticommunist
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur.57.a
+		add_stability = -0.1
+ 	}
+}
+
+country_event = { #Review the Army
+	id = tur.70
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.70"}
+ 	title = tur.70.t
+ 	desc = tur.70.d
+	picture = GFX_TUR_Gursel_Inonu
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = tur.70.a
+		set_country_flag = TUR_Gursel_Chosen
+	}
+	option = {
+		name = tur.70.b
+		set_country_flag = TUR_Rustu_Chosen
+	}
+	option = {
+		name = tur.70.c
+		set_country_flag = TUR_Inonu_Chosen
+	}
+}
+country_event = { #Türkeş and İnönü
+	id = tur.71
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.71"}
+ 	title = tur.71.t
+ 	desc = tur.71.d
+	picture = GFX_TUR_Inonu_Turkes
+	is_triggered_only = yes
+	option = {
+		name = tur.71.a
+		load_oob = TUR_Volunteer
+		set_country_flag = TUR_Inonu_Chosen
+	}
+}
+
+country_event = { #Birâyen Me
+	id = tur.72
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.72"}
+ 	title = tur.72.t
+ 	desc = tur.72.d
+	picture = GFX_TUR_Ahmad_Arvasi
+	is_triggered_only = yes
+	option = {
+		name = tur.72.a
+		set_temp_variable = { tur_dts_unr_change_amount = -10 } #-20 from focus, -10 from event, so -30 total
+		set_temp_variable = { tur_dts_targeted_state = 200 } 
+		TUR_DtS_Change_Unrest = yes
+	}
+}
+
+country_event = { #The Price We Pay
+	id = tur.73
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.73"}
+ 	title = tur.73.t
+ 	desc = tur.73.d
+	picture = GFX_TUR_Armenian_Church
+	is_triggered_only = yes
+	option = {
+		name = tur.73.a
+		set_temp_variable = { money_reserves_temp = .75 }
+		econ_money_reserves_change_raw_money = yes
+	}
+}
+
+country_event = { #The Birds Have Also Gone
+	id = tur.58
+	immediate = { log = "[GetDateText]: [Root.GetName]: event tur.58" }
+ 	title = tur.58.t
+ 	desc = tur.58.d
+	picture = GFX_TUR_DeclareWar
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = tur.58.a
+		hidden_effect = {
+			#STRIP(dead_event) every_country = { news_event = WORLD.345 } # WORLD.345 is defined nowhere, even on the Mediterranean branch
+			leave_faction = yes
+			load_focus_tree = TNO_Turkey_itaturwar
+			complete_national_focus = TUR_war_on_the_horizon
+			if = { limit = { country_exists = LEB } LEB = {
+				leave_faction = yes
+				add_ideas = ITW_surrender
+			} }
+			if = { limit = { country_exists = JOR } JOR = {
+				leave_faction = yes
+				add_ideas = ITW_surrender
+			} }
+			IME = {
+				leave_faction = yes
+				add_ideas = ITW_surrender
+				# master's IME keeps its own tree, whose war branch opens on this flag as at itatur.1;
+				# the branch's IME_ITW_tree would replace it for good (ime_itw.101 then loads an empty one)
+				set_country_flag = ime_italy_turkey_war
+				mark_focus_tree_layout_dirty = yes
+				#STRIP(itw) load_focus_tree = IME_ITW_tree
+				#STRIP(itw) complete_national_focus = IME_a_strike_in_the_back
+			}
+			GRE = {
+				leave_faction = yes
+				add_ideas = ITW_surrender
+			}
+			if = {
+				limit = {
+					check_variable = { ITA.ITA_Iraq_stability > 0.59 }
+				}
+				IRQ = {
+					set_country_flag = IRQ_joined_ITW
+					leave_faction = yes
+					add_ideas = ITW_surrender
+					load_oob = "IRQ_TurkishWar"
+					give_military_access = IME
+				}
+				TUR = {
+					declare_war_on = {
+						target = IRQ
+						type = annex_everything
+					}
+				}
+				BKU = {
+					declare_war_on = {
+						target = IRQ
+						type = annex_everything
+					}
+				}
+				SNS = {
+					declare_war_on = {
+						target = IRQ
+						type = annex_everything
+					}
+				}
+			}
+			ITA = {
+				end_puppet = GRE
+				end_puppet = IME
+			}
+			IID = {
+				add_ideas = ITW_surrender
+				transfer_state = 164
+				add_state_core = 164
+				load_oob = ITA_Rhodes
+			}
+			declare_war_on = {
+				target = IME
+				type = annex_everything
+			}
+			if = { limit = { country_exists = JOR } JOR = {
+				add_to_war = { 
+					targeted_alliance = IME 
+					enemy = TUR
+					hostility_reason = asked_to_join
+				}
+			} }
+			if = { limit = { country_exists = LEB } LEB = {
+				add_to_war = { 
+					targeted_alliance = IME 
+					enemy = TUR
+					hostility_reason = asked_to_join
+				}
+			} }
+			declare_war_on = {
+				target = GRE
+				type = annex_everything
+			}
+			SNS = {
+				add_ideas = ITW_surrender
+				add_to_war = { 
+					targeted_alliance = TUR 
+					enemy = IME
+					hostility_reason = asked_to_join
+				}
+				# Syria.8 is defined nowhere, even on the Mediterranean branch
+				#STRIP(dead_event) country_event = { id = Syria.8 days = 25 }
+			}
+			BKU = {
+				add_ideas = ITW_surrender
+				add_to_war = { 
+					targeted_alliance = TUR 
+					enemy = IME
+					hostility_reason = asked_to_join
+				}
+			}
+			set_country_flag = TUR_disable_Iraq
+			ITA = {
+				set_country_flag = ITA_disable_Iraq
+				#STRIP(upstream) TNO_fopo_remove_ITA_italo_turkish_war_iraq_tab = yes
+				#STRIP(upstream) TNO_fopo_add_ITA_italo_turkish_war_tab = yes
+			}
+			set_global_flag = italy_turkey_war
+			1328 = { set_demilitarized_zone = no }
+			183 = { set_demilitarized_zone = no }
+			country_event = { id = tur.65 days = 8 }
+			country_event = { id = tur.95 days = 1 }
+			country_event = { id = tur.59 days = 5 }
+			country_event = { id = TUR_DTS.147 days = 7 } #assad gaming
+			country_event = { id = tur.15 days = 35 }
+			country_event = { id = tur.16 days = 60 }
+			country_event = { id = tur.12 days = 40 }
+			IRE = {
+				# IRE_wildride.1 is defined nowhere, even on the Mediterranean branch
+				#STRIP(dead_event) country_event = { id = IRE_wildride.1 days = 7 }
+			}
+			USA = {
+				# USA.early_flavor.12 is defined nowhere, even on the Mediterranean branch
+				#STRIP(dead_event) country_event = { id = USA.early_flavor.12 days = 20 }
+			}
+			if = {
+				limit = {
+					has_country_flag = war_at_world_oob
+				}
+				clr_country_flag = war_at_world_oob
+				load_oob = TUR_War_at_world
+			}
+		}
+		custom_effect_tooltip = TUR_ITW_begins_tt
+		if = {
+			limit = {
+				has_country_flag = Peace_at_Home_Peace_at_World
+			}
+			clr_country_flag = Peace_at_Home_Peace_at_World
+			add_timed_idea = { idea = TUR_peace_at_home days = 60 }
+		}
+		else_if = {
+			limit = {
+				has_country_flag = Reassure_Masters_of_Europe
+			}
+			clr_country_flag = Reassure_Masters_of_Europe
+			add_timed_idea = { idea = TUR_masters_of_europe days = 60 }
+		}
+
+		hidden_effect = { #Undo the pre-ITW martial law that prevents early revolts
+			for_each_scope_loop = { 
+				array = TUR_DtS_Regions
+				if = {
+					limit = { has_state_flag = DtS_got_free_pre_itw_martial_law }
+					clr_state_flag = DtS_No_Revolt_Martial_Law
+					clr_state_flag = DtS_got_free_pre_itw_martial_law
+				}
+			}
+		}
+	}
+}
+
+country_event = { #İnönü calls for support from ME countries
+	id = tur.74
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.74"}
+ 	title = tur.74.t
+ 	desc = tur.74.d
+	picture = GFX_TUR_Inonu_and_Shah
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = tur.74.a
+		country_event = { id = tur.117 days = 28 }
+	}
+}
+country_event = { #Ahmed Arvaşi
+	id = tur.75
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.75"}
+ 	title = tur.75.t
+ 	desc = tur.75.d
+	picture = GFX_TUR_Ahmad_Arvasi
+	is_triggered_only = yes
+	option = {
+		name = tur.75.a
+	}
+}
+
+country_event = { #Racial Jizya
+	id = tur.76
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.76"}
+ 	title = tur.76.t
+ 	desc = tur.76.d
+	picture = GFX_TUR_Armenian_Mother_and_Child_1915
+	is_triggered_only = yes
+	option = {
+		name = tur.76.a
+	}
+}
+
+country_event = { #If I had a Hammer - Flavour - Cem Karaca
+	id = tur.77
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.77"}
+ 	title = tur.77.t
+ 	desc = tur.77.d
+	picture = GFX_TUR_CemKaraca_1962
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = tur.77.a
+	}
+}
+############################
+#      d) ITW Events       #
+############################
+
+country_event = { #Cyprus Conflict
+	id = tur.59
+	title = tur.59.t
+ 	desc = tur.59.d
+	picture = GFX_TUR_CyprusWar_OsmanFazilPolat
+	is_triggered_only = yes
+
+	trigger = {
+		has_war_with = GRE #if the greek conflict is over, then the cyprus conflict breaks
+		TCP = { exists = no } #in case the has_war_with check failed somehow
+	}
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event tur.59"
+		hidden_effect = {
+			complete_national_focus = TUR_a_holiday_in_cyprus
+			GRE = { load_oob = GRE_Cyprus }
+			TCP = {
+				#STRIP(upstream) TNO_startup_nation = yes
+				add_state_core = 1328
+				transfer_state = 1328
+				add_ideas = ITW_surrender
+				add_state_claim = 183
+				load_oob = TUR_TCP # loaded by TCP, which holds the ground (Phase D round 2)
+			}
+			TUR = {
+				puppet = TCP
+
+				TUR_DtS_Calculate_Regional_GDP_goals = yes
+			}
+			TCP = {
+				set_politics = {
+					ruling_party = despotism
+				}
+				set_popularities = {
+					communist = 0
+					socialist = 0
+					social_democrat = 14
+					social_liberal = 0
+					social_conservative = 34
+					authoritarian_democrat = 0
+					despotism = 52
+					fascism = 0
+					national_socialism = 0
+					ultranational_socialism = 0
+					burgundian_system = 0
+				}
+			}
+			country_event = { id = tur.14 days = 6 }
+			183 = {
+				remove_building = {
+					type = naval_base
+					level = 2
+					province = 11984
+				}
+			}
+			1328 = {
+				remove_building = {
+					type = naval_base
+					level = 2
+					province = 7193
+				}
+			}
+			set_country_flag = TUR_Cyprus_Conflict
+		}
+	}
+	option = {
+		name = tur.59.a
+		hidden_effect = {
+			activate_mission = Liberate_North_Cyprus
+		}
+	}
+}
+
+country_event = { #Invasion fails
+	id = tur.60
+	is_triggered_only = yes
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event tur.60"
+		hidden_effect = {
+			GRE = { delete_unit_template_and_units = { division_template = "Ethnikí Frourá" } }
+			delete_unit_template_and_units = { division_template = "Türk Mukavemat Teşkilatı" }
+			GRE = { transfer_state = 1328 }
+			183 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 11984
+				}
+			}
+			1328 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 7193
+				}
+			}
+			remove_mission = Liberate_South_Cyprus
+			
+			TUR = { TUR_DtS_Calculate_Regional_GDP_goals = yes }
+		}
+	}
+ 	title = tur.60.t
+ 	desc = tur.60.d
+	picture = GFX_TUR_CyprusWar_InvasionFail
+	option = {
+		name = tur.60.a
+		hidden_effect = {
+			unlock_national_focus = TUR_a_holiday_in_cyprus
+			complete_national_focus = TUR_defeat_upon_the_beaches
+			set_global_flag = Cyprus_War_Over
+		}
+		
+		# custom_effect_tooltip = TUR_dow_tt_down_small
+		# add_to_variable = { TUR_DOW = 0 }
+		# TUR_DoW_change_stage = yes
+	}
+}
+
+country_event = { #North Cyprus siezed
+	id = tur.61
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.61"}
+ 	title = tur.61.t
+ 	desc = tur.61.d
+	picture = GFX_TUR_CyprusWar_InvasionSucceed
+	is_triggered_only = yes
+	option = {
+		name = tur.61.a
+		hidden_effect = {
+			complete_national_focus = TUR_to_the_south
+		}
+	}
+				}
+country_event = { #Attack on South Cyprus launched
+	id = tur.62
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.62"}
+ 	title = tur.62.t
+ 	desc = tur.62.d
+	picture = GFX_TUR_CyprusWar_SouthInvasion
+	is_triggered_only = yes
+	option = {
+		name = tur.62.a
+	}
+}
+country_event = { #South Cyprus siezed
+	id = tur.63
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event tur.63"
+		hidden_effect = {
+			GRE = { delete_unit_template_and_units = { division_template = "Ethnikí Frourá" } }
+			delete_unit_template_and_units = { division_template = "Türk Mukavemat Teşkilatı" }
+			TCP = {
+				transfer_state = 183
+				set_cosmetic_tag = TCP_unified
+			}
+			183 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 11984
+				}
+			}
+			1328 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 7193
+				}
+			}
+			TUR = { TUR_DtS_Calculate_Regional_GDP_goals = yes }
+		}
+		
+		# custom_effect_tooltip = TUR_dow_tt_up_small
+		# add_to_variable = { TUR_DOW = 0 }
+		# TUR_DoW_change_stage = yes
+		
+	}
+ 	title = tur.63.t
+ 	desc = tur.63.d
+	picture = GFX_TUR_CyprusWar_IslandOccupied
+	is_triggered_only = yes
+	option = {
+		name = tur.63.a
+		hidden_effect = {
+			unlock_national_focus = TUR_a_holiday_in_cyprus
+			unlock_national_focus = TUR_to_the_south
+			complete_national_focus = TUR_cyprus_cannot_remain_greek
+			set_global_flag = Cyprus_War_Over
+		}
+	}
+		}
+country_event = { #Attack on South Cyprus fails
+	id = tur.64
+	is_triggered_only = yes
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event tur.64"
+		hidden_effect = {
+			GRE = { delete_unit_template_and_units = { division_template = "Ethnikí Frourá" } }
+			delete_unit_template_and_units = { division_template = "Türk Mukavemat Teşkilatı" }
+			TCP = { set_cosmetic_tag = TCP_split }
+			183 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 11984
+				}
+			}
+			1328 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 7193
+				}
+			}
+		}
+	}
+ 	title = tur.64.t
+ 	desc = tur.64.d
+	picture = GFX_TUR_CyprusWar_IslandDivided
+	option = {
+		name = tur.64.a
+		hidden_effect = {
+			unlock_national_focus = TUR_a_holiday_in_cyprus
+			unlock_national_focus = TUR_to_the_south
+			complete_national_focus = TUR_taksim
+			set_global_flag = Cyprus_War_Over
+		}
+		
+		# custom_effect_tooltip = TUR_dow_tt_down_small
+		# add_to_variable = { TUR_DOW = 0 }
+		# TUR_DoW_change_stage = yes
+	}
+}
+
+country_event = { #Attack on Rhodes launched
+	id = tur.65
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event tur.65"
+		hidden_effect = {
+			set_country_flag = TUR_Rhodes_conflict
+		}
+	}
+ 	title = tur.65.t
+ 	desc = tur.65.d
+	picture = GFX_TUR_Balaclava_Resistance
+	is_triggered_only = yes
+	option = {
+		name = tur.65.a
+		declare_war_on = {
+			target = IID
+			type = annex_everything
+		}
+		hidden_effect = {
+			IID = {
+				load_focus_tree = IID_ITW_tree
+				complete_national_focus = IID_alle_armi
+			}
+		}
+	}
+}
+
+country_event = { #Attack on Rhodes fails
+	id = tur.66
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event tur.66"
+		hidden_effect = { 
+			ITA = { 
+				annex_country = { target = IID transfer_troops = no }
+			}
+		}
+	}
+ 	title = tur.66.t
+ 	desc = tur.66.d
+	picture = GFX_TUR_Failed_Invasion
+	is_triggered_only = yes
+	option = {
+		name = tur.66.a
+		unlock_national_focus = TUR_return_to_rodos
+		complete_national_focus = TUR_the_dodecanes_defiant
+		
+		# custom_effect_tooltip = TUR_dow_tt_down_small
+		# add_to_variable = { TUR_DOW = -10 }
+		# TUR_DoW_change_stage = yes
+	}
+}
+country_event = { #Rhodes siezed
+	id = tur.67
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event tur.67"
+		hidden_effect = { TUR = { TUR_DtS_Calculate_Regional_GDP_goals = yes } }
+	}
+ 	title = tur.67.t
+ 	desc = tur.67.d
+	picture = GFX_TUR_Victory
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = tur.67.a
+		unlock_national_focus = TUR_return_to_rodos
+		complete_national_focus = TUR_push_them_to_the_sea
+		
+		custom_effect_tooltip = TUR_dow_tt_up_small
+		add_to_variable = { TUR_DOW = 5 }
+		TUR_DoW_change_stage = yes
+	}
+}
+country_event = { #Greece captures Thrace
+	id = tur.91
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.91"}
+ 	title = tur.91.t
+ 	desc = tur.91.d
+	#picture = 
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = tur.91.a
+		unlock_national_focus = TUR_an_old_rival_a_new_war
+		unlock_national_focus = TUR_watching_the_border
+		complete_national_focus = TUR_disaster_in_thrace
+		
+		# custom_effect_tooltip = TUR_dow_tt_down_small
+		# add_to_variable = { TUR_DOW = -10 }
+		# TUR_DoW_change_stage = yes
+	}
+}
+
+country_event = { #
+	id = tur.92
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.92"}
+ 	title = tur.92.t
+ 	desc = tur.92.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.92.a
+	}
+}
+
+country_event = { #
+	id = tur.93
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.93"}
+ 	title = tur.93.t
+ 	desc = tur.93.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.93.a
+		
+	}
+}
+
+country_event = { #
+	id = tur.94
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.94"}
+ 	title = tur.94.t
+ 	desc = tur.94.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.94.a
+		
+	}
+}
+
+country_event = { #Turkish bombers over the Dodecanes #Also warning: Rhodes attack in one week
+	id = tur.95
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.95"}
+ 	title = tur.95.t
+ 	desc = tur.95.d
+	picture = GFX_report_event_iberia_plane_crash
+	is_triggered_only = yes
+	option = {
+		name = tur.95.a
+		add_manpower = -76
+		custom_effect_tooltip = TUR_rhodes_attack_warning_tt
+	}
+}
+
+country_event = { #ITW victory
+	id = tur.80
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event tur.80"
+		#STRIP(dead_event) hidden_effect = { every_country = { news_event = WORLD.346 } } # WORLD.346 is defined nowhere, even on the Mediterranean branch
+	}
+ 	title = tur.80.t
+ 	desc = tur.80.d
+	picture = GFX_TUR_ITW_victory
+	is_triggered_only = yes
+	option = {
+		name = tur.80.a
+		set_temp_variable = { TUR_CHP_Pop_Change = 5 }
+		TUR_Change_CHP_Popularity = yes
+		add_war_support = -0.1
+		load_focus_tree = TNO_Turkey_CHP_ITWVictory
+		clr_global_flag = italy_turkey_war
+		set_country_flag = TUR_ITW_victory
+		remove_ideas = TUR_italo_turkish_tension
+	}
+}
+
+country_event = { #ITW defeat
+	id = tur.81
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event tur.81"
+		hidden_effect = { every_country = { news_event = { id = WORLD.355 hours = 6 } } }
+	}
+ 	title = tur.81.t
+ 	desc = tur.81.d
+	picture = GFX_TUR_ITW_defeat
+	is_triggered_only = yes
+	option = {
+		name = tur.81.a
+		set_temp_variable = { TUR_CHP_Pop_Change = -10 }
+		TUR_Change_CHP_Popularity = yes
+		load_focus_tree = TNO_Turkey_crisis_chart
+		clr_global_flag = italy_turkey_war
+		set_country_flag = TUR_ITW_defeat
+		hidden_effect = {
+			country_event = { id = tur.90 days = 26 }
+			remove_state_claim = 1240
+			remove_state_claim = 553
+			if = { #Borders on Sand doesn't occur in the secret assadist route
+				limit = {
+					SNS = {
+						NOT = {
+							OR = {
+								has_country_leader = { name = "Hafez al-Assad" ruling_only = yes }
+							}
+						}
+					}
+				}
+				country_event = { id = tur.109 days = 7 }
+			}
+		}
+		remove_ideas = TUR_italo_turkish_tension
+	}
+}
+
+country_event = { #Fires if all units are deleted during ITW
+	id = tur.113
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event tur.113"
+	}
+ 	title = tur.113.t
+ 	desc = tur.113.d
+	picture = GFX_TUR_ITW_defeat
+	is_triggered_only = yes
+	option = {
+		name = tur.113.a
+		add_manpower = -1
+		
+		custom_effect_tooltip = TUR_dow_tt_what_did_you_do_grand_marshall
+		set_variable = { TUR_DOW = 0 }
+		TUR_DoW_change_stage = yes
+		
+		hidden_effect = {
+			load_focus_tree = TNO_Turkey_crisis_chart
+			clr_global_flag = italy_turkey_war
+			set_country_flag = TUR_ITW_defeat
+			remove_ideas = TUR_italo_turkish_tension
+			
+		
+			TUR = { ##greek peace stuff
+				save_global_event_target_as = losing_country
+				set_country_flag = TUR_GTW_lost
+				add_to_variable = { TUR_ITW_win_counter = -3 }
+				unlock_national_focus = TUR_an_old_rival_a_new_war
+				unlock_national_focus = TUR_watching_the_border
+				unlock_national_focus = TUR_no_enemy_shall_step_on_turkish_soil
+				complete_national_focus = TUR_greece_holds
+			}
+			GRE = {
+				save_global_event_target_as = winning_country
+				remove_ideas = ITW_surrender
+				white_peace = TUR
+				transfer_state = 184
+				transfer_state = 1266
+				1267 = { set_demilitarized_zone = yes }
+				set_global_flag = war_won
+				set_global_flag = show_peace_popup_alert
+				country_event = { id = grePostITW.20 days = 2 }
+			}
+			ITA = {
+				ITA_Ciano_POP_everyone_loves_ciano = yes
+				ITA_Ciano_POP_everyone_loves_ciano = yes
+				ITA_Ciano_POP_everyone_loves_ciano = yes
+			}
+			if = {
+				limit = {
+					NOT = { has_global_flag = Cyprus_War_Over }
+				}
+				GRE = { annex_country = { target = TCP transfer_troops = no } }
+			}
+		
+			if = {
+				limit = { #iraq peace stuff
+					IRQ = { has_country_flag = IRQ_joined_ITW }
+				}
+				IRQ = {
+					annex_country = { target = BKU transfer_troops = no }
+					remove_ideas = ITW_surrender
+					white_peace = TUR
+					white_peace = SNS
+					white_peace = TCP
+					delete_unit_template_and_units = {
+						division_template = "Reserve Division"
+						disband = yes
+					}
+				}
+				add_to_variable = { TUR_ITW_win_counter = -2 }
+			}
+		
+			TUR = { #levant peace stuff
+				save_global_event_target_as = losing_country
+				set_country_flag = TUR_ITW_lost
+				add_to_variable = { TUR_ITW_win_counter = -4 }
+				unlock_national_focus = TUR_kuduse
+				complete_national_focus = TUR_the_holy_city_out_of_reach
+				end_puppet = SNS
+			}
+			IME = {
+				save_global_event_target_as = winning_country
+				remove_ideas = ITW_surrender
+				white_peace = TUR
+				white_peace = SNS
+				white_peace = BKU
+				white_peace = TCP
+				set_global_flag = war_won
+				set_global_flag = show_peace_popup_alert
+			}
+			SNS = {
+				transfer_state = 782
+				transfer_state = 554
+				transfer_state = 1372
+				transfer_state = 1371
+				transfer_state = 680
+				transfer_state = 1241
+				transfer_state = 1242
+				transfer_state = 1395
+				transfer_state = 1370
+				transfer_state = 1369
+				transfer_state = 1395
+			}
+			ITA = {
+				ITA_Ciano_POP_everyone_loves_ciano = yes
+				ITA_Ciano_POP_everyone_loves_ciano = yes
+				ITA_Ciano_POP_everyone_loves_ciano = yes
+			}
+			if = {
+				limit = {
+					IRQ = {
+						has_country_flag = IRQ_joined_ITW
+					}
+				}
+				SNS = {
+					transfer_state = 1243
+					transfer_state = 1396
+					transfer_state = 1369
+					transfer_state = 1369
+				}
+			}
+			ITA = { puppet = IME }
+			remove_mission = Liberate_Kudus
+			remove_mission = Liberate_Kudus_Hold_units
+			
+			if = { #checks if IID exists in order to annex it back to italy
+				limit = {
+					IID = { owns_state = 164 }
+				}
+				ITA = {
+					annex_country = { target = IID transfer_troops = no }
+				}
+			}
+		}
+	}
+}
+
+##### num_divisions < 1
+##### has_global_flag = italy_turkey_war
+
+#############################
+#  e) Post-Defeat Crisis    #
+#############################
+country_event = { #Inonu decies to give a speech
+	id = tur.82
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.82"}
+ 	title = tur.82.t
+ 	desc = tur.82.d
+	#STRIP(art) picture = GFX_report_event_TUR_Inonu_Writing
+	is_triggered_only = yes
+	option = {
+		name = tur.82.a
+		set_country_flag = TUR_Inonu_Speech
+	}
+}
+
+country_event = { #Inonu gives his speech
+	id = tur.86
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.86"}
+ 	title = tur.86.t
+ 	desc = tur.86.d
+	#STRIP(art) picture = GFX_report_event_TUR_Inonu_Speech
+	is_triggered_only = yes
+	option = {
+		name = tur.86.a
+		hidden_effect = {
+			if = {
+				limit = {
+					check_variable = { TUR_Speech_1 = 1 }
+				}
+				add_to_temp_variable = { TUR_Speech_DYP = -2 }
+				add_to_temp_variable = { TUR_Speech_CHP = 1 }
+				add_to_temp_variable = { TUR_Speech_UDP = 1 }
+				custom_effect_tooltip = TUR_socialism_opinion_CHP_increase_tt
+				add_to_variable = { TUR_socialism_opinion_CHP = 3 }
+				custom_effect_tooltip = TUR_nationalism_opinion_CHP_decrease_tt
+				add_to_variable = { TUR_nationalism_opinion_CHP = -3 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { TUR_Speech_1 = 2 }
+				}
+				add_to_temp_variable = { TUR_Speech_DYP = -1 }
+				add_to_temp_variable = { TUR_Speech_CHP = 2 }
+				add_to_temp_variable = { TUR_Speech_UDP = -1 }
+				custom_effect_tooltip = TUR_kemalism_opinion_CHP_increase_tt
+				add_to_variable = { TUR_kemalism_opinion_CHP = 3 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { TUR_Speech_1 = 3 }
+				}
+				add_to_temp_variable = { TUR_Speech_DYP = 1 }
+				add_to_temp_variable = { TUR_Speech_CHP = 1 }
+				add_to_temp_variable = { TUR_Speech_UDP = -2 }
+				custom_effect_tooltip = TUR_nationalism_opinion_CHP_increase_tt
+				add_to_variable = { TUR_nationalism_opinion_CHP = 3 }
+				custom_effect_tooltip = TUR_socialism_opinion_CHP_decrease_tt
+				add_to_variable = { TUR_socialism_opinion_CHP = -3 }
+			}
+			if = {
+				limit = {
+					check_variable = { TUR_Speech_2 = 1 }
+				}
+				add_to_temp_variable = { TUR_Speech_DYP = -2 }
+				add_to_temp_variable = { TUR_Speech_CHP = 1 }
+				add_to_temp_variable = { TUR_Speech_UDP = 1 }
+				custom_effect_tooltip = TUR_socialism_opinion_CHP_increase_tt
+				add_to_variable = { TUR_socialism_opinion_CHP = 3 }
+				custom_effect_tooltip = TUR_nationalism_opinion_CHP_decrease_tt
+				add_to_variable = { TUR_nationalism_opinion_CHP = -3 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { TUR_Speech_2 = 2 }
+				}
+				add_to_temp_variable = { TUR_Speech_DYP = -1 }
+				add_to_temp_variable = { TUR_Speech_CHP = 2 }
+				add_to_temp_variable = { TUR_Speech_UDP = -1 }
+				custom_effect_tooltip = TUR_kemalism_opinion_CHP_increase_tt
+				add_to_variable = { TUR_kemalism_opinion_CHP = 3 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { TUR_Speech_2 = 3 }
+				}
+				add_to_temp_variable = { TUR_Speech_DYP = 1 }
+				add_to_temp_variable = { TUR_Speech_CHP = 1 }
+				add_to_temp_variable = { TUR_Speech_UDP = -2 }
+				custom_effect_tooltip = TUR_nationalism_opinion_CHP_increase_tt
+				add_to_variable = { TUR_nationalism_opinion_CHP = 3 }
+				custom_effect_tooltip = TUR_socialism_opinion_CHP_decrease_tt
+				add_to_variable = { TUR_socialism_opinion_CHP = -3 }
+			}
+			if = {
+				limit = {
+					check_variable = { TUR_Speech_3 = 1 }
+				}
+				add_to_temp_variable = { TUR_Speech_DYP = -2 }
+				add_to_temp_variable = { TUR_Speech_CHP = 1 }
+				add_to_temp_variable = { TUR_Speech_UDP = 1 }
+				custom_effect_tooltip = TUR_socialism_opinion_CHP_increase_tt
+				add_to_variable = { TUR_socialism_opinion_CHP = 3 }
+				custom_effect_tooltip = TUR_nationalism_opinion_CHP_decrease_tt
+				add_to_variable = { TUR_nationalism_opinion_CHP = -3 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { TUR_Speech_3 = 2 }
+				}
+				add_to_temp_variable = { TUR_Speech_DYP = -1 }
+				add_to_temp_variable = { TUR_Speech_CHP = 2 }
+				add_to_temp_variable = { TUR_Speech_UDP = -1 }
+				custom_effect_tooltip = TUR_kemalism_opinion_CHP_increase_tt
+				add_to_variable = { TUR_kemalism_opinion_CHP = 3 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { TUR_Speech_3 = 3 }
+				}
+				add_to_temp_variable = { TUR_Speech_DYP = 1 }
+				add_to_temp_variable = { TUR_Speech_CHP = 1 }
+				add_to_temp_variable = { TUR_Speech_UDP = -2 }
+				custom_effect_tooltip = TUR_nationalism_opinion_CHP_increase_tt
+				add_to_variable = { TUR_nationalism_opinion_CHP = 3 }
+				custom_effect_tooltip = TUR_socialism_opinion_CHP_decrease_tt
+				add_to_variable = { TUR_socialism_opinion_CHP = -3 }
+			}
+			set_temp_variable = { TUR_DYP_Pop_Change = TUR_Speech_DYP }
+			TUR_Change_DYP_Popularity = yes
+			set_temp_variable = { TUR_CHP_Pop_Change = TUR_Speech_CHP }
+			TUR_Change_CHP_Popularity = yes
+			set_temp_variable = { TUR_UDP_Pop_Change = TUR_Speech_UDP }
+			TUR_Change_UDP_Popularity = yes
+		}
+	}
+}
+
+country_event = { #Nationalists in the CHP flock the the UDP
+	id = tur.87
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.87"}
+ 	title = tur.87.t
+ 	desc = tur.87.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.87.a
+		set_temp_variable = { TUR_CHP_Pop_Change = -4 }
+		TUR_Change_CHP_Popularity = yes
+		set_temp_variable = { TUR_UDP_Pop_Change = 4 }
+		TUR_Change_UDP_Popularity = yes
+		custom_effect_tooltip = tur_87_tt
+		add_to_variable = { TUR_CHPU_seats = -10 }
+		add_to_variable = { TUR_UDPD_seats = 10 }
+		TUR_Get_Parliament_Array = yes
+	}
+}
+
+country_event = { #Public works
+	id = tur.88
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.88"}
+ 	title = tur.88.t
+ 	desc = tur.88.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.88.a
+		set_temp_variable = { TUR_CHP_Pop_Change = 2 }
+		TUR_Change_CHP_Popularity = yes
+		set_temp_variable = { TUR_UDP_Pop_Change = 2 }
+		TUR_Change_UDP_Popularity = yes
+	}
+	option = {
+		name = tur.88.b
+		set_temp_variable = { TUR_CHP_Pop_Change = -4 }
+		TUR_Change_CHP_Popularity = yes
+		set_temp_variable = { TUR_DYP_Pop_Change = 4 }
+		TUR_Change_DYP_Popularity = yes
+	}
+}
+
+country_event = { #
+	id = tur.89
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event tur.89"
+		set_variable = { TUR_GNA_bill_progress = 90 }
+	}
+ 	title = tur.89.t
+ 	desc = tur.89.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.89.a
+		set_temp_variable = { TUR_CHP_Pop_Change = 1 }
+		TUR_Change_CHP_Popularity = yes
+		set_temp_variable = { TUR_DYP_Pop_Change = 1 }
+		TUR_Change_DYP_Popularity = yes
+	}
+	option = {
+		name = tur.89.b
+		set_temp_variable = { TUR_CHP_Pop_Change = -3 }
+		TUR_Change_CHP_Popularity = yes
+		set_temp_variable = { TUR_DYP_Pop_Change = 2 }
+		TUR_Change_DYP_Popularity = yes
+		set_temp_variable = { TUR_UDP_Pop_Change = 1 }
+		TUR_Change_UDP_Popularity = yes
+	}
+}
+
+country_event = { #Minority riots
+	id = tur.90
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.90"}
+ 	title = tur.90.t
+ 	desc = tur.90.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.90.a
+		set_temp_variable = { TUR_DYP_Pop_Change = 5 }
+		TUR_Change_DYP_Popularity = yes
+		hidden_effect = {
+			set_temp_variable = { TUR_UDP_Pop_Change = -5 }
+			TUR_Change_UDP_Popularity = yes
+		}
+	}
+}
+
+country_event = { #Pre-Crisis intro to the straits situation
+	id = tur.96
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.96"}
+ 	title = tur.96.t
+ 	desc = tur.96.d
+	picture = GFX_TUR_Bosphorus
+	is_triggered_only = yes
+	option = {
+		name = tur.96.a
+		
+	}
+}
+
+country_event = { #Straits Crisis starts
+	id = tur.97
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.97"}
+ 	title = tur.97.t
+ 	desc = tur.97.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.97.a
+		add_stability = -0.05
+		if = {
+			limit = {
+				has_country_flag = TUR_ITW_victory
+			}
+			country_event = { id = tur.98 days = 6 }
+		}
+		else_if = {
+			limit = {
+				has_country_flag = TUR_ITW_defeat
+			}
+			country_event = { id = tur.99 days = 6 }
+		}
+		hidden_effect = {
+			#STRIP(dead_event) every_country = { news_event = WORLD.70000 } # WORLD.70000 is defined nowhere, even on the Mediterranean branch
+		}
+	}
+}
+
+country_event = { #Dealing with the crisis - ITW victory
+	id = tur.98
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.98"}
+ 	title = tur.98.t
+ 	desc = tur.98.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.98.a
+		hidden_effect = {
+			CRI = {
+				country_event = { id = tur.101 days = 3 }
+			}
+		}
+		custom_effect_tooltip = tur_99_b_tt
+	}
+	option = {
+		name = tur.98.b
+		hidden_effect = {
+			country_event = { id = tur.103 days = 6 }
+		}
+		custom_effect_tooltip = tur_99_c_tt
+	}
+}
+
+country_event = { #Dealing with the crisis - ITW defeat
+	id = tur.99
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.99"}
+ 	title = tur.99.t
+ 	desc = tur.99.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.99.a
+		hidden_effect = {
+			country_event = { id = tur.100 days = 6 }
+		}
+		custom_effect_tooltip = tur_99_a_tt
+	}
+	option = {
+		name = tur.99.b
+		hidden_effect = {
+			CRI = {
+				country_event = { id = tur.101 days = 3 }
+			}
+		}
+		custom_effect_tooltip = tur_99_b_tt
+	}
+	option = {
+		name = tur.99.c
+		hidden_effect = {
+			country_event = { id = tur.103 days = 6 }
+		}
+		custom_effect_tooltip = tur_99_c_tt
+	}
+}
+
+country_event = { #Outrage against the government - option 1
+	id = tur.100
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.100"}
+ 	title = tur.100.t
+ 	desc = tur.100.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.100.a
+		set_temp_variable = { TUR_CHP_Pop_Change = -8 }
+		TUR_Change_CHP_Popularity = yes
+		add_stability = -0.1
+		custom_effect_tooltip = TUR_nationalism_opinion_CHP_decrease_tt
+		add_to_variable = { TUR_nationalism_opinion_CHP = -5 }
+		custom_effect_tooltip = TUR_socialism_opinion_CHP_decrease_tt
+		add_to_variable = { TUR_socialism_opinion_CHP = -5 }
+	}
+}
+
+country_event = { #Crimea - invited to conference - option 2
+	id = tur.101
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.101"}
+ 	title = tur.101.t
+ 	desc = tur.101.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.101.a
+		hidden_effect = {
+			TUR = {
+				country_event = { id = tur.102 days = 3 }
+			}
+		}
+	}
+}
+
+country_event = { #Conference - option 2
+	id = tur.102
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.102"}
+ 	title = tur.102.t
+ 	desc = tur.102.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.102.a
+		set_temp_variable = { TUR_CHP_Pop_Change = 1 }
+		TUR_Change_CHP_Popularity = yes
+		add_stability = 0.05
+		custom_effect_tooltip = TUR_social_liberal_opinion_CHP_increase_tt
+		add_to_variable = { TUR_social_liberal_opinion_CHP = 3 }
+	}
+}
+
+country_event = { #Showoff in the Straits - option 3
+	id = tur.103
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.103"}
+ 	title = tur.103.t
+ 	desc = tur.103.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.103.a
+		set_temp_variable = { TUR_CHP_Pop_Change = 4 }
+		TUR_Change_CHP_Popularity = yes
+		add_stability = 0.05
+		custom_effect_tooltip = TUR_nationalism_opinion_CHP_increase_tt
+		add_to_variable = { TUR_nationalism_opinion_CHP = 5 }
+	}
+}
+
+country_event = { #Adib Shishakli Supports Turkish Army
+	id = tur.108
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.108"}
+ 	title = tur.108.t
+ 	desc = tur.108.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.108.a
+		create_corps_commander = {
+			name = "Adib Shishakli"
+			picture = "Portrait_SNS_Adib_Shishakli.dds"
+			traits = { defensive_doctrine politically_connected war_hero }
+			skill = 3
+			attack_skill = 1
+			defense_skill = 3
+			planning_skill = 2
+			logistics_skill = 2
+			id = 12011
+		}
+	}
+}
+
+country_event = { #Borders on the Sand
+	id = tur.109
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.109"}
+ 	title = tur.109.t
+ 	desc = tur.109.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.109.a
+
+		effect_tooltip = { #Just a tooltip. It doesn't actually happen.
+			SNS = {
+				declare_war_on = {
+					target = TUR
+					type = annex_everything
+				}
+			}
+		}
+		#The stuff below is outside that block, and does happen.
+
+		hidden_effect = {
+			SNS = { 
+				create_corps_commander = {
+					name = "al Aqrab"
+					picture = "Portrait_SYR_the_Scorpion.dds"
+					traits = { brilliant_strategist trait_reckless infantry_officer }
+					skill = 5
+					attack_skill = 5
+					defense_skill = 5
+					planning_skill = 5
+					logistics_skill = 5
+					id = 12012
+				}
+				if = {
+					limit = {
+						has_country_leader = {
+							name = "Adib Shishakli"
+							ruling_only = yes
+						}
+					}
+					TUR = { remove_unit_leader = 12011 }
+				}
+			}
+			554 = {
+				clr_state_flag = DtS_No_Revolt_Local_Collaborators
+
+				set_state_flag = TUR_Borders_On_Sands_Uprising 
+				TUR_DtS_Begin_An_Uprising = yes #this function actually starts BoS
+			}
+		}
+	}
+}
+
+country_event = { #SNS Defeat - annexed
+	id = tur.110
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.110"}
+ 	title = tur.110.t
+ 	desc = tur.110.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.110.a
+		SNS = {
+			kill_country_leader = yes
+			#Prime stuff for Aflaq to use the tag
+
+			set_politics = {
+				ruling_party = socialist
+				last_election = "1934.3.26"
+				election_frequency = 60
+				elections_allowed = no
+			}
+
+			hidden_effect = {
+				set_cosmetic_tag = SNS_Aflaq
+				
+				set_popularities = { 
+					communist = 10
+					socialist = 60
+					social_democrat = 0
+					social_liberal = 0
+					social_conservative = 10
+					authoritarian_democrat = 0
+					despotism = 20
+					fascism = 0
+					national_socialism = 0
+					ultranational_socialism = 0
+					burgundian_system = 0
+				}
+			}
+		}
+	}
+}
+
+country_event = { #SNS Defeat- italian backed
+	id = tur.111
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.111"}
+ 	title = tur.111.t
+ 	desc = tur.111.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.111.a
+	}
+}
+
+country_event = { #Under the Red Sun
+	id = tur.112
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.112"}
+ 	title = tur.112.t
+ 	desc = tur.112.d
+	picture = GFX_TUR_Mountain_Guerrilla
+	is_triggered_only = yes
+	option = {
+		name = tur.112.a
+	}
+}
+#### Tur.113 is used ####
+
+country_event = { #Triumvirate's Vultures
+	id = tur.114
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.114"}
+ 	title = tur.114.t
+ 	desc = tur.114.d
+	picture = GFX_report_event_commune_protest
+	is_triggered_only = yes
+	option = {
+		name = tur.114.a
+		trigger = { tag = TUR }
+		activate_mission = Economy_Sphere_Timer
+		set_global_flag = TUR_desert_shock_influence_war_started
+	}
+	option = {
+		name = tur.114.b
+		trigger = { tag = USA }
+		activate_mission = Economy_Sphere_Timer
+	}
+	option = {
+		name = tur.114.a
+		trigger = { tag = JAP }
+		activate_mission = Economy_Sphere_Timer
+	}
+}
+
+country_event = { #America victory
+	id = tur.115
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.115"}
+ 	title = tur.115.t
+ 	desc = tur.115.d
+	picture = GFX_report_event_whitehouse_bnw
+	is_triggered_only = yes
+	option = {
+		name = tur.115.a
+	}
+}
+
+country_event = { #Japanese victory
+	id = tur.116
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.116"}
+ 	title = tur.116.t
+ 	desc = tur.116.d
+	#STRIP(art) picture = GFX_report_event_japan_generic_diplomats
+	is_triggered_only = yes
+	option = {
+		name = tur.116.a
+	}
+}
+
+country_event = { #Call of the Faithful
+	id = tur.117
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.117"}
+ 	title = tur.117.t
+ 	desc = tur.117.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.117.a
+	}
+}
+
+country_event = { #Türkeş / Behice / Bayar
+	id = tur.118
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.118"}
+ 	title = tur.118.t
+ 	desc = tur.118.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.118.a
+	}
+}
+
+country_event = { #Nixon Letter
+	id = tur.119
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.119"}
+ 	title = tur.119.t
+ 	desc = tur.119.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.119.a
+		hidden_effect = {
+			add_opinion_modifier = { target = USA modifier = medium_increase }
+			USA = { add_opinion_modifier = { target = TUR modifier = medium_increase } }
+		}
+	}
+}
+###################
+#  f) Elections   #
+###################
+country_event = {
+	id = tur_elections.1 #Polls update
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_elections.1"}
+ 	title = tur_elections.1.t
+ 	desc = tur_elections.1.d
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur_elections.1.a
+		TUR_update_election = yes
+		add_to_variable = { TUR_poll_update_tick = 1 }
+		if = {
+			limit = {
+				check_variable = { TUR_poll_update_tick = 3 }
+			}
+			country_event = { id = tur_elections.3 days = 30 }
+		}
+		else = {
+			country_event = { id = tur_elections.1 days = 30 }
+		}
+	}
+}
+
+country_event = {
+	id = tur_elections.2 #1965 elections start
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_elections.2"}
+ 	title = tur_elections.2.t
+ 	desc = tur_elections.2.d
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur_elections.2.a
+		TUR_election_setup = yes
+		TUR_update_election = yes
+		set_variable = { TUR_poll_update_tick = 0 }
+		country_event = { id = tur_elections.1 days = 30 }
+	}
+}
+
+country_event = {
+	id = tur_elections.3 #1965 election day
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_elections.3"}
+ 	title = tur_elections.3.t
+ 	desc = tur_elections.3.d
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur_elections.3.a
+		hidden_effect = {
+			TUR_update_election = yes
+			TUR_1965_election_outcome = yes
+			clr_country_flag = TUR_election_ongoing
+		}
+	}
+}
+
+country_event = {
+	id = tur_elections.4 #DYP victory
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_elections.4"}
+ 	title = tur_elections.4.t
+ 	desc = tur_elections.4.d
+	picture = GFX_TUR_protest
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur_elections.4.a
+		custom_effect_tooltip = TUR_1965_DYP_victory
+		hidden_effect = {
+			set_politics = { ruling_party = social_democrat }
+			# the DYP is Behice Boran's (tur_elections.4.d); otherwise İnönü's left-Kemalist role heads it (Phase E)
+			if = {
+				limit = { NOT = { has_country_leader = { name = "Behice Boran" ruling_only = yes } } }
+				create_country_leader = {
+					name = "Behice Boran"
+					desc = "POLITICS_BEHICE_BORAN_DESC"
+					picture = "Portrait_Turkey_Behice_Boran.dds"
+					expire = "1999.1.1"
+					ideology = social_democrat_left_wing_populism_subtype
+					traits = { }
+				}
+			}
+			load_focus_tree = TNO_Turkey_DYP_ITWLoss
+			#STRIP(dead_event) every_country = { news_event = WORLD.70001 } # WORLD.70001 is defined nowhere, even on the Mediterranean branch
+		}
+	}
+}
+
+country_event = {
+	id = tur_elections.5 #CHP victory
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_elections.5"}
+ 	title = tur_elections.5.t
+ 	desc = tur_elections.5.d
+	picture = GFX_TUR_Righteous_Claim
+	is_triggered_only = yes
+	option = {
+ 		name = tur_elections.5.a
+		custom_effect_tooltip = TUR_1965_CHP_victory
+		hidden_effect = {
+			load_focus_tree = TNO_Turkey_CHP_ITWLoss
+			#STRIP(dead_event) every_country = { news_event = WORLD.70003 } # WORLD.70003 is defined nowhere, even on the Mediterranean branch
+		}
+	}
+}
+
+country_event = {
+	id = tur_elections.6 #UDP victory
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_elections.6"}
+ 	title = tur_elections.6.t
+ 	desc = tur_elections.6.d
+	picture = GFX_TUR_Menderes_time
+	is_triggered_only = yes
+ 	option = {
+ 		name = tur_elections.6.a
+		custom_effect_tooltip = TUR_1965_UDP_victory
+		hidden_effect = {
+			set_politics = { ruling_party = social_conservative }
+			load_focus_tree = TNO_Turkey_UDP_ITWLoss
+			#STRIP(dead_event) every_country = { news_event = WORLD.70002 } # WORLD.70002 is defined nowhere, even on the Mediterranean branch
+		}
+	}
+}
+###############
+#  g) Bills   #
+###############
+
+country_event = { #Bill passes
+	id = tur_bills.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_bills.1"}
+ 	title = tur_bills.1.t
+ 	desc = tur_bills.1.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_bills.1.a
+		if = {
+			limit = {
+				check_variable = { TUR_current_bill = 1 } #Veterans' Pension Bill
+			}
+			tno_pensions_improve = yes
+			tno_pensions_improve = yes # med: TNO_improve_pensions_policy_effectiveness_med
+			add_political_power = 25
+		}
+		else_if = {
+			limit = {
+				check_variable = { TUR_current_bill = 2 } #Safe Future Bill
+			}
+			swap_ideas = {
+				remove_idea = tno_pensions_trinket_pensions
+				add_idea = tno_pensions_acceptable_pensions
+			}
+			add_political_power = 25
+			set_temp_variable = { TUR_DYP_Pop_Change = 2 }
+			TUR_Change_DYP_Popularity = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { TUR_current_bill = 3 } #Workers' Rights Bill - Radical
+			}
+			tno_max_workhours_improve = yes
+			swap_ideas = {
+				remove_idea = tno_minimum_wage_no_minimum_wage
+				add_idea = tno_minimum_wage_acceptable_minimum
+			}
+			tno_safety_improve = yes
+			tno_health_care_improve = yes
+			set_temp_variable = { TUR_DYP_Pop_Change = 5 }
+			TUR_Change_DYP_Popularity = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { TUR_current_bill = 4 } #Workers' Rights Bill - Moderate
+			}
+			tno_max_workhours_improve = yes
+			tno_minimum_wage_improve = yes
+			tno_safety_improve = yes
+			set_temp_variable = { TUR_DYP_Pop_Change = 3 }
+			TUR_Change_DYP_Popularity = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { TUR_current_bill = 5 } #Unemployment Relief Bill
+			}
+			swap_ideas = {
+				remove_idea = tno_unemployment_no_subsidies
+				add_idea = tno_unemployment_low_subsidies
+			}
+			set_temp_variable = { TUR_DYP_Pop_Change = 1 }
+			TUR_Change_DYP_Popularity = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { TUR_current_bill = 6 } #Universal Income Bill
+			}
+			if = {
+				limit = {
+					has_idea = tno_unemployment_low_subsidies
+				}
+				swap_ideas = {
+					remove_idea = tno_unemployment_low_subsidies
+					add_idea = tno_unemployment_basic_income
+				}
+			}
+			else = {
+				swap_ideas = {
+					remove_idea = tno_unemployment_no_subsidies
+					add_idea = tno_unemployment_basic_income
+				}
+			}
+			set_temp_variable = { TUR_DYP_Pop_Change = 5 }
+			TUR_Change_DYP_Popularity = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { TUR_current_bill = 7 } #Workplace Democracy Bill
+			}
+			set_temp_variable = {TNO_economy_subtype_temp = 2}
+			econ_subtype_change = yes
+			set_temp_variable = { TUR_DYP_Pop_Change = 5 }
+			TUR_Change_DYP_Popularity = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { TUR_current_bill = 8 } #Workplace Democracy Bill
+			}
+			swap_ideas = {
+				remove_idea = tno_trade_unions_nonsocialist_allowed
+				add_idea = tno_trade_unions_all_allowed
+			}
+			set_temp_variable = { TUR_DYP_Pop_Change = 2 }
+			TUR_Change_DYP_Popularity = yes
+		}
+		set_variable = { TUR_current_bill = 0 }
+	}
+}
+
+country_event = { #Bill fails
+	id = tur_bills.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_bills.2"}
+ 	title = tur_bills.2.t
+ 	desc = tur_bills.2.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_bills.2.a
+		set_variable = { TUR_current_bill = 0 }
+		if = {
+			limit = {
+				has_government = authoritarian_democrat
+			}
+			set_temp_variable = { TUR_CHP_Pop_Change = -3 }
+			TUR_Change_CHP_Popularity = yes
+		}
+		else_if = {
+			limit = {
+				has_government = social_democrat
+			}
+			set_temp_variable = { TUR_DYP_Pop_Change = -3 }
+			TUR_Change_DYP_Popularity = yes
+		}
+		else_if = {
+			limit = {
+				has_government = social_conservative
+			}
+			set_temp_variable = { TUR_UDP_Pop_Change = -3 }
+			TUR_Change_UDP_Popularity = yes
+		}
+	}
+}
+
+################################
+#  h) CHP-ITW Victory Events   #
+################################
+
+###############################
+#  i) CHP-ITW Defeat Events   #
+###############################
+
+### Change to separate namespace
+country_event = { #Barely Afloat
+	id = tur.120
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.120"}
+ 	title = tur.120.t
+ 	desc = tur.120.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.120.a
+		country_event = { id = tur.121 days = 13 }
+	}
+}
+
+country_event = { #Ecevit POV - Congress
+	id = tur.121
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.121"}
+ 	title = tur.121.t
+ 	desc = tur.121.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.121.a
+		hidden_effect = {
+			country_event = { id = tur.122 days = 10 }
+		}
+	}
+}
+
+country_event = { #Nihat POV - Congress
+	id = tur.122
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.122"}
+ 	title = tur.122.t
+ 	desc = tur.122.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.122.a
+		hidden_effect = {
+			country_event = { id = tur.123 days = 10 }
+		}
+	}
+}
+
+country_event = { #Inonu POV - Congress
+	id = tur.123
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.123"}
+ 	title = tur.123.t
+ 	desc = tur.123.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.123.a
+		country_event = { id = tur.124 days = 10 }
+	}
+}
+
+country_event = { #Start of the Congress
+	id = tur.124
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.124"}
+ 	title = tur.124.t
+ 	desc = tur.124.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.124.a
+		country_event = { id = tur.125 days = 10 }
+	}
+}
+
+country_event = { #Republican Guard? Not a bad idea..
+	id = tur.125
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.125"}
+ 	title = tur.125.t
+ 	desc = tur.125.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur.125.a
+	}
+}
+
+country_event = { #Talat Smokes on the Fume of the Republic
+	id = tur.126
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.126"}
+ 	title = tur.126.t
+ 	desc = tur.126.d
+	#STRIP(art) picture = GFX_report_event_TUR_Talat_Aydemir
+	is_triggered_only = yes
+	option = {
+		name = tur.126.a
+	}
+}
+####################
+#  j) DYP Events   #
+####################
+country_event = { #
+	id = tur_dyp.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.1"}
+ 	title = tur_dyp.1.t
+ 	desc = tur_dyp.1.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.1.a
+	}
+}
+country_event = { #
+	id = tur_dyp.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.2"}
+ 	title = tur_dyp.2.t
+ 	desc = tur_dyp.2.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.2.a
+	}
+}
+country_event = { #
+	id = tur_dyp.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.3"}
+ 	title = tur_dyp.3.t
+ 	desc = tur_dyp.3.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.3.a
+	}
+}
+country_event = { #
+	id = tur_dyp.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.4"}
+ 	title = tur_dyp.4.t
+ 	desc = tur_dyp.4.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.4.a
+	}
+}
+country_event = { #
+	id = tur_dyp.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.5"}
+ 	title = tur_dyp.5.t
+ 	desc = tur_dyp.5.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.5.a
+	}
+}
+country_event = { #
+	id = tur_dyp.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.6"}
+ 	title = tur_dyp.6.t
+ 	desc = tur_dyp.6.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.6.a
+	}
+}
+country_event = { #
+	id = tur_dyp.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.7"}
+ 	title = tur_dyp.7.t
+ 	desc = tur_dyp.7.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.7.a
+	}
+}
+country_event = { #
+	id = tur_dyp.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.8"}
+ 	title = tur_dyp.8.t
+ 	desc = tur_dyp.8.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.8.a
+	}
+}
+country_event = { #
+	id = tur_dyp.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.9"}
+ 	title = tur_dyp.9.t
+ 	desc = tur_dyp.9.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.9.a
+	}
+}
+country_event = { #
+	id = tur_dyp.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.10"}
+ 	title = tur_dyp.10.t
+ 	desc = tur_dyp.10.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.10.a
+	}
+}
+country_event = { #Oligarchs' backlash
+	id = tur_dyp.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.11"}
+ 	title = tur_dyp.11.t
+ 	desc = tur_dyp.11.d
+	#picture = 
+	is_triggered_only = yes
+	option = { #vague assurances
+		name = tur_dyp.11.a
+		add_political_power = -25
+	}
+	option = { #promise not to raise wealth taxes
+		name = tur_dyp.11.b
+		trigger = {
+			NOT = {
+				has_idea = tno_income_taxation_high_income_weighted
+			}
+		}
+		add_political_power = -50
+		custom_effect_tooltip = TUR_upper_class_opinion_DYP_increase_tt
+		add_to_variable = { TUR_upper_class_opinion_DYP = 10 }
+		set_country_flag = TUR_dont_tax
+		custom_effect_tooltip = TUR_dont_tax_tt
+	}
+	option = { #promise not to nationalize
+		name = tur_dyp.11.c
+		trigger = {
+			NOT = {
+				has_completed_focus = TUR_integration_of_non_state_businesses
+			}
+		}
+		add_political_power = -50
+		custom_effect_tooltip = TUR_upper_class_opinion_DYP_increase_tt
+		add_to_variable = { TUR_upper_class_opinion_DYP = 10 }
+		set_country_flag = TUR_dont_nationalize
+		custom_effect_tooltip = TUR_dont_nationalize_tt
+	}
+	option = { #promise to not empower unions that much
+		name = tur_dyp.11.d
+		trigger = {
+			NOT = {
+				has_completed_focus = TUR_workplace_democracy
+			}
+		}
+		add_political_power = -50
+		custom_effect_tooltip = TUR_upper_class_opinion_DYP_increase_tt
+		add_to_variable = { TUR_upper_class_opinion_DYP = 10 }
+		set_country_flag = TUR_dont_union
+		custom_effect_tooltip = TUR_dont_union_tt
+	}
+}
+country_event = { #
+	id = tur_dyp.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.12"}
+ 	title = tur_dyp.12.t
+ 	desc = tur_dyp.12.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.12.a
+	}
+}
+country_event = { #
+	id = tur_dyp.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.13"}
+ 	title = tur_dyp.13.t
+ 	desc = tur_dyp.13.d
+	#picture = 
+	is_triggered_only = yes
+	option = { #Don't change taxes
+		name = tur_dyp.13.a
+		set_temp_variable = { TUR_DYP_Pop_Change = 3 }
+		TUR_Change_DYP_Popularity = yes
+	}
+	option = { #Raise taxes on the rich only
+		name = tur_dyp.13.b
+		add_ideas = tno_income_taxation_high_income_weighted
+		set_variable = { tno_income_taxation_effectiveness = 50 }
+		TNO_update_policy_effectiveness = yes
+		set_temp_variable = { gdp_growth_temp = -0.001 }
+		econ_gdp_growth_change = yes
+		set_temp_variable = { income_tax_temp = 0.025 }
+		econ_income_tax_rate_change = yes 
+		set_temp_variable = { business_tax_temp = 0.05 }
+		econ_business_tax_rate_change = yes
+		add_to_variable = { TUR_upper_class_opinion_DYP = -5 }
+		custom_effect_tooltip = TUR_upper_class_opinion_DYP_decrease_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_flag = TUR_dont_tax
+				}
+				country_event = { id = tur_dyp.31 days = 1 }
+			}
+		}
+	}
+	option = { #Raise taxes on everyone, but slightly weighted towards the rich
+		name = tur_dyp.13.c
+		add_ideas = tno_income_taxation_flat_taxes
+		set_variable = { tno_income_taxation_effectiveness = 40 }
+		TNO_update_policy_effectiveness = yes
+		set_temp_variable = { gdp_growth_temp = -0.002 }
+		econ_gdp_growth_change = yes
+		set_temp_variable = { income_tax_temp = 0.05 }
+		econ_income_tax_rate_change = yes 
+		set_temp_variable = { business_tax_temp = 0.05 }
+		econ_business_tax_rate_change = yes
+		add_to_variable = { TUR_middle_class_opinion_DYP = -5 }
+		custom_effect_tooltip = TUR_middle_class_opinion_DYP_decrease_tt
+		add_to_variable = { TUR_upper_class_opinion_DYP = -10 }
+		custom_effect_tooltip = TUR_upper_class_opinion_DYP_decrease_tt
+		set_temp_variable = { TUR_DYP_Pop_Change = -1 }
+		TUR_Change_DYP_Popularity = yes
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_flag = TUR_dont_tax
+				}
+				country_event = { id = tur_dyp.31 days = 1 }
+			}
+		}
+	}
+	option = { #Oh shit we need to tax a lot
+		name = tur_dyp.13.d
+		add_ideas = tno_income_taxation_flat_taxes
+		set_variable = { tno_income_taxation_effectiveness = 35 }
+		TNO_update_policy_effectiveness = yes
+		set_temp_variable = { gdp_growth_temp = -0.0035 }
+		econ_gdp_growth_change = yes
+		set_temp_variable = { income_tax_temp = 0.075 }
+		econ_income_tax_rate_change = yes 
+		set_temp_variable = { business_tax_temp = 0.075 }
+		econ_business_tax_rate_change = yes
+		add_to_variable = { TUR_middle_class_opinion_DYP = -10 }
+		custom_effect_tooltip = TUR_middle_class_opinion_DYP_decrease_tt
+		add_to_variable = { TUR_upper_class_opinion_DYP = -15 }
+		custom_effect_tooltip = TUR_upper_class_opinion_DYP_decrease_tt
+		set_temp_variable = { TUR_DYP_Pop_Change = -5 }
+		TUR_Change_DYP_Popularity = yes
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_flag = TUR_dont_tax
+				}
+				country_event = { id = tur_dyp.31 days = 1 }
+			}
+		}
+	}
+}
+country_event = { #
+	id = tur_dyp.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.14"}
+ 	title = tur_dyp.14.t
+ 	desc = tur_dyp.14.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.14.a
+	}
+}
+country_event = { #
+	id = tur_dyp.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.15"}
+ 	title = tur_dyp.15.t
+ 	desc = tur_dyp.15.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.15.a
+	}
+}
+country_event = { #
+	id = tur_dyp.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.16"}
+ 	title = tur_dyp.16.t
+ 	desc = tur_dyp.16.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.16.a
+	}
+}
+country_event = { #
+	id = tur_dyp.17
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.17"}
+ 	title = tur_dyp.17.t
+ 	desc = tur_dyp.17.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.17.a
+	}
+}
+country_event = { #
+	id = tur_dyp.18
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.18"}
+ 	title = tur_dyp.18.t
+ 	desc = tur_dyp.18.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.18.a
+	}
+}
+country_event = { #
+	id = tur_dyp.19
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.19"}
+ 	title = tur_dyp.19.t
+ 	desc = tur_dyp.19.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.19.a
+	}
+}
+country_event = { #
+	id = tur_dyp.20
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.20"}
+ 	title = tur_dyp.20.t
+ 	desc = tur_dyp.20.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.20.a
+	}
+}
+country_event = { #
+	id = tur_dyp.21
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.21"}
+ 	title = tur_dyp.21.t
+ 	desc = tur_dyp.21.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.21.a
+	}
+}
+country_event = { #
+	id = tur_dyp.22
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.22"}
+ 	title = tur_dyp.22.t
+ 	desc = tur_dyp.22.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.22.a
+	}
+}
+country_event = { #
+	id = tur_dyp.23
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.23"}
+ 	title = tur_dyp.23.t
+ 	desc = tur_dyp.23.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.23.a
+	}
+}
+country_event = { #
+	id = tur_dyp.24
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.24"}
+ 	title = tur_dyp.24.t
+ 	desc = tur_dyp.24.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.24.a
+	}
+}
+country_event = { #
+	id = tur_dyp.25
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.25"}
+ 	title = tur_dyp.25.t
+ 	desc = tur_dyp.25.d
+	#picture = 
+	is_triggered_only = yes
+	option = { #we aight
+		name = tur_dyp.25.a
+		add_political_power = 50
+		tno_income_taxation_improve = yes # med: TNO_improve_income_taxation_policy_effectiveness_low
+	}
+	option = { #i fuckign love taxes
+		name = tur_dyp.25.b
+		set_temp_variable = { income_tax_temp = 0.025 }
+		econ_income_tax_rate_change = yes 
+		set_temp_variable = { business_tax_temp = 0.025 }
+		econ_business_tax_rate_change = yes
+		if = {
+			limit = {
+				has_idea = tno_income_taxation_high_income_weighted
+			}
+			tno_income_taxation_improve = yes
+			tno_income_taxation_improve = yes # med: TNO_improve_income_taxation_policy_effectiveness_med
+		}
+		else = {
+			tno_income_taxation_worsen = yes
+			tno_income_taxation_worsen = yes # med: TNO_worsen_income_taxation_policy_effectiveness_med
+		}
+		add_to_variable = { TUR_upper_class_opinion_DYP = -5 }
+		custom_effect_tooltip = TUR_upper_class_opinion_DYP_decrease_tt
+		set_temp_variable = { TUR_DYP_Pop_Change = -1 }
+		TUR_Change_DYP_Popularity = yes
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_flag = TUR_dont_tax
+				}
+				country_event = { id = tur_dyp.31 days = 1 }
+			}
+		}
+	}
+}
+country_event = { #
+	id = tur_dyp.26
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.26"}
+ 	title = tur_dyp.26.t
+ 	desc = tur_dyp.26.d
+	#picture = 
+	is_triggered_only = yes
+	option = { #too expensive
+		name = tur_dyp.26.a
+		add_to_variable = { TUR_lower_class_opinion_DYP = -5 }
+		custom_effect_tooltip = TUR_lower_class_opinion_DYP_decrease_tt
+	}
+	option = { #poverty relief programs
+		name = tur_dyp.26.b
+		TNO_improve_poverty_med = yes
+		set_temp_variable = { temp_econ_spending_amount = 0.25 }
+		econ_spend_money_once_effect_raw_money = yes
+		add_to_variable = { TUR_lower_class_opinion_DYP = 5 }
+		custom_effect_tooltip = TUR_lower_class_opinion_DYP_increase_tt
+	}
+}
+country_event = { #
+	id = tur_dyp.27
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.27"}
+ 	title = tur_dyp.27.t
+ 	desc = tur_dyp.27.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.27.a
+	}
+}
+country_event = { #
+	id = tur_dyp.28
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.28"}
+ 	title = tur_dyp.28.t
+ 	desc = tur_dyp.28.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.8.a
+	}
+}
+country_event = { #
+	id = tur_dyp.29
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.29"}
+ 	title = tur_dyp.29.t
+ 	desc = tur_dyp.29.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.29.a
+	}
+}
+country_event = { #
+	id = tur_dyp.30
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.30"}
+ 	title = tur_dyp.30.t
+ 	desc = tur_dyp.30.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.30.a
+	}
+}
+country_event = { #
+	id = tur_dyp.31
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_dyp.31"}
+ 	title = tur_dyp.31.t
+ 	desc = tur_dyp.31.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = tur_dyp.31.a
+		add_political_power = -50
+		custom_effect_tooltip = TUR_upper_class_opinion_DYP_decrease_tt
+		add_to_variable = { TUR_upper_class_opinion_DYP = -15 }
+		set_temp_variable = { TUR_DYP_Pop_Change = -3 }
+		TUR_Change_DYP_Popularity = yes
+	}
+}
+####################
+#  k) UDP Events   #
+####################
+
+###########################
+#  l) Darkening the Sun   #
+###########################
+country_event = { #Initializes DtS after an hour (if it hasn't already been initialized
+	id = TUR_DTS.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.1"}
+ 	#title = TUR_DTS.1.t
+ 	#desc = TUR_DTS.1.d
+	#picture = 
+	is_triggered_only = yes
+	hidden = yes
+ 	option = {
+ 		#name = TUR_DTS.1.a
+		
+		if = {
+			limit = { NOT = { has_country_flag = TUR_DtS_has_initialized } }
+			TUR_DtS_initialize = yes
+		}
+ 	}
+}
+#2-20: Georgia
+country_event = { #Batumi Uprising Begins- Aleksi Inauri 
+	id = TUR_DTS.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.2"}
+ 	title = TUR_DTS.2.t
+ 	desc = TUR_DTS.2.d
+	#picture = 
+	is_triggered_only = yes
+ 	option = {
+ 		name = TUR_DTS.2.a
+		TUR = {
+			declare_war_on = {
+				target = GEO
+				type = annex_everything
+			}
+		}
+ 	}
+}
+country_event = { #Batumi Uprising Begins- Meliton Kantaria
+	id = TUR_DTS.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.3"}
+ 	title = TUR_DTS.3.t
+ 	desc = TUR_DTS.3.d
+	#picture = 
+	is_triggered_only = yes
+ 	option = {
+ 		name = TUR_DTS.3.a
+		TUR = {
+			declare_war_on = {
+				target = GEO
+				type = annex_everything
+			}
+		}
+ 	}
+}
+country_event = { #Batumi Uprising Begins- Shalva Loladze
+	id = TUR_DTS.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.4"}
+ 	title = TUR_DTS.4.t
+ 	desc = TUR_DTS.4.d
+	#picture = 
+	is_triggered_only = yes
+ 	option = {
+ 		name = TUR_DTS.4.a
+		TUR = {
+			declare_war_on = {
+				target = GEO
+				type = annex_everything
+			}
+		}
+ 	}
+}
+country_event = { #Batumi Uprising Begins- Shalva Maglakelidze
+	id = TUR_DTS.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.5"}
+ 	title = TUR_DTS.5.t
+ 	desc = TUR_DTS.5.d
+	#picture = 
+	is_triggered_only = yes
+ 	option = {
+ 		name = TUR_DTS.5.a
+		TUR = {
+			declare_war_on = {
+				target = GEO
+				type = annex_everything
+			}
+		}
+ 	}
+}
+country_event = { #Batumi Liberation- maglakelidze gaming
+	id = TUR_DTS.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.6"}
+ 	title = TUR_DTS.6.t
+ 	desc = TUR_DTS.6.d
+	#picture = 
+	is_triggered_only = yes
+ 	option = {
+ 		name = TUR_DTS.6.a
+		CAU = {
+			annex_country = {
+				target = GEO
+				transfer_troops = no
+			}
+		}
+ 	}
+}
+country_event = { #Batumi Crushed- alexei- aleksi is kiled
+	id = TUR_DTS.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.7"}
+ 	title = TUR_DTS.7.t
+ 	desc = TUR_DTS.7.d
+	#picture = 
+	is_triggered_only = yes
+ 	option = {
+ 		name = TUR_DTS.7.a
+		GEO = {
+			kill_country_leader = yes
+			create_country_leader = {
+				name = "Meliton Kantaria"
+				#desc  = "POLITICS_SHALVA_LOLADZE_DESC"
+				#picture = "Portrait_Georgia_Shalva_Loladze.dds"
+				expire = "1999.1.1"
+				ideology = communist_subtype
+			}
+		}
+		1397 = { set_state_flag = dts_aleksi_is_dead }
+ 	}
+}
+country_event = { #Batumi Crushed- loladze is killed
+	id = TUR_DTS.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.8"}
+ 	title = TUR_DTS.8.t
+ 	desc = TUR_DTS.8.d
+	#picture = 
+	is_triggered_only = yes
+ 	option = {
+ 		name = TUR_DTS.8.a
+		GEO = {
+			kill_country_leader = yes
+			hidden_effect = {
+				add_popularity = {
+					ideology = despotism
+					popularity = -1
+				}
+			}
+		}
+		1397 = { set_state_flag = dts_loladze_is_dead }
+ 	}
+}
+country_event = { #Batumi Liberation- "we just lost!"
+	id = TUR_DTS.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.9"}
+ 	title = TUR_DTS.9.t
+ 	desc = TUR_DTS.9.d
+	#picture = 
+	is_triggered_only = yes
+ 	option = {
+ 		name = TUR_DTS.9.a
+ 	}
+}
+country_event = { #Batumi Crushed- "we just won!"
+	id = TUR_DTS.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.10"}
+ 	title = TUR_DTS.10.t
+ 	desc = TUR_DTS.10.d
+	#picture = 
+	is_triggered_only = yes
+ 	option = {
+ 		name = TUR_DTS.10.a
+ 	}
+}
+#21-40: Armenia
+country_event = { #Armenia Uprising Begins- Marius Yuzbashyan
+	id = TUR_DTS.21
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.21"}
+ 	title = TUR_DTS.21.t
+ 	desc = TUR_DTS.21.d
+	#picture = 
+	is_triggered_only = yes
+ 	option = {
+ 		name = TUR_DTS.21.a
+		TUR = {
+			declare_war_on = {
+				target = ARM
+				type = annex_everything
+			}
+		}
+ 	}
+}
+country_event = { #Armenia Uprising Begins- Petros Poghosyan
+	id = TUR_DTS.22
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.22"}
+ 	title = TUR_DTS.22.t
+ 	desc = TUR_DTS.22.d
+	#picture = 
+	is_triggered_only = yes
+ 	option = {
+ 		name = TUR_DTS.22.a
+		TUR = {
+			declare_war_on = {
+				target = ARM
+				type = annex_everything
+			}
+		}
+ 	}
+}
+country_event = { #Armenia Liberation- wholeomse 100 pog man
+	id = TUR_DTS.23
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.23"}
+ 	title = TUR_DTS.23.t
+ 	desc = TUR_DTS.23.d
+	#picture = 
+	is_triggered_only = yes
+ 	option = {
+ 		name = TUR_DTS.23.a
+		ARM = {
+			set_politics = {
+				ruling_party = despotism
+				last_election = "1934.3.26"
+				election_frequency = 60
+				elections_allowed = no
+			}
+		}
+ 	}
+}
+country_event = { #Armenia Liberation- Marius Yuzbashyan
+	id = TUR_DTS.24
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.24"}
+ 	title = TUR_DTS.24.t
+ 	desc = TUR_DTS.24.d
+	#picture = 
+	is_triggered_only = yes
+
+ 	option = {
+ 		name = TUR_DTS.24.a
+ 	}
+}
+country_event = { #Armenia Crushed- petros pogman
+	id = TUR_DTS.25
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.25"}
+ 	title = TUR_DTS.25.t
+ 	desc = TUR_DTS.25.d
+	#picture = 
+	is_triggered_only = yes
+ 	option = {
+ 		name = TUR_DTS.25.a
+ 	}
+}
+country_event = { #Armenia Crushed- marius yuzbashyan
+	id = TUR_DTS.26
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.26"}
+ 	title = TUR_DTS.26.t
+ 	desc = TUR_DTS.26.d
+	#picture = 
+	is_triggered_only = yes
+ 	option = {
+ 		name = TUR_DTS.26.a
+ 	}
+}
+#41-60: Afrin
+country_event = { #Afrin Uprising Begins
+	id = TUR_DTS.41
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.41"}
+	title = TUR_DTS.41.t
+	desc = TUR_DTS.41.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.41.a
+		TUR = {
+			declare_war_on = {
+				target = AFN
+				type = annex_everything
+			}
+		}
+	}
+}
+country_event = { #Afrin Crushed
+	id = TUR_DTS.42
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.42"}
+	title = TUR_DTS.42.t
+	desc = TUR_DTS.42.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.42.a
+	}
+}
+country_event = { #Afrin Liberation
+	id = TUR_DTS.43
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.43"}
+	title = TUR_DTS.43.t
+	desc = TUR_DTS.43.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.43.a
+		hidden_effect = {
+			AFN = {
+				set_cosmetic_tag = AFN_glory_to_afrin_salutetheredprince
+				set_party_name = {
+					ideology = communist
+					name = AFN_independent_party
+					long_name = AFN_independent_party_long
+				}
+				set_party_name = {
+					ideology = socialist
+					name = AFN_independent_party
+					long_name = AFN_independent_party_long
+				}
+				set_party_name = {
+					ideology = social_democrat
+					name = AFN_independent_party
+					long_name = AFN_independent_party_long
+				}
+			}
+		}
+		if = { #The loss of afrin will immediately throw syria into disarray.
+			limit = {
+				680 = { TUR_DtS_controls_this_region = yes }
+			}
+			custom_effect_tooltip = TUR_dts_domino_effect_tooltip
+			if = { #Rojava only revolts if its more active than north syria.
+				limit = { 
+					check_variable = { 1369.TUR_DtS_Unrest > 680.TUR_DtS_Unrest }
+				}
+				#First set Rojava's unrest to 100...
+				set_temp_variable = { tur_dts_unr_change_amount = 100 }
+				subtract_from_temp_variable = { tur_dts_unr_change_amount = 1369.TUR_DtS_Unrest }
+				set_temp_variable = { tur_dts_targeted_state = 1369 }
+				TUR_DtS_Change_Unrest = yes
+				#Then cause it to go "OUT OF CONTROL"
+				hidden_effect = { 1369 = { TUR_DtS_Cause_Incident = yes } }
+			}
+			#First set North Syria's unrest to 100...
+			set_temp_variable = { tur_dts_unr_change_amount = 100 }
+			subtract_from_temp_variable = { tur_dts_unr_change_amount = 680.TUR_DtS_Unrest }
+			set_temp_variable = { tur_dts_targeted_state = 680 }
+			TUR_DtS_Change_Unrest = yes
+			#THen cause it to go "OUT OF CONTROL"
+			hidden_effect = { 680 = { TUR_DtS_Cause_Incident = yes } } 
+		}
+		else_if = { #If north syria is properly independent, start some negotiations
+			limit = {
+				var:1395.owner = {
+					NOT = { tag = TUR }
+					NOT = { has_war_with = TUR } 
+				}
+			}
+			hidden_effect = { 
+				AFN = {
+					country_event = { id = TUR_DTS.44 days = 30 }
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Begin (and end) afrins annexation into syria
+	id = TUR_DTS.44 #If Syria content is expanded in BGRS, this should be an event chain
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.44"}
+	title = TUR_DTS.44.t
+	desc = TUR_DTS.44.d
+	#picture = 
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = TUR_DTS.44.a	
+		var:1395.owner = {
+			if = { 
+				limit = {
+					OR = {
+						tag = SNS
+						tag = SYR
+					}
+				}
+				transfer_state = 677
+				add_state_core = 677
+				677 = { remove_core_of = AFN }
+			}
+		}
+	}
+}
+
+
+#61-80 - Turkish Kurdistan
+country_event = { #Kurdistan Warning
+	id = TUR_DTS.61
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.61"}
+	title = TUR_DTS.61.t
+	desc = TUR_DTS.61.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.61.a
+		custom_effect_tooltip = TUR_dont_lose_kurdistan_warning
+		#raise a coup stage
+	}
+}
+country_event = { #Kurdistan Uprising Begins
+	id = TUR_DTS.62
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.62"}
+	title = TUR_DTS.62.t
+	desc = TUR_DTS.62.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.62.a
+		TUR = {
+			declare_war_on = {
+				target = KUR
+				type = annex_everything
+			}
+		}
+		custom_effect_tooltip = TUR_dont_lose_kurdistan_warning
+	}
+}
+country_event = { #Kurdistan Crushed - Anter
+	id = TUR_DTS.63
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.63"}
+	title = TUR_DTS.63.t
+	desc = TUR_DTS.63.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.63.a
+	}
+}
+country_event = { #Kurdistan Crushed - Dersimi
+	id = TUR_DTS.64
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.64"}
+	title = TUR_DTS.64.t
+	desc = TUR_DTS.64.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.64.a
+	}
+}
+country_event = { #Kurdistan Liberation. [KWI START]
+	id = TUR_DTS.65
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.65"}
+	title = TUR_DTS.65.t
+	desc = TUR_DTS.65.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.65.a
+
+		#TODO: THE ENTIRE KWI
+		set_politics = {
+			ruling_party = despotism
+			last_election = "1934.3.26"
+			election_frequency = 60
+			elections_allowed = no
+		}
+	}
+}
+#81-100 - Idlip 
+country_event = { #Idlip chain 1
+	id = TUR_DTS.81
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.81"}
+ 	title = TUR_DTS.81.t
+ 	desc = TUR_DTS.81.d
+	#picture = 
+	is_triggered_only = yes
+	fire_only_once = yes
+ 	option = {
+ 		name = TUR_DTS.81.a
+		#Warn the player this will eventually have consequences...
+		custom_effect_tooltip = TUR_idlip_warning_tt
+		#Then get rid of the revolt (and unrest causing it) for free
+		set_variable = { TUR_DtS_current_incident = 0 }
+		set_temp_variable = { tur_dts_unr_change_amount = -30 }
+		set_temp_variable = { tur_dts_targeted_state = 1242 }
+		TUR_DtS_Change_Unrest = yes
+ 	}
+}
+country_event = { #Idlip chain 2
+	id = TUR_DTS.82
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.82"}
+	title = TUR_DTS.82.t
+	desc = TUR_DTS.82.d
+	#picture = 
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		#Warn the player this will eventually have consequences...
+		custom_effect_tooltip = TUR_idlip_warning_tt
+		#Then get rid of the revolt (and unrest causing it) for free
+		set_variable = { TUR_DtS_current_incident = 0 }
+		set_temp_variable = { tur_dts_unr_change_amount = -30 }
+		set_temp_variable = { tur_dts_targeted_state = 1242 }
+		TUR_DtS_Change_Unrest = yes
+	}
+}
+country_event = { #Idlip chain 3
+	id = TUR_DTS.83
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.83"}
+	title = TUR_DTS.83.t
+	desc = TUR_DTS.83.d
+	#picture = 
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = TUR_DTS.83.a
+		#Warn the player this will eventually have consequences...
+		custom_effect_tooltip = TUR_idlip_warning_tt
+		#Then get rid of the revolt (and unrest causing it) for free
+		set_variable = { TUR_DtS_current_incident = 0 }
+		set_temp_variable = { tur_dts_unr_change_amount = -30 }
+		set_temp_variable = { tur_dts_targeted_state = 1242 }
+		TUR_DtS_Change_Unrest = yes
+	}
+}
+country_event = { #Idlip chain 4
+	id = TUR_DTS.84
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.84"}
+	title = TUR_DTS.84.t
+	desc = TUR_DTS.84.d
+	#picture = 
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = TUR_DTS.84.a
+		#Warn the player this will eventually have consequences...
+		custom_effect_tooltip = TUR_idlip_warning_tt
+		#Then get rid of the revolt (and unrest causing it) for free
+		set_variable = { TUR_DtS_current_incident = 0 }
+		set_temp_variable = { tur_dts_unr_change_amount = -30 }
+		set_temp_variable = { tur_dts_targeted_state = 1242 }
+		TUR_DtS_Change_Unrest = yes
+	}
+}
+country_event = { #Idlip chain OH NO OH GOD 
+	id = TUR_DTS.90
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.90"}
+ 	title = TUR_DTS.90.t
+ 	desc = TUR_DTS.90.d
+	#picture = 
+	is_triggered_only = yes
+	fire_only_once = yes
+ 	option = {
+ 		name = TUR_DTS.90.a
+
+		#MAYBE: fire a world event
+
+		#todo: like two or three coup stages
+		#todo: massive popularity drop
+
+		#Cause a massive wave of unrest and consciousness
+		set_temp_variable = { tur_dts_con_change_amount = 20 }
+		set_temp_variable = { tur_dts_unr_change_amount = 30 }
+		if = { #And even worse if you're a junta (no popularity or coups)
+			limit = { has_government = despotism }
+			add_to_temp_variable = { tur_dts_unr_change_amount = 10 }
+			add_to_temp_variable = { tur_dts_con_change_amount = 30 }
+		}
+
+		set_temp_variable = { tur_dts_targeted_state = 100 } #All states
+		TUR_DtS_Change_Unrest = yes
+
+		1242 = { #Then permanently neuter Idlip, revolt-wise
+			set_variable = { TUR_DtS_Consciousness = DTS_TUR_POST_REVOLT_BASE_CON }
+			divide_variable = { TUR_DtS_Consciousness = 3 } #After this Idlip is super calm
+			set_variable = { TUR_DtS_Unrest = DTS_TUR_POST_REVOLT_BASE_UNR }
+			set_state_flag = DtS_No_Revolt_Local_Collaborators
+		}
+ 	}
+}
+#101-120 - Mosul
+
+country_event = { #First Mosul uprising, Ahmed deposed 
+	id = TUR_DTS.101
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.101"}
+	title = TUR_DTS.101.t
+	desc = TUR_DTS.101.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.101.a
+		BKU = {
+			retire_country_leader = yes
+			set_politics = { ruling_party = authoritarian_democrat }
+
+			hidden_effect = {
+				set_popularities = {
+					communist = 5
+					socialist = 35
+					social_democrat = 0
+					social_liberal = 0
+					social_conservative = 0
+					authoritarian_democrat = 40
+					despotism = 20
+					fascism = 0
+					national_socialism = 0
+					ultranational_socialism = 0
+					burgundian_system = 0
+				}
+			}
+
+		}
+		TUR = {
+			declare_war_on = {
+				target = BKU
+				type = annex_everything
+			}
+		}
+	}
+}
+country_event = { #Later Mosul uprising, Mustafa is back baby !!
+	id = TUR_DTS.102
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.102"}
+	title = TUR_DTS.102.t
+	desc = TUR_DTS.102.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.102.a
+		TUR = {
+			declare_war_on = {
+				target = BKU
+				type = annex_everything
+			}
+		}
+	}
+}
+country_event = { #Mosul Liberated
+	id = TUR_DTS.103
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.103"}
+	title = TUR_DTS.103.t
+	desc = TUR_DTS.103.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.103.a
+	}
+}
+country_event = { #Mosul Crushed by Turkey
+	id = TUR_DTS.104
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.104"}
+	title = TUR_DTS.104.t
+	desc = TUR_DTS.104.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.104.a
+	}
+}
+#121-140 - Rojava
+country_event = { #Rojava Uprising Begins
+	id = TUR_DTS.121
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.121"}
+	title = TUR_DTS.121.t
+	desc = TUR_DTS.121.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.121.a
+		TUR = {
+			declare_war_on = {
+				target = ROJ
+				type = annex_everything
+			}
+		}
+	}
+}
+country_event = { #Rojava Liberation
+	id = TUR_DTS.122
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.122"}
+	title = TUR_DTS.122.t
+	desc = TUR_DTS.122.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.122.a
+	}
+}
+country_event = { #Rojava Crushed
+	id = TUR_DTS.123
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.123"}
+	title = TUR_DTS.123.t
+	desc = TUR_DTS.123.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.123.a
+	}
+}
+#141-160- Northern Syria
+country_event = { #NASIL uprising begins- Jadid
+	id = TUR_DTS.141
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.141"}
+	title = TUR_DTS.141.t
+	desc = TUR_DTS.141.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.141.a
+		#No war dec- TUR_DtS_Begin_An_Uprising already started it
+	}
+}
+country_event = { #NASIL uprising begins- Assad
+	id = TUR_DTS.142
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.142"}
+	title = TUR_DTS.142.t
+	desc = TUR_DTS.142.d
+	picture = GFX_TUR_Haffez_al_Assad
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.142.a
+		#No war dec- TUR_DtS_Begin_An_Uprising already started it
+	}
+}
+country_event = { #Mid-ITW NASIL uprising begins
+	id = TUR_DTS.143
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.143"}
+	title = TUR_DTS.143.t
+	desc = TUR_DTS.143.d
+	picture = GFX_TUR_Haffez_al_Assad
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.143.a
+		#No war dec- they start at war
+	}
+}
+
+country_event = { #NASIL and SNS merge into one amalgamation
+	id = TUR_DTS.144
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.144"}
+	title = TUR_DTS.144.t
+	desc = TUR_DTS.144.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.144.a
+		SNS = {
+			set_cosmetic_tag = SNS_NASIL_merger
+			if = { #Have NASIL's leader take charge in the SNS, if they're running against a collab
+				limit = { NOT = { has_country_leader = { name = "Michel Aflaq" ruling_only = yes } } }
+				if = { 
+					limit = { SYR = { has_government = communist } }
+					country_event = { id = TUR_DTS.145 days = 700 }
+				}
+				else_if = {
+					limit = { 
+						SYR = {
+							has_government = despotism
+							has_country_leader = { name = "Hafez al-Assad" ruling_only = yes }
+						}
+					}
+					country_event = { id = TUR_DTS.146 days = 700 }
+				}
+			}
+
+			annex_country = {
+				target = SYR
+				transfer_troops = no
+			}
+
+			hidden_effect = { #Shared total syrian popularities
+				set_popularities = {
+					communist = 15
+					socialist = 25
+					social_democrat = 0
+					social_liberal = 0
+					social_conservative = 0
+					authoritarian_democrat = 0
+					despotism = 60
+					fascism = 0
+					national_socialism = 0
+					ultranational_socialism = 0
+					burgundian_system = 0
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Jadid takes over the SNS
+	id = TUR_DTS.145
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.145"}
+	title = TUR_DTS.145.t
+	desc = TUR_DTS.145.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.145.a
+		set_politics = { ruling_party = communist }
+	}
+}
+
+country_event = { #Assad takes over the SNS
+	id = TUR_DTS.146
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.146"}
+	title = TUR_DTS.146.t
+	desc = TUR_DTS.146.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.146.a
+
+		SNS_med_promote_Hafez_al_Assad = yes
+
+		set_variable = {TNO_economy_type = 2} #Neo-Baathism is corporatist
+
+		set_party_name = {
+			ideology = despotism
+			name = SNS_assad_despotism_party
+			long_name = SNS_assad_despotism_party_long
+		}
+		set_politics = { ruling_party = despotism }
+	}
+}
+
+country_event = { #the ITW is ongoing- NASIL anounces GO TIME
+	id = TUR_DTS.147
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.147"}
+	title = TUR_DTS.147.t
+	desc = TUR_DTS.147.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.147.a
+
+		set_temp_variable = { tur_dts_unr_change_amount = 30 }
+		set_temp_variable = { tur_dts_targeted_state = 680 }
+		TUR_DtS_Change_Unrest = yes
+
+		680 = { #Instantly set North Syria OUT OF CONTROL.
+			if = { 
+				limit = { check_variable = { TUR_DtS_Unrest > 90 } }
+				set_variable = { TUR_DtS_current_incident = 8 }
+			}
+		}
+	}
+}
+
+#Assad should have more events than these
+#161-180- Damascus
+country_event = { #Unrest averted- SNS is wholesome 100 chungus and loves you
+	id = TUR_DTS.161
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.161"}
+	title = TUR_DTS.161.t
+	desc = TUR_DTS.161.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.161.a
+		custom_effect_tooltip = TUR_sns_local_collab_tt
+		554 = {
+			set_variable = { TUR_DtS_current_incident = 0 }
+			set_state_flag = DtS_No_Revolt_Local_Collaborators
+		}
+		hidden_effect = { country_event = { id = TUR_DTS.162 } }
+	}
+}
+country_event = { #Part 2- SNS plotting the demise of Turkey while cackling
+	id = TUR_DTS.162
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.162"}
+	title = TUR_DTS.162.t
+	desc = TUR_DTS.162.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.162.a
+		set_temp_variable = { tur_dts_con_change_amount = 10 }
+		set_temp_variable = { tur_dts_targeted_state = 300 } #All arabic regions
+		TUR_DtS_Change_Consciousness = yes
+		set_temp_variable = { tur_dts_unr_change_amount = 20 }
+		set_temp_variable = { tur_dts_targeted_state = 680 } #Northern Syria
+		TUR_DtS_Change_Unrest = yes
+	}
+}
+country_event = { #Aflaq Rises Up
+	id = TUR_DTS.163
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.163"}
+	title = TUR_DTS.163.t
+	desc = TUR_DTS.163.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.163.a
+		#No war dec- TUR_DtS_Begin_An_Uprising already started it
+	}
+}
+#181-200- Naxos and Rhodes
+country_event = { #Rhodes (Yayas) Uprising Begins
+	id = TUR_DTS.181
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.181"}
+	title = TUR_DTS.181.t
+	desc = TUR_DTS.181.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.181.a
+		TUR = {
+			declare_war_on = {
+				target = IID
+				type = annex_everything
+			}
+		}
+	}
+}
+country_event = { #Naxos Uprising Begins
+	id = TUR_DTS.182
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.182"}
+	title = TUR_DTS.182.t
+	desc = TUR_DTS.182.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.182.a
+		TUR = {
+			declare_war_on = {
+				target = NXS
+				type = annex_everything
+			}
+		}
+	}
+}
+country_event = { #Naxos Liberation
+	id = TUR_DTS.183
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.183"}
+	title = TUR_DTS.183.t
+	desc = TUR_DTS.183.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.183.a
+		hidden_effect = { GRE = { country_event = TUR_DTS.184 } } 
+		effect_tooltip = { #Just makes a tooltip. Naxos is actually annexed in TUR_DTS.184
+			GRE = {
+				annex_country = {
+					target = NXS
+					transfer_troops = no
+				}
+			}
+		}
+	}
+}
+country_event = { #FOR GRE- Naxos freed itself!
+	id = TUR_DTS.184
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.184"}
+	title = TUR_DTS.184.t
+	desc = TUR_DTS.184.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.184.a
+		hidden_effect = {
+			187 = { remove_core_of = NXS }
+		}
+		annex_country = {
+			target = NXS
+			transfer_troops = no
+		}
+	}
+}
+country_event = { #yayas deciding who to annex himself to
+	id = TUR_DTS.185
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.185"}
+	title = TUR_DTS.185.t
+	desc = TUR_DTS.185.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.185.a
+		ai_chance = {
+			base = 1
+			modifier = {
+				factor = 0
+				#option A- if greece or ita is right: ITA
+				NOT = { 
+					OR = {
+						GRE = { 
+							has_government = despotism
+							has_government = fascism
+						 }
+						ITA = { has_government = fascism }
+					}
+				}
+			}
+		}
+		ITA = { country_event = { id = TUR_DTS.186 } }
+	}
+	option = {
+		name = TUR_DTS.185.b
+		ai_chance = {
+			base = 3
+			modifier = {
+				#option b: if ita is dem/red and greece is red: GRE
+				factor = 0
+					#Yayas will always go to Greece if he got crushed before.
+				NOT = { has_country_flag = iid_already_tried_independence }
+
+				OR = { #Factor will be 0 if gre/ita was fash (1st choice)
+					GRE = { 
+						has_government = despotism
+						has_government = fascism
+						NOT = { #or if gre is not red
+							OR = {
+								has_government = socialist
+								has_government = communist
+							}
+						}
+					}
+					ITA = { has_government = fascism }
+				}
+			}
+		}
+		GRE = { country_event = { id = TUR_DTS.187 } }
+	}
+	option = {
+		name = TUR_DTS.185.c
+		trigger = { NOT = { has_country_flag = iid_already_tried_independence } }
+
+		set_country_flag = iid_already_tried_independence
+		#TODO: KING NAXOS
+	}
+}	
+
+country_event = { #FOR ITA- Rhodes paid off
+	id = TUR_DTS.186
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.186"}
+	title = TUR_DTS.186.t
+	desc = TUR_DTS.186.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.186.a
+		hidden_effect = {
+			164 = { remove_core_of = IID }
+		}
+		annex_country = {
+			target = IID
+			transfer_troops = no
+		}
+	}
+}	
+
+country_event = { #FOR GRE- Rhodes joined us
+	id = TUR_DTS.187
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.187"}
+	title = TUR_DTS.187.t
+	desc = TUR_DTS.187.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.187.a
+		hidden_effect = {
+			164 = { remove_core_of = IID }
+		}
+		annex_country = {
+			target = IID
+			transfer_troops = no
+		}
+	}
+}	
+	
+
+#201-220- Thrace
+country_event = { #Thrace Uprising Begins
+	id = TUR_DTS.201
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.201"}
+	title = TUR_DTS.201.t
+	desc = TUR_DTS.201.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.201.a
+		TUR = {
+			declare_war_on = {
+				target = THR
+				type = annex_everything
+			}
+		}
+	}
+}
+
+country_event = { #Thrace Liberation
+	id = TUR_DTS.202
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.202"}
+	title = TUR_DTS.202.t
+	desc = TUR_DTS.202.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.202.a
+		hidden_effect = { GRE = { country_event = { id = TUR_DTS.203 days = 14 } } } 
+	}
+}
+
+country_event = { #FOR GRE- Thrace freed itself!
+	id = TUR_DTS.203
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.203"}
+	title = TUR_DTS.203.t
+	desc = TUR_DTS.203.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.203.a
+		hidden_effect = {
+			1266 = { remove_core_of = THR }
+			184 = { remove_core_of = THR }
+		}
+		annex_country = {
+			target = THR
+			transfer_troops = no
+		}
+	}
+}
+
+#221-240- Lebanon
+country_event = { #Lebanon Uprising Begins
+	id = TUR_DTS.221
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.221"}
+	title = TUR_DTS.221.t
+	desc = TUR_DTS.221.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.221.a
+		TUR = {
+			declare_war_on = {
+				target = NLB
+				type = annex_everything
+			}
+		}
+		SNS = {
+			if = {
+				limit = { is_puppet_of = TUR }
+				declare_war_on = {
+					target = NLB
+					type = annex_everything
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Nationalist Lebanon- become libdem?
+	id = TUR_DTS.222
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.222"}
+	title = TUR_DTS.222.t
+	desc = TUR_DTS.222.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.222.a
+		ai_chance = { base = 4 }
+	}
+	option = {
+		name = TUR_DTS.222.b
+		ai_chance = { base = 1 }
+		set_politics = {
+			ruling_party = social_liberal
+			last_election = "1934.3.26"
+			election_frequency = 60
+			elections_allowed = no
+		}
+	}
+}
+
+#241-260- Cyprus
+country_event = { #Cyprus Uprising Begins
+	id = TUR_DTS.241
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.241"}
+	title = TUR_DTS.241.t
+	desc = TUR_DTS.241.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.241.a
+		TUR = {
+			declare_war_on = {
+				target = CYP
+				type = annex_everything
+			}
+		}
+	}
+}
+country_event = { #Cyprus Liberation- apolitical strongmanification
+	id = TUR_DTS.242
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.242"}
+	title = TUR_DTS.242.t
+	desc = TUR_DTS.242.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.242.a
+		GRE = {
+			puppet = CYP
+		}
+		CYP = {
+			hidden_effect = {
+				set_popularities = {
+					communist = 0
+					socialist = 0
+					social_democrat = 22
+					social_liberal = 0
+					social_conservative = 25
+					authoritarian_democrat = 36
+					despotism = 17
+					fascism = 0
+					national_socialism = 0
+					ultranational_socialism = 0
+					burgundian_system = 0
+				}
+				set_politics = {
+					ruling_party = authoritarian_democrat
+					last_election = "1934.3.26"
+					election_frequency = 60
+					elections_allowed = no
+				}
+			}
+		}
+	}
+}
+country_event = { #Cyprus Liberation- annexed into greece
+	id = TUR_DTS.243
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.243"}
+	title = TUR_DTS.243.t
+	desc = TUR_DTS.243.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.243.a
+		GRE = { 
+			hidden_effect = { country_event = { id = TUR_DTS.244 } }
+			effect_tooltip = { #This block shows a tooltip without doing it
+				transfer_state = 1328
+			}
+		}
+	}
+}
+
+country_event = { #FOR GRE- Cyprus freed itself
+	id = TUR_DTS.244
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.244"}
+	title = TUR_DTS.244.t
+	desc = TUR_DTS.244.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.244.a
+		transfer_state = 1328
+		hidden_effect = {
+			CYP = {
+				remove_state_core = 1328
+				remove_state_core = 183
+			}
+		}
+	}
+}
+
+#261+ - Generic DtS events
+country_event = { #Military offers to martial law a region for free
+	id = TUR_DTS.261
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_DTS.261"}
+	title = TUR_DTS.261.t
+	desc = TUR_DTS.261.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = TUR_DTS.261.a
+
+		custom_effect_tooltip = TUR_DTS.261.ttip
+		hidden_effect = {
+			var:TUR_DtS_event_261_target_region = {
+				set_variable = { TUR_DtS_current_incident = 0 }
+				set_state_flag = DtS_No_Revolt_Martial_Law
+				set_state_flag = DtS_got_free_pre_itw_martial_law
+			}
+			clear_variable = TUR_DtS_event_261_target_region
+		}
+	}
+}
+
+################
+#A HIDDEN BLADE#
+################
+
+#1-20 reserved for general HB structure and stuff
+
+#Operation 1- THATCHERNICE
+country_event = {
+	id = TUR_HB.21
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_HB.21"}
+	title = TUR_HB.21.t
+	desc = TUR_HB.21.d
+	picture = GFX_report_event_eng_margaret_thatcher_initial
+	is_triggered_only = yes
+	option = {
+		name = TUR_HB.21.a
+		#trigger = { check_variable = { TUR_HB_op_preparation > 20 } }
+		set_variable = { TUR_HB_op_outcome^1 = 2 } #Operation Success
+		TUR_HB_GUI_status_frames_refresh = yes
+		ENG = {
+			declare_war_on = {
+				target = USA
+				type = annex_everything
+			}
+		}
+		hidden_effect = {
+			GER = {
+				declare_war_on = {
+					target = USA
+					type = annex_everything
+				}
+			}
+			
+		}
+	}
+	option = {
+		name = TUR_HB.21.b
+		set_variable = { TUR_HB_op_outcome^1 = 3 } #Operation Failure
+		TUR_HB_GUI_status_frames_refresh = yes	
+	}
+}
+
+#Operation 2- NUKE GREECE
+country_event = {
+	id = TUR_HB.22
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_HB.22"}
+	title = TUR_HB.22.t
+	desc = TUR_HB.22.d
+	picture = GFX_report_event_eng_margaret_thatcher_initial
+	is_triggered_only = yes
+	option = {
+		name = TUR_HB.22.a
+		set_variable = { TUR_HB_op_outcome^2 = 3 } #Operation Failure
+		TUR_HB_GUI_status_frames_refresh = yes	
+	}
+}
+
+#Operation 3 - GÜNEŞ
+country_event = {
+	id = TUR_HB.23
+	immediate = {log = "[GetDateText]: [Root.GetName]: event TUR_HB.23"}
+	title = TUR_HB.23.t
+	desc = TUR_HB.23.d
+	picture = GFX_report_event_eng_margaret_thatcher_initial
+	is_triggered_only = yes
+	option = {
+		name = TUR_HB.23.a
+	}
+}
+
+####
+#:)#
+####
+country_event = { #Karaboga
+	id = tur.6666
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur.6666"}
+ 	title = tur.6666.t
+ 	desc = tur.6666.d
+	picture = GFX_TUR_karaboga
+	is_triggered_only = yes
+	fire_only_once = yes
+	option = {
+		name = tur.6666.a
+	}
+}
+
+#############################
+### a) Minority Uprisings ###
+#############################
+
+#events turkey_essential.1-9 replaced by TUR.DtS events and scripted effects
+
+country_event = { #the Collapse
+	id = turkey_essential.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event turkey_essential.10"}
+	title = turkey_essential.10.t
+ 	desc = turkey_essential.10.d
+	#picture = 
+	is_triggered_only = yes
+	option = {
+		name = turkey_essential.10.a
+		every_country = {
+			limit = {
+				is_ai = no
+			}
+			#STRIP(upstream) set_temp_variable = { TNO_temp_super_event = 84 }
+			#STRIP(upstream) TNO_fire_super_event = yes
+		}
+		set_global_flag = turkey_race_war
+		TUR = {
+			set_politics = { ruling_party = despotism }
+			create_country_leader = {
+				name = "Memduh Tağmaç"
+				desc = ""
+				picture = "gfx/leaders/TUR/Portrait_Turkey_Memduh_Tagmac.dds"
+				expire = "1999.1.1"
+				ideology = despotism_military_junta_subtype
+				traits = {
+				}
+			}
+			set_popularities = {
+			    communist = 0
+				socialist = 0
+				social_democrat = 0
+				social_liberal = 0
+				social_conservative = 0
+				authoritarian_democrat = 24
+				despotism = 76
+				fascism = 0
+				national_socialism = 0
+				ultranational_socialism = 0
+				burgundian_system = 0
+			}
+			end_puppet = BKU
+			end_puppet = SNS
+		}
+		TCP = {
+			create_country_leader = {
+				name = "Sabri Demirdağ"
+				desc = ""
+				#STRIP(art) picture = "Portrait_Turkey_Sabri_Demirbag.dds"
+				expire = "1999.1.1"
+				ideology = despotism_subtype
+				traits = {
+				}
+			}
+			set_popularities = {
+			    communist = 0
+				socialist = 0
+				social_democrat = 0
+				social_liberal = 10
+				social_conservative = 10
+				authoritarian_democrat = 20
+				despotism = 60
+				fascism = 0
+				national_socialism = 0
+				ultranational_socialism = 0
+				burgundian_system = 0
+			}
+			set_politics = {
+				last_election = "1915.4.24"
+				election_frequency = 48
+				elections_allowed = no
+				ruling_party = despotism
+			}
+			transfer_state = 1328
+			add_state_core = 1328
+			add_state_core = 183
+			#STRIP(dead_idea) add_ideas = TCP_Mucahit_Dayanir
+		}
+		#STRIP(ghost_tag) IST = {
+			#STRIP(ghost_tag) transfer_state = 184
+			#STRIP(ghost_tag) transfer_state = 1266
+			#STRIP(ghost_tag) transfer_state = 1267
+			#STRIP(ghost_tag) transfer_state = 341
+			#STRIP(ghost_tag) add_state_core = 184
+			#STRIP(ghost_tag) add_state_core = 1266
+			#STRIP(ghost_tag) add_state_core = 1267
+			#STRIP(ghost_tag) add_state_core = 341
+			#STRIP(ghost_tag) create_country_leader = {
+				#STRIP(ghost_tag) name = "Papa Eftim I"
+				#STRIP(ghost_tag) desc = ""
+				#STRIP(ghost_tag) picture = "gfx/leaders/TUR/Portrait_Turkey_Papa_Eftim.dds"
+				#STRIP(ghost_tag) expire = "1999.1.1"
+				#STRIP(ghost_tag) ideology = authoritarian_democrat_social_nationalism_subtype
+				#STRIP(ghost_tag) traits = {
+				#STRIP(ghost_tag) }
+			#STRIP(ghost_tag) }
+			#STRIP(ghost_tag) set_politics = { ruling_party = authoritarian_democrat }
+			#STRIP(ghost_tag) set_popularities = {
+			    #STRIP(ghost_tag) communist = 0
+				#STRIP(ghost_tag) socialist = 0
+				#STRIP(ghost_tag) social_democrat = 32
+				#STRIP(ghost_tag) social_liberal = 0
+				#STRIP(ghost_tag) social_conservative = 0
+				#STRIP(ghost_tag) authoritarian_democrat = 57
+				#STRIP(ghost_tag) despotism = 11
+				#STRIP(ghost_tag) fascism = 0
+				#STRIP(ghost_tag) national_socialism = 0
+				#STRIP(ghost_tag) ultranational_socialism = 0
+				#STRIP(ghost_tag) burgundian_system = 0
+			#STRIP(ghost_tag) }
+			#STRIP(ghost_tag) declare_war_on = { target = TUR type = annex_everything }
+		#STRIP(ghost_tag) }
+		#STRIP(ghost_tag) TKP = {
+			#STRIP(ghost_tag) transfer_state = 339
+			#STRIP(ghost_tag) add_state_core = 339
+			#STRIP(ghost_tag) declare_war_on = { target = TUR type = annex_everything }
+		#STRIP(ghost_tag) 	#STRIP(ghost_tag) declare_war_on = { target = IST type = annex_everything }
+		#STRIP(ghost_tag) }
+		#STRIP(ghost_tag) IAN = {
+			#STRIP(ghost_tag) transfer_state = 342
+			#STRIP(ghost_tag) declare_war_on = { target = TUR type = annex_everything }
+		#STRIP(ghost_tag) }
+		BKU = {
+			leave_faction = yes
+			set_cosmetic_tag = BKU_Mustafa
+			create_country_leader = {
+				name = "Mustafa Barzani"
+				desc = "POLITICS_MUSTAFA_BARZANI"
+				picture = "gfx/leaders/BKU/Portrait_Kurdistan_Mustafa_Barzani.dds"
+				expire = "1999.1.1"
+				ideology = authoritarian_democrat_subtype
+				traits = {
+				}
+			}
+			set_popularities = {
+			    communist = 0
+				socialist = 0
+				social_democrat = 0
+				social_liberal = 0
+				social_conservative = 0
+				authoritarian_democrat = 100
+				despotism = 0
+				fascism = 0
+				national_socialism = 0
+				ultranational_socialism = 0
+				burgundian_system = 0
+			}
+			set_politics = {
+				last_election = "1915.4.24"
+				election_frequency = 48
+				elections_allowed = no
+				ruling_party = authoritarian_democrat
+			}
+			declare_war_on = { target = TUR type = annex_everything }
+		}
+		ARM = {
+			create_faction = Nemesisi-Chakat
+			add_to_faction = KUR
+			add_to_faction = ROJ
+			add_to_faction = SYR
+			add_to_faction = BKU
+			transfer_state = 230
+			add_state_claim = 1398
+			create_country_leader = {
+				name = "Petros Poghosyan"
+				desc = ""
+				#STRIP(art) picture = "Portrait_ARM_Petros_Poghosyan.dds"
+				expire = "1999.1.1"
+				ideology = ultranational_socialism_subtype
+			}
+			set_politics = {
+				last_election = "1915.4.24"
+				election_frequency = 48
+				elections_allowed = no
+				ruling_party = ultranational_socialism
+			}
+			declare_war_on = { target = TUR type = annex_everything }
+		}
+		CYP = {
+			transfer_state = 183
+			add_state_core = 183
+			add_state_core = 1328
+			create_country_leader = {
+				name = "Nicos Sampson"
+				desc = "POLITICS_NICOS_SAMPSON_DESC"
+				picture = "gfx/leaders/CYP/Nicos_Sampson.dds"
+				expire = "1999.1.1"
+				ideology = ultranational_socialism_subtype
+			}
+			set_popularities = {
+				communist = 0
+				socialist = 0
+				social_democrat = 0
+				social_liberal = 0
+				social_conservative = 0
+				authoritarian_democrat = 0
+				despotism = 0
+				fascism = 10
+				national_socialism = 10
+				ultranational_socialism = 80
+				burgundian_system = 0
+			}
+			set_politics = {
+				last_election = "1915.4.24"
+				election_frequency = 48
+				elections_allowed = no
+				ruling_party = ultranational_socialism
+			}
+			#STRIP(dead_idea) add_ideas = CYP_Zito_I_Enosis
+			declare_war_on = { target = TCP type = annex_everything }
+		}
+		KUR = {
+			transfer_state = 352
+			transfer_state = 350
+			KUR_med_promote_Nuri_Dersimi = yes # his portrait is in the mod now; shared with the unrest rising
+			set_popularities = {
+			    communist = 0
+				socialist = 0
+				social_democrat = 0
+				social_liberal = 0
+				social_conservative = 0
+				authoritarian_democrat = 0
+				despotism = 0
+				fascism = 0
+				national_socialism = 0
+				ultranational_socialism = 100
+				burgundian_system = 0
+			}
+			set_politics = {
+				last_election = "1915.4.24"
+				election_frequency = 48
+				elections_allowed = no
+				ruling_party = ultranational_socialism
+			}
+			#STRIP(dead_idea) add_ideas = KUR_Guardians_Of_The_Mountains
+			declare_war_on = { target = TUR type = annex_everything }
+		}
+		SYR = {
+			transfer_state = 782
+			transfer_state = 1372
+			transfer_state = 554
+			transfer_state = 1371
+			transfer_state = 1370
+			transfer_state = 1242
+			transfer_state = 1241
+			transfer_state = 680
+			create_country_leader = {
+				name = "Hafez Al-Assad"
+				desc = "POLITICS_HAFEZ_AL_ASSAD_DESC"
+				picture = "gfx/leaders/SYR/Portrait_Syria_Hafez_Al_Assad.dds"
+				expire = "1999.1.1"
+				ideology = ultranational_socialism_subtype
+				traits = {
+				}
+			}
+			set_popularities = {
+			    communist = 0
+				socialist = 0
+				social_democrat = 0
+				social_liberal = 0
+				social_conservative = 0
+				authoritarian_democrat = 0
+				despotism = 0
+				fascism = 0
+				national_socialism = 0
+				ultranational_socialism = 100
+				burgundian_system = 0
+			}
+			set_politics = {
+				last_election = "1915.4.24"
+				election_frequency = 48
+				elections_allowed = no
+				ruling_party = ultranational_socialism
+			}
+			#STRIP(dead_idea) add_ideas = SYR_Allah_Syria_Revenge
+			declare_war_on = { target = TUR type = annex_everything }
+		}
+		ROJ = {
+			transfer_state = 1369
+			transfer_state = 1369
+			transfer_state = 1396
+			transfer_state = 1243
+			#STRIP(dead_idea) add_ideas = ROJ_Witness_Our_Song
+			declare_war_on = { target = TUR type = annex_everything }
+		}
+		CAU = {
+			transfer_state = 1397
+		}
+		#STRIP(ghost_tag) TIT = {
+			#STRIP(ghost_tag) transfer_state = 1395
+			#STRIP(ghost_tag) transfer_state = 677
+			#STRIP(ghost_tag) transfer_state = 1242
+			#STRIP(ghost_tag) add_ideas = TIT_Intikam_Intikam
+			#STRIP(ghost_tag) declare_war_on = { target = TUR type = annex_everything }
+		#STRIP(ghost_tag) 	#STRIP(ghost_tag) declare_war_on = { target = IBD type = annex_everything }
+		#STRIP(ghost_tag) 	#STRIP(ghost_tag) declare_war_on = { target = IST type = annex_everything }
+		#STRIP(ghost_tag) 	#STRIP(ghost_tag) declare_war_on = { target = TKP type = annex_everything }
+		#STRIP(ghost_tag) 	#STRIP(ghost_tag) declare_war_on = { target = IAN type = annex_everything }
+			#STRIP(ghost_tag) declare_war_on = { target = ARM type = annex_everything }
+			#STRIP(ghost_tag) declare_war_on = { target = SYR type = annex_everything }
+			#STRIP(ghost_tag) declare_war_on = { target = ROJ type = annex_everything }
+			#STRIP(ghost_tag) declare_war_on = { target = BKU type = annex_everything }
+			#STRIP(ghost_tag) declare_war_on = { target = KUR type = annex_everything }
+			#STRIP(ghost_tag) set_party_name = {
+				#STRIP(ghost_tag) ideology = burgundian_system
+				#STRIP(ghost_tag) long_name = TUR_ultranationalism_party_junta_long
+				#STRIP(ghost_tag) name = TUR_ultranationalism_party_junta
+			#STRIP(ghost_tag) }
+			#STRIP(ghost_tag) set_party_name = {
+				#STRIP(ghost_tag) ideology = ultranational_socialism
+				#STRIP(ghost_tag) long_name = TUR_ultranationalism_party_junta_long
+				#STRIP(ghost_tag) name = TUR_ultranationalism_party_junta
+			#STRIP(ghost_tag) }
+			#STRIP(ghost_tag) set_party_name = {
+				#STRIP(ghost_tag) ideology = national_socialism
+				#STRIP(ghost_tag) long_name = TUR_ultranationalism_party_junta_long
+				#STRIP(ghost_tag) name = TUR_ultranationalism_party_junta
+			#STRIP(ghost_tag) }
+			#STRIP(ghost_tag) set_party_name = {
+				#STRIP(ghost_tag) ideology = fascism
+				#STRIP(ghost_tag) long_name = TUR_ultranationalism_party_junta_long
+				#STRIP(ghost_tag) name = TUR_ultranationalism_party_junta
+			#STRIP(ghost_tag) }
+		#STRIP(ghost_tag) }
+		#STRIP(ghost_tag) IBD = {
+			#STRIP(ghost_tag) transfer_state = 1398
+			#STRIP(ghost_tag) transfer_state = 353
+			#STRIP(ghost_tag) add_state_core = 1398
+			#STRIP(ghost_tag) add_state_core = 353
+			#STRIP(ghost_tag) add_ideas = IBD_Our_Song
+			#STRIP(ghost_tag) declare_war_on = { target = TUR type = annex_everything }
+		#STRIP(ghost_tag) 	#STRIP(ghost_tag) declare_war_on = { target = TIT type = annex_everything }
+		#STRIP(ghost_tag) 	#STRIP(ghost_tag) declare_war_on = { target = IST type = annex_everything }
+		#STRIP(ghost_tag) 	#STRIP(ghost_tag) declare_war_on = { target = TKP type = annex_everything }
+		#STRIP(ghost_tag) 	#STRIP(ghost_tag) declare_war_on = { target = IAN type = annex_everything }
+			#STRIP(ghost_tag) declare_war_on = { target = ARM type = annex_everything }
+			#STRIP(ghost_tag) declare_war_on = { target = SYR type = annex_everything }
+			#STRIP(ghost_tag) declare_war_on = { target = ROJ type = annex_everything }
+			#STRIP(ghost_tag) declare_war_on = { target = BKU type = annex_everything }
+			#STRIP(ghost_tag) declare_war_on = { target = KUR type = annex_everything }
+		#STRIP(ghost_tag) }
+	}
+}
+
+#oil crisis 
+
+country_event = {
+	trigger = { has_global_flag = ITA_MED_WIP_PATHS tag = TUR has_global_flag = oil_crisis_full_swing } #the event that fires when oil.5 fires, makes the oil crisis tree appear and shit
+	id = tur.oilcrisischp
+	immediate = {log = "[GetDateText]: [Root.GetName]: event oilcrisischp"}
+ 	title = tur.oilcrisischp.t
+ 	desc = tur.oilcrisischp.d
+ 	picture = GFX_TUR_Fahri_Koruturk
+	fire_only_once = yes
+ 	option = {
+ 		name = tur.oilcrisis.a
+		set_country_flag = TUR_oil_crisis_chp
+		TUR = {
+  			mark_focus_tree_layout_dirty = yes
+		}
+	}
+}
+
+####################
+# m) Flavor Events #
+####################
+
+country_event = {
+	trigger = { has_global_flag = ITA_MED_WIP_PATHS } #locked away on an island not allowed to see the world
+	id = tur_flavor.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_flavor.1"}
+ 	title = tur_flavor.1.t
+ 	desc = tur_flavor.1.d
+ 	#picture = 
+	fire_only_once = yes
+ 	option = {
+ 		name = tur_flavor.1.a
+		hidden_effect = {
+			country_event = { id = tur_flavor.2 days = 158 }
+			country_event = { id = tur_flavor.3 days = 60 }
+		}
+	}
+}
+
+country_event = {
+	trigger = { has_global_flag = ITA_MED_WIP_PATHS } #guarded by a thousand rifles in a prison lined with dirt
+	id = tur_flavor.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_flavor.2"}
+ 	title = tur_flavor.2.t
+ 	desc = tur_flavor.2.d
+ 	#picture = 
+	fire_only_once = yes
+ 	option = {
+ 		name = tur_flavor.2.a
+		
+	}
+}
+
+country_event = {
+	trigger = { has_global_flag = ITA_MED_WIP_PATHS } #there's a man who inspires millions to live like they are free
+	id = tur_flavor.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_flavor.3"}
+ 	title = tur_flavor.3.t
+ 	desc = tur_flavor.3.d
+ 	picture = GFX_report_event_orenburg_school
+	fire_only_once = yes
+ 	option = {
+ 		name = tur_flavor.3.a
+		hidden_effect = {
+			country_event = { id = tur_flavor.4 days = 1150 }
+		}
+	}
+}
+
+country_event = {
+	trigger = { has_global_flag = ITA_MED_WIP_PATHS } #he's a guerrilla in the greatest sense, a revolutionary
+	id = tur_flavor.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_flavor.4"}
+ 	title = tur_flavor.4.t
+ 	desc = tur_flavor.4.d
+ 	#picture = 
+	fire_only_once = yes
+ 	option = {
+ 		name = tur_flavor.4.a
+		
+	}
+}
+
+country_event = {
+	trigger = { has_global_flag = ITA_MED_WIP_PATHS }
+	id = tur_flavor.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_flavor.5"}
+ 	title = tur_flavor.5.t
+ 	desc = tur_flavor.5.d
+ 	#picture = 
+	fire_only_once = yes
+ 	option = {
+ 		name = tur_flavor.5.a
+		hidden_effect = {
+			country_event = { id = tur_flavor.7 days = 2240 }
+		}
+	}
+}
+
+country_event = {
+	trigger = { has_global_flag = ITA_MED_WIP_PATHS }
+	id = tur_flavor.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_flavor.6"}
+ 	title = tur_flavor.6.t
+ 	desc = tur_flavor.6.d
+ 	#picture = 
+	fire_only_once = yes
+ 	option = {
+ 		name = tur_flavor.6.a
+		
+	}
+}
+
+country_event = {
+	trigger = { has_global_flag = ITA_MED_WIP_PATHS }
+	id = tur_flavor.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_flavor.7"}
+ 	title = tur_flavor.7.t
+ 	desc = tur_flavor.7.d
+ 	#picture = 
+	fire_only_once = yes
+ 	option = {
+ 		name = tur_flavor.7.a
+		
+	}
+}
+
+country_event = {
+	trigger = { has_global_flag = ITA_MED_WIP_PATHS }
+	id = tur_flavor.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_flavor.8"}
+ 	title = tur_flavor.8.t
+ 	desc = tur_flavor.8.d
+ 	#picture = 
+	fire_only_once = yes
+ 	option = {
+ 		name = tur_flavor.8.a
+		
+	}
+}
+
+country_event = {
+	id = tur_debug.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_debug.1"}
+ 	title = "Levant"
+ 	desc = "wow thank you @Varflock#4654 for adding these cool debug events"
+	fire_only_once = yes
+	is_triggered_only = yes
+ 	option = {
+ 		name = "Turkish Victory"
+		country_event = { id = tur_debug.2 days = 0 }
+	}
+	option = {
+ 		name = "Italian Victory"
+		country_event = { id = tur_debug.3 days = 0 }
+	}
+}
+country_event = {
+	id = tur_debug.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_debug.2"}
+ 	title = "Turkish Victory - Levant"
+ 	desc = "wow thank you @Varflock#4654 for adding these cool debug events"
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+ 		name = "Total Turkish Victory"
+		IME = {
+			remove_ideas = ITW_surrender
+			save_global_event_target_as = losing_country
+		}
+		TUR = {
+			save_global_event_target_as = winning_country
+			white_peace = IME
+			transfer_state = 1240
+			transfer_state = 553
+			set_country_flag = TUR_ITW_won
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+			add_to_variable = { TUR_ITW_win_counter = 3 }
+			unlock_national_focus = TUR_kuduse
+			unlock_national_focus = TUR_to_the_sea
+			unlock_national_focus = TUR_through_the_desert
+			unlock_national_focus = TUR_upon_the_dead_sea
+			unlock_national_focus = TUR_a_white_crescent_in_jerusalem
+			complete_national_focus = TUR_the_levant_subjugated
+		}
+		ITA = {
+			ITA_Ciano_POP_everyone_hates_ciano = yes
+			ITA_Ciano_POP_everyone_hates_ciano = yes
+			ITA_Ciano_POP_everyone_hates_ciano = yes
+		}
+	}
+	option = {
+ 		name = "Moderate Turkish Victory"
+		IME = { save_global_event_target_as = losing_country }
+		TUR = {
+			save_global_event_target_as = winning_country
+			white_peace = IME
+			transfer_state = 1240
+			set_country_flag = TUR_ITW_won
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+			add_to_variable = { TUR_ITW_win_counter = 2 }
+			unlock_national_focus = TUR_kuduse
+			unlock_national_focus = TUR_to_the_sea
+			unlock_national_focus = TUR_through_the_desert
+			unlock_national_focus = TUR_upon_the_dead_sea
+			unlock_national_focus = TUR_a_white_crescent_in_jerusalem
+			complete_national_focus = TUR_the_levant_subjugated
+		}
+		ITA = {
+			ITA_Ciano_POP_everyone_hates_ciano = yes
+			ITA_Ciano_POP_everyone_hates_ciano = yes
+		}
+	}
+	option = {
+ 		name = "Minor Turkish Victory"
+		IME = { save_global_event_target_as = losing_country }
+		TUR = {
+			save_global_event_target_as = winning_country
+			white_peace = IME
+			set_country_flag = TUR_ITW_won
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+			add_to_variable = { TUR_ITW_win_counter = 1 }
+			unlock_national_focus = TUR_kuduse
+			unlock_national_focus = TUR_to_the_sea
+			unlock_national_focus = TUR_through_the_desert
+			unlock_national_focus = TUR_upon_the_dead_sea
+			unlock_national_focus = TUR_a_white_crescent_in_jerusalem
+			complete_national_focus = TUR_the_levant_subjugated
+		}
+		ITA = {
+			ITA_Ciano_POP_everyone_hates_ciano = yes
+		}
+	}
+}
+country_event = {
+	id = tur_debug.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_debug.3"}
+ 	title = "Italian Victory"
+ 	desc = "wow thank you @Varflock#4654 for adding these cool debug events"
+	fire_only_once = yes
+	is_triggered_only = yes
+ 	option = {
+ 		name = "Total Italian Victory"
+		TUR = {
+			save_global_event_target_as = losing_country
+			set_country_flag = TUR_ITW_lost
+			add_to_variable = { TUR_ITW_win_counter = -3 }
+			unlock_national_focus = TUR_kuduse
+			complete_national_focus = TUR_the_holy_city_out_of_reach
+			end_puppet = SNS
+		}
+		IME = {
+			save_global_event_target_as = winning_country
+			remove_ideas = ITW_surrender
+			white_peace = TUR
+			white_peace = SNS
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+		}
+		SNS = {
+			transfer_state = 782
+			transfer_state = 554
+			transfer_state = 1372
+			transfer_state = 1371
+			transfer_state = 680
+			transfer_state = 1241
+			transfer_state = 1242
+			transfer_state = 1395
+			transfer_state = 1370
+			set_cosmetic_tag = SNS_independent
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Adib Shishakli"
+				desc = "POLITICS_SNS_ADIB_SHISHAKLI_DESC"
+				picture = "gfx/leaders/TUR/Portrait_SNS_Adib_Shishakli.dds"
+				expire = "1999.1.1"
+				ideology = despotism_subtype
+			}
+		}
+		country_event = { id = tur_debug.9 days = 0 }
+	}
+	option = {
+ 		name = "Moderate Italian Victory"
+		TUR = {
+			save_global_event_target_as = losing_country
+			set_country_flag = TUR_ITW_lost
+			add_to_variable = { TUR_ITW_win_counter = -2 }
+			unlock_national_focus = TUR_kuduse
+			complete_national_focus = TUR_the_holy_city_out_of_reach
+			end_puppet = SNS
+		}
+		IME = {
+			save_global_event_target_as = winning_country
+			white_peace = TUR
+			white_peace = SNS
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+		}
+		SNS = {
+			transfer_state = 782
+			transfer_state = 554
+			transfer_state = 1372
+			transfer_state = 1371
+			transfer_state = 680
+			transfer_state = 1242
+			transfer_state = 1370
+			set_cosmetic_tag = SNS_independent
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Adib Shishakli"
+				desc = "POLITICS_SNS_ADIB_SHISHAKLI_DESC"
+				picture = "gfx/leaders/TUR/Portrait_SNS_Adib_Shishakli.dds"
+				expire = "1999.1.1"
+				ideology = despotism_subtype
+			}
+		}
+		ITA = {
+			ITA_Ciano_POP_everyone_loves_ciano = yes
+			ITA_Ciano_POP_everyone_loves_ciano = yes
+		}
+		country_event = { id = tur_debug.9 days = 0 }
+	}
+	option = {
+ 		name = "Minor Italian Victory"
+		TUR = {
+			save_global_event_target_as = losing_country
+			set_country_flag = TUR_ITW_lost
+			add_to_variable = { TUR_ITW_win_counter = -1 }
+			unlock_national_focus = TUR_kuduse
+			complete_national_focus = TUR_the_holy_city_out_of_reach
+			end_puppet = SNS
+		}
+		IME = {
+			save_global_event_target_as = winning_country
+			white_peace = TUR
+			white_peace = SNS
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+		}
+		ITA = {
+			ITA_Ciano_POP_everyone_loves_ciano = yes
+		}
+		SNS = {
+			transfer_state = 782
+			transfer_state = 554
+			transfer_state = 1372
+			transfer_state = 1371
+			transfer_state = 680
+			set_cosmetic_tag = SNS_independent
+			retire_country_leader = yes
+			create_country_leader = {
+				name = "Adib Shishakli"
+				desc = "POLITICS_SNS_ADIB_SHISHAKLI_DESC"
+				picture = "gfx/leaders/TUR/Portrait_SNS_Adib_Shishakli.dds"
+				expire = "1999.1.1"
+				ideology = despotism_subtype
+			}
+		}
+		country_event = { id = tur_debug.9 days = 0 }
+	}
+}
+country_event = {
+	id = tur_debug.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_debug.4"}
+ 	title = "Greece"
+ 	desc = "wow thank you @Varflock#4654 for adding these cool debug events"
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+ 		name = "Turkish Victory"
+		country_event = { id = tur_debug.5 days = 0 }
+	}
+	option = {
+ 		name = "Greek Victory"
+		country_event = { id = tur_debug.6 days = 0 }
+	}
+}
+country_event = {
+	id = tur_debug.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_debug.5"}
+ 	title = "Turkish Victory - Greece"
+ 	desc = "wow thank you @Varflock#4654 for adding these cool debug events"
+	fire_only_once = yes
+	is_triggered_only = yes
+ 	option = {
+ 		name = "Total Turkish Victory"
+		GRE = {
+			save_global_event_target_as = losing_country
+			remove_ideas = ITW_surrender
+		}
+		TUR = {
+			save_global_event_target_as = winning_country
+			white_peace = GRE
+			transfer_state = 187
+			1263 = { set_demilitarized_zone = yes }
+			set_country_flag = TUR_GTW_won
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+			add_to_variable = { TUR_ITW_win_counter = 3 }
+			unlock_national_focus = TUR_an_old_rival_a_new_war
+			unlock_national_focus = TUR_watching_the_border
+			unlock_national_focus = TUR_no_enemy_shall_step_on_turkish_soil
+			unlock_national_focus = TUR_onwards_to_athens
+			complete_national_focus = TUR_mutilation_progress
+		}
+		ITA = {
+			ITA_Ciano_POP_everyone_hates_ciano = yes
+			ITA_Ciano_POP_everyone_hates_ciano = yes
+			ITA_Ciano_POP_everyone_hates_ciano = yes
+		}
+	}
+	option = {
+ 		name = "Moderate Turkish Victory"
+		GRE = {
+			save_global_event_target_as = losing_country
+			remove_ideas = ITW_surrender
+		}
+		TUR = {
+			save_global_event_target_as = winning_country
+			white_peace = GRE
+			transfer_state = 187
+			set_country_flag = TUR_GTW_won
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+			add_to_variable = { TUR_ITW_win_counter = 2 }
+			unlock_national_focus = TUR_an_old_rival_a_new_war
+			unlock_national_focus = TUR_watching_the_border
+			unlock_national_focus = TUR_no_enemy_shall_step_on_turkish_soil
+			unlock_national_focus = TUR_onwards_to_athens
+			complete_national_focus = TUR_mutilation_progress
+		}
+		ITA = {
+			ITA_Ciano_POP_everyone_hates_ciano = yes
+			ITA_Ciano_POP_everyone_hates_ciano = yes
+		}
+	}
+	option = {
+ 		name = "Minor Turkish Victory"
+		GRE = {
+			save_global_event_target_as = losing_country
+			remove_ideas = ITW_surrender
+		}
+		TUR = {
+			save_global_event_target_as = winning_country
+			white_peace = GRE
+			set_country_flag = TUR_GTW_won
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+			add_to_variable = { TUR_ITW_win_counter = 1 }
+			unlock_national_focus = TUR_an_old_rival_a_new_war
+			unlock_national_focus = TUR_watching_the_border
+			unlock_national_focus = TUR_no_enemy_shall_step_on_turkish_soil
+			unlock_national_focus = TUR_onwards_to_athens
+			complete_national_focus = TUR_mutilation_progress
+		}
+		ITA = {
+			ITA_Ciano_POP_everyone_hates_ciano = yes
+		}
+	}
+}
+country_event = {
+	id = tur_debug.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_debug.6"}
+ 	title = "Greek Victory"
+ 	desc = "wow thank you @Varflock#4654 for adding these cool debug events"
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {
+ 		name = "Total Greek Victory"
+		TUR = {
+			save_global_event_target_as = losing_country
+			set_country_flag = TUR_GTW_lost
+			add_to_variable = { TUR_ITW_win_counter = -3 }
+			unlock_national_focus = TUR_an_old_rival_a_new_war
+			unlock_national_focus = TUR_watching_the_border
+			unlock_national_focus = TUR_no_enemy_shall_step_on_turkish_soil
+			complete_national_focus = TUR_greece_holds
+		}
+		GRE = {
+			save_global_event_target_as = winning_country
+			remove_ideas = ITW_surrender
+			white_peace = TUR
+			transfer_state = 184
+			transfer_state = 1266
+			1267 = { set_demilitarized_zone = yes }
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+		}
+		ITA = {
+			ITA_Ciano_POP_everyone_loves_ciano = yes
+			ITA_Ciano_POP_everyone_loves_ciano = yes
+			ITA_Ciano_POP_everyone_loves_ciano = yes
+		}
+	}
+	option = {
+ 		name = "Moderate Greek Victory"
+		TUR = {
+			save_global_event_target_as = losing_country
+			set_country_flag = TUR_GTW_lost
+			add_to_variable = { TUR_ITW_win_counter = -2 }
+			unlock_national_focus = TUR_an_old_rival_a_new_war
+			unlock_national_focus = TUR_watching_the_border
+			unlock_national_focus = TUR_no_enemy_shall_step_on_turkish_soil
+			complete_national_focus = TUR_greece_holds
+		}
+		GRE = {
+			save_global_event_target_as = winning_country
+			white_peace = TUR
+			transfer_state = 184
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+		}
+		ITA = {
+			ITA_Ciano_POP_everyone_loves_ciano = yes
+			ITA_Ciano_POP_everyone_loves_ciano = yes
+		}
+	}
+	option = {
+ 		name = "Minor Greek Victory"
+		TUR = {
+			save_global_event_target_as = losing_country
+			set_country_flag = TUR_GTW_lost
+			add_to_variable = { TUR_ITW_win_counter = -1 }
+			unlock_national_focus = TUR_an_old_rival_a_new_war
+			unlock_national_focus = TUR_watching_the_border
+			unlock_national_focus = TUR_no_enemy_shall_step_on_turkish_soil
+			complete_national_focus = TUR_greece_holds
+		}
+		GRE = {
+			save_global_event_target_as = winning_country
+			white_peace = TUR
+			184 = { set_demilitarized_zone = yes }
+			1266 = { set_demilitarized_zone = yes }
+			set_global_flag = war_won
+			set_global_flag = show_peace_popup_alert
+		}
+		ITA = {
+			ITA_Ciano_POP_everyone_loves_ciano = yes
+		}
+	}
+}
+country_event = {
+	id = tur_debug.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_debug.7"}
+ 	title = "Cyprus"
+ 	desc = "wow thank you @Varflock#4654 for adding these cool debug events"
+	fire_only_once = yes
+	is_triggered_only = yes
+ 	option = {
+ 		name = "Turkish Victory"
+		TCP = {
+			transfer_state = 1328
+			transfer_state = 183
+			add_ideas = ITW_surrender
+			add_state_core = 1328
+			add_state_claim = 183
+			set_cosmetic_tag = TCP_unified
+		}
+		TUR = {
+			puppet = TCP
+		}
+		TCP = {
+			set_popularities = {
+				communist = 0
+				socialist = 0
+				social_democrat = 14
+				social_liberal = 0
+				#market_liberal = 0
+				social_conservative = 34
+				authoritarian_democrat = 52
+				despotism = 0
+				fascism = 0
+				national_socialism = 0
+				ultranational_socialism = 0
+				burgundian_system = 0
+			}
+		}
+	}
+	option = {
+ 		name = "Taksim/Split Cyprus"
+		TCP = {
+			transfer_state = 1328
+			add_ideas = ITW_surrender
+			add_state_core = 1328
+			add_state_claim = 183
+			set_cosmetic_tag = TCP_split
+		}
+		TUR = {
+			puppet = TCP
+		}
+		TCP = {
+			set_popularities = {
+				communist = 0
+				socialist = 0
+				social_democrat = 14
+				social_liberal = 0
+				#market_liberal = 0
+				social_conservative = 34
+				authoritarian_democrat = 52
+				despotism = 0
+				fascism = 0
+				national_socialism = 0
+				ultranational_socialism = 0
+				burgundian_system = 0
+			}
+		}
+	}
+	option = {
+ 		name = "Greek Victory"
+		
+	}
+}
+country_event = {
+	id = tur_debug.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_debug.8"}
+ 	title = "Rhodes"
+ 	desc = "wow thank you @Varflock#4654 for adding these cool debug events"
+	fire_only_once = yes
+	is_triggered_only = yes
+ 	option = {
+ 		name = "Turkish Victory"
+		TUR = {
+			transfer_state = 164
+		}
+	}
+	option = {
+ 		name = "Italian Victory"
+		
+	}
+}
+country_event = {
+	id = tur_debug.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tur_debug.9"}
+ 	title = "Mosul"
+ 	desc = "wow thank you @Varflock#4654 for adding these cool debug events"
+	fire_only_once = yes
+	is_triggered_only = yes
+ 	option = {
+ 		name = "Turkish Victory"
+		
+	}
+	option = {
+ 		name = "Iraqi Victory"
+		IRQ = { annex_country = { target = BKU transfer_troops = no } }
+	}
+}

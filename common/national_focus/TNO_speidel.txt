@@ -1,0 +1,3643 @@
+focus_tree = {
+	id = GER_speidel_countercoup
+	country = {
+		factor = 0
+	}
+	default = no
+	shared_focus = GER_to_save_a_reich
+	shared_focus = GER_trouble_brewing
+	shared_focus = GER_ostkrieg_again
+}
+
+shared_focus = {
+	id = GER_to_save_a_reich
+	icon = GFX_ra_ger_speid_swastika_soldiers_fire
+	cost = 4
+	#relative_position_id = GER_to_save_a_reich
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_to_save_a_reich"
+		add_political_power = 50
+		#the AI is stupid and needs help with reconquests
+		if = {
+			limit = { 
+				is_ai = yes
+			}
+			add_manpower = 300000
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_subjugate_dutch
+	icon = GFX_GER_A_German_Wehrmacht
+	cost = 1
+	relative_position_id = GER_to_save_a_reich
+	x = -1
+	y = 1
+	available = {
+		NOT = {
+			is_in_faction_with = HOL
+		}
+		HOL = {
+			exists = yes
+		}
+	}
+	prerequisite = {
+		focus = GER_to_save_a_reich
+	}
+	ai_will_do = {
+		base = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_subjugate_dutch"
+		#puppet HOL
+		set_autonomy = {
+			target = HOL
+			autonomy_state = autonomy_collaboration_government
+		}
+		HOL = {
+			add_ideas = Pakt_Marionettenstaat
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_subjugate_denmark
+	icon = GFX_ra_german_speid_denmark
+	cost = 1
+	relative_position_id = GER_to_save_a_reich
+	x = 1
+	y = 1
+	available = {
+		NOT = {
+			is_in_faction_with = DEN
+		}
+		DEN = {
+			exists = yes
+		}
+	}
+	ai_will_do = {
+		base = 80
+	}
+	prerequisite = {
+		focus = GER_to_save_a_reich
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_subjugate_denmark"
+		#puppet DEN
+		set_autonomy = {
+			target = DEN
+			autonomy_state = autonomy_collaboration_government
+		}
+		DEN = {
+			add_ideas = Pakt_Marionettenstaat
+			set_politics = {
+				ruling_party = authoritarian_democrat
+			}
+			set_popularities = {
+				authoritarian_democrat = 50
+				despotism = 20
+				fascism = 30
+			}
+		}
+	}
+}
+
+#expansion focus
+
+shared_focus = {
+	id = GER_restore_the_pakt
+	icon = GFX_GER_the_eastern_pakt
+	cost = 4
+	relative_position_id = GER_to_save_a_reich
+	x = 0
+	y = 2
+	ai_will_do = {
+		base = 80
+	}
+	prerequisite = {
+		focus = GER_to_save_a_reich
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_restore_the_pakt"
+		add_war_support = 0.1
+		if = {
+			limit = {
+				NOT = {
+					OR = {
+						is_in_faction_with = POL
+						is_in_faction_with = GGN
+					}
+				}
+			}
+			declare_war_on = {
+				target = POL
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = GGN
+				type = annex_everything
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					OR = {
+						is_in_faction_with = OST
+						is_in_faction_with = DST
+						is_in_faction_with = MST
+						is_in_faction_with = JST
+						is_in_faction_with = BLR
+						is_in_faction_with = UPO
+						AND = {
+							OST = {
+								exists = no
+							}
+							DST = {
+								exists = no
+							}
+							MST = {
+								exists = no
+							}
+							JST = {
+								exists = no
+							}
+							BLR = {
+								exists = no
+							}
+							UPO = {
+								exists = no
+							}
+						}
+					}
+				}
+			}
+			declare_war_on = {
+				target = OST
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = DST
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = MST
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = JST
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = BLR
+				type = annex_everything
+			}
+			declare_war_on = {
+				target = UPO
+				type = annex_everything
+			}
+		}
+		hidden_effect = {
+			activate_mission = GER_readiness_decreasing
+			if = {
+				limit = {
+					is_ai = no
+				}
+				every_country = {
+					limit = {
+						NOT = {
+							is_in_faction_with = GER
+						}
+						OR = {
+							tag = UKR
+							tag = CAU
+							tag = MOS
+							tag = MCW
+						}
+					}
+					add_ideas = ZZZ_ai_buff
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_reorganize_poland
+	icon = GFX_POL_general_government
+	cost = 4
+	relative_position_id = GER_restore_the_pakt
+	x = -3
+	y = 1
+	prerequisite = {
+		focus = GER_restore_the_pakt
+	}
+	available = {
+		has_war = no
+	}
+	ai_will_do = {
+		base = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_reorganize_poland"
+		#event where you decide the fate of poland
+		country_event = GER_speidel_fuhrer.1
+	}
+}
+
+shared_focus = {
+	id = GER_reorganize_ostland
+	icon = GFX_OST_The_Model_Colony
+	cost = 4
+	relative_position_id = GER_restore_the_pakt
+	x = 3
+	y = 1
+	prerequisite = {
+		focus = GER_restore_the_pakt
+	}
+	available = {
+		has_war = no
+	}
+	ai_will_do = {
+		base = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_reorganize_ostland"
+		#event where you decide protektor of ostland
+		country_event = GER_speidel_fuhrer.2
+	}
+}
+
+shared_focus = {
+	id = GER_the_reichs_breadbasket
+	icon = GFX_GER_Ukraine_Aflame
+	cost = 4
+	relative_position_id = GER_restore_the_pakt
+	x = 0
+	y = 1
+	prerequisite = {
+		focus = GER_restore_the_pakt
+	}
+	available = {
+		UKR = {
+			NOT = {
+				is_in_faction_with = GER
+			}
+		}
+	}
+	bypass = {
+		UKR = {
+			is_in_faction_with = GER
+		}
+	}
+	ai_will_do = {
+		base = 80
+	}
+	will_lead_to_war_with = UKR
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_reichs_breadbasket"
+		declare_war_on = {
+			target = UKR
+			type = annex_everything
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_a_protektor_of_ukraine
+	icon = GFX_ra_ger_unknown_protektor
+	cost = 4
+	relative_position_id = GER_restore_the_pakt
+	x = 0
+	y = 2
+	prerequisite = {
+		focus = GER_the_reichs_breadbasket
+	}
+	available = {
+		UKR = {
+			is_in_faction_with = GER
+		}
+	}
+	ai_will_do = {
+		base = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_a_protektor_of_ukraine"
+		#event where you decide the protektor of ukr
+		country_event = GER_speidel_fuhrer.3
+	}
+}
+
+shared_focus = {
+	id = GER_the_reichs_petrol_station
+	icon = GFX_CAU_loyalty_to_reichskommissariat
+	cost = 4
+	relative_position_id = GER_restore_the_pakt
+	x = -2
+	y = 3
+	prerequisite = {
+		focus = GER_a_protektor_of_ukraine
+	}
+	prerequisite = {
+		focus = GER_reorganize_poland
+	}
+	available = {
+		CAU = {
+			NOT = {
+				is_in_faction_with = GER
+			}
+		}
+		has_war = no
+	}
+	bypass = {
+		CAU = {
+			is_in_faction_with = GER
+		}
+	}
+	ai_will_do = {
+		base = 80
+	}
+	will_lead_to_war_with = CAU
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_reichs_petrol_station"
+		declare_war_on = {
+			target = CAU
+			type = annex_everything
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_a_protektor_of_kaukasia
+	icon = GFX_ra_ger_protektor_for_caucasia
+	cost = 4
+	relative_position_id = GER_restore_the_pakt
+	x = -1
+	y = 4
+	prerequisite = {
+		focus = GER_the_reichs_petrol_station
+	}
+	available = {
+		CAU = {
+			is_in_faction_with = GER
+		}
+	}
+	ai_will_do = {
+		base = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_a_protektor_of_kaukasia"
+		#event where you decide the protektor of cau
+		country_event = GER_speidel_fuhrer.4
+	}
+}
+
+shared_focus = {
+	id = GER_the_reichs_backyard
+	icon = GFX_Moskowien_Plan
+	cost = 4
+	relative_position_id = GER_restore_the_pakt
+	x = 2
+	y = 3
+	prerequisite = {
+		focus = GER_a_protektor_of_ukraine
+	}
+	prerequisite = {
+		focus = GER_reorganize_ostland
+	}
+	available = {
+		MCW = {
+			NOT = {
+				is_in_faction_with = GER
+			}
+		}
+		has_war = no
+	}
+	bypass = {
+		MCW = {
+			is_in_faction_with = GER
+		}
+	}
+	ai_will_do = {
+		base = 80
+	}
+	will_lead_to_war_with = MCW
+	will_lead_to_war_with = MOS
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_reichs_backyard"
+		declare_war_on = {
+			target = MCW
+			type = annex_everything
+		}
+		declare_war_on = {
+			target = MOS
+			type = annex_everything
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_a_protektor_of_muscowien
+	icon = GFX_ra_ger_protektor_for_moskowien
+	cost = 4
+	relative_position_id = GER_restore_the_pakt
+	x = 1
+	y = 4
+	prerequisite = {
+		focus = GER_the_reichs_backyard
+	}
+	available = {
+		MCW = {
+			is_in_faction_with = GER
+		}
+	}
+	ai_will_do = {
+		base = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_a_protektor_of_muscowien"
+		#event where you decide the protektor of mcw
+		country_event = GER_speidel_fuhrer.5
+	}
+}
+
+shared_focus = {
+	id = GER_the_crimeas_fate
+	icon = GFX_seize_crimea
+	cost = 4
+	relative_position_id = GER_restore_the_pakt
+	x = 0
+	y = 5
+	prerequisite = {
+		focus = GER_a_protektor_of_kaukasia
+	}
+	prerequisite = {
+		focus = GER_a_protektor_of_muscowien
+	}
+	prerequisite = {
+		focus = GER_reorganize_ostland
+	}
+	prerequisite = {
+		focus = GER_reorganize_poland
+	}
+	ai_will_do = {
+		base = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_a_protektor_of_muscowien"
+		#event where you decide the protektor of crimea
+		#either giving it to cau, ukr, or taking it for yourself
+		country_event = {
+			id = GER_speidel_fuhrer.6
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_the_east_is_ours
+	icon = GFX_GER_reichs_needs
+	cost = 4
+	relative_position_id = GER_restore_the_pakt
+	x = 0
+	y = 6
+	prerequisite = {
+		focus = GER_the_crimeas_fate
+	}
+	ai_will_do = {
+		base = 80
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_a_protektor_of_muscowien"
+		#idea
+		#readiness increases
+		custom_effect_tooltip = {
+			localization_key = TNO_prestige_gain
+			PRESTIGE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+3"
+			}
+		}
+		add_to_variable = {
+			var = prestige
+			value = 3
+		}
+		hidden_effect = {
+			HUN = {
+				country_event = {
+					id = ZZZ_balkan_war.1
+					days = 2600
+				}
+			}
+			GER = {
+				country_event = {
+					id = GER_speidel_fuhrer_pol.1
+					days = 900
+				}
+			}
+		}
+	}
+}
+
+# econ sub tree
+
+shared_focus = {
+	id = GER_a_saner_economy
+	icon = GFX_CAU_freeze_the_slush_funds
+	cost = 4
+	relative_position_id = GER_to_save_a_reich
+	x = 4
+	y = 1
+	prerequisite = {
+		focus = GER_to_save_a_reich
+	}
+	available = {
+		has_completed_focus = GER_the_east_is_ours
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_a_saner_economy"
+		add_political_power = 50
+		#add dynamic modifier
+		add_dynamic_modifier = {
+			modifier = GER_volks_economy
+		}
+		set_variable = {
+			var = GER_volks_economy_political_power_gain
+			value = 0
+		}
+		set_variable = {
+			var = GER_volks_economy_production_factory_max_efficiency_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_volks_economy_production_factory_efficiency_gain_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_volks_economy_line_change_production_efficiency_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_volks_economy_industrial_capacity_factory
+			value = 0
+		}
+		set_variable = {
+			var = GER_volks_economy_production_speed_buildings_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_volks_economy_consumer_goods_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_volks_economy_research_speed_factor
+			value = 0
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_an_understanding_with_the_megacorps
+	icon = GFX_GER_council_of_gods
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 0
+	y = 1
+	prerequisite = {
+		focus = GER_a_saner_economy
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_an_understanding_with_the_megacorps"
+		#consumer goods buff
+		add_to_variable = {
+			var = GER_volks_economy_political_power_gain
+			value = 0.05
+		}
+		add_to_variable = {
+			var = GER_volks_economy_consumer_goods_factor
+			value = 0.03
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_political_power_gain
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+0.05"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_consumer_goods
+			VALUE = "+3.00%"
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_leave_it_to_the_economists
+	icon = GFX_GER_middle_class
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 2
+	y = 1
+	prerequisite = {
+		focus = GER_a_saner_economy
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_leave_it_to_the_economists"
+		tno_trade_laws_worsen = yes
+		multiply_variable = {
+			GDP = 1.01
+		}
+		add_to_variable = {
+			GDP_growth = 0.002
+		}
+		custom_effect_tooltip = econ_increase_GDP_small
+	}
+}
+
+shared_focus = {
+	id = GER_but_dont_forget_the_wehrmacht
+	icon = GFX_OST_Military_Industry_Development
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 1
+	y = 2
+	prerequisite = {
+		focus = GER_an_understanding_with_the_megacorps
+	}
+	prerequisite = {
+		focus = GER_leave_it_to_the_economists
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_an_understanding_with_the_megacorps"
+		#output
+		add_to_variable = {
+			var = GER_volks_economy_industrial_capacity_factory
+			value = 0.06
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_factory_output
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+6.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_the_cities_of_fatherland
+	icon = GFX_GER_city_reconstruction
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 3
+	y = 2
+	prerequisite = {
+		focus = GER_leave_it_to_the_economists
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_cities_of_fatherland"
+		TNO_improve_industrial_expertise_med = yes
+		add_to_variable = {
+			var = GER_volks_economy_production_speed_buildings_factor
+			value = 0.04
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_construction_speed
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+4.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_a_main_port_for_the_kriegsmarine
+	icon = GFX_GGR_Missing_Ships
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 7
+	y = 3
+	prerequisite = {
+		focus = GER_the_cities_of_fatherland
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_cities_of_fatherland"
+		#event deciding on a port
+		country_event = {
+			id = GER_speidel_fuhrer.7
+			days = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_choose_bremen
+	icon = GFX_ra_ger_wilhelmshaven_port
+	cost = 4
+	relative_position_id = GER_a_main_port_for_the_kriegsmarine
+	x = -2
+	y = 1
+	prerequisite = {
+		focus = GER_a_main_port_for_the_kriegsmarine
+	}
+	mutually_exclusive = {
+		focus = GER_choose_hamburg
+	}
+	mutually_exclusive = {
+		focus = GER_choose_konigsberg
+	}
+	available = {
+		has_country_flag = GER_wilhelmshaven_port
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_choose_bremen"
+		#output
+		add_to_variable = {
+			var = GER_volks_economy_industrial_capacity_factory
+			value = 0.04
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_factory_output
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+4.00%"
+			}
+		}
+		#wilhelshave
+		56 = {
+			add_building_construction = {
+				type = dockyard
+				level = 2
+			}
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = naval_base
+				level = 3
+			}
+			add_victory_points = {
+				province = 241
+				value = 10
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_choose_hamburg
+	icon = GFX_ra_ger_hamburg_port
+	cost = 4
+	relative_position_id = GER_a_main_port_for_the_kriegsmarine
+	x = 0
+	y = 1
+	prerequisite = {
+		focus = GER_a_main_port_for_the_kriegsmarine
+	}
+	mutually_exclusive = {
+		focus = GER_choose_bremen
+	}
+	mutually_exclusive = {
+		focus = GER_choose_konigsberg
+	}
+	available = {
+		has_country_flag = GER_hamburg_port
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_choose_hamburg"
+		#construction
+		add_to_variable = {
+			var = GER_volks_economy_production_speed_buildings_factor
+			value = 0.04
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_construction_speed
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+4.00%"
+			}
+		}
+		775 = {
+			add_building_construction = {
+				type = dockyard
+				level = 2
+			}
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = naval_base
+				level = 3
+			}
+			add_victory_points = {
+				province = 9347
+				value = 10
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_choose_konigsberg
+	icon = GFX_ra_ger_konigsberg_port
+	cost = 4
+	relative_position_id = GER_a_main_port_for_the_kriegsmarine
+	x = 2
+	y = 1
+	prerequisite = {
+		focus = GER_a_main_port_for_the_kriegsmarine
+	}
+	mutually_exclusive = {
+		focus = GER_choose_bremen
+	}
+	mutually_exclusive = {
+		focus = GER_choose_hamburg
+	}
+	available = {
+		has_country_flag = GER_konigsberg_port
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_cities_of_fatherland"
+		#construction
+		add_to_variable = {
+			var = GER_volks_economy_consumer_goods_factor
+			value = -0.04
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_consumer_goods
+			VALUE = "-4.00%"
+		}
+		5 = {
+			add_building_construction = {
+				type = dockyard
+				level = 2
+			}
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = naval_base
+				level = 3
+			}
+			add_victory_points = {
+				province = 6332
+				value = 10
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_build_the_others_as_well
+	icon = GFX_PRM_Work_For_Your_Nation
+	cost = 4
+	relative_position_id = GER_a_main_port_for_the_kriegsmarine
+	x = 0
+	y = 2
+	prerequisite = {
+		focus = GER_choose_bremen
+		focus = GER_choose_hamburg
+		focus = GER_choose_konigsberg
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_cities_of_fatherland"
+		#construction
+		if = {
+			limit = {
+				has_completed_focus = GER_choose_bremen
+			}
+			5 = {
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			775 = {
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+		if = {
+			limit = {
+				has_completed_focus = GER_choose_hamburg
+			}
+			5 = {
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			188 = {
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+		if = {
+			limit = {
+				has_completed_focus = GER_choose_konigsberg
+			}
+			775 = {
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+			188 = {
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_focus_on_germania
+	icon = GFX_GER_when_in_germania
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 10
+	y = 3
+	prerequisite = {
+		focus = GER_the_cities_of_fatherland
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_focus_on_germania"
+		64 = {
+			add_extra_state_shared_building_slots = 3
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_expand_the_suburbs
+	icon = GFX_JAP_Modern_Housing
+	cost = 4
+	relative_position_id = GER_focus_on_germania
+	x = 0
+	y = 2
+	prerequisite = {
+		focus = GER_focus_on_germania
+	}
+	prerequisite = {
+		focus = GER_ubahn_sbahn
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_expand_the_suburbs"
+		1026 = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			set_state_category = megalopolis
+		}
+		776 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_ubahn_sbahn
+	icon = GFX_ra_ger_metro
+	cost = 4
+	relative_position_id = GER_focus_on_germania
+	x = 1
+	y = 1
+	prerequisite = {
+		focus = GER_focus_on_germania
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_cities_of_fatherland"
+		64 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		1026 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		776 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_viennas_beauty
+	icon = GFX_ra_ger_vienna
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 12
+	y = 3
+	prerequisite = {
+		focus = GER_the_cities_of_fatherland
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_focus_on_germania"
+		1026 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			set_state_category = megalopolis
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_fund_the_unis
+	icon = GFX_generic_education_general
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 12
+	y = 5
+	prerequisite = {
+		focus = GER_viennas_beauty
+	}
+	prerequisite = {
+		focus = GER_ubahn_sbahn
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_focus_on_germania"
+		#research speed
+		custom_effect_tooltip = {
+			localization_key = TNO_research_speed
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+3.00%"
+			}
+		}
+		add_to_variable = {
+			var = GER_volks_economy_research_speed_factor
+			value = 0.03
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_high_speed_rail
+	icon = GFX_TNO_generic_railway_work
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 11
+	y = 6
+	prerequisite = {
+		focus = GER_expand_the_suburbs
+	}
+	prerequisite = {
+		focus = GER_fund_the_unis
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_focus_on_germania"
+		#div speed and supply
+		#the flying hamburgeris back in action!
+		add_ideas = GER_high_speed_trains
+	}
+}
+
+shared_focus = {
+	id = GER_buildup_munich
+	icon = GFX_ra_ger_munich
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 6
+	y = 6
+	prerequisite = {
+		focus = GER_the_cities_of_fatherland
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_focus_on_germania"
+		#building
+		52 = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			set_state_category = metropolis
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_the_newest_german_city
+	icon = GFX_ra_ger_prague
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 8
+	y = 6
+	prerequisite = {
+		focus = GER_the_cities_of_fatherland
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_focus_on_germania"
+		#buildings in prague
+		9 = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			set_state_category = metropolis
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_a_monument_to_hitler
+	icon = GFX_RAJ_Hitler_Cult
+	cost = 9
+	relative_position_id = GER_a_saner_economy
+	x = 7
+	y = 7
+	prerequisite = {
+		focus = GER_build_the_others_as_well
+	}
+	prerequisite = {
+		focus = GER_buildup_munich
+	}
+	prerequisite = {
+		focus = GER_the_newest_german_city
+	}
+	mutually_exclusive = {
+		focus = GER_a_monument_to_the_fallen
+	}
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = CHI_self_sufficient_trigger_tt_money_1
+			check_variable = {
+				var = money_reserves 
+				value = 1000
+				compare = greater_than_or_equals 
+			}
+		}
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_focus_on_germania"
+		#idea giving party pop growth and pp
+		#prestige
+		add_ideas = GER_hitler_monument
+		custom_effect_tooltip = {
+			localization_key = TNO_prestige_gain
+			PRESTIGE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+2"
+			}
+		}
+		add_to_variable = {
+			var = prestige
+			value = 2
+		}
+		add_to_variable = {
+			var = money_reserves
+			value = -1000
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_a_monument_to_the_fallen
+	icon = GFX_GER_war_memorials
+	cost = 9
+	relative_position_id = GER_a_saner_economy
+	x = 11
+	y = 7
+	prerequisite = {
+		focus = GER_high_speed_rail
+	}
+	mutually_exclusive = {
+		focus = GER_a_monument_to_hitler
+	}
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = CHI_self_sufficient_trigger_tt_money_1
+			check_variable = {
+				var = money_reserves 
+				value = 1000
+				compare = greater_than_or_equals 
+			}
+		}
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_focus_on_germania"
+		#idea giving war support and recovery rate
+		add_ideas = GER_veteran_monument
+		TNO_improve_army_professionalism_med = yes
+		add_to_variable = {
+			var = money_reserves
+			value = -1000
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_revive_the_labor_front
+	icon = GFX_ra_ger_daf
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 0
+	y = 3
+	prerequisite = {
+		focus = GER_but_dont_forget_the_wehrmacht
+	}
+
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_cut_excess_spending"
+		#idea
+		add_to_variable = { GER_volks_economy_production_factory_efficiency_gain_factor = 0.05 }
+		add_to_variable = { GER_volks_economy_line_change_production_efficiency_factor = 0.05 }
+		custom_effect_tooltip = {
+			localization_key = TNO_production_gain
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_production_retention
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_cut_excess_spending
+	icon = GFX_VIN_Optional_Wages
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 2
+	y = 3
+	prerequisite = {
+		focus = GER_but_dont_forget_the_wehrmacht
+	}
+	prerequisite = {
+		focus = GER_leave_it_to_the_economists
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_cut_excess_spending"
+		#liquidity
+		custom_effect_tooltip = econ_misc_income_add_small_increase
+		add_to_variable = {
+			misc_income = 2000
+		}
+		add_stability = -0.05
+	}
+}
+
+shared_focus = {
+	id = GER_burning_regulations
+	icon = GFX_cut_the_red_tape
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 4
+	y = 3
+	prerequisite = {
+		focus = GER_leave_it_to_the_economists
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_cut_excess_spending"
+		tno_pollution_worsen = yes
+		tno_unemployment_worsen = yes
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = GER_a_new_ruhr_boom
+	icon = GFX_ra_ger_swastika_industrial_boom
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 3
+	y = 4
+	prerequisite = {
+		focus = GER_cut_excess_spending
+	}
+	prerequisite = {
+		focus = GER_burning_regulations
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_a_new_ruhr_boom"
+		#6 efficiency cap 5% efficiency gain
+		add_to_variable = { GER_volks_economy_production_factory_efficiency_gain_factor = 0.03 }
+		add_to_variable = { GER_volks_economy_production_factory_max_efficiency_factor = 0.06 }
+		57 = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		1373 = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+			}
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_our_hand_in_the_pie
+	icon = GFX_HGR_Military_Preference
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 1
+	y = 4
+	prerequisite = {
+		focus = GER_cut_excess_spending
+	}
+	prerequisite = {
+		focus = GER_revive_the_labor_front
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_our_hand_in_the_pie"
+		#infantry equipment production bonus
+		add_to_variable = { GER_volks_economy_industrial_capacity_factory = 0.07 }
+		custom_effect_tooltip = {
+			localization_key = TNO_factory_output
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+7.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_expand_the_autobahn
+	icon = GFX_IBR_road_investigation
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 0
+	y = 5
+	prerequisite = {
+		focus = GER_our_hand_in_the_pie
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_expand_the_autobahn"
+		57 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+			}
+		}
+		random_owned_state = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+			}
+		}
+		random_owned_state = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+			}
+		}
+		random_owned_state = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_phase_out_slavery
+	icon = GFX_GER_The_Ghetto_Compromise
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 2
+	y = 5
+	prerequisite = {
+		focus = GER_our_hand_in_the_pie
+	}
+	prerequisite = {
+		focus = GER_a_new_ruhr_boom
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_phase_out_slavery"
+		#events where slavery law is improved over a long period of time
+		TNO_improve_industrial_expertise_med = yes
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.03
+		}
+		add_political_power = -50
+		custom_effect_tooltip = "Slavery Will Slowly Be Phased Out"
+		hidden_effect = {
+			country_event = {
+				id = GER_speidel_fuhrer.8
+				days = 1095
+				random_days = 20
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_a_nod_to_the_civil_sector
+	icon = GFX_VIN_Rights_of_Corporation
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 4
+	y = 5
+	prerequisite = {
+		focus = GER_our_hand_in_the_pie
+	}
+	prerequisite = {
+		focus = GER_a_new_ruhr_boom
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_a_nod_to_the_civil_sector"
+		TNO_improve_poverty_low = yes
+		multiply_variable = {
+			GDP = 1.01
+		}
+		add_to_variable = {
+			GDP_growth = 0.001
+		}
+		custom_effect_tooltip = econ_increase_GDP_small
+	}
+}
+
+shared_focus = {
+	id = GER_security_and_prosperity
+	icon = GFX_ra_ger_security_over_prosperity
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 1
+	y = 6
+	prerequisite = {
+		focus = GER_expand_the_autobahn
+	}
+	prerequisite = {
+		focus = GER_phase_out_slavery
+	}
+	mutually_exclusive = {
+		focus = GER_prosperity_and_security
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_security_and_prosperity"
+		#mil focused buffs and debuffs
+		add_to_variable = { GER_volks_economy_industrial_capacity_factory = 0.15 }
+		add_to_variable = { GER_volks_economy_political_power_gain = -0.15 }
+		add_to_variable = { GER_volks_economy_consumer_goods_factor = 0.1 }
+		custom_effect_tooltip = {
+			localization_key = TNO_factory_output
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+15.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_political_power_gain
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-0.15"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_consumer_goods
+			VALUE = "+10.00%"
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_prosperity_and_security
+	icon = GFX_ra_ger_prosperity_over_security
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 3
+	y = 6
+	prerequisite = {
+		focus = GER_a_nod_to_the_civil_sector
+	}
+	prerequisite = {
+		focus = GER_phase_out_slavery
+	}
+	mutually_exclusive = {
+		focus = GER_security_and_prosperity
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_prosperity_and_security"
+		#civ focused buffs and debuffs
+		add_to_variable = { GER_volks_economy_industrial_capacity_factory = -0.1 }
+		add_to_variable = { GER_volks_economy_political_power_gain = 0.15 }
+		add_to_variable = { GER_volks_economy_consumer_goods_factor = -0.15 }
+		custom_effect_tooltip = {
+			localization_key = TNO_factory_output
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-10.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_political_power_gain
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "0.15"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_consumer_goods
+			VALUE = "-15.00%"
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_nationalise_key_industries
+	icon = GFX_GER_Sideline_The_Mega_Corporations
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 0
+	y = 7
+	prerequisite = {
+		focus = GER_security_and_prosperity
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_security_and_prosperity"
+		#mil focused buffs and debuffs
+		add_to_variable = { GER_volks_economy_production_factory_max_efficiency_factor = 0.1 }
+		add_to_variable = { GER_volks_economy_line_change_production_efficiency_factor = 0.1 }
+		add_to_variable = { GER_volks_economy_production_factory_efficiency_gain_factor = 0.05 }
+		custom_effect_tooltip = {
+			localization_key = TNO_production_gain
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_production_retention
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_production_max
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_the_volks_economy
+	icon = GFX_VIN_Middle_Class
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 2
+	y = 7
+	prerequisite = {
+		focus = GER_security_and_prosperity
+		focus = GER_prosperity_and_security
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_volks_economy"
+		#remove economic collapse debuff if you have it
+		remove_ideas = GER_GOR_total_economic_collapse
+		custom_effect_tooltip = econ_misc_income_add_small_increase
+		add_to_variable = {
+			misc_income = 2000
+		}
+		add_to_variable = { GER_volks_economy_production_speed_buildings_factor = 0.05 }
+		custom_effect_tooltip = {
+			localization_key = TNO_construction_speed
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_corpocratic_ideal
+	icon = GFX_ra_ger_corporatism
+	cost = 4
+	relative_position_id = GER_a_saner_economy
+	x = 4
+	y = 7
+	prerequisite = {
+		focus = GER_prosperity_and_security
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_corpocratic_ideal"
+		#civ focused buffs and debuffs
+		add_to_variable = { GER_volks_economy_production_speed_buildings_factor = 0.15 }
+		add_to_variable = { GER_volks_economy_research_speed_factor = 0.03 }
+		custom_effect_tooltip = econ_misc_income_add_small_increase
+		add_to_variable = {
+			misc_income = 2000
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_construction_speed
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+15.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_research_speed
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+3.00%"
+			}
+		}
+	}
+}
+
+#military subtree
+
+shared_focus = {
+	id = GER_pride_of_the_reich
+	icon = GFX_CAU_import_new_officers
+	cost = 4
+	relative_position_id = GER_to_save_a_reich
+	x = -8
+	y = 1
+	prerequisite = {
+		focus = GER_to_save_a_reich
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_pride_of_the_reich"
+		army_experience = 30
+		add_command_power = 50
+		add_dynamic_modifier = {
+			modifier = GER_speidel_heer
+		}
+		set_variable = {
+			var = GER_speidel_heer_conscription_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_heer_army_org_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_heer_army_attack_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_heer_army_defence_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_heer_army_morale_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_heer_army_armor_attack_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_heer_army_armor_defence_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_heer_mechanized_attack_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_heer_mechanized_defence_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_heer_motorized_attack_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_heer_motorized_defence_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_heer_max_command_power
+			value = 0
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_soldiers_of_the_fatherland
+	icon = GFX_COG_icon_because_men_will_win_the_war
+	cost = 4
+	relative_position_id = GER_pride_of_the_reich
+	x = 2
+	y = 1
+	prerequisite = {
+		focus = GER_pride_of_the_reich
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_soldiers_of_the_fatherland"
+		#org bonus
+		add_to_variable = {
+			GER_speidel_heer_army_org_factor = 0.05
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_army_org
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_whip_them_into_shape
+	icon = GFX_ARC_soldier_whipping
+	cost = 4
+	relative_position_id = GER_soldiers_of_the_fatherland
+	x = -1
+	y = 1
+	prerequisite = {
+		focus = GER_soldiers_of_the_fatherland
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_whip_them_into_shape"
+		tno_training_improve = yes
+	}
+}
+
+shared_focus = {
+	id = GER_cut_the_chaff
+	icon = GFX_GER_Cut_off_the_Rot
+	cost = 4
+	relative_position_id = GER_soldiers_of_the_fatherland
+	x = 1
+	y = 1
+	prerequisite = {
+		focus = GER_soldiers_of_the_fatherland
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_cut_the_chaff"
+		tno_conscription_improve = yes
+		TNO_improve_army_professionalism_med = yes
+	}
+}
+
+shared_focus = {
+	id = GER_pure_force
+	icon = GFX_GER_aryan_generic
+	cost = 4
+	relative_position_id = GER_soldiers_of_the_fatherland
+	x = 0
+	y = 2
+	prerequisite = {
+		focus = GER_cut_the_chaff
+	}
+	prerequisite = {
+		focus = GER_whip_them_into_shape
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_pure_german"
+		#recovery rate
+		add_to_variable = {
+			GER_speidel_heer_army_morale_factor = 0.08
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_recovery_rate
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+8.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_the_ingenuity_of_german_engineering
+	icon = GFX_SAM_German_Arms
+	cost = 4
+	relative_position_id = GER_pride_of_the_reich
+	x = -2
+	y = 1
+	prerequisite = {
+		focus = GER_pride_of_the_reich
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_ingenuity_of_german_engineering"
+		#gun reliability
+		add_ideas = GER_german_guns
+	}
+}
+
+shared_focus = {
+	id = GER_update_the_panzer
+	icon = GFX_GER_liger_armor
+	cost = 4
+	relative_position_id = GER_the_ingenuity_of_german_engineering
+	x = -1
+	y = 1
+	prerequisite = {
+		focus = GER_the_ingenuity_of_german_engineering
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_update_the_panzer"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 3
+			category = MBT
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_develop_the_marder
+	icon = GFX_ra_ger_marder_prototype
+	cost = 4
+	relative_position_id = GER_the_ingenuity_of_german_engineering
+	x = 1
+	y = 1
+	prerequisite = {
+		focus = GER_the_ingenuity_of_german_engineering
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_develop_the_marder"
+		add_tech_bonus = {
+			ahead_reduction = 2
+			uses = 1
+			category = IFV
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_like_lightning
+	icon = GFX_GER_strike_like_lightning
+	cost = 4
+	relative_position_id = GER_the_ingenuity_of_german_engineering
+	x = 0
+	y = 2
+	prerequisite = {
+		focus = GER_update_the_panzer
+	}
+	prerequisite = {
+		focus = GER_develop_the_marder
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_like_lightning"
+		#motor armor bonus
+		add_to_variable = {
+			GER_speidel_heer_army_armor_attack_factor = 0.06
+		}
+		add_to_variable = {
+			GER_speidel_heer_army_armor_defence_factor = 0.06
+		}
+		add_to_variable = {
+			GER_speidel_heer_mechanized_attack_factor = 0.06
+		}
+		add_to_variable = {
+			GER_speidel_heer_mechanized_defence_factor = 0.06
+		}
+		add_to_variable = {
+			GER_speidel_heer_motorized_attack_factor = 0.06
+		}
+		add_to_variable = {
+			GER_speidel_heer_motorized_defence_factor = 0.06
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_armor_attack
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+6.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_armor_defense
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+6.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_motorized_attack
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+6.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_motorized_defense
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+6.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_mechanized_attack
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+6.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_mechanized_defense
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+6.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_polish_up_the_heer
+	icon = GFX_SGR_a_clean_wehrmacht
+	cost = 4
+	relative_position_id = GER_pride_of_the_reich
+	x = 0
+	y = 3
+	prerequisite = {
+		focus = GER_pride_of_the_reich
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_ingenuity_of_german_engineering"
+		#org bonus
+		add_to_variable = {
+			GER_speidel_heer_army_org_factor = 0.07
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_army_org
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+7.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_organizational_restructuring
+	icon = GFX_SGR_war_has_changed
+	cost = 4
+	relative_position_id = GER_polish_up_the_heer
+	x = -1
+	y = 1
+	prerequisite = {
+		focus = GER_polish_up_the_heer
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_organizational_restructuring"
+		#army xp gain
+		add_to_variable = {
+			GER_speidel_heer_max_command_power = 30
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_max_command_power
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+30"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_phase_out_volksgrenediers
+	icon = GFX_Restore_the_armies_granduer
+	cost = 4
+	relative_position_id = GER_polish_up_the_heer
+	x = -2
+	y = 2
+	prerequisite = {
+		focus = GER_organizational_restructuring
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_phase_out_volksgrenediers"
+		#attack defense
+		#they were a stop gap in late war and west russian war in tno
+		add_to_variable = {
+			GER_speidel_heer_army_attack_factor = 0.1
+		}
+		add_manpower = -30000
+		custom_effect_tooltip = {
+			localization_key = TNO_army_attack
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_clarify_protektor_roles
+	icon = GFX_SGR_Reforging_the_heer
+	cost = 4
+	relative_position_id = GER_polish_up_the_heer
+	x = -1
+	y = 3
+	prerequisite = {
+		focus = GER_organizational_restructuring
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_clarify_protektor_roles"
+		#attack defense
+		add_to_variable = {
+			GER_speidel_heer_army_defence_factor = 0.1
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_readiness_change
+			READINESS_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+6"
+			}
+		}
+		add_to_variable = { global.GER_readiness = 6 }
+		custom_effect_tooltip = {
+			localization_key = TNO_army_defense
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_diverisfy_tactics
+	icon = GFX_GER_experimenting_on_soldiers
+	cost = 4
+	relative_position_id = GER_polish_up_the_heer
+	x = 1
+	y = 1
+	prerequisite = {
+		focus = GER_polish_up_the_heer
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_diverisfy_tactics"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 3
+			category = land_doctrine
+		}
+		add_to_variable = {
+			GER_speidel_heer_army_morale_factor = 0.06
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_recovery_rate
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+6.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_recruitment_propaganda
+	icon = GFX_TNO_generic_propaganda
+	cost = 4
+	relative_position_id = GER_polish_up_the_heer
+	x = 0
+	y = 2
+	prerequisite = {
+		focus = GER_polish_up_the_heer
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_recruitment_propaganda"
+		#manpower bonus
+		add_to_variable = {
+			GER_speidel_heer_conscription_factor = 0.15
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_conscription_factor
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+15.00%"
+			}
+		}
+	}
+}
+
+
+shared_focus = {
+	id = GER_helicoptor_divisions
+	icon = GFX_COG_helicopter_combat
+	cost = 4
+	relative_position_id = GER_polish_up_the_heer
+	x = 1
+	y = 3
+	prerequisite = {
+		focus = GER_diverisfy_tactics
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_helicoptor_divisions"
+		#heli bonus
+		add_ideas = GER_helis_for_speidel
+	}
+}
+
+shared_focus = {
+	id = GER_mobile_arty
+	icon = GFX_ra_ger_sp_arty
+	cost = 4
+	relative_position_id = GER_polish_up_the_heer
+	x = 2
+	y = 2
+	prerequisite = {
+		focus = GER_diverisfy_tactics
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_mobile_arty"
+		#self propelled arty bonus
+		add_ideas = GER_armored_arty_for_speidel
+	}
+}
+
+shared_focus = {
+	id = GER_the_kriegsmarine_sets_out
+	icon = GFX_Can_we_trust_the_kriegsmarine
+	cost = 4
+	relative_position_id = GER_pride_of_the_reich
+	x = -7
+	y = 1
+	prerequisite = {
+		focus = GER_pride_of_the_reich
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_kriegsmarine_sets_out"
+		navy_experience = 30
+		add_dynamic_modifier = {
+			modifier = GER_speidel_kriegsmarine
+		}
+		set_variable = {
+			var = GER_speidel_kriegsmarine_screen_attack
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_kriegsmarine_screen_defence
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_kriegsmarine_carrier_air_attack
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_kriegsmarine_carrier_air_targetting
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_kriegsmarine_carrier_air_agility
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_kriegsmarine_experience_gain
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_kriegsmarine_naval_speed
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_kriegsmarine_navy_submarine_attack_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_kriegsmarine_navy_submarine_detection_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_kriegsmarine_navy_visibility
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_kriegsmarine_sub_retreat_speed
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_kriegsmarine_naval_torpedo_hit_chance_factor
+			value = 0
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_challenge_japan_and_america
+	icon = GFX_GER_Super_Carriers
+	cost = 4
+	relative_position_id = GER_the_kriegsmarine_sets_out
+	x = 1
+	y = 1
+	prerequisite = {
+		focus = GER_the_kriegsmarine_sets_out
+	}
+	mutually_exclusive = {
+		focus = GER_our_own_way
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_ingenuity_of_german_engineering"
+		#gun reliability
+		add_to_variable = {
+			GER_speidel_kriegsmarine_naval_speed = 0.1
+		}
+		add_to_variable = {
+			GER_speidel_kriegsmarine_experience_gain = 0.1
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_naval_speed
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.0%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_navy_experience_gain
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.0%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_carrier_modernization
+	icon = GFX_SAF_air_and_naval_support
+	cost = 4
+	relative_position_id = GER_the_kriegsmarine_sets_out
+	x = 1
+	y = 2
+	prerequisite = {
+		focus = GER_challenge_japan_and_america
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_carrier_modernization"
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = ca_tech
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_tool_up_the_ports
+	icon = GFX_GER_Industrial_Revitalization
+	cost = 4
+	relative_position_id = GER_the_kriegsmarine_sets_out
+	x = 1
+	y = 3
+	prerequisite = {
+		focus = GER_carrier_modernization
+	}
+	available = {
+		has_completed_focus = GER_build_the_others_as_well
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_tool_up_the_ports"
+		#production bonus to carriers
+		add_to_variable = {
+			GER_speidel_kriegsmarine_carrier_air_targetting = 0.1
+		}
+		add_to_variable = {
+			GER_speidel_kriegsmarine_carrier_air_agility = 0.1
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_naval_air_agility
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.0%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_naval_air_targetting
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.0%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_escort_designs
+	icon = GFX_TNO_generic_navy_talk
+	cost = 4
+	relative_position_id = GER_the_kriegsmarine_sets_out
+	x = 3
+	y = 2
+	prerequisite = {
+		focus = GER_challenge_japan_and_america
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_escort_designs"
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = dd_tech
+		}
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = cv_tech
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_above_and_below
+	icon = GFX_SGR_Fleet_of_Hegemony
+	cost = 4
+	relative_position_id = GER_the_kriegsmarine_sets_out
+	x = 3
+	y = 3
+	prerequisite = {
+		focus = GER_escort_designs
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_escort_designs"
+		#aa antisub bonus
+		add_to_variable = {
+			GER_speidel_kriegsmarine_screen_attack = 0.1
+		}
+		add_to_variable = {
+			GER_speidel_kriegsmarine_screen_defence = 0.1
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_speidel_kriegsmarine_screen_attack
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.0%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_naval_screen_defense
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.0%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_finally_a_modern_navy
+	icon = GFX_generic_carrier_warfare
+	cost = 6
+	relative_position_id = GER_the_kriegsmarine_sets_out
+	x = 2
+	y = 4
+	prerequisite = {
+		focus = GER_above_and_below
+	}
+	prerequisite = {
+		focus = GER_tool_up_the_ports
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_finally_a_modern_navy"
+		#range and projection bonus
+		add_to_variable = {
+			GER_speidel_kriegsmarine_carrier_air_targetting = 0.05
+		}
+		add_to_variable = {
+			GER_speidel_kriegsmarine_navy_submarine_detection_factor = 0.1
+		}
+		add_to_variable = {
+			GER_speidel_kriegsmarine_naval_speed = 0.05
+		}
+		add_to_variable = {
+			GER_speidel_kriegsmarine_screen_defence = 0.05
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_naval_screen_defense
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5.0%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_naval_speed
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5.0%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_naval_air_targetting
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5.0%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_submarine_detection
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.0%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_readiness_change
+			READINESS_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+4"
+			}
+		}
+		add_to_variable = { global.GER_readiness = 4 }
+	}
+}
+
+shared_focus = {
+	id = GER_our_own_way
+	icon = GFX_generic_kriegsmarine
+	cost = 4
+	relative_position_id = GER_the_kriegsmarine_sets_out
+	x = -1
+	y = 1
+	prerequisite = {
+		focus = GER_the_kriegsmarine_sets_out
+	}
+	mutually_exclusive = {
+		focus = GER_challenge_japan_and_america
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_our_own_way"
+		#sub bonus
+		add_to_variable = {
+			GER_speidel_kriegsmarine_navy_submarine_attack_factor = 0.1
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_submarine_attack
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.0%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_uboat_hull_upgrades
+	icon = GFX_SGR_Unsere_Meere
+	cost = 4
+	relative_position_id = GER_the_kriegsmarine_sets_out
+	x = -1
+	y = 2
+	prerequisite = {
+		focus = GER_our_own_way
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_uboat_hull_upgrades"
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = ss_tech
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_study_ww_two
+	icon = GFX_GER_Atlantic_Veterans
+	cost = 4
+	relative_position_id = GER_the_kriegsmarine_sets_out
+	x = -1
+	y = 4
+	prerequisite = {
+		focus = GER_uboat_hull_upgrades
+	}
+	prerequisite = {
+		focus = GER_improved_safety_procedures
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_uboat_hull_upgrades"
+		#convoy raiding bonus
+		add_to_variable = {
+			GER_speidel_kriegsmarine_naval_torpedo_hit_chance_factor = 0.1
+		}
+		add_to_variable = {
+			GER_speidel_kriegsmarine_sub_retreat_speed = 0.15
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_submarine_retreat_speed
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+15.0%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_submarine_hit_chance_factor
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.0%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_nuke_subs_on_the_prowel
+	icon = GFX_ra_rus_submarine
+	cost = 4
+	relative_position_id = GER_the_kriegsmarine_sets_out
+	x = -3
+	y = 2
+	prerequisite = {
+		focus = GER_our_own_way
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_uboat_hull_upgrades"
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = ssn_tech
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_improved_safety_procedures
+	icon = GFX_SGR_safe_seas
+	cost = 4
+	relative_position_id = GER_the_kriegsmarine_sets_out
+	x = -2
+	y = 3
+	prerequisite = {
+		focus = GER_nuke_subs_on_the_prowel
+	}
+	prerequisite = {
+		focus = GER_uboat_hull_upgrades
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_improved_safety_procedures"
+		#stealth bonus
+		add_to_variable = {
+			GER_speidel_kriegsmarine_experience_gain = 0.15
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_navy_experience_gain
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+15.0%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_they_will_never_see_it_coming
+	icon = GFX_SGR_The_Ocean_for_the_Wolves
+	cost = 4
+	relative_position_id = GER_the_kriegsmarine_sets_out
+	x = -3
+	y = 4
+	prerequisite = {
+		focus = GER_nuke_subs_on_the_prowel
+	}
+	prerequisite = {
+		focus = GER_improved_safety_procedures
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_they_will_never_see_it_coming"
+		#stealth bonus
+		add_to_variable = {
+			GER_speidel_kriegsmarine_navy_visibility = -0.1
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_navy_visibility
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "-10.0%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_donitz_vindicated
+	icon = GFX_SGR_treason_or_pragmatism
+	cost = 4
+	relative_position_id = GER_the_kriegsmarine_sets_out
+	x = -2
+	y = 5
+	prerequisite = {
+		focus = GER_study_ww_two
+	}
+	prerequisite = {
+		focus = GER_they_will_never_see_it_coming
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_they_will_never_see_it_coming"
+		#sub bonus
+		add_to_variable = {
+			GER_speidel_kriegsmarine_naval_torpedo_hit_chance_factor = 0.1
+		}
+		add_to_variable = {
+			GER_speidel_kriegsmarine_navy_submarine_attack_factor = 0.1
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_submarine_attack
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.0%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_submarine_hit_chance_factor
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.0%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_prestige_gain
+			PRESTIGE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+1"
+			}
+		}
+		add_to_variable = {
+			var = prestige
+			value = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_goerings_pride
+	icon = GFX_GER_pride_of_the_reich
+	cost = 4
+	relative_position_id = GER_pride_of_the_reich
+	x = -13
+	y = 1
+	prerequisite = {
+		focus = GER_pride_of_the_reich
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_goerings_pride"
+		air_experience = 30
+		#dynamic modifer
+		add_dynamic_modifier = {
+			modifier = GER_speidel_luftwaffe
+		}
+		set_variable = {
+			var = GER_speidel_luftwaffe_air_ace_chance
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_luftwaffe_accident_chance
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_luftwaffe_air_superiority
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_luftwaffe_air_superiority_enemy_debuff
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_luftwaffe_air_experience_gain
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_luftwaffe_strat_bomb_boom_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_luftwaffe_air_agility_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_luftwaffe_air_close_air_support_org_damage_factor
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_luftwaffe_air_superiority_efficiency
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_luftwaffe_air_strategic_bomber_night_penalty
+			value = 0
+		}
+		set_variable = {
+			var = GER_speidel_luftwaffe_air_attack_factor
+			value = 0
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_bring_them_back_to_earth
+	icon = GFX_TNO_generic_world
+	cost = 4
+	relative_position_id = GER_goerings_pride
+	x = 0
+	y = 1
+	prerequisite = {
+		focus = GER_goerings_pride
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_bring_them_back_to_earth"
+		add_stability = -0.05
+		#improve air accidents
+		add_to_variable = {
+			GER_speidel_luftwaffe_accident_chance = -0.1
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_air_accidents
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "-10.0%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_cooperate_with_other_branches
+	icon = GFX_TNO_Generic_Combined_Arms
+	cost = 4
+	relative_position_id = GER_goerings_pride
+	x = -1
+	y = 2
+	prerequisite = {
+		focus = GER_bring_them_back_to_earth
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_cooperate_with_other_branches"
+		#improve cas and naval bombing
+		add_to_variable = {
+			GER_speidel_luftwaffe_air_close_air_support_org_damage_factor = 0.15
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_cas_org_damage
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+15.0%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_new_blood_in_the_skies
+	icon = GFX_SGR_simple_test
+	cost = 4
+	relative_position_id = GER_goerings_pride
+	x = 1
+	y = 2
+	prerequisite = {
+		focus = GER_bring_them_back_to_earth
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_new_blood_in_the_skies"
+		#improve ace generation
+		add_to_variable = {
+			GER_speidel_luftwaffe_air_ace_chance = 0.15
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_ace_generation_chance
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+15.0%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_total_air_domination
+	icon = GFX_SGR_clear_the_skies
+	cost = 4
+	relative_position_id = GER_goerings_pride
+	x = 2
+	y = 3
+	prerequisite = {
+		focus = GER_cooperate_with_other_branches
+	}
+	prerequisite = {
+		focus = GER_new_blood_in_the_skies
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_total_air_domination"
+		#air attack and agility
+		add_to_variable = {
+			GER_speidel_luftwaffe_air_attack_factor = 0.1
+		}
+		add_to_variable = {
+			GER_speidel_luftwaffe_air_agility_factor = 0.05
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_air_attack
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.0%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_air_agility
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5.0%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_new_light_planes
+	icon = GFX_generic_nazi_jet_1
+	cost = 4
+	relative_position_id = GER_goerings_pride
+	x = 0
+	y = 3
+	prerequisite = {
+		focus = GER_cooperate_with_other_branches
+	}
+	prerequisite = {
+		focus = GER_new_blood_in_the_skies
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_new_light_planes"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = cas
+		}
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = fighter
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_intercept_and_destroy
+	icon = GFX_generic_jet_fighter_2
+	cost = 4
+	relative_position_id = GER_goerings_pride
+	x = -2
+	y = 3
+	prerequisite = {
+		focus = GER_cooperate_with_other_branches
+	}
+	prerequisite = {
+		focus = GER_new_blood_in_the_skies
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_intercept_and_destroy"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 3
+			category = interceptor
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_never_rest
+	icon = GFX_SGR_the_swastika_flies_high
+	cost = 4
+	relative_position_id = GER_goerings_pride
+	x = -1
+	y = 4
+	prerequisite = {
+		focus = GER_total_air_domination
+	}
+	prerequisite = {
+		focus = GER_new_light_planes
+	}
+	prerequisite = {
+		focus = GER_intercept_and_destroy
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_never_rest"
+		#air_power_projection_factor and mission efficiency
+		add_to_variable = {
+			GER_speidel_luftwaffe_air_superiority = 0.05
+		}
+		add_to_variable = {
+			GER_speidel_luftwaffe_air_superiority_efficiency = 0.15
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_air_superiority
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5.0%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_air_superiority_efficiency
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+15.0%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_the_finest_radar
+	icon = GFX_GER_new_radar
+	cost = 4
+	relative_position_id = GER_goerings_pride
+	x = 1
+	y = 4
+	prerequisite = {
+		focus = GER_total_air_domination
+	}
+	prerequisite = {
+		focus = GER_new_light_planes
+	}
+	prerequisite = {
+		focus = GER_intercept_and_destroy
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_never_rest"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = radar_tech
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_an_air_empire_at_home
+	icon = GFX_ANG_the_air_empire
+	cost = 4
+	relative_position_id = GER_goerings_pride
+	x = 0
+	y = 5
+	prerequisite = {
+		focus = GER_the_finest_radar
+	}
+	prerequisite = {
+		focus = GER_never_rest
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_an_air_empire_at_home"
+		#mission efficiency ace generation air attack
+		add_to_variable = {
+			GER_speidel_luftwaffe_air_superiority_enemy_debuff = -0.1
+		}
+		add_to_variable = {
+			GER_speidel_luftwaffe_air_ace_chance = 0.05
+		}
+		add_to_variable = {
+			GER_speidel_luftwaffe_air_attack_factor = 0.05
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_air_attack
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5.0%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_ace_generation_chance
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+5.0%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_enemy_air_superiority
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "-10.0%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_bombs_away
+	icon = GFX_GER_New_Missile_Designs
+	cost = 4
+	relative_position_id = GER_goerings_pride
+	x = -4
+	y = 3
+	prerequisite = {
+		focus = GER_cooperate_with_other_branches
+	}
+	prerequisite = {
+		focus = GER_new_blood_in_the_skies
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_bombs_away"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = strategic_bomber
+		}
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = tactical_bomber
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_targeting_systems
+	icon = GFX_GER_glass_them
+	cost = 4
+	relative_position_id = GER_goerings_pride
+	x = -5
+	y = 4
+	prerequisite = {
+		focus = GER_bombs_away
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_targeting_systems"
+		#better nightime bombing
+		add_to_variable = {
+			GER_speidel_luftwaffe_air_strategic_bomber_night_penalty = -0.15
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_night_bombing_penalty
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "-15.0%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_invisible_bombers
+	icon = GFX_GER_stealth_bombers
+	cost = 4
+	relative_position_id = GER_goerings_pride
+	x = -3
+	y = 4
+	prerequisite = {
+		focus = GER_bombs_away
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_invisible_bombers"
+		add_tech_bonus = {
+			ahead_reduction = 1
+			uses = 2
+			category = stealth
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_flatten_them
+	icon = GFX_UPO_Burn_It_All
+	cost = 4
+	relative_position_id = GER_goerings_pride
+	x = -4
+	y = 5
+	prerequisite = {
+		focus = GER_invisible_bombers
+	}
+	prerequisite = {
+		focus = GER_targeting_systems
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_flatten_them"
+		#strat bombing bonus
+		add_to_variable = {
+			GER_speidel_luftwaffe_strat_bomb_boom_factor = 0.15
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_strategic_bombing_factor
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+15.0%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_watch_and_learn
+	icon = GFX_SGR_Knights_Of_The_Sky
+	cost = 4
+	relative_position_id = GER_goerings_pride
+	x = -4
+	y = 6
+	prerequisite = {
+		focus = GER_flatten_them
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_watch_and_learn"
+		#big bomber defence and air range
+		add_to_variable = {
+			GER_speidel_luftwaffe_strat_bomb_boom_factor = 0.1
+		}
+		add_to_variable = {
+			GER_speidel_luftwaffe_air_experience_gain = 0.15
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_strategic_bombing_factor
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.0%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_air_experience_gain
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+15.0%"
+			}
+		}
+	}
+}
+
+##politics tree 
+## opens sometime after pakt is restored
+
+shared_focus = {
+	id = GER_trouble_brewing
+	icon = GFX_GER_A_German_Wehrmacht
+	cost = 4
+	#relative_position_id = GER_to_save_a_reich
+	x = -3
+	y = 9
+	allow_branch = {
+		has_country_flag = GER_speidel_political_trouble
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_trouble_brewing"
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = GER_call_rommel
+	icon = GFX_ra_ger_rommel
+	cost = 4
+	prerequisite = {
+		focus = GER_trouble_brewing
+	}
+	bypass = {
+		NOT = {
+			has_country_flag = GER_rommel_protektor_assigned
+		}
+	}
+	relative_position_id = GER_trouble_brewing
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_call_rommel"
+		#choice to increase rommels power or boost readiness
+		country_event = GER_speidel_fuhrer_pol.2
+	}
+}
+
+shared_focus = {
+	id = GER_clean_up_remaining_nutters
+	icon = GER_GOR_no_more_militarists
+	cost = 4
+	prerequisite = {
+		focus = GER_trouble_brewing
+	}
+	relative_position_id = GER_trouble_brewing
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_clean_up_remaining_nutters"
+		army_experience = -40
+		add_popularity = {
+			ideology = ultranational_socialism
+			popularity = -0.1
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_call_up_the_rest
+	icon = GFX_GER_The_Red_Telephone
+	cost = 4
+	prerequisite = {
+		focus = GER_call_rommel
+	}
+	prerequisite = {
+		focus = GER_clean_up_remaining_nutters
+	}
+	relative_position_id = GER_trouble_brewing
+	x = 0
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_call_up_the_rest"
+		add_political_power = 50
+		add_stability = 0.03
+	}
+}
+
+shared_focus = {
+	id = GER_the_quartermaster
+	icon = GFX_ra_ger_wagner
+	cost = 4
+	prerequisite = {
+		focus = GER_call_up_the_rest
+	}
+	bypass = {
+		NOT = {
+			has_country_flag = GER_wagner_protektor_assigned
+		}
+	}
+	relative_position_id = GER_trouble_brewing
+	x = -3
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_quartermaster"
+		#event to boost respective influence of get some readiness
+		country_event = GER_speidel_fuhrer_pol.3
+	}
+}
+
+shared_focus = {
+	id = GER_the_panzer_leader
+	icon = GFX_ra_ger_schwerin
+	cost = 4
+	prerequisite = {
+		focus = GER_call_up_the_rest
+	}
+	bypass = {
+		NOT = {
+			has_country_flag = GER_schwerin_protektor_assigned
+		}
+	}
+	relative_position_id = GER_trouble_brewing
+	x = -1
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_panzer_leader"
+		#event to boost Gerhard_von_Schwerin influence of get some readiness
+		country_event = GER_speidel_fuhrer_pol.4
+	}
+}
+
+shared_focus = {
+	id = GER_the_planner
+	icon = GFX_ra_ger_baudissin
+	cost = 4
+	prerequisite = {
+		focus = GER_call_up_the_rest
+	}
+	bypass = {
+		NOT = {
+			has_country_flag = GER_baudissin_protektor_assigned
+		}
+	}
+	relative_position_id = GER_trouble_brewing
+	x = 1
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_planner"
+		#event to boost Wolf_Graf_von_Baudissin influence of get some readiness
+		country_event = GER_speidel_fuhrer_pol.5
+	}
+}
+
+shared_focus = {
+	id = GER_the_operations_chief
+	icon = GFX_ra_ger_heusinger
+	cost = 4
+	prerequisite = {
+		focus = GER_call_up_the_rest
+	}
+	bypass = {
+		NOT = {
+			has_country_flag = GER_heusinger_protektor_assigned
+		}
+	}
+	relative_position_id = GER_trouble_brewing
+	x = 3
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_the_operations_chief"
+		#event to boost Adolf Heusinger influence of get some readiness
+		country_event = GER_speidel_fuhrer_pol.6
+	}
+}
+
+shared_focus = {
+	id = GER_and_bormann
+	icon = GFX_ra_ger_albert_bormann
+	cost = 4
+	prerequisite = {
+		focus = GER_the_quartermaster
+	}
+	prerequisite = {
+		focus = GER_the_panzer_leader
+	}
+	prerequisite = {
+		focus = GER_the_planner
+	}
+	prerequisite = {
+		focus = GER_the_operations_chief
+	}
+	bypass = {
+		NOT = {
+			has_country_flag = GER_bormann_protektor_assigned
+		}
+	}
+	relative_position_id = GER_trouble_brewing
+	x = 0
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_and_bormann"
+		#event to boost Albert Bormann influence of get some readiness
+		country_event = GER_speidel_fuhrer_pol.7
+	}
+}
+
+shared_focus = {
+	id = GER_who_do_they_want
+	icon = GFX_Generic_Handgun
+	cost = 4
+	prerequisite = {
+		focus = GER_and_bormann
+	}
+	relative_position_id = GER_trouble_brewing
+	x = 0
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_who_do_they_want"
+		#event explaning who's backing who
+		set_country_flag = GER_speidel_meeting_planning
+		country_event = {
+			id = GER_speidel_fuhrer_pol.8
+			days = 2
+		}
+	}
+}
+
+shared_focus = {
+	id = GER_plan_the_meeting
+	icon = GFX_GER_the_final_meeting
+	cost = 4
+	prerequisite = {
+		focus = GER_who_do_they_want
+	}
+	allow_branch = {
+		has_country_flag = GER_speidel_meeting_planning
+	}
+	relative_position_id = GER_trouble_brewing
+	x = 0
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_who_do_they_want"
+		#event 
+		add_political_power = 25
+	}
+}
+
+shared_focus = {
+	id = GER_location_location_location
+	icon = GFX_GER_convene_the_parties
+	cost = 4
+	prerequisite = {
+		focus = GER_plan_the_meeting
+	}
+	relative_position_id = GER_trouble_brewing
+	x = -1
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_location_location_location"
+		#event 
+		country_event = GER_speidel_fuhrer_pol.9
+	}
+}
+
+shared_focus = {
+	id = GER_maybe_a_broadcast_or_two
+	icon = GFX_TNO_generic_radio_tower
+	cost = 4
+	prerequisite = {
+		focus = GER_plan_the_meeting
+	}
+	relative_position_id = GER_trouble_brewing
+	x = 1
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_maybe_a_broadcast_or_two"
+		#event 
+		country_event = GER_speidel_fuhrer_pol.10
+	}
+}
+
+shared_focus = {
+	id = GER_final_preperations
+	icon = GFX_GER_Dominate_on_Television
+	cost = 8
+	prerequisite = {
+		focus = GER_location_location_location
+	}
+	prerequisite = {
+		focus = GER_maybe_a_broadcast_or_two
+	}
+	relative_position_id = GER_trouble_brewing
+	x = 0
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_location_location_location"
+		#event to get some last minute influence
+		country_event = GER_speidel_fuhrer_pol.11
+	}
+}
+
+shared_focus = {
+	id = GER_and_the_fuher_is
+	icon = GFX_GER_Wouldnt_Touch_Hitler
+	cost = 8
+	prerequisite = {
+		focus = GER_final_preperations
+	}
+	relative_position_id = GER_trouble_brewing
+	x = 0
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GER_and_the_fuher_is"
+		#new fuher appointed depending on influence
+		#Yes I know using arrays like this is bad practice but this is 
+		#PDX script not C or Python. Go cry to Johan I'm just taking orders.
+		add_to_array = {
+			array = GER.protektor_influence_array
+			value = GER_rommel_influence
+		}
+		add_to_array = {
+			array = GER.protektor_influence_array
+			value = GER_wagner_influence
+		}
+		add_to_array = {
+			array = GER.protektor_influence_array
+			value = GER_schwerin_influence
+		}
+		add_to_array = {
+			array = GER.protektor_influence_array
+			value = GER_baudissin_influence
+		}
+		add_to_array = {
+			array = GER.protektor_influence_array
+			value = GER_heusinger_influence
+		}
+		add_to_array = {
+			array = GER.protektor_influence_array
+			value = GER_bormann_influence
+		}
+		find_highest_in_array = {
+			array = GER.protektor_influence_array
+			index = protektor_influence_index
+		}
+		if = {
+			limit = {
+				check_variable = {
+					var = protektor_influence_index
+					value = 1
+					compare = equals
+				}
+			}
+			#wagner wins 
+			country_event = GER_speidel_fuhrer_pol.13
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					var = protektor_influence_index
+					value = 2
+					compare = equals
+				}
+			}
+			#schwerin wins 
+			country_event = GER_speidel_fuhrer_pol.14
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					var = protektor_influence_index
+					value = 3
+					compare = equals
+				}
+			}
+			#baudissin wins 
+			country_event = GER_speidel_fuhrer_pol.15
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					var = protektor_influence_index
+					value = 4
+					compare = equals
+				}
+			}
+			#heusinger wins 
+			country_event = GER_speidel_fuhrer_pol.16
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					var = protektor_influence_index
+					value = 5
+					compare = equals
+				}
+			}
+			#bormann wins 
+			country_event = GER_speidel_fuhrer_pol.17
+		}
+		else = {
+			#rommel
+			country_event = GER_speidel_fuhrer_pol.12
+		}
+	}
+}

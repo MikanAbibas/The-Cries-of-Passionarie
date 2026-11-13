@@ -1,0 +1,73 @@
+ideas = {
+	hidden_ideas = {
+		ITA_EM_dec_exploit = {
+			on_add = {
+				set_temp_variable = { Region_i = ITA_EM_sel_region }
+				log = "[GetDateText]: [Root.GetName]: ITA dec exploit in [EmpireManagement_GetRegionName] by [?exploit_amt]" 
+				set_variable = { return_exploit_region = ITA_EM_sel_region}
+				set_variable = {exploit_return = exploit_amt }
+				multiply_temp_variable = { exploit_amt = -1 }
+				set_temp_variable = { EconValueChange_v = exploit_amt }
+				#ITA_FashResistance_modify_colony_exploitation = yes
+			}
+			on_remove = {
+				set_temp_variable = { Region_i = return_exploit_region }
+				log = "[GetDateText]: [Root.GetName]: ITA inc exploit in [EmpireManagement_GetRegionName] by [?exploit_return]" 
+				set_temp_variable = { EconValueChange_v = exploit_return }
+				#ITA_FashResistance_modify_colony_exploitation = yes
+			}
+			available = { tag = ITA }
+		}
+		ITA_EM_dec_control = {
+			on_add = {
+				set_temp_variable = { Region_i = ITA_EM_sel_region }
+				log = "[GetDateText]: [Root.GetName]: ITA dec control in [EmpireManagement_GetRegionName] by [?control_amt]" 
+				set_variable = { return_control_region = ITA_EM_sel_region}
+				set_variable = {control_return = control_amt }
+				multiply_temp_variable = { control_amt = -1 }
+				set_temp_variable = { DiploValueChange_v = control_amt }
+				#ITA_FashResistance_modify_colony_control = yes
+			}
+			on_remove = {
+				set_temp_variable = { Region_i = return_control_region }
+				log = "[GetDateText]: [Root.GetName]: ITA inc control in [EmpireManagement_GetRegionName] by [?control_return]" 
+				set_temp_variable = { DiploValueChange_v = control_return }
+				#ITA_FashResistance_modify_colony_control = yes
+			}
+			available = { tag = ITA }
+		}
+	}
+	country = {
+		ITA_fash_milan_terrorism = {
+			on_add = {log = "[GetDateText]: [Root.GetName]: add idea ITA_fash_milan_terrorism" }
+			picture = HUN_Suffocated_Economy
+			removal_cost = -1
+			equipment_bonus = {
+				infantry_equipment = {
+					build_cost_ic = 0.05 instant = yes
+				}
+			}
+		}
+		ITA_fash_oil_attack = {
+			on_add = {log = "[GetDateText]: [Root.GetName]: add idea ITA_fash_milan_terrorism" }
+			picture = HUN_Suffocated_Economy
+			removal_cost = -1
+			modifier = {
+				gdp_growth_modifier = -1
+			}
+		}
+		ITA_insurgency_tripoli = {
+			on_add = {
+				log = "[GetDateText]: [Root.GetName]: ITA_fash_resistance_tripoli_insurgency_add" 
+			}
+			picture = HUN_Suffocated_Economy
+			removal_cost = -1
+			on_remove = {
+				448 = {
+					set_temp_variable = { state_gdp_flat_temp = 0.1 }
+					TNO_state_gdp_increase_flat = yes
+				}
+			}
+		}
+	}
+}

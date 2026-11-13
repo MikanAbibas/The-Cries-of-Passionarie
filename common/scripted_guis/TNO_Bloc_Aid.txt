@@ -1,0 +1,79 @@
+scripted_gui = {
+
+	# The button, in the right-click country view. Attached the way TNO_Diplomacy.txt is, and
+	# gated per element rather than at gui level, which is how TNO_SG_Diplomacy does it.
+	# Scope is the SELECTED country; the patron is found with is_ai = no because
+	# selected_country_context does not expose the player.
+	TNO_bloc_aid_button = {
+		context_type = selected_country_context
+		parent_window_token = selected_country_view
+		window_name = "TNO_bloc_aid_button_window"
+
+		triggers = {
+			bloc_aid_toggle_visible = {
+				BLOC_AID_valid_pair = yes
+			}
+		}
+
+		effects = {
+			bloc_aid_toggle_click = {
+				BLOC_AID_open_panel = yes
+			}
+		}
+	}
+
+	# The panel. Same shape as TNO_research_focus_picker: player_context, grafted into the host
+	# view by name, and opened and closed purely by a country flag on the player. The recipient
+	# is event_target:BLOC_AID_target, saved when the button above is clicked.
+	TNO_bloc_aid_panel = {
+		context_type = player_context
+		parent_window_name = "countrydiplomacyview"
+		window_name = "TNO_bloc_aid_panel_window"
+
+		visible = {
+			has_country_flag = BLOC_AID_panel_open
+		}
+
+		effects = {
+			bloc_aid_close_click = {
+				BLOC_AID_close_panel = yes
+			}
+			bloc_aid_arms_click = {
+				BLOC_AID_send_arms = yes
+			}
+			bloc_aid_manpower_click = {
+				BLOC_AID_send_manpower = yes
+			}
+			bloc_aid_armour_click = {
+				BLOC_AID_send_armour = yes
+			}
+			bloc_aid_aircraft_click = {
+				BLOC_AID_send_aircraft = yes
+			}
+			bloc_aid_expedition_click = {
+				BLOC_AID_send_expedition = yes
+			}
+		}
+
+		triggers = {
+			bloc_aid_arms_click_enabled = {
+				BLOC_AID_arms_ready = yes
+			}
+			bloc_aid_manpower_click_enabled = {
+				BLOC_AID_manpower_ready = yes
+			}
+			bloc_aid_armour_click_enabled = {
+				BLOC_AID_armour_ready = yes
+			}
+			bloc_aid_aircraft_click_enabled = {
+				BLOC_AID_aircraft_ready = yes
+			}
+			bloc_aid_expedition_click_enabled = {
+				BLOC_AID_expedition_ready = yes
+			}
+
+			# The row is always drawn now; BLOC_AID_GetExpeditionDesc says whether local
+			# divisions can be raised, and the button itself stays disabled if they cannot.
+		}
+	}
+}

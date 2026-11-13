@@ -1,0 +1,3453 @@
+#######################################################
+#  #  #  #  #  #  CulRev Code Notes  #  #  #  #  #  # #
+#################Here's A Note For You#################
+#Watch Out For The Monsters In The Alleys Of The Night#
+######They're Always Hungry Look Them In The Eyes######
+###########They're Looking At Your Daughters###########
+############They've Seen The Flying Saucers############
+#################You Have To Tell Them#################
+#####################Victory Or Die####################
+#######################################################
+
+# Krone was here, building off of Curvinghawk's pieces
+
+ITA_RED_CulRev_initialize = {
+	hidden_effect = {
+		ITA_EmpireManagement_Disable = yes
+		set_country_flag = ITA_RED_culrev_available
+		country_event = {
+			id = red_italy_culrev.1
+			days = 7
+		}
+		#set_variable = { ITA_RED_revolutionary_fervor = 70 }
+
+		set_variable = { ITA_RED_farmers_stage = 1 }
+		set_variable = { ITA_RED_workers_stage = 1 }
+		set_variable = { ITA_RED_middle_class_stage = 1 }
+		set_variable = { ITA_RED_soldiers_police_stage = 1 }
+		set_variable = { ITA_RED_clergy_stage = 1 }
+		set_variable = { ITA_RED_academia_stage = 1 }
+		set_variable = { ITA_RED_marginalized_stage = 1 }
+
+		set_variable = {ITA_RED_militant_approval = 63}
+		set_variable = {ITA_RED_severity = 60}
+		add_to_variable = {ITA_RED_reaction = 40}
+		set_variable = {ITA_RED_red_terror = 65}
+		set_variable = {ITA_RED_militant_approval_weekly = -1}
+		set_variable = {ITA_RED_severity_weekly = -1}
+		set_variable = {ITA_RED_reaction_weekly = 1}
+		set_variable = {ITA_RED_red_terror_weekly = -0.5}
+
+		set_variable = {ITA_RED_marginalized_progress = 85}
+		set_variable = {ITA_RED_academia_progress = 93}
+		set_variable = {ITA_RED_clergy_progress = 100}
+		set_variable = {ITA_RED_soldiers_police_progress = 100}
+		set_variable = {ITA_RED_middle_class_progress = 95}
+		set_variable = {ITA_RED_workers_progress = 100}
+		set_variable = {ITA_RED_farmers_progress = 100}
+
+		if = {
+			limit = { has_country_flag = igw_italian_partial_loss }
+			subtract_from_variable = { ITA_RED_revolutionary_fervor = 25 }
+			subtract_from_variable = { ITA_RED_militant_approval = 10 }
+			add_to_variable = { ITA_RED_severity_weekly = 1.5 }
+		}
+
+		ITA_RED_setup_blue_perks_farmers = yes
+		ITA_RED_setup_blue_perks_workers = yes
+		ITA_RED_setup_blue_perks_bourgeois = yes
+		ITA_RED_setup_blue_perks_soldiers = yes
+		ITA_RED_setup_blue_perks_clergy = yes
+		ITA_RED_setup_blue_perks_academia = yes
+		ITA_RED_setup_blue_perks_marginalized = yes
+
+		add_to_array = { ITA_RED_red_perks = 0 }
+
+		ITA_RED_setup_red_perks_farmers = yes
+		ITA_RED_setup_red_perks_workers = yes
+		ITA_RED_setup_red_perks_bourgeois = yes
+		ITA_RED_setup_red_perks_soldiers = yes
+		ITA_RED_setup_red_perks_clergy = yes
+		ITA_RED_setup_red_perks_academia = yes
+		ITA_RED_setup_red_perks_marginalized = yes
+
+		ITA_RED_setup_blue_perks = yes
+
+		set_variable = {ITA_RED_cultrev_events = 1}
+		ITA_RED_maths_shit = yes
+		ITA_RED_calculate_date = yes
+
+		add_dynamic_modifier = {modifier = ITA_RED_cultrev_modifier}
+	}
+}
+
+ITA_RED_cultrev_calculate_effects_main_pillars = {
+	#####Students#####
+	set_variable = {ITA_RED_student_pp_gain = ITA_RED_militant_approval}
+	subtract_from_variable = {ITA_RED_student_pp_gain = 50}
+	divide_variable = {ITA_RED_student_pp_gain = 50}
+	multiply_variable = {ITA_RED_student_pp_gain = 20}
+	subtract_from_variable = {ITA_RED_overall_political_power_gain = ITA_RED_student_pp_gain_previous}
+	add_to_variable = {ITA_RED_overall_political_power_gain = ITA_RED_student_pp_gain}
+	set_variable = {ITA_RED_student_pp_gain_previous = ITA_RED_student_pp_gain}
+
+	#####Reaction#####
+	set_variable = {ITA_RED_reaction_stab = ITA_RED_reaction}
+	subtract_from_variable = {ITA_RED_reaction_stab = 50}
+	divide_variable = {ITA_RED_reaction_stab = 5}
+	multiply_variable = {ITA_RED_reaction_stab = -1}
+	subtract_from_variable = {ITA_RED_overall_stability = ITA_RED_reaction_stab_previous}
+	add_to_variable = {ITA_RED_overall_stability = ITA_RED_reaction_stab}
+	set_variable = {ITA_RED_reaction_stab_previous = ITA_RED_reaction_stab}
+
+	#####Severity#####
+	set_variable = {ITA_RED_severity_pop_growth = ITA_RED_severity}
+	subtract_from_variable = {ITA_RED_severity_pop_growth = 50}
+	divide_variable = {ITA_RED_severity_pop_growth = 100}
+	multiply_variable = {ITA_RED_severity_pop_growth = 1.5}
+	multiply_variable = {ITA_RED_severity_pop_growth = -1}
+	subtract_from_variable = {ITA_RED_overall_pop_growth = ITA_RED_severity_pop_growth_previous}
+	add_to_variable = {ITA_RED_overall_pop_growth = ITA_RED_severity_pop_growth}
+	set_variable = {ITA_RED_severity_pop_growth_previous = ITA_RED_severity_pop_growth}
+
+	set_variable = {ITA_RED_severity_gdp_growth = ITA_RED_severity}
+	subtract_from_variable = {ITA_RED_severity_gdp_growth = 50}
+	divide_variable = {ITA_RED_severity_gdp_growth = 100}
+	multiply_variable = {ITA_RED_severity_gdp_growth = 3}
+	multiply_variable = {ITA_RED_severity_gdp_growth = -1}
+	subtract_from_variable = {ITA_RED_severity_gdp_growth = ITA_RED_severity_gdp_growth_previous}
+	set_temp_variable = { gdp_growth_temp = ITA_RED_severity_gdp_growth }
+	econ_gdp_growth_change = yes
+	add_to_variable = {ITA_RED_severity_gdp_growth = ITA_RED_severity_gdp_growth_previous}
+	set_variable = {ITA_RED_severity_gdp_growth_previous = ITA_RED_severity_gdp_growth}
+
+	#####Red Terror#####
+	set_variable = {ITA_RED_red_terror_stab_growth = ITA_RED_red_terror}
+	divide_variable = {ITA_RED_red_terror_stab_growth = 100}
+	multiply_variable = {ITA_RED_red_terror_stab_growth = -0.5}
+	subtract_from_variable = {ITA_RED_overall_stability_growth = ITA_RED_red_terror_stab_growth_previous}
+	add_to_variable = {ITA_RED_overall_stability_growth = ITA_RED_red_terror_stab_growth}
+	set_variable = {ITA_RED_red_terror_stab_growth_previous = ITA_RED_red_terror_stab_growth}
+
+	set_variable = {ITA_RED_red_terror_pillars = ITA_RED_red_terror}
+	subtract_from_variable = {ITA_RED_red_terror_pillars = 50}
+	divide_variable = {ITA_RED_red_terror_pillars = 5000}
+	multiply_variable = {ITA_RED_red_terror_pillars = 7.5}
+	add_to_variable = {ITA_RED_red_terror_pillars = 0.0025}
+	set_variable = {ITA_RED_red_terror_pillars_previous = ITA_RED_red_terror_pillars}
+
+	if = {
+		limit = {
+			check_variable = {ITA_RED_red_terror < 40}
+		}
+		set_variable = {ITA_RED_student_cap = 60}
+		set_variable = {ITA_RED_severity_cap = 60}
+		set_variable = {ITA_RED_reaction_low_cap = 0}
+		set_variable = {ITA_RED_severity_low_cap = 0}
+		set_variable = {ITA_RED_student_low_cap = 0}
+	}
+	if = {
+		limit = {
+			OR = {
+				check_variable = {ITA_RED_red_terror > 40}
+				check_variable = {ITA_RED_red_terror = 40}
+			}
+			check_variable = {ITA_RED_red_terror < 60}
+		}
+		set_variable = {ITA_RED_student_cap = 100}
+		set_variable = {ITA_RED_severity_cap = 100}
+		set_variable = {ITA_RED_reaction_low_cap = 20}
+		set_variable = {ITA_RED_severity_low_cap = 0}
+		set_variable = {ITA_RED_student_low_cap = 0}
+	}
+
+	if = {
+		limit = {
+			OR = {
+				check_variable = {ITA_RED_red_terror > 60}
+				check_variable = {ITA_RED_red_terror = 60}
+			}
+		}
+		set_variable = {ITA_RED_student_cap = 100}
+		set_variable = {ITA_RED_severity_cap = 100}
+		set_variable = {ITA_RED_reaction_low_cap = 40}
+		set_variable = {ITA_RED_severity_low_cap = 40}
+		set_variable = {ITA_RED_student_low_cap = 40}
+	}
+
+	ITA_RED_cultrev_effects_for_dynmod = yes
+	####Need to add final effects####
+}
+ITA_RED_cultrev_stage_changing_shit = {
+	#####Farmers#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_farmers_progress > 80}
+		}
+		set_variable = {ITA_RED_farmers_stage = 1}
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_farmers_progress > 60}
+			OR = {
+				check_variable = {ITA_RED_farmers_progress < 80}
+				check_variable = {ITA_RED_farmers_progress = 80}
+			}
+			check_variable = {ITA_RED_farmers_stage = 1}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_farmers
+		set_variable = {ITA_RED_farmers_stage = 2}
+		set_variable = {ITA_RED_cultrev_events = 2}
+		set_variable = { ITA_RED_farmers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_farmers_progress > 40}
+			OR = {
+				check_variable = {ITA_RED_farmers_progress < 60}
+				check_variable = {ITA_RED_farmers_progress = 60}
+			}
+			check_variable = {ITA_RED_farmers_stage = 2}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_farmers
+		set_variable = {ITA_RED_farmers_stage = 3}
+		set_variable = {ITA_RED_cultrev_events = 3}
+		set_variable = { ITA_RED_farmers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_farmers_progress > 20}
+			OR = {
+				check_variable = {ITA_RED_farmers_progress < 40}
+				check_variable = {ITA_RED_farmers_progress = 40}
+			}
+			check_variable = {ITA_RED_farmers_stage = 3}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_farmers
+		set_variable = {ITA_RED_farmers_stage = 4}
+		set_variable = {ITA_RED_cultrev_events = 4}
+		set_variable = { ITA_RED_farmers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			OR = {
+				check_variable = {ITA_RED_farmers_progress_red < 20}
+				check_variable = {ITA_RED_farmers_progress_red = 20}
+			}
+			OR = {
+				check_variable = {ITA_RED_farmers_progress < 20}
+				check_variable = {ITA_RED_farmers_progress = 20}
+			}
+			check_variable = {ITA_RED_farmers_stage = 4}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_farmers
+		set_variable = {ITA_RED_farmers_stage = 5}
+		set_variable = {ITA_RED_cultrev_events = 5}
+		set_variable = { ITA_RED_farmers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_farmers_progress_red > 20}
+			OR = {
+				check_variable = {ITA_RED_farmers_progress_red < 40}
+				check_variable = {ITA_RED_farmers_progress_red = 40}
+			}
+			check_variable = {ITA_RED_farmers_stage = 5}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_farmers
+		set_variable = {ITA_RED_farmers_stage = 6}
+		set_variable = {ITA_RED_cultrev_events = 6}
+		set_variable = { ITA_RED_farmers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_farmers_progress_red > 40}
+			OR = {
+				check_variable = {ITA_RED_farmers_progress_red < 60}
+				check_variable = {ITA_RED_farmers_progress_red = 60}
+			}
+			check_variable = {ITA_RED_farmers_stage = 6}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_farmers
+		set_variable = {ITA_RED_farmers_stage = 7}
+		set_variable = {ITA_RED_cultrev_events = 7}
+		set_variable = { ITA_RED_farmers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_farmers_progress_red > 60}
+			OR = {
+				check_variable = {ITA_RED_farmers_progress_red < 80}
+				check_variable = {ITA_RED_farmers_progress_red = 80}
+			}
+			check_variable = {ITA_RED_farmers_stage = 7}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_farmers
+		set_variable = {ITA_RED_farmers_stage = 8}
+		set_variable = {ITA_RED_cultrev_events = 8}
+		set_variable = { ITA_RED_farmers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_farmers_progress_red = 100}
+			check_variable = {ITA_RED_farmers_stage = 8}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_farmers
+		set_variable = {ITA_RED_farmers_stage = 9}
+		set_variable = {ITA_RED_cultrev_events = 9}
+		set_variable = { ITA_RED_farmers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+
+	#####Workers#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_workers_progress > 80}
+		}
+		set_variable = {ITA_RED_workers_stage = 1}
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_workers_progress > 60}
+			OR = {
+				check_variable = {ITA_RED_workers_progress < 80}
+				check_variable = {ITA_RED_workers_progress = 80}
+			}
+			check_variable = {ITA_RED_workers_stage = 1}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_workers
+		set_variable = {ITA_RED_workers_stage = 2}
+		set_variable = {ITA_RED_cultrev_events = 10}
+		set_variable = { ITA_RED_workers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_workers_progress > 40}
+			OR = {
+				check_variable = {ITA_RED_workers_progress < 60}
+				check_variable = {ITA_RED_workers_progress = 60}
+			}
+			check_variable = {ITA_RED_workers_stage = 2}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_workers
+		set_variable = {ITA_RED_workers_stage = 3}
+		set_variable = {ITA_RED_cultrev_events = 11}
+		set_variable = { ITA_RED_workers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_workers_progress > 20}
+			OR = {
+				check_variable = {ITA_RED_workers_progress < 40}
+				check_variable = {ITA_RED_workers_progress = 40}
+			}
+			check_variable = {ITA_RED_workers_stage = 3}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_workers
+		set_variable = {ITA_RED_workers_stage = 4}
+		set_variable = {ITA_RED_cultrev_events = 12}
+		set_variable = { ITA_RED_workers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			OR = {
+				check_variable = {ITA_RED_workers_progress_red < 20}
+				check_variable = {ITA_RED_workers_progress_red = 20}
+			}
+			OR = {
+				check_variable = {ITA_RED_workers_progress < 20}
+				check_variable = {ITA_RED_workers_progress = 20}
+			}
+			check_variable = {ITA_RED_workers_stage = 4}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_workers
+		set_variable = {ITA_RED_workers_stage = 5}
+		set_variable = {ITA_RED_cultrev_events = 13}
+		set_variable = { ITA_RED_workers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_workers_progress_red > 20}
+			OR = {
+				check_variable = {ITA_RED_workers_progress_red < 40}
+				check_variable = {ITA_RED_workers_progress_red = 40}
+			}
+			check_variable = {ITA_RED_workers_stage = 5}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_workers
+		set_variable = {ITA_RED_workers_stage = 6}
+		set_variable = {ITA_RED_cultrev_events = 14}
+		set_variable = { ITA_RED_workers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_workers_progress_red > 40}
+			OR = {
+				check_variable = {ITA_RED_workers_progress_red < 60}
+				check_variable = {ITA_RED_workers_progress_red = 60}
+			}
+			check_variable = {ITA_RED_workers_stage = 6}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_workers
+		set_variable = {ITA_RED_workers_stage = 7}
+		set_variable = {ITA_RED_cultrev_events = 15}
+		set_variable = { ITA_RED_workers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_workers_progress_red > 60}
+			OR = {
+				check_variable = {ITA_RED_workers_progress_red < 80}
+				check_variable = {ITA_RED_workers_progress_red = 80}
+			}
+			check_variable = {ITA_RED_workers_stage = 7}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_workers
+		set_variable = {ITA_RED_workers_stage = 8}
+		set_variable = {ITA_RED_cultrev_events = 16}
+		set_variable = { ITA_RED_workers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_workers_progress_red = 100}
+			check_variable = {ITA_RED_workers_stage = 8}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_workers
+		set_variable = {ITA_RED_workers_stage = 9}
+		set_variable = {ITA_RED_cultrev_events = 17}
+		set_variable = { ITA_RED_workers_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+
+	#####Middle Class#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_middle_class_progress > 80}
+		}
+		set_variable = {ITA_RED_middle_class_stage = 1}
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_middle_class_progress > 60}
+			OR = {
+				check_variable = {ITA_RED_middle_class_progress < 80}
+				check_variable = {ITA_RED_middle_class_progress = 80}
+			}
+			check_variable = {ITA_RED_middle_class_stage = 1}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_middle_class
+		set_variable = {ITA_RED_middle_class_stage = 2}
+		set_variable = {ITA_RED_cultrev_events = 18}
+		set_variable = { ITA_RED_middle_class_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_middle_class_progress > 40}
+			OR = {
+				check_variable = {ITA_RED_middle_class_progress < 60}
+				check_variable = {ITA_RED_middle_class_progress = 60}
+			}
+			check_variable = {ITA_RED_middle_class_stage = 2}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_middle_class
+		set_variable = {ITA_RED_middle_class_stage = 3}
+		set_variable = {ITA_RED_cultrev_events = 19}
+		set_variable = { ITA_RED_middle_class_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_middle_class_progress > 20}
+			OR = {
+				check_variable = {ITA_RED_middle_class_progress < 40}
+				check_variable = {ITA_RED_middle_class_progress = 40}
+			}
+			check_variable = {ITA_RED_middle_class_stage = 3}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_middle_class
+		set_variable = {ITA_RED_middle_class_stage = 4}
+		set_variable = {ITA_RED_cultrev_events = 20}
+		set_variable = { ITA_RED_middle_class_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			OR = {
+				check_variable = {ITA_RED_middle_class_progress_red < 20}
+				check_variable = {ITA_RED_middle_class_progress_red = 20}
+			}
+			OR = {
+				check_variable = {ITA_RED_middle_class_progress < 20}
+				check_variable = {ITA_RED_middle_class_progress = 20}
+			}
+			check_variable = {ITA_RED_middle_class_stage = 4}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_middle_class
+		set_variable = {ITA_RED_middle_class_stage = 5}
+		set_variable = {ITA_RED_cultrev_events = 21}
+		set_variable = { ITA_RED_middle_class_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_middle_class_progress_red > 20}
+			OR = {
+				check_variable = {ITA_RED_middle_class_progress_red < 40}
+				check_variable = {ITA_RED_middle_class_progress_red = 40}
+			}
+			check_variable = {ITA_RED_middle_class_stage = 5}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_middle_class
+		set_variable = {ITA_RED_middle_class_stage = 6}
+		set_variable = {ITA_RED_cultrev_events = 22}
+		set_variable = { ITA_RED_middle_class_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_middle_class_progress_red > 40}
+			OR = {
+				check_variable = {ITA_RED_middle_class_progress_red < 60}
+				check_variable = {ITA_RED_middle_class_progress_red = 60}
+			}
+			check_variable = {ITA_RED_middle_class_stage = 6}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_middle_class
+		set_variable = {ITA_RED_middle_class_stage = 7}
+		set_variable = {ITA_RED_cultrev_events = 23}
+		set_variable = { ITA_RED_middle_class_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_middle_class_progress_red > 60}
+			OR = {
+				check_variable = {ITA_RED_middle_class_progress_red < 80}
+				check_variable = {ITA_RED_middle_class_progress_red = 80}
+			}
+			check_variable = {ITA_RED_middle_class_stage = 7}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_middle_class
+		set_variable = {ITA_RED_middle_class_stage = 8}
+		set_variable = {ITA_RED_cultrev_events = 24}
+		set_variable = { ITA_RED_middle_class_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_middle_class_progress_red = 100}
+			check_variable = {ITA_RED_middle_class_stage = 8}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_middle_class
+		set_variable = {ITA_RED_middle_class_stage = 9}
+		set_variable = {ITA_RED_cultrev_events = 25}
+		set_variable = { ITA_RED_middle_class_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+
+	#####Soldiers & Police#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_soldiers_police_progress > 80}
+		}
+		set_variable = {ITA_RED_soldiers_police_stage = 1}
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_soldiers_police_progress > 60}
+			OR = {
+				check_variable = {ITA_RED_soldiers_police_progress < 80}
+				check_variable = {ITA_RED_soldiers_police_progress = 80}
+			}
+			check_variable = {ITA_RED_soldiers_police_stage = 1}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_soldiers
+		set_variable = {ITA_RED_soldiers_police_stage = 2}
+		set_variable = {ITA_RED_cultrev_events = 26}
+		set_variable = { ITA_RED_soldiers_police_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_soldiers_police_progress > 40}
+			OR = {
+				check_variable = {ITA_RED_soldiers_police_progress < 60}
+				check_variable = {ITA_RED_soldiers_police_progress = 60}
+			}
+			check_variable = {ITA_RED_soldiers_police_stage = 2}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_soldiers
+		set_variable = {ITA_RED_soldiers_police_stage = 3}
+		set_variable = {ITA_RED_cultrev_events = 27}
+		set_variable = { ITA_RED_soldiers_police_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_soldiers_police_progress > 20}
+			OR = {
+				check_variable = {ITA_RED_soldiers_police_progress < 40}
+				check_variable = {ITA_RED_soldiers_police_progress = 40}
+			}
+			check_variable = {ITA_RED_soldiers_police_stage = 3}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_soldiers
+		set_variable = {ITA_RED_soldiers_police_stage = 4}
+		set_variable = {ITA_RED_cultrev_events = 28}
+		set_variable = { ITA_RED_soldiers_police_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			OR = {
+				check_variable = {ITA_RED_soldiers_police_progress_red < 20}
+				check_variable = {ITA_RED_soldiers_police_progress_red = 20}
+			}
+			OR = {
+				check_variable = {ITA_RED_soldiers_police_progress < 20}
+				check_variable = {ITA_RED_soldiers_police_progress = 20}
+			}
+			check_variable = {ITA_RED_soldiers_police_stage = 4}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_soldiers
+		set_variable = {ITA_RED_soldiers_police_stage = 5}
+		set_variable = {ITA_RED_cultrev_events = 29}
+		set_variable = { ITA_RED_soldiers_police_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_soldiers_police_progress_red > 20}
+			OR = {
+				check_variable = {ITA_RED_soldiers_police_progress_red < 40}
+				check_variable = {ITA_RED_soldiers_police_progress_red = 40}
+			}
+			check_variable = {ITA_RED_soldiers_police_stage = 5}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_soldiers
+		set_variable = {ITA_RED_soldiers_police_stage = 6}
+		set_variable = {ITA_RED_cultrev_events = 30}
+		set_variable = { ITA_RED_soldiers_police_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_soldiers_police_progress_red > 40}
+			OR = {
+				check_variable = {ITA_RED_soldiers_police_progress_red < 60}
+				check_variable = {ITA_RED_soldiers_police_progress_red = 60}
+			}
+			check_variable = {ITA_RED_soldiers_police_stage = 6}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_soldiers
+		set_variable = {ITA_RED_soldiers_police_stage = 7}
+		set_variable = {ITA_RED_cultrev_events = 31}
+		set_variable = { ITA_RED_soldiers_police_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_soldiers_police_progress_red > 60}
+			OR = {
+				check_variable = {ITA_RED_soldiers_police_progress_red < 80}
+				check_variable = {ITA_RED_soldiers_police_progress_red = 80}
+			}
+			check_variable = {ITA_RED_soldiers_police_stage = 7}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_soldiers
+		set_variable = {ITA_RED_soldiers_police_stage = 8}
+		set_variable = {ITA_RED_cultrev_events = 32}
+		set_variable = { ITA_RED_soldiers_police_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_soldiers_police_progress_red = 100}
+			check_variable = {ITA_RED_soldiers_police_stage = 8}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_soldiers
+		set_variable = {ITA_RED_soldiers_police_stage = 9}
+		set_variable = {ITA_RED_cultrev_events = 33}
+		set_variable = { ITA_RED_soldiers_police_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+
+	#####Clergy#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_clergy_progress > 80}
+		}
+		set_variable = {ITA_RED_clergy_stage = 1}
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_clergy_progress > 60}
+			OR = {
+				check_variable = {ITA_RED_clergy_progress < 80}
+				check_variable = {ITA_RED_clergy_progress = 80}
+			}
+			check_variable = {ITA_RED_clergy_stage = 1}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_clergy
+		set_variable = {ITA_RED_clergy_stage = 2}
+		set_variable = {ITA_RED_cultrev_events = 34}
+		set_variable = { ITA_RED_clergy_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_clergy_progress > 40}
+			OR = {
+				check_variable = {ITA_RED_clergy_progress < 60}
+				check_variable = {ITA_RED_clergy_progress = 60}
+			}
+			check_variable = {ITA_RED_clergy_stage = 2}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_clergy
+		set_variable = {ITA_RED_clergy_stage = 3}
+		set_variable = {ITA_RED_cultrev_events = 35}
+		set_variable = { ITA_RED_clergy_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_clergy_progress > 20}
+			OR = {
+				check_variable = {ITA_RED_clergy_progress < 40}
+				check_variable = {ITA_RED_clergy_progress = 40}
+			}
+			check_variable = {ITA_RED_clergy_stage = 3}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_clergy
+		set_variable = {ITA_RED_clergy_stage = 4}
+		set_variable = {ITA_RED_cultrev_events = 36}
+		set_variable = { ITA_RED_clergy_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			OR = {
+				check_variable = {ITA_RED_clergy_progress_red < 20}
+				check_variable = {ITA_RED_clergy_progress_red = 20}
+			}
+			OR = {
+				check_variable = {ITA_RED_clergy_progress < 20}
+				check_variable = {ITA_RED_clergy_progress = 20}
+			}
+			check_variable = {ITA_RED_clergy_stage = 4}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_clergy
+		set_variable = {ITA_RED_clergy_stage = 5}
+		set_variable = {ITA_RED_cultrev_events = 37}
+		set_variable = { ITA_RED_clergy_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_clergy_progress_red > 20}
+			OR = {
+				check_variable = {ITA_RED_clergy_progress_red < 40}
+				check_variable = {ITA_RED_clergy_progress_red = 40}
+			}
+			check_variable = {ITA_RED_clergy_stage = 5}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_clergy
+		set_variable = {ITA_RED_clergy_stage = 6}
+		set_variable = {ITA_RED_cultrev_events = 38}
+		set_variable = { ITA_RED_clergy_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_clergy_progress_red > 40}
+			OR = {
+				check_variable = {ITA_RED_clergy_progress_red < 60}
+				check_variable = {ITA_RED_clergy_progress_red = 60}
+			}
+			check_variable = {ITA_RED_clergy_stage = 6}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_clergy
+		set_variable = {ITA_RED_clergy_stage = 7}
+		set_variable = {ITA_RED_cultrev_events = 39}
+		set_variable = { ITA_RED_clergy_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_clergy_progress_red > 60}
+			OR = {
+				check_variable = {ITA_RED_clergy_progress_red < 80}
+				check_variable = {ITA_RED_clergy_progress_red = 80}
+			}
+			check_variable = {ITA_RED_clergy_stage = 7}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_clergy
+		set_variable = {ITA_RED_clergy_stage = 8}
+		set_variable = {ITA_RED_cultrev_events = 40}
+		set_variable = { ITA_RED_clergy_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_clergy_progress_red = 100}
+			check_variable = {ITA_RED_clergy_stage = 8}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_clergy
+		set_variable = {ITA_RED_clergy_stage = 9}
+		set_variable = {ITA_RED_cultrev_events = 41}
+		set_variable = { ITA_RED_clergy_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+
+	#####Academia#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_academia_progress > 80}
+		}
+		set_variable = {ITA_RED_academia_stage = 1}
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_academia_progress > 60}
+			OR = {
+				check_variable = {ITA_RED_academia_progress < 80}
+				check_variable = {ITA_RED_academia_progress = 80}
+			}
+			check_variable = {ITA_RED_academia_stage = 1}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_academia
+		set_variable = {ITA_RED_academia_stage = 2}
+		set_variable = {ITA_RED_cultrev_events = 42}
+		set_variable = { ITA_RED_academia_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_academia_progress > 40}
+			OR = {
+				check_variable = {ITA_RED_academia_progress < 60}
+				check_variable = {ITA_RED_academia_progress = 60}
+			}
+			check_variable = {ITA_RED_academia_stage = 2}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_academia
+		set_variable = {ITA_RED_academia_stage = 3}
+		set_variable = {ITA_RED_cultrev_events = 43}
+		set_variable = { ITA_RED_academia_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_academia_progress > 20}
+			OR = {
+				check_variable = {ITA_RED_academia_progress < 40}
+				check_variable = {ITA_RED_academia_progress = 40}
+			}
+			check_variable = {ITA_RED_academia_stage = 3}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_academia
+		set_variable = {ITA_RED_academia_stage = 4}
+		set_variable = {ITA_RED_cultrev_events = 44}
+		set_variable = { ITA_RED_academia_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			OR = {
+				check_variable = {ITA_RED_academia_progress_red < 20}
+				check_variable = {ITA_RED_academia_progress_red = 20}
+			}
+			OR = {
+				check_variable = {ITA_RED_academia_progress < 20}
+				check_variable = {ITA_RED_academia_progress = 20}
+			}
+			check_variable = {ITA_RED_academia_stage = 4}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_academia
+		set_variable = {ITA_RED_academia_stage = 5}
+		set_variable = {ITA_RED_cultrev_events = 45}
+		set_variable = { ITA_RED_academia_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_academia_progress_red > 20}
+			OR = {
+				check_variable = {ITA_RED_academia_progress_red < 40}
+				check_variable = {ITA_RED_academia_progress_red = 40}
+			}
+			check_variable = {ITA_RED_academia_stage = 5}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_academia
+		set_variable = {ITA_RED_academia_stage = 6}
+		set_variable = {ITA_RED_cultrev_events = 46}
+		set_variable = { ITA_RED_academia_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_academia_progress_red > 40}
+			OR = {
+				check_variable = {ITA_RED_academia_progress_red < 60}
+				check_variable = {ITA_RED_academia_progress_red = 60}
+			}
+			check_variable = {ITA_RED_academia_stage = 6}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_academia
+		set_variable = {ITA_RED_academia_stage = 7}
+		set_variable = {ITA_RED_cultrev_events = 47}
+		set_variable = { ITA_RED_academia_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_academia_progress_red > 60}
+			OR = {
+				check_variable = {ITA_RED_academia_progress_red < 80}
+				check_variable = {ITA_RED_academia_progress_red = 80}
+			}
+			check_variable = {ITA_RED_academia_stage = 7}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_academia
+		set_variable = {ITA_RED_academia_stage = 8}
+		set_variable = {ITA_RED_cultrev_events = 48}
+		set_variable = { ITA_RED_academia_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_academia_progress_red = 100}
+			check_variable = {ITA_RED_academia_stage = 8}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_academia
+		set_variable = {ITA_RED_academia_stage = 9}
+		set_variable = {ITA_RED_cultrev_events = 49}
+		set_variable = { ITA_RED_academia_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+
+	#####Marginalized#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_marginalized_progress > 80}
+		}
+		set_variable = {ITA_RED_marginalized_stage = 1}
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_marginalized_progress > 60}
+			OR = {
+				check_variable = {ITA_RED_marginalized_progress < 80}
+				check_variable = {ITA_RED_marginalized_progress = 80}
+			}
+			check_variable = {ITA_RED_marginalized_stage = 1}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_marginalized
+		set_variable = {ITA_RED_marginalized_stage = 2}
+		set_variable = {ITA_RED_cultrev_events = 50}
+		set_variable = { ITA_RED_marginalized_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_marginalized_progress > 40}
+			OR = {
+				check_variable = {ITA_RED_marginalized_progress < 60}
+				check_variable = {ITA_RED_marginalized_progress = 60}
+			}
+			check_variable = {ITA_RED_marginalized_stage = 2}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_marginalized
+		set_variable = {ITA_RED_marginalized_stage = 3}
+		set_variable = {ITA_RED_cultrev_events = 51}
+		set_variable = { ITA_RED_marginalized_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_marginalized_progress > 20}
+			OR = {
+				check_variable = {ITA_RED_marginalized_progress < 40}
+				check_variable = {ITA_RED_marginalized_progress = 40}
+			}
+			check_variable = {ITA_RED_marginalized_stage = 3}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_marginalized
+		set_variable = {ITA_RED_marginalized_stage = 4}
+		set_variable = {ITA_RED_cultrev_events = 52}
+		set_variable = { ITA_RED_marginalized_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			OR = {
+				check_variable = {ITA_RED_marginalized_progress_red < 20}
+				check_variable = {ITA_RED_marginalized_progress_red = 20}
+			}
+			OR = {
+				check_variable = {ITA_RED_marginalized_progress < 20}
+				check_variable = {ITA_RED_marginalized_progress = 20}
+			}
+			check_variable = {ITA_RED_marginalized_stage = 4}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_marginalized
+		set_variable = {ITA_RED_marginalized_stage = 5}
+		set_variable = {ITA_RED_cultrev_events = 53}
+		set_variable = { ITA_RED_marginalized_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_marginalized_progress_red > 20}
+			OR = {
+				check_variable = {ITA_RED_marginalized_progress_red < 40}
+				check_variable = {ITA_RED_marginalized_progress_red = 40}
+			}
+			check_variable = {ITA_RED_marginalized_stage = 5}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_marginalized
+		set_variable = {ITA_RED_marginalized_stage = 6}
+		set_variable = {ITA_RED_cultrev_events = 54}
+		set_variable = { ITA_RED_marginalized_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_marginalized_progress_red > 40}
+			OR = {
+				check_variable = {ITA_RED_marginalized_progress_red < 60}
+				check_variable = {ITA_RED_marginalized_progress_red = 60}
+			}
+			check_variable = {ITA_RED_marginalized_stage = 6}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_marginalized
+		set_variable = {ITA_RED_marginalized_stage = 7}
+		set_variable = {ITA_RED_cultrev_events = 55}
+		set_variable = { ITA_RED_marginalized_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_marginalized_progress_red > 60}
+			OR = {
+				check_variable = {ITA_RED_marginalized_progress_red < 80}
+				check_variable = {ITA_RED_marginalized_progress_red = 80}
+			}
+			check_variable = {ITA_RED_marginalized_stage = 7}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_marginalized
+		set_variable = {ITA_RED_marginalized_stage = 8}
+		set_variable = {ITA_RED_cultrev_events = 56}
+		set_variable = { ITA_RED_marginalized_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_marginalized_progress_red = 100}
+			check_variable = {ITA_RED_marginalized_stage = 8}
+		}
+		set_country_flag = ITA_RED_culrev_pick_perk_marginalized
+		set_variable = {ITA_RED_marginalized_stage = 9}
+		set_variable = {ITA_RED_cultrev_events = 57}
+		set_variable = { ITA_RED_marginalized_velocity = 0 }
+		ITA_RED_calculate_date = yes
+		set_temp_variable = { alert_id = token:Alert_CulRev_Perk }
+		add_TNO_alert_unless_exists = yes
+	}
+	####Need to add final effects####
+}
+ITA_RED_cultrev_rev_change_in_pillars = {
+	hidden_effect = {
+		#####Farmers#####
+		if = {
+			limit = {
+				OR = {
+					check_variable = {ITA_RED_Fascist_Vines_Farmers > ITA_RED_pillar_change_farmers}
+					check_variable = {ITA_RED_Fascist_Vines_Farmers = ITA_RED_pillar_change_farmers}
+				}
+			}
+			subtract_from_variable = {ITA_RED_Fascist_Vines_Farmers = ITA_RED_pillar_change_farmers}
+		}
+		else_if = {
+			limit = {
+				check_variable = {ITA_RED_Fascist_Vines_Farmers < ITA_RED_pillar_change_farmers}
+				check_variable = {ITA_RED_Fascist_Vines_Farmers > 0}
+			}
+			subtract_from_variable = {ITA_RED_Fascist_Vines_Farmers = ITA_RED_pillar_change_farmers}
+			subtract_from_variable = { ITA_RED_pillar_change_farmers = ITA_RED_Fascist_Vines_Farmers }
+			subtract_from_variable = {ITA_RED_farmers_progress = ITA_RED_pillar_change_farmers}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					check_variable = {ITA_RED_farmers_progress > ITA_RED_pillar_change_farmers}
+					check_variable = {ITA_RED_farmers_progress = ITA_RED_pillar_change_farmers}
+				}
+			}
+			subtract_from_variable = {ITA_RED_farmers_progress = ITA_RED_pillar_change_farmers}
+		}
+		else = {
+			set_variable = {ITA_RED_pillar_change_farmers_overflow = ITA_RED_pillar_change_farmers}
+			subtract_from_variable = {ITA_RED_pillar_change_farmers_overflow = ITA_RED_farmers_progress}
+			add_to_variable = {ITA_RED_farmers_progress_red = ITA_RED_pillar_change_farmers_overflow}
+			set_variable = {ITA_RED_farmers_progress = 0}
+		}
+
+		#####Workers#####
+		if = {
+			limit = {
+				OR = {
+					check_variable = {ITA_RED_Fascist_Vines_Workers > ITA_RED_pillar_change_workers}
+					check_variable = {ITA_RED_Fascist_Vines_Workers = ITA_RED_pillar_change_workers}
+				}
+			}
+			subtract_from_variable = {ITA_RED_Fascist_Vines_Workers = ITA_RED_pillar_change_workers}
+		}
+		else_if = {
+			limit = {
+				check_variable = {ITA_RED_Fascist_Vines_Workers < ITA_RED_pillar_change_workers}
+				check_variable = {ITA_RED_Fascist_Vines_Workers > 0}
+			}
+			subtract_from_variable = {ITA_RED_Fascist_Vines_Workers = ITA_RED_pillar_change_workers}
+			subtract_from_variable = { ITA_RED_pillar_change_workers = ITA_RED_Fascist_Vines_Workers }
+			subtract_from_variable = {ITA_RED_workers_progress = ITA_RED_pillar_change_workers}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					check_variable = {ITA_RED_workers_progress > ITA_RED_pillar_change_workers}
+					check_variable = {ITA_RED_workers_progress = ITA_RED_pillar_change_workers}
+				}
+			}
+			subtract_from_variable = {ITA_RED_workers_progress = ITA_RED_pillar_change_workers}
+		}
+		else = {
+			set_variable = {ITA_RED_pillar_change_workers_overflow = ITA_RED_pillar_change_workers}
+			subtract_from_variable = {ITA_RED_pillar_change_workers_overflow = ITA_RED_workers_progress}
+			add_to_variable = {ITA_RED_workers_progress_red = ITA_RED_pillar_change_workers_overflow}
+			set_variable = {ITA_RED_workers_progress = 0}
+		}
+
+		#####Middle Class#####
+		if = {
+			limit = {
+				OR = {
+					check_variable = {ITA_RED_Fascist_Vines_Middle_Classes > ITA_RED_pillar_change_middle_class}
+					check_variable = {ITA_RED_Fascist_Vines_Middle_Classes = ITA_RED_pillar_change_middle_class}
+				}
+			}
+			subtract_from_variable = {ITA_RED_Fascist_Vines_Middle_Classes = ITA_RED_pillar_change_middle_class}
+		}
+		else_if = {
+			limit = {
+				check_variable = {ITA_RED_Fascist_Vines_Middle_Classes < ITA_RED_pillar_change_middle_class}
+				check_variable = {ITA_RED_Fascist_Vines_Middle_Classes > 0}
+			}
+			subtract_from_variable = {ITA_RED_Fascist_Vines_Middle_Classes = ITA_RED_pillar_change_middle_class}
+			subtract_from_variable = { ITA_RED_pillar_change_middle_class = ITA_RED_Fascist_Vines_Middle_Classes }
+			subtract_from_variable = {ITA_RED_middle_class_progress = ITA_RED_pillar_change_middle_class}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					check_variable = {ITA_RED_middle_class_progress > ITA_RED_pillar_change_middle_class}
+					check_variable = {ITA_RED_middle_class_progress = ITA_RED_pillar_change_middle_class}
+				}
+			}
+			subtract_from_variable = {ITA_RED_middle_class_progress = ITA_RED_pillar_change_middle_class}
+		}
+		else = {
+			set_variable = {ITA_RED_pillar_change_middle_class_overflow = ITA_RED_pillar_change_middle_class}
+			subtract_from_variable = {ITA_RED_pillar_change_middle_class_overflow = ITA_RED_middle_class_progress}
+			add_to_variable = {ITA_RED_middle_class_progress_red = ITA_RED_pillar_change_middle_class_overflow}
+			set_variable = {ITA_RED_middle_class_progress = 0}
+		}
+
+		#####Soldiers & Police#####
+		if = {
+			limit = {
+				OR = {
+					check_variable = {ITA_RED_Fascist_Vines_Soldiers > ITA_RED_pillar_change_soldiers_police}
+					check_variable = {ITA_RED_Fascist_Vines_Soldiers = ITA_RED_pillar_change_soldiers_police}
+				}
+			}
+			subtract_from_variable = {ITA_RED_Fascist_Vines_Soldiers = ITA_RED_pillar_change_soldiers_police}
+		}
+		else_if = {
+			limit = {
+				check_variable = {ITA_RED_Fascist_Vines_Soldiers < ITA_RED_pillar_change_soldiers_police}
+				check_variable = {ITA_RED_Fascist_Vines_Soldiers > 0}
+			}
+			subtract_from_variable = {ITA_RED_Fascist_Vines_Soldiers = ITA_RED_pillar_change_soldiers_police}
+			subtract_from_variable = { ITA_RED_pillar_change_soldiers_police = ITA_RED_Fascist_Vines_Soldiers }
+			subtract_from_variable = {ITA_RED_soldiers_police_progress = ITA_RED_pillar_change_soldiers_police}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					check_variable = {ITA_RED_soldiers_police_progress > ITA_RED_pillar_change_soldiers_police}
+					check_variable = {ITA_RED_soldiers_police_progress = ITA_RED_pillar_change_soldiers_police}
+				}
+			}
+			subtract_from_variable = {ITA_RED_soldiers_police_progress = ITA_RED_pillar_change_soldiers_police}
+		}
+		else = {
+			set_variable = {ITA_RED_pillar_change_soldiers_police_overflow = ITA_RED_pillar_change_soldiers_police}
+			subtract_from_variable = {ITA_RED_pillar_change_soldiers_police_overflow = ITA_RED_soldiers_police_progress}
+			add_to_variable = {ITA_RED_soldiers_police_progress_red = ITA_RED_pillar_change_soldiers_police_overflow}
+			set_variable = {ITA_RED_soldiers_police_progress = 0}
+		}
+
+		#####Clergy#####
+		if = {
+			limit = {
+				OR = {
+					check_variable = {ITA_RED_Fascist_Vines_Clergy > ITA_RED_pillar_change_clergy}
+					check_variable = {ITA_RED_Fascist_Vines_Clergy = ITA_RED_pillar_change_clergy}
+				}
+			}
+			subtract_from_variable = {ITA_RED_Fascist_Vines_Clergy = ITA_RED_pillar_change_clergy}
+		}
+		else_if = {
+			limit = {
+				check_variable = {ITA_RED_Fascist_Vines_Clergy < ITA_RED_pillar_change_clergy}
+				check_variable = {ITA_RED_Fascist_Vines_Clergy > 0}
+			}
+			subtract_from_variable = {ITA_RED_Fascist_Vines_Clergy = ITA_RED_pillar_change_clergy}
+			subtract_from_variable = { ITA_RED_pillar_change_clergy = ITA_RED_Fascist_Vines_Clergy }
+			subtract_from_variable = {ITA_RED_clergy_progress = ITA_RED_pillar_change_clergy}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					check_variable = {ITA_RED_clergy_progress > ITA_RED_pillar_change_clergy}
+					check_variable = {ITA_RED_clergy_progress = ITA_RED_pillar_change_clergy}
+				}
+			}
+			subtract_from_variable = {ITA_RED_clergy_progress = ITA_RED_pillar_change_clergy}
+		}
+		else = {
+			set_variable = {ITA_RED_pillar_change_clergy_overflow = ITA_RED_pillar_change_clergy}
+			subtract_from_variable = {ITA_RED_pillar_change_clergy_overflow = ITA_RED_clergy_progress}
+			add_to_variable = {ITA_RED_clergy_progress_red = ITA_RED_pillar_change_clergy_overflow}
+			set_variable = {ITA_RED_clergy_progress = 0}
+		}
+
+		#####Academia#####
+		if = {
+			limit = {
+				OR = {
+					check_variable = {ITA_RED_Fascist_Vines_Academia > ITA_RED_pillar_change_academia}
+					check_variable = {ITA_RED_Fascist_Vines_Academia = ITA_RED_pillar_change_academia}
+				}
+			}
+			subtract_from_variable = {ITA_RED_Fascist_Vines_Academia = ITA_RED_pillar_change_academia}
+		}
+		else_if = {
+			limit = {
+				check_variable = {ITA_RED_Fascist_Vines_Academia < ITA_RED_pillar_change_academia}
+				check_variable = {ITA_RED_Fascist_Vines_Academia > 0}
+			}
+			subtract_from_variable = {ITA_RED_Fascist_Vines_Academia = ITA_RED_pillar_change_academia}
+			subtract_from_variable = { ITA_RED_pillar_change_academia = ITA_RED_Fascist_Vines_Academia }
+			subtract_from_variable = {ITA_RED_academia_progress = ITA_RED_pillar_change_academia}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					check_variable = {ITA_RED_academia_progress > ITA_RED_pillar_change_academia}
+					check_variable = {ITA_RED_academia_progress = ITA_RED_pillar_change_academia}
+				}
+			}
+			subtract_from_variable = {ITA_RED_academia_progress = ITA_RED_pillar_change_academia}
+		}
+		else = {
+			set_variable = {ITA_RED_pillar_change_academia_overflow = ITA_RED_pillar_change_academia}
+			subtract_from_variable = {ITA_RED_pillar_change_academia_overflow = ITA_RED_academia_progress}
+			add_to_variable = {ITA_RED_academia_progress_red = ITA_RED_pillar_change_academia_overflow}
+			set_variable = {ITA_RED_academia_progress = 0}
+		}
+
+		#####Marginalized#####
+		if = {
+			limit = {
+				OR = {
+					check_variable = {ITA_RED_Fascist_Vines_Marginalized > ITA_RED_pillar_change_marginalized}
+					check_variable = {ITA_RED_Fascist_Vines_Marginalized = ITA_RED_pillar_change_marginalized}
+				}
+			}
+			subtract_from_variable = {ITA_RED_Fascist_Vines_Marginalized = ITA_RED_pillar_change_marginalized}
+		}
+		else_if = {
+			limit = {
+				check_variable = {ITA_RED_Fascist_Vines_Marginalized < ITA_RED_pillar_change_marginalized}
+				check_variable = {ITA_RED_Fascist_Vines_Marginalized > 0}
+			}
+			subtract_from_variable = {ITA_RED_Fascist_Vines_Marginalized = ITA_RED_pillar_change_marginalized}
+			subtract_from_variable = { ITA_RED_pillar_change_marginalized = ITA_RED_Fascist_Vines_Marginalized }
+			subtract_from_variable = {ITA_RED_marginalized_progress = ITA_RED_pillar_change_marginalized}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					check_variable = {ITA_RED_marginalized_progress > ITA_RED_pillar_change_marginalized}
+					check_variable = {ITA_RED_marginalized_progress = ITA_RED_pillar_change_marginalized}
+				}
+			}
+			subtract_from_variable = {ITA_RED_marginalized_progress = ITA_RED_pillar_change_marginalized}
+		}
+		else = {
+			set_variable = {ITA_RED_pillar_change_marginalized_overflow = ITA_RED_pillar_change_marginalized}
+			subtract_from_variable = {ITA_RED_pillar_change_marginalized_overflow = ITA_RED_marginalized_progress}
+			add_to_variable = {ITA_RED_marginalized_progress_red = ITA_RED_pillar_change_marginalized_overflow}
+			set_variable = {ITA_RED_marginalized_progress = 0}
+		}
+		clear_variable = ITA_RED_pillar_change_farmers
+		clear_variable = ITA_RED_pillar_change_workers
+		clear_variable = ITA_RED_pillar_change_middle_class
+		clear_variable = ITA_RED_pillar_change_soldiers_police
+		clear_variable = ITA_RED_pillar_change_clergy
+		clear_variable = ITA_RED_pillar_change_academia
+		clear_variable = ITA_RED_pillar_change_marginalized
+		ITA_RED_maths_shit = yes
+	}
+}
+ITA_RED_clicked_action_1 = { #to add effects
+	#####Farmers#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 0}
+			has_country_flag = ITA_RED_is_old_guard
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 58}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 0}
+			has_country_flag = ITA_RED_is_new_left
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 60}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 0}
+			has_country_flag = ITA_RED_is_cathcom
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 62}
+		ITA_RED_calculate_date = yes
+	}
+
+	#####Workers#####
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 1}
+			has_country_flag = ITA_RED_is_old_guard
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 64}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 1}
+			has_country_flag = ITA_RED_is_new_left
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 66}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 1}
+			has_country_flag = ITA_RED_is_cathcom
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 68}
+		ITA_RED_calculate_date = yes
+	}
+
+	#####Middle Class#####
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 2}
+			has_country_flag = ITA_RED_is_old_guard
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 70}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 2}
+			has_country_flag = ITA_RED_is_new_left
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 72}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 2}
+			has_country_flag = ITA_RED_is_cathcom
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 74}
+		ITA_RED_calculate_date = yes
+	}
+
+	#####Soldiers Police#####
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 3}
+			has_country_flag = ITA_RED_is_old_guard
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 76}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 3}
+			has_country_flag = ITA_RED_is_new_left
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 78}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 3}
+			has_country_flag = ITA_RED_is_cathcom
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 80}
+		ITA_RED_calculate_date = yes
+	}
+
+	#####Clergy#####
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 4}
+			has_country_flag = ITA_RED_is_old_guard
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 82}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 4}
+			has_country_flag = ITA_RED_is_new_left
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 84}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 4}
+			has_country_flag = ITA_RED_is_cathcom
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 86}
+		ITA_RED_calculate_date = yes
+	}
+
+	#####Academia#####
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 5}
+			has_country_flag = ITA_RED_is_old_guard
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 88}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 5}
+			has_country_flag = ITA_RED_is_new_left
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 90}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 5}
+			has_country_flag = ITA_RED_is_cathcom
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 92}
+		ITA_RED_calculate_date = yes
+	}
+
+	#####marginalized#####
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 6}
+			has_country_flag = ITA_RED_is_old_guard
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 94}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 6}
+			has_country_flag = ITA_RED_is_new_left
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 96}
+		ITA_RED_calculate_date = yes
+	}
+	else = {
+
+		set_variable = {ITA_RED_cultrev_events = 98}
+		ITA_RED_calculate_date = yes
+	}
+
+	ITA_RED_maths_shit = yes
+}
+
+ITA_RED_clicked_action_2 = {
+	#####Farmers#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 0}
+			has_country_flag = ITA_RED_is_old_guard
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 59}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 0}
+			has_country_flag = ITA_RED_is_new_left
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 61}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 0}
+			has_country_flag = ITA_RED_is_cathcom
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 63}
+		ITA_RED_calculate_date = yes
+	}
+
+	#####Workers#####
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 1}
+			has_country_flag = ITA_RED_is_old_guard
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 65}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 1}
+			has_country_flag = ITA_RED_is_new_left
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 67}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 1}
+			has_country_flag = ITA_RED_is_cathcom
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 69}
+		ITA_RED_calculate_date = yes
+	}
+
+	#####Middle Class#####
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 2}
+			has_country_flag = ITA_RED_is_old_guard
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 71}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 2}
+			has_country_flag = ITA_RED_is_new_left
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 73}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 2}
+			has_country_flag = ITA_RED_is_cathcom
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 75}
+		ITA_RED_calculate_date = yes
+	}
+
+	#####Soldiers Police#####
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 3}
+			has_country_flag = ITA_RED_is_old_guard
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 77}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 3}
+			has_country_flag = ITA_RED_is_new_left
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 79}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 3}
+			has_country_flag = ITA_RED_is_cathcom
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 81}
+		ITA_RED_calculate_date = yes
+	}
+
+	#####Clergy#####
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 4}
+			has_country_flag = ITA_RED_is_old_guard
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 83}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 4}
+			has_country_flag = ITA_RED_is_new_left
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 85}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 4}
+			has_country_flag = ITA_RED_is_cathcom
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 87}
+		ITA_RED_calculate_date = yes
+	}
+
+	#####Academia#####
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 5}
+			has_country_flag = ITA_RED_is_old_guard
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 89}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 5}
+			has_country_flag = ITA_RED_is_new_left
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 91}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 5}
+			has_country_flag = ITA_RED_is_cathcom
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 93}
+		ITA_RED_calculate_date = yes
+	}
+
+	#####marginalized#####
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 6}
+			has_country_flag = ITA_RED_is_old_guard
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 95}
+		ITA_RED_calculate_date = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {ITA_RED_cultrev_selected_pillar = 6}
+			has_country_flag = ITA_RED_is_new_left
+		}
+
+		set_variable = {ITA_RED_cultrev_events = 97}
+		ITA_RED_calculate_date = yes
+	}
+	else = {
+
+		set_variable = {ITA_RED_cultrev_events = 99}
+		ITA_RED_calculate_date = yes
+	}
+
+	ITA_RED_maths_shit = yes
+}
+ITA_RED_calculate_bottom_pillar_effects = {
+	#####Farmers#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_farmers_progress > 0}
+		}
+		set_variable = {ITA_RED_farmers_pop_growth = ITA_RED_farmers_progress}
+		subtract_from_variable = {ITA_RED_farmers_pop_growth = 50}
+		divide_variable = {ITA_RED_farmers_pop_growth = 25}
+		subtract_from_variable = {ITA_RED_overall_pop_growth = ITA_RED_farmers_pop_growth_previous}
+		add_to_variable = {ITA_RED_overall_pop_growth = ITA_RED_farmers_pop_growth}
+		set_variable = {ITA_RED_farmers_pop_growth_previous = ITA_RED_farmers_pop_growth}
+	}
+	else = {
+		set_variable = {ITA_RED_farmers_pop_growth = ITA_RED_farmers_progress_red}
+		subtract_from_variable = {ITA_RED_farmers_pop_growth = 50}
+		divide_variable = {ITA_RED_farmers_pop_growth = 50}
+		multiply_variable = {ITA_RED_farmers_pop_growth = 3}
+		add_to_variable = {ITA_RED_farmers_pop_growth = 1}
+		subtract_from_variable = {ITA_RED_overall_pop_growth = ITA_RED_farmers_pop_growth_previous}
+		add_to_variable = {ITA_RED_overall_pop_growth = ITA_RED_farmers_pop_growth}
+		set_variable = {ITA_RED_farmers_pop_growth_previous = ITA_RED_farmers_pop_growth}
+	}
+
+	#####Workers#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_workers_progress > 0}
+		}
+		set_variable = {ITA_RED_workers_prod_eff = ITA_RED_workers_progress}
+		subtract_from_variable = {ITA_RED_workers_prod_eff = 50}
+		divide_variable = {ITA_RED_workers_prod_eff = 50}
+		multiply_variable = {ITA_RED_workers_prod_eff = 8}
+		add_to_variable = {ITA_RED_workers_prod_eff = 2}
+		subtract_from_variable = {ITA_RED_overall_prod_eff = ITA_RED_workers_prod_eff_previous}
+		add_to_variable = {ITA_RED_overall_prod_eff = ITA_RED_workers_prod_eff}
+		set_variable = {ITA_RED_workers_prod_eff_previous = ITA_RED_workers_prod_eff}
+	}
+	else = {
+		set_variable = {ITA_RED_workers_prod_eff = ITA_RED_workers_progress_red}
+		subtract_from_variable = {ITA_RED_workers_prod_eff = 50}
+		divide_variable = {ITA_RED_workers_prod_eff = 50}
+		multiply_variable = {ITA_RED_workers_prod_eff = 9}
+		add_to_variable = {ITA_RED_workers_prod_eff = 3}
+		subtract_from_variable = {ITA_RED_overall_prod_eff = ITA_RED_workers_prod_eff_previous}
+		add_to_variable = {ITA_RED_overall_prod_eff = ITA_RED_workers_prod_eff}
+		set_variable = {ITA_RED_workers_prod_eff_previous = ITA_RED_workers_prod_eff}
+	}
+
+	#####Middle Class#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_middle_class_progress > 0}
+		}
+		set_variable = {ITA_RED_middle_class_gdp_growth = ITA_RED_middle_class_progress}
+		subtract_from_variable = {ITA_RED_middle_class_gdp_growth = 50}
+		divide_variable = {ITA_RED_middle_class_gdp_growth = 50}
+		multiply_variable = {ITA_RED_middle_class_gdp_growth = 3}
+		add_to_variable = {ITA_RED_middle_class_gdp_growth = 1}
+		subtract_from_variable = {ITA_RED_middle_class_gdp_growth = ITA_RED_middle_class_gdp_growth_previous}
+		set_temp_variable = { gdp_growth_temp = ITA_RED_middle_class_gdp_growth }
+		econ_gdp_growth_change = yes
+		add_to_variable = {ITA_RED_middle_class_gdp_growth = ITA_RED_middle_class_gdp_growth_previous}
+		set_variable = {ITA_RED_middle_class_gdp_growth_previous = ITA_RED_middle_class_gdp_growth}
+	}
+	else = {
+		set_variable = {ITA_RED_middle_class_gdp_growth = ITA_RED_middle_class_progress_red}
+		subtract_from_variable = {ITA_RED_middle_class_gdp_growth = 50}
+		divide_variable = {ITA_RED_middle_class_gdp_growth = 50}
+		multiply_variable = {ITA_RED_middle_class_gdp_growth = 3.5}
+		add_to_variable = {ITA_RED_middle_class_gdp_growth = 1.5}
+		subtract_from_variable = {ITA_RED_middle_class_gdp_growth = ITA_RED_middle_class_gdp_growth_previous}
+		set_temp_variable = { gdp_growth_temp = ITA_RED_middle_class_gdp_growth }
+		econ_gdp_growth_change = yes
+		add_to_variable = {ITA_RED_middle_class_gdp_growth = ITA_RED_middle_class_gdp_growth_previous}
+		set_variable = {ITA_RED_middle_class_gdp_growth_previous = ITA_RED_middle_class_gdp_growth}
+	}
+
+	#####Soldiers Police#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_soldiers_police_progress > 0}
+		}
+		set_variable = {ITA_RED_soldiers_police_weekly_manpower = ITA_RED_soldiers_police_progress}
+		divide_variable = {ITA_RED_soldiers_police_weekly_manpower = 50}
+		subtract_from_variable = {ITA_RED_overall_weekly_manpower = ITA_RED_soldiers_police_weekly_manpower_previous}
+		add_to_variable = {ITA_RED_overall_weekly_manpower = ITA_RED_soldiers_police_weekly_manpower}
+		set_variable = {ITA_RED_soldiers_police_weekly_manpower_previous = ITA_RED_soldiers_police_weekly_manpower}
+	}
+	else = {
+		set_variable = {ITA_RED_soldiers_police_weekly_manpower = ITA_RED_soldiers_police_progress_red}
+		divide_variable = {ITA_RED_soldiers_police_weekly_manpower = 100}
+		multiply_variable = {ITA_RED_soldiers_police_weekly_manpower = 3}
+		subtract_from_variable = {ITA_RED_overall_weekly_manpower = ITA_RED_soldiers_police_weekly_manpower_previous}
+		add_to_variable = {ITA_RED_overall_weekly_manpower = ITA_RED_soldiers_police_weekly_manpower}
+		set_variable = {ITA_RED_soldiers_police_weekly_manpower_previous = ITA_RED_soldiers_police_weekly_manpower}
+	}
+
+	#####Clergy#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_clergy_progress > 0}
+		}
+		set_variable = {ITA_RED_clergy_stability = ITA_RED_clergy_progress}
+		subtract_from_variable = {ITA_RED_clergy_stability = 50}
+		divide_variable = {ITA_RED_clergy_stability = 50}
+		multiply_variable = {ITA_RED_clergy_stability = 7}
+		add_to_variable = {ITA_RED_clergy_stability = 3}
+		subtract_from_variable = {ITA_RED_overall_stability = ITA_RED_clergy_stability_previous}
+		add_to_variable = {ITA_RED_overall_stability = ITA_RED_clergy_stability}
+		set_variable = {ITA_RED_clergy_stability_previous = ITA_RED_clergy_stability}
+	}
+	else = {
+		set_variable = {ITA_RED_clergy_stability = ITA_RED_clergy_progress_red}
+		subtract_from_variable = {ITA_RED_clergy_stability = 50}
+		divide_variable = {ITA_RED_clergy_stability = 50}
+		multiply_variable = {ITA_RED_clergy_stability = 8}
+		add_to_variable = {ITA_RED_clergy_stability = 4}
+		subtract_from_variable = {ITA_RED_overall_stability = ITA_RED_clergy_stability_previous}
+		add_to_variable = {ITA_RED_overall_stability = ITA_RED_clergy_stability}
+		set_variable = {ITA_RED_clergy_stability_previous = ITA_RED_clergy_stability}
+	}
+
+	#####Academia#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_academia_progress > 0}
+		}
+		set_variable = {ITA_RED_academia_research_speed = ITA_RED_academia_progress}
+		subtract_from_variable = {ITA_RED_academia_research_speed = 50}
+		divide_variable = {ITA_RED_academia_research_speed = 50}
+		multiply_variable = {ITA_RED_academia_research_speed = 4}
+		add_to_variable = {ITA_RED_academia_research_speed = 1}
+		subtract_from_variable = {ITA_RED_overall_research_speed = ITA_RED_academia_research_speed_previous}
+		add_to_variable = {ITA_RED_overall_research_speed = ITA_RED_academia_research_speed}
+		set_variable = {ITA_RED_academia_research_speed_previous = ITA_RED_academia_research_speed}
+	}
+	else = {
+		set_variable = {ITA_RED_academia_research_speed = ITA_RED_academia_progress_red}
+		subtract_from_variable = {ITA_RED_academia_research_speed = 50}
+		divide_variable = {ITA_RED_academia_research_speed = 50}
+		multiply_variable = {ITA_RED_academia_research_speed = 4.5}
+		add_to_variable = {ITA_RED_academia_research_speed = 1.5}
+		subtract_from_variable = {ITA_RED_overall_research_speed = ITA_RED_academia_research_speed_previous}
+		add_to_variable = {ITA_RED_overall_research_speed = ITA_RED_academia_research_speed}
+		set_variable = {ITA_RED_academia_research_speed_previous = ITA_RED_academia_research_speed}
+	}
+
+	#####Marginalized#####
+	if = {
+		limit = {
+			check_variable = {ITA_RED_marginalized_progress > 0}
+		}
+		set_variable = {ITA_RED_marginalized_political_power_gain = ITA_RED_marginalized_progress}
+		subtract_from_variable = {ITA_RED_marginalized_political_power_gain = 50}
+		divide_variable = {ITA_RED_marginalized_political_power_gain = 50}
+		multiply_variable = {ITA_RED_marginalized_political_power_gain = 6}
+		add_to_variable = {ITA_RED_marginalized_political_power_gain = 4}
+		subtract_from_variable = {ITA_RED_overall_political_power_gain = ITA_RED_marginalized_political_power_gain_previous}
+		add_to_variable = {ITA_RED_overall_political_power_gain = ITA_RED_marginalized_political_power_gain}
+		set_variable = {ITA_RED_marginalized_political_power_gain_previous = ITA_RED_marginalized_political_power_gain}
+	}
+	else = {
+		set_variable = {ITA_RED_marginalized_political_power_gain = ITA_RED_marginalized_progress_red}
+		subtract_from_variable = {ITA_RED_marginalized_political_power_gain = 50}
+		divide_variable = {ITA_RED_marginalized_political_power_gain = 50}
+		multiply_variable = {ITA_RED_marginalized_political_power_gain = 7}
+		add_to_variable = {ITA_RED_marginalized_political_power_gain = 5}
+		subtract_from_variable = {ITA_RED_overall_political_power_gain = ITA_RED_marginalized_political_power_gain_previous}
+		add_to_variable = {ITA_RED_overall_political_power_gain = ITA_RED_marginalized_political_power_gain}
+		set_variable = {ITA_RED_marginalized_political_power_gain_previous = ITA_RED_marginalized_political_power_gain}
+	}
+	ITA_RED_cultrev_effects_for_dynmod = yes
+}
+
+## Perks ##
+
+ITA_RED_setup_blue_perks = {
+	clear_array = ITA_RED_blue_perks
+	if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 0 } }
+		for_each_loop = {
+			array = ITA_RED_blue_perks_farmers
+			index = i
+
+			add_to_array = { ITA_RED_blue_perks = ITA_RED_blue_perks_farmers^i }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 1 } }
+		for_each_loop = {
+			array = ITA_RED_blue_perks_workers
+			index = i
+
+			add_to_array = { ITA_RED_blue_perks = ITA_RED_blue_perks_workers^i }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 2 } }
+		for_each_loop = {
+			array = ITA_RED_blue_perks_bourgeois
+			index = i
+
+			add_to_array = { ITA_RED_blue_perks = ITA_RED_blue_perks_bourgeois^i }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 3 } }
+		for_each_loop = {
+			array = ITA_RED_blue_perks_soldiers
+			index = i
+
+			add_to_array = { ITA_RED_blue_perks = ITA_RED_blue_perks_soldiers^i }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 4 } }
+		for_each_loop = {
+			array = ITA_RED_blue_perks_clergy
+			index = i
+
+			add_to_array = { ITA_RED_blue_perks = ITA_RED_blue_perks_clergy^i }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 5 } }
+		for_each_loop = {
+			array = ITA_RED_blue_perks_academia
+			index = i
+
+			add_to_array = { ITA_RED_blue_perks = ITA_RED_blue_perks_academia^i }
+		}
+	}
+	else = {
+		for_each_loop = {
+			array = ITA_RED_blue_perks_marginalized
+			index = i
+
+			add_to_array = { ITA_RED_blue_perks = ITA_RED_blue_perks_marginalized^i }
+		}
+	}
+
+	# count amount of perks, to determine y value of the gridbox, since gridboxes suck
+	clear_variable = ITA_RED_blue_perks_y
+	for_each_loop = {
+		array = ITA_RED_blue_perks
+		value = ITA_RED_blue_perks_temp
+
+		add_to_variable = { ITA_RED_blue_perks_y = 1 }
+	}
+	add_to_variable = { ITA_RED_blue_perks_y = -4 }
+	multiply_variable = { ITA_RED_blue_perks_y = -83 }
+
+	set_variable = { ITA_RED_blue_perks_y_names = 8 }
+	add_to_variable = { ITA_RED_blue_perks_y_names = ITA_RED_blue_perks_y }
+}
+
+ITA_RED_blue_perk_click = {
+	set_temp_variable = { ITA_RED_blue_perks_chosen = ITA_RED_blue_perks^i }
+	if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 0 } }
+		remove_from_array = { ITA_RED_blue_perks_farmers = ITA_RED_blue_perks^i }
+		clr_country_flag = ITA_RED_culrev_pick_perk_farmers
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 1 } }
+		remove_from_array = { ITA_RED_blue_perks_workers = ITA_RED_blue_perks^i }
+		clr_country_flag = ITA_RED_culrev_pick_perk_workers
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 2 } }
+		remove_from_array = { ITA_RED_blue_perks_bourgeois = ITA_RED_blue_perks^i }
+		clr_country_flag = ITA_RED_culrev_pick_perk_middle_class
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 3 } }
+		remove_from_array = { ITA_RED_blue_perks_soldiers = ITA_RED_blue_perks^i }
+		clr_country_flag = ITA_RED_culrev_pick_perk_soldiers
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 4 } }
+		remove_from_array = { ITA_RED_blue_perks_clergy = ITA_RED_blue_perks^i }
+		clr_country_flag = ITA_RED_culrev_pick_perk_clergy
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 5 } }
+		remove_from_array = { ITA_RED_blue_perks_academia = ITA_RED_blue_perks^i }
+		clr_country_flag = ITA_RED_culrev_pick_perk_academia
+	}
+	else = {
+		remove_from_array = { ITA_RED_blue_perks_marginalized = ITA_RED_blue_perks^i }
+		clr_country_flag = ITA_RED_culrev_pick_perk_marginalized
+	}
+	remove_from_array = { ITA_RED_blue_perks = ITA_RED_blue_perks^i }
+	# count amount of perks, to determine y value of the gridbox, since gridboxes suck
+	clear_variable = ITA_RED_blue_perks_y
+	for_each_loop = {
+		array = ITA_RED_blue_perks
+		value = ITA_RED_blue_perks_temp
+
+		add_to_variable = { ITA_RED_blue_perks_y = 1 }
+	}
+	add_to_variable = { ITA_RED_blue_perks_y = -4 }
+	multiply_variable = { ITA_RED_blue_perks_y = -83 }
+
+	set_variable = { ITA_RED_blue_perks_y_names = 8 }
+	add_to_variable = { ITA_RED_blue_perks_y_names = ITA_RED_blue_perks_y }
+
+	ITA_RED_blue_perk_give_effect = yes
+}
+
+ITA_RED_blue_perk_give_effect = {
+
+	# Rural
+	if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 1 } }
+		set_temp_variable = { business_tax_temp = -0.1 }
+		econ_business_tax_rate_change = yes
+		tno_unemployment_worsen = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 2 } }
+		tno_income_taxation_worsen = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 3 } }
+		set_temp_variable = { gdp_growth_temp = -0.03 }
+		econ_gdp_growth_change = yes
+		TNO_worsen_agriculture_med = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 4 } }
+		TNO_worsen_agriculture_med = yes
+	}
+
+	# Urban
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 11 } }
+		set_temp_variable = { gdp_growth_temp = -0.05 }
+		econ_gdp_growth_change = yes
+		set_temp_variable = { ITA_RED_severity_weekly_temp = 0.5 }
+		ITA_RED_cultrev_severity_change_weekly = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 12 } }
+		set_temp_variable = { gdp_growth_temp = -0.025 }
+		econ_gdp_growth_change = yes
+		set_temp_variable = { econ_centralization_temp = 10 }
+		econ_centralization_change = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 13 } }
+		tno_trade_unions_worsen = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 14 } }
+		TNO_worsen_academic_base_med = yes
+	}
+
+	# Bourgeois
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 21 } }
+		TNO_worsen_poverty_high = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 22 } }
+		tno_press_rights_worsen = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 23 } }
+		TNO_worsen_academic_base_med = yes
+		add_political_power = -25
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 24 } }
+		tno_public_meetings_worsen = yes
+	}
+
+	# Soldiers
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 31 } }
+		tno_security_worsen = yes
+		tno_penal_system_worsen = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 32 } }
+		TNO_worsen_army_professionalism_med = yes
+		set_temp_variable = { econ_centralization_temp = -5 }
+		econ_centralization_change = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 33 } }
+		tno_security_worsen = yes
+		add_stability = -0.1
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 34 } }
+		TNO_worsen_army_professionalism_med = yes
+		add_manpower = -7000
+	}
+
+	# Clergy
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 41 } }
+		tno_pensions_worsen = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 42 } }
+		tno_religious_rights_worsen = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 43 } }
+		add_political_power = -60
+		add_stability = -0.05
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 44 } }
+		tno_health_care_worsen = yes
+	}
+
+	# Academia
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 51 } }
+		tno_education_worsen = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 52 } }
+		TNO_worsen_research_facilities_med = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 53 } }
+		add_stability = -0.1
+		set_temp_variable = { ITA_RED_reaction_weekly_temp = 0.5 }
+		ITA_RED_cultrev_reaction_change_weekly = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 54 } }
+		TNO_worsen_research_facilities_med = yes
+	}
+
+	# Marginalized
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 61 } }
+		tno_vote_franchise_improve = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 62 } }
+		tno_immigration_worsen = yes
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 63 } }
+		add_stability = -0.1
+		add_political_power = -75
+	}
+	else_if = {
+		limit = {check_variable = { ITA_RED_blue_perks_chosen = 64 } }
+		tno_gender_rights_worsen = yes
+	}
+}
+
+# Here we store the perks for each category, so they can be transferred over to the main pillar later on
+# This allows us to remember which perks have been taken from the "bank" while not needing 7 gridboxes to store everything
+
+ITA_RED_setup_blue_perks_farmers = {
+	clear_array = ITA_RED_blue_perks_farmers
+
+	add_to_array = { ITA_RED_blue_perks_farmers = 1 }
+	add_to_array = { ITA_RED_blue_perks_farmers = 2 }
+	add_to_array = { ITA_RED_blue_perks_farmers = 3 }
+	add_to_array = { ITA_RED_blue_perks_farmers = 4 }
+}
+
+ITA_RED_setup_blue_perks_workers = {
+	clear_array = ITA_RED_blue_perks_workers
+
+	add_to_array = { ITA_RED_blue_perks_workers = 11 }
+	add_to_array = { ITA_RED_blue_perks_workers = 12 }
+	add_to_array = { ITA_RED_blue_perks_workers = 13 }
+	add_to_array = { ITA_RED_blue_perks_workers = 14 }
+}
+
+ITA_RED_setup_blue_perks_bourgeois = {
+	clear_array = ITA_RED_blue_perks_bourgeois
+
+	add_to_array = { ITA_RED_blue_perks_bourgeois = 21 }
+	add_to_array = { ITA_RED_blue_perks_bourgeois = 22 }
+	add_to_array = { ITA_RED_blue_perks_bourgeois = 23 }
+	add_to_array = { ITA_RED_blue_perks_bourgeois = 24 }
+}
+
+ITA_RED_setup_blue_perks_soldiers = {
+	clear_array = ITA_RED_blue_perks_soldiers
+
+	add_to_array = { ITA_RED_blue_perks_soldiers = 31 }
+	add_to_array = { ITA_RED_blue_perks_soldiers = 32 }
+	add_to_array = { ITA_RED_blue_perks_soldiers = 33 }
+	add_to_array = { ITA_RED_blue_perks_soldiers = 34 }
+}
+
+ITA_RED_setup_blue_perks_clergy = {
+	clear_array = ITA_RED_blue_perks_clergy
+
+	add_to_array = { ITA_RED_blue_perks_clergy = 41 }
+	add_to_array = { ITA_RED_blue_perks_clergy = 42 }
+	add_to_array = { ITA_RED_blue_perks_clergy = 43 }
+	add_to_array = { ITA_RED_blue_perks_clergy = 44 }
+}
+
+ITA_RED_setup_blue_perks_academia = {
+	clear_array = ITA_RED_blue_perks_academia
+
+	add_to_array = { ITA_RED_blue_perks_academia = 51 }
+	add_to_array = { ITA_RED_blue_perks_academia = 52 }
+	add_to_array = { ITA_RED_blue_perks_academia = 53 }
+	add_to_array = { ITA_RED_blue_perks_academia = 54 }
+}
+
+ITA_RED_setup_blue_perks_marginalized = {
+	clear_array = ITA_RED_blue_perks_marginalized
+
+	add_to_array = { ITA_RED_blue_perks_marginalized = 61 }
+	add_to_array = { ITA_RED_blue_perks_marginalized = 62 }
+	add_to_array = { ITA_RED_blue_perks_marginalized = 63 }
+	add_to_array = { ITA_RED_blue_perks_marginalized = 64 }
+}
+
+ITA_RED_setup_red_perks = {
+	clear_array = ITA_RED_red_perks
+	if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 0 } }
+		for_each_loop = {
+			array = ITA_RED_red_perks_farmers
+			index = i
+
+			add_to_array = { ITA_RED_red_perks = ITA_RED_red_perks_farmers^i }
+		}
+		if = {
+			limit = {
+				NOT = { check_variable = { ITA_RED_red_perks^4 = 0 } }
+				check_variable = { ITA_RED_red_perks^0 = 0 }
+			}
+			remove_from_array = { ITA_RED_red_perks = 0 }
+			remove_from_array = { ITA_RED_red_perks_farmers^i = 0 }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 1 } }
+		for_each_loop = {
+			array = ITA_RED_red_perks_workers
+			index = i
+
+			add_to_array = { ITA_RED_red_perks = ITA_RED_red_perks_workers^i }
+		}
+		if = {
+			limit = {
+				NOT = { check_variable = { ITA_RED_red_perks^4 = 0 } }
+				check_variable = { ITA_RED_red_perks^0 = 0 }
+			}
+			remove_from_array = { ITA_RED_red_perks = 0 }
+			remove_from_array = { ITA_RED_red_perks_workers^i = 0 }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 2 } }
+		for_each_loop = {
+			array = ITA_RED_red_perks_bourgeois
+			index = i
+
+			add_to_array = { ITA_RED_red_perks = ITA_RED_red_perks_bourgeois^i }
+		}
+		if = {
+			limit = {
+				NOT = { check_variable = { ITA_RED_red_perks^4 = 0 } }
+				check_variable = { ITA_RED_red_perks^0 = 0 }
+			}
+			remove_from_array = { ITA_RED_red_perks = 0 }
+			remove_from_array = { ITA_RED_red_perks_bourgeois^i = 0 }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 3 } }
+		for_each_loop = {
+			array = ITA_RED_red_perks_soldiers
+			index = i
+
+			add_to_array = { ITA_RED_red_perks = ITA_RED_red_perks_soldiers^i }
+		}
+		if = {
+			limit = {
+				NOT = { check_variable = { ITA_RED_red_perks^4 = 0 } }
+				check_variable = { ITA_RED_red_perks^0 = 0 }
+			}
+			remove_from_array = { ITA_RED_red_perks = 0 }
+			remove_from_array = { ITA_RED_red_perks_soldiers^i = 0 }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 4 } }
+		for_each_loop = {
+			array = ITA_RED_red_perks_clergy
+			index = i
+
+			add_to_array = { ITA_RED_red_perks = ITA_RED_red_perks_clergy^i }
+		}
+		if = {
+			limit = {
+				NOT = { check_variable = { ITA_RED_red_perks^4 = 0 } }
+				check_variable = { ITA_RED_red_perks^0 = 0 }
+			}
+			remove_from_array = { ITA_RED_red_perks = 0 }
+			remove_from_array = { ITA_RED_red_perks_clergy^i = 0 }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 5 } }
+		for_each_loop = {
+			array = ITA_RED_red_perks_academia
+			index = i
+
+			add_to_array = { ITA_RED_red_perks = ITA_RED_red_perks_academia^i }
+		}
+		if = {
+			limit = {
+				NOT = { check_variable = { ITA_RED_red_perks^4 = 0 } }
+				check_variable = { ITA_RED_red_perks^0 = 0 }
+			}
+			remove_from_array = { ITA_RED_red_perks = 0 }
+			remove_from_array = { ITA_RED_red_perks_academia^i = 0 }
+		}
+	}
+	else = {
+		for_each_loop = {
+			array = ITA_RED_red_perks_marginalized
+			index = i
+
+			add_to_array = { ITA_RED_red_perks = ITA_RED_red_perks_marginalized^i }
+		}
+		if = {
+			limit = {
+				NOT = { check_variable = { ITA_RED_red_perks^4 = 0 } }
+				check_variable = { ITA_RED_red_perks^0 = 0 }
+			}
+			remove_from_array = { ITA_RED_red_perks = 0 }
+			remove_from_array = { ITA_RED_red_perks_marginalized^i = 0 }
+		}
+	}
+
+	# count amount of perks, to determine y value of the gridbox, since gridboxes suck
+	clear_variable = ITA_RED_red_perks_y
+	for_each_loop = {
+		array = ITA_RED_red_perks
+		value = ITA_RED_red_perks_temp
+
+		add_to_variable = { ITA_RED_red_perks_y = 1 }
+	}
+	add_to_variable = { ITA_RED_red_perks_y = -4 }
+	multiply_variable = { ITA_RED_red_perks_y = -83 }
+
+	set_variable = { ITA_RED_red_perks_y_names = 8 }
+	add_to_variable = { ITA_RED_red_perks_y_names = ITA_RED_red_perks_y }
+}
+
+ITA_RED_setup_red_perks_add = {
+	clear_array = ITA_RED_red_perks_add
+	if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 0 } }
+		for_each_loop = {
+			array = ITA_RED_red_perks_farmers_add
+			index = i
+
+			add_to_array = { ITA_RED_red_perks_add = ITA_RED_red_perks_farmers_add^i }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 1 } }
+		for_each_loop = {
+			array = ITA_RED_red_perks_workers_add
+			index = i
+
+			add_to_array = { ITA_RED_red_perks_add = ITA_RED_red_perks_workers_add^i }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 2 } }
+		for_each_loop = {
+			array = ITA_RED_red_perks_bourgeois_add
+			index = i
+
+			add_to_array = { ITA_RED_red_perks_add = ITA_RED_red_perks_bourgeois_add^i }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 3 } }
+		for_each_loop = {
+			array = ITA_RED_red_perks_soldiers_add
+			index = i
+
+			add_to_array = { ITA_RED_red_perks_add = ITA_RED_red_perks_soldiers_add^i }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 4 } }
+		for_each_loop = {
+			array = ITA_RED_red_perks_clergy_add
+			index = i
+
+			add_to_array = { ITA_RED_red_perks_add = ITA_RED_red_perks_clergy_add^i }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 5 } }
+		for_each_loop = {
+			array = ITA_RED_red_perks_academia_add
+			index = i
+
+			add_to_array = { ITA_RED_red_perks_add = ITA_RED_red_perks_academia_add^i }
+		}
+	}
+	else = {
+		for_each_loop = {
+			array = ITA_RED_red_perks_marginalized_add
+			index = i
+
+			add_to_array = { ITA_RED_red_perks_add = ITA_RED_red_perks_marginalized_add^i }
+		}
+	}
+}
+
+ITA_RED_red_perk_click = { # add red perk effects here
+	set_temp_variable = { ITA_RED_red_perks_add_temp = ITA_RED_red_perks_add^i }
+	remove_from_array = { ITA_RED_red_perks_add = ITA_RED_red_perks_add_temp }
+	if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 0 } }
+		add_to_array = { ITA_RED_red_perks_farmers = ITA_RED_red_perks_add_temp }
+		remove_from_array = { ITA_RED_red_perks_farmers_add = ITA_RED_red_perks_add_temp }
+		clr_country_flag = ITA_RED_culrev_pick_perk_farmers
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 1 } }
+		add_to_array = { ITA_RED_red_perks_workers = ITA_RED_red_perks_add_temp }
+		remove_from_array = { ITA_RED_red_perks_workers_add = ITA_RED_red_perks_add_temp }
+		clr_country_flag = ITA_RED_culrev_pick_perk_workers
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 2 } }
+		add_to_array = { ITA_RED_red_perks_bourgeois = ITA_RED_red_perks_add_temp }
+		remove_from_array = { ITA_RED_red_perks_bourgeois_add = ITA_RED_red_perks_add_temp }
+		clr_country_flag = ITA_RED_culrev_pick_perk_middle_class
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 3 } }
+		add_to_array = { ITA_RED_red_perks_soldiers = ITA_RED_red_perks_add_temp }
+		remove_from_array = { ITA_RED_red_perks_soldiers_add = ITA_RED_red_perks_add_temp }
+		clr_country_flag = ITA_RED_culrev_pick_perk_soldiers
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 4 } }
+		add_to_array = { ITA_RED_red_perks_clergy = ITA_RED_red_perks_add_temp }
+		remove_from_array = { ITA_RED_red_perks_clergy_add = ITA_RED_red_perks_add_temp }
+		clr_country_flag = ITA_RED_culrev_pick_perk_clergy
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar = 5 } }
+		add_to_array = { ITA_RED_red_perks_academia = ITA_RED_red_perks_add_temp }
+		remove_from_array = { ITA_RED_red_perks_academia_add = ITA_RED_red_perks_add_temp }
+		clr_country_flag = ITA_RED_culrev_pick_perk_academia
+	}
+	else = {
+		add_to_array = { ITA_RED_red_perks_marginalized = ITA_RED_red_perks_add_temp }
+		remove_from_array = { ITA_RED_red_perks_marginalized_add = ITA_RED_red_perks_add_temp }
+		clr_country_flag = ITA_RED_culrev_pick_perk_marginalized
+	}
+
+	## specific effects here
+	if = {
+		limit = { check_variable = { ITA_RED_red_perks_add_temp = 1 } }
+	}
+
+	ITA_RED_setup_red_perks = yes
+
+	clr_country_flag = ITA_RED_selecting_policies
+
+	ITA_RED_red_perk_give_effect = yes
+}
+
+ITA_RED_red_perk_give_effect = {
+	meta_effect = {
+		text = {
+			add_ideas = ITA_RED_red_perks_[ITA_RED_red_perk_give_effect_value]_name
+		}
+		ITA_RED_red_perk_give_effect_value = "[?ITA_RED_red_perks_add_temp]"
+	}
+}
+
+# ID's for each leader (add numbers based on specific perk type)
+# 1-8: generic or extra
+# 9-10: secchia
+# 11-12: feltrinelli
+# 13-14: rodano
+# 15-16: damen
+# 17-18: negri
+# 19-20: gallo
+
+# ITA_RED_add_specific_perk_temp for perk id
+# ITA_RED_cultrev_selected_pillar_temp for pillar id
+
+ITA_RED_add_specific_perk = {
+	if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar_temp = 0 } }
+		add_to_array = { ITA_RED_red_perks_farmers_add = ITA_RED_add_specific_perk_temp }
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar_temp = 1 } }
+		add_to_array = { ITA_RED_red_perks_workers_add = ITA_RED_add_specific_perk_temp }
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar_temp = 2 } }
+		add_to_array = { ITA_RED_red_perks_bourgeois_add = ITA_RED_add_specific_perk_temp }
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar_temp = 3 } }
+		add_to_array = { ITA_RED_red_perks_soldiers_add = ITA_RED_add_specific_perk_temp }
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar_temp = 4 } }
+		add_to_array = { ITA_RED_red_perks_clergy_add = ITA_RED_add_specific_perk_temp }
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_cultrev_selected_pillar_temp = 5 } }
+		add_to_array = { ITA_RED_red_perks_academia_add = ITA_RED_add_specific_perk_temp }
+	}
+	else = {
+		add_to_array = { ITA_RED_red_perks_marginalized_add = ITA_RED_add_specific_perk_temp }
+	}
+
+	custom_effect_tooltip = ITA_RED_add_specific_perk_tt
+}
+
+ITA_RED_setup_red_perks_farmers = {
+	add_to_array = { ITA_RED_red_perks_farmers = 0 }
+
+	clear_array = ITA_RED_red_perks_farmers_add
+
+	add_to_array = { ITA_RED_red_perks_farmers_add = 1 }
+	add_to_array = { ITA_RED_red_perks_farmers_add = 2 }
+	add_to_array = { ITA_RED_red_perks_farmers_add = 3 }
+}
+
+ITA_RED_setup_red_perks_workers = {
+	add_to_array = { ITA_RED_red_perks_workers = 0 }
+
+	clear_array = ITA_RED_red_perks_workers_add
+
+	add_to_array = { ITA_RED_red_perks_workers_add = 21 }
+	add_to_array = { ITA_RED_red_perks_workers_add = 22 }
+	add_to_array = { ITA_RED_red_perks_workers_add = 23 }
+}
+
+ITA_RED_setup_red_perks_bourgeois = {
+	add_to_array = { ITA_RED_red_perks_bourgeois = 0 }
+
+	clear_array = ITA_RED_red_perks_bourgeois_add
+
+	add_to_array = { ITA_RED_red_perks_bourgeois_add = 41 }
+	add_to_array = { ITA_RED_red_perks_bourgeois_add = 42 }
+	add_to_array = { ITA_RED_red_perks_bourgeois_add = 43 }
+}
+
+ITA_RED_setup_red_perks_soldiers = {
+	add_to_array = { ITA_RED_red_perks_soldiers = 0 }
+
+	clear_array = ITA_RED_red_perks_soldiers_add
+
+	add_to_array = { ITA_RED_red_perks_soldiers_add = 61 }
+	add_to_array = { ITA_RED_red_perks_soldiers_add = 62 }
+	add_to_array = { ITA_RED_red_perks_soldiers_add = 63 }
+}
+
+ITA_RED_setup_red_perks_clergy = {
+	add_to_array = { ITA_RED_red_perks_clergy = 0 }
+
+	clear_array = ITA_RED_red_perks_clergy_add
+
+	add_to_array = { ITA_RED_red_perks_clergy_add = 81 }
+	add_to_array = { ITA_RED_red_perks_clergy_add = 82 }
+	add_to_array = { ITA_RED_red_perks_clergy_add = 83 }
+}
+
+ITA_RED_setup_red_perks_academia = {
+	add_to_array = { ITA_RED_red_perks_academia = 0 }
+
+	clear_array = ITA_RED_red_perks_academia_add
+
+	add_to_array = { ITA_RED_red_perks_academia_add = 101 }
+	add_to_array = { ITA_RED_red_perks_academia_add = 102 }
+	add_to_array = { ITA_RED_red_perks_academia_add = 103 }
+}
+
+ITA_RED_setup_red_perks_marginalized = {
+	add_to_array = { ITA_RED_red_perks_marginalized = 0 }
+
+	clear_array = ITA_RED_red_perks_marginalized_add
+
+	add_to_array = { ITA_RED_red_perks_marginalized_add = 121 }
+	add_to_array = { ITA_RED_red_perks_marginalized_add = 122 }
+	add_to_array = { ITA_RED_red_perks_marginalized_add = 123 }
+}
+
+ITA_RED_calculate_date = {
+	set_variable = { ITA_RED_cultrev_date = global.date }
+}
+ITA_RED_update_rev_fervour = {
+}
+ITA_RED_weekly_tick = {
+	ITA_RED_clamp_variables = yes
+
+	# rev fervor impact on velocity
+	set_temp_variable = { ITA_RED_revolutionary_fervor_temp = ITA_RED_revolutionary_fervor }
+	divide_temp_variable = { ITA_RED_revolutionary_fervor_temp = 100 }
+	subtract_from_variable = { ITA_RED_revolutionary_fervor = 2.5 }
+	add_to_variable = { ITA_RED_farmers_velocity = ITA_RED_revolutionary_fervor_temp }
+	add_to_variable = { ITA_RED_workers_velocity = ITA_RED_revolutionary_fervor_temp }
+	add_to_variable = { ITA_RED_middle_class_velocity = ITA_RED_revolutionary_fervor_temp }
+	add_to_variable = { ITA_RED_soldiers_police_velocity = ITA_RED_revolutionary_fervor_temp }
+	add_to_variable = { ITA_RED_clergy_velocity = ITA_RED_revolutionary_fervor_temp }
+	add_to_variable = { ITA_RED_academia_velocity = ITA_RED_revolutionary_fervor_temp }
+	add_to_variable = { ITA_RED_marginalized_velocity = ITA_RED_revolutionary_fervor_temp }
+
+	if = {
+		limit = { NOT = { has_country_flag = ITA_RED_no_more_militants } }
+		add_to_variable = { ITA_RED_militant_approval = modifier@ITA_RED_weekly_militant_approval_modifier }
+	}
+	if = {
+		limit = { NOT = { has_country_flag = ITA_RED_no_more_reactionaries } }
+		add_to_variable = { ITA_RED_reaction = modifier@ITA_RED_weekly_reaction_modifier }
+	}
+
+	add_to_variable = { ITA_RED_severity = modifier@ITA_RED_weekly_severity_modifier }
+	add_to_variable = { ITA_RED_red_terror = modifier@ITA_RED_weekly_red_terror_modifier }
+	add_to_variable = { ITA_RED_revolutionary_fervor = modifier@ITA_RED_weekly_fervor_modifier }
+
+	set_temp_variable = {ITA_RED_pillar_change_farmers_temp = ITA_RED_farmers_velocity}
+	ITA_RED_cultrev_progress_farmers = yes
+	set_temp_variable = {ITA_RED_pillar_change_workers_temp = ITA_RED_workers_velocity}
+	ITA_RED_cultrev_progress_workers = yes
+	set_temp_variable = {ITA_RED_pillar_change_middle_class_temp = ITA_RED_middle_class_velocity}
+	ITA_RED_cultrev_progress_middle_class = yes
+	set_temp_variable = {ITA_RED_pillar_change_soldiers_police_temp = ITA_RED_soldiers_police_velocity}
+	ITA_RED_cultrev_progress_soldiers_police = yes
+	set_temp_variable = {ITA_RED_pillar_change_clergy_temp = ITA_RED_clergy_velocity}
+	ITA_RED_cultrev_progress_clergy = yes
+	set_temp_variable = {ITA_RED_pillar_change_academia_temp = ITA_RED_academia_velocity}
+	ITA_RED_cultrev_progress_academia = yes
+	set_temp_variable = {ITA_RED_pillar_change_marginalized_temp = ITA_RED_marginalized_velocity}
+	ITA_RED_cultrev_progress_marginalized = yes
+
+	# Velocity decay, gotta pace yourself so you gotta consistently earn progress
+	subtract_from_variable = { ITA_RED_farmers_velocity = ITA_RED_revolutionary_fervor_temp }
+	subtract_from_variable = { ITA_RED_workers_velocity = ITA_RED_revolutionary_fervor_temp }
+	subtract_from_variable = { ITA_RED_middle_class_velocity = ITA_RED_revolutionary_fervor_temp }
+	subtract_from_variable = { ITA_RED_soldiers_police_velocity = ITA_RED_revolutionary_fervor_temp }
+	subtract_from_variable = { ITA_RED_clergy_velocity = ITA_RED_revolutionary_fervor_temp }
+	subtract_from_variable = { ITA_RED_academia_velocity = ITA_RED_revolutionary_fervor_temp }
+	subtract_from_variable = { ITA_RED_marginalized_velocity = ITA_RED_revolutionary_fervor_temp }
+	subtract_from_variable = { ITA_RED_farmers_velocity = 1 }
+	subtract_from_variable = { ITA_RED_workers_velocity = 1 }
+	subtract_from_variable = { ITA_RED_middle_class_velocity = 1 }
+	subtract_from_variable = { ITA_RED_soldiers_police_velocity = 1 }
+	subtract_from_variable = { ITA_RED_clergy_velocity = 1 }
+	subtract_from_variable = { ITA_RED_academia_velocity = 1 }
+	subtract_from_variable = { ITA_RED_marginalized_velocity = 1 }
+
+	if = {
+		limit = {
+			check_variable = { ITA_RED_militant_approval < 1 }
+			NOT = { has_country_flag = ITA_RED_no_more_militants }
+		}
+		if = {
+			limit = {
+				check_variable = { ITA_RED_severity > 50 }
+			}
+			country_event = red_italy_culrev.10
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_RED_severity < 50 }
+				has_dynamic_modifier = { modifier = ITA_RED_militant_debuff }
+			}
+			country_event = red_italy_culrev.13
+		}
+	}
+
+	if = {
+		limit = {
+			check_variable = { ITA_RED_reaction > 99 }
+			NOT = { has_country_flag = ITA_RED_no_more_reactionaries }
+		}
+		if = {
+			limit = {
+				check_variable = { ITA_RED_red_terror > 50 }
+			}
+			country_event = red_italy_culrev.15
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_RED_red_terror < 50 }
+				has_dynamic_modifier = { modifier = ITA_RED_reaction_debuff }
+			}
+			country_event = red_italy_culrev.16
+		}
+	}
+
+	if = {
+		limit = { check_variable = { ITA_RED_severity > 99 } }
+		country_event = red_italy_culrev.14
+	}
+
+	if = {
+		limit = { check_variable = { ITA_RED_red_terror > 99 } }
+		country_event = red_italy_culrev.18
+	}
+
+	ITA_RED_maths_shit = yes
+}
+
+ITA_RED_clamp_variables = {
+	clamp_variable = {var = ITA_RED_revolutionary_fervor min = 0 max = 100}
+
+	clamp_variable = {var = ITA_RED_marginalized_velocity min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_academia_velocity min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_clergy_velocity min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_soldiers_police_velocity min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_middle_class_velocity min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_workers_velocity min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_farmers_velocity min = 0 max = 100}
+
+	clamp_variable = {var = ITA_RED_farmers_progress min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_workers_progress min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_middle_class_progress min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_soldiers_police_progress min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_clergy_progress min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_academia_progress min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_marginalized_progress min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_farmers_progress_red min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_workers_progress_red min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_middle_class_progress_red min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_soldiers_police_progress_red min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_clergy_progress_red min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_academia_progress_red min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_marginalized_progress_red min = 0 max = 100}
+
+	clamp_variable = {var = ITA_RED_militant_approval min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_reaction min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_severity min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_red_terror min = 0 max = 100}
+
+	set_variable = {ITA_RED_militant_approval_show = ITA_RED_militant_approval}
+	set_variable = {ITA_RED_reaction_show = ITA_RED_reaction}
+	set_variable = {ITA_RED_severity_show = ITA_RED_severity}
+	set_variable = {ITA_RED_red_terror_show = ITA_RED_red_terror}
+
+	clamp_variable = {var = ITA_RED_militant_approval_show min = ITA_RED_student_low_cap max = ITA_RED_student_cap}
+	clamp_variable = {var = ITA_RED_reaction_show min = ITA_RED_reaction_low_cap max = 100}
+	clamp_variable = {var = ITA_RED_severity_show min = ITA_RED_severity_low_cap max = ITA_RED_severity_cap}
+	clamp_variable = {var = ITA_RED_red_terror_show min = 0 max = 100}
+}
+ITA_RED_maths_shit = {
+	ITA_RED_update_rev_fervour = yes
+	ITA_RED_calculate_bottom_pillar_effects = yes
+	ITA_RED_cultrev_stage_changing_shit = yes
+	ITA_RED_cultrev_calculate_effects_main_pillars = yes
+	ITA_RED_clamp_variables = yes
+}
+ITA_RED_cultrev_effects_for_dynmod = {
+	set_variable = {ITA_RED_dynmod_stab = ITA_RED_overall_stability}
+	divide_variable = {ITA_RED_dynmod_stab = 100}
+
+	set_variable = {ITA_RED_dynmod_stab_growth = ITA_RED_overall_stability_growth}
+	divide_variable = {ITA_RED_dynmod_stab_growth = 100}
+
+	set_variable = {ITA_RED_dynmod_pp_growth = ITA_RED_overall_political_power_gain}
+	divide_variable = {ITA_RED_dynmod_pp_growth = 100}
+
+	set_variable = {ITA_RED_dynmod_pop_growth = ITA_RED_overall_pop_growth}
+	divide_variable = {ITA_RED_dynmod_pop_growth = 100}
+
+	set_variable = {ITA_RED_dynmod_product_eff = ITA_RED_overall_prod_eff}
+	divide_variable = {ITA_RED_dynmod_product_eff = 100}
+
+	set_variable = {ITA_RED_dynmod_manpower = ITA_RED_overall_weekly_manpower}
+
+	set_variable = {ITA_RED_dynmod_research_speed = ITA_RED_overall_research_speed}
+	divide_variable = {ITA_RED_dynmod_research_speed = 100}
+
+	divide_variable = {ITA_RED_dynmod_manpower = 100}
+}
+##Student Approval##
+ITA_RED_cultrev_militant_approval_change = {
+	add_to_variable = {ITA_RED_militant_approval = ITA_RED_militant_approval_temp}
+	hidden_effect = {
+		ITA_RED_maths_shit = yes
+	}
+	custom_effect_tooltip = ITA_RED_cultrev_militant_approval_change_tt
+}
+ITA_RED_cultrev_militant_approval_change_weekly = {
+	add_to_variable = {ITA_RED_militant_approval_weekly = ITA_RED_militant_approval_weekly_temp}
+	custom_effect_tooltip = ITA_RED_cultrev_militant_approval_change_weekly_tt
+}
+##Severity##
+ITA_RED_cultrev_severity_change = {
+	add_to_variable = {ITA_RED_severity = ITA_RED_severity_temp}
+	hidden_effect = {
+		ITA_RED_maths_shit = yes
+	}
+	custom_effect_tooltip = ITA_RED_cultrev_severity_change_tt
+}
+ITA_RED_cultrev_severity_change_weekly = {
+	add_to_variable = {ITA_RED_severity_weekly = ITA_RED_severity_weekly_temp}
+	custom_effect_tooltip = ITA_RED_cultrev_severity_change_weekly_tt
+}
+##Reaction##
+ITA_RED_cultrev_reaction_change = {
+	add_to_variable = {ITA_RED_reaction = ITA_RED_reaction_temp}
+	hidden_effect = {
+		ITA_RED_maths_shit = yes
+	}
+	custom_effect_tooltip = ITA_RED_cultrev_reaction_change_tt
+}
+ITA_RED_cultrev_reaction_change_weekly = {
+	add_to_variable = {ITA_RED_reaction_weekly = ITA_RED_reaction_weekly_temp}
+	custom_effect_tooltip = ITA_RED_cultrev_reaction_change_weekly_tt
+}
+##Red Terror##
+ITA_RED_cultrev_red_terror_change = {
+	add_to_variable = {ITA_RED_red_terror = ITA_RED_red_terror_temp}
+	hidden_effect = {
+		ITA_RED_maths_shit = yes
+	}
+	custom_effect_tooltip = ITA_RED_cultrev_red_terror_change_tt
+}
+ITA_RED_cultrev_red_terror_change_weekly = {
+	add_to_variable = {ITA_RED_red_terror_weekly = ITA_RED_red_terror_weekly_temp}
+	custom_effect_tooltip = ITA_RED_cultrev_red_terror_change_weekly_tt
+}
+
+##Rev Fervour##
+ITA_RED_cultrev_revolutionary_fervour_change = {
+	add_to_variable = {ITA_RED_revolutionary_fervor = ITA_RED_revolutionary_fervor_temp}
+	hidden_effect = {
+		ITA_RED_maths_shit = yes
+	}
+	custom_effect_tooltip = ITA_RED_cultrev_revolutionary_fervour_change_tt
+}
+###Pillars###
+ITA_RED_cultrev_progress_farmers = {
+	set_temp_variable = { ITA_RED_farmers_multiplier_modifier_temp = ITA_RED_pillar_change_farmers_temp }
+	multiply_temp_variable = { ITA_RED_farmers_multiplier_modifier_temp = modifier@ITA_RED_farmers_multiplier_modifier }
+	custom_effect_tooltip = ITA_RED_cultrev_progress_farmers_tt
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_RED_culrev_pick_perk_farmers
+			}
+		}
+		set_variable = {ITA_RED_pillar_change_farmers = ITA_RED_pillar_change_farmers_temp}
+		add_to_variable = { ITA_RED_pillar_change_farmers = ITA_RED_farmers_multiplier_modifier_temp }
+		ITA_RED_cultrev_rev_change_in_pillars = yes
+	}
+	else = {
+		custom_effect_tooltip = ITA_RED_cultrev_no_progress_pick_your_perk
+	}
+}
+ITA_RED_cultrev_progress_farmers_weekly = {
+	custom_effect_tooltip = ITA_RED_cultrev_progress_farmers_weekly_tt
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_RED_culrev_pick_perk_farmers
+			}
+		}
+		add_to_variable = {ITA_RED_farmers_velocity = ITA_RED_farmers_velocity_temp}
+	}
+	else = {
+		custom_effect_tooltip = ITA_RED_cultrev_no_progress_pick_your_perk
+	}
+}
+ITA_RED_cultrev_progress_workers = {
+	set_temp_variable = { ITA_RED_workers_multiplier_modifier_temp = ITA_RED_pillar_change_workers_temp }
+	multiply_temp_variable = { ITA_RED_workers_multiplier_modifier_temp = modifier@ITA_RED_workers_multiplier_modifier }
+	custom_effect_tooltip = ITA_RED_cultrev_progress_workers_tt
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_RED_culrev_pick_perk_workers
+			}
+		}
+		set_variable = {ITA_RED_pillar_change_workers = ITA_RED_pillar_change_workers_temp}
+		add_to_variable = { ITA_RED_pillar_change_workers = ITA_RED_workers_multiplier_modifier_temp }
+		ITA_RED_cultrev_rev_change_in_pillars = yes
+	}
+	else = {
+		custom_effect_tooltip = ITA_RED_cultrev_no_progress_pick_your_perk
+	}
+}
+ITA_RED_cultrev_progress_workers_weekly = {
+	custom_effect_tooltip = ITA_RED_cultrev_progress_workers_weekly_tt
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_RED_culrev_pick_perk_workers
+			}
+		}
+		add_to_variable = {ITA_RED_workers_velocity = ITA_RED_workers_velocity_temp}
+	}
+	else = {
+		custom_effect_tooltip = ITA_RED_cultrev_no_progress_pick_your_perk
+	}
+}
+ITA_RED_cultrev_progress_middle_class = {
+	set_temp_variable = { ITA_RED_middle_class_multiplier_modifier_temp = ITA_RED_pillar_change_middle_class_temp }
+	multiply_temp_variable = { ITA_RED_middle_class_multiplier_modifier_temp = modifier@ITA_RED_middle_class_multiplier_modifier }
+	custom_effect_tooltip = ITA_RED_cultrev_progress_middle_class_tt
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_RED_culrev_pick_perk_middle_class
+			}
+		}
+		set_variable = {ITA_RED_pillar_change_middle_class = ITA_RED_pillar_change_middle_class_temp}
+		add_to_variable = { ITA_RED_pillar_change_middle_class = ITA_RED_middle_class_multiplier_modifier_temp }
+		ITA_RED_cultrev_rev_change_in_pillars = yes
+	}
+	else = {
+		custom_effect_tooltip = ITA_RED_cultrev_no_progress_pick_your_perk
+	}
+}
+ITA_RED_cultrev_progress_middle_class_weekly = {
+	custom_effect_tooltip = ITA_RED_cultrev_progress_middle_class_weekly_tt
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_RED_culrev_pick_perk_middle_class
+			}
+		}
+		add_to_variable = {ITA_RED_middle_class_velocity = ITA_RED_middle_class_velocity_temp}
+	}
+	else = {
+		custom_effect_tooltip = ITA_RED_cultrev_no_progress_pick_your_perk
+	}
+}
+ITA_RED_cultrev_progress_soldiers_police = {
+	set_temp_variable = { ITA_RED_soldiers_police_multiplier_modifier_temp = ITA_RED_pillar_change_soldiers_police_temp }
+	multiply_temp_variable = { ITA_RED_soldiers_police_multiplier_modifier_temp = modifier@ITA_RED_soldiers_police_multiplier_modifier }
+	custom_effect_tooltip = ITA_RED_cultrev_progress_soldiers_police_tt
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_RED_culrev_pick_perk_soldiers
+			}
+		}
+		set_variable = {ITA_RED_pillar_change_soldiers_police = ITA_RED_pillar_change_soldiers_police_temp}
+		add_to_variable = { ITA_RED_pillar_change_soldiers_police = ITA_RED_soldiers_police_multiplier_modifier_temp }
+		ITA_RED_cultrev_rev_change_in_pillars = yes
+	}
+	else = {
+		custom_effect_tooltip = ITA_RED_cultrev_no_progress_pick_your_perk
+	}
+}
+ITA_RED_cultrev_progress_soldiers_police_weekly = {
+	custom_effect_tooltip = ITA_RED_cultrev_progress_soldiers_police_weekly_tt
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_RED_culrev_pick_perk_soldiers
+			}
+		}
+		add_to_variable = {ITA_RED_soldiers_police_velocity = ITA_RED_soldiers_police_velocity_temp}
+	}
+	else = {
+		custom_effect_tooltip = ITA_RED_cultrev_no_progress_pick_your_perk
+	}
+}
+ITA_RED_cultrev_progress_clergy = {
+	set_temp_variable = { ITA_RED_clergy_multiplier_modifier_temp = ITA_RED_pillar_change_clergy_temp }
+	multiply_temp_variable = { ITA_RED_clergy_multiplier_modifier_temp = modifier@ITA_RED_clergy_multiplier_modifier }
+	custom_effect_tooltip = ITA_RED_cultrev_progress_clergy_tt
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_RED_culrev_pick_perk_clergy
+			}
+		}
+		set_variable = {ITA_RED_pillar_change_clergy = ITA_RED_pillar_change_clergy_temp}
+		add_to_variable = { ITA_RED_pillar_change_clergy = ITA_RED_clergy_multiplier_modifier_temp }
+		ITA_RED_cultrev_rev_change_in_pillars = yes
+	}
+	else = {
+		custom_effect_tooltip = ITA_RED_cultrev_no_progress_pick_your_perk
+	}
+}
+ITA_RED_cultrev_progress_clergy_weekly = {
+	custom_effect_tooltip = ITA_RED_cultrev_progress_clergy_weekly_tt
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_RED_culrev_pick_perk_clergy
+			}
+		}
+		add_to_variable = {ITA_RED_clergy_velocity = ITA_RED_clergy_velocity_temp}
+	}
+	else = {
+		custom_effect_tooltip = ITA_RED_cultrev_no_progress_pick_your_perk
+	}
+}
+ITA_RED_cultrev_progress_academia = {
+	set_temp_variable = { ITA_RED_academia_multiplier_modifier_temp = ITA_RED_pillar_change_academia_temp }
+	multiply_temp_variable = { ITA_RED_academia_multiplier_modifier_temp = modifier@ITA_RED_academia_multiplier_modifier }
+	custom_effect_tooltip = ITA_RED_cultrev_progress_academia_tt
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_RED_culrev_pick_perk_academia
+			}
+		}
+		set_variable = {ITA_RED_pillar_change_academia = ITA_RED_pillar_change_academia_temp}
+		add_to_variable = { ITA_RED_pillar_change_academia = ITA_RED_academia_multiplier_modifier_temp }
+		ITA_RED_cultrev_rev_change_in_pillars = yes
+	}
+	else = {
+		custom_effect_tooltip = ITA_RED_cultrev_no_progress_pick_your_perk
+	}
+}
+ITA_RED_cultrev_progress_academia_weekly = {
+	custom_effect_tooltip = ITA_RED_cultrev_progress_academia_weekly_tt
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_RED_culrev_pick_perk_academia
+			}
+		}
+		add_to_variable = {ITA_RED_academia_velocity = ITA_RED_academia_velocity_temp}
+	}
+	else = {
+		custom_effect_tooltip = ITA_RED_cultrev_no_progress_pick_your_perk
+	}
+}
+ITA_RED_cultrev_progress_marginalized = {
+	set_temp_variable = { ITA_RED_marginalized_multiplier_modifier_temp = ITA_RED_pillar_change_marginalized_temp }
+	multiply_temp_variable = { ITA_RED_marginalized_multiplier_modifier_temp = modifier@ITA_RED_marginalized_multiplier_modifier }
+	custom_effect_tooltip = ITA_RED_cultrev_progress_marginalized_tt
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_RED_culrev_pick_perk_marginalized
+			}
+		}
+		set_variable = {ITA_RED_pillar_change_marginalized = ITA_RED_pillar_change_marginalized_temp}
+		add_to_variable = { ITA_RED_pillar_change_marginalized = ITA_RED_marginalized_multiplier_modifier_temp }
+		ITA_RED_cultrev_rev_change_in_pillars = yes
+	}
+	else = {
+		custom_effect_tooltip = ITA_RED_cultrev_no_progress_pick_your_perk
+	}
+}
+ITA_RED_cultrev_progress_marginalized_weekly = {
+	custom_effect_tooltip = ITA_RED_cultrev_progress_marginalized_weekly_tt
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_RED_culrev_pick_perk_marginalized
+			}
+		}
+		add_to_variable = {ITA_RED_marginalized_velocity = ITA_RED_marginalized_velocity_temp}
+	}
+	else = {
+		custom_effect_tooltip = ITA_RED_cultrev_no_progress_pick_your_perk
+	}
+}
+
+ITA_RED_culrev_add_policy = {
+	add_to_array = { ITA_RED_rev_decrees = ITA_RED_rev_decrees_temp }
+	custom_effect_tooltip = ITA_RED_add_decree_tt
+}
+
+ITA_RED_epilogue_remove_militants = {
+	set_country_flag = ITA_RED_no_more_militants
+	set_variable = { ITA_RED_militant_approval = 100 }
+	custom_effect_tooltip = ITA_RED_epilogue_remove_militants_tt
+	remove_dynamic_modifier = { modifier = ITA_RED_militant_debuff }
+}
+
+ITA_RED_epilogue_remove_reactionaries = {
+	set_variable = { ITA_RED_reaction = 0 }
+	set_country_flag = ITA_RED_no_more_reactionaries
+	custom_effect_tooltip = ITA_RED_epilogue_remove_reactionaries_tt
+	remove_dynamic_modifier = { modifier = ITA_RED_reaction_debuff }
+	if = {
+		limit = {
+			has_idea = tno_political_parties_controlled_opposition
+			NOT = { has_country_flag = ITA_RED_rodano_branch_3 }
+		}
+		tno_political_parties_worsen = yes
+	}
+}
+
+ITA_RED_epilogue_downgrade_severity = {
+	set_temp_variable = { ITA_RED_severity_temp = -50 }
+	ITA_RED_cultrev_severity_change = yes
+	custom_effect_tooltip = ITA_RED_epilogue_downgrade_severity_tt
+}
+
+ITA_RED_epilogue_downgrade_red_terror = {
+	set_temp_variable = { ITA_RED_red_terror_temp = -50 }
+	ITA_RED_cultrev_red_terror_change = yes
+	custom_effect_tooltip = ITA_RED_epilogue_downgrade_red_terror_tt
+}
+
+## The King's Reforms
+
+ITA_RED_Kings_Gov_Initialize_Variables = {
+	set_country_flag = ITA_RED_kings_culrev_available
+
+	set_variable = { ITA_RED_farmers_stage = 1 }
+	set_variable = { ITA_RED_workers_stage = 1 }
+	set_variable = { ITA_RED_middle_class_stage = 1 }
+	set_variable = { ITA_RED_soldiers_police_stage = 1 }
+	set_variable = { ITA_RED_clergy_stage = 1 }
+	set_variable = { ITA_RED_academia_stage = 1 }
+	set_variable = { ITA_RED_marginalized_stage = 1 }
+
+	set_variable = { ITA_RED_Old_Left_Power = 15 }
+	set_variable = { ITA_RED_Old_Left_Power_weekly = 2 }
+	set_variable = { ITA_RED_New_Left_Power = 15 }
+	set_variable = { ITA_RED_New_Left_Power_weekly = 2 }
+	set_variable = { ITA_RED_CathCom_Power = 15 }
+	set_variable = { ITA_RED_CathCom_Power_weekly = 2 }
+
+	set_variable = {ITA_RED_Fascist_Vines_Farmers = ITA_Ciano_POP_Loyalties^00}
+	add_to_variable = {ITA_RED_Fascist_Vines_Farmers = ITA_Ciano_POP_Loyalties^01}
+	set_variable = {ITA_RED_Fascist_Vines_Workers = ITA_Ciano_POP_Loyalties^10}
+	add_to_variable = {ITA_RED_Fascist_Vines_Workers = ITA_Ciano_POP_Loyalties^11}
+	set_variable = {ITA_RED_Fascist_Vines_Middle_Classes = ITA_Ciano_POP_Loyalties^20}
+	add_to_variable = {ITA_RED_Fascist_Vines_Middle_Classes = ITA_Ciano_POP_Loyalties^21}
+	set_variable = {ITA_RED_Fascist_Vines_Soldiers = ITA_Ciano_POP_Loyalties^30}
+	add_to_variable = {ITA_RED_Fascist_Vines_Soldiers = ITA_Ciano_POP_Loyalties^31}
+	set_variable = {ITA_RED_Fascist_Vines_Clergy = ITA_Ciano_POP_Loyalties^110}
+	add_to_variable = {ITA_RED_Fascist_Vines_Clergy = ITA_Ciano_POP_Loyalties^111}
+	set_variable = {ITA_RED_Fascist_Vines_Academia = ITA_Ciano_POP_Loyalties^40}
+	add_to_variable = {ITA_RED_Fascist_Vines_Academia = ITA_Ciano_POP_Loyalties^41}
+	set_variable = {ITA_RED_Fascist_Vines_marginalized = ITA_Ciano_POP_Loyalties^50}
+	add_to_variable = {ITA_RED_Fascist_Vines_marginalized = ITA_Ciano_POP_Loyalties^51}
+
+	set_variable = { ITA_RED_Fascist_Power_weekly = ITA_RED_Fascist_Vines_Farmers }
+	add_to_variable = { ITA_RED_Fascist_Power_weekly = ITA_RED_Fascist_Vines_Workers }
+	add_to_variable = { ITA_RED_Fascist_Power_weekly = ITA_RED_Fascist_Vines_Middle_Classes }
+	add_to_variable = { ITA_RED_Fascist_Power_weekly = ITA_RED_Fascist_Vines_Soldiers }
+	add_to_variable = { ITA_RED_Fascist_Power_weekly = ITA_RED_Fascist_Vines_Clergy }
+	add_to_variable = { ITA_RED_Fascist_Power_weekly = ITA_RED_Fascist_Vines_Academia }
+	add_to_variable = { ITA_RED_Fascist_Power_weekly = ITA_RED_Fascist_Vines_marginalized }
+	divide_variable = { ITA_RED_Fascist_Power_weekly = 4 }
+	set_variable = {ITA_RED_Fascist_Power = ITA_RED_Fascist_Power_weekly}
+	divide_variable = { ITA_RED_Fascist_Power_weekly = 25 }
+
+	country_event = {
+		id = kingsgov_gui.1
+	}
+
+	set_variable = { ITA_RED_revolutionary_fervor = ITA_radicalization }
+	add_dynamic_modifier = { modifier = ITA_RED_kings_reforms_modifier }
+	ITA_RED_kingsgov_dynmod_calculations = yes
+}
+
+ITA_RED_kingsgov_dynmod_calculations = {
+	set_variable = { ITA_RED_kingsgov_dynmod_communist_total = ITA_RED_Old_Left_Power }
+	add_to_variable = { ITA_RED_kingsgov_dynmod_communist_total = ITA_RED_New_Left_Power }
+	add_to_variable = { ITA_RED_kingsgov_dynmod_communist_total = ITA_RED_CathCom_Power }
+	set_temp_variable = { ITA_RED_kingspower_temp = ITA_RED_kingsgov_dynmod_communist_total }
+	divide_variable = { ITA_RED_kingsgov_dynmod_communist_total = 600 }
+
+	set_variable = { ITA_RED_kingsgov_dynmod_fascist = ITA_RED_Fascist_Power }
+	add_to_temp_variable = { ITA_RED_kingspower_temp = ITA_RED_kingsgov_dynmod_fascist }
+	divide_variable = { ITA_RED_kingsgov_dynmod_fascist = 200 }
+
+	divide_temp_variable = { ITA_RED_kingspower_temp = 4 }
+	set_variable = { ITA_RED_kingsgov_dynmod_kingspower = 50 }
+	subtract_from_variable = { ITA_RED_kingsgov_dynmod_kingspower = ITA_RED_kingspower_temp }
+	divide_variable = { ITA_RED_kingsgov_dynmod_kingspower = 100 }
+	set_variable = { ITA_RED_kingsgov_dynmod_kingspower_stability = ITA_RED_kingsgov_dynmod_kingspower}
+	divide_variable = { ITA_RED_kingsgov_dynmod_kingspower_stability = 100 }
+
+	clamp_variable = {var = ITA_RED_Old_Left_Power min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_New_Left_Power min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_CathCom_Power min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_Fascist_Power min = 0 max = 100}
+}
+ITA_RED_Kings_Reforms_Decrease_Farmer_Vines = {
+	subtract_from_variable = {ITA_RED_Fascist_Vines_Farmers = 10}
+	clamp_variable = {var = ITA_RED_Fascist_Vines_Farmers min = 0}
+	custom_effect_tooltip = ITA_RED_Kings_Reforms_Decrease_Farmer_Vines_tt
+}
+ITA_RED_Kings_Reforms_Decrease_Worker_Vines = {
+	subtract_from_variable = {ITA_RED_Fascist_Vines_Workers = 10}
+	clamp_variable = {var = ITA_RED_Fascist_Vines_Workers min = 0}
+	custom_effect_tooltip = ITA_RED_Kings_Reforms_Decrease_Worker_Vines_tt
+}
+ITA_RED_Kings_Reforms_Decrease_Middle_Classes_Vines = {
+	subtract_from_variable = {ITA_RED_Fascist_Vines_Middle_Classes = 10}
+	clamp_variable = {var = ITA_RED_Fascist_Vines_Middle_Classes min = 0}
+	custom_effect_tooltip = ITA_RED_Kings_Reforms_Decrease_Middle_Classes_Vines_tt
+}
+ITA_RED_Kings_Reforms_Decrease_Soldiers_Vines = {
+	subtract_from_variable = {ITA_RED_Fascist_Vines_Soldiers = 10}
+	clamp_variable = {var = ITA_RED_Fascist_Vines_Soldiers min = 0}
+	custom_effect_tooltip = ITA_RED_Kings_Reforms_Decrease_Soldiers_Vines_tt
+}
+ITA_RED_Kings_Reforms_Decrease_Clergy_Vines = {
+	subtract_from_variable = {ITA_RED_Fascist_Vines_Clergy = 10}
+	clamp_variable = {var = ITA_RED_Fascist_Vines_Clergy min = 0}
+	custom_effect_tooltip = ITA_RED_Kings_Reforms_Decrease_Clergy_Vines_tt
+}
+ITA_RED_Kings_Reforms_Decrease_Academia_Vines = {
+	subtract_from_variable = {ITA_RED_Fascist_Vines_Academia = 10}
+	clamp_variable = {var = ITA_RED_Fascist_Vines_Academia min = 0}
+	custom_effect_tooltip = ITA_RED_Kings_Reforms_Decrease_Academia_Vines_tt
+}
+ITA_RED_Kings_Reforms_Decrease_Marginalized_Vines = {
+	clamp_variable = {var = ITA_RED_Kings_Reforms_Decrease_Marginalized_Vines min = 0}
+	custom_effect_tooltip = ITA_RED_Kings_Reforms_Decrease_Marginalized_Vines_tt
+}
+
+
+
+ITA_RED_decrease_old_guard = {
+	subtract_from_variable = {ITA_RED_Old_Left_Power = 5}
+	subtract_from_variable = {ITA_RED_Old_Left_Power_weekly = 1}
+	custom_effect_tooltip = ITA_RED_decrease_old_guard_tt
+	ITA_RED_kingsgov_dynmod_calculations = yes
+}
+ITA_RED_decrease_new_left = {
+	subtract_from_variable = {ITA_RED_New_Left_Power = 5}
+	subtract_from_variable = {ITA_RED_New_Left_Power_weekly = 1}
+	custom_effect_tooltip = ITA_RED_decrease_new_left_tt
+	ITA_RED_kingsgov_dynmod_calculations = yes
+}
+ITA_RED_decrease_cath_com = {
+	subtract_from_variable = {ITA_RED_CathCom_Power = 5}
+	subtract_from_variable = {ITA_RED_CathCom_Power_weekly = 1}
+	custom_effect_tooltip = ITA_RED_decrease_cath_com_tt
+	ITA_RED_kingsgov_dynmod_calculations = yes
+}
+ITA_RED_decrease_fascism = {
+	subtract_from_variable = {ITA_RED_Fascist_Power = 5}
+	subtract_from_variable = {ITA_RED_Fascist_Power_weekly = 0.5}
+	custom_effect_tooltip = ITA_RED_decrease_fascism_tt
+	ITA_RED_kingsgov_dynmod_calculations = yes
+}
+
+ITA_RED_selected_kings_decree = {
+	clr_country_flag = ITA_RED_cultrev_tutorial_decrees_open
+	if = {
+		limit = {
+			check_variable = {ITA_RED_tutorial_selecting_policies = 1}
+		}
+		set_variable = {ITA_RED_kings_selected_policy_1 = ITA_RED_king_decrees^i}
+		else_if = {
+			limit = {
+				check_variable = {ITA_RED_tutorial_selecting_policies = 2}
+			}
+			set_variable = {ITA_RED_kings_selected_policy_2 = ITA_RED_king_decrees^i}
+		}
+		else_if = {
+			limit = {
+				check_variable = {ITA_RED_tutorial_selecting_policies = 3}
+			}
+			set_variable = {ITA_RED_kings_selected_policy_3 = ITA_RED_king_decrees^i}
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {ITA_RED_king_decrees^i = 1}
+		}
+		add_political_power = 25
+		subtract_from_variable = {ITA_RED_Fascist_Power_weekly = 1}
+		else_if = {
+			limit = {
+				check_variable = {ITA_RED_king_decrees^i = 2}
+			}
+			set_country_flag = ITA_has_policy_not_a_single_movement
+		}
+		else_if = {
+			limit = {
+				check_variable = {ITA_RED_king_decrees^i = 3}
+			}
+			subtract_from_variable = {ITA_RED_Old_Left_Power_weekly = 20}
+		}
+		else_if = {
+			limit = {
+				check_variable = {ITA_RED_king_decrees^i = 4}
+			}
+			subtract_from_variable = {ITA_RED_New_Left_Power_weekly = 20}
+		}
+		else_if = {
+			limit = {
+				check_variable = {ITA_RED_king_decrees^i = 5}
+			}
+			subtract_from_variable = {ITA_RED_CathCom_Power_weekly = 20}
+		}
+	}
+}

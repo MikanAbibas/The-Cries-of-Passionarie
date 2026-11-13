@@ -1,0 +1,211 @@
+############################################################################
+## ██╗████████╗ █████╗ ██╗         ██╗███╗   ███╗██████╗ ███████╗██████╗  ##
+## ██║╚══██╔══╝██╔══██╗██║         ██║████╗ ████║██╔══██╗██╔════╝██╔══██╗ ##
+## ██║   ██║   ███████║██║         ██║██╔████╔██║██████╔╝█████╗  ██████╔╝ ##
+## ██║   ██║   ██╔══██║██║         ██║██║╚██╔╝██║██╔═══╝ ██╔══╝  ██╔══██╗ ##
+## ██║   ██║   ██║  ██║███████╗    ██║██║ ╚═╝ ██║██║     ███████╗██║  ██║ ##
+## ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝ ##
+############################################################################
+# Scripted triggers
+
+#################################################
+##=| Empire Management Mech Scripted Trigger |=##
+##======================| |====================##
+#################################################
+
+#Index; Search for these names using ctrl+f and you'll find the section they entitle.
+#	Generic Triggers
+#       EmpireManagement_ENIActionIsAvailable
+#		EmpireManagement_ENIActionCostTrigger
+#
+#	Special Action Triggers
+#		Not listing each one individually, fuck you
+
+#################################################
+#				Generic Triggers				#
+#################################################
+
+# Used to check if an ENI action can be taken in one region
+EmpireManagement_ENIActionIsAvailable = {
+	if = {
+		limit = { NOT = { has_variable = i } }
+		set_temp_variable = { i = EM_SelectedEntry_i }
+	}
+
+	# Base triggers
+	check_variable = { ITA_EM_HasOil^i > 0 } # Has to have oil
+	check_variable = { ITA_EM_OilExploitation^i < 1 } # ENI presence must be lower than max - the variable is a fraction, clamped to 1, and displayed with |0%
+	check_variable = { ITA_EM_Regions_Status^i < 3 } # Has to be in your sphere
+	check_variable = { ITA_EM_OilExploitationCooldown^i = 0 } # Must not be on cooldown
+}
+
+# Money cost triggers are irrelevant so we only check for PP here
+EmpireManagement_ENIActionCostTrigger = {
+	set_temp_variable = { PPCost = 50 }
+	if = {
+		limit = {
+			OR = {
+				check_variable = { EM_SelectedEntry_i = 1  } # Sudan
+				check_variable = { EM_SelectedEntry_i = 23 } # Oman
+				check_variable = { EM_SelectedEntry_i = 26 } # Egypt
+			}
+		}
+		multiply_temp_variable = { PPCost = 2 }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				check_variable = { EM_SelectedEntry_i = 0  } # Libya
+				check_variable = { EM_SelectedEntry_i = 19 } # Iraq
+				check_variable = { EM_SelectedEntry_i = 20 } # Saudi Arabia
+				check_variable = { EM_SelectedEntry_i = 21 } # Gulf
+				check_variable = { EM_SelectedEntry_i = 24 } # Algeria
+			}
+		}
+		multiply_temp_variable = { PPCost = 3 }
+	}
+	has_political_power > var:PPCost
+}
+
+#################################################
+#            Special Action Triggers            #
+#################################################
+# Do keep in mind that Special Actions which have no cost *still* need to have triggers defined here
+# Just put in a always = yes in that case
+
+## Internal
+# Libya
+ITA_EmpireManagement_SpecialAction_Libya_1_Trigger = { 
+	has_equipment = {
+		infantry_equipment > 1499
+	}
+	has_equipment = {
+		support_equipment > 49
+	}
+	has_equipment = {
+		motorized_equipment > 79
+	}
+}
+ITA_EmpireManagement_SpecialAction_Libya_2_Trigger = { }
+ITA_EmpireManagement_SpecialAction_Libya_3_Trigger = { always = yes }
+ITA_EmpireManagement_SpecialAction_Libya_4_Trigger = { has_political_power > 19 }
+ITA_EmpireManagement_SpecialAction_Libya_5_Trigger = { always = yes }
+ITA_EmpireManagement_SpecialAction_Libya_6_Trigger = { always = yes }
+
+# Sudan
+ITA_EmpireManagement_SpecialAction_Sudan_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Sudan_2_Trigger = {  }
+
+# Eritrea
+ITA_EmpireManagement_SpecialAction_Eritrea_1_Trigger = { always = yes }
+ITA_EmpireManagement_SpecialAction_Eritrea_2_Trigger = { always = yes }
+ITA_EmpireManagement_SpecialAction_Eritrea_3_Trigger = { always = yes }
+
+# Ethiopia
+ITA_EmpireManagement_SpecialAction_Ethiopia_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Ethiopia_2_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Ethiopia_3_Trigger = { always = yes }
+
+# Somalia
+ITA_EmpireManagement_SpecialAction_Somalia_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Somalia_2_Trigger = {  }
+
+# Kenya
+ITA_EmpireManagement_SpecialAction_Kenya_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Kenya_2_Trigger = {  }
+
+## Western Europe
+# France
+ITA_EmpireManagement_SpecialAction_France_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_France_2_Trigger = {  }
+
+# Iberia
+ITA_EmpireManagement_SpecialAction_Iberia_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Iberia_2_Trigger = {  }
+
+# Switzerland
+ITA_EmpireManagement_SpecialAction_Switzerland_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Switzerland_2_Trigger = {  }
+
+## Balkans
+# Croatia
+ITA_EmpireManagement_SpecialAction_Croatia_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Croatia_2_Trigger = {  }
+
+# Hungary
+ITA_EmpireManagement_SpecialAction_Hungary_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Hungary_2_Trigger = {  }
+
+# Romania
+ITA_EmpireManagement_SpecialAction_Romania_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Romania_2_Trigger = {  }
+
+# Serbia
+ITA_EmpireManagement_SpecialAction_Serbia_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Serbia_2_Trigger = {  }
+
+# Montenegro
+ITA_EmpireManagement_SpecialAction_Montenegro_1_Trigger = { always = yes }
+ITA_EmpireManagement_SpecialAction_Montenegro_2_Trigger = { always = yes }
+ITA_EmpireManagement_SpecialAction_Montenegro_3_Trigger = { always = yes }
+
+# Albania
+ITA_EmpireManagement_SpecialAction_Albania_1_Trigger = { has_equipment = { infantry_equipment > 499 } }
+ITA_EmpireManagement_SpecialAction_Albania_2_Trigger = { has_equipment = { infantry_equipment > 499 } }
+ITA_EmpireManagement_SpecialAction_Albania_3_Trigger = { always = yes }
+
+# Bulgaria
+ITA_EmpireManagement_SpecialAction_Bulgaria_1_Trigger = { has_political_power > 25 }
+ITA_EmpireManagement_SpecialAction_Bulgaria_2_Trigger = { always = yes }
+ITA_EmpireManagement_SpecialAction_Bulgaria_3_Trigger = { has_political_power > 75 }
+
+# Greece
+ITA_EmpireManagement_SpecialAction_Greece_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Greece_2_Trigger = {  }
+
+## Middle East
+# Turkey
+ITA_EmpireManagement_SpecialAction_Turkey_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Turkey_2_Trigger = {  }
+
+# IME
+ITA_EmpireManagement_SpecialAction_IME_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_IME_2_Trigger = {  }
+
+# Iraq
+ITA_EmpireManagement_SpecialAction_Iraq_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Iraq_2_Trigger = {  }
+
+# Saudi Arabia
+ITA_EmpireManagement_SpecialAction_SaudiArabia_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_SaudiArabia_2_Trigger = {  }
+
+# Gulf
+ITA_EmpireManagement_SpecialAction_Gulf_1_Trigger = { always = yes }
+ITA_EmpireManagement_SpecialAction_Gulf_2_Trigger = { always = yes }
+ITA_EmpireManagement_SpecialAction_Gulf_3_Trigger = { always = yes }
+
+# Yemen
+ITA_EmpireManagement_SpecialAction_Yemen_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Yemen_2_Trigger = {  }
+
+# Oman
+ITA_EmpireManagement_SpecialAction_Oman_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Oman_2_Trigger = {  }
+
+## Africa
+# Algeria
+ITA_EmpireManagement_SpecialAction_Algeria_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Algeria_2_Trigger = {  }
+
+# Tunisia
+ITA_EmpireManagement_SpecialAction_Tunisia_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Tunisia_2_Trigger = {  }
+
+# Egypt
+ITA_EmpireManagement_SpecialAction_Egypt_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Egypt_2_Trigger = {  }
+
+# Morocco
+ITA_EmpireManagement_SpecialAction_Morocco_1_Trigger = {  }
+ITA_EmpireManagement_SpecialAction_Morocco_2_Trigger = {  }

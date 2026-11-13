@@ -1,0 +1,338 @@
+# Vietnam's civil war: the Viet Minh (VMN) against the Empire of Vietnam (VIN), a proxy war between Japan and the
+# US. Skeleton content (user, 2026-10-28); it replaces the old fixed timeline (VIN.0, now #STRIP(superseded) in
+# TNO_Sphere_on_actions.txt).
+#
+#   on_startup +70 days  VIN_vietwar.1   the Viet Minh rise in the Mekong Delta (611); a player may go over to them
+#   +7 days              VIN_vietwar.2   they take Saigon (878)
+#   +13 days             VIN_vietwar.3   Vietnam leaves Japan's faction and the Viet Minh declare war; Japan (VIN_vietwar.4),
+#                                    the US (VIN_vietwar.5) and the news (RA_GLOBAL_NEWS.70). Japan may send volunteers
+#                                    to VIN and the US to VMN (diplomacy_scripted_triggers.txt).
+#   capitulation         TNO_peace_on_actions.txt hands it to VIN_war_settle_capitulation:
+#     Viet Minh win      VMN keeps the south (286, 611, 878); VIN keeps the north and centre (287, 671, 728) as a
+#                        Japanese Army colony (RA_GLOBAL_NEWS.71). US prestige +2, Japan -2.
+#     Empire wins        VIN annexes VMN and rejoins Japan's faction (RA_GLOBAL_NEWS.72); Bao Dai then picks a PM
+#                        (VIN_vietwar.10; news RA_GLOBAL_NEWS.73 Diem, .74 Hoan). US prestige -2, Japan +2.
+#   1969-09-03           VIN_vietwar.11 (on VMN, scheduled when it spawns): Ho Chi Minh dies and Truong Chinh takes
+#                        over; the news (WORLD.16506) goes to everyone else. Never fires if VMN is gone by then.
+#
+# Flags read elsewhere:
+#   VIN_vietnam_war            global, while the war is on (volunteers, AI)
+#   VIN_war_vmn_won            global, the Viet Minh won (VMN_aid_philippine_revolution)
+#   VIN_war_vin_won            global, the Empire won
+#   VIN_vietcong_defeated      global, set with VIN_war_vin_won: the Indochina inflection's trigger condition
+#   VIN_hoan_pm / VIN_diem_pm  on VIN, Bao Dai's choice; picks the Indochina inflection's variant
+
+# VIN scope, VIN_vietwar.1. The Viet Minh claim all of Vietnam and take the Mekong Delta.
+VIN_war_viet_minh_rise = {
+	set_global_flag = VIN_viet_minh_rising
+	every_state = {
+		limit = {
+			OR = {
+				state = 286
+				state = 287
+				state = 611
+				state = 671
+				state = 728
+				state = 878
+			}
+		}
+		add_core_of = VMN
+	}
+	VMN = { transfer_state = 611 }
+	if = {
+		limit = { country_exists = VMN }
+		VMN = {
+			set_capital = { state = 611 }
+			country_event = { id = VIN_vietwar.11 days = 2731 } # Ho Chi Minh dies on 1969-09-03
+			VIN_war_viet_minh_templates = yes
+			add_manpower = 10000
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 1500 }
+			add_equipment_to_stockpile = { type = support_equipment amount = 150 }
+		}
+		611 = {
+			create_unit = {
+				division = "division_template = \"Viet Minh Regiment\" start_experience_factor = 0.3 start_equipment_factor = 0.8"
+				owner = VMN
+				count = 4
+			}
+		}
+	}
+}
+
+# VIN scope, VIN_vietwar.2. Saigon falls; it becomes the Viet Minh capital.
+VIN_war_viet_minh_take_saigon = {
+	if = {
+		limit = {
+			country_exists = VMN
+			owns_state = 878
+		}
+		VMN = {
+			transfer_state = 878
+			set_capital = { state = 878 }
+		}
+		878 = {
+			create_unit = {
+				division = "division_template = \"Viet Minh Regiment\" start_experience_factor = 0.3 start_equipment_factor = 0.8"
+				owner = VMN
+				count = 2
+			}
+		}
+	}
+}
+
+# VMN scope.
+VIN_war_viet_minh_templates = {
+	if = {
+		limit = { NOT = { has_template = "Viet Minh Regiment" } }
+		division_template = {
+			name = "Viet Minh Regiment"
+			regiments = {
+				infantry = { x = 0 y = 0 }
+				infantry = { x = 0 y = 1 }
+				infantry = { x = 0 y = 2 }
+			}
+			support = {
+				artillery = { x = 0 y = 0 }
+			}
+		}
+	}
+}
+
+# VIN scope, VIN_vietwar.3. Vietnam leaves Japan's faction, so Japan can only send volunteers, and the Viet Minh declare
+# war.
+VIN_war_start = {
+	if = {
+		limit = { country_exists = VMN }
+		set_global_flag = VIN_vietnam_war
+		leave_faction = yes
+		VMN = {
+			declare_war_on = {
+				target = VIN
+				type = annex_everything
+			}
+		}
+		JAP = { country_event = { id = VIN_vietwar.4 days = 1 } }
+		USA = { country_event = { id = VIN_vietwar.5 days = 1 } }
+		every_country = { news_event = { id = RA_GLOBAL_NEWS.70 days = 1 } }
+	}
+}
+
+# From TNO_peace_on_actions.txt: ROOT capitulated, FROM won. Ends the war itself, so no default annexation follows.
+VIN_war_settle_capitulation = {
+	clr_global_flag = VIN_vietnam_war
+	clr_global_flag = VIN_viet_minh_rising
+	if = {
+		limit = { ROOT = { original_tag = VIN } }
+		VIN_war_viet_minh_victory = yes
+	}
+	else = {
+		VIN_war_empire_victory = yes
+	}
+}
+
+# The Viet Minh win (ROOT = VIN). They keep the south; the Empire keeps the north and centre, Hue included, and
+# becomes a Japanese Army colony. The Viet Minh stand alone, outside every faction.
+VIN_war_viet_minh_victory = {
+	set_global_flag = VIN_war_vmn_won
+	VMN = {
+		transfer_state = 286
+		transfer_state = 611
+		transfer_state = 878
+		white_peace = VIN
+		add_ideas = VMN_continuation_of_revolution
+	}
+	VIN = { VIN_war_army_colony = yes }
+	USA = { VIN_war_prestige_gain = yes }
+	JAP = { VIN_war_prestige_loss = yes }
+	every_country = { news_event = { id = RA_GLOBAL_NEWS.71 days = 1 } }
+}
+
+# VIN scope. A Japanese general rules what is left, as an Imperial protectorate back in Japan's faction.
+VIN_war_army_colony = {
+	set_cosmetic_tag = VIN_army_colony
+	set_politics = {
+		ruling_party = despotism
+		elections_allowed = no
+	}
+	create_country_leader = {
+		name = "Isamu Chou"
+		picture = "gfx/leaders/JAP/Portrait_Japan_Isamu_Chou.dds"
+		expire = "1999.12.12"
+		ideology = despotism_colonial_government_subtype
+		traits = {
+		}
+	}
+	VIN_war_set_sphere_protectorate = yes
+	if = {
+		limit = { has_idea = VIN_vietcong_idea }
+		remove_ideas = VIN_vietcong_idea
+	}
+	JAP = { add_to_faction = VIN }
+}
+
+# VIN scope. Whatever its sphere status was, it becomes an Imperial protectorate.
+VIN_war_set_sphere_protectorate = {
+	if = {
+		limit = { has_idea = Sphere_Economic_Dependent }
+		remove_ideas = Sphere_Economic_Dependent
+	}
+	if = {
+		limit = { has_idea = Sphere_Fully_Dependent }
+		remove_ideas = Sphere_Fully_Dependent
+	}
+	if = {
+		limit = { has_idea = Sphere_Special_Econ_Zone }
+		remove_ideas = Sphere_Special_Econ_Zone
+	}
+	if = {
+		limit = { has_idea = Sphere_Coequal }
+		remove_ideas = Sphere_Coequal
+	}
+	if = {
+		limit = { NOT = { has_idea = Sphere_Imp_Protectorate } }
+		add_ideas = Sphere_Imp_Protectorate
+	}
+}
+
+# The Empire wins (ROOT = VMN). Vietnam is reunited and rejoins Japan's faction; Bao Dai then picks a PM.
+VIN_war_empire_victory = {
+	set_global_flag = VIN_war_vin_won
+	set_global_flag = VIN_vietcong_defeated
+	VIN = {
+		annex_country = {
+			target = VMN
+			transfer_troops = no
+		}
+		every_owned_state = { remove_core_of = VMN }
+		if = {
+			limit = { has_idea = VIN_vietcong_idea }
+			remove_ideas = VIN_vietcong_idea
+		}
+		country_event = { id = VIN_vietwar.10 days = 14 }
+	}
+	JAP = { add_to_faction = VIN }
+	USA = { VIN_war_prestige_loss = yes }
+	JAP = { VIN_war_prestige_gain = yes }
+	every_country = { news_event = { id = RA_GLOBAL_NEWS.72 days = 1 } }
+}
+
+# Sponsor scope (USA or JAP), same scale as the Madagascar civil war (MAD_proxy_war_sponsor_reward).
+VIN_war_prestige_gain = {
+	custom_effect_tooltip = {
+		localization_key = TNO_prestige_gain
+		PRESTIGE_VALUE = {
+			localization_key = TNO_COLOR_GREEN
+			VALUE_CHANGE = "+2"
+		}
+	}
+	add_to_variable = {
+		var = prestige
+		value = 2
+	}
+}
+
+VIN_war_prestige_loss = {
+	custom_effect_tooltip = {
+		localization_key = TNO_prestige_gain
+		PRESTIGE_VALUE = {
+			localization_key = TNO_COLOR_RED
+			VALUE_CHANGE = "-2"
+		}
+	}
+	add_to_variable = {
+		var = prestige
+		value = -2
+	}
+}
+
+# VIN scope, VIN_vietwar.10. Bao Dai stays the leader; the PM brings his cabinet and the government's ideology.
+VIN_war_appoint_hoan = {
+	set_country_flag = VIN_hoan_pm
+	hidden_effect = { every_country = { news_event = { id = RA_GLOBAL_NEWS.74 days = 1 } } }
+	remove_all_ministers = yes
+	add_ideas = {
+		VIN_Nguyen_Ton_Hoan_hog
+		VIN_Nguyen_Cao_Ky_fm
+		VIN_Vu_Quoc_Thuc_em
+		VIN_Nguyen_Van_Hinh_sm
+	}
+	set_politics = {
+		ruling_party = social_conservative
+		elections_allowed = no
+	}
+	add_popularity = {
+		ideology = social_conservative
+		popularity = 0.3
+	}
+	create_country_leader = {
+		name = "Bao Dai"
+		picture = "Portrait_Vietnam_Bao_Dai.dds"
+		expire = "1999.12.12"
+		ideology = social_conservative_paternalistic_social_conservative_subtype
+		traits = {
+		}
+	}
+}
+
+VIN_war_appoint_diem = {
+	set_country_flag = VIN_diem_pm
+	hidden_effect = { every_country = { news_event = { id = RA_GLOBAL_NEWS.73 days = 1 } } }
+	remove_all_ministers = yes
+	add_ideas = {
+		VIN_Ngo_Dinh_Diem_hog
+		VIN_Nguyen_Van_Tam_fm
+		VIN_Le_Viet_Luong_em
+		VIN_Tran_Nam_Trung_sm
+	}
+	set_politics = {
+		ruling_party = fascism
+		elections_allowed = no
+	}
+	add_popularity = {
+		ideology = fascism
+		popularity = 0.3
+	}
+	# Created after set_politics, so Bao Dai, not the history file's Ngo Dinh Diem, leads the fascist government.
+	create_country_leader = {
+		name = "Bao Dai"
+		picture = "Portrait_Vietnam_Bao_Dai.dds"
+		expire = "1999.12.12"
+		ideology = fascism_integralism_subtype
+		traits = {
+		}
+	}
+}
+
+# The Second Philippine Revolution (1964, to be added) calls this in the revolutionaries' scope when they rise. If the
+# Viet Minh won, they arm the revolution: equipment, manpower and three extra divisions at its capital.
+VMN_aid_philippine_revolution = {
+	if = {
+		limit = { has_global_flag = VIN_war_vmn_won }
+		if = {
+			limit = { NOT = { has_tech = infantry_weapons_1 } }
+			set_technology = { infantry_weapons_1 = 1 }
+		}
+		if = {
+			limit = { NOT = { has_template = "Viet Minh Volunteers" } }
+			division_template = {
+				name = "Viet Minh Volunteers"
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 1 y = 0 }
+				}
+			}
+		}
+		capital_scope = {
+			create_unit = {
+				division = "division_template = \"Viet Minh Volunteers\" start_experience_factor = 0.4 start_equipment_factor = 1"
+				owner = PREV
+				count = 3
+			}
+		}
+		add_manpower = 10000
+		add_equipment_to_stockpile = { type = infantry_equipment amount = 2000 }
+		add_equipment_to_stockpile = { type = support_equipment amount = 200 }
+	}
+}

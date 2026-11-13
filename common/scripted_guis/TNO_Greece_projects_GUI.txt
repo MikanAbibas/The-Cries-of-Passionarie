@@ -1,0 +1,163 @@
+scripted_gui = {
+    GRE_projects_gui = {
+		context_type = decision_category
+		window_name = "GRE_projects_gui"
+
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			always = yes
+		}
+
+		effects = {
+			GRE_project_details_object_front_click = {
+				if = {
+					limit = {
+						NOT = {
+							has_country_flag = GRE_projects_details_window_open
+						}
+					}
+					set_country_flag = GRE_projects_details_window_open
+				}
+				else = {
+					clr_country_flag = GRE_projects_details_window_open
+				}
+			}
+			GRE_project_improve_object_front_click = {
+				GRE_project_improvement_check = yes
+			}
+			GRE_project_speed_up_object_front_click = {
+				add_to_variable = {GRE_projects_number_of_times_sped_up = 1}
+				add_to_variable = {GRE_projects_consumer_goods_used = -0.05} # sign flipped: consumer_goods_factor
+				multiply_variable = {GRE_project_gui_weekly_progress = 1.25}
+			}
+			GRE_project_abandon_object_front_click = {
+				set_country_flag = GRE_project_project_abandoned
+				GRE_projects_fail_current_project = yes
+			}
+			GRE_project_work_hours_object_front_click = {
+				GRE_decrease_approval_ergates_med = yes
+				add_to_variable = {NOX_anger = 3}
+				add_to_variable = {MEA_anger = 3}
+				add_to_variable = {4thoAP_anger = 3}
+				add_stability = -0.02
+				multiply_variable = {GRE_project_gui_weekly_progress = 1.25}
+			}
+			GRE_project_elite_invest_object_front_click = {
+				GRE_decrease_approval_ergates_med = yes
+				multiply_variable = {GRE_project_gui_weekly_progress = 1.25}
+			}
+			GRE_project_invest_object_front_click = {
+				add_to_variable = {GRE_projects_number_of_times_invested = 1}
+				add_to_variable = {GRE_project_days_left = 7}
+				GRE_projects_days_left_calculation = yes
+			}
+		}
+		
+		triggers = {
+			GRE_project_improve_object_front_visible = {
+				AND = {
+					OR = {
+						has_country_flag = GRE_current_project_ports
+						has_country_flag = GRE_current_project_industry
+						has_country_flag = GRE_current_project_sexism
+						has_country_flag = GRE_current_project_jobs
+						has_country_flag = GRE_current_project_schools
+						has_country_flag = GRE_current_project_homes
+						has_country_flag = GRE_current_project_university
+					}
+					check_variable = {GRE_projects_improvement_status < 1}
+				}
+			}
+			GRE_project_speed_up_object_front_visible = {
+				OR = {
+					has_country_flag = GRE_current_project_ports
+					has_country_flag = GRE_current_project_industry
+					has_country_flag = GRE_current_project_sexism
+					has_country_flag = GRE_current_project_jobs
+					has_country_flag = GRE_current_project_schools
+					has_country_flag = GRE_current_project_homes
+					has_country_flag = GRE_current_project_university
+				}
+				check_variable = {GRE_projects_number_of_times_sped_up < 3}
+			}
+			GRE_project_details_object_front_visible = {
+				OR = {
+					has_country_flag = GRE_current_project_ports
+					has_country_flag = GRE_current_project_industry
+					has_country_flag = GRE_current_project_sexism
+					has_country_flag = GRE_current_project_jobs
+					has_country_flag = GRE_current_project_schools
+					has_country_flag = GRE_current_project_homes
+					has_country_flag = GRE_current_project_university
+				}
+			}
+			GRE_project_invest_object_front_visible = {
+				OR = {
+					has_country_flag = GRE_current_project_ports
+					has_country_flag = GRE_current_project_industry
+					has_country_flag = GRE_current_project_sexism
+					has_country_flag = GRE_current_project_jobs
+					has_country_flag = GRE_current_project_schools
+					has_country_flag = GRE_current_project_homes
+					has_country_flag = GRE_current_project_university
+				}
+			}
+			GRE_project_elite_invest_object_front_visible = {
+				OR = {
+					has_country_flag = GRE_current_project_ports
+					has_country_flag = GRE_current_project_industry
+					has_country_flag = GRE_current_project_sexism
+					has_country_flag = GRE_current_project_jobs
+					has_country_flag = GRE_current_project_schools
+					has_country_flag = GRE_current_project_homes
+					has_country_flag = GRE_current_project_university
+				}
+				check_variable = {GRE_projects_number_of_times_invested < 3}
+				check_variable = {GRE_project_days_left < 173}
+			}
+			GRE_project_work_hours_object_front_visible = {
+				OR = {
+					has_country_flag = GRE_current_project_ports
+					has_country_flag = GRE_current_project_industry
+					has_country_flag = GRE_current_project_sexism
+					has_country_flag = GRE_current_project_jobs
+					has_country_flag = GRE_current_project_schools
+					has_country_flag = GRE_current_project_homes
+					has_country_flag = GRE_current_project_university
+				}
+			}
+			GRE_project_abandon_object_front_visible = {
+				OR = {
+					has_country_flag = GRE_current_project_ports
+					has_country_flag = GRE_current_project_industry
+					has_country_flag = GRE_current_project_sexism
+					has_country_flag = GRE_current_project_jobs
+					has_country_flag = GRE_current_project_schools
+					has_country_flag = GRE_current_project_homes
+					has_country_flag = GRE_current_project_university
+				}
+			}
+		}
+		properties = {
+			GRE_project_project_completion_bar = {
+				frame = GRE_project_gui_current_project_progress
+			}
+			GRE_project_timer_bar = {
+				frame = GRE_project_gui_time_left_percentage
+			}
+		}
+	}
+	GRE_projects_gui_details = {
+		context_type = player_context
+		window_name = "GRE_projects_details_gui"
+
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			has_country_flag = GRE_projects_details_window_open
+		}
+		effects = {
+			GRE_projects_details_window_close_button_click = {
+				clr_country_flag = GRE_projects_details_window_open
+				log = "Closed Button Clicked"
+			}
+		}
+	}
+}

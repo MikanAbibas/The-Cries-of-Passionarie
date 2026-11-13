@@ -1,0 +1,137 @@
+YGR_powerstruggle_setup = {
+	set_country_flag = YGR_powerstruggle
+	set_variable = { YGR_ioseliani_influence = 60 } 
+	YGR_clamp_influence_var = yes
+}
+
+YGR_usoyan_wins = {
+	set_politics = {
+		ruling_party = despotism
+	}
+	add_popularity = { ideology = despotism popularity = 0.2 }
+	add_ideas = KOM_Ilo_Devdariani_hog
+	add_ideas = KOM_Anatoly_Cherkasov_sec
+	add_ideas = KOM_Marat_Balagula_for
+	add_ideas = KOM_Vasily_Dinkov_eco
+	set_country_flag = YGR_usoyan_in_charge
+	set_country_flag = YGR_powerstruggle_sorted_flag
+	clr_country_flag = YGR_powerstruggle
+	clr_country_flag = YGR_usoyan_support
+	set_cosmetic_tag = YGR_RUS_despotism
+	remove_unit_leader = 3531
+	remove_unit_leader = 3552
+	kill_ideology_leader = authoritarian_democrat
+	create_country_leader = {
+		name = "Disorganised Opposition"
+		desc = "POLITICS_JABA_IOSELIANI_DESC"
+		picture = "Portrait_Yugra_Yaba_Ioseliani_70.dds"
+		expire = "1999.3.4"
+		ideology = authoritarian_democrat_subtype
+	}
+}
+
+
+YGR_ioseliani_wins = {
+	add_popularity = { ideology = authoritarian_democrat popularity = 0.1 }
+	set_country_flag = YGR_ioseliani_in_charge
+	set_country_flag = YGR_powerstruggle_sorted_flag
+	clr_country_flag = YGR_powerstruggle
+	clr_country_flag = YGR_ioseliani_support
+	kill_ideology_leader = despotism
+	create_country_leader = {
+		name = "Disorganised Opposition"
+		desc = "POLITICS_ASLAN_USOYAN_DESC"
+		picture = "YGR_Aslan_Usoyan_70s.dds"
+		expire = "1999.3.4"
+		ideology = despotism_subtype
+    }
+}
+
+#ioseliani
+YGR_raise_ioseliani_influence_low = {
+	custom_effect_tooltip = YGR_raise_ioseliani_influence_low_tt
+	add_to_variable = { YGR_ioseliani_influence = 5 }
+	YGR_clamp_influence_var = yes
+}
+
+YGR_raise_ioseliani_influence_mid = {
+	custom_effect_tooltip = YGR_raise_ioseliani_influence_mid_tt
+	add_to_variable = { YGR_ioseliani_influence = 10 }
+	YGR_clamp_influence_var = yes
+}
+
+YGR_raise_ioseliani_influence_high = {
+	custom_effect_tooltip = YGR_raise_ioseliani_influence_high_tt
+	add_to_variable = { YGR_ioseliani_influence = 15 }
+	YGR_clamp_influence_var = yes
+}
+
+YGR_lower_ioseliani_influence_low = {
+	custom_effect_tooltip = YGR_lower_ioseliani_influence_low_tt
+	subtract_from_variable = { YGR_ioseliani_influence = 5 }
+	YGR_clamp_influence_var = yes
+}
+
+YGR_lower_ioseliani_influence_mid = {
+	custom_effect_tooltip = YGR_lower_ioseliani_influence_mid_tt
+	subtract_from_variable = { YGR_ioseliani_influence = 10 }
+	YGR_clamp_influence_var = yes
+}
+
+YGR_lower_ioseliani_influence_high = {
+	custom_effect_tooltip = YGR_lower_ioseliani_influence_high_tt
+	subtract_from_variable = { YGR_ioseliani_influence = 15 }
+	YGR_clamp_influence_var = yes
+}
+
+#Usoyan
+YGR_raise_usoyan_influence_low = {
+	custom_effect_tooltip = YGR_raise_usoyan_influence_low_tt
+	subtract_from_variable = { YGR_ioseliani_influence = 5 }
+	YGR_clamp_influence_var = yes
+}
+
+YGR_raise_usoyan_influence_mid = {
+	custom_effect_tooltip = YGR_raise_usoyan_influence_mid_tt
+	subtract_from_variable = { YGR_ioseliani_influence = 10 }
+	YGR_clamp_influence_var = yes
+}
+
+YGR_raise_usoyan_influence_high = {
+	custom_effect_tooltip = YGR_raise_usoyan_influence_high_tt
+	subtract_from_variable = { YGR_ioseliani_influence = 15 }
+	YGR_clamp_influence_var = yes
+}
+
+YGR_lower_usoyan_influence_low = {
+	custom_effect_tooltip = YGR_lower_usoyan_influence_low_tt
+	add_to_variable = { YGR_ioseliani_influence = 5 }
+	YGR_clamp_influence_var = yes
+}
+
+YGR_lower_usoyan_influence_mid = {
+	custom_effect_tooltip = YGR_lower_usoyan_influence_mid_tt
+	add_to_variable = { YGR_ioseliani_influence = 10 }
+	YGR_clamp_influence_var = yes
+}
+
+YGR_lower_usoyan_influence_high = {
+	custom_effect_tooltip = YGR_lower_usoyan_influence_high_tt
+	add_to_variable = { YGR_ioseliani_influence = 15 }
+	YGR_clamp_influence_var = yes
+}
+
+YGR_clamp_influence_var = {
+	round_variable = YGR_ioseliani_influence
+	clamp_variable = { var = YGR_ioseliani_influence min = 0 max = 100 }
+
+
+	set_variable = { YGR_usoyan_influence = 100 } 
+	subtract_from_variable = { YGR_usoyan_influence = YGR_ioseliani_influence }
+
+
+	set_variable = { YGR_ioseliani_x_axis = 4.44 } 
+	multiply_variable = { YGR_ioseliani_x_axis = YGR_ioseliani_influence }
+	round_variable = YGR_ioseliani_x_axis
+	add_to_variable = { YGR_ioseliani_x_axis = 37 }
+}

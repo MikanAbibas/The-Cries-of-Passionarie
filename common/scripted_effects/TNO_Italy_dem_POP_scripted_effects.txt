@@ -1,0 +1,4065 @@
+#Estgel's Election Code#
+
+ITA_POP_Dem_setup_on_startup = { #Time to Declare 60 Variables
+	#Declaring Influences
+	add_to_array = { ITA_Popolo_Influence = 20 } #Urban Workers
+	add_to_array = { ITA_Popolo_Influence = 20 } #Rural Farmers
+	add_to_array = { ITA_Popolo_Influence = 20 } #Middle Classes
+	add_to_array = { ITA_Popolo_Influence = 15 } #Soldiers
+	add_to_array = { ITA_Popolo_Influence = 15 } #Students
+	add_to_array = { ITA_Popolo_Influence = 10 } #Minority
+	
+	add_to_array = { ITA_Stato_Influence = 15 } #Civil Servants
+	add_to_array = { ITA_Stato_Influence = 10 } #Judiciary
+	add_to_array = { ITA_Stato_Influence = 20 } #Industry
+	add_to_array = { ITA_Stato_Influence = 20 } #Military Brass
+	add_to_array = { ITA_Stato_Influence = 20 } #Monarchy
+	add_to_array = { ITA_Stato_Influence = 15 } #Clergy
+	
+	#Declaring Popularities
+	
+	add_to_array = { ITA_Left_Popolo_Support = 30 } #Rural Farmers
+	add_to_array = { ITA_Left_Popolo_Support = 50 } #Urban Workers
+	add_to_array = { ITA_Left_Popolo_Support = 15 } #Middle Classes
+	add_to_array = { ITA_Left_Popolo_Support = 10 } #Soldiers
+	add_to_array = { ITA_Left_Popolo_Support = 45 } #Students
+	add_to_array = { ITA_Left_Popolo_Support = 45 } #Minority
+	
+	add_to_array = { ITA_Center_Popolo_Support = 40 } #Rural Farmers
+	add_to_array = { ITA_Center_Popolo_Support = 35 } #Urban Workers
+	add_to_array = { ITA_Center_Popolo_Support = 45 } #Middle Classes
+	add_to_array = { ITA_Center_Popolo_Support = 40 } #Soldiers
+	add_to_array = { ITA_Center_Popolo_Support = 35 } #Students
+	add_to_array = { ITA_Center_Popolo_Support = 45 } #Minority
+	
+	add_to_array = { ITA_Right_Popolo_Support = 30 } #Rural Farmers
+	add_to_array = { ITA_Right_Popolo_Support = 15 } #Urban Workers
+	add_to_array = { ITA_Right_Popolo_Support = 40 } #Middle Classes
+	add_to_array = { ITA_Right_Popolo_Support = 50 } #Soldiers
+	add_to_array = { ITA_Right_Popolo_Support = 20 } #Students
+	add_to_array = { ITA_Right_Popolo_Support = 10 } #Minority
+	
+	add_to_array = { ITA_Left_Stato_Support = 45 } #Civil Servants
+	add_to_array = { ITA_Left_Stato_Support = 35 } #Judiciary
+	add_to_array = { ITA_Left_Stato_Support = 5 } #Industry
+	add_to_array = { ITA_Left_Stato_Support = 10 } #Military Brass
+	add_to_array = { ITA_Left_Stato_Support = 20 } #Monarchy
+	add_to_array = { ITA_Left_Stato_Support = 10 } #Clergy
+
+	add_to_array = { ITA_Center_Stato_Support = 25 } #Civil Servants
+	add_to_array = { ITA_Center_Stato_Support = 40 } #Judiciary
+	add_to_array = { ITA_Center_Stato_Support = 50 } #Industry
+	add_to_array = { ITA_Center_Stato_Support = 30 } #Military Brass
+	add_to_array = { ITA_Center_Stato_Support = 40 } #Monarchy
+	add_to_array = { ITA_Center_Stato_Support = 45 } #Clergy
+	
+	add_to_array = { ITA_Right_Stato_Support = 30 } #Civil Servants
+	add_to_array = { ITA_Right_Stato_Support = 25 } #Judiciary
+	add_to_array = { ITA_Right_Stato_Support = 45 } #Industry
+	add_to_array = { ITA_Right_Stato_Support = 60 } #Military Brass
+	add_to_array = { ITA_Right_Stato_Support = 40 } #Monarchy
+	add_to_array = { ITA_Right_Stato_Support = 45 } #Clergy
+	
+	#Declare Party Popularities
+	add_to_array = { ITA_Party_pop = 0.25 } #Berlinguer
+	add_to_array = { ITA_Party_pop = 0.25 } #Maximists
+	add_to_array = { ITA_Party_pop = 0.05 } #Radicals
+	add_to_array = { ITA_Party_pop = 0.25 } #Minimists
+	add_to_array = { ITA_Party_pop = 0.20 } #PSDI
+	
+	add_to_array = { ITA_Party_pop = 0.15 } #PRI
+	add_to_array = { ITA_Party_pop = 0.15 } #RD
+	add_to_array = { ITA_Party_pop = 0.25 } #NC
+	add_to_array = { ITA_Party_pop = 0.25 } #Dorotei
+	add_to_array = { ITA_Party_pop = 0.20 } #Primavera
+	
+	add_to_array = { ITA_Party_pop = 0.15 } #PLI
+	add_to_array = { ITA_Party_pop = 0.20 } #PDI
+	add_to_array = { ITA_Party_pop = 0.20 } #National Democracy
+	add_to_array = { ITA_Party_pop = 0.30 } #Almirante
+	add_to_array = { ITA_Party_pop = 0.15 } #Rauti
+	
+	set_variable = { ITA_max_promises = 5 }
+
+	
+	set_country_flag = ITA_coalition_on
+
+	resize_array = {
+		array = ITA_debug_buttons_array
+		value = 1
+		size = 12
+	}
+
+	resize_array = {
+		array = ITA_debug_party_buttons_array
+		value = 1
+		size = 15
+	}
+}
+
+ITA_POP_Dem_setup = {
+	set_country_flag = DemItaly_PoP_Active
+	
+	set_variable = { ITA_radicalization = ITA_discontent }
+
+	ITA_update_radicalization_modifier = yes
+	add_dynamic_modifier = {
+		modifier = ITA_POP_Dem_radicalization_modifier
+	}
+}
+
+ITA_promises_on_startup_setup = {
+	#declare promises stuff, not just for dem pop but for other mechanics too
+	add_to_array = { ITA_promises_array = 0 }
+	set_variable = { ITA_promises_add_button_position = 0 }
+
+	add_to_array = { ITA_avalaible_promises_cost_array = 0 }
+
+	#how much pp each of the promises cost
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 75 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 25 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 25 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 25 }
+
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 75 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 25 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 25 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 25 }
+
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 75 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 25 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 25 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 25 }
+
+	#GCF promises
+	add_to_array = { ITA_avalaible_promises_cost_array = 25 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 25 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 25 }
+
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+	add_to_array = { ITA_avalaible_promises_cost_array = 50 }
+}
+
+ITA_fail_all_promises_on_govform = {
+	log = "[GetDateText]: [Root.GetName]: Failing all Dem PoP promises on govform in Camera"
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_1 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_1 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_1 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_2 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_2 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_2 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_3 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_3 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_3 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_4 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_4 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_4 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_5 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_5 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_5 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_6 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_6 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_6 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_7 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_7 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_7 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_8 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_8 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_8 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_9 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_9 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_9 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_10 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_10 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_10 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_11 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_11 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_11 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_12 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_12 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_12 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_13 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_13 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_13 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_14 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_14 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_14 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_15 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_15 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_15 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_16 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_16 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_16 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_17 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_17 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_17 
+			days = var:days_left
+		}
+	}
+	if = {
+		limit = {
+			has_active_mission = ITA_dem_pop_keep_promise_18 
+		}
+		set_temp_variable = { days_left = days_mission_timeout@ITA_dem_pop_keep_promise_18 }
+		multiply_temp_variable = { days_left = -1 }
+		add_days_mission_timeout = {
+			mission = ITA_dem_pop_keep_promise_18 
+			days = var:days_left
+		}
+	}
+}
+
+ITA_promises_get_fulfillment_missions = {
+	#time for another 18 long chain of ifs
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 1
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_1
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 2
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_2
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 3
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_3
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 4
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_4
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 5
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_5
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 6
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_6
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 7
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_7
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 1
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_1
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 8
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_8
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 9
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_9
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 10
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_10
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 11
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_11
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 12
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_12
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 13
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_13
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 14
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_14
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 15
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_15
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 16
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_16
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 17
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_17
+	}
+	if = {
+		limit = {
+			is_in_array = {
+				array = ITA_promises_array
+				value = 18
+			}
+		}
+		activate_mission = ITA_dem_pop_keep_promise_18
+	}
+}
+
+#The way that influence changes work is that when the influence of one faction rises, the influence of all the other factions decrease so they all add up to a hundred and same with decrease.
+#This is done by increasing the popularyty of the party and then scaling down all the popularities of a wing so that they add up to 1 again.
+#At the end there is an extra step where a random party is given the amount of popularyty required for the sum to be 1.
+#Note: the pupularites are stored as numbers form 0-1 not 0-100
+
+ITA_change_party_pop = {
+	divide_temp_variable = { constant = 100 }
+
+	#increase/ decrease the popularity
+	add_to_variable = { ITA_Party_pop^changer = constant }
+	clamp_variable = {
+		var = ITA_Party_pop^changer
+		min = 0
+		max = 1
+	}
+
+	#loop throuhg the 3 wings and make sure the sum of pops for each of them is 1
+	for_loop_effect = {
+		start = 0
+		end = 3
+		value = wing_i
+
+		#set party_index to the first party in the current wing
+		set_temp_variable = { party_index = wing_i }
+		multiply_temp_variable = { party_index = 5 }
+		set_temp_variable = { pops_sum = 0 } #sum of the popularites of this wing
+
+		for_loop_effect = { #calculate pops_sum
+			start = 0
+			end = 5
+
+			add_to_temp_variable = { pops_sum = ITA_Party_pop^party_index }
+			add_to_temp_variable = { party_index = 1 }
+		}
+
+		#calculate the value that the popularities need to be multiplied with so that they add up to 1
+		#this would in theory be perfectly accurate but when you're working with 3 decimal places of precision it isn't
+		set_temp_variable = { adjust_var_multiplication = 1 }
+		divide_temp_variable = { adjust_var_multiplication = pops_sum }
+		
+		#multiply every party in this wing's pop with adjust_var_multiplication
+		set_temp_variable = { party_index = wing_i }
+		multiply_temp_variable = { party_index = 5 }
+		for_loop_effect = {
+			start = 0
+			end = 5
+
+			multiply_variable = { ITA_Party_pop^party_index = adjust_var_multiplication }
+			clamp_variable = {
+				var = ITA_Party_pop^party_index
+				min = 0
+				max = 1
+			}
+			add_to_temp_variable = { party_index = 1 }
+		}
+
+		#reset pops_sum and party_index for another calculation
+		set_temp_variable = { party_index = wing_i }
+		multiply_temp_variable = { party_index = 5 }
+		set_temp_variable = { pops_sum = 0 }
+
+		for_loop_effect = { #calculate pops_sum again
+			start = 0
+			end = 5
+
+			add_to_temp_variable = { pops_sum = ITA_Party_pop^party_index }
+			add_to_temp_variable = { party_index = 1 }
+		}
+
+		#calulate the number that need to be added subtracted to a party so that all parties together add up to 1
+		#thsi is here so I don't get 10 gitlab issues all saying that the popularities actually add up to 98.7% and not 100%
+		set_temp_variable = { adjust_var_addition = 1 }
+		subtract_from_temp_variable = { adjust_var_addition = pops_sum }
+		randomize_temp_variable = {
+			var = bonus_pop
+			distribution = uniform
+			min = 0
+			max = 4
+		}
+		round_temp_variable = bonus_pop
+		#give a random party the popularity
+		#a potential issue here is adjust_var_addition being negative and the party not having less popularity that that,
+		#but everything functions normaly even if the pops don't add up to exactly 100% and the whole thins is gonna get rounded next time ITA_change_party_pop is called anyway
+		set_temp_variable = { bonus_pop_with_wing = wing_i }
+		multiply_temp_variable = { bonus_pop_with_wing = 5 }
+		add_to_temp_variable = { bonus_pop_with_wing = bonus_pop }
+		add_to_variable = { ITA_Party_pop^bonus_pop_with_wing = adjust_var_addition }
+		clamp_variable = {
+			var = ITA_Party_pop^bonus_pop_with_wing
+			min = 0
+			max = 1
+		}
+	}
+
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_Dem_POP_have_an_election_in_five_years = {
+	hidden_effect = {
+		ZZZ = {
+			if = {
+				limit = {
+					has_active_mission = ITA_election_countdown_mission
+				}
+				remove_mission = ITA_election_countdown_mission
+			}
+			activate_mission = ITA_election_countdown_mission
+		}
+	}
+}
+
+ITA_POP_Dem_election = {
+
+	clear_variable = ITA_Total_Left
+	clear_variable = ITA_Total_Center
+	clear_variable = ITA_Total_Right
+	
+	#calculate total left from popolo support
+	for_each_loop = {
+		array = ITA_Left_Popolo_Support
+		
+		set_temp_variable = { ITA_True_Left = v }
+		multiply_temp_variable = { ITA_True_Left = ITA_Popolo_Influence^i }
+		add_to_variable = { ITA_Total_Left = ITA_True_Left }
+	}
+	
+	divide_variable = { ITA_Total_Left = 25 }
+
+	if = {
+		limit = { check_variable = { ITA_snap_election_type = 1 } }
+		#1st snap election, radicals get a boost
+		add_to_variable = { ITA_Total_Left = 35 }
+	}
+	else_if = {
+		limit = { check_variable = { ITA_snap_election_type = 2 } }
+		#2nd snap election, center gets a boost
+		subtract_from_variable = { ITA_Total_Left = 25 }
+	}
+	
+	log = "[GetDateText]: [Root.GetName]: Base Left support from Popolo: [?ITA_Total_Left]"
+	
+	#calculate total center from popolo support
+	for_each_loop = {
+		array = ITA_Center_Popolo_Support
+		
+		set_temp_variable = { ITA_True_Center = v }
+		multiply_temp_variable = { ITA_True_Center = ITA_Popolo_Influence^i }
+		add_to_variable = { ITA_Total_Center = ITA_True_Center }
+	}
+	
+	divide_variable = { ITA_Total_Center = 25 }
+
+	if = {
+		limit = { check_variable = { ITA_snap_election_type = 1 } }
+		#1st snap election, radicals get a boost
+		subtract_from_variable = { ITA_Total_Center = 70 }
+	}
+	else_if = {
+		limit = { check_variable = { ITA_snap_election_type = 2 } }
+		#2nd snap election, center gets a boost
+		add_to_variable = { ITA_Total_Center = 50 }
+	}
+	
+	log = "[GetDateText]: [Root.GetName]: Base Center support from Popolo: [?ITA_Total_Center]"
+	
+	#calculate total right from popolo support
+	for_each_loop = {
+		array = ITA_Right_Popolo_Support
+		
+		set_temp_variable = { ITA_True_Right = v }
+		multiply_temp_variable = { ITA_True_Right = ITA_Popolo_Influence^i }
+		add_to_variable = { ITA_Total_Right = ITA_True_Right }
+	}
+	
+	divide_variable = { ITA_Total_Right = 25 }
+	
+	if = {
+		limit = { check_variable = { ITA_snap_election_type = 1 } }
+		#1st snap election, radicals get a boost
+		add_to_variable = { ITA_Total_Right = 35 }
+	}
+	else_if = {
+		limit = { check_variable = { ITA_snap_election_type = 2 } }
+		#2nd snap election, center gets a boost
+		subtract_from_variable = { ITA_Total_Right = 25 }
+	}
+
+	log = "[GetDateText]: [Root.GetName]: Base Right support from Popolo: [?ITA_Total_Right]"
+
+	#multiply all three by their stato support
+	set_temp_variable = { left_modifier = 0 }
+	set_temp_variable = { center_modifier = 0 }
+	set_temp_variable = { right_modifier = 0 }
+
+	for_each_loop = {
+		array = ITA_Left_Stato_Support
+
+		set_temp_variable = { support_from_this_pillar = v }
+		multiply_temp_variable = { support_from_this_pillar = ITA_Stato_Influence^i }
+		add_to_temp_variable = { left_modifier = support_from_this_pillar }
+	}
+
+	for_each_loop = {
+		array = ITA_Center_Stato_Support
+
+		set_temp_variable = { support_from_this_pillar = v }
+		multiply_temp_variable = { support_from_this_pillar = ITA_Stato_Influence^i }
+		add_to_temp_variable = { center_modifier = support_from_this_pillar }
+	}
+
+	for_each_loop = {
+		array = ITA_Right_Stato_Support
+
+		set_temp_variable = { support_from_this_pillar = v }
+		multiply_temp_variable = { support_from_this_pillar = ITA_Stato_Influence^i }
+		add_to_temp_variable = { right_modifier = support_from_this_pillar }
+	}
+
+	#change the modifiers into procentages
+	set_temp_variable = { modifier_sum = left_modifier }
+	add_to_temp_variable = { modifier_sum = center_modifier }
+	add_to_temp_variable = { modifier_sum = right_modifier }
+	divide_temp_variable = { left_modifier = modifier_sum }
+	divide_temp_variable = { center_modifier = modifier_sum }
+	divide_temp_variable = { right_modifier = modifier_sum }
+
+	#apply the modifiers
+	multiply_variable = { ITA_Total_Left = left_modifier }
+	multiply_variable = { ITA_Total_Center = center_modifier }
+	multiply_variable = { ITA_Total_Right = right_modifier }
+
+	log = "[GetDateText]: [Root.GetName]: Left modifier from Stato: [?left_modifier]"
+	log = "[GetDateText]: [Root.GetName]: Center modifier from Stato: [?center_modifier]"
+	log = "[GetDateText]: [Root.GetName]: Right modifier from Stato: [?right_modifier]"
+
+	#scale the all three supports so that their sum is 400
+	#this isn't exact, there's a potential error from the rounding
+	#there is a giveaway at the end to ensure the total number of deputies is 400
+	set_temp_variable = { total_sum = ITA_Total_Left }
+	add_to_temp_variable = { total_sum = ITA_Total_Center }
+	add_to_temp_variable = { total_sum = ITA_Total_Right }
+
+	set_temp_variable = { boost_to_400 = 400 }
+	divide_temp_variable = { boost_to_400 = total_sum }
+	multiply_variable = { ITA_Total_Left = boost_to_400 }
+	multiply_variable = { ITA_Total_Center = boost_to_400 }
+	multiply_variable = { ITA_Total_Right = boost_to_400 }
+	round_variable = ITA_Total_Left
+	round_variable = ITA_Total_Center
+	round_variable = ITA_Total_Right
+
+	log = "[GetDateText]: [Root.GetName]: Total Left seats: [?ITA_Total_Left]"
+	log = "[GetDateText]: [Root.GetName]: Total Center seats: [?ITA_Total_Center]"
+	log = "[GetDateText]: [Root.GetName]: Total Right seats: [?ITA_Total_Right]"
+
+	#calculate party popularities from total current supports
+	for_each_loop = {
+		array = ITA_Party_pop
+		
+		if = {
+			limit = {
+				check_variable = { i < 5 }
+			}
+			set_variable = { ITA_camera_current_deputies^i = ITA_Total_Left }
+			multiply_variable = { ITA_camera_current_deputies^i = v }
+			subtract_from_variable = { ITA_camera_current_deputies^i = 0.5 }
+			round_variable = ITA_camera_current_deputies^i
+		}
+		else_if = {
+			limit = {
+				check_variable = { i > 9 }
+			}
+			set_variable = { ITA_camera_current_deputies^i = ITA_Total_Right }
+			multiply_variable = { ITA_camera_current_deputies^i = v }
+			subtract_from_variable = { ITA_camera_current_deputies^i = 0.5 }
+			round_variable = ITA_camera_current_deputies^i
+		}
+		else = {
+			set_variable = { ITA_camera_current_deputies^i = ITA_Total_Center }
+			multiply_variable = { ITA_camera_current_deputies^i = v }
+			subtract_from_variable = { ITA_camera_current_deputies^i = 0.5 }
+			round_variable = ITA_camera_current_deputies^i
+		}
+	}
+	
+	set_variable = { remaining_deputies = 400 }
+	
+	for_each_loop = {
+		array = ITA_camera_current_deputies
+		
+		subtract_from_variable = { remaining_deputies = v }
+	}
+	log = "[GetDateText]: [Root.GetName]: Remainder: [?remaining_deputies]"
+	
+	while_loop_effect = {
+		limit = { NOT = { check_variable = { remaining_deputies = 0 } } }
+
+		randomize_temp_variable = {
+			var = giveaway
+			distribution = uniform
+			min = 0
+			max = 14
+		}
+		
+		add_to_variable = { ITA_camera_current_deputies^giveaway = 1 }
+		
+		subtract_from_variable = { remaining_deputies = 1 }
+	}
+		
+	log = "[GetDateText]: [Root.GetName]: PSI-B: [?ITA_camera_current_deputies^0] PSI-Max: [?ITA_camera_current_deputies^1] PR: [?ITA_camera_current_deputies^2] PSI-Min: [?ITA_camera_current_deputies^3] PSDI: [?ITA_camera_current_deputies^4]"
+	log = "[GetDateText]: [Root.GetName]: PRI: [?ITA_camera_current_deputies^5] DC-RD: [?ITA_camera_current_deputies^6] DC-NC: [?ITA_camera_current_deputies^7] DC-D: [?ITA_camera_current_deputies^8] DC-P: [?ITA_camera_current_deputies^9]"
+	log = "[GetDateText]: [Root.GetName]: PLI: [?ITA_camera_current_deputies^10] PDI: [?ITA_camera_current_deputies^11] MSI-DN: [?ITA_camera_current_deputies^12] MSI-A: [?ITA_camera_current_deputies^13] MSI-ON: [?ITA_camera_current_deputies^14]"
+		
+
+	ITA_dem_update_party_pop_wheel = yes
+
+	ITA_gf_trigger_election_govform = yes
+	
+	ITA_camera_redraw = yes
+
+	ITA_Dem_POP_have_an_election_in_five_years = yes
+}
+
+ITA_dem_update_party_pop_wheel = {
+	#Updates the party pop wheel to follow the popularities in the Camera mech
+
+	#an array with the index being the ideology that should be added
+	resize_temp_array = { pops = 8 }
+
+	#socialism
+	set_temp_variable = { pops^0 = ITA_camera_current_deputies^0 } #Berlinguer
+	add_to_temp_variable = { pops^0 = ITA_camera_current_deputies^1 } #Nenni
+
+	#social_democrat
+	set_temp_variable = { pops^1 = ITA_camera_current_deputies^2 } #Panella
+	add_to_temp_variable = { pops^1 = ITA_camera_current_deputies^3 } #Lombardi
+	add_to_temp_variable = { pops^1 = ITA_camera_current_deputies^4 } #Saragat
+
+	#social_liberal
+	set_temp_variable = { pops^2 = ITA_camera_current_deputies^5 } #La Malfa
+	add_to_temp_variable = { pops^2 = ITA_camera_current_deputies^6 } #Donat-Cattin
+	add_to_temp_variable = { pops^2 = ITA_camera_current_deputies^7 } #Fanfani
+
+	#lib con
+	set_temp_variable = { pops^3 = ITA_camera_current_deputies^8 } #Moro
+
+	#social_conservative
+	add_to_temp_variable = { pops^4 = ITA_camera_current_deputies^9 } #Andreotti
+	set_temp_variable = { pops^4 = ITA_camera_current_deputies^10 } #Malagodi
+
+	#authoritarian_democrat
+	add_to_temp_variable = { pops^5 = ITA_camera_current_deputies^11 } #Lauro
+	add_to_temp_variable = { pops^5 = ITA_camera_current_deputies^12 } #De Marzio
+
+	#fascism
+	set_temp_variable = { pops^6 = ITA_camera_current_deputies^13 } #Almirante
+
+	#eso naz
+	set_temp_variable = { pops^7 = ITA_camera_current_deputies^14 } #Rauti
+
+
+	#we now have to convert the seat numbers taken from camera to procentages
+	#they HAVE to add up to 100 or the set_popularities effect won't take them
+
+	#calculate their total sum and multiply each of them with 100/sum
+	set_temp_variable = { sum_pops = 0 }
+	for_each_loop = {
+		array = pops
+
+		add_to_temp_variable = { sum_pops = v }
+	}
+	set_temp_variable = { adjustment_var = 100 }
+	divide_temp_variable = { adjustment_var = sum_pops }
+
+	for_loop_effect = {
+		start = 0
+		end = 8
+
+		multiply_temp_variable = { pops^v = adjustment_var }
+	}
+
+	round_temp_variable = pops^0
+	round_temp_variable = pops^1
+	round_temp_variable = pops^2
+	round_temp_variable = pops^3
+	round_temp_variable = pops^4
+	round_temp_variable = pops^5
+	round_temp_variable = pops^6
+	round_temp_variable = pops^7
+
+	#Check if they add up to 100
+	set_temp_variable = { hundered_check = 100 }
+	for_each_loop = {
+		array = pops
+
+		subtract_from_temp_variable = { hundered_check = v }
+	}
+	if = {
+		#they add up to less than 100
+		limit = {
+			check_variable = { hundered_check > 0 }
+		}
+		#give away procentages until they add up to 100
+		for_loop_effect = {
+			start = 1
+			end = 100
+			break = break
+
+			randomize_temp_variable = {
+				var = pop_to_add
+				distribution = uniform
+				min = 0
+				max = 7
+			}
+			round_temp_variable = pop_to_add
+			add_to_temp_variable = { pops^pop_to_add = 1 }
+
+			if = {
+				limit = {
+					check_variable = { v = hundered_check }
+				}
+				set_temp_variable = { break = 1 }
+			}
+		}
+	}
+	else_if = {
+		#they add up to more than 100
+		limit = {
+			check_variable = { hundered_check < 0 }
+		}
+		#take away procentages untill they add up to 100
+		for_loop_effect = {
+			start = 1
+			end = 100
+			break = break
+
+			randomize_temp_variable = {
+				var = pop_to_subtract
+				distribution = uniform
+				min = 0
+				max = 6
+			}
+			round_temp_variable = pop_to_subtract
+			if = {
+				limit = {
+					check_variable = { pops^pop_to_subtract > 1 }
+				}
+				subtract_from_temp_variable = { pops^pop_to_subtract = 1 }
+				add_to_temp_variable = { hundered_check = 1 }
+			}
+
+			if = {
+				limit = {
+					OR = {
+						check_variable = { hundered_check = 0 }
+						check_variable = { hundered_check > 0 }
+					}
+				}
+				set_temp_variable = { break = 1 }
+			}
+		}
+	}
+
+	#finnaly set the popularities
+	hidden_effect = {
+		set_popularities = {
+			communist = 0 #
+			socialist = var:pops^0 #PSI-B, PSI-Max
+			social_democrat = var:pops^1 #PR, PSI-Min, PSDI
+			social_liberal = var:pops^2 #PRI, DC-RD, DC-NC
+			market_liberal = var:pops^3 #DC-D
+			social_conservative = var:pops^4 #DC-P, PLI
+			authoritarian_democrat = var:pops^5 #PDI, MSI-DN
+			fascism = var:pops^6 #MSI-A
+			national_socialism = 0
+			burgundian_system = var:pops^7 #MSI-ON
+		}
+	}
+}
+
+ITA_dem_reset_party_names = {
+	hidden_effect = {
+		set_party_name = {
+			ideology = communist
+			long_name = ITA_dem_party_communist_long
+			name = ITA_dem_party_communist
+		}
+		set_party_name = {
+			ideology = socialist
+			long_name = ITA_dem_party_socialist_long
+			name = ITA_dem_party_socialist
+		}
+		set_party_name = {
+			ideology = social_democrat
+			long_name = ITA_dem_party_social_democrat_long
+			name = ITA_dem_party_social_democrat
+		}
+		set_party_name = {
+			ideology = social_liberal
+			long_name = ITA_dem_party_social_liberal_long
+			name = ITA_dem_party_social_liberal
+		}
+		set_party_name = {
+			ideology = social_conservative
+			long_name = ITA_dem_party_social_conservative_long
+			name = ITA_dem_party_social_conservative
+		}
+		set_party_name = {
+			ideology = authoritarian_democrat
+			long_name = ITA_dem_party_authoritarian_democrat_long
+			name = ITA_dem_party_authoritarian_democrat
+		}
+		set_party_name = {
+			ideology = fascism
+			long_name = ITA_dem_party_fascism_long
+			name = ITA_dem_party_fascism
+		}
+		set_party_name = {
+			ideology = burgundian_system
+			long_name = ITA_dem_party_burgundian_system_long
+			name = ITA_dem_party_burgundian_system
+		}
+	}
+}
+
+ITA_increase_influence_Popolo = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Popolo_Support^0] [?ITA_Popolo_Support^1] [?ITA_Popolo_Support^2] [?ITA_Popolo_Support^3] [?ITA_Popolo_Support^4] [?ITA_Popolo_Support^5] Constant: [?constant] Changer: [?changer] ITA_increase_influence_Popolo"
+	divide_temp_variable = { constant = 5 }
+	for_each_loop = {
+		array = ITA_Popolo_Support
+				
+		if = {
+			limit = {
+				check_variable = { v > constant }
+			}
+			add_to_temp_variable = { ITA_influence_add = constant }
+			subtract_from_variable = { ITA_Popolo_Support^i = constant }
+		}
+		else = {
+			add_to_temp_variable = { ITA_influence_add = v }
+			set_variable = { ITA_Popolo_Support^i = 0 }
+		}
+		log = "influence [?ITA_influence_add]"
+	}
+	add_to_variable = { ITA_Popolo_Support^changer = ITA_influence_add }
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Popolo_Support^0] [?ITA_Popolo_Support^1] [?ITA_Popolo_Support^2] [?ITA_Popolo_Support^3] [?ITA_Popolo_Support^4] [?ITA_Popolo_Support^5] Constant: [?constant] Changer: [?changer] ITA_increase_influence_Popolo"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_decrease_influence_Popolo = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Popolo_Support^0] [?ITA_Popolo_Support^1] [?ITA_Popolo_Support^2] [?ITA_Popolo_Support^3] [?ITA_Popolo_Support^4] [?ITA_Popolo_Support^5] Constant: [?constant] Changer: [?changer] ITA_decrease_influence_Popolo"
+	while_loop_effect = {
+		limit = {
+			AND = {
+				check_variable = { constant > ITA_Popolo_Support^changer }
+				check_variable = { constant > 0 }
+			}
+		}
+		
+		subtract_from_temp_variable = { constant = 1 }
+	}
+	add_to_temp_variable = { ITA_influence_add = constant }
+	subtract_from_variable = { ITA_Popolo_Support^changer = constant }
+	divide_temp_variable = { ITA_influence_add = 5 }
+	for_each_loop = {
+		array = ITA_Popolo_Support
+		
+		if = {
+			limit = {
+				NOT = {
+					check_variable = { i = changer }
+				}
+			}
+			add_to_variable = { ITA_Popolo_Support^i = ITA_influence_add }
+		}
+	}
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Popolo_Support^0] [?ITA_Popolo_Support^1] [?ITA_Popolo_Support^2] [?ITA_Popolo_Support^3] [?ITA_Popolo_Support^4] [?ITA_Popolo_Support^5] Constant: [?constant] Changer: [?changer] ITA_decrease_influence_Popolo"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+	
+ITA_increase_influence_Stato = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Stato_Support^0] [?ITA_Stato_Support^1] [?ITA_Stato_Support^2] [?ITA_Stato_Support^3] [?ITA_Stato_Support^4] [?ITA_Stato_Support^5] Constant: [?constant] Changer: [?changer] ITA_increase_influence_Stato"
+	divide_temp_variable = { constant = 5 }
+	for_each_loop = {
+		array = ITA_Stato_Support
+				
+		if = {
+			limit = {
+				check_variable = { v > constant }
+			}
+			add_to_temp_variable = { ITA_influence_add = constant }
+			subtract_from_variable = { ITA_Stato_Support^i = constant }
+		}
+		else = {
+			add_to_temp_variable = { ITA_influence_add = v }
+			set_variable = { ITA_Stato_Support^i = 0 }
+		}
+	}
+	add_to_variable = { ITA_Stato_Support^changer = ITA_influence_add }
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Popolo_Support^changer] [?ITA_Center_Popolo_Support^changer] [?ITA_Right_Popolo_Support^changer] Changer: [?changer] ITA_increase_left_Popolo"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_decrease_influence_Stato = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Stato_Support^0] [?ITA_Stato_Support^1] [?ITA_Stato_Support^2] [?ITA_Stato_Support^3] [?ITA_Stato_Support^4] [?ITA_Stato_Support^5] Constant: [?constant] Changer: [?changer] ITA_decrease_influence_Stato"
+	while_loop_effect = {
+		limit = {
+			AND = {
+				check_variable = { constant > ITA_Stato_Support^changer }
+				check_variable = { constant > 0 }
+			}
+		}
+		
+		subtract_from_temp_variable = { constant = 1 }
+	}
+	add_to_temp_variable = { ITA_influence_add = constant }
+	subtract_from_variable = { ITA_Stato_Support^changer = constant }
+	divide_temp_variable = { ITA_influence_add = 5 }
+	for_each_loop = {
+		array = ITA_Stato_Support
+		
+		if = {
+			limit = {
+				NOT = {
+					check_variable = { i = changer }
+				}
+			}
+			add_to_variable = { ITA_Stato_Support^i = ITA_influence_add }
+		}
+	}
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Popolo_Support^changer] [?ITA_Center_Popolo_Support^changer] [?ITA_Right_Popolo_Support^changer] Changer: [?changer] ITA_increase_left_Popolo"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_increase_left_Popolo = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Popolo_Support^changer] [?ITA_Center_Popolo_Support^changer] [?ITA_Right_Popolo_Support^changer] Changer: [?changer] ITA_increase_left_Popolo"
+	divide_temp_variable = { constant = 2 }
+	set_temp_variable = { ITA_popularity_add = 0 }
+	if = {
+		limit = {
+			check_variable = { ITA_Center_Popolo_Support^changer > constant }
+		}
+		add_to_temp_variable = { ITA_popularity_add = constant }
+		subtract_from_variable = { ITA_Center_Popolo_Support^changer = constant }
+	}
+	else = {
+		add_to_temp_variable = { ITA_popularity_add = ITA_Center_Popolo_Support^changer }
+		set_variable = { ITA_Center_Popolo_Support^changer = 0 }
+	}
+	if = {
+		limit = {
+			check_variable = { ITA_Right_Popolo_Support^changer > constant }
+		}
+		add_to_temp_variable = { ITA_popularity_add = constant }
+		subtract_from_variable = { ITA_Right_Popolo_Support^changer = constant }
+	}
+	else = {
+		add_to_temp_variable = { ITA_popularity_add = ITA_Right_Popolo_Support^changer }
+		set_variable = { ITA_Right_Popolo_Support^changer = 0 }
+	}
+	add_to_variable = { ITA_Left_Popolo_Support^changer = ITA_popularity_add }
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Popolo_Support^changer] [?ITA_Center_Popolo_Support^changer] [?ITA_Right_Popolo_Support^changer] Changer: [?changer] ITA_increase_left_Popolo"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_decrease_left_Popolo = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Popolo_Support^changer] [?ITA_Center_Popolo_Support^changer] [?ITA_Right_Popolo_Support^changer] Changer: [?changer] ITA_decrease_left_Popolo"
+	set_temp_variable = { ITA_popularity_add = 0 }
+	while_loop_effect = {
+		limit = {
+			AND = {
+				check_variable = { constant > ITA_Left_Popolo_Support^changer }
+				check_variable = { constant > 0 }
+			}
+		}
+		
+		subtract_from_temp_variable = { constant = 1 }
+	}
+	add_to_temp_variable = { ITA_popularity_add = constant }
+	subtract_from_variable = { ITA_Left_Popolo_Support^changer = constant }
+	divide_temp_variable = { ITA_popularity_add = 2 }
+	add_to_variable = { ITA_Center_Popolo_Support^changer = ITA_popularity_add }
+	add_to_variable = { ITA_Right_Popolo_Support^changer = ITA_popularity_add }
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Popolo_Support^changer] [?ITA_Center_Popolo_Support^changer] [?ITA_Right_Popolo_Support^changer] Changer: [?changer] ITA_decrease_left_Popolo"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_increase_left_Stato = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Stato_Support^changer] [?ITA_Center_Stato_Support^changer] [?ITA_Right_Stato_Support^changer] Changer: [?changer] ITA_increase_left_Stato"
+	divide_temp_variable = { constant = 2 }
+	set_temp_variable = { ITA_popularity_add = 0 }
+	if = {
+		limit = {
+			check_variable = { ITA_Center_Stato_Support^changer > constant }
+		}
+		add_to_temp_variable = { ITA_popularity_add = constant }
+		subtract_from_variable = { ITA_Center_Stato_Support^changer = constant }
+	}
+	else = {
+		add_to_temp_variable = { ITA_popularity_add = ITA_Center_Stato_Support^changer }
+		set_variable = { ITA_Center_Stato_Support^changer = 0 }
+	}
+	if = {
+		limit = {
+			check_variable = { ITA_Right_Stato_Support^changer > constant }
+		}
+		add_to_temp_variable = { ITA_popularity_add = constant }
+		subtract_from_variable = { ITA_Right_Stato_Support^changer = constant }
+	}
+	else = {
+		add_to_temp_variable = { ITA_popularity_add = ITA_Right_Stato_Support^changer }
+		set_variable = { ITA_Right_Stato_Support^changer = 0 }
+	}
+	add_to_variable = { ITA_Left_Stato_Support^changer = ITA_popularity_add }
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Stato_Support^changer] [?ITA_Center_Stato_Support^changer] [?ITA_Right_Stato_Support^changer] Changer: [?changer] ITA_increase_left_Stato"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_decrease_left_Stato = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Stato_Support^changer] [?ITA_Center_Stato_Support^changer] [?ITA_Right_Stato_Support^changer] Changer: [?changer] ITA_decrease_left_Stato"
+	set_temp_variable = { ITA_popularity_add = 0 }
+	while_loop_effect = {
+		limit = {
+			AND = {
+				check_variable = { constant > ITA_Left_Stato_Support^changer }
+				check_variable = { constant > 0 }
+			}
+		}
+		
+		subtract_from_temp_variable = { constant = 1 }
+	}
+	add_to_temp_variable = { ITA_popularity_add = constant }
+	subtract_from_variable = { ITA_Left_Stato_Support^changer = constant }
+	divide_temp_variable = { ITA_popularity_add = 2 }
+	add_to_variable = { ITA_Center_Stato_Support^changer = ITA_popularity_add }
+	add_to_variable = { ITA_Right_Stato_Support^changer = ITA_popularity_add }
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Stato_Support^changer] [?ITA_Center_Stato_Support^changer] [?ITA_Right_Stato_Support^changer] Changer: [?changer] ITA_decrease_left_Stato"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_increase_center_Popolo = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Popolo_Support^changer] [?ITA_Center_Popolo_Support^changer] [?ITA_Right_Popolo_Support^changer] Changer: [?changer] ITA_increase_center_Popolo"
+	divide_temp_variable = { constant = 2 }
+	set_temp_variable = { ITA_popularity_add = 0 }
+	if = {
+		limit = {
+			check_variable = { ITA_Left_Popolo_Support^changer > constant }
+		}
+		add_to_temp_variable = { ITA_popularity_add = constant }
+		subtract_from_variable = { ITA_Left_Popolo_Support^changer = constant }
+	}
+	else = {
+		add_to_temp_variable = { ITA_popularity_add = ITA_Left_Popolo_Support^changer }
+		set_variable = { ITA_Left_Popolo_Support^changer = 0 }
+	}
+	if = {
+		limit = {
+			check_variable = { ITA_Right_Popolo_Support^changer > constant }
+		}
+		add_to_temp_variable = { ITA_popularity_add = constant }
+		subtract_from_variable = { ITA_Right_Popolo_Support^changer = constant }
+	}
+	else = {
+		add_to_temp_variable = { ITA_popularity_add = ITA_Right_Popolo_Support^changer }
+		set_variable = { ITA_Right_Popolo_Support^changer = 0 }
+	}
+	add_to_variable = { ITA_Center_Popolo_Support^changer = ITA_popularity_add }
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Popolo_Support^changer] [?ITA_Center_Popolo_Support^changer] [?ITA_Right_Popolo_Support^changer] Changer: [?changer] ITA_increase_center_Popolo"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_decrease_center_Popolo = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Popolo_Support^changer] [?ITA_Center_Popolo_Support^changer] [?ITA_Right_Popolo_Support^changer] Changer: [?changer] ITA_decrease_center_Popolo"
+	set_temp_variable = { ITA_popularity_add = 0 }
+	while_loop_effect = {
+		limit = {
+			AND = {
+				check_variable = { constant > ITA_Center_Popolo_Support^changer }
+				check_variable = { constant > 0 }
+			}
+		}
+		
+		subtract_from_temp_variable = { constant = 1 }
+	}
+	add_to_temp_variable = { ITA_popularity_add = constant }
+	subtract_from_variable = { ITA_Center_Popolo_Support^changer = constant }
+	divide_temp_variable = { ITA_popularity_add = 2 }
+	add_to_variable = { ITA_Left_Popolo_Support^changer = ITA_popularity_add }
+	add_to_variable = { ITA_Right_Popolo_Support^changer = ITA_popularity_add }
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Popolo_Support^changer] [?ITA_Center_Popolo_Support^changer] [?ITA_Right_Popolo_Support^changer] Changer: [?changer] ITA_decrease_center_Popolo"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_increase_center_Stato = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Stato_Support^changer] [?ITA_Center_Stato_Support^changer] [?ITA_Right_Stato_Support^changer] Changer: [?changer] ITA_increase_center_Stato"
+	divide_temp_variable = { constant = 2 }
+	set_temp_variable = { ITA_popularity_add = 0 }
+	if = {
+		limit = {
+			check_variable = { ITA_Left_Stato_Support^changer > constant }
+		}
+		add_to_temp_variable = { ITA_popularity_add = constant }
+		subtract_from_variable = { ITA_Left_Stato_Support^changer = constant }
+	}
+	else = {
+		add_to_temp_variable = { ITA_popularity_add = ITA_Left_Stato_Support^changer }
+		set_variable = { ITA_Left_Stato_Support^changer = 0 }
+	}
+	if = {
+		limit = {
+			check_variable = { ITA_Right_Stato_Support^changer > constant }
+		}
+		add_to_temp_variable = { ITA_popularity_add = constant }
+		subtract_from_variable = { ITA_Right_Stato_Support^changer = constant }
+	}
+	else = {
+		add_to_temp_variable = { ITA_popularity_add = ITA_Right_Stato_Support^changer }
+		set_variable = { ITA_Right_Stato_Support^changer = 0 }
+	}
+	add_to_variable = { ITA_Center_Stato_Support^changer = ITA_popularity_add }
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Stato_Support^changer] [?ITA_Center_Stato_Support^changer] [?ITA_Right_Stato_Support^changer] Changer: [?changer] ITA_increase_center_Stato"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_decrease_center_Stato = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Stato_Support^changer] [?ITA_Center_Stato_Support^changer] [?ITA_Right_Stato_Support^changer] Changer: [?changer] ITA_decrease_center_Stato"
+	set_temp_variable = { ITA_popularity_add = 0 }
+	while_loop_effect = {
+		limit = {
+			AND = {
+				check_variable = { constant > ITA_Center_Stato_Support^changer }
+				check_variable = { constant > 0 }
+			}
+		}
+		
+		subtract_from_temp_variable = { constant = 1 }
+	}
+	add_to_temp_variable = { ITA_popularity_add = constant }
+	subtract_from_variable = { ITA_Center_Stato_Support^changer = constant }
+	divide_temp_variable = { ITA_popularity_add = 2 }
+	add_to_variable = { ITA_Left_Stato_Support^changer = ITA_popularity_add }
+	add_to_variable = { ITA_Right_Stato_Support^changer = ITA_popularity_add }
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Stato_Support^changer] [?ITA_Center_Stato_Support^changer] [?ITA_Right_Stato_Support^changer] Changer: [?changer] ITA_decrease_center_Stato"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_increase_right_Popolo = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Popolo_Support^changer] [?ITA_Center_Popolo_Support^changer] [?ITA_Right_Popolo_Support^changer] Changer: [?changer] ITA_increase_right_Popolo"
+	divide_temp_variable = { constant = 2 }
+	set_temp_variable = { ITA_popularity_add = 0 }
+	if = {
+		limit = {
+			check_variable = { ITA_Left_Popolo_Support^changer > constant }
+		}
+		add_to_temp_variable = { ITA_popularity_add = constant }
+		subtract_from_variable = { ITA_Left_Popolo_Support^changer = constant }
+	}
+	else = {
+		add_to_temp_variable = { ITA_popularity_add = ITA_Left_Popolo_Support^changer }
+		set_variable = { ITA_Left_Popolo_Support^changer = 0 }
+	}
+	if = {
+		limit = {
+			check_variable = { ITA_Center_Popolo_Support^changer > constant }
+		}
+		add_to_temp_variable = { ITA_popularity_add = constant }
+		subtract_from_variable = { ITA_Center_Popolo_Support^changer = constant }
+	}
+	else = {
+		add_to_temp_variable = { ITA_popularity_add = ITA_Center_Popolo_Support^changer }
+		set_variable = { ITA_Center_Popolo_Support^changer = 0 }
+	}
+	add_to_variable = { ITA_Right_Popolo_Support^changer = ITA_popularity_add }
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Popolo_Support^changer] [?ITA_Center_Popolo_Support^changer] [?ITA_Right_Popolo_Support^changer] Changer: [?changer] ITA_increase_right_Popolo"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_decrease_right_Popolo = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Popolo_Support^changer] [?ITA_Center_Popolo_Support^changer] [?ITA_Right_Popolo_Support^changer] Changer: [?changer] ITA_decrease_right_Popolo"
+	set_temp_variable = { ITA_popularity_add = 0 }
+	while_loop_effect = {
+		limit = {
+			AND = {
+				check_variable = { constant > ITA_Right_Popolo_Support^changer }
+				check_variable = { constant > 0 }
+			}
+		}
+		
+		subtract_from_temp_variable = { constant = 1 }
+	}
+	add_to_temp_variable = { ITA_popularity_add = constant }
+	subtract_from_variable = { ITA_Right_Popolo_Support^changer = constant }
+	divide_temp_variable = { ITA_popularity_add = 2 }
+	add_to_variable = { ITA_Left_Popolo_Support^changer = ITA_popularity_add }
+	add_to_variable = { ITA_Center_Popolo_Support^changer = ITA_popularity_add }
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Popolo_Support^changer] [?ITA_Center_Popolo_Support^changer] [?ITA_Right_Popolo_Support^changer] Changer: [?changer] ITA_decrease_right_Popolo"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_increase_right_Stato = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Stato_Support^changer] [?ITA_Center_Stato_Support^changer] [?ITA_Right_Stato_Support^changer] Changer: [?changer] ITA_increase_right_Stato"
+	divide_temp_variable = { constant = 2 }
+	set_temp_variable = { ITA_popularity_add = 0 }
+	if = {
+		limit = {
+			check_variable = { ITA_Left_Stato_Support^changer > constant }
+		}
+		add_to_temp_variable = { ITA_popularity_add = constant }
+		subtract_from_variable = { ITA_Left_Stato_Support^changer = constant }
+	}
+	else = {
+		add_to_temp_variable = { ITA_popularity_add = ITA_Left_Stato_Support^changer }
+		set_variable = { ITA_Left_Stato_Support^changer = 0 }
+	}
+	log = "ITA_popularity_add: [?ITA_popularity_add]"
+	if = {
+		limit = {
+			check_variable = { ITA_Center_Stato_Support^changer > constant }
+		}
+		add_to_temp_variable = { ITA_popularity_add = constant }
+		subtract_from_variable = { ITA_Center_Stato_Support^changer = constant }
+	}
+	else = {
+		add_to_temp_variable = { ITA_popularity_add = ITA_Center_Stato_Support^changer }
+		set_variable = { ITA_Center_Stato_Support^changer = 0 }
+	}
+	log = "ITA_popularity_add: [?ITA_popularity_add]"
+	add_to_variable = { ITA_Right_Stato_Support^changer = ITA_popularity_add }
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Stato_Support^changer] [?ITA_Center_Stato_Support^changer] [?ITA_Right_Stato_Support^changer] Changer: [?changer] ITA_increase_right_Stato"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_decrease_right_Stato = {
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Stato_Support^changer] [?ITA_Center_Stato_Support^changer] [?ITA_Right_Stato_Support^changer] Changer: [?changer] ITA_decrease_right_Stato"
+	set_temp_variable = { ITA_popularity_add = 0 }
+	while_loop_effect = {
+		limit = {
+			AND = {
+				check_variable = { constant > ITA_Right_Stato_Support^changer }
+				check_variable = { constant > 0 }
+			}
+		}
+		
+		subtract_from_temp_variable = { constant = 1 }
+	}
+	add_to_temp_variable = { ITA_popularity_add = constant }
+	subtract_from_variable = { ITA_Right_Stato_Support^changer = constant }
+	divide_temp_variable = { ITA_popularity_add = 2 }
+	add_to_variable = { ITA_Left_Stato_Support^changer = ITA_popularity_add }
+	add_to_variable = { ITA_Center_Stato_Support^changer = ITA_popularity_add }
+	log = "[GetDateText]: [Root.GetName]: [?ITA_Left_Stato_Support^changer] [?ITA_Center_Stato_Support^changer] [?ITA_Right_Stato_Support^changer] Changer: [?changer] ITA_decrease_right_Stato"
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_update_radicalization_modifier = {
+	#stability
+	set_variable = { ITA_POP_Dem_radicalization_stability = ITA_radicalization }
+	subtract_from_variable = { ITA_POP_Dem_radicalization_stability = 50 }
+	divide_variable = { ITA_POP_Dem_radicalization_stability = 50 }
+	multiply_variable = { ITA_POP_Dem_radicalization_stability = -0.15 }
+
+	#pp gain
+	set_variable = { ITA_POP_Dem_radicalization_pp = ITA_radicalization }
+	subtract_from_variable = { ITA_POP_Dem_radicalization_pp = 50 }
+	divide_variable = { ITA_POP_Dem_radicalization_pp = 50 }
+	multiply_variable = { ITA_POP_Dem_radicalization_pp = -0.1 }
+
+	#coalition size (this var is only informative, actual calculation is done in ITA_camera_update_windows)
+	set_temp_variable = { radicalization_level = ITA_radicalization }
+	clamp_temp_variable = { var = radicalization_level min = 20 max = 100 }
+	subtract_from_temp_variable = { radicalization_level = 20 }
+	divide_temp_variable = { radicalization_level = 80 }
+	multiply_temp_variable = { radicalization_level = -2 }
+
+	#apply Pannella's ability
+	if = {
+		limit = { check_variable = { ITA_gf_selected_pm = 2 } }
+		divide_temp_variable = { radicalization_level = 2.5 }
+		#the base decrease of coalition window size not displayed here since it's not an effect of radicalization
+		#subtract_from_temp_variable = { radicalization_level = 0.5 }
+	}
+
+	set_variable = { ITA_POP_Dem_radicalization_coalition_size = radicalization_level }
+	#Convert ITA_POP_Dem_radicalization_coalition_size into a procentage so it's easier to understand
+	divide_variable = { ITA_POP_Dem_radicalization_coalition_size = 2 }
+	multiply_variable = { ITA_POP_Dem_radicalization_coalition_size = 0.4 }
+}
+
+ITA_increase_radicalization_2 = {
+	add_to_variable = { ITA_radicalization = 2 }
+	clamp_variable = {
+		var = ITA_radicalization
+		min = 0
+		max = 100
+	}
+	custom_effect_tooltip = ITA_increase_radicalization_2_tt
+	ITA_camera_update_windows = yes
+	ITA_update_radicalization_modifier = yes
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_decrease_radicalization_2 = {
+	subtract_from_variable = { ITA_radicalization = 2 }
+	clamp_variable = {
+		var = ITA_radicalization
+		min = 0
+		max = 100
+	}
+	custom_effect_tooltip = ITA_decrease_radicalization_2_tt
+	ITA_camera_update_windows = yes
+	ITA_update_radicalization_modifier = yes
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_increase_radicalization_3 = {
+	add_to_variable = { ITA_radicalization = 3 }
+	clamp_variable = {
+		var = ITA_radicalization
+		min = 0
+		max = 100
+	}
+	custom_effect_tooltip = ITA_increase_radicalization_3_tt
+	ITA_camera_update_windows = yes
+	ITA_update_radicalization_modifier = yes
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_decrease_radicalization_3 = {
+	subtract_from_variable = { ITA_radicalization = 3 }
+	clamp_variable = {
+		var = ITA_radicalization
+		min = 0
+		max = 100
+	}
+	custom_effect_tooltip = ITA_decrease_radicalization_3_tt
+	ITA_camera_update_windows = yes
+	ITA_update_radicalization_modifier = yes
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_increase_radicalization_5 = {
+	add_to_variable = { ITA_radicalization = 5 }
+	clamp_variable = {
+		var = ITA_radicalization
+		min = 0
+		max = 100
+	}
+	custom_effect_tooltip = ITA_increase_radicalization_5_tt
+	ITA_camera_update_windows = yes
+	ITA_update_radicalization_modifier = yes
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_decrease_radicalization_5 = {
+	subtract_from_variable = { ITA_radicalization = 5 }
+	clamp_variable = {
+		var = ITA_radicalization
+		min = 0
+		max = 100
+	}
+	custom_effect_tooltip = ITA_decrease_radicalization_5_tt
+	ITA_camera_update_windows = yes
+	ITA_update_radicalization_modifier = yes
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_increase_radicalization_10 = {
+	add_to_variable = { ITA_radicalization = 10 }
+	clamp_variable = {
+		var = ITA_radicalization
+		min = 0
+		max = 100
+	}
+	custom_effect_tooltip = ITA_increase_radicalization_10_tt
+	ITA_camera_update_windows = yes
+	ITA_update_radicalization_modifier = yes
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_decrease_radicalization_10 = {
+	subtract_from_variable = { ITA_radicalization = 10 }
+	clamp_variable = {
+		var = ITA_radicalization
+		min = 0
+		max = 100
+	}
+	custom_effect_tooltip = ITA_decrease_radicalization_10_tt
+	ITA_camera_update_windows = yes
+	ITA_update_radicalization_modifier = yes
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_increase_radicalization_20 = {
+	add_to_variable = { ITA_radicalization = 20 }
+	clamp_variable = {
+		var = ITA_radicalization
+		min = 0
+		max = 100
+	}
+	custom_effect_tooltip = ITA_increase_radicalization_20_tt
+	ITA_camera_update_windows = yes
+	ITA_update_radicalization_modifier = yes
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_decrease_radicalization_20 = {
+	subtract_from_variable = { ITA_radicalization = 20 }
+	clamp_variable = {
+		var = ITA_radicalization
+		min = 0
+		max = 100
+	}
+	custom_effect_tooltip = ITA_decrease_radicalization_20_tt
+	ITA_camera_update_windows = yes
+	ITA_update_radicalization_modifier = yes
+	add_to_variable = { ITA_POP_GUI_dirty = 1 }
+}
+
+ITA_increase_party_pop_BC_4 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_BC_4_tt
+}
+ITA_increase_party_pop_BC_8 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_BC_8_tt
+}
+ITA_increase_party_pop_BC_12 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_BC_12_tt
+}
+
+ITA_decrease_party_pop_BC_4 = {  
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = -4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_BC_4_tt
+}
+ITA_decrease_party_pop_BC_8 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = -8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_BC_8_tt
+}
+ITA_decrease_party_pop_BC_12 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = -12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_BC_12_tt
+}
+
+ITA_increase_party_pop_Max_4 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_Max_4_tt
+}
+ITA_increase_party_pop_Max_8 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_Max_8_tt
+}
+ITA_increase_party_pop_Max_12 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_Max_12_tt
+}
+
+ITA_decrease_party_pop_Max_4 = {  
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = -4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_Max_4_tt
+}
+ITA_decrease_party_pop_Max_8 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = -8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_Max_8_tt
+}
+ITA_decrease_party_pop_Max_12 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = -12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_Max_12_tt
+}
+
+ITA_increase_party_pop_PR_4 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_PR_4_tt
+}
+ITA_increase_party_pop_PR_8 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_PR_8_tt
+}
+ITA_increase_party_pop_PR_12 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_PR_12_tt
+}
+
+ITA_decrease_party_pop_PR_4 = {  
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = -4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_PR_4_tt
+}
+ITA_decrease_party_pop_PR_8 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = -8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_PR_8_tt
+}
+ITA_decrease_party_pop_PR_12 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = -12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_PR_12_tt
+}
+
+ITA_increase_party_pop_Min_4 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_Min_4_tt
+}
+ITA_increase_party_pop_Min_8 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_Min_8_tt
+}
+ITA_increase_party_pop_Min_12 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_Min_12_tt
+}
+
+ITA_decrease_party_pop_Min_4 = {  
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = -4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_Min_4_tt
+}
+ITA_decrease_party_pop_Min_8 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = -8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_Min_8_tt
+}
+ITA_decrease_party_pop_Min_12 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = -12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_Min_12_tt
+}
+
+ITA_increase_party_pop_PSDI_4 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_PSDI_4_tt
+}
+ITA_increase_party_pop_PSDI_8 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_PSDI_8_tt
+}
+ITA_increase_party_pop_PSDI_12 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_PSDI_12_tt
+}
+
+ITA_decrease_party_pop_PSDI_4 = {  
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = -4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_PSDI_4_tt
+}
+ITA_decrease_party_pop_PSDI_8 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = -8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_PSDI_8_tt
+}
+ITA_decrease_party_pop_PSDI_12 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = -12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_PSDI_12_tt
+}
+
+ITA_increase_party_pop_PRI_4 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_PRI_4_tt
+}
+ITA_increase_party_pop_PRI_8 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_PRI_8_tt
+}
+ITA_increase_party_pop_PRI_12 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_PRI_12_tt
+}
+
+ITA_decrease_party_pop_PRI_4 = {  
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = -4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_PRI_4_tt
+}
+ITA_decrease_party_pop_PRI_8 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = -8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_PRI_8_tt
+}
+ITA_decrease_party_pop_PRI_12 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = -12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_PRI_12_tt
+}
+
+ITA_increase_party_pop_RD_4 = {
+	set_temp_variable = { changer = 6 }
+	set_temp_variable = { constant = 4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_RD_4_tt
+}
+ITA_increase_party_pop_RD_8 = {
+	set_temp_variable = { changer = 6 }
+	set_temp_variable = { constant = 8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_RD_8_tt
+}
+ITA_increase_party_pop_RD_12 = {
+	set_temp_variable = { changer = 6 }
+	set_temp_variable = { constant = 12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_RD_12_tt
+}
+
+ITA_decrease_party_pop_RD_4 = {  
+	set_temp_variable = { changer = 6 }
+	set_temp_variable = { constant = -4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_RD_4_tt
+}
+ITA_decrease_party_pop_RD_8 = {
+	set_temp_variable = { changer = 6 }
+	set_temp_variable = { constant = -8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_RD_8_tt
+}
+ITA_decrease_party_pop_RD_12 = {
+	set_temp_variable = { changer = 6 }
+	set_temp_variable = { constant = -12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_RD_12_tt
+}
+
+ITA_increase_party_pop_NC_4 = {
+	set_temp_variable = { changer = 7 }
+	set_temp_variable = { constant = 4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_NC_4_tt
+}
+ITA_increase_party_pop_NC_8 = {
+	set_temp_variable = { changer = 7 }
+	set_temp_variable = { constant = 8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_NC_8_tt
+}
+ITA_increase_party_pop_NC_12 = {
+	set_temp_variable = { changer = 7 }
+	set_temp_variable = { constant = 12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_NC_12_tt
+}
+
+ITA_decrease_party_pop_NC_4 = {  
+	set_temp_variable = { changer = 7 }
+	set_temp_variable = { constant = -4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_NC_4_tt
+}
+ITA_decrease_party_pop_NC_8 = {
+	set_temp_variable = { changer = 7 }
+	set_temp_variable = { constant = -8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_NC_8_tt
+}
+ITA_decrease_party_pop_NC_12 = {
+	set_temp_variable = { changer = 7 }
+	set_temp_variable = { constant = -12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_NC_12_tt
+}
+
+ITA_increase_party_pop_D_4 = {
+	set_temp_variable = { changer = 8 }
+	set_temp_variable = { constant = 4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_D_4_tt
+}
+ITA_increase_party_pop_D_8 = {
+	set_temp_variable = { changer = 8 }
+	set_temp_variable = { constant = 8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_D_8_tt
+}
+ITA_increase_party_pop_D_12 = {
+	set_temp_variable = { changer = 8 }
+	set_temp_variable = { constant = 12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_D_12_tt
+}
+
+ITA_decrease_party_pop_D_4 = {  
+	set_temp_variable = { changer = 8 }
+	set_temp_variable = { constant = -4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_D_4_tt
+}
+ITA_decrease_party_pop_D_8 = {
+	set_temp_variable = { changer = 8 }
+	set_temp_variable = { constant = -8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_D_8_tt
+}
+ITA_decrease_party_pop_D_12 = {
+	set_temp_variable = { changer = 8 }
+	set_temp_variable = { constant = -12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_D_12_tt
+}
+
+ITA_increase_party_pop_P_4 = {
+	set_temp_variable = { changer = 9 }
+	set_temp_variable = { constant = 4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_P_4_tt
+}
+ITA_increase_party_pop_P_8 = {
+	set_temp_variable = { changer = 9 }
+	set_temp_variable = { constant = 8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_P_8_tt
+}
+ITA_increase_party_pop_P_12 = {
+	set_temp_variable = { changer = 9 }
+	set_temp_variable = { constant = 12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_P_12_tt
+}
+
+ITA_decrease_party_pop_P_4 = {  
+	set_temp_variable = { changer = 9 }
+	set_temp_variable = { constant = -4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_P_4_tt
+}
+ITA_decrease_party_pop_P_8 = {
+	set_temp_variable = { changer = 9 }
+	set_temp_variable = { constant = -8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_P_8_tt
+}
+ITA_decrease_party_pop_P_12 = {
+	set_temp_variable = { changer = 9 }
+	set_temp_variable = { constant = -12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_P_12_tt
+}
+
+ITA_increase_party_pop_PLI_4 = {
+	set_temp_variable = { changer = 10 }
+	set_temp_variable = { constant = 4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_PLI_4_tt
+}
+ITA_increase_party_pop_PLI_8 = {
+	set_temp_variable = { changer = 10 }
+	set_temp_variable = { constant = 8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_PLI_8_tt
+}
+ITA_increase_party_pop_PLI_12 = {
+	set_temp_variable = { changer = 10 }
+	set_temp_variable = { constant = 12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_PLI_12_tt
+}
+
+ITA_decrease_party_pop_PLI_4 = {  
+	set_temp_variable = { changer = 10 }
+	set_temp_variable = { constant = -4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_PLI_4_tt
+}
+ITA_decrease_party_pop_PLI_8 = {
+	set_temp_variable = { changer = 10 }
+	set_temp_variable = { constant = -8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_PLI_8_tt
+}
+ITA_decrease_party_pop_PLI_12 = {
+	set_temp_variable = { changer = 10 }
+	set_temp_variable = { constant = -12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_PLI_12_tt
+}
+
+ITA_increase_party_pop_PDI_4 = {
+	set_temp_variable = { changer = 11 }
+	set_temp_variable = { constant = 4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_PDI_4_tt
+}
+ITA_increase_party_pop_PDI_8 = {
+	set_temp_variable = { changer = 11 }
+	set_temp_variable = { constant = 8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_PDI_8_tt
+}
+ITA_increase_party_pop_PDI_12 = {
+	set_temp_variable = { changer = 11 }
+	set_temp_variable = { constant = 12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_PDI_12_tt
+}
+
+ITA_decrease_party_pop_PDI_4 = {  
+	set_temp_variable = { changer = 11 }
+	set_temp_variable = { constant = -4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_PDI_4_tt
+}
+ITA_decrease_party_pop_PDI_8 = {
+	set_temp_variable = { changer = 11 }
+	set_temp_variable = { constant = -8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_PDI_8_tt
+}
+ITA_decrease_party_pop_PDI_12 = {
+	set_temp_variable = { changer = 11 }
+	set_temp_variable = { constant = -12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_PDI_12_tt
+}
+
+ITA_increase_party_pop_DN_4 = {
+	set_temp_variable = { changer = 12 }
+	set_temp_variable = { constant = 4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_DN_4_tt
+}
+ITA_increase_party_pop_DN_8 = {
+	set_temp_variable = { changer = 12 }
+	set_temp_variable = { constant = 8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_DN_8_tt
+}
+ITA_increase_party_pop_DN_12 = {
+	set_temp_variable = { changer = 12 }
+	set_temp_variable = { constant = 12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_DN_12_tt
+}
+
+ITA_decrease_party_pop_DN_4 = {  
+	set_temp_variable = { changer = 12 }
+	set_temp_variable = { constant = -4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_DN_4_tt
+}
+ITA_decrease_party_pop_DN_8 = {
+	set_temp_variable = { changer = 12 }
+	set_temp_variable = { constant = -8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_DN_8_tt
+}
+ITA_decrease_party_pop_DN_12 = {
+	set_temp_variable = { changer = 12 }
+	set_temp_variable = { constant = -12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_DN_12_tt
+}
+
+ITA_increase_party_pop_AC_4 = {
+	set_temp_variable = { changer = 13 }
+	set_temp_variable = { constant = 4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_AC_4_tt
+}
+ITA_increase_party_pop_AC_8 = {
+	set_temp_variable = { changer = 13 }
+	set_temp_variable = { constant = 8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_AC_8_tt
+}
+ITA_increase_party_pop_AC_12 = {
+	set_temp_variable = { changer = 13 }
+	set_temp_variable = { constant = 12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_AC_12_tt
+}
+
+ITA_decrease_party_pop_AC_4 = {  
+	set_temp_variable = { changer = 13 }
+	set_temp_variable = { constant = -4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_AC_4_tt
+}
+ITA_decrease_party_pop_AC_8 = {
+	set_temp_variable = { changer = 13 }
+	set_temp_variable = { constant = -8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_AC_8_tt
+}
+ITA_decrease_party_pop_AC_12 = {
+	set_temp_variable = { changer = 13 }
+	set_temp_variable = { constant = -12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_AC_12_tt
+}
+
+ITA_increase_party_pop_ON_4 = {
+	set_temp_variable = { changer = 14 }
+	set_temp_variable = { constant = 4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_ON_4_tt
+}
+ITA_increase_party_pop_ON_8 = {
+	set_temp_variable = { changer = 14 }
+	set_temp_variable = { constant = 8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_ON_8_tt
+}
+ITA_increase_party_pop_ON_12 = {
+	set_temp_variable = { changer = 14 }
+	set_temp_variable = { constant = 12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_increase_party_pop_ON_12_tt
+}
+
+ITA_decrease_party_pop_ON_4 = {  
+	set_temp_variable = { changer = 14 }
+	set_temp_variable = { constant = -4 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_ON_4_tt
+}
+ITA_decrease_party_pop_ON_8 = {
+	set_temp_variable = { changer = 14 }
+	set_temp_variable = { constant = -8 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_ON_8_tt
+}
+ITA_decrease_party_pop_ON_12 = {
+	set_temp_variable = { changer = 14 }
+	set_temp_variable = { constant = -12 }
+	ITA_change_party_pop = yes
+	custom_effect_tooltip = ITA_decrease_party_pop_ON_12_tt
+}
+
+ITA_increase_influence_farmers_5 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 5 }
+	ITA_increase_influence_Popolo = yes
+	custom_effect_tooltip = ITA_increase_influence_farmers_5_tt
+}
+
+ITA_decrease_influence_farmers_5 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 5 }
+	ITA_decrease_influence_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_influence_farmers_5_tt
+}
+
+ITA_increase_influence_farmers_10 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 10 }
+	ITA_increase_influence_Popolo = yes
+	custom_effect_tooltip = ITA_increase_influence_farmers_10_tt
+}
+
+ITA_decrease_influence_farmers_10 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 10 }
+	ITA_decrease_influence_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_influence_farmers_10_tt
+}
+
+ITA_increase_influence_workers_5 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 5 }
+	ITA_increase_influence_Popolo = yes
+	custom_effect_tooltip = ITA_increase_influence_workers_5_tt
+}
+
+ITA_decrease_influence_workers_5 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 5 }
+	ITA_decrease_influence_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_influence_workers_5_tt
+}
+
+ITA_increase_influence_workers_10 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 10 }
+	ITA_increase_influence_Popolo = yes
+	custom_effect_tooltip = ITA_increase_influence_workers_10_tt
+}
+
+ITA_decrease_influence_workers_10 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 10 }
+	ITA_decrease_influence_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_influence_workers_10_tt
+}
+
+ITA_increase_influence_middle_5 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 5 }
+	ITA_increase_influence_Popolo = yes
+	custom_effect_tooltip = ITA_increase_influence_middle_5_tt
+}
+
+ITA_decrease_influence_middle_5 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 5 }
+	ITA_decrease_influence_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_influence_middle_5_tt
+}
+
+ITA_increase_influence_middle_10 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 10 }
+	ITA_increase_influence_Popolo = yes
+	custom_effect_tooltip = ITA_increase_influence_middle_10_tt
+}
+
+ITA_decrease_influence_middle_10 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 10 }
+	ITA_decrease_influence_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_influence_middle_10_tt
+}
+
+ITA_increase_influence_soldiers_5 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 5 }
+	ITA_increase_influence_Popolo = yes
+	custom_effect_tooltip = ITA_increase_influence_soldiers_5_tt
+}
+
+ITA_decrease_influence_soldiers_5 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 5 }
+	ITA_decrease_influence_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_influence_soldiers_5_tt
+}
+
+ITA_increase_influence_soldiers_10 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 10 }
+	ITA_increase_influence_Popolo = yes
+	custom_effect_tooltip = ITA_increase_influence_soldiers_10_tt
+}
+
+ITA_decrease_influence_soldiers_10 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 10 }
+	ITA_decrease_influence_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_influence_soldiers_10_tt
+}
+
+ITA_increase_influence_students_5 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 5 }
+	ITA_increase_influence_Popolo = yes
+	custom_effect_tooltip = ITA_increase_influence_students_5_tt
+}
+
+ITA_decrease_influence_students_5 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 5 }
+	ITA_decrease_influence_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_influence_students_5_tt
+}
+
+ITA_increase_influence_students_10 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 10 }
+	ITA_increase_influence_Popolo = yes
+	custom_effect_tooltip = ITA_increase_influence_students_10_tt
+}
+
+ITA_decrease_influence_students_10 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 10 }
+	ITA_decrease_influence_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_influence_students_10_tt
+}
+
+ITA_increase_influence_minorities_5 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 5 }
+	ITA_increase_influence_Popolo = yes
+	custom_effect_tooltip = ITA_increase_influence_minorities_5_tt
+}
+
+ITA_decrease_influence_minorities_5 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 5 }
+	ITA_decrease_influence_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_influence_minorities_5_tt
+}
+
+ITA_increase_influence_minorities_10 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 10 }
+	ITA_increase_influence_Popolo = yes
+	custom_effect_tooltip = ITA_increase_influence_minorities_10_tt
+}
+
+ITA_decrease_influence_minorities_10 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 10 }
+	ITA_decrease_influence_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_influence_minorities_10_tt
+}
+
+ITA_increase_influence_bureaucracy_5 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 5 }
+	ITA_increase_influence_Stato = yes
+	custom_effect_tooltip = ITA_increase_influence_bureaucracy_5_tt
+}
+
+ITA_decrease_influence_bureaucracy_5 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 5 }
+	ITA_decrease_influence_Stato = yes
+	custom_effect_tooltip = ITA_decrease_influence_bureaucracy_5_tt
+}
+
+ITA_increase_influence_bureaucracy_10 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 10 }
+	ITA_increase_influence_Stato = yes
+	custom_effect_tooltip = ITA_increase_influence_bureaucracy_10_tt
+}
+
+ITA_decrease_influence_bureaucracy_10 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 10 }
+	ITA_decrease_influence_Stato = yes
+	custom_effect_tooltip = ITA_decrease_influence_bureaucracy_10_tt
+}
+
+ITA_increase_influence_judiciary_5 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 5 }
+	ITA_increase_influence_Stato = yes
+	custom_effect_tooltip = ITA_increase_influence_judiciary_5_tt
+}
+
+ITA_decrease_influence_judiciary_5 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 5 }
+	ITA_decrease_influence_Stato = yes
+	custom_effect_tooltip = ITA_decrease_influence_judiciary_5_tt
+}
+
+ITA_increase_influence_judiciary_10 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 10 }
+	ITA_increase_influence_Stato = yes
+	custom_effect_tooltip = ITA_increase_influence_judiciary_10_tt
+}
+
+ITA_decrease_influence_judiciary_10 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 10 }
+	ITA_decrease_influence_Stato = yes
+	custom_effect_tooltip = ITA_decrease_influence_judiciary_10_tt
+}
+
+ITA_increase_influence_industry_5 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 5 }
+	ITA_increase_influence_Stato = yes
+	custom_effect_tooltip = ITA_increase_influence_industry_5_tt
+}
+
+ITA_decrease_influence_industry_5 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 5 }
+	ITA_decrease_influence_Stato = yes
+	custom_effect_tooltip = ITA_decrease_influence_industry_5_tt
+}
+
+ITA_increase_influence_industry_10 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 10 }
+	ITA_increase_influence_Stato = yes
+	custom_effect_tooltip = ITA_increase_influence_industry_10_tt
+}
+
+ITA_decrease_influence_industry_10 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 10 }
+	ITA_decrease_influence_Stato = yes
+	custom_effect_tooltip = ITA_decrease_influence_industry_10_tt
+}
+
+ITA_increase_influence_brass_5 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 5 }
+	ITA_increase_influence_Stato = yes
+	custom_effect_tooltip = ITA_increase_influence_brass_5_tt
+}
+
+ITA_decrease_influence_brass_5 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 5 }
+	ITA_decrease_influence_Stato = yes
+	custom_effect_tooltip = ITA_decrease_influence_brass_5_tt
+}
+
+ITA_increase_influence_brass_10 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 10 }
+	ITA_increase_influence_Stato = yes
+	custom_effect_tooltip = ITA_increase_influence_brass_10_tt
+}
+
+ITA_decrease_influence_brass_10 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 10 }
+	ITA_decrease_influence_Stato = yes
+	custom_effect_tooltip = ITA_decrease_influence_brass_10_tt
+}
+
+ITA_increase_influence_monarchy_5 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 5 }
+	ITA_increase_influence_Stato = yes
+	custom_effect_tooltip = ITA_increase_influence_monarchy_5_tt
+}
+
+ITA_decrease_influence_monarchy_5 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 5 }
+	ITA_decrease_influence_Stato = yes
+	custom_effect_tooltip = ITA_decrease_influence_monarchy_5_tt
+}
+
+ITA_increase_influence_monarchy_10 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 10 }
+	ITA_increase_influence_Stato = yes
+	custom_effect_tooltip = ITA_increase_influence_monarchy_10_tt
+}
+
+ITA_decrease_influence_monarchy_10 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 10 }
+	ITA_decrease_influence_Stato = yes
+	custom_effect_tooltip = ITA_decrease_influence_monarchy_10_tt
+}
+
+ITA_increase_influence_clergy_5 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 5 }
+	ITA_increase_influence_Stato = yes
+	custom_effect_tooltip = ITA_increase_influence_clergy_5_tt
+}
+
+ITA_decrease_influence_clergy_5 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 5 }
+	ITA_decrease_influence_Stato = yes
+	custom_effect_tooltip = ITA_decrease_influence_clergy_5_tt
+}
+
+ITA_increase_influence_clergy_10 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 10 }
+	ITA_increase_influence_Stato = yes
+	custom_effect_tooltip = ITA_increase_influence_clergy_10_tt
+}
+
+ITA_decrease_influence_clergy_10 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 10 }
+	ITA_decrease_influence_Stato = yes
+	custom_effect_tooltip = ITA_decrease_influence_clergy_10_tt
+}
+
+ITA_increase_left_farmers_4 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_farmers_4_tt
+}
+
+ITA_decrease_left_farmers_4 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_farmers_4_tt
+}
+
+ITA_increase_left_farmers_8 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_farmers_8_tt
+}
+
+ITA_decrease_left_farmers_8 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_farmers_8_tt
+}
+
+ITA_increase_left_farmers_12 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_farmers_12_tt
+}
+
+ITA_decrease_left_farmers_12 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_farmers_12_tt
+}
+
+ITA_increase_left_workers_4 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_workers_4_tt
+}
+
+ITA_decrease_left_workers_4 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_workers_4_tt
+}
+
+ITA_increase_left_workers_8 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_workers_8_tt
+}
+
+ITA_decrease_left_workers_8 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_workers_8_tt
+}
+
+ITA_increase_left_workers_12 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_workers_12_tt
+}
+
+ITA_decrease_left_workers_12 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_workers_12_tt
+}
+
+ITA_increase_left_middle_4 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_middle_4_tt
+}
+
+ITA_decrease_left_middle_4 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_middle_4_tt
+}
+
+ITA_increase_left_middle_8 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_middle_8_tt
+}
+
+ITA_decrease_left_middle_8 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_middle_8_tt
+}
+
+ITA_increase_left_middle_12 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_middle_12_tt
+}
+
+ITA_decrease_left_middle_12 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_middle_12_tt
+}
+
+ITA_increase_left_soldiers_4 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_soldiers_4_tt
+}
+
+ITA_decrease_left_soldiers_4 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_soldiers_4_tt
+}
+
+ITA_increase_left_soldiers_8 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_soldiers_8_tt
+}
+
+ITA_decrease_left_soldiers_8 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_soldiers_8_tt
+}
+
+ITA_increase_left_soldiers_12 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_soldiers_12_tt
+}
+
+ITA_decrease_left_soldiers_12 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_soldiers_12_tt
+}
+
+ITA_increase_left_students_4 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_students_4_tt
+}
+
+ITA_decrease_left_students_4 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_students_4_tt
+}
+
+ITA_increase_left_students_8 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_students_8_tt
+}
+
+ITA_decrease_left_students_8 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_students_8_tt
+}
+
+
+
+ITA_increase_left_minorities_4 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_minorities_4_tt
+}
+
+ITA_decrease_left_minorities_4 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_minorities_4_tt
+}
+
+ITA_increase_left_minorities_8 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_minorities_8_tt
+}
+
+ITA_decrease_left_minorities_8 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_minorities_8_tt
+}
+
+ITA_increase_left_minorities_12 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_left_Popolo = yes
+	custom_effect_tooltip = ITA_increase_left_minorities_12_tt
+}
+
+ITA_decrease_left_minorities_12 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_left_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_left_minorities_12_tt
+}
+
+ITA_increase_left_bureaucracy_4 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_bureaucracy_4_tt
+}
+
+ITA_decrease_left_bureaucracy_4 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_bureaucracy_4_tt
+}
+
+ITA_increase_left_bureaucracy_8 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_bureaucracy_8_tt
+}
+
+ITA_decrease_left_bureaucracy_8 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_bureaucracy_8_tt
+}
+
+ITA_increase_left_bureaucracy_12 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_bureaucracy_12_tt
+}
+
+ITA_decrease_left_bureaucracy_12 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_bureaucracy_12_tt
+}
+
+ITA_increase_left_judiciary_4 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_judiciary_4_tt
+}
+
+ITA_decrease_left_judiciary_4 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_judiciary_4_tt
+}
+
+ITA_increase_left_judiciary_8 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_judiciary_8_tt
+}
+
+ITA_decrease_left_judiciary_8 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_judiciary_8_tt
+}
+
+ITA_increase_left_judiciary_12 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_judiciary_12_tt
+}
+
+ITA_decrease_left_judiciary_12 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_judiciary_12_tt
+}
+
+ITA_increase_left_industry_4 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_industry_4_tt
+}
+
+ITA_decrease_left_industry_4 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_industry_4_tt
+}
+
+ITA_increase_left_industry_8 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_industry_8_tt
+}
+
+ITA_decrease_left_industry_8 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_industry_8_tt
+}
+
+ITA_increase_left_industry_12 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_industry_12_tt
+}
+
+ITA_decrease_left_industry_12 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_industry_12_tt
+}
+
+ITA_increase_left_brass_4 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_brass_4_tt
+}
+
+ITA_decrease_left_brass_4 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_brass_4_tt
+}
+
+ITA_increase_left_brass_8 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_brass_8_tt
+}
+
+ITA_decrease_left_brass_8 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_brass_8_tt
+}
+
+ITA_increase_left_brass_12 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_brass_12_tt
+}
+
+ITA_decrease_left_brass_12 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_brass_12_tt
+}
+
+ITA_increase_left_monarchy_4 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_monarchy_4_tt
+}
+
+ITA_decrease_left_monarchy_4 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_monarchy_4_tt
+}
+
+ITA_increase_left_monarchy_8 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_monarchy_8_tt
+}
+
+ITA_decrease_left_monarchy_8 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_monarchy_8_tt
+}
+
+ITA_increase_left_monarchy_12 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_monarchy_12_tt
+}
+
+ITA_decrease_left_monarchy_12 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_monarchy_12_tt
+}
+
+ITA_increase_left_clergy_4 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_clergy_4_tt
+}
+
+ITA_decrease_left_clergy_4 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_clergy_4_tt
+}
+
+ITA_increase_left_clergy_8 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_clergy_8_tt
+}
+
+ITA_decrease_left_clergy_8 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_clergy_8_tt
+}
+
+ITA_increase_left_clergy_12 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_left_Stato = yes
+	custom_effect_tooltip = ITA_increase_left_clergy_12_tt
+}
+
+ITA_decrease_left_clergy_12 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_left_Stato = yes
+	custom_effect_tooltip = ITA_decrease_left_clergy_12_tt
+}
+
+ITA_increase_center_farmers_4 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_farmers_4_tt
+}
+
+ITA_decrease_center_farmers_4 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_farmers_4_tt
+}
+
+ITA_increase_center_farmers_8 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_farmers_8_tt
+}
+
+ITA_decrease_center_farmers_8 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_farmers_8_tt
+}
+
+ITA_increase_center_farmers_12 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_farmers_12_tt
+}
+
+ITA_decrease_center_farmers_12 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_farmers_12_tt
+}
+
+ITA_increase_center_workers_4 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_workers_4_tt
+}
+
+ITA_decrease_center_workers_4 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_workers_4_tt
+}
+
+ITA_increase_center_workers_8 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_workers_8_tt
+}
+
+ITA_decrease_center_workers_8 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_workers_8_tt
+}
+
+ITA_increase_center_workers_12 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_workers_12_tt
+}
+
+ITA_decrease_center_workers_12 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_workers_12_tt
+}
+
+ITA_increase_center_middle_4 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_middle_4_tt
+}
+
+ITA_decrease_center_middle_4 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_middle_4_tt
+}
+
+ITA_increase_center_middle_8 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_middle_8_tt
+}
+
+ITA_decrease_center_middle_8 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_middle_8_tt
+}
+
+ITA_increase_center_middle_12 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_middle_12_tt
+}
+
+ITA_increase_center_middle_16 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 16 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_middle_16_tt
+}
+
+ITA_decrease_center_middle_12 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_middle_12_tt
+}
+
+ITA_increase_center_soldiers_4 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_soldiers_4_tt
+}
+
+ITA_decrease_center_soldiers_4 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_soldiers_4_tt
+}
+
+ITA_increase_center_soldiers_8 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_soldiers_8_tt
+}
+
+ITA_decrease_center_soldiers_8 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_soldiers_8_tt
+}
+
+ITA_increase_center_soldiers_12 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_soldiers_12_tt
+}
+
+ITA_decrease_center_soldiers_12 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_soldiers_12_tt
+}
+
+ITA_increase_center_students_4 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_students_4_tt
+}
+
+ITA_decrease_center_students_4 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_students_4_tt
+}
+
+ITA_increase_center_students_8 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_students_8_tt
+}
+
+ITA_decrease_center_students_8 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_students_8_tt
+}
+
+ITA_increase_center_students_12 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_students_12_tt
+}
+
+ITA_decrease_center_students_12 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_students_12_tt
+}
+
+
+
+ITA_increase_center_minorities_4 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_minorities_4_tt
+}
+
+ITA_decrease_center_minorities_4 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_minorities_4_tt
+}
+
+ITA_increase_center_minorities_8 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_minorities_8_tt
+}
+
+ITA_decrease_center_minorities_8 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_minorities_8_tt
+}
+
+ITA_increase_center_minorities_12 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_center_Popolo = yes
+	custom_effect_tooltip = ITA_increase_center_minorities_12_tt
+}
+
+ITA_decrease_center_minorities_12 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_center_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_center_minorities_12_tt
+}
+
+ITA_increase_center_bureaucracy_4 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_bureaucracy_4_tt
+}
+
+ITA_decrease_center_bureaucracy_4 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_bureaucracy_4_tt
+}
+
+ITA_increase_center_bureaucracy_8 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_bureaucracy_8_tt
+}
+
+ITA_decrease_center_bureaucracy_8 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_bureaucracy_8_tt
+}
+
+ITA_increase_center_bureaucracy_12 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_bureaucracy_12_tt
+}
+
+ITA_decrease_center_bureaucracy_12 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_bureaucracy_12_tt
+}
+
+ITA_increase_center_judiciary_4 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_judiciary_4_tt
+}
+
+ITA_decrease_center_judiciary_4 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_judiciary_4_tt
+}
+
+ITA_increase_center_judiciary_8 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_judiciary_8_tt
+}
+
+ITA_decrease_center_judiciary_8 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_judiciary_8_tt
+}
+
+ITA_increase_center_judiciary_12 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_judiciary_12_tt
+}
+
+ITA_decrease_center_judiciary_12 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_judiciary_12_tt
+}
+
+ITA_increase_center_industry_4 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_industry_4_tt
+}
+
+ITA_decrease_center_industry_4 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_industry_4_tt
+}
+
+ITA_increase_center_industry_8 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_industry_8_tt
+}
+
+ITA_decrease_center_industry_8 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_industry_8_tt
+}
+
+ITA_increase_center_industry_12 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_industry_12_tt
+}
+
+ITA_decrease_center_industry_12 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_industry_12_tt
+}
+
+ITA_increase_center_industry_16 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 16 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_industry_16_tt
+}
+
+ITA_increase_center_brass_4 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_brass_4_tt
+}
+
+ITA_decrease_center_brass_4 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_brass_4_tt
+}
+
+ITA_increase_center_brass_8 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_brass_8_tt
+}
+
+ITA_decrease_center_brass_8 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_brass_8_tt
+}
+
+ITA_increase_center_brass_12 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_brass_12_tt
+}
+
+ITA_decrease_center_brass_12 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_brass_12_tt
+}
+
+ITA_increase_center_monarchy_4 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_monarchy_4_tt
+}
+
+ITA_decrease_center_monarchy_4 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_monarchy_4_tt
+}
+
+ITA_increase_center_monarchy_8 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_monarchy_8_tt
+}
+
+ITA_decrease_center_monarchy_8 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_monarchy_8_tt
+}
+
+ITA_increase_center_monarchy_12 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_monarchy_12_tt
+}
+
+ITA_decrease_center_monarchy_12 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_monarchy_12_tt
+}
+
+ITA_increase_center_clergy_4 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_clergy_4_tt
+}
+
+ITA_decrease_center_clergy_4 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_clergy_4_tt
+}
+
+ITA_increase_center_clergy_8 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_clergy_8_tt
+}
+
+ITA_decrease_center_clergy_8 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_clergy_8_tt
+}
+
+ITA_increase_center_clergy_12 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_center_Stato = yes
+	custom_effect_tooltip = ITA_increase_center_clergy_12_tt
+}
+
+ITA_decrease_center_clergy_12 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_center_Stato = yes
+	custom_effect_tooltip = ITA_decrease_center_clergy_12_tt
+}
+
+ITA_increase_right_farmers_4 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_farmers_4_tt
+}
+
+ITA_decrease_right_farmers_4 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_farmers_4_tt
+}
+
+ITA_increase_right_farmers_8 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_farmers_8_tt
+}
+
+ITA_decrease_right_farmers_8 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_farmers_8_tt
+}
+
+ITA_increase_right_farmers_12 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_farmers_12_tt
+}
+
+ITA_decrease_right_farmers_12 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_farmers_12_tt
+}
+
+ITA_increase_right_workers_4 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_workers_4_tt
+}
+
+ITA_decrease_right_workers_4 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_workers_4_tt
+}
+
+ITA_increase_right_workers_8 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_workers_8_tt
+}
+
+ITA_decrease_right_workers_8 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_workers_8_tt
+}
+
+ITA_increase_right_workers_12 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_workers_12_tt
+}
+
+ITA_decrease_right_workers_12 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_workers_12_tt
+}
+
+ITA_increase_right_middle_4 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_middle_4_tt
+}
+
+ITA_decrease_right_middle_4 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_middle_4_tt
+}
+
+ITA_increase_right_middle_8 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_middle_8_tt
+}
+
+ITA_decrease_right_middle_8 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_middle_8_tt
+}
+
+ITA_increase_right_middle_12 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_middle_12_tt
+}
+
+ITA_decrease_right_middle_12 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_middle_12_tt
+}
+
+ITA_increase_right_soldiers_4 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_soldiers_4_tt
+}
+
+ITA_decrease_right_soldiers_4 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_soldiers_4_tt
+}
+
+ITA_increase_right_soldiers_8 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_soldiers_8_tt
+}
+
+ITA_decrease_right_soldiers_8 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_soldiers_8_tt
+}
+
+ITA_increase_right_soldiers_12 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_soldiers_12_tt
+}
+
+ITA_decrease_right_soldiers_12 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_soldiers_12_tt
+}
+
+ITA_increase_right_students_4 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_students_4_tt
+}
+
+ITA_decrease_right_students_4 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_students_4_tt
+}
+
+ITA_increase_right_students_8 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_students_8_tt
+}
+
+ITA_decrease_right_students_8 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_students_8_tt
+}
+
+
+
+ITA_increase_right_minorities_4 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 4 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_minorities_4_tt
+}
+
+ITA_decrease_right_minorities_4 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 4 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_minorities_4_tt
+}
+
+ITA_increase_right_minorities_8 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_minorities_8_tt
+}
+
+ITA_decrease_right_minorities_8 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_minorities_8_tt
+}
+
+ITA_increase_right_minorities_12 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_right_Popolo = yes
+	custom_effect_tooltip = ITA_increase_right_minorities_12_tt
+}
+
+ITA_decrease_right_minorities_12 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_right_Popolo = yes
+	custom_effect_tooltip = ITA_decrease_right_minorities_12_tt
+}
+
+ITA_increase_right_bureaucracy_4 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_bureaucracy_4_tt
+}
+
+ITA_decrease_right_bureaucracy_4 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_bureaucracy_4_tt
+}
+
+ITA_increase_right_bureaucracy_8 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_bureaucracy_8_tt
+}
+
+ITA_decrease_right_bureaucracy_8 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_bureaucracy_8_tt
+}
+
+ITA_increase_right_bureaucracy_12 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_bureaucracy_12_tt
+}
+
+ITA_decrease_right_bureaucracy_12 = {
+	set_temp_variable = { changer = 0 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_bureaucracy_12_tt
+}
+
+ITA_increase_right_judiciary_4 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_judiciary_4_tt
+}
+
+ITA_decrease_right_judiciary_4 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_judiciary_4_tt
+}
+
+ITA_increase_right_judiciary_8 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_judiciary_8_tt
+}
+
+ITA_decrease_right_judiciary_8 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_judiciary_8_tt
+}
+
+ITA_increase_right_judiciary_12 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_judiciary_12_tt
+}
+
+ITA_decrease_right_judiciary_12 = {
+	set_temp_variable = { changer = 1 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_judiciary_12_tt
+}
+
+ITA_increase_right_industry_4 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_industry_4_tt
+}
+
+ITA_decrease_right_industry_4 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_industry_4_tt
+}
+
+ITA_increase_right_industry_8 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_industry_8_tt
+}
+
+ITA_decrease_right_industry_8 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_industry_8_tt
+}
+
+ITA_increase_right_industry_12 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_industry_12_tt
+}
+
+ITA_decrease_right_industry_12 = {
+	set_temp_variable = { changer = 2 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_industry_12_tt
+}
+
+ITA_increase_right_brass_4 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_brass_4_tt
+}
+
+ITA_decrease_right_brass_4 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_brass_4_tt
+}
+
+ITA_increase_right_brass_8 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_brass_8_tt
+}
+
+ITA_decrease_right_brass_8 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_brass_8_tt
+}
+
+ITA_increase_right_brass_12 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_brass_12_tt
+}
+
+ITA_decrease_right_brass_12 = {
+	set_temp_variable = { changer = 3 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_brass_12_tt
+}
+
+ITA_increase_right_monarchy_4 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_monarchy_4_tt
+}
+
+ITA_decrease_right_monarchy_4 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_monarchy_4_tt
+}
+
+ITA_increase_right_monarchy_8 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_monarchy_8_tt
+}
+
+ITA_decrease_right_monarchy_8 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_monarchy_8_tt
+}
+
+ITA_increase_right_monarchy_12 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_monarchy_12_tt
+}
+
+ITA_decrease_right_monarchy_12 = {
+	set_temp_variable = { changer = 4 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_monarchy_12_tt
+}
+
+ITA_increase_right_clergy_4 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 6 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_clergy_4_tt
+}
+
+ITA_decrease_right_clergy_4 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 6 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_clergy_4_tt
+}
+
+ITA_increase_right_clergy_8 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 8 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_clergy_8_tt
+}
+
+ITA_decrease_right_clergy_8 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 8 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_clergy_8_tt
+}
+
+ITA_increase_right_clergy_12 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 12 }
+	ITA_increase_right_Stato = yes
+	custom_effect_tooltip = ITA_increase_right_clergy_12_tt
+}
+
+ITA_decrease_right_clergy_12 = {
+	set_temp_variable = { changer = 5 }
+	set_temp_variable = { constant = 12 }
+	ITA_decrease_right_Stato = yes
+	custom_effect_tooltip = ITA_decrease_right_clergy_12_tt
+}

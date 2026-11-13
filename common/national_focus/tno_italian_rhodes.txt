@@ -1,0 +1,213 @@
+#Rhodes-Turkish war tree
+focus_tree = {
+	id = IID_ITW_tree
+	country = {
+		factor = 0
+	}
+	default = no
+	focus = {
+		id = IID_alle_armi
+		icon = GFX_TNO_generic_attack
+		cost = 1
+		available_if_capitulated = no
+		ai_will_do = { factor = 1 }
+		x = 8
+		y = 0
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus IID_alle_armi"
+			add_command_power = 25
+			army_experience = 15
+		}
+	}
+	
+	focus = {
+		id = IID_mobilize_the_garrison
+		icon = GFX_TNO_generic_defense
+		cost = 1
+		available_if_capitulated = no
+		ai_will_do = { factor = 1 }
+		prerequisite = {
+			focus = IID_alle_armi
+		}
+		x = -1
+		y = 1
+		relative_position_id = IID_alle_armi
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus IID_mobilize_the_garrison"
+			add_manpower = 4000
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_2
+				amount = 1000
+				producer = ITA
+			}
+			add_equipment_to_stockpile = {
+				type = anti_tank_equipment_0
+				amount = 200
+				producer = ITA
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment_1
+				amount = 125
+				producer = ITA
+			}
+			capital_scope = {
+				create_unit = {
+					division = "name = \"3a Guarnigione di Rodi\" division_template = \"Rodi Garrison\" start_experience_factor = 0.5"
+					owner = IID
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = IID_mine_the_border
+		icon = GFX_TNO_generic_broken_roads
+		cost = 1
+		available_if_capitulated = no
+		ai_will_do = { factor = 1 }
+		prerequisite = {
+			focus = IID_alle_armi
+		}
+		x = 1
+		y = 1
+		relative_position_id = IID_alle_armi
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus IID_mine_the_border"
+			164 = {
+				set_building_level = {
+					type = bunker
+					level = 1
+					province = 7003
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = IID_emergency_powers_to_di_fausto
+		icon = GFX_generic_suspend_constitution
+		cost = 1
+		available_if_capitulated = no
+		ai_will_do = { factor = 1 }
+		prerequisite = {
+			focus = IID_mobilize_the_garrison
+		}
+		prerequisite = {
+			focus = IID_mine_the_border
+		}
+		x = 0
+		y = 2
+		relative_position_id = IID_alle_armi
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus IID_emergency_powers_to_di_fausto"
+			add_command_power = 25
+		}
+	}
+	focus = {
+		id = IID_eqiupment_airdrops
+		icon = GFX_generic_commstech
+		cost = 1
+		available_if_capitulated = no
+		ai_will_do = { factor = 1 }
+		prerequisite = {
+			focus = IID_emergency_powers_to_di_fausto
+		}
+		x = -1
+		y = 1
+		relative_position_id = IID_emergency_powers_to_di_fausto
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus IID_eqiupment_airdrops"
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_2
+				amount = 750
+				producer = ITA
+			}
+			add_equipment_to_stockpile = {
+				type = anti_tank_equipment_0
+				amount = 150
+				producer = ITA
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment_1
+				amount = 75
+				producer = ITA
+			}
+		}
+	}
+	
+	focus = {
+		id = IID_support_from_the_regnia_marina
+		icon = GFX_TNO_generic_marine
+		cost = 1
+		available_if_capitulated = no
+		ai_will_do = { factor = 1 }
+		prerequisite = {
+			focus = IID_emergency_powers_to_di_fausto
+		}
+		x = 1
+		y = 1
+		relative_position_id = IID_emergency_powers_to_di_fausto
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus IID_support_from_the_regnia_marina"
+			swap_ideas = {
+				remove_idea = IID_rhodes_fortress_1
+				add_idea = IID_rhodes_fortress_2
+			}
+		}
+	}
+	
+	focus = {
+		id = IID_rally_the_greeks
+		icon = GFX_TNO_generic_civilian_auxillaries
+		cost = 1
+		available_if_capitulated = no
+		ai_will_do = { factor = 1 }
+		prerequisite = {
+			focus = IID_eqiupment_airdrops
+		}
+		prerequisite = {
+			focus = IID_support_from_the_regnia_marina
+		}
+		x = 0
+		y = 2
+		relative_position_id = IID_emergency_powers_to_di_fausto
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus IID_rally_the_greeks"
+			add_manpower = 8000
+			capital_scope = {
+				create_unit = {
+					division = "name = \"1a Milizia greca di difesa di Rodi\" division_template = \"Milizia di Rodi\" start_experience_factor = 0.3"
+					owner = IID
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = IID_we_are_all_knights
+		icon = GFX_generic_victory_parade
+		cost = 1
+		available_if_capitulated = no
+		ai_will_do = { factor = 1 }
+		prerequisite = {
+			focus = IID_rally_the_greeks
+		}
+		x = 0
+		y = 1
+		relative_position_id = IID_rally_the_greeks
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus IID_we_are_all_knights"
+			swap_ideas = {
+				remove_idea = IID_rhodes_fortress_2
+				add_idea = IID_rhodes_fortress_3
+			}
+			164 = {
+				set_building_level = {
+					type = bunker
+					level = 3
+					province = 10007
+				}
+			}	
+		}
+	}
+}

@@ -1,0 +1,487 @@
+SFA_outcome_is_status_quo = {
+	# New Scramble for Africa (plan 3.2): status quo ante bellum. A breakdown with no recorded ending
+	# (debug, or a Grossafrika formed outside the war's endings) counts as the status quo too.
+	# Unused since the outcome gates came off (user, 2026-10-16); kept for Part 2's outcome routes, which may bring them
+	# back.
+	OR = {
+		has_global_flag = SAW_outcome_status_quo
+		NOT = { check_variable = { global.SAW_outcome > 0 } }
+	}
+}
+
+SFA_us_takes_part = {
+	# The US backs its proxies in every outcome for now: proxies stay as they spawn (user, 2026-10-16). The matrix's
+	# "no US proxies after a Pakt total victory" (plan 3.2) may return with Part 2's dynamic breakdowns.
+	country_exists = USA
+}
+
+SFA_government_us_aligned = {
+	# plan 4.1 (user, 2026-10-16): the US backs democrats, socialists and communists
+	OR = {
+		has_government = social_democrat
+		has_government = social_liberal
+		has_government = market_liberal
+		has_government = social_conservative
+		has_government = authoritarian_democrat
+		has_government = socialist
+		has_government = communist
+	}
+}
+
+SFA_government_japan_aligned = {
+	# plan 4.1 (user, 2026-10-16): Japan and Germany are anti-socialist; Japan backs ultranationalists
+	has_government = ultranational_socialism
+}
+
+SFA_has_patron = {
+	OR = {
+		has_country_flag = SFA_patron_USA
+		has_country_flag = SFA_patron_GER
+		has_country_flag = SFA_patron_ITA
+		has_country_flag = SFA_patron_JAP
+		has_country_flag = SFA_patron_BRG
+		has_country_flag = SFA_patron_IBR
+	}
+}
+
+SFA_war_ready = {
+	# plan 4.4, in a nation's scope: free to start or face a scramble war. At peace (one war at a time), off its
+	# cooldown, its own master, in no faction (a faction would drag its leader in). Zanzibar never fights.
+	exists = yes
+	# South Africa, and the tags its civil wars leave there, never fight a scramble war: proxy wars stay off the land
+	# they hold (user, 2026-10-16; 2026-10-26)
+	NOT = { SFA_keeps_out_of_wars = yes }
+	has_war = no
+	NOT = { has_country_flag = SFA_war_cooldown }
+	NOT = { has_country_flag = SFA_zanzibar }
+	is_subject = no
+	is_in_faction = no
+}
+
+SFA_south_settling = {
+	# user, 2026-10-26: South Africa's civil wars are not over, so its stable regions do not consolidate yet: the second
+	# is running, or an SFG win after Hüttig's fall has started the third, which ends in a partition (MZB_REICHSTAAT.810)
+	OR = {
+		has_global_flag = second_south_african_civil_war
+		has_global_flag = SAF_third_civil_war_pending
+	}
+}
+
+SFA_same_bloc = {
+	# plan 4.4, for ROOT and FROM: backed by the same patron, so they never fight. Two independents are never one bloc.
+	OR = {
+		AND = {
+			ROOT = { has_country_flag = SFA_patron_USA }
+			FROM = { has_country_flag = SFA_patron_USA }
+		}
+		AND = {
+			ROOT = { has_country_flag = SFA_patron_GER }
+			FROM = { has_country_flag = SFA_patron_GER }
+		}
+		AND = {
+			ROOT = { has_country_flag = SFA_patron_ITA }
+			FROM = { has_country_flag = SFA_patron_ITA }
+		}
+		AND = {
+			ROOT = { has_country_flag = SFA_patron_JAP }
+			FROM = { has_country_flag = SFA_patron_JAP }
+		}
+		AND = {
+			ROOT = { has_country_flag = SFA_patron_BRG }
+			FROM = { has_country_flag = SFA_patron_BRG }
+		}
+		AND = {
+			ROOT = { has_country_flag = SFA_patron_IBR }
+			FROM = { has_country_flag = SFA_patron_IBR }
+		}
+	}
+}
+
+SFA_minor_island = {
+	# user, 2026-10-24, in a state's scope: an outlying island Madagaskar's consolidation does not wait for - Reunion,
+	# Mauritius, the Comoro Islands. It never blocks a region, its holder never survives a merger for it, and it joins
+	# the merged nation only when its holder is on the winning side (SFA_merge_into_survivor).
+	OR = {
+		state = 706
+		state = 707
+		state = 708
+	}
+}
+
+SFA_on_merge_side = {
+	# in a nation's scope, during a merger (SFA_merge_into_survivor sets temp sfa_order_code to the region's result):
+	# it is on the winning side. An independent's result (9) has no side, so nothing joins it this way.
+	check_variable = { sfa_order_code < 9 }
+	SFA_has_patron_code = yes
+}
+
+SFA_held_locally = {
+	# plan 4.3 (user, 2026-10-19), in a state's scope during a region check: its holder is based in the region being
+	# checked (temp sfa_cur_region), with its capital there
+	OWNER = {
+		capital_scope = { check_variable = { SFA_region = sfa_cur_region } }
+	}
+}
+
+SFA_holds_land_in_root_region = {
+	# user's test (2026-10-18): a warlord fights only over its own region until the region consolidates. For ROOT and
+	# FROM: FROM holds a state in ROOT's home region, the region of its capital. A rival based there always does; an
+	# outsider holding land there can be fought too, or the region could never consolidate. The capital is read
+	# directly: SFA_home_region only refreshes on the monthly pulse, which left MEZ, spawned between pulses, unable to
+	# declare until the next one.
+	set_temp_variable = { sfa_rr = 0 }
+	ROOT = {
+		capital_scope = { set_temp_variable = { sfa_rr = SFA_region } }
+	}
+	check_variable = { sfa_rr > 0 }
+	FROM = {
+		any_owned_state = {
+			check_variable = { SFA_region = sfa_rr }
+		}
+	}
+}
+
+SFA_is_scramble_capitulation = {
+	# plan 4.4, in master's capitulation handler (ROOT capitulated, FROM won): the two fought each other's scramble war
+	has_global_flag = SFA_active
+	ROOT = { has_country_flag = SFA_in_scramble_war }
+	FROM = { has_country_flag = SFA_in_scramble_war }
+	check_variable = { ROOT.SFA_war_id = FROM.SFA_war_id }
+}
+
+SFA_takeable_by_winner = {
+	# plan 4.4, in a state's scope: it borders the war's winner (event target SFA_peace_winner)
+	any_neighbor_state = { is_owned_by = event_target:SFA_peace_winner }
+}
+
+SFA_has_patron_code = {
+	# plan 4.7, in a nation's scope: it is backed by the patron with code temp sfa_order_code (1 US, 2 Germany,
+	# 3 Italy, 4 Japan, 5 Burgundy, 6 Iberia)
+	OR = {
+		AND = {
+			check_variable = { sfa_order_code = 1 }
+			has_country_flag = SFA_patron_USA
+		}
+		AND = {
+			check_variable = { sfa_order_code = 2 }
+			has_country_flag = SFA_patron_GER
+		}
+		AND = {
+			check_variable = { sfa_order_code = 3 }
+			has_country_flag = SFA_patron_ITA
+		}
+		AND = {
+			check_variable = { sfa_order_code = 4 }
+			has_country_flag = SFA_patron_JAP
+		}
+		AND = {
+			check_variable = { sfa_order_code = 5 }
+			has_country_flag = SFA_patron_BRG
+		}
+		AND = {
+			check_variable = { sfa_order_code = 6 }
+			has_country_flag = SFA_patron_IBR
+		}
+	}
+}
+
+SFA_is_order_proxy = {
+	# plan 4.7, in a nation's scope: a proxy of the ordering patron (temp sfa_order_code) that can go to war
+	SFA_has_patron_code = yes
+	has_country_flag = SFA_african_nation
+	is_subject = no
+	is_in_faction = no
+}
+
+SFA_can_order_state = {
+	# plan 4.7, in a state's scope: the patron (temp sfa_order_code) may order one of its proxies to take it. Its holder
+	# is a rival or an independent, a proxy that may fight it borders it (SFA_neighbor_can_take), and no order targets it
+	# yet. Sets temp sfa_tr, the state's region. The order (SFA_give_order), the popup, the target rows and the pins'
+	# tooltips all use this rule, so none of them can promise an order another refuses.
+	has_state_flag = SFA_state
+	NOT = { has_state_flag = SFA_order_target }
+	set_temp_variable = { sfa_tr = SFA_region }
+	OWNER = {
+		OR = {
+			has_country_flag = SFA_african_nation
+			has_country_flag = SFA_sovereign_ally
+		}
+		NOT = { SFA_has_patron_code = yes }
+		NOT = { has_country_flag = SFA_zanzibar }
+		NOT = { SFA_keeps_out_of_wars = yes }
+		is_subject = no
+		is_in_faction = no
+	}
+	any_neighbor_state = { SFA_neighbor_can_take = yes }
+}
+
+SFA_neighbor_can_take = {
+	# plan 4.7, in the scope of a state bordering a target state (PREV, inside any_neighbor_state or
+	# random_neighbor_state): its holder is a proxy of the ordering patron (temp sfa_order_code) that may fight the
+	# target's holder. Regions fight regions (user, 2026-10-16); a warlord fights warlords, and only over its own home
+	# region (user, 2026-10-18), so the target must lie in the region of its capital (temp sfa_tr, the target's region).
+	# The capital is read directly: SFA_home_region only refreshes on the monthly pulse.
+	OWNER = { SFA_is_order_proxy = yes }
+	OR = {
+		AND = {
+			OWNER = { has_country_flag = SFA_regional_state }
+			PREV = { OWNER = { has_country_flag = SFA_regional_state } }
+		}
+		AND = {
+			OWNER = {
+				NOT = { has_country_flag = SFA_regional_state }
+				capital_scope = { check_variable = { SFA_region = sfa_tr } }
+			}
+			PREV = { OWNER = { NOT = { has_country_flag = SFA_regional_state } } }
+		}
+	}
+}
+
+SFA_viewer_knows_burgundy = {
+	# the GUI, in the viewer's scope: Burgundy is "???" to everyone but Burgundy (user, 2026-10-18). Its own nations know
+	# their backer too, as the topbar box tells them.
+	OR = {
+		tag = BRG
+		has_country_flag = SFA_patron_BRG
+	}
+}
+
+SFA_can_supply_drop = {
+	# plan 4.11, in a patron's scope after SFA_get_own_patron_code, for the state saved as event target SFA_drop_target:
+	# a state of its own side, and the stockpile to send. No political power.
+	has_country_flag = SFA_patron
+	SFA_has_drop_stock = yes
+	event_target:SFA_drop_target = { SFA_takes_supply_drop = yes }
+}
+
+SFA_has_drop_stock = {
+	# plan 4.11, in a patron's scope: 2000 small arms and 1000 anti-tank weapons to send
+	has_equipment = {
+		infantry_equipment > 1999
+		anti_tank_equipment > 999
+	}
+}
+
+SFA_takes_supply_drop = {
+	# plan 4.11, in a state's scope: held by the side of the patron with code temp sfa_order_code
+	has_state_flag = SFA_state
+	OWNER = { SFA_has_patron_code = yes }
+}
+
+# ---------------------------------------------------------------- the board's state popup (phase 6, step 6)
+# In the viewer's scope (a GUI trigger). Each first sets temp sfa_order_code from the viewer's SFA_patron_code
+# (SFA_set_patron_codes), then checks the state the viewer selected (SFA_selected_state) the way its effect does.
+
+SFA_has_order_pp = {
+	# the political power an order costs: 60, or 45 after winning Madagascar
+	OR = {
+		has_political_power > 59
+		AND = {
+			has_country_flag = MAD_proxy_war_won
+			has_political_power > 44
+		}
+	}
+}
+
+SFA_popup_can_order = {
+	has_country_flag = SFA_patron
+	NOT = { has_country_flag = SFA_order_cooldown }
+	SFA_has_order_pp = yes
+	set_temp_variable = { sfa_order_code = SFA_patron_code }
+	var:SFA_selected_state = { SFA_can_order_state = yes }
+}
+
+SFA_popup_can_improve = {
+	has_country_flag = SFA_patron
+	has_political_power > 14
+	set_temp_variable = { sfa_order_code = SFA_patron_code }
+	var:SFA_selected_state = {
+		has_state_flag = SFA_state
+		check_variable = { SFA_supply_level < 1 }
+		OWNER = { SFA_has_patron_code = yes }
+	}
+}
+
+SFA_popup_can_drop = {
+	has_country_flag = SFA_patron
+	SFA_has_drop_stock = yes
+	set_temp_variable = { sfa_order_code = SFA_patron_code }
+	var:SFA_selected_state = { SFA_takes_supply_drop = yes }
+}
+
+# ---------------------------------------------------------------- Burgundy's covert actions (plan 4.8)
+# Each debuff is a timed dynamic modifier, and it cannot hit the same nation again until it has run out (user,
+# 2026-10-18): a nation debuff is locked by its own modifier, a state debuff by a flag on the state's holder that lasts
+# as long as the modifier. Nothing here targets Burgundy's own side.
+
+SFA_brg_side = {
+	# Burgundy itself or a nation it backs
+	OR = {
+		tag = BRG
+		has_country_flag = SFA_patron_BRG
+	}
+}
+
+SFA_can_sabotage_supply = {
+	# in a state's scope: Burgundy can lower its supply. Sabotaged is the floor; taking a state down to Sabotaged locks
+	# its holder for the 180 days the state takes to repair. Improved to Normal applies no debuff, so it is never locked.
+	has_state_flag = SFA_state
+	check_variable = { SFA_supply_level > -1 }
+	OWNER = { NOT = { SFA_brg_side = yes } }
+	OR = {
+		check_variable = { SFA_supply_level = 1 }
+		OWNER = { NOT = { has_country_flag = SFA_lock_supply_sabotage } }
+	}
+}
+
+SFA_can_wreck_mines = {
+	# in a state's scope (Wreck the Mines)
+	has_state_flag = SFA_state
+	NOT = { has_dynamic_modifier = { modifier = SFA_wrecked_mines } }
+	OWNER = {
+		NOT = { SFA_brg_side = yes }
+		NOT = { has_country_flag = SFA_lock_wrecked_mines }
+	}
+}
+
+SFA_can_sabotage_construction = {
+	# in a state's scope (Sabotage Construction)
+	has_state_flag = SFA_state
+	NOT = { has_dynamic_modifier = { modifier = SFA_sabotaged_construction } }
+	OWNER = {
+		NOT = { SFA_brg_side = yes }
+		NOT = { has_country_flag = SFA_lock_sabotaged_construction }
+	}
+}
+
+SFA_can_deploy_pathogens = {
+	# in a state's scope (Deploy Pathogens)
+	has_state_flag = SFA_state
+	NOT = { has_dynamic_modifier = { modifier = SFA_pathogen_outbreak } }
+	OWNER = {
+		NOT = { SFA_brg_side = yes }
+		NOT = { has_country_flag = SFA_lock_pathogen_outbreak }
+	}
+}
+
+SFA_can_terrorize_population = {
+	# in a nation's scope (Terrorize Population): any scramble nation or sovereign ally not on Burgundy's side
+	OR = {
+		has_country_flag = SFA_african_nation
+		has_country_flag = SFA_sovereign_ally
+	}
+	NOT = { SFA_brg_side = yes }
+	NOT = { has_dynamic_modifier = { modifier = SFA_terrorized_population } }
+}
+
+SFA_can_bribe_officers = {
+	# in a nation's scope (Bribe Officers): as Terrorize Population, and at war
+	OR = {
+		has_country_flag = SFA_african_nation
+		has_country_flag = SFA_sovereign_ally
+	}
+	NOT = { SFA_brg_side = yes }
+	has_war = yes
+	NOT = { has_dynamic_modifier = { modifier = SFA_bribed_officers } }
+}
+
+SFA_can_increase_ss_presence = {
+	# in a nation's scope (Increase SS Presence In Africa): one of Burgundy's own scramble nations, once a year
+	has_country_flag = SFA_patron_BRG
+	has_country_flag = SFA_african_nation
+	NOT = { has_dynamic_modifier = { modifier = SFA_ss_presence } }
+	BRG = { NOT = { has_country_flag = SFA_ss_presence_cooldown } }
+}
+
+# >>> GENERATED by tools/scramble/gen_data.py from here to the end of the file. Edit the generator, not these lines.
+
+SFA_is_scramble_tag = {
+	# a nation the collapse released, the remnant, the Comoros, Italy's SWA, Iberia's MEZ (plan 4.1)
+	OR = {
+		tag = ANG
+		tag = ANL
+		tag = AZD
+		tag = BKV
+		tag = BMB
+		tag = BRD
+		tag = BRS
+		tag = BTS
+		tag = BZZ
+		tag = CAF
+		tag = CFS
+		tag = CMR
+		tag = COG
+		tag = CPR
+		tag = FMF
+		tag = GAB
+		tag = GAZ
+		tag = GZO
+		tag = HRR
+		tag = KSI
+		tag = KTG
+		tag = LUO
+		tag = MEZ
+		tag = MZB
+		tag = NAM
+		tag = OVB
+		tag = RMB
+		tag = RSD
+		tag = RSL
+		tag = RSQ
+		tag = RSZ
+		tag = RWA
+		tag = SWA
+		tag = TND
+		tag = TNZ
+		tag = TOO
+		tag = UGD
+		tag = ZAM
+		tag = ZBO
+		tag = ZIM
+		tag = ZMO
+		tag = ZZB
+		tag = ZZS
+	}
+}
+
+SFA_is_scramble_ally_tag = {
+	# sovereign allies: the Madagascar winner, the Boers, South Africa and the tags its civil wars leave there (plan 4.1)
+	OR = {
+		tag = MAD
+		tag = MDG
+		tag = MDJ
+		tag = MDM
+		tag = BOR
+		tag = SAF
+		tag = SLF
+		tag = CDL
+		tag = ZUL
+		tag = LTH
+		tag = SWZ
+		tag = SFG
+		tag = UFK
+		tag = KBA
+		tag = ANC
+		tag = OSA
+		tag = AWB
+	}
+}
+
+SFA_keeps_out_of_wars = {
+	# South Africa and the tags its civil wars leave there never fight a scramble war and are never ordered against:
+	# proxy wars stay off the south (user, 2026-10-16; the civil-war tags 2026-10-26). Not the Boers.
+	OR = {
+		tag = SAF
+		tag = SLF
+		tag = CDL
+		tag = ZUL
+		tag = LTH
+		tag = SWZ
+		tag = SFG
+		tag = UFK
+		tag = KBA
+		tag = ANC
+		tag = OSA
+		tag = AWB
+	}
+}

@@ -1,0 +1,23 @@
+SFA_debug_category = {
+	# New Scramble for Africa: test tools, only in debug mode
+	allowed = { always = yes }
+	visible = {
+		is_debug = yes
+		is_ai = no
+	}
+	priority = { base = 198 }
+}
+
+SFA_war_category = {
+	# New Scramble for Africa (plan 4.4): wars between African nations, by decision
+	icon = GFX_decision_category_border_war
+	allowed = { always = yes }
+	visible = {
+		has_global_flag = SFA_active
+		OR = {
+			has_country_flag = SFA_african_nation
+			has_country_flag = SFA_sovereign_ally
+		}
+		NOT = { has_country_flag = SFA_zanzibar }
+	}
+}

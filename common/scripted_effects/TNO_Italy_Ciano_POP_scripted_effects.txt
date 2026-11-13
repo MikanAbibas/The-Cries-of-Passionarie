@@ -1,0 +1,657 @@
+# Estgel's Election Code
+# Ripped and Hacked to Bits by Battlefrog
+# Re-ripped and re-hacked by Jakavel
+
+ITA_POP_Ciano_setup = {
+	# Nothing set this flag anywhere in either branch - it was only ever cleared,
+	# by ITA_verona.51 - so I Pilastri del Potere, the panel that shows where
+	# Ciano's support actually stands, could never be opened. Its sibling
+	# ITA_POP_Dem_setup arms its own flag on the same line.
+	set_country_flag = Ciano_PoP_Active
+	resize_array = { ITA_Ciano_POP_Radial_Progress_Bars_Array = 12 }
+
+	# Declaring Influences
+	add_to_array = { ITA_Popolo_Support = 20 } # Urban Workers
+	add_to_array = { ITA_Popolo_Support = 15 } # Rural Farmers
+	add_to_array = { ITA_Popolo_Support = 20 } # Middle Classes
+	add_to_array = { ITA_Popolo_Support = 20 } # Soldiers
+	add_to_array = { ITA_Popolo_Support = 15 } # Students
+	add_to_array = { ITA_Popolo_Support = 10 } # Minority
+	
+	add_to_array = { ITA_Stato_Support = 15 } # Civil Servants
+	add_to_array = { ITA_Stato_Support = 10 } # Judiciary
+	add_to_array = { ITA_Stato_Support = 20 } # Industry
+	add_to_array = { ITA_Stato_Support = 20 } # Military Brass
+	add_to_array = { ITA_Stato_Support = 20 } # Monarchy
+	add_to_array = { ITA_Stato_Support = 15 } # Clergy
+
+	resize_array = { ITA_Ciano_POP_Loyalties = 114 }
+	#I know this is a big number but I'm simulating a 2d array
+	#The last number of the index is the party, the rest is the pillar
+
+	#0 - Ciano
+	#1 - Fascist
+	#2 - Apathetic
+	#3 - Popular opposition
+	#4 - Fascist + Ciano for 4 way progress bars
+
+	#0 - rural farmers
+	set_variable = { ITA_Ciano_POP_Loyalties^00 = 30 }
+	set_variable = { ITA_Ciano_POP_Loyalties^01 = 20 }
+	set_variable = { ITA_Ciano_POP_Loyalties^02 = 40 }
+	set_variable = { ITA_Ciano_POP_Loyalties^03 = 10 }
+	set_variable = { ITA_Ciano_POP_Loyalties^04 = ITA_Ciano_POP_Loyalties^00 }
+	add_to_variable = { ITA_Ciano_POP_Loyalties^04 = ITA_Ciano_POP_Loyalties^01 }
+
+	#1 - urban workers
+	set_variable = { ITA_Ciano_POP_Loyalties^10 = 35 }
+	set_variable = { ITA_Ciano_POP_Loyalties^11 = 10 }
+	set_variable = { ITA_Ciano_POP_Loyalties^12 = 35 }
+	set_variable = { ITA_Ciano_POP_Loyalties^13 = 20 }
+	set_variable = { ITA_Ciano_POP_Loyalties^14 = ITA_Ciano_POP_Loyalties^10 }
+	add_to_variable = { ITA_Ciano_POP_Loyalties^14 = ITA_Ciano_POP_Loyalties^11 }
+
+	#2 - middle classes
+	set_variable = { ITA_Ciano_POP_Loyalties^20 = 32 }
+	set_variable = { ITA_Ciano_POP_Loyalties^21 = 18 }
+	set_variable = { ITA_Ciano_POP_Loyalties^22 = 20 }
+	set_variable = { ITA_Ciano_POP_Loyalties^23 = 30 }
+	set_variable = { ITA_Ciano_POP_Loyalties^24 = ITA_Ciano_POP_Loyalties^20 }
+	add_to_variable = { ITA_Ciano_POP_Loyalties^24 = ITA_Ciano_POP_Loyalties^21 }
+
+	#3 - soliders & police
+	set_variable = { ITA_Ciano_POP_Loyalties^30 = 30 }
+	set_variable = { ITA_Ciano_POP_Loyalties^31 = 35 }
+	set_variable = { ITA_Ciano_POP_Loyalties^32 = 30 }
+	set_variable = { ITA_Ciano_POP_Loyalties^33 = 5 }
+	set_variable = { ITA_Ciano_POP_Loyalties^34 = ITA_Ciano_POP_Loyalties^30 }
+	add_to_variable = { ITA_Ciano_POP_Loyalties^34 = ITA_Ciano_POP_Loyalties^31 }
+
+	#4 - students
+	set_variable = { ITA_Ciano_POP_Loyalties^40 = 25 }
+	set_variable = { ITA_Ciano_POP_Loyalties^41 = 5 }
+	set_variable = { ITA_Ciano_POP_Loyalties^42 = 35 }
+	set_variable = { ITA_Ciano_POP_Loyalties^43 = 35 }
+	set_variable = { ITA_Ciano_POP_Loyalties^44 = ITA_Ciano_POP_Loyalties^40 }
+	add_to_variable = { ITA_Ciano_POP_Loyalties^44 = ITA_Ciano_POP_Loyalties^41 }
+
+	#5 - minority populance
+	set_variable = { ITA_Ciano_POP_Loyalties^50 = 10 }
+	set_variable = { ITA_Ciano_POP_Loyalties^51 = 5 }
+	set_variable = { ITA_Ciano_POP_Loyalties^52 = 15 }
+	set_variable = { ITA_Ciano_POP_Loyalties^53 = 70 }
+	set_variable = { ITA_Ciano_POP_Loyalties^54 = ITA_Ciano_POP_Loyalties^50 }
+	add_to_variable = { ITA_Ciano_POP_Loyalties^54 = ITA_Ciano_POP_Loyalties^51 }
+
+	#6 - civil servants
+	set_variable = { ITA_Ciano_POP_Loyalties^60 = 25 }
+	set_variable = { ITA_Ciano_POP_Loyalties^61 = 15 }
+	set_variable = { ITA_Ciano_POP_Loyalties^62 = 50 }
+	set_variable = { ITA_Ciano_POP_Loyalties^63 = 10 }
+	set_variable = { ITA_Ciano_POP_Loyalties^64 = ITA_Ciano_POP_Loyalties^60 }
+	add_to_variable = { ITA_Ciano_POP_Loyalties^64 = ITA_Ciano_POP_Loyalties^61 }
+
+	#7 - judiciary
+	set_variable = { ITA_Ciano_POP_Loyalties^70 = 35 }
+	set_variable = { ITA_Ciano_POP_Loyalties^71 = 15 }
+	set_variable = { ITA_Ciano_POP_Loyalties^72 = 40 }
+	set_variable = { ITA_Ciano_POP_Loyalties^73 = 10 }
+	set_variable = { ITA_Ciano_POP_Loyalties^74 = ITA_Ciano_POP_Loyalties^70 }
+	add_to_variable = { ITA_Ciano_POP_Loyalties^74 = ITA_Ciano_POP_Loyalties^71 }
+
+	#8 - industry
+	set_variable = { ITA_Ciano_POP_Loyalties^80 = 45 }
+	set_variable = { ITA_Ciano_POP_Loyalties^81 = 15 }
+	set_variable = { ITA_Ciano_POP_Loyalties^82 = 35 }
+	set_variable = { ITA_Ciano_POP_Loyalties^83 = 5 }
+	set_variable = { ITA_Ciano_POP_Loyalties^84 = ITA_Ciano_POP_Loyalties^80 }
+	add_to_variable = { ITA_Ciano_POP_Loyalties^84 = ITA_Ciano_POP_Loyalties^81 }
+
+	#9 - millitary brass
+	set_variable = { ITA_Ciano_POP_Loyalties^90 = 30 }
+	set_variable = { ITA_Ciano_POP_Loyalties^91 = 50 }
+	set_variable = { ITA_Ciano_POP_Loyalties^92 = 15 }
+	set_variable = { ITA_Ciano_POP_Loyalties^93 = 5 }
+	set_variable = { ITA_Ciano_POP_Loyalties^94 = ITA_Ciano_POP_Loyalties^90 }
+	add_to_variable = { ITA_Ciano_POP_Loyalties^94 = ITA_Ciano_POP_Loyalties^91 }
+
+	#10 - the king
+	set_variable = { ITA_Ciano_POP_Loyalties^100 = 35 }
+	set_variable = { ITA_Ciano_POP_Loyalties^101 = 15 }
+	set_variable = { ITA_Ciano_POP_Loyalties^102 = 30 }
+	set_variable = { ITA_Ciano_POP_Loyalties^103 = 20 }
+	set_variable = { ITA_Ciano_POP_Loyalties^104 = ITA_Ciano_POP_Loyalties^100 }
+	add_to_variable = { ITA_Ciano_POP_Loyalties^104 = ITA_Ciano_POP_Loyalties^101 }
+
+	#11 - clergy
+	set_variable = { ITA_Ciano_POP_Loyalties^110 = 25 }
+	set_variable = { ITA_Ciano_POP_Loyalties^111 = 20 }
+	set_variable = { ITA_Ciano_POP_Loyalties^112 = 45 }
+	set_variable = { ITA_Ciano_POP_Loyalties^113 = 10 }
+	set_variable = { ITA_Ciano_POP_Loyalties^114 = ITA_Ciano_POP_Loyalties^110 }
+	add_to_variable = { ITA_Ciano_POP_Loyalties^114 = ITA_Ciano_POP_Loyalties^111 }
+
+	add_to_array = { ITA_Ciano_POP_Fascist_wierd_workaround = 04 }
+	add_to_array = { ITA_Ciano_POP_Fascist_wierd_workaround = 14 }
+	add_to_array = { ITA_Ciano_POP_Fascist_wierd_workaround = 24 }
+	add_to_array = { ITA_Ciano_POP_Fascist_wierd_workaround = 34 }
+	add_to_array = { ITA_Ciano_POP_Fascist_wierd_workaround = 44 }
+	add_to_array = { ITA_Ciano_POP_Fascist_wierd_workaround = 54 }
+	add_to_array = { ITA_Ciano_POP_Fascist_wierd_workaround = 64 }
+	add_to_array = { ITA_Ciano_POP_Fascist_wierd_workaround = 74 }
+	add_to_array = { ITA_Ciano_POP_Fascist_wierd_workaround = 84 }
+	add_to_array = { ITA_Ciano_POP_Fascist_wierd_workaround = 94 }
+	add_to_array = { ITA_Ciano_POP_Fascist_wierd_workaround = 104 }
+	add_to_array = { ITA_Ciano_POP_Fascist_wierd_workaround = 114 }
+
+	add_to_array = { ITA_Ciano_POP_Ciano_wierd_workaround = 00 }
+	add_to_array = { ITA_Ciano_POP_Ciano_wierd_workaround = 10 }
+	add_to_array = { ITA_Ciano_POP_Ciano_wierd_workaround = 20 }
+	add_to_array = { ITA_Ciano_POP_Ciano_wierd_workaround = 30 }
+	add_to_array = { ITA_Ciano_POP_Ciano_wierd_workaround = 40 }
+	add_to_array = { ITA_Ciano_POP_Ciano_wierd_workaround = 50 }
+	add_to_array = { ITA_Ciano_POP_Ciano_wierd_workaround = 60 }
+	add_to_array = { ITA_Ciano_POP_Ciano_wierd_workaround = 70 }
+	add_to_array = { ITA_Ciano_POP_Ciano_wierd_workaround = 80 }
+	add_to_array = { ITA_Ciano_POP_Ciano_wierd_workaround = 90 }
+	add_to_array = { ITA_Ciano_POP_Ciano_wierd_workaround = 100 }
+	add_to_array = { ITA_Ciano_POP_Ciano_wierd_workaround = 110 }
+
+	add_to_array = { ITA_Ciano_POP_Apathetic_wierd_workaround = 02 }
+	add_to_array = { ITA_Ciano_POP_Apathetic_wierd_workaround = 12 }
+	add_to_array = { ITA_Ciano_POP_Apathetic_wierd_workaround = 22 }
+	add_to_array = { ITA_Ciano_POP_Apathetic_wierd_workaround = 32 }
+	add_to_array = { ITA_Ciano_POP_Apathetic_wierd_workaround = 42 }
+	add_to_array = { ITA_Ciano_POP_Apathetic_wierd_workaround = 52 }
+	add_to_array = { ITA_Ciano_POP_Apathetic_wierd_workaround = 62 }
+	add_to_array = { ITA_Ciano_POP_Apathetic_wierd_workaround = 72 }
+	add_to_array = { ITA_Ciano_POP_Apathetic_wierd_workaround = 82 }
+	add_to_array = { ITA_Ciano_POP_Apathetic_wierd_workaround = 92 }
+	add_to_array = { ITA_Ciano_POP_Apathetic_wierd_workaround = 102 }
+	add_to_array = { ITA_Ciano_POP_Apathetic_wierd_workaround = 112 }
+
+	#To my knowledge this workaround itn't actually popular, the name just ends up this way
+	add_to_array = { ITA_Ciano_POP_Popular_wierd_workaround = 03 }
+	add_to_array = { ITA_Ciano_POP_Popular_wierd_workaround = 13 }
+	add_to_array = { ITA_Ciano_POP_Popular_wierd_workaround = 23 }
+	add_to_array = { ITA_Ciano_POP_Popular_wierd_workaround = 33 }
+	add_to_array = { ITA_Ciano_POP_Popular_wierd_workaround = 43 }
+	add_to_array = { ITA_Ciano_POP_Popular_wierd_workaround = 53 }
+	add_to_array = { ITA_Ciano_POP_Popular_wierd_workaround = 63 }
+	add_to_array = { ITA_Ciano_POP_Popular_wierd_workaround = 73 }
+	add_to_array = { ITA_Ciano_POP_Popular_wierd_workaround = 83 }
+	add_to_array = { ITA_Ciano_POP_Popular_wierd_workaround = 93 }
+	add_to_array = { ITA_Ciano_POP_Popular_wierd_workaround = 103 }
+	add_to_array = { ITA_Ciano_POP_Popular_wierd_workaround = 113 }
+	
+	set_variable = { ITA_radicalization = 10 }
+	set_variable = { ITA_opposition = 20 }
+
+	randomize_variable = {
+		var = ITA_Ciano_POP_lobby_pillar
+		distribution = uniform
+		min = 0
+		max = 11
+	}
+	round_variable = ITA_Ciano_POP_lobby_pillar
+	random_list = {
+		1 = {
+			set_variable = { ITA_Ciano_POP_lobby_amount = 4 }
+		}
+		1 = {
+			set_variable = { ITA_Ciano_POP_lobby_amount = 8 }
+		}
+	}
+
+	randomize_variable = {
+		var = ITA_Ciano_POP_purge_pillar
+		distribution = uniform
+		min = 0
+		max = 11
+	}
+	round_variable = ITA_Ciano_POP_purge_pillar
+
+	ITA_Ciano_POP_calculate_total_popolo_support = yes
+	ITA_Ciano_POP_calculate_total_stato_support = yes
+}
+
+ITA_Ciano_POP_calculate_total_popolo_support = {
+	set_variable = { ITA_total_popolo_support = 0 }
+	set_temp_variable = { total_possible_support = 0 }
+	
+	for_each_loop = {
+		array = ITA_Ciano_POP_Ciano_wierd_workaround
+		index = i
+		value = v
+	
+		if = {
+			limit = {
+				check_variable = { v < 51 }
+			}
+			set_temp_variable = { this_support = ITA_Ciano_POP_Loyalties^v }
+			divide_temp_variable = { this_support = 100 }
+			multiply_temp_variable = { this_support = ITA_Popolo_Support^i }
+			add_to_variable = { ITA_total_popolo_support = this_support }
+			log = "this_support: [?this_support]"
+
+			set_temp_variable = { this_total_possible_support = 100 }
+			subtract_from_temp_variable = { this_total_possible_support = ITA_Ciano_POP_Loyalties^ITA_Ciano_POP_Apathetic_wierd_workaround^i }
+			divide_temp_variable = { this_total_possible_support = 100 }
+			multiply_temp_variable = { this_total_possible_support = ITA_Popolo_Support^i }
+			add_to_temp_variable = { total_possible_support = this_total_possible_support }
+			log = "this_total_possible_support: [?this_total_possible_support]"
+		}
+	}
+
+	divide_variable = { ITA_total_popolo_support = total_possible_support }
+	add_to_variable = { ITA_Ciano_POP_dirty = 1 }
+}
+
+ITA_Ciano_POP_calculate_total_stato_support = {
+	set_variable = { ITA_total_stato_support = 0 }
+	set_temp_variable = { total_possible_support = 0 }
+	
+	for_each_loop = {
+		array = ITA_Ciano_POP_Ciano_wierd_workaround
+		index = i
+		value = v
+	
+		if = {
+			limit = {
+				check_variable = { v > 51 }
+			}
+			set_temp_variable = { this_support = ITA_Ciano_POP_Loyalties^v }
+			divide_temp_variable = { this_support = 100 }
+
+			set_temp_variable = { adjusted_i = i }
+			subtract_from_temp_variable = { adjusted_i = 6 }
+			multiply_temp_variable = { this_support = ITA_Stato_Support^adjusted_i }
+			add_to_variable = { ITA_total_stato_support = this_support }
+
+			set_temp_variable = { this_total_possible_support = 100 }
+			subtract_from_temp_variable = { this_total_possible_support = ITA_Ciano_POP_Loyalties^ITA_Ciano_POP_Apathetic_wierd_workaround^i }
+			divide_temp_variable = { this_total_possible_support = 100 }
+			multiply_temp_variable = { this_total_possible_support = ITA_Stato_Support^adjusted_i }
+			add_to_temp_variable = { total_possible_support = this_total_possible_support }
+		}
+	}
+
+	divide_variable = { ITA_total_stato_support = total_possible_support }
+	add_to_variable = { ITA_Ciano_POP_dirty = 1 }
+}
+
+ITA_Ciano_POP_add_loyalty = {
+	#ITA_Ciano_POP_party_to_add
+	#ITA_Ciano_POP_pillar_to_add
+	#ITA_Ciano_POP_amount_to_add
+	#All of these must be set as temp variables.
+
+
+	if = {
+		limit = {
+			OR = {
+				NOT = {
+					has_variable = ITA_Ciano_POP_party_to_add
+					has_variable = ITA_Ciano_POP_pillar_to_add
+					has_variable = ITA_Ciano_POP_amount_to_add
+				}
+			}
+		}
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = 0 }
+		log = "[GetDateText]: [Root.GetName]: The proper variables were not set before ITA_Ciano_POP_add_loyalty was called."
+	}
+	else = {
+		custom_effect_tooltip = ITA_Ciano_POP_add_loyalty_tt
+	}
+
+	set_temp_variable = { fella_to_add_to = ITA_Ciano_POP_pillar_to_add }
+	multiply_temp_variable = { fella_to_add_to = 10 }
+	add_to_temp_variable = { fella_to_add_to = ITA_Ciano_POP_party_to_add }
+
+	set_temp_variable = { check_if_it_goes_above_100 = ITA_Ciano_POP_Loyalties^fella_to_add_to }
+	add_to_temp_variable = { check_if_it_goes_above_100 = ITA_Ciano_POP_amount_to_add }
+	if = {
+		limit = {
+			check_variable = { check_if_it_goes_above_100 > 100 }
+		}
+		subtract_from_temp_variable = { check_if_it_goes_above_100 = 100 }
+		subtract_from_temp_variable = { ITA_Ciano_POP_amount_to_add = check_if_it_goes_above_100 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { check_if_it_goes_above_100 < 0 }
+		}
+		subtract_from_temp_variable = { ITA_Ciano_POP_amount_to_add = check_if_it_goes_above_100 }
+	}
+
+	set_temp_variable = { everyone_else = 100 }
+	subtract_from_temp_variable = { everyone_else = ITA_Ciano_POP_Loyalties^fella_to_add_to }
+
+	resize_array = { array_with_4_elements = 4 }
+	for_each_loop = {
+		array = array_with_4_elements
+		index = i
+
+		set_temp_variable = { current_fella = ITA_Ciano_POP_pillar_to_add }
+		multiply_temp_variable = { current_fella = 10 }
+		add_to_temp_variable = { current_fella = i }
+
+		if = {
+			limit = {
+				check_variable = { fella_to_add_to = current_fella }
+			}
+			add_to_variable = { ITA_Ciano_POP_Loyalties^current_fella = ITA_Ciano_POP_amount_to_add }
+		}
+		else = {
+			set_temp_variable = { amount_to_subtract = ITA_Ciano_POP_Loyalties^current_fella }
+			divide_temp_variable = { amount_to_subtract = everyone_else }
+			multiply_temp_variable = { amount_to_subtract = ITA_Ciano_POP_amount_to_add }
+			subtract_from_variable = { ITA_Ciano_POP_Loyalties^current_fella = amount_to_subtract }
+		}
+
+	}
+
+	set_temp_variable = { adjusted_fascist = ITA_Ciano_POP_pillar_to_add }
+	multiply_temp_variable = { adjusted_fascist = 10 }
+	add_to_temp_variable = { adjusted_fascist = 4 }
+
+	set_temp_variable = { unadjusted_fascist = ITA_Ciano_POP_pillar_to_add }
+	multiply_temp_variable = { unadjusted_fascist = 10 }
+	add_to_temp_variable = { unadjusted_fascist = 1 }
+
+	set_temp_variable = { ciano_for_adjustment = ITA_Ciano_POP_pillar_to_add }
+	multiply_temp_variable = { ciano_for_adjustment = 10 }
+
+	set_variable = { ITA_Ciano_POP_Loyalties^adjusted_fascist = 0 }
+	add_to_variable = { ITA_Ciano_POP_Loyalties^adjusted_fascist = ITA_Ciano_POP_Loyalties^unadjusted_fascist }
+	add_to_variable = { ITA_Ciano_POP_Loyalties^adjusted_fascist = ITA_Ciano_POP_Loyalties^ciano_for_adjustment }
+
+	if = {
+		limit = {
+			check_variable = { ITA_Ciano_POP_pillar_to_add < 6 }
+		}
+		ITA_Ciano_POP_calculate_total_popolo_support = yes
+	}
+	else = {
+		ITA_Ciano_POP_calculate_total_stato_support = yes
+	}
+
+	clear_variable = ITA_Ciano_POP_party_to_add
+	clear_variable = ITA_Ciano_POP_pillar_to_add
+	clear_variable = ITA_Ciano_POP_amount_to_add
+}
+
+ITA_Ciano_POP_everyone_hates_ciano = {
+	add_to_variable = { ITA_opposition = 2 }
+
+	hidden_effect = {
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = -2 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 1 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = -2 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 2 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = -2 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 3 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = -4 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 4 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = -1 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 5 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = -1 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 6 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = -2 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 7 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = -2 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 8 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = -2 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 9 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = -4 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 10 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = -2 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 11 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = -2 }
+		ITA_Ciano_POP_add_loyalty = yes
+	}
+}
+
+ITA_Ciano_POP_everyone_loves_ciano = {
+	subtract_from_variable = { ITA_opposition = 2 }
+	hidden_effect = {
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = 2 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 1 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = 2 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 2 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = 2 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 3 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = 4 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 4 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = 1 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 5 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = 1 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 6 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = 2 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 7 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = 2 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 8 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = 2 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 9 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = 4 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 10 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = 2 }
+		ITA_Ciano_POP_add_loyalty = yes
+		set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 11 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = 2 }
+		ITA_Ciano_POP_add_loyalty = yes
+	}
+}
+
+ITA_Ciano_POP_convert_to_verona = {
+
+	clr_country_flag = Ciano_PoP_Active
+
+	set_temp_variable = { ciano_pop = 0 }
+	set_temp_variable = { fascist_pop = 0 }
+	set_temp_variable = { popular_pop = 0 }
+
+	for_each_loop = {
+		#loop repeats 12 times, once for every pillar
+		array = ITA_Ciano_POP_Radial_Progress_Bars_Array
+
+		set_temp_variable = { this_pillar = i }
+		multiply_temp_variable = { this_pillar = 10 }
+
+		if = {
+			limit = {
+				check_variable = { i > 5 }
+			}
+			set_temp_variable = { new_i = i }
+			subtract_from_temp_variable = { new_i = 6 }
+			set_temp_variable = { starting_influence = ITA_Stato_Support^new_i }
+		}
+		else = {
+			set_temp_variable = { starting_influence = ITA_Popolo_Support^i }
+		}
+		#starting_influence = the power of a pillar (the number written in the middle)
+
+		set_temp_variable = { influence = starting_influence }
+		multiply_temp_variable = { influence = ITA_Ciano_POP_Loyalties^this_pillar }
+		add_to_temp_variable = { ciano_pop = influence }
+		#ciano pop = power of every pillar multiplied by it's support for ciano 
+
+		add_to_temp_variable = { this_pillar = 1 }
+		set_temp_variable = { influence = starting_influence }
+		multiply_temp_variable = { influence = ITA_Ciano_POP_Loyalties^this_pillar }
+		add_to_temp_variable = { fascist_pop = influence }
+		#ciano pop = power of every pillar multiplied by it's support for the fascists
+
+		add_to_temp_variable = { this_pillar = 2 }
+		set_temp_variable = { influence = starting_influence }
+		multiply_temp_variable = { influence = ITA_Ciano_POP_Loyalties^this_pillar }
+		add_to_temp_variable = { popular_pop = influence }
+		#popular pop = power of every pillar multiplied by it's support for the popular opposition 
+	}
+
+	#decrease Ciano's support by radicalization ( multiply ciano_pop by (100-radicalization) )
+	set_temp_variable = { adjusted_radicalization = 100 }
+	subtract_from_temp_variable = { adjusted_radicalization = ITA_radicalization }
+	divide_temp_variable = { adjusted_radicalization = 100 }
+	multiply_temp_variable = { ciano_pop = adjusted_radicalization }
+
+	#same as with radicalization except with the opposition supports
+	set_temp_variable = { adjusted_opposition = ITA_opposition }
+	add_to_temp_variable = { adjusted_opposition = 100 }
+	divide_temp_variable = { adjusted_opposition = 100 }
+	multiply_temp_variable = { fascist_pop = adjusted_opposition }
+	multiply_temp_variable = { popular_pop = adjusted_opposition }
+
+	#turn the ciano and fascist pops into percent
+	set_temp_variable = { combined_pops = ciano_pop }
+	add_to_temp_variable = { combined_pops = fascist_pop }
+	divide_temp_variable = { combined_pops = 100 }
+
+	#set the Verona vars
+	set_variable = { ITA_Verona_Ciano_Percent = ciano_pop }
+	divide_variable = { ITA_Verona_Ciano_Percent = combined_pops }
+	set_variable = { ITA_Verona_Fascist_Opposition_Percent = fascist_pop }
+	divide_variable = { ITA_Verona_Fascist_Opposition_Percent = combined_pops }
+	
+	round_variable = ITA_Verona_Ciano_Percent
+	round_variable = ITA_Verona_Fascist_Opposition_Percent
+
+	#make sure they add up to 100
+	set_temp_variable = { 100_check = 100 }
+	subtract_from_temp_variable = { 100_check = ITA_Verona_Ciano_Percent }
+	subtract_from_temp_variable = { 100_check = ITA_Verona_Fascist_Opposition_Percent }
+
+	add_to_variable = { ITA_Verona_Ciano_Percent = 100_check }
+
+	#the outside pressure is set to popular support divided by the sum of ciano and fascist support 
+	#outside pressure = popular / ( ciano + fascist )
+	set_temp_variable = { ciano_fascist = ciano_pop }
+	add_to_temp_variable = { ciano_fascist = fascist_pop }
+	divide_temp_variable = { popular_pop = ciano_fascist }
+	multiply_temp_variable = { popular_pop = 100 }
+	round_temp_variable = popular_pop
+	set_variable = { ITA_Verona_outside_pressure = popular_pop }
+
+	divide_temp_variable = { popular_pop = 10 }
+	set_variable = { ITA_Verona_win_margin = 50 }
+	add_to_variable = { ITA_Verona_win_margin = popular_pop }
+}
+
+ITA_Ciano_POP_change_power = {
+	#ITA_Ciano_POP_pillar_to_add
+	#ITA_Ciano_POP_amount_to_add
+	#All of these must be set as temp variables.
+	if = {
+		limit = {
+			NOT = {
+				has_variable = ITA_Ciano_POP_pillar_to_add
+				has_variable = ITA_Ciano_POP_amount_to_add
+			}
+		}
+		set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 0 }
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = 0 }
+	}
+	else = {
+		set_temp_variable = { abs_change = ITA_Ciano_POP_amount_to_add }
+		if = {
+			limit = {
+				check_variable = { abs_change < 0 }
+			}
+			multiply_temp_variable = { abs_change = -1 }
+		}
+		custom_effect_tooltip = ITA_Ciano_POP_change_power_tt
+	}
+
+	if = {
+		limit = {
+			check_variable = { ITA_Ciano_POP_pillar_to_add < 6 }
+		}
+		add_to_variable = { ITA_Popolo_Support^ITA_Ciano_POP_pillar_to_add = ITA_Ciano_POP_amount_to_add }
+		clamp_variable = {
+			var = ITA_Popolo_Support^ITA_Ciano_POP_pillar_to_add
+			min = 3
+		}
+	}
+	else = {
+		subtract_from_temp_variable = { ITA_Ciano_POP_pillar_to_add = 6 }
+		add_to_variable = { ITA_Stato_Support^ITA_Ciano_POP_pillar_to_add = ITA_Ciano_POP_amount_to_add }
+		clamp_variable = {
+			var = ITA_Stato_Support^ITA_Ciano_POP_pillar_to_add
+			min = 3
+		}
+	}
+
+	ITA_Ciano_POP_calculate_total_popolo_support = yes
+	ITA_Ciano_POP_calculate_total_stato_support = yes
+
+	add_to_variable = { ITA_Ciano_POP_dirty = 1 }
+}
+
+ITA_get_ITW_outcome_event = {
+	if = {
+		limit = {
+			check_variable = { TUR.TUR_ITW_win_counter > 0 }
+		}
+		#Turkey won
+		country_event = {
+			id = ITA_ITW_outcome.2
+			days = 3
+		}
+	}
+	else = {
+		#Italy won
+		country_event = {
+			id = ITA_ITW_outcome.1
+			days = 3
+		}
+	}
+}

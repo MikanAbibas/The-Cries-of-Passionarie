@@ -1,0 +1,4410 @@
+############################################################################
+## ██╗████████╗ █████╗ ██╗         ██╗███╗   ███╗██████╗ ███████╗██████╗  ##
+## ██║╚══██╔══╝██╔══██╗██║         ██║████╗ ████║██╔══██╗██╔════╝██╔══██╗ ##
+## ██║   ██║   ███████║██║         ██║██╔████╔██║██████╔╝█████╗  ██████╔╝ ##
+## ██║   ██║   ██╔══██║██║         ██║██║╚██╔╝██║██╔═══╝ ██╔══╝  ██╔══██╗ ##
+## ██║   ██║   ██║  ██║███████╗    ██║██║ ╚═╝ ██║██║     ███████╗██║  ██║ ##
+## ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝ ##
+############################################################################ (not)
+
+#Index; Search for these names using CTRL+F and you'll find the section they entitle.
+#   THE SOCIALIST REPUBLIC ESTABLISHED
+#		Old Guard
+#			a) Secchia Arc I Tree
+#			b) Secchia Arc II Tree
+#           c) Secchia Arc III Tree
+#           d) Secchia Crisis Tree
+#			e) Secchia Epilogue Tree
+#           f) Damen Tree
+
+###=====| a) Secchia Tree |=====###
+
+shared_focus = {
+	id = ITA_RED_avanti_popolo_alla_riscossa
+	icon = GFX_ITA_prima_il_socialismo
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+
+	x = -6
+	y = 1
+	completion_reward = {
+		add_political_power = 25
+		add_war_support = 0.1
+		ITA_RED_secchia_setup = yes
+		ITA_deimperialism_map_balkans_setup = yes
+		ITA_RED_CulRev_initialize = yes
+		country_event = {
+			id = ITA_RED_secchia.101
+			days = 7
+		}
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_avanti_popolo_alla_riscossa"
+	}
+}
+shared_focus = {
+	id = ITA_RED_hit_the_ground_running
+	icon = GFX_ITA_prima_il_socialismo
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+
+	x = -3
+	y = 1
+	prerequisite = {
+		focus = ITA_RED_avanti_popolo_alla_riscossa
+	}
+	relative_position_id = ITA_RED_avanti_popolo_alla_riscossa
+	completion_reward = {
+		add_political_power = 15
+		set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 3 }
+		ITA_RED_cultrev_revolutionary_fervour_change = yes
+		# Comecon. TNORA has no CME_ framework, so this call did nothing.
+		#set_temp_variable = { CME_delegates_temp = 1 }
+		#set_temp_variable = { CME_faction_temp = 1 }
+		#CME_add_faction_future_delegates = yes
+	}
+}
+shared_focus = {
+	id = ITA_RED_focusing_on_a_united_party
+	icon = GFX_ITA_prima_il_socialismo
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+
+	x = -2
+	y = 1
+	prerequisite = {
+		focus = ITA_RED_hit_the_ground_running
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_focusing_on_decisive_action
+	}
+	relative_position_id = ITA_RED_hit_the_ground_running
+	completion_reward = {
+		add_political_power = 10
+		set_temp_variable = { ITA_RED_red_terror_temp = -2 }
+		ITA_RED_cultrev_red_terror_change = yes
+		set_temp_variable = { ITA_RED_secchia_party_temp = 5 }
+		ITA_RED_secchia_party_increase = yes
+		#set_temp_variable = { CME_unity_tweak_temp = -1 }
+		#CME_alter_congress_failed_resolution_unity = yes
+	}
+}
+shared_focus = {
+	id = ITA_RED_focusing_on_decisive_action
+	icon = GFX_ITA_prima_il_socialismo
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+
+	x = 0
+	y = 1
+	prerequisite = {
+		focus = ITA_RED_hit_the_ground_running
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_focusing_on_a_united_party
+	}
+	relative_position_id = ITA_RED_hit_the_ground_running
+	completion_reward = {
+		set_temp_variable = { ITA_RED_red_terror_temp = 5 }
+		ITA_RED_cultrev_red_terror_change = yes
+		set_temp_variable = { ITA_RED_secchia_party_temp = 2.5 }
+		ITA_RED_secchia_party_increase = yes
+		#set_temp_variable = { CME_opinion_add_temp = -2 }
+		#CME_alter_congress_vote_threshold = yes
+	}
+}
+shared_focus = {
+	id = ITA_RED_continuing_the_italian_revolution
+	icon = GFX_ITA_prima_il_socialismo
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+
+	x = 3
+	y = 1
+	prerequisite = {
+		focus = ITA_RED_avanti_popolo_alla_riscossa
+	}
+	relative_position_id = ITA_RED_avanti_popolo_alla_riscossa
+	completion_reward = {
+		set_temp_variable = { ITA_RED_militant_approval_temp = 5 }
+		ITA_RED_cultrev_militant_approval_change = yes
+		set_temp_variable = { ITA_RED_red_terror_temp = 3 }
+		ITA_RED_cultrev_red_terror_change = yes
+		add_ideas = ITA_RED_the_revolution_marches_onward
+		country_event = ITA_RED_secchia.10
+	}
+}
+shared_focus = {
+	id = ITA_RED_remembering_the_invasion
+	icon = GFX_ITA_prima_il_socialismo
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+
+	x = 0
+	y = 1
+	prerequisite = {
+		focus = ITA_RED_continuing_the_italian_revolution
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_looking_to_the_future
+	}
+	relative_position_id = ITA_RED_continuing_the_italian_revolution
+	completion_reward = {
+		set_temp_variable = { ITA_RED_militant_approval_temp = 3 }
+		ITA_RED_cultrev_militant_approval_change = yes
+		set_temp_variable = { ITA_RED_reaction_temp = -2 }
+		ITA_RED_cultrev_reaction_change = yes
+		set_temp_variable = { ITA_RED_secchia_state_temp = 2.5 }
+		ITA_RED_secchia_state_increase = yes
+		country_event = ITA_RED_secchia.11
+	}
+}
+shared_focus = {
+	id = ITA_RED_looking_to_the_future
+	icon = GFX_ITA_prima_il_socialismo
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+
+	x = 2
+	y = 1
+	prerequisite = {
+		focus = ITA_RED_continuing_the_italian_revolution
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_remembering_the_invasion
+	}
+	relative_position_id = ITA_RED_continuing_the_italian_revolution
+	completion_reward = {
+		set_temp_variable = { ITA_RED_severity_temp = -5 }
+		ITA_RED_cultrev_severity_change = yes
+		set_temp_variable = { temp_econ_GDP_boost_percentage = 0.015 }
+		econ_GDP_boost_once_percentage = yes
+		TNO_improve_industrial_expertise_low = yes
+		country_event = ITA_RED_secchia.12
+	}
+}
+shared_focus = {
+	id = ITA_RED_the_directors_of_the_revolution
+	icon = GFX_ITA_prima_il_socialismo
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+
+	x = 3
+	y = 1
+	prerequisite = {
+		focus = ITA_RED_focusing_on_a_united_party
+		focus = ITA_RED_focusing_on_decisive_action
+	}
+	prerequisite = {
+		focus = ITA_RED_remembering_the_invasion
+		focus = ITA_RED_looking_to_the_future
+	}
+	relative_position_id = ITA_RED_focusing_on_decisive_action
+	completion_reward = {
+		add_political_power = 10
+		set_temp_variable = { ITA_RED_secchia_party_temp = 2.5 }
+		ITA_RED_secchia_party_increase = yes
+		TNO_improve_academic_base_low = yes
+		set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 3 }
+		ITA_RED_cultrev_revolutionary_fervour_change = yes
+		country_event = ITA_RED_secchia.13
+	}
+}
+shared_focus = {
+	id = ITA_RED_taking_our_seat_at_the_table
+	icon = GFX_ITA_prima_il_socialismo
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+
+	x = 0
+	y = 1
+	prerequisite = {
+		focus = ITA_RED_the_directors_of_the_revolution
+	}
+	relative_position_id = ITA_RED_the_directors_of_the_revolution
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 5 }
+		ITA_RED_secchia_revolution_increase = yes
+		#set_temp_variable = { CME_delegates_temp = 1 }
+		#set_temp_variable = { CME_faction_temp = 1 }
+		#CME_add_faction_future_delegates = yes
+		#STRIP(comintern) TNO_run_comintern_script = yes
+	}
+}
+shared_focus = {
+	id = ITA_RED_longos_mess
+	icon = GFX_ITA_what_is_orthodoxy
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_taking_our_seat_at_the_table
+	}
+
+	x = -8
+	y = 1
+	relative_position_id = ITA_RED_taking_our_seat_at_the_table
+	completion_reward = {
+		set_temp_variable = { ITA_RED_red_terror_temp = -10 }
+		ITA_RED_cultrev_red_terror_change = yes
+		set_temp_variable = { ITA_RED_secchia_party_temp = 5 }
+		ITA_RED_secchia_party_decrease = yes
+		country_event = ITA_RED_secchia.2
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_longos_mess"
+	}
+}
+shared_focus = {
+	id = ITA_RED_revisionists_left
+	icon = GFX_ITA_Pedagogy_of_the_Exploited
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_longos_mess
+	}
+
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_longos_mess
+	completion_reward = {
+		TNO_improve_academic_base_med = yes
+		set_temp_variable = { ITA_RED_revolutionary_fervor_temp = -5 }
+		ITA_RED_cultrev_revolutionary_fervour_change = yes
+		set_temp_variable = { ITA_RED_militant_approval_temp = 5 }
+		ITA_RED_cultrev_militant_approval_change = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_revisionists_left"
+	}
+}
+shared_focus = {
+	id = ITA_RED_use_the_publisher
+	icon = GFX_Praxis_Makes_Perfect
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_revisionists_left
+	}
+
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_revisionists_left
+	completion_reward = {
+		add_political_power = 25
+		set_temp_variable = { ITA_RED_secchia_party_temp = 15 }
+		ITA_RED_secchia_party_increase = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_use_the_publisher"
+	}
+}
+shared_focus = {
+	id = ITA_RED_revisionists_right
+	icon = GFX_ITA_Red_Star_on_the_Tricolor
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_longos_mess
+	}
+
+	x = 3
+	y = 1
+	relative_position_id = ITA_RED_longos_mess
+	completion_reward = {
+		TNO_improve_academic_base_low = yes
+		add_popularity = { ideology = socialist popularity = -0.15 }
+		set_temp_variable = { ITA_RED_militant_approval_temp = 10 }
+		ITA_RED_cultrev_militant_approval_change = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_revisionists_right"
+	}
+}
+shared_focus = {
+	id = ITA_RED_isolate_the_catholics
+	icon = GFX_ITA_suppress_communism_catholicism
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_revisionists_right
+	}
+
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_revisionists_right
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_party_temp = 15 }
+		ITA_RED_secchia_party_increase = yes
+		set_temp_variable = { ITA_RED_clergy_velocity_temp = 2.5 }
+		ITA_RED_cultrev_progress_clergy_weekly = yes
+		set_temp_variable = { ITA_RED_red_terror_temp = 10 }
+		ITA_RED_cultrev_red_terror_change = yes
+		country_event = ITA_RED_secchia.6
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_isolate_the_catholics"
+	}
+}
+shared_focus = {
+	id = ITA_RED_infants_and_capitalists
+	icon = GFX_ITA_RED_Peoples_Court
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_use_the_publisher
+	}
+	prerequisite = {
+		focus = ITA_RED_isolate_the_catholics
+	}
+
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_use_the_publisher
+	completion_reward = {
+		add_political_power = 25
+		add_stability = 0.05
+		set_temp_variable = { ITA_RED_red_terror_temp = 5 }
+		ITA_RED_cultrev_red_terror_change = yes
+		set_temp_variable = { ITA_RED_secchia_party_temp = 10 }
+		ITA_RED_secchia_party_increase = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_infants_and_capitalists"
+	}
+}
+shared_focus = {
+	id = ITA_RED_a_cohesive_whole
+	icon = GFX_TYM_reflect_upon_stalins_word
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = ITA_RED_secchia_party_80_tt
+			check_variable = { ITA_RED_secchia_party > 80 }
+		}
+	}
+	prerequisite = {
+		focus = ITA_RED_infants_and_capitalists
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_the_dreaded_compromise
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_infants_and_capitalists
+	completion_reward = {
+		set_temp_variable = { ITA_RED_militant_approval_temp = 10 }
+		ITA_RED_cultrev_militant_approval_change = yes
+		add_stability = 0.1
+		set_temp_variable = { ITA_RED_secchia_party_temp = 5 }
+		ITA_RED_secchia_party_increase = yes
+		country_event = ITA_RED_secchia.3
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_a_cohesive_whole"
+	}
+}
+shared_focus = {
+	id = ITA_RED_the_dreaded_compromise
+	icon = GFX_KRS_bukharins_legacy
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_infants_and_capitalists
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_a_cohesive_whole
+	}
+	x = 3
+	y = 1
+	relative_position_id = ITA_RED_infants_and_capitalists
+	completion_reward = {
+		add_political_power = -25
+		set_temp_variable = { ITA_RED_secchia_party_temp = 15 }
+		ITA_RED_secchia_party_increase = yes
+		set_temp_variable = { ITA_RED_red_terror_temp = -5 }
+		ITA_RED_cultrev_red_terror_change = yes
+		country_event = ITA_RED_secchia.4
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_dreaded_compromise"
+	}
+}
+shared_focus = {
+	id = ITA_RED_tatters_of_an_industry
+	icon = GFX_TYM_What_is_the_Five_Year_Plan
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_taking_our_seat_at_the_table
+	}
+
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_taking_our_seat_at_the_table
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_state_temp = 10 }
+		ITA_RED_secchia_state_increase = yes
+		set_temp_variable = { temp_econ_GDP_boost_percentage = 0.015 }
+		econ_GDP_boost_once_percentage = yes
+		TNO_improve_industrial_expertise_low = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_tatters_of_an_industry"
+	}
+}
+shared_focus = {
+	id = ITA_RED_centralize_the_unions
+	icon = GFX_A_Productive_Union
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_tatters_of_an_industry
+	}
+
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_tatters_of_an_industry
+	completion_reward = {
+		tno_trade_unions_improve = yes
+		set_temp_variable = { ITA_RED_workers_velocity_temp = 5 }
+		ITA_RED_cultrev_progress_workers_weekly = yes
+		set_temp_variable = { econ_centralization_temp = 10 }
+		econ_centralization_change = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_centralize_the_unions"
+	}
+}
+shared_focus = {
+	id = ITA_RED_an_arci_centre_in_every_town
+	icon = GFX_TYM_workers_culture
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_tatters_of_an_industry
+	}
+
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_tatters_of_an_industry
+	completion_reward = {
+		set_temp_variable = { ITA_RED_pillar_change_workers_temp = 5 }
+		ITA_RED_cultrev_progress_workers = yes
+		set_temp_variable = { ITA_RED_secchia_state_temp = 10 }
+		ITA_RED_secchia_state_increase = yes
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 5 }
+		ITA_RED_secchia_revolution_increase = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_an_arci_centre_in_every_town"
+	}
+}
+shared_focus = {
+	id = ITA_RED_expanding_la_zona_rossa
+	icon = GFX_KOM_cybernetic_agriculture_ultravisionary
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_centralize_the_unions
+	}
+
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_centralize_the_unions
+	completion_reward = {
+		add_political_power = 25
+		set_temp_variable = { ITA_RED_farmers_velocity_temp = 2.5 }
+		ITA_RED_cultrev_progress_farmers_weekly = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_expanding_la_zona_rossa"
+	}
+}
+shared_focus = {
+	id = ITA_RED_avoiding_bukharins_failures
+	icon = GFX_TYM_uplift_the_proletarian
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_an_arci_centre_in_every_town
+	}
+
+	x = -1
+	y = 1
+	relative_position_id = ITA_RED_an_arci_centre_in_every_town
+	completion_reward = {
+		set_temp_variable = { econ_centralization_temp = 5 }
+		econ_centralization_change = yes
+		set_temp_variable = { ITA_RED_middle_class_velocity_temp = 2.5 }
+		ITA_RED_cultrev_progress_middle_class_weekly = yes
+		set_temp_variable = { ITA_RED_reaction_temp = -10 }
+		ITA_RED_cultrev_reaction_change = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_avoiding_bukharins_failures"
+	}
+}
+shared_focus = {
+	id = ITA_RED_pubsec_and_counter_terrorism
+	icon = GFX_Generic_Question_Reactionaries
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_expanding_la_zona_rossa
+	}
+	prerequisite = {
+		focus = ITA_RED_avoiding_bukharins_failures
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_expanding_la_zona_rossa
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_state_temp = 10 }
+		ITA_RED_secchia_state_increase = yes
+		set_temp_variable = { ITA_RED_reaction_temp = -15 }
+		ITA_RED_cultrev_reaction_change = yes
+		tno_security_improve = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_pubsec_and_counter_terrorism"
+	}
+}
+shared_focus = {
+	id = ITA_RED_enforcing_the_revolution
+	icon = GFX_TYM_proletarian_over_all
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_pubsec_and_counter_terrorism
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_pubsec_and_counter_terrorism
+	completion_reward = { # replace with an idea in the future
+		set_temp_variable = { ITA_RED_secchia_state_temp = 15 }
+		ITA_RED_secchia_state_increase = yes
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 5 }
+		ITA_RED_secchia_revolution_increase = yes
+		set_temp_variable = { ITA_RED_reaction_weekly_temp = -0.25 }
+		ITA_RED_cultrev_reaction_change_weekly = yes
+		set_temp_variable = { ITA_RED_red_terror_weekly_temp = 0.1 }
+		ITA_RED_cultrev_red_terror_change_weekly = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_enforcing_the_revolution"
+	}
+}
+shared_focus = {
+	id = ITA_RED_what_is_to_be_done
+	icon = GFX_IRK_remember_the_revolution
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_taking_our_seat_at_the_table
+	}
+
+	x = 8
+	y = 1
+	relative_position_id = ITA_RED_taking_our_seat_at_the_table
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 15 }
+		ITA_RED_secchia_revolution_increase = yes
+		set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 5 }
+		ITA_RED_cultrev_revolutionary_fervour_change = yes
+		country_event = ITA_RED_secchia.2
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_what_is_to_be_done"
+	}
+}
+shared_focus = {
+	id = ITA_RED_a_bulwark_of_imperialism
+	icon = GFX_Root_Out_Catholic_Lobbyists
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_what_is_to_be_done
+	}
+
+	x = -4
+	y = 1
+	relative_position_id = ITA_RED_what_is_to_be_done
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+		ITA_RED_secchia_revolution_increase = yes
+		set_temp_variable = { ITA_RED_clergy_velocity_temp = 2.5 }
+		ITA_RED_cultrev_progress_clergy_weekly = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_a_bulwark_of_imperialism"
+	}
+}
+shared_focus = {
+	id = ITA_RED_a_marxist_leninist_culture
+	icon = GFX_TYM_unity_foremost
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_what_is_to_be_done
+	}
+
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_what_is_to_be_done
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+		ITA_RED_secchia_revolution_increase = yes
+		set_temp_variable = { ITA_RED_militant_approval_temp = 10 }
+		ITA_RED_cultrev_militant_approval_change = yes
+		set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 5 }
+		ITA_RED_cultrev_revolutionary_fervour_change = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_a_marxist_leninist_culture"
+	}
+}
+shared_focus = {
+	id = ITA_RED_organize_the_youth
+	icon = GFX_TYM_new_soviet_family
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_a_bulwark_of_imperialism
+	}
+	prerequisite = {
+		focus = ITA_RED_a_marxist_leninist_culture
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_a_marxist_leninist_culture
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 5 }
+		ITA_RED_secchia_revolution_increase = yes
+		set_temp_variable = { ITA_RED_academia_velocity_temp = 2.5 }
+		ITA_RED_cultrev_progress_academia_weekly = yes
+		set_temp_variable = { ITA_RED_militant_approval_temp = 5 }
+		ITA_RED_cultrev_militant_approval_change = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_organize_the_youth"
+	}
+}
+shared_focus = {
+	id = ITA_RED_university_joint_administrative_bodies
+	icon = GFX_ITA_Distributing_the_New
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_organize_the_youth
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_organize_the_youth
+	completion_reward = {
+		set_temp_variable = { ITA_RED_academia_velocity_temp = 2.5 }
+		ITA_RED_cultrev_progress_academia_weekly = yes
+		tno_education_improve = yes
+		TNO_improve_academic_base_med = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_university_joint_administrative_bodies"
+	}
+}
+shared_focus = {
+	id = ITA_RED_the_women_of_the_revolution
+	icon = GFX_generic_socialist_woman
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_organize_the_youth
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_organize_the_youth
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+		ITA_RED_secchia_revolution_increase = yes
+		set_temp_variable = { ITA_RED_marginalized_velocity_temp = 2.5 }
+		ITA_RED_cultrev_progress_marginalized_weekly = yes
+		tno_gender_rights_improve = yes
+		set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 5 }
+		ITA_RED_cultrev_revolutionary_fervour_change = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_women_of_the_revolution"
+	}
+}
+shared_focus = {
+	id = ITA_RED_the_revolutions_soldiers
+	icon = GFX_WAL_Talk_with_socialist_militias
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_university_joint_administrative_bodies
+	}
+	prerequisite = {
+		focus = ITA_RED_the_women_of_the_revolution
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_university_joint_administrative_bodies
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 20 }
+		ITA_RED_secchia_revolution_increase = yes
+		set_temp_variable = { ITA_RED_soldiers_police_velocity_temp = 2.5 }
+		ITA_RED_cultrev_progress_soldiers_police_weekly = yes
+		TNO_improve_army_professionalism_med = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_revolutions_soldiers"
+	}
+}
+shared_focus = {
+	id = ITA_RED_fedeli_alla_linea
+	icon = GFX_ITA_Fedeli_alla_Linea
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	available = {
+	}
+	prerequisite = {
+		focus = ITA_RED_a_cohesive_whole
+		focus = ITA_RED_the_dreaded_compromise
+	}
+	prerequisite = {
+		focus = ITA_RED_enforcing_the_revolution
+	}
+	prerequisite = {
+		focus = ITA_RED_the_revolutions_soldiers
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_RED_enforcing_the_revolution
+	completion_reward = {
+		add_political_power = 25
+		set_temp_variable = { ITA_RED_secchia_party_temp = 5 }
+		ITA_RED_secchia_party_increase = yes
+		set_temp_variable = { ITA_RED_secchia_state_temp = 5 }
+		ITA_RED_secchia_state_increase = yes
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 5 }
+		ITA_RED_secchia_revolution_increase = yes
+		set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 10 }
+		ITA_RED_cultrev_revolutionary_fervour_change = yes
+		country_event = ITA_RED_secchia.14
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_fedeli_alla_linea"
+	}
+}
+
+###=====| b) Secchia Tree Act II|=====###
+
+shared_focus = {
+	id = ITA_RED_organizing_the_world_revolution
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { focus = ITA_RED_fedeli_alla_linea }
+	x = 0
+	y = 2
+	relative_position_id = ITA_RED_fedeli_alla_linea
+	allow_branch = {
+		has_country_flag = ITA_RED_secchia_act_2
+	}
+	completion_reward = {
+	custom_effect_tooltip = ITA_RED_organizing_the_world_revolution_tt #KRONE remove the old decisions
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 5 }
+		ITA_RED_secchia_revolution_decrease = yes
+		set_country_flag = secchia_decision_flag_1
+		add_dynamic_modifier = { modifier = ITA_RED_Secchia_menaces_on_the_horizion_modifier }
+		set_variable = { ITA_RED_Secchia_dynmod_shield_degradation_variable = 1.5 }
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_preparing_the_international
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_organizing_the_world_revolution
+	}
+	x = -14
+	y = 1
+	relative_position_id = ITA_RED_organizing_the_world_revolution
+	completion_reward = {
+	custom_effect_tooltip = ITA_RED_preparing_the_international_tt
+		set_temp_variable = {ITA_RED_secchia_party_temp = 10}
+		ITA_RED_secchia_party_increase = yes
+		set_country_flag = secchia_decision_flag_2
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_undermining_our_differences
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_preparing_the_international
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_preparing_the_international
+	completion_reward = {
+		set_temp_variable = {ITA_RED_secchia_party_temp = 10}
+		ITA_RED_secchia_party_increase = yes
+		#set_temp_variable = { CME_delegates_temp = -2 }
+		#set_temp_variable = { CME_faction_2_temp = ITA.CME_leading_local_faction }
+		#CME_add_faction_delegates_with_power = yes
+		#set_temp_variable = { CME_ideology_1_temp = 1 }
+		#set_temp_variable = { CME_ideology_2_temp = ITA.CME_leading_local_faction }
+		#set_temp_variable = { CME_opinion_add_temp = 2 }
+		#CME_add_opinion = yes
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_and_emphasizing_our_agreements
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_undermining_our_differences
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_and_retching_them_back_up
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_undermining_our_differences
+	completion_reward = {
+		#set_temp_variable = {CME_add_unity_temp = 2.5}
+		#CME_add_unity = yes
+
+		#set_temp_variable = { CME_ideology_1_temp = ITA.CME_leading_local_faction }
+		#set_temp_variable = { CME_ideology_2_temp = ITA.CME_leading_local_faction }
+		#set_temp_variable = { CME_opinion_add_temp = -2 }
+		#CME_add_opinion = yes
+		#set_temp_variable = { CME_ideology_1_temp = 1 }
+		#set_temp_variable = { CME_ideology_2_temp = ITA.CME_leading_local_faction }
+		#set_temp_variable = { CME_opinion_add_temp = 2 }
+		#CME_add_opinion = yes
+
+		set_country_flag = secchia_decision_flag_3
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_and_retching_them_back_up
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_undermining_our_differences
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_and_emphasizing_our_agreements
+	}
+	x = 4
+	y = 1
+	relative_position_id = ITA_RED_undermining_our_differences
+	completion_reward = {
+
+		#set_temp_variable = {CME_add_unity_temp = -2.5}
+		#CME_add_unity = yes
+
+		#set_temp_variable = { CME_ideology_1_temp = ITA.CME_leading_local_faction }
+		#set_temp_variable = { CME_ideology_2_temp = ITA.CME_leading_local_faction }
+		#set_temp_variable = { CME_opinion_add_temp = 2 }
+		#CME_add_opinion = yes
+		#set_temp_variable = { CME_ideology_1_temp = 3 }
+		#set_temp_variable = { CME_ideology_2temp = ITA.CME_leading_local_faction }
+		#set_temp_variable = { CME_opinion_add_temp = -2 }
+		#CME_add_opinion = yes
+
+		set_country_flag = secchia_decision_flag_4
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_playing_a_key_role_in_history
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_and_emphasizing_our_agreements
+		focus = ITA_RED_and_retching_them_back_up
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_and_emphasizing_our_agreements
+	completion_reward = {
+		#set_temp_variable = {CME_delegates_temp = 2}
+		#set_temp_variable = {CME_faction_temp = 1}
+		#CME_add_faction_delegates_with_power = yes
+
+		#set_temp_variable = { CME_agenda_slot_temp = 20 }
+		#CME_add_specific_speech = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_united_under_democratic_centralist_principles
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_playing_a_key_role_in_history
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_playing_a_key_role_in_history
+	completion_reward = {
+		set_temp_variable = {ITA_RED_secchia_party_temp = 10}
+		ITA_RED_secchia_party_increase = yes
+		#set_temp_variable = {CME_add_unity_temp = 2.5}
+		#CME_add_unity = yes
+
+		#set_temp_variable = { CME_ideology_1_temp = ITA.CME_leading_local_faction }
+		#set_temp_variable = { CME_ideology_2_temp = ITA.CME_leading_local_faction }
+		#set_temp_variable = { CME_opinion_add_temp = 1 }
+		#set_temp_variable = { CME_ideology_1_temp = 3 }
+		#set_temp_variable = { CME_ideology_1_temp = ITA.CME_leading_local_faction }
+		#set_temp_variable = { CME_opinion_add_temp = 1 }
+		#CME_add_opinion = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_paying_dues_paying_respects
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_playing_a_key_role_in_history
+	}
+	x = 4
+	y = 1
+	relative_position_id = ITA_RED_playing_a_key_role_in_history
+	completion_reward = {
+	#CME_centralize_comecon = yes
+	if = {
+			limit = {
+				check_variable = { global.CominternLeader = THIS }
+			}
+			#CME_centralize_comecon = yes
+			set_temp_variable = { gdp_growth_temp = 0.0006 }
+			econ_gdp_growth_change = yes
+		}
+	else_if = {
+			limit = {
+				NOT = {
+					check_variable = { global.CominternLeader = THIS }
+				}
+			}
+		add_opinion_modifier = { target = var:global.CominternLeader modifier = small_increase }
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_balkan_front
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_united_under_democratic_centralist_principles
+	}
+	prerequisite = {
+		focus = ITA_RED_paying_dues_paying_respects
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_the_middle_eastern_front
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_united_under_democratic_centralist_principles
+	completion_reward = {
+		set_temp_variable = { ITA_Deimp_balkans_supplypercent_temp = 10 }
+		ITA_deimperialism_balkans_supply_boost_allies = yes
+
+		for_each_loop = {
+			array = ITA_Deimp_Balkans_Regions
+			index = DeimpRegion_i
+			if = {
+				limit = { check_variable = {ECON_SPHERE_LEADER = ITA } }
+				set_temp_variable = { gdp_growth_temp = 0.004 }
+				econ_gdp_growth_change = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_remembering_echoes_of_past_war
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_balkan_front
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_the_balkan_front
+	completion_reward = {
+		set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 5 }
+		ITA_RED_cultrev_revolutionary_fervour_change = yes
+		set_temp_variable = { ITA_RED_militant_approval_temp = 5 }
+		ITA_RED_cultrev_militant_approval_change = yes
+
+		set_temp_variable = { ITA_Deimp_balkans_revoltpercent_temp = 5 }
+		ITA_deimperialism_balkans_revolt_boost_allies = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_middle_eastern_front
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_united_under_democratic_centralist_principles
+	}
+	prerequisite = {
+		focus = ITA_RED_paying_dues_paying_respects
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_the_balkan_front
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_paying_dues_paying_respects
+	completion_reward = {
+		set_temp_variable = { ITA_Deimp_MENA_supplypercent_temp = 10 }
+		ITA_deimperialism_MENA_supply_boost_allies = yes
+		for_each_loop = {
+			array = ITA_Deimp_Balkans_Regions
+			index = DeimpRegion_i
+			if = {
+				limit = { check_variable = {ECON_SPHERE_LEADER = ITA } }
+				set_temp_variable = { gdp_growth_temp = 0.004 }
+				econ_gdp_growth_change = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_remembering_echoes_of_past_exploitation
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_middle_eastern_front
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_the_middle_eastern_front
+	completion_reward = {
+		set_temp_variable = {ITA_RED_reaction_temp = 5}
+		ITA_RED_cultrev_reaction_change = yes
+		set_temp_variable = { ITA_Deimp_MENA_revoltpercent_temp = 5 }
+		ITA_deimperialism_MENA_revolt_boost_allies = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_excluding_certain_elements
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_remembering_echoes_of_past_war
+		focus = ITA_RED_remembering_echoes_of_past_exploitation
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_remembering_echoes_of_past_exploitation
+	completion_reward = {
+		#set_temp_variable = {CME_delegates_temp = -1}
+		#set_temp_variable = {CME_faction_temp = 1}
+		#CME_add_faction_delegates_with_power = yes
+
+		set_temp_variable = {ITA_RED_secchia_party_temp = 10}
+		ITA_RED_secchia_party_increase = yes
+		set_temp_variable = {ITA_RED_red_terror_temp = 5}
+		ITA_RED_cultrev_red_terror_change = yes
+		set_temp_variable = {ITA_RED_reaction_temp = -5}
+		ITA_RED_cultrev_reaction_change = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_preparing_the_nation
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_organizing_the_world_revolution
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_organizing_the_world_revolution
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_state_temp = 10 }
+		ITA_RED_secchia_state_increase = yes
+
+		set_country_flag = secchia_decision_flag_5
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_industry_of_war
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_preparing_the_nation
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_an_army_to_feed
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_preparing_the_nation
+	completion_reward = {
+		add_dynamic_modifier = { modifier = ITA_RED_Secchia_war_industry_modifier }
+		set_variable = { ITA_RED_Secchia_dynmod_middle_class_velocity_variable = 0.5 }
+		set_variable = { ITA_RED_Secchia_dynmod_industrial_capacity_factory_variable = 0.05 }
+		set_variable = { ITA_RED_Secchia_dynmod_industrial_capacity_dockyard_variable = 0.05 }
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_burning_the_midnight_oil
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_industry_of_war
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_the_industry_of_war
+	completion_reward = {
+		set_temp_variable = { ITA_RED_cultrev_selected_pillar_temp = 1 }
+		set_temp_variable = { ITA_RED_add_specific_perk_temp = 5 }
+		ITA_RED_add_specific_perk = yes
+		set_country_flag = secchia_decision_flag_6
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_crunching_out_progress
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_industry_of_war
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_the_industry_of_war
+	completion_reward = {
+		set_temp_variable = {ITA_RED_militant_approval_temp = 5}
+		ITA_RED_cultrev_militant_approval_change = yes
+		set_temp_variable = { ITA_RED_pillar_change_middle_class_temp = 5 }
+		ITA_RED_cultrev_progress_middle_class = yes
+		add_to_variable = { ITA_RED_Secchia_dynmod_middle_class_velocity_variable = 0.5 }
+		add_to_variable = { ITA_RED_Secchia_dynmod_industrial_capacity_factory_variable = 0.05 }
+		add_to_variable = { ITA_RED_Secchia_dynmod_industrial_capacity_dockyard_variable = 0.05 }
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_an_army_to_feed
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_preparing_the_nation
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_the_industry_of_war
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_preparing_the_nation
+	completion_reward = {
+		add_dynamic_modifier = { modifier = ITA_RED_Secchia_feeding_the_people_modifier }
+		set_variable = { ITA_RED_Secchia_dynmod_agriculture_variable = 0.5 }
+		set_variable = { ITA_RED_Secchia_dynmod_farmers_velocity_variable = 0.5 }
+		set_variable = { ITA_RED_Secchia_dynmod_manpower = 0.05 }
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_accomodating_for_the_empires_fall
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_an_army_to_feed
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_an_army_to_feed
+	completion_reward = {
+		set_temp_variable = { ITA_RED_severity_temp = -5 }
+		ITA_RED_cultrev_severity_change = yes
+		set_temp_variable = { ITA_RED_pillar_change_farmers_temp = 5 }
+		ITA_RED_cultrev_progress_farmers = yes
+		set_variable = { ITA_RED_Secchia_dynmod_agriculture_variable = 0.5 }
+		set_variable = { ITA_RED_Secchia_dynmod_farmers_velocity_variable = 0.5 }
+		set_variable = { ITA_RED_Secchia_dynmod_manpower = 0.05 }
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_shifting_to_modernity
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_an_army_to_feed
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_an_army_to_feed
+	completion_reward = {
+		set_temp_variable = { ITA_RED_cultrev_selected_pillar_temp = 1 }
+		set_temp_variable = { ITA_RED_add_specific_perk_temp = 6 }
+		ITA_RED_add_specific_perk = yes
+		set_country_flag = secchia_decision_flag_7
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_an_anti_counterrevolutionary_affair
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_burning_the_midnight_oil
+		focus = ITA_RED_crunching_out_progress
+		focus = ITA_RED_accomodating_for_the_empires_fall
+		focus = ITA_RED_shifting_to_modernity
+	}
+	x = 0
+	y = 3
+	relative_position_id = ITA_RED_preparing_the_nation
+	completion_reward = {
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_a_requited_love
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_an_anti_counterrevolutionary_affair
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_a_rejected_love
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_an_anti_counterrevolutionary_affair
+	completion_reward = {
+		#set_temp_variable = {CME_delegates_temp = 2}
+		#set_temp_variable = {CME_faction_temp = 1}
+		#CME_add_faction_delegates = yes
+		set_temp_variable = {ITA_RED_red_terror_temp = 5}
+		ITA_RED_cultrev_red_terror_change = yes
+		set_temp_variable = {ITA_RED_reaction_temp = -5}
+		ITA_RED_cultrev_reaction_change = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_a_rejected_love
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_an_anti_counterrevolutionary_affair
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_a_requited_love
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_an_anti_counterrevolutionary_affair
+	completion_reward = {
+		#set_temp_variable = { CME_ideology_1_temp = 1 }
+		#set_temp_variable = { CME_ideology_2_temp = ITA.CME_leading_local_faction }
+		#set_temp_variable = { CME_opinion_add_temp = -1 }
+		#CME_add_opinion = yes
+		set_temp_variable = {ITA_RED_red_terror_temp = -5}
+		ITA_RED_cultrev_red_terror_change = yes
+		set_temp_variable = {ITA_RED_reaction_temp = 5}
+		ITA_RED_cultrev_reaction_change = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_securing_the_military
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_a_requited_love
+		focus = ITA_RED_a_rejected_love
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_RED_an_anti_counterrevolutionary_affair
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_state_temp = 10 }
+		ITA_RED_secchia_state_increase = yes
+		set_temp_variable = { ITA_RED_pillar_change_soldiers_police_temp = 10 }
+		ITA_RED_cultrev_progress_soldiers_police = yes
+
+		set_temp_variable = { ITA_RED_cultrev_selected_pillar_temp = 3 }
+		set_temp_variable = { ITA_RED_add_specific_perk_temp = 123 }
+		ITA_RED_add_specific_perk = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_old_friends_to_political_allies
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_securing_the_military
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_securing_the_military
+	completion_reward = {
+		set_temp_variable = { ITA_RED_pillar_change_soldiers_police_temp = 10 }
+		ITA_RED_cultrev_progress_soldiers_police = yes
+		set_temp_variable = {ITA_RED_secchia_party_temp = 10}
+		ITA_RED_secchia_party_increase = yes
+		set_temp_variable = { ITA_RED_militant_approval_temp = 5 }
+		ITA_RED_cultrev_militant_approval_change = yes
+		TNO_improve_army_professionalism_low = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_german_front
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_securing_the_military
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_securing_the_military
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_state_temp = 10 }
+		ITA_RED_secchia_state_increase = yes
+		39 = {
+			set_temp_variable = { state_gdp_percent_temp = 0.01 }
+			TNO_state_gdp_increase_percent = yes
+			set_temp_variable = { temp_state_value_addition = 0.05 }
+			econ_state_value_change_addition = yes
+			}
+		160 = {
+			set_temp_variable = { state_gdp_percent_temp = 0.01 }
+			TNO_state_gdp_increase_percent = yes
+			set_temp_variable = { temp_state_value_addition = 0.05 }
+			econ_state_value_change_addition = yes
+			}
+		736 = {
+			set_temp_variable = { state_gdp_percent_temp = 0.01 }
+			TNO_state_gdp_increase_percent = yes
+			set_temp_variable = { temp_state_value_addition = 0.05 }
+			econ_state_value_change_addition = yes
+			}
+		102 = {
+			set_temp_variable = { state_gdp_percent_temp = 0.01 }
+			TNO_state_gdp_increase_percent = yes
+			set_temp_variable = { temp_state_value_addition = 0.05 }
+			econ_state_value_change_addition = yes
+			}
+		116 = {
+			set_temp_variable = { state_gdp_percent_temp = 0.01 }
+			TNO_state_gdp_increase_percent = yes
+			set_temp_variable = { temp_state_value_addition = 0.05 }
+			econ_state_value_change_addition = yes
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_gears_turn_fervor_burns
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_old_friends_to_political_allies
+	}
+	prerequisite = {
+		focus = ITA_RED_the_german_front
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_RED_securing_the_military
+	completion_reward = {
+		set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 5 }
+		ITA_RED_cultrev_revolutionary_fervour_change = yes
+		set_temp_variable = { ITA_RED_pillar_change_workers_temp = 5 }
+		ITA_RED_cultrev_progress_workers = yes
+		set_temp_variable = { ITA_RED_pillar_change_farmers_temp = 5 }
+		ITA_RED_cultrev_progress_farmers = yes
+		set_temp_variable = { ITA_RED_secchia_state_temp = 10 }
+		ITA_RED_secchia_state_increase = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_preparing_the_revolution
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_organizing_the_world_revolution
+	}
+	x = 14
+	y = 1
+	relative_position_id = ITA_RED_organizing_the_world_revolution
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+		ITA_RED_secchia_revolution_increase = yes
+		set_country_flag = secchia_decision_flag_8
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_overcoming_unjust_marginalization
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_preparing_the_revolution
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_preparing_the_revolution
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+		ITA_RED_secchia_revolution_increase = yes
+		set_temp_variable = { ITA_RED_marginalized_velocity_temp = 5 }
+		ITA_RED_cultrev_progress_marginalized_weekly = yes
+
+		set_temp_variable = { ITA_RED_cultrev_selected_pillar_temp = 6 }
+		set_temp_variable = { ITA_RED_add_specific_perk_temp = 125 }
+		ITA_RED_add_specific_perk = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_marginalizing_the_catholics
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_preparing_the_revolution
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_preparing_the_revolution
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+		ITA_RED_secchia_revolution_increase = yes
+		set_temp_variable = { ITA_RED_clergy_velocity_temp = 5 }
+		ITA_RED_cultrev_progress_clergy_weekly = yes
+
+		set_temp_variable = { ITA_RED_cultrev_selected_pillar_temp = 4 }
+		set_temp_variable = { ITA_RED_add_specific_perk_temp = 124 }
+		ITA_RED_add_specific_perk = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_progress_stops_for_no_one
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_overcoming_unjust_marginalization
+	}
+	prerequisite = {
+		focus = ITA_RED_marginalizing_the_catholics
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_RED_overcoming_unjust_marginalization
+	completion_reward = {
+		set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 5 }
+		ITA_RED_cultrev_revolutionary_fervour_change = yes
+		set_temp_variable = { ITA_RED_middle_class_velocity_temp = 5 }
+		ITA_RED_cultrev_progress_middle_class_weekly = yes
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+		ITA_RED_secchia_revolution_increase = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_a_vital_concession 
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_progress_stops_for_no_one
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_anti_bourgeois_measures
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_progress_stops_for_no_one
+	completion_reward = {
+		set_temp_variable = { ITA_RED_middle_class_velocity_temp = 5 }
+		ITA_RED_cultrev_progress_middle_class_weekly = yes
+		TNO_improve_academic_base_low = yes
+		set_temp_variable = { gdp_growth_temp = 0.0085 }
+		econ_gdp_growth_change = yes
+		TNO_worsen_poverty_med = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_replacing_the_bourgeois_with_proletariat
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_a_vital_concession
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_a_vital_concession
+	completion_reward = {
+		TNO_improve_academic_base_low = yes
+		set_temp_variable = { ITA_RED_severity_temp = 5 }
+		ITA_RED_cultrev_severity_change = yes
+
+		set_temp_variable = { ITA_RED_cultrev_selected_pillar_temp = 2 }
+		set_temp_variable = { ITA_RED_add_specific_perk_temp = 8 }
+		ITA_RED_add_specific_perk = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_anti_bourgeois_measures
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_progress_stops_for_no_one
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_a_vital_concession
+	}
+	x = -4
+	y = 1
+	relative_position_id = ITA_RED_progress_stops_for_no_one
+	completion_reward = {
+		set_temp_variable = { ITA_RED_middle_class_velocity_temp = 5 }
+		ITA_RED_cultrev_progress_middle_class_weekly = yes
+		set_temp_variable = { ITA_RED_militant_approval_temp = 5 }
+		ITA_RED_cultrev_militant_approval_change = yes
+		TNO_improve_poverty_med = yes
+		TNO_worsen_academic_base_low = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_avoiding_an_extensive_bureaucratic_class
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_anti_bourgeois_measures
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_anti_bourgeois_measures
+	completion_reward = {
+		set_temp_variable = { ITA_RED_severity_temp = 5 }
+		ITA_RED_cultrev_severity_change = yes
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+		ITA_RED_secchia_revolution_increase = yes
+
+		set_temp_variable = { ITA_RED_cultrev_selected_pillar_temp = 2 }
+		set_temp_variable = { ITA_RED_add_specific_perk_temp = 7 }
+		ITA_RED_add_specific_perk = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_idealism_of_youth
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_avoiding_an_extensive_bureaucratic_class
+		focus = ITA_RED_replacing_the_bourgeois_with_proletariat
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_avoiding_an_extensive_bureaucratic_class
+	completion_reward = {
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_misguided_and_lost
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_idealism_of_youth
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_learning_from_our_successors
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_the_idealism_of_youth
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+		ITA_RED_secchia_revolution_decrease = yes
+		set_temp_variable = { ITA_RED_militant_approval_temp = 5 }
+		ITA_RED_cultrev_militant_approval_change = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_learning_from_our_successors
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_idealism_of_youth
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_misguided_and_lost
+	}
+	x = -3
+	y = 1
+	relative_position_id = ITA_RED_the_idealism_of_youth
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+		ITA_RED_secchia_revolution_increase = yes
+		set_temp_variable = { ITA_RED_militant_approval_temp = -5 }
+		ITA_RED_cultrev_militant_approval_change = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_we_cannot_and_will_not_go_back
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_learning_from_our_successors
+		focus = ITA_RED_misguided_and_lost
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_learning_from_our_successors
+	completion_reward = {
+		set_temp_variable = { ITA_RED_red_terror_temp = 5 }
+		ITA_RED_cultrev_red_terror_change = yes
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+		ITA_RED_secchia_revolution_increase = yes
+		set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 5 }
+		ITA_RED_cultrev_revolutionary_fervour_change = yes
+		set_temp_variable = {ITA_RED_reaction_temp = -5}
+		ITA_RED_cultrev_reaction_change = yes
+		set_country_flag = secchia_decision_flag_9
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_assault_on_heaven
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_excluding_certain_elements
+	}
+	prerequisite = {
+		focus = ITA_RED_gears_turn_fervor_burns
+	}
+	prerequisite = {
+		focus = ITA_RED_we_cannot_and_will_not_go_back
+	}
+	x = 0
+	y = 9
+	relative_position_id = ITA_RED_organizing_the_world_revolution
+	completion_reward = {
+		set_temp_variable = {ITA_RED_secchia_party_temp = 10}
+		ITA_RED_secchia_party_increase = yes
+		set_temp_variable = { ITA_RED_secchia_state_temp = 10 }
+		ITA_RED_secchia_state_increase = yes
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 10 }
+		ITA_RED_secchia_revolution_increase = yes
+		TNO_improve_academic_base_low = yes
+		set_temp_variable = { ITA_RED_militant_approval_temp = 5 }
+		ITA_RED_cultrev_militant_approval_change = yes
+		set_temp_variable = { ITA_RED_red_terror_temp = 5 }
+		ITA_RED_cultrev_red_terror_change = yes
+	}
+}
+
+###=====| c) Secchia Tree Act III|=====###
+
+shared_focus = {
+	id = ITA_RED_the_time_for_action
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 15
+	y = 1
+	completion_reward = {
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_calculated_preemptive_action
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_time_for_action
+	}
+
+	x = -3
+	y = 1
+	relative_position_id = ITA_RED_the_time_for_action
+	completion_reward = {
+	set_temp_variable = { ITA_RED_secchia_revolution_temp = 5 }
+	ITA_RED_secchia_revolution_increase = yes
+	set_country_flag = secchia_decision_flag_10
+	hidden_effect = {
+	#STRIP(volunteers) set_temp_variable = { target = CRO }
+	#STRIP(volunteers) TNO_increase_volunteer_cap_1 = yes
+	#STRIP(volunteers) set_temp_variable = { target = SER }
+	#STRIP(volunteers) TNO_increase_volunteer_cap_1 = yes
+	#STRIP(volunteers) set_temp_variable = { target = MNT }
+	#STRIP(volunteers) TNO_increase_volunteer_cap_1 = yes
+	#STRIP(volunteers) set_temp_variable = { target = ALB }
+	#STRIP(volunteers) TNO_increase_volunteer_cap_1 = yes
+	#STRIP(volunteers) set_temp_variable = { target = MAC }
+	#STRIP(volunteers) TNO_increase_volunteer_cap_1 = yes
+	#STRIP(volunteers) set_temp_variable = { target = BUL }
+	#STRIP(volunteers) TNO_increase_volunteer_cap_1 = yes
+	#STRIP(volunteers) set_temp_variable = { target = GRE }
+	#STRIP(volunteers) TNO_increase_volunteer_cap_1 = yes
+	#STRIP(volunteers) set_temp_variable = { target = IME }
+	#STRIP(volunteers) TNO_increase_volunteer_cap_1 = yes
+	#STRIP(volunteers) set_temp_variable = { target = IRQ }
+	#STRIP(volunteers) TNO_increase_volunteer_cap_1 = yes
+	#STRIP(volunteers) set_temp_variable = { target = SAU }
+	#STRIP(volunteers) TNO_increase_volunteer_cap_1 = yes
+	#STRIP(volunteers) set_temp_variable = { target = GUL }
+	#STRIP(volunteers) TNO_increase_volunteer_cap_1 = yes
+	#STRIP(volunteers) set_temp_variable = { target = EGY }
+	#STRIP(volunteers) TNO_increase_volunteer_cap_1 = yes
+	#STRIP(volunteers) set_temp_variable = { target = YEM }
+	#STRIP(volunteers) TNO_increase_volunteer_cap_1 = yes
+	#STRIP(volunteers) set_temp_variable = { target = OMA }
+	#STRIP(volunteers) TNO_increase_volunteer_cap_1 = yes
+	#STRIP(volunteers) set_temp_variable = { target = SUD }
+	#STRIP(volunteers) TNO_increase_volunteer_cap_1 = yes
+	    }
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_political_commissars_to_the_middle_east
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	mutually_exclusive = {
+		focus = ITA_RED_military_advisors_to_the_middle_east
+	}
+	prerequisite = {
+		focus = ITA_RED_calculated_preemptive_action
+	}
+
+	x = -4
+	y = 1
+	relative_position_id = ITA_RED_calculated_preemptive_action
+	completion_reward = {
+	#set_temp_variable = { CME_region_comintern_influence_temp = 5 }
+	set_temp_variable = { comintern_region_selected_temp = 8 }
+	#CME_add_region_influence = yes
+	set_temp_variable = { ITA_RED_secchia_revolution_temp = 5 }
+	ITA_RED_secchia_revolution_increase = yes
+	set_temp_variable = { ITA_Deimp_MENA_revoltpercent_temp = 5 }
+	ITA_deimperialism_MENA_revolt_boost_allies = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_military_advisors_to_the_middle_east
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	mutually_exclusive = {
+		focus = ITA_RED_political_commissars_to_the_middle_east
+	}
+	prerequisite = {
+		focus = ITA_RED_calculated_preemptive_action
+	}
+
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_calculated_preemptive_action
+	completion_reward = {
+	set_temp_variable = { ITA_Deimp_MENA_supplypercent_temp = 5 }
+	ITA_deimperialism_MENA_supply_boost_allies = yes
+	every_country = {
+		if = {
+			limit = {
+				check_variable = {ECON_SPHERE_LEADER = ITA }
+			}
+				add_ideas = ITA_socialist_defense
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_centering_the_patient
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	mutually_exclusive = {
+		focus = ITA_RED_centering_the_practitioner
+	}
+	prerequisite = {
+		focus = ITA_RED_political_commissars_to_the_middle_east
+		focus = ITA_RED_military_advisors_to_the_middle_east
+	}
+
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_political_commissars_to_the_middle_east
+	completion_reward = {
+	set_temp_variable = { ITA_RED_secchia_revolution_temp = 5 }
+	ITA_RED_secchia_revolution_increase = yes
+	add_ideas = ITA_serverity_x_supply
+	set_temp_variable = { temp_econ_spending_amount = 0.6 }
+	econ_spend_money_once_effect_raw_money = yes
+	every_country = {
+		if = {
+			limit = {
+				check_variable = {ECON_SPHERE_LEADER = ITA }
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 500
+				producer = ITA
+			    }
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_centering_the_practitioner
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	mutually_exclusive = {
+		focus = ITA_RED_centering_the_patient
+	}
+	prerequisite = {
+		focus = ITA_RED_political_commissars_to_the_middle_east
+		focus = ITA_RED_military_advisors_to_the_middle_east
+	}
+
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_military_advisors_to_the_middle_east
+	completion_reward = {
+	set_temp_variable = { ITA_RED_severity_temp = -5 }
+	ITA_RED_cultrev_severity_change = yes
+	set_temp_variable = { ITA_RED_secchia_state_temp = 5 }
+	ITA_RED_secchia_state_increase = yes
+	set_temp_variable = { gdp_growth_temp = 0.003 }
+	econ_gdp_growth_change = yes
+	add_ideas = ITA_supply_x_serverity_and_gdp
+	
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_guns_of_the_comintern
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_centering_the_patient
+		focus = ITA_RED_centering_the_practitioner
+	}
+
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_centering_the_patient
+	completion_reward = {
+	
+	set_temp_variable = { ITA_RED_secchia_revolution_temp = 5 }
+	ITA_RED_secchia_revolution_increase = yes
+	set_temp_variable = { ITA_Deimp_balkans_supplypercent_temp = 7.5 }
+	ITA_deimperialism_balkans_supply_boost_allies = yes 
+	set_temp_variable = { ITA_Deimp_MENA_supplypercent_temp = 7.5 }
+	ITA_deimperialism_MENA_supply_boost_allies = yes 
+	hidden_effect = {
+		#set_temp_variable = { CME_region_comintern_influence_temp = 2.5 }
+		set_temp_variable = { comintern_region_selected_temp = 0 }
+		#CME_add_region_influence = yes
+		#set_temp_variable = { CME_region_comintern_influence_temp = 2.5 }
+		set_temp_variable = { comintern_region_selected_temp = 1 }
+		#CME_add_region_influence = yes
+		#set_temp_variable = { CME_region_comintern_influence_temp = 2.5 }
+		set_temp_variable = { comintern_region_selected_temp = 2 }
+		#CME_add_region_influence = yes
+		#set_temp_variable = { CME_region_comintern_influence_temp = 2.5 }
+		set_temp_variable = { comintern_region_selected_temp = 3 }
+		#CME_add_region_influence = yes
+		#set_temp_variable = { CME_region_comintern_influence_temp = 2.5 }
+		set_temp_variable = { comintern_region_selected_temp = 4 }
+		#CME_add_region_influence = yes
+		#set_temp_variable = { CME_region_comintern_influence_temp = 2.5 }
+		set_temp_variable = { comintern_region_selected_temp = 5 }
+		#CME_add_region_influence = yes
+		#set_temp_variable = { CME_region_comintern_influence_temp = 2.5 }
+		set_temp_variable = { comintern_region_selected_temp = 6 }
+		#CME_add_region_influence = yes
+		#set_temp_variable = { CME_region_comintern_influence_temp = 2.5 }
+		set_temp_variable = { comintern_region_selected_temp = 7 }
+		#CME_add_region_influence = yes
+		#set_temp_variable = { CME_region_comintern_influence_temp = 2.5 }
+		set_temp_variable = { comintern_region_selected_temp = 8 }
+		#CME_add_region_influence = yes
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_a_united_vision_a_united_pcdi
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_time_for_action
+	}
+
+	x = 3
+	y = 1
+	relative_position_id = ITA_RED_the_time_for_action
+	completion_reward = {
+	#set_temp_variable = { CME_opinion_add_temp = -5 }
+	#CME_alter_congress_vote_threshold = yes
+	set_temp_variable = { ITA_RED_secchia_party_temp = 5 }
+	ITA_RED_secchia_party_increase = yes
+	set_country_flag = secchia_decision_flag_11
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_pensions_for_the_purged
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	mutually_exclusive = {
+		focus = ITA_RED_spies_for_the_purged
+	}
+	prerequisite = {
+		focus = ITA_RED_a_united_vision_a_united_pcdi
+	}
+
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_a_united_vision_a_united_pcdi
+	completion_reward = {
+	set_temp_variable = {ITA_RED_militant_approval_temp = -5}
+	ITA_RED_cultrev_militant_approval_change = yes
+	set_temp_variable = { ITA_RED_red_terror_temp = -5 }
+	ITA_RED_cultrev_red_terror_change = yes
+	set_temp_variable = { ITA_RED_secchia_party_temp = 5 }
+	ITA_RED_secchia_party_increase = yes
+	set_temp_variable = { misc_costs_temp = 0.1 }
+	custom_effect_tooltip = TNO_econ_misc_costs_increase_tt
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_spies_for_the_purged
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	mutually_exclusive = {
+		focus = ITA_RED_pensions_for_the_purged
+	}
+	prerequisite = {
+		focus = ITA_RED_a_united_vision_a_united_pcdi
+	}
+
+	x = 4
+	y = 1
+	relative_position_id = ITA_RED_a_united_vision_a_united_pcdi
+	completion_reward = {
+	set_temp_variable = {ITA_RED_militant_approval_temp = 5}
+	ITA_RED_cultrev_militant_approval_change = yes
+	set_temp_variable = { ITA_RED_red_terror_temp = 5 }
+	ITA_RED_cultrev_red_terror_change = yes
+	set_temp_variable = { ITA_RED_secchia_party_temp = 10 }
+	ITA_RED_secchia_party_increase = yes
+	tno_security_improve = yes
+	set_temp_variable = { misc_costs_temp = 0.1 }
+	custom_effect_tooltip = TNO_econ_misc_costs_increase_tt
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_prioritizing_the_middle_east_crisis
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	mutually_exclusive = {
+		focus = ITA_RED_prioritizing_the_economic_opportunity
+	}
+	prerequisite = {
+		focus = ITA_RED_pensions_for_the_purged
+		focus = ITA_RED_spies_for_the_purged
+	}
+
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_pensions_for_the_purged
+	completion_reward = {
+	#set_temp_variable = { CME_region_comintern_influence_temp = 5 }
+	set_temp_variable = { comintern_region_selected_temp = 8 }
+	#CME_add_region_influence = yes
+	set_temp_variable = { ITA_RED_severity_temp = 5 }
+	ITA_RED_cultrev_severity_change = yes
+	set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 3 }
+	ITA_RED_cultrev_revolutionary_fervour_change = yes 
+	set_temp_variable = { ITA_RED_secchia_party_temp = 5 }
+	ITA_RED_secchia_party_increase = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_prioritizing_the_economic_opportunity
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	mutually_exclusive = {
+		focus = ITA_RED_prioritizing_the_middle_east_crisis
+	}
+	prerequisite = {
+		focus = ITA_RED_pensions_for_the_purged
+		focus = ITA_RED_spies_for_the_purged
+	}
+
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_spies_for_the_purged
+	completion_reward = {
+	set_temp_variable = { ITA_RED_severity_temp = -5 }
+	ITA_RED_cultrev_severity_change = yes
+	set_temp_variable = { ITA_RED_secchia_state_temp = 5 }
+	ITA_RED_secchia_state_increase = yes
+	set_temp_variable = { gdp_growth_temp = 0.002 }
+	econ_gdp_growth_change = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_avanti_miei_compagni
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_prioritizing_the_middle_east_crisis
+		focus = ITA_RED_prioritizing_the_economic_opportunity
+	}
+
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_prioritizing_the_middle_east_crisis
+	completion_reward = {
+	if = {
+			limit = {
+				check_variable = { global.CominternLeader = THIS }
+			}
+			#set_temp_variable = { CME_delegates_temp = 2 }
+	        #set_temp_variable = { CME_faction_temp = ITA.CME_leading_local_faction }
+	        #CME_add_faction_delegates_with_power = yes
+			set_temp_variable = { gdp_growth_temp = 0.0006 }
+			econ_gdp_growth_change = yes
+		}
+	else_if = {
+			limit = {
+				NOT = {
+					check_variable = { global.CominternLeader = THIS }
+				}
+			}
+		every_country = {
+			limit = {
+				check_variable = { global.CominternLeader = THIS }
+			}
+			add_opinion_modifier = {
+				target = ITA
+				modifier = small_increase
+			    }
+			#set_temp_variable = { CME_delegates_temp = 2 }
+	        #set_temp_variable = { CME_faction_temp = global.CME_leading_local_faction }
+	        #CME_add_faction_delegates_with_power = yes
+		    }	
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_keeping_our_oil_stocked
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_guns_of_the_comintern
+	}
+	prerequisite = {
+		focus = ITA_RED_avanti_miei_compagni
+	}
+
+	x = 3
+	y = 1
+	relative_position_id = ITA_RED_guns_of_the_comintern
+	completion_reward = {
+	add_political_power = 55
+	set_temp_variable = {ITA_RED_militant_approval_temp = 5}
+	ITA_RED_cultrev_militant_approval_change = yes
+	set_temp_variable = { ITA_RED_severity_temp = -5 }
+	ITA_RED_cultrev_severity_change = yes
+	set_temp_variable = { ITA_RED_secchia_state_temp = 5 }
+	ITA_RED_secchia_state_increase = yes
+	random_owned_state = {
+	add_extra_state_shared_building_slots = 2
+	add_building_construction = {
+	type = fuel_silo
+	level = 2
+	instant_build = yes
+		    }
+		}
+	random_owned_state = {
+	add_extra_state_shared_building_slots = 2
+	add_building_construction = {
+	type = fuel_silo
+	level = 2
+	instant_build = yes
+		    }
+		}
+	add_fuel = 25000	
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_trading_the_excess_oil_away
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_guns_of_the_comintern
+	}
+	prerequisite = {
+		focus = ITA_RED_avanti_miei_compagni
+	}
+
+	x = -3
+	y = 1
+	relative_position_id = ITA_RED_avanti_miei_compagni
+	completion_reward = {
+	set_temp_variable = { ITA_RED_secchia_state_temp = 5 }
+	ITA_RED_secchia_state_increase = yes
+	if = {
+		every_country = {
+			if = {
+				limit = { 
+				NOT = { is_in_faction_with = GER } 
+				set_embargo_PREV = yes
+								}
+			}
+			clear_embargo_PREV = yes
+		    }	
+		}
+	else_if = {
+		every_country = {
+			if = {
+				limit = { 
+				NOT = { is_in_faction_with = GER } 
+				AND = { 
+				NOT = { set_embargo_PREV = yes }
+				    } 
+				}
+			}
+			TNO_improve_industrial_expertise_low = yes
+		    }	
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_beginning_of_the_end
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_keeping_our_oil_stocked
+	}
+	prerequisite = {
+		focus = ITA_RED_trading_the_excess_oil_away
+	}
+
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_keeping_our_oil_stocked
+	completion_reward = {
+	}
+}
+
+###=====| d) Secchia Tree Crisis Tree |=====###
+
+shared_focus = {
+	id = ITA_RED_immediate_action_immediate_results
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 15
+	y = 1
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_immediate_action_immediate_results"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_like_squabbling_infants
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_immediate_action_immediate_results
+	}
+	x = -7
+	y = 1
+	relative_position_id = ITA_RED_immediate_action_immediate_results
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_like_squabbling_infants"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_steering_the_direction
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_like_squabbling_infants
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_like_squabbling_infants
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_steering_the_direction"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_emphasis_on_democratic
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_steering_the_direction
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_emphasis_on_centralism
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_steering_the_direction
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_emphasis_on_democratic"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_emphasis_on_centralism
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_steering_the_direction
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_emphasis_on_democratic
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_steering_the_direction
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_emphasis_on_centralism"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_steering_the_composition
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_like_squabbling_infants
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_like_squabbling_infants
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_steering_the_composition"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_avoiding_further_liquidations
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_steering_the_composition
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_liquidating_more_revisionists
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_steering_the_composition
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_avoiding_further_liquidations"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_liquidating_more_revisionists
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_steering_the_composition
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_avoiding_further_liquidations
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_steering_the_composition
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_liquidating_more_revisionists"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_keeping_the_international_view
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_emphasis_on_democratic
+		focus = ITA_RED_emphasis_on_centralism
+	}
+	prerequisite = {
+		focus = ITA_RED_avoiding_further_liquidations
+		focus = ITA_RED_liquidating_more_revisionists
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_avoiding_further_liquidations
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_keeping_the_international_view"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_an_intervention
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_immediate_action_immediate_results
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_immediate_action_immediate_results
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_an_intervention"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_unprofessional_militants
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_an_intervention
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_an_intervention
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_unprofessional_militants"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_bringing_in_order
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_unprofessional_militants
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_bringing_in_direction
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_the_unprofessional_militants
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_bringing_in_order"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_bringing_in_direction
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_unprofessional_militants
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_bringing_in_order
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_the_unprofessional_militants
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_bringing_in_direction"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_counterrevolutionaries
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_an_intervention
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_an_intervention
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_counterrevolutionaries"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_minimizing_destruction
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_counterrevolutionaries
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_maximizing_the_terror
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_the_counterrevolutionaries
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_minimizing_destruction"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_maximizing_the_terror
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_counterrevolutionaries
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_minimizing_destruction
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_the_counterrevolutionaries
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_maximizing_the_terror"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_a_man_with_many_faces_i_can_trust
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_bringing_in_order
+		focus = ITA_RED_bringing_in_direction
+	}
+	prerequisite = {
+		focus = ITA_RED_minimizing_destruction
+		focus = ITA_RED_maximizing_the_terror
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_bringing_in_direction
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_a_man_with_many_faces_i_can_trust"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_continuing_our_actual_work
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_immediate_action_immediate_results
+	}
+	x = 7
+	y = 1
+	relative_position_id = ITA_RED_immediate_action_immediate_results
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_continuing_our_actual_work"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_global_revolution
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_continuing_our_actual_work
+	}
+	x = -3
+	y = 1
+	relative_position_id = ITA_RED_continuing_our_actual_work
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_global_revolution"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_continuing_the_advancement
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_global_revolution
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_licking_our_wounds
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_the_global_revolution
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_continuing_the_advancement"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_licking_our_wounds
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_global_revolution
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_continuing_the_advancement
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_the_global_revolution
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_licking_our_wounds"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_local_revolution
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_continuing_our_actual_work
+	}
+	x = 3
+	y = 1
+	relative_position_id = ITA_RED_continuing_our_actual_work
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_local_revolution"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_those_who_distract_us
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_local_revolution
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_keeping_our_eyes_forward
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_the_local_revolution
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_those_who_distract_us"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_keeping_our_eyes_forward
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_local_revolution
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_those_who_distract_us
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_the_local_revolution
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_keeping_our_eyes_forward"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_keeping_the_future_of_the_revolution
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_continuing_the_advancement
+		focus = ITA_RED_licking_our_wounds
+	}
+	prerequisite = {
+		focus = ITA_RED_those_who_distract_us
+		focus = ITA_RED_keeping_our_eyes_forward
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_licking_our_wounds
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_keeping_the_future_of_the_revolution"
+
+	}
+}
+
+#alt branch 1
+
+shared_focus = {
+	id = ITA_RED_the_party_is_strong_enough
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_a_man_with_many_faces_i_can_trust
+	}
+	prerequisite = {
+		focus = ITA_RED_keeping_the_future_of_the_revolution
+	}
+	prerequisite = {
+		focus = ITA_RED_keeping_the_international_view
+	}
+	allow_branch = {
+		has_country_flag = ITA_RED_secchia_branch_1
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_a_man_with_many_faces_i_can_trust
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_party_is_strong_enough"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_with_the_new_left
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_party_is_strong_enough
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_with_the_old_guard
+	}
+	x = -6
+	y = 1
+	relative_position_id = ITA_RED_the_party_is_strong_enough
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_with_the_new_left"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_with_the_old_guard
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_party_is_strong_enough
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_with_the_new_left
+	}
+	x = -4
+	y = 1
+	relative_position_id = ITA_RED_the_party_is_strong_enough
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_with_the_old_guard"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_listening_to_the_student
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_with_the_new_left
+		focus = ITA_RED_with_the_old_guard
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_with_the_old_guard
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_listening_to_the_student"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_an_eye_on_vidali
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_party_is_strong_enough
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_an_eye_on_the_right
+	}
+	x = 4
+	y = 1
+	relative_position_id = ITA_RED_the_party_is_strong_enough
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_an_eye_on_vidali"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_an_eye_on_the_right
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_party_is_strong_enough
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_an_eye_on_vidali
+	}
+	x = 6
+	y = 1
+	relative_position_id = ITA_RED_the_party_is_strong_enough
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_an_eye_on_the_right"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_listening_to_seniga
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_an_eye_on_vidali
+		focus = ITA_RED_an_eye_on_the_right
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_with_the_old_guard
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_listening_to_seniga"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_weathering_the_storm
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_listening_to_the_student
+	}
+	prerequisite = {
+		focus = ITA_RED_listening_to_seniga
+	}
+	x = -4
+	y = 1
+	relative_position_id = ITA_RED_listening_to_seniga
+	completion_reward = {
+		country_event = {
+			id = ITA_RED_secchia_act_3.101
+			days = 3
+		}
+	}
+}
+
+#alt branch 2
+
+shared_focus = {
+	id = ITA_RED_preventing_infinite_damage
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_a_man_with_many_faces_i_can_trust
+	}
+	prerequisite = {
+		focus = ITA_RED_keeping_the_future_of_the_revolution
+	}
+	prerequisite = {
+		focus = ITA_RED_keeping_the_international_view
+	}
+	allow_branch = {
+		has_country_flag = ITA_RED_secchia_branch_2
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_a_man_with_many_faces_i_can_trust
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_preventing_infinite_damage"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_avoiding_another_bukharin
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_preventing_infinite_damage
+	}
+	x = -3
+	y = 1
+	relative_position_id = ITA_RED_preventing_infinite_damage
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_avoiding_another_bukharin"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_washing_our_hands_of_bureocrats
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_avoiding_another_bukharin
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_watching_our_backs
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_avoiding_another_bukharin
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_washing_our_hands_of_bureocrats"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_watching_our_backs
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_avoiding_another_bukharin
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_washing_our_hands_of_bureocrats
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_avoiding_another_bukharin
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_watching_our_backs"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_avoiding_another_malinovsky
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_preventing_infinite_damage
+	}
+	x = 3
+	y = 1
+	relative_position_id = ITA_RED_preventing_infinite_damage
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_avoiding_another_malinovsky"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_securing_our_cabinet
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_avoiding_another_malinovsky
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_reorganizing_our_cabinet
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_avoiding_another_malinovsky
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_securing_our_cabinet"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_reorganizing_our_cabinet
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_avoiding_another_malinovsky
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_securing_our_cabinet
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_avoiding_another_malinovsky
+	completion_reward = {
+	log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_reorganizing_our_cabinet"
+
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_shielded_from_the_storm
+	icon = GFX_goal_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_washing_our_hands_of_bureocrats
+		focus = ITA_RED_watching_our_backs
+	}
+	prerequisite = {
+		focus = ITA_RED_securing_our_cabinet
+		focus = ITA_RED_reorganizing_our_cabinet
+	}
+	x = -3
+	y = 1
+	relative_position_id = ITA_RED_reorganizing_our_cabinet
+	completion_reward = {
+		country_event = {
+			id = ITA_RED_secchia_act_3.102
+			days = 3
+		}
+	}
+}
+###=====| e) Secchia Epilogue Tree |=====###
+
+shared_focus = {
+	id = ITA_RED_we_are_still_standing
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 11
+	y = 1
+	completion_reward = {
+		custom_effect_tooltip = ITA_RED_we_are_still_standing_tt
+		country_event = {
+			id = ITA_RED_secchia_epilogue.1
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_controlling_the_militants
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_we_are_still_standing
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_we_are_still_standing
+	completion_reward = {
+		ITA_RED_epilogue_remove_militants = yes
+		if = {
+			limit = {
+				has_idea = ITA_Loris_Fortuna_sec
+			}
+			swap_ideas = {
+				remove_idea = ITA_Loris_Fortuna_sec
+				add_idea = ITA_Giorgio_Amendola_sec
+			}
+		}
+		country_event = {
+			id = ITA_RED_secchia_epilogue.2
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_repairing_the_damages
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_we_are_still_standing
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_RED_we_are_still_standing
+	completion_reward = {
+		ITA_RED_epilogue_downgrade_red_terror = yes
+		ITA_RED_epilogue_downgrade_severity = yes
+		country_event = {
+			id = ITA_RED_secchia_epilogue.3
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_disabling_the_counterrevolution
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_we_are_still_standing
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_we_are_still_standing
+	completion_reward = {
+		ITA_RED_epilogue_remove_reactionaries = yes
+		country_event = {
+			id = ITA_RED_secchia_epilogue.4
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_party_stands
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_disabling_the_counterrevolution
+	}
+	prerequisite = {
+		focus = ITA_RED_repairing_the_damages
+	}
+	x = -1
+	y = 3
+	relative_position_id = ITA_RED_controlling_the_militants
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_party_temp = 25 }
+		ITA_RED_secchia_party_increase = yes
+		country_event = {
+			id = ITA_RED_secchia_epilogue.5
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_revolution_stands
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_disabling_the_counterrevolution
+	}
+	prerequisite = {
+		focus = ITA_RED_repairing_the_damages
+	}
+	x = 1
+	y = 3
+	relative_position_id = ITA_RED_disabling_the_counterrevolution
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_revolution_temp = 25 }
+		ITA_RED_secchia_revolution_increase = yes
+		country_event = {
+			id = ITA_RED_secchia_epilogue.6
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_state_stands
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_disabling_the_counterrevolution
+	}
+	prerequisite = {
+		focus = ITA_RED_the_party_stands
+	}
+	x = 3
+	y = 1
+	relative_position_id = ITA_RED_the_party_stands
+	completion_reward = {
+		set_temp_variable = { ITA_RED_secchia_state_temp = 25 }
+		ITA_RED_secchia_state_increase = yes
+		country_event = {
+			id = ITA_RED_secchia_epilogue.7
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_next_battle
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_state_stands
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_the_state_stands
+	completion_reward = {
+		custom_effect_tooltip = ITA_RED_the_next_battle_tt
+		country_event = {
+			id = ITA_RED_secchia_epilogue.8
+			days = 3
+		}
+	}
+}
+
+#Epilogue 1
+
+shared_focus = {
+	id = ITA_RED_the_party_will_endure
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	allow_branch = {
+		has_country_flag = ITA_RED_secchia_epilogue_1
+	}
+	x = 11
+	y = 9
+	completion_reward = {
+		custom_effect_tooltip = ITA_RED_the_party_will_endure_tt
+		country_event = {
+			id = ITA_RED_secchia_epilogue.9
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_reducing_vidalis_duties
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_party_will_endure
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_the_party_will_endure
+	completion_reward = {
+		custom_effect_tooltip = ITA_RED_reducing_vidalis_duties_tt
+		country_event = {
+			id = ITA_RED_secchia_epilogue.10
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_uniting_the_world_in_song
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_party_will_endure
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_the_party_will_endure
+	completion_reward = {
+		custom_effect_tooltip = ITA_RED_uniting_the_world_in_song_tt
+		country_event = {
+			id = ITA_RED_secchia_epilogue.11
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_gentle_giant
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_reducing_vidalis_duties
+	}
+	prerequisite = {
+		focus = ITA_RED_uniting_the_world_in_song
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_reducing_vidalis_duties
+	completion_reward = {
+		custom_effect_tooltip = ITA_RED_the_gentle_giant_tt
+		country_event = {
+			id = ITA_RED_secchia_epilogue.12
+			days = 3
+		}
+	}
+}
+
+#Epilogue 2
+
+shared_focus = {
+	id = ITA_RED_bolstering_the_party
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	allow_branch = {
+		has_country_flag = ITA_RED_secchia_epilogue_2
+	}
+	x = 11
+	y = 9
+	completion_reward = {
+		custom_effect_tooltip = ITA_RED_bolstering_the_party_tt
+		country_event = {
+			id = ITA_RED_secchia_epilogue.13
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_vidalis_new_task
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_bolstering_the_party
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_bolstering_the_party
+	completion_reward = {
+		custom_effect_tooltip = ITA_RED_vidalis_new_task_tt
+		country_event = {
+			id = ITA_RED_secchia_epilogue.14
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_uniting_at_all_cost
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_bolstering_the_party
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_bolstering_the_party
+	completion_reward = {
+		custom_effect_tooltip = ITA_RED_uniting_at_all_cost_tt
+		country_event = {
+			id = ITA_RED_secchia_epilogue.15
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_stone_giant
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_vidalis_new_task
+	}
+	prerequisite = {
+		focus = ITA_RED_uniting_at_all_cost
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_vidalis_new_task
+	completion_reward = {
+		custom_effect_tooltip = ITA_RED_the_stone_giant_tt
+		country_event = {
+			id = ITA_RED_secchia_epilogue.16
+			days = 3
+		}
+	}
+}
+
+###=====| f) Damen Tree |=====###
+shared_focus = {
+	id = ITA_RED_the_torch_bearer
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = -8
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_torch_bearer"
+		#set_country_flag = ITA_damen_UMSR
+		ITA_deimperialism_map_balkans_setup = yes
+		ITA_RED_CulRev_initialize = yes
+		country_event = {
+			id = ITA_RED_damen.101
+			days = 7
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_uphold_the_triumphant_invariance
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = -15
+	y = 1
+	relative_position_id = ITA_RED_the_torch_bearer
+	prerequisite = {
+		focus = ITA_RED_the_torch_bearer
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_uphold_the_triumphant_invariance"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_define_revision
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = -1
+	y = 1
+	relative_position_id = ITA_RED_uphold_the_triumphant_invariance
+	prerequisite = {
+		focus = ITA_RED_uphold_the_triumphant_invariance
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_define_revision"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_debating_the_doctrine
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_uphold_the_triumphant_invariance
+	prerequisite = {
+		focus = ITA_RED_uphold_the_triumphant_invariance
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_debating_the_doctrine"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_bringing_the_party_into_line
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = -1
+	y = 1
+	relative_position_id = ITA_RED_define_revision
+	prerequisite = {
+		focus = ITA_RED_define_revision
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_bringing_the_party_into_line"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_bringing_the_bureaucrats_to_heel
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_define_revision
+	prerequisite = {
+		focus = ITA_RED_define_revision
+	}
+	prerequisite = {
+		focus = ITA_RED_debating_the_doctrine
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_bringing_the_bureaucrats_to_heel"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_gaining_the_peoples_cooperation
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_debating_the_doctrine
+	prerequisite = {
+		focus = ITA_RED_debating_the_doctrine
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_gaining_the_peoples_cooperation"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_one_vision
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_bringing_the_bureaucrats_to_heel
+	prerequisite = {
+		focus = ITA_RED_bringing_the_party_into_line
+	}
+	prerequisite = {
+		focus = ITA_RED_bringing_the_bureaucrats_to_heel
+	}
+	prerequisite = {
+		focus = ITA_RED_gaining_the_peoples_cooperation
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_one_vision"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_balance_sheet_of_the_revolution
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 3
+	relative_position_id = ITA_RED_one_vision
+	prerequisite = {
+		focus = ITA_RED_one_vision
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_balance_sheet_of_the_revolution"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_in_defense_of_the_revolution
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = -8
+	y = 1
+	relative_position_id = ITA_RED_the_torch_bearer
+	prerequisite = {
+		focus = ITA_RED_the_torch_bearer
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_in_defense_of_the_revolution"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_will_to_power
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_in_defense_of_the_revolution
+	mutually_exclusive = {
+		focus = ITA_RED_what_is_orthodoxy
+	}
+	prerequisite = {
+		focus = ITA_RED_in_defense_of_the_revolution
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_will_to_power"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_codifying_marxist_thought
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = -1
+	y = 1
+	relative_position_id = ITA_RED_will_to_power
+	prerequisite = {
+		focus = ITA_RED_will_to_power
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_codifying_marxist_thought"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_letter_of_the_law
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_codifying_marxist_thought
+	prerequisite = {
+		focus = ITA_RED_codifying_marxist_thought
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_letter_of_the_law"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_procedures_and_protocols
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_will_to_power
+	prerequisite = {
+		focus = ITA_RED_will_to_power
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_procedures_and_protocols"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_painting_within_the_lines
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_procedures_and_protocols
+	prerequisite = {
+		focus = ITA_RED_procedures_and_protocols
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_painting_within_the_lines"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_by_the_books
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_letter_of_the_law
+	prerequisite = {
+		focus = ITA_RED_letter_of_the_law
+	}
+	prerequisite = {
+		focus = ITA_RED_painting_within_the_lines
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_by_the_books"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_what_is_orthodoxy
+	icon = GFX_ITA_what_is_orthodoxy
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_in_defense_of_the_revolution
+	mutually_exclusive = {
+		focus = ITA_RED_will_to_power
+	}
+	prerequisite = {
+		focus = ITA_RED_in_defense_of_the_revolution
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_what_is_orthodoxy"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_building_the_councils
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = -1
+	y = 1
+	relative_position_id = ITA_RED_what_is_orthodoxy
+	prerequisite = {
+		focus = ITA_RED_will_to_power
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_building_the_councils"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_marx_for_the_modern_age
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_building_the_councils
+	prerequisite = {
+		focus = ITA_RED_building_the_councils
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_marx_for_the_modern_age"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_establishing_the_boundaries
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_what_is_orthodoxy
+	prerequisite = {
+		focus = ITA_RED_will_to_power
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_establishing_the_boundaries"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_acceptable_deviations
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_establishing_the_boundaries
+	prerequisite = {
+		focus = ITA_RED_establishing_the_boundaries
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_acceptable_deviations"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_best_of_both_worlds
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_marx_for_the_modern_age
+	prerequisite = {
+		focus = ITA_RED_marx_for_the_modern_age
+	}
+	prerequisite = {
+		focus = ITA_RED_acceptable_deviations
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_best_of_both_worlds"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_truly_organic_centralism
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 2
+	y = 2
+	relative_position_id = ITA_RED_by_the_books
+	prerequisite = {
+		focus = ITA_RED_by_the_books
+	}
+	prerequisite = {
+		focus = ITA_RED_best_of_both_worlds
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_truly_organic_centralism"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_a_question_of_nations
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_the_torch_bearer
+	prerequisite = {
+		focus = ITA_RED_the_torch_bearer
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_a_question_of_nations"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_workers
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = -3
+	y = 1
+	relative_position_id = ITA_RED_a_question_of_nations
+	mutually_exclusive = {
+		focus = ITA_RED_the_nations
+	}
+	prerequisite = {
+		focus = ITA_RED_a_question_of_nations
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_workers"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_reject_national_liberation
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_the_workers
+	prerequisite = {
+		focus = ITA_RED_the_workers
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_reject_national_liberation"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_establish_regional_republics
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_reject_national_liberation
+	prerequisite = {
+		focus = ITA_RED_reject_national_liberation
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_establish_regional_republics"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_form_workers_councils
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_reject_national_liberation
+	prerequisite = {
+		focus = ITA_RED_reject_national_liberation
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_form_workers_councils"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_disband_local_parties
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_reject_national_liberation
+	prerequisite = {
+		focus = ITA_RED_reject_national_liberation
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_disband_local_parties"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_no_more_division
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_form_workers_councils
+	prerequisite = {
+		focus = ITA_RED_establish_regional_republics
+	}
+	prerequisite = {
+		focus = ITA_RED_form_workers_councils
+	}
+	prerequisite = {
+		focus = ITA_RED_disband_local_parties
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_no_more_division"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_nations
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 3
+	y = 1
+	relative_position_id = ITA_RED_a_question_of_nations
+	mutually_exclusive = {
+		focus = ITA_RED_the_workers
+	}
+	prerequisite = {
+		focus = ITA_RED_a_question_of_nations
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_nations"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_tolerance_of_nationality
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_the_nations
+	prerequisite = {
+		focus = ITA_RED_the_nations
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_tolerance_of_nationality"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_establish_peoples_republics
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = -2
+	y = 1
+	relative_position_id = ITA_RED_tolerance_of_nationality
+	prerequisite = {
+		focus = ITA_RED_tolerance_of_nationality
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_establish_peoples_republics"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_promote_the_dual_revolution
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_tolerance_of_nationality
+	prerequisite = {
+		focus = ITA_RED_tolerance_of_nationality
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_promote_the_dual_revolution"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_integrate_local_parties
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 2
+	y = 1
+	relative_position_id = ITA_RED_tolerance_of_nationality
+	prerequisite = {
+		focus = ITA_RED_tolerance_of_nationality
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_integrate_local_parties"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_true_recognition
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_promote_the_dual_revolution
+	prerequisite = {
+		focus = ITA_RED_establish_peoples_republics
+	}
+	prerequisite = {
+		focus = ITA_RED_promote_the_dual_revolution
+	}
+	prerequisite = {
+		focus = ITA_RED_integrate_local_parties
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_true_recognition"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_mediterranean_restored
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 3
+	y = 2
+	relative_position_id = ITA_RED_no_more_division
+	prerequisite = {
+		focus = ITA_RED_no_more_division
+	}
+	prerequisite = {
+		focus = ITA_RED_true_recognition
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_mediterranean_restored"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_economy_of_the_transition_period
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 10
+	y = 1
+	relative_position_id = ITA_RED_the_torch_bearer
+	prerequisite = {
+		focus = ITA_RED_the_torch_bearer
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_economy_of_the_transition_period"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_putting_the_worker_first
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = -1
+	y = 1
+	relative_position_id = ITA_RED_economy_of_the_transition_period
+	prerequisite = {
+		focus = ITA_RED_economy_of_the_transition_period
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_putting_the_worker_first"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_rest_for_the_laborers
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_putting_the_worker_first
+	prerequisite = {
+		focus = ITA_RED_putting_the_worker_first
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_rest_for_the_laborers"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_support_not_clarify
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_economy_of_the_transition_period
+	prerequisite = {
+		focus = ITA_RED_economy_of_the_transition_period
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_support_not_clarify"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_generalized_labor
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 1
+	relative_position_id = ITA_RED_support_not_clarify
+	prerequisite = {
+		focus = ITA_RED_support_not_clarify
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_generalized_labor"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_production_overdrive
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_rest_for_the_laborers
+	prerequisite = {
+		focus = ITA_RED_rest_for_the_laborers
+	}
+	prerequisite = {
+		focus = ITA_RED_generalized_labor
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_production_overdrive"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_of_necessities
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = -1
+	y = 1
+	relative_position_id = ITA_RED_production_overdrive
+	prerequisite = {
+		focus = ITA_RED_production_overdrive
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_of_necessities"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_and_of_luxuries
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 1
+	y = 1
+	relative_position_id = ITA_RED_production_overdrive
+	prerequisite = {
+		focus = ITA_RED_production_overdrive
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_and_of_luxuries"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_for_the_good_of_all
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 1
+	y = 2
+	relative_position_id = ITA_RED_of_necessities
+	prerequisite = {
+		focus = ITA_RED_of_necessities
+	}
+	prerequisite = {
+		focus = ITA_RED_and_of_luxuries
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_for_the_good_of_all"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_promethean_torch
+	icon = GFX_goal_unknown
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 8
+	relative_position_id = ITA_RED_the_torch_bearer
+	prerequisite = {
+		focus = ITA_RED_balance_sheet_of_the_revolution
+	}
+	prerequisite = {
+		focus = ITA_RED_truly_organic_centralism
+	}
+	prerequisite = {
+		focus = ITA_RED_the_mediterranean_restored
+	}
+	prerequisite = {
+		focus = ITA_RED_for_the_good_of_all
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_promethean_torch"
+	}
+}
+

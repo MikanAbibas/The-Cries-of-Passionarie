@@ -1,0 +1,1228 @@
+﻿add_namespace = Greek_democracy_helpers
+add_namespace = GRE_election_new
+
+country_event = {
+	id = GRE_election_new.1
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event GRE_election_new.1"
+		
+		set_variable = { GRE_election_phase_var = 1 }
+	}
+	title = GRE_election_new.1.t
+	desc = GRE_election_new.1.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = { #ERE
+		name = GRE_election_new.1.a
+		set_country_flag = GRE_Kanellopooulos_campaign
+		set_variable = { GRE_campaigning_party = 1 }
+	}
+	
+	option = { #EDA
+		name = GRE_election_new.1.b
+		set_country_flag = GRE_Pyromaglou_campaign
+		set_variable = { GRE_campaigning_party = 2 }
+	}
+}
+
+country_event = {
+	id = GRE_election_new.2
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event GRE_election_new.2"
+		
+		set_variable = { GRE_election_phase_var = 1 }
+	}
+	title = GRE_election_new.2.t
+	desc = GRE_election_new.2.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = { #ERE
+		name = GRE_election_new.2.a
+		set_variable = { GRE_campaigning_party = 1 }
+		set_country_flag = GRE_Karamanlis_campaign
+	}
+	option = { #EDA
+		name = GRE_election_new.2.b
+		set_country_flag = GRE_Papandreou_campaign
+		set_variable = { GRE_campaigning_party = 2 }
+	}
+}
+
+country_event = {
+	id = GRE_election_new.3
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event GRE_election_new.3"
+		
+		set_variable = { GRE_election_phase_var = 1 }
+	}
+	title = GRE_election_new.3.t
+	desc = GRE_election_new.3.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = { #ERE
+		name = GRE_election_new.3.a
+		set_country_flag = GRE_Karamanlis_campaign
+		set_variable = { GRE_campaigning_party = 1 }
+	}
+	option = { 
+		name = GRE_election_new.3.b
+		set_country_flag = GRE_Kyrkos_campaign
+		set_variable = { GRE_campaigning_party = 2 }
+	}
+}
+
+country_event = {
+	id = GRE_election_new.4
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event GRE_election_new.4"
+		
+		set_variable = { GRE_election_phase_var = 1 }
+	}
+	title = GRE_election_new.4.t
+	desc = GRE_election_new.4.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = { #ERE
+		name = GRE_election_new.4.a
+		set_country_flag = GRE_Mavros_campaign
+		set_variable = { GRE_campaigning_party = 1 }
+	}
+	option = { #EDA
+		name = GRE_election_new.4.b
+		set_country_flag = GRE_Papandreou_campaign
+		set_variable = { GRE_campaigning_party = 2 }
+	}
+}
+
+country_event = { #Run a generic election, display results, for debug purposes.
+	id = Greek_democracy_helpers.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.1"}
+	title = Greek_democracy_helpers.1.t
+	desc = Greek_democracy_helpers.1.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+
+	option = {
+		name = Greek_democracy_helpers.1.a
+		GRE_run_election = yes
+		set_country_flag = GRE_ELECTION_RESULTS_SHOW
+		country_event = {
+			id = Greek_democracy_helpers.2
+			days = 60
+		}
+	}
+}
+
+country_event = { #Make polling available
+	id = Greek_democracy_helpers.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.3"}
+	title = Greek_democracy_helpers.3.t
+	desc = Greek_democracy_helpers.3.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			every_owned_state = {
+				GRE_calculate_polling_averages = yes
+			}
+			set_country_flag = GRE_POLLS_ENABLE
+			GRE_polls_effect = yes
+		}
+	}
+
+	option = { #EDA
+		name = Greek_democracy_helpers.3.a
+		trigger = {
+			tag = GRE
+		}
+		set_country_flag = GRE_campaigning_for_socdem
+		custom_effect_tooltip = GRE_socdem_campaign_tt
+	}
+	option = { #ERE
+		name = Greek_democracy_helpers.3.b
+		trigger = {
+			tag = GRE
+		}
+		set_country_flag = GRE_campaigning_for_liberal
+		custom_effect_tooltip = GRE_liberal_campaign_tt
+	}
+	option = { #Libs
+		name = Greek_democracy_helpers.3.c
+		trigger = {
+			tag = GRE
+		}
+		set_country_flag = GRE_campaigning_for_authdem
+		custom_effect_tooltip = GRE_auth_campaign_tt
+	}
+	option = { #Auth
+		name = Greek_democracy_helpers.3.e
+		trigger = {
+			tag = KIR
+		}
+		set_country_flag = GRE_campaigning_for_liberal
+		custom_effect_tooltip = KIR_liberal_campaign_tt
+	}
+}
+
+country_event = { #Update poll averages
+	id = Greek_democracy_helpers.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.4"}
+	title = Greek_democracy_helpers.4.t
+	desc = Greek_democracy_helpers.4.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+
+	option = {
+		name = Greek_democracy_helpers.4.a
+		every_owned_state = {
+			GRE_calculate_polling_averages = yes
+		}
+	}
+}
+
+country_event = { #Hide polls
+	id = Greek_democracy_helpers.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.5"}
+	title = Greek_democracy_helpers.5.t
+	desc = Greek_democracy_helpers.5.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+
+	option = {
+		name = Greek_democracy_helpers.5.a
+		GRE_clear_polling_variables = yes
+		clr_country_flag = GRE_POLLS_ENABLE
+		clr_country_flag = GRE_campaigning_for_socdem
+		clr_country_flag = GRE_campaigning_for_liberal
+		clr_country_flag = GRE_campaigning_for_conservative
+		clr_country_flag = GRE_campaigning_for_authdem
+		clr_country_flag = GRE_AUTHDEM_AI_ENABLE
+		clr_country_flag = GRE_SOCDEM_AI_ENABLE
+		clr_country_flag = GRE_LIBERAL_AI_ENABLE
+	}
+}
+
+country_event = { #first Greek presidential election
+	id = Greek_democracy_helpers.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.6"}
+	title = Greek_democracy_helpers.6.t
+	desc = Greek_democracy_helpers.6.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+
+	option = {
+		name = Greek_democracy_helpers.6.a
+		GRE_run_election = yes
+		set_country_flag = GRE_ELECTION_RESULTS_SHOW
+		country_event = { id = Greek_democracy_helpers.2 days = 60 }
+		country_event = { id = Greek_democracy_helpers.5 days = 30 }
+		if = { #EDA victory stuff
+			limit = {
+				has_country_flag = GRE_ELECTION_SOCDEM_VICTORY
+			}
+			#STRIP(pending) country_event = { id = komi_election_results.1 days = 1 } # med placeholder: Komi's event loads Komi's tree
+		}
+		if = { #ERE victory stuff
+			limit = {
+				has_country_flag = GRE_ELECTION_LIBERAL_VICTORY
+			}
+			#STRIP(pending) country_event = { id = komi_election_results.2 days = 1 } # med placeholder: Komi's event loads Komi's tree
+		}
+	}
+}
+
+country_event = { #second Greek presidential election
+	id = Greek_democracy_helpers.61
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.6"}
+	title = Greek_democracy_helpers.61.t
+	desc = Greek_democracy_helpers.61.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+
+	option = {
+		name = Greek_democracy_helpers.61.a
+		GRE_run_election = yes
+		set_country_flag = GRE_ELECTION_RESULTS_SHOW
+		country_event = { id = Greek_democracy_helpers.2 days = 60 }
+		country_event = { id = Greek_democracy_helpers.5 days = 30 }
+		if = { #ERE victory stuff
+			limit = {
+				has_country_flag = GRE_ELECTION_LIBERAL_VICTORY
+			}
+			#STRIP(pending) country_event = { id = komi_election_results.5 days = 1 } # med placeholder: Komi's event loads Komi's tree
+		}
+		if = { #EDA victory stuff
+			limit = {
+				has_country_flag = GRE_ELECTION_SOCDEM_VICTORY
+			}
+			#STRIP(pending) country_event = { id = komi_election_results.6 days = 1 } # med placeholder: Komi's event loads Komi's tree
+		}
+	}
+}
+
+country_event = { #Hide election results
+	id = Greek_democracy_helpers.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.2"}
+	title = Greek_democracy_helpers.2.t
+	desc = Greek_democracy_helpers.2.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+
+	option = {
+		name = Greek_democracy_helpers.2.a
+		GRE_clear_election_variables = yes
+		clr_country_flag = GRE_ELECTION_RESULTS_SHOW
+	}
+}
+
+country_event = { #AI region determiner - SocDem
+	id = Greek_democracy_helpers.7
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.7"
+		FROM = {
+			random_list = {
+				log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.7"
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 150 }
+					}
+					log = "[GetDateText]: [Root.GetName]: SocDem Party campaigns in Northern Greece"
+					every_owned_state = {
+						limit = {
+							OR = {
+								region = 150
+								region = 132
+								region = 12
+							}
+						}
+						GRE_socdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 133 }
+					}
+					log = "[GetDateText]: [Root.GetName]: SocDem Party campaigns in Central Greece"
+					every_owned_state = {
+						limit = {
+							region = 133
+						}
+						GRE_socdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 138 }
+					}
+					log = "[GetDateText]: [Root.GetName]: SocDem Party campaigns in the Islands"
+					every_owned_state = {
+						limit = {
+							region = 138
+						}
+						GRE_socdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 40 }
+					}
+					log = "[GetDateText]: [Root.GetName]: SocDem Party campaigns in Southern Greece"
+					every_owned_state = {
+						limit = {
+							region = 40
+						}
+						GRE_socdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 209 }
+					}
+					log = "[GetDateText]: [Root.GetName]: SocDem Party campaigns in Southern Urals"
+					every_owned_state = {
+						limit = {
+							region = 209
+						}
+						GRE_socdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 14 }
+					}
+					log = "[GetDateText]: [Root.GetName]: SocDem Party campaigns in Trans Urais"
+					every_owned_state = {
+						limit = {
+							region = 14
+						}
+						GRE_socdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 151 }
+					}
+					log = "[GetDateText]: [Root.GetName]: SocDem Party campaigns in Western Siberia"
+					every_owned_state = {
+						limit = {
+							region = 151
+						}
+						GRE_socdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 147 }
+					}
+					log = "[GetDateText]: [Root.GetName]: SocDem Party campaigns in Northern Siberia"
+					every_owned_state = {
+						limit = {
+							region = 147
+						}
+						GRE_socdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 207 }
+					}
+					log = "[GetDateText]: [Root.GetName]: SocDem Party campaigns in Central Siberia"
+					every_owned_state = {
+						limit = {
+							region = 207
+						}
+						GRE_socdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 149 }
+					}
+					log = "[GetDateText]: [Root.GetName]: SocDem Party campaigns in Eastern Siberia"
+					every_owned_state = {
+						limit = {
+							region = 149
+						}
+						GRE_socdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 211 }
+					}
+					log = "[GetDateText]: [Root.GetName]: SocDem Party campaigns in Trans Baikal"
+					every_owned_state = {
+						limit = {
+							region = 211
+						}
+						GRE_socdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 148 }
+					}
+					log = "[GetDateText]: [Root.GetName]: SocDem Party campaigns in Far East"
+					every_owned_state = {
+						limit = {
+							OR = {
+								region = 148
+								region = 213
+							}
+						}
+						GRE_socdem_campaign_effects = yes
+					}
+				}
+			}
+		}
+	}
+	title = Greek_democracy_helpers.7.t
+	desc = Greek_democracy_helpers.7.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+
+	option = {
+		name = "Ok."
+
+	}
+}
+
+country_event = { #AI region determiner - Liberal
+	id = Greek_democracy_helpers.8
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.8"
+		FROM = {
+			random_list = {
+				log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.8"
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 150 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Liberal Party campaigns in Northern Greece"
+					every_owned_state = {
+						limit = {
+							OR = {
+								region = 150
+								region = 132
+								region = 12
+							}
+						}
+						GRE_liberal_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 133 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Liberal Party campaigns in Central Greece"
+					every_owned_state = {
+						limit = {
+							region = 133
+						}
+						GRE_liberal_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 138 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Liberal Party campaigns in the Islands"
+					every_owned_state = {
+						limit = {
+							region = 138
+						}
+						GRE_liberal_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 40 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Liberal Party campaigns in Southern Greece"
+					every_owned_state = {
+						limit = {
+							region = 40
+						}
+						GRE_liberal_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 209 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Liberal Party campaigns in Southern Urals"
+					every_owned_state = {
+						limit = {
+							region = 209
+						}
+						GRE_liberal_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 14 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Liberal Party campaigns in Trans Urais"
+					every_owned_state = {
+						limit = {
+							region = 14
+						}
+						GRE_liberal_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 151 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Liberal Party campaigns in Western Siberia"
+					every_owned_state = {
+						limit = {
+							region = 151
+						}
+						GRE_liberal_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 147 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Liberal Party campaigns in Northern Siberia"
+					every_owned_state = {
+						limit = {
+							region = 147
+						}
+						GRE_liberal_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 207 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Liberal Party campaigns in Central Siberia"
+					every_owned_state = {
+						limit = {
+							region = 207
+						}
+						GRE_liberal_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 149 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Liberal Party campaigns in Eastern Siberia"
+					every_owned_state = {
+						limit = {
+							region = 149
+						}
+						GRE_liberal_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 211 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Liberal Party campaigns in Trans Baikal"
+					every_owned_state = {
+						limit = {
+							region = 211
+						}
+						GRE_liberal_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 148 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Liberal Party campaigns in Far East"
+					every_owned_state = {
+						limit = {
+							OR = {
+								region = 148
+								region = 213
+							}
+						}
+						GRE_liberal_campaign_effects = yes
+					}
+				}
+			}
+		}
+	}
+	title = Greek_democracy_helpers.8.t
+	desc = Greek_democracy_helpers.8.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = "Ok."
+
+	}
+}
+
+country_event = { #AI region determiner - AuthDem
+	id = Greek_democracy_helpers.9
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.9"
+		FROM = {
+			random_list = {
+				log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.9"
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 150 }
+					}
+					log = "[GetDateText]: [Root.GetName]: AuthDem Party campaigns in Northern Greece"
+					every_owned_state = {
+						limit = {
+							OR = {
+								region = 150
+								region = 132
+								region = 12
+							}
+						}
+						GRE_authdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 133 }
+					}
+					log = "[GetDateText]: [Root.GetName]: AuthDem Party campaigns in Central Greece"
+					every_owned_state = {
+						limit = {
+							region = 133
+						}
+						GRE_authdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 138 }
+					}
+					log = "[GetDateText]: [Root.GetName]: AuthDem Party campaigns in the Islands"
+					every_owned_state = {
+						limit = {
+							region = 138
+						}
+						GRE_authdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 40 }
+					}
+					log = "[GetDateText]: [Root.GetName]: AuthDem Party campaigns in Southern Greece"
+					every_owned_state = {
+						limit = {
+							region = 40
+						}
+						GRE_authdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 209 }
+					}
+					log = "[GetDateText]: [Root.GetName]: AuthDem Party campaigns in Southern Urals"
+					every_owned_state = {
+						limit = {
+							region = 209
+						}
+						GRE_authdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 14 }
+					}
+					log = "[GetDateText]: [Root.GetName]: AuthDem Party campaigns in Trans Urais"
+					every_owned_state = {
+						limit = {
+							region = 14
+						}
+						GRE_authdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 151 }
+					}
+					log = "[GetDateText]: [Root.GetName]: AuthDem Party campaigns in Western Siberia"
+					every_owned_state = {
+						limit = {
+							region = 151
+						}
+						GRE_authdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 147 }
+					}
+					log = "[GetDateText]: [Root.GetName]: AuthDem Party campaigns in Northern Siberia"
+					every_owned_state = {
+						limit = {
+							region = 147
+						}
+						GRE_authdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 207 }
+					}
+					log = "[GetDateText]: [Root.GetName]: AuthDem Party campaigns in Central Siberia"
+					every_owned_state = {
+						limit = {
+							region = 207
+						}
+						GRE_authdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 149 }
+					}
+					log = "[GetDateText]: [Root.GetName]: AuthDem Party campaigns in Eastern Siberia"
+					every_owned_state = {
+						limit = {
+							region = 149
+						}
+						GRE_authdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 211 }
+					}
+					log = "[GetDateText]: [Root.GetName]: AuthDem Party campaigns in Trans Baikal"
+					every_owned_state = {
+						limit = {
+							region = 211
+						}
+						GRE_authdem_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 148 }
+					}
+					log = "[GetDateText]: [Root.GetName]: AuthDem Party campaigns in Far East"
+					every_owned_state = {
+						limit = {
+							OR = {
+								region = 148
+								region = 213
+							}
+						}
+						GRE_authdem_campaign_effects = yes
+					}
+				}
+			}
+		}
+	}
+	title = Greek_democracy_helpers.9.t
+	desc = Greek_democracy_helpers.9.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = "Ok."
+
+	}
+}
+
+country_event = { #AI region determiner - Conservatives
+	id = Greek_democracy_helpers.10
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.10"
+		FROM = {
+			random_list = {
+				log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.10"
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 150 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Conservative Party campaigns in Northern Greece"
+					every_owned_state = {
+						limit = {
+							OR = {
+								region = 150
+								region = 132
+								region = 12
+							}
+						}
+						GRE_conservative_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 133 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Conservative Party campaigns in Central Greece"
+					every_owned_state = {
+						limit = {
+							region = 133
+						}
+						GRE_conservative_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 138 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Conservative Party campaigns in the Islands"
+					every_owned_state = {
+						limit = {
+							region = 138
+						}
+						GRE_conservative_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 40 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Conservative Party campaigns in Southern Greece"
+					every_owned_state = {
+						limit = {
+							region = 40
+						}
+						GRE_conservative_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 209 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Conservative Party campaigns in Southern Urals"
+					every_owned_state = {
+						limit = {
+							region = 209
+						}
+						GRE_conservative_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 14 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Conservative Party campaigns in Trans Urais"
+					every_owned_state = {
+						limit = {
+							region = 14
+						}
+						GRE_conservative_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 151 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Conservative Party campaigns in Western Siberia"
+					every_owned_state = {
+						limit = {
+							region = 151
+						}
+						GRE_conservative_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 147 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Conservative Party campaigns in Northern Siberia"
+					every_owned_state = {
+						limit = {
+							region = 147
+						}
+						GRE_conservative_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 207 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Conservative Party campaigns in Central Siberia"
+					every_owned_state = {
+						limit = {
+							region = 207
+						}
+						GRE_conservative_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 149 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Conservative Party campaigns in Eastern Siberia"
+					every_owned_state = {
+						limit = {
+							region = 149
+						}
+						GRE_conservative_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 211 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Conservative Party campaigns in Trans Baikal"
+					every_owned_state = {
+						limit = {
+							region = 211
+						}
+						GRE_conservative_campaign_effects = yes
+					}
+				}
+
+				0 = {
+					modifier = {
+						add = 10
+						any_owned_state = { region = 148 }
+					}
+					log = "[GetDateText]: [Root.GetName]: Conservative Party campaigns in Far East"
+					every_owned_state = {
+						limit = {
+							OR = {
+								region = 148
+								region = 213
+							}
+						}
+						GRE_conservative_campaign_effects = yes
+					}
+				}
+			}
+		}
+	}
+	title = Greek_democracy_helpers.10.t
+	desc = Greek_democracy_helpers.10.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = "Ok."
+
+	}
+}
+
+country_event = { #Start SocDem AI Campaign
+	id = Greek_democracy_helpers.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.11"}
+	title = Greek_democracy_helpers.11.t
+	desc = Greek_democracy_helpers.11.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = Greek_democracy_helpers.11.a
+		set_country_flag = GRE_SOCDEM_AI_ENABLE
+	}
+}
+
+country_event = { #Start Liberal AI Campaign
+	id = Greek_democracy_helpers.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.12"}
+	title = Greek_democracy_helpers.12.t
+	desc = Greek_democracy_helpers.12.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = Greek_democracy_helpers.12.a
+		set_country_flag = GRE_LIBERAL_AI_ENABLE
+	}
+}
+
+country_event = { #Start AuthDem AI Campaign
+	id = Greek_democracy_helpers.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.13"}
+	title = Greek_democracy_helpers.13.t
+	desc = Greek_democracy_helpers.13.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = Greek_democracy_helpers.13.a
+		set_country_flag = GRE_AUTHDEM_AI_ENABLE
+
+	}
+}
+
+country_event = { #Start conservative AI Campaign
+	id = Greek_democracy_helpers.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.14"}
+	title = Greek_democracy_helpers.14.t
+	desc = Greek_democracy_helpers.14.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+	hidden = yes
+
+	option = {
+		name = Greek_democracy_helpers.14.a
+		set_country_flag = GRE_CONSERVATIVE_AI_ENABLE
+	}
+}
+
+country_event = {
+	id = Greek_democracy_helpers.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.15"}
+	title = Greek_democracy_helpers.15.t
+	desc = Greek_democracy_helpers.15.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+
+	option = {
+		name = Greek_democracy_helpers.15.a
+	}
+}
+
+country_event = {
+	id = Greek_democracy_helpers.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.16"}
+	title = Greek_democracy_helpers.16.t
+	desc = Greek_democracy_helpers.16.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+
+	option = {
+		name = Greek_democracy_helpers.16.a
+	}
+}
+
+country_event = {
+	id = Greek_democracy_helpers.17
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.17"}
+	title = Greek_democracy_helpers.17.t
+	desc = Greek_democracy_helpers.17.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+
+	option = {
+		name = Greek_democracy_helpers.17.a
+	}
+}
+
+country_event = {
+	id = Greek_democracy_helpers.18
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.18"}
+	title = Greek_democracy_helpers.18.t
+	desc = Greek_democracy_helpers.18.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+
+	option = {
+		name = Greek_democracy_helpers.18.a
+	}
+}
+
+country_event = {
+	id = Greek_democracy_helpers.19
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.19"}
+	title = Greek_democracy_helpers.19.t
+	desc = Greek_democracy_helpers.19.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+
+	option = {
+		name = Greek_democracy_helpers.19.a
+	}
+}
+
+country_event = {
+	id = Greek_democracy_helpers.20
+	immediate = {log = "[GetDateText]: [Root.GetName]: event Greek_democracy_helpers.20"}
+	title = Greek_democracy_helpers.20.t
+	desc = Greek_democracy_helpers.20.d
+	picture = GFX_report_event_komi_bombing_2
+
+	is_triggered_only = yes
+
+	option = {
+		name = Greek_democracy_helpers.20.a
+		country_event = Greek_democracy_helpers.8
+	}
+}

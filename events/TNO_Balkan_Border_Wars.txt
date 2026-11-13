@@ -1,0 +1,49 @@
+add_namespace = balkanborder
+
+# Border war resolution. Hidden: the map and the decision list carry the outcome, and a popup
+# for every skirmish would be noise during a ten-year scramble.
+
+country_event = { # the presser took the state
+	id = balkanborder.1
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: balkanborder.1 border war won"
+		BALKAN_border_war_won = yes
+	}
+}
+
+country_event = { # the holder kept it
+	id = balkanborder.2
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: balkanborder.2 border war lost"
+		BALKAN_border_war_lost = yes
+	}
+}
+
+country_event = { # called off
+	id = balkanborder.3
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: balkanborder.3 border war cancelled"
+		BALKAN_border_war_cancelled = yes
+	}
+}
+
+country_event = { # the Italian Balkans come into reach
+	id = balkanborder.4
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: balkanborder.4 Italian Balkan claims open"
+		set_global_flag = BALKAN_italian_claims_open
+	}
+}

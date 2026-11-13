@@ -1,0 +1,170 @@
+TUR_DtS_controls_this_region = {
+	#NOTE: Should be called in a state scope
+	has_state_flag = TUR_DtS_is_a_region #Return true if the state scope inputted is a DtS region
+	any_of_scopes = { #and if ANY state in this region...
+		array = TUR_DtS_states_in_this_region
+		#is owned by Turkey or by a puppet
+		owner = {
+			OR = {
+				tag = TUR
+				is_puppet_of = TUR
+			}
+		}
+		NOT = { state = 1369 } #the one exception is Marakada- it's <2k people, and shouldn't comporimise all of Northern Syria on its own
+		#there are actually quite a few outcomes where Turkey owns just marakada and not the rest of north syria
+	}
+}
+
+TUR_HB_target_is_communist = {
+	var:TUR_HB_op_targeted_country^TUR_HB_selected_operation = {
+		NOT = { tag = TUR } #doesn't matter for domestic operations
+		OR = {
+			AND = { #Check if the target itself exists and meets this.
+				exists = yes 
+				OR = {
+					has_government = communist
+					has_government = socialist
+				}
+			}
+			AND = { #Syrian National State can also count for Syria.
+				tag = SYR
+				SNS = {
+					exists = yes 
+					OR = {
+						has_government = communist
+						has_government = socialist
+					}
+				}
+			}
+			AND = { #IRI can also count for Persia.
+				tag = PER
+				IRI = {
+					exists = yes 
+					OR = {
+						has_government = communist
+						has_government = socialist
+					}
+				}
+			}
+		}
+	}
+}
+
+TUR_DtS_development_action_1_can_take = {
+	TUR = { 
+		has_political_power > var:TUR_DtS_Selected_Region:TUR_DtS_dev1_action_pp_cost 
+		
+		set_temp_variable = { money_reserves_m = money_reserves }
+		multiply_temp_variable = { money_reserves_m = 1000 }
+		OR = {
+			check_variable = { money_reserves_m > var:TUR_DtS_Selected_Region:TUR_DtS_dev1_action_money_cost }
+			check_variable = { credit_rating > 2 } #cannot draw from debt at TERRIBLE credit
+		}
+		
+	}
+	
+	
+}
+TUR_DtS_development_action_2_can_take = {
+	TUR = { 
+		has_political_power > var:TUR_DtS_Selected_Region:TUR_DtS_dev2_action_pp_cost 
+		
+		set_temp_variable = { money_reserves_m = money_reserves }
+		multiply_temp_variable = { money_reserves_m = 1000 }
+		OR = {
+			check_variable = { money_reserves_m > var:TUR_DtS_Selected_Region:TUR_DtS_dev2_action_money_cost }
+			check_variable = { credit_rating > 2 } #cannot draw from debt at TERRIBLE credit
+		}
+		
+	}
+}
+TUR_DtS_development_action_3_can_take = {
+	TUR = { 
+		has_political_power > var:TUR_DtS_Selected_Region:TUR_DtS_dev3_action_pp_cost 
+		
+		set_temp_variable = { money_reserves_m = money_reserves }
+		multiply_temp_variable = { money_reserves_m = 1000 }
+		OR = {
+			check_variable = { money_reserves_m > var:TUR_DtS_Selected_Region:TUR_DtS_dev3_action_money_cost }
+			check_variable = { credit_rating > 2 } #cannot draw from debt at TERRIBLE credit
+		}
+		has_variable = TUR_DtS_Selected_Region # not set until the start runs
+		var:TUR_DtS_Selected_Region = {
+			OR = {
+				check_variable = { TUR_DtS_dev1_impact_bottleneck < 0}
+				check_variable = { TUR_DtS_dev2_impact_bottleneck < 0}
+				check_variable = { TUR_DtS_dev1_money_cost_bottleneck > 0.02}
+				check_variable = { TUR_DtS_dev2_money_cost_bottleneck > 0.02}
+				check_variable = { TUR_DtS_dev1_pp_cost_bottleneck > 0.02}
+				check_variable = { TUR_DtS_dev2_pp_cost_bottleneck > 0.02}
+			}
+		}
+	}
+}
+
+TUR_DtS_unrest_action_1_can_take = {
+	TUR = {
+		has_manpower > 499
+		has_variable = TUR_DtS_Selected_Region # not set until the start runs
+		var:TUR_DtS_Selected_Region = {
+			NOT = { has_state_flag = DtS_additional_garrison_cooldown }
+		}
+	}
+}
+TUR_DtS_unrest_action_2_can_take = {
+	TUR = {
+		command_power > 9
+		has_variable = TUR_DtS_Selected_Region # not set until the start runs
+		var:TUR_DtS_Selected_Region = {
+			NOT = { has_state_flag = DtS_military_withdrawl_cooldown }
+		}
+	}
+}
+TUR_DtS_unrest_action_3_can_take = {
+	TUR = {
+		has_political_power > 29
+		has_variable = TUR_DtS_Selected_Region # not set until the start runs
+		var:TUR_DtS_Selected_Region = {
+			NOT = { has_state_flag = DtS_political_integration_cooldown }
+		}
+	}
+}
+TUR_DtS_unrest_action_4_can_take = {
+	TUR = {
+		has_political_power > 9
+		has_variable = TUR_DtS_Selected_Region # not set until the start runs
+		var:TUR_DtS_Selected_Region = {
+			NOT = { has_state_flag = DtS_framing_campaigns_cooldown }
+		}
+	}
+}
+TUR_DtS_unrest_action_5_can_take = {
+	TUR = {
+		has_political_power > 19
+		has_variable = TUR_DtS_Selected_Region # not set until the start runs
+		var:TUR_DtS_Selected_Region = {
+			NOT = { has_state_flag = DtS_propaganda_campaign_cooldown }
+		}
+	}
+}
+TUR_DtS_unrest_action_6_can_take = {
+	TUR = {
+		command_power > 44
+		has_variable = TUR_DtS_Selected_Region # not set until the start runs
+		var:TUR_DtS_Selected_Region = {
+			NOT = { has_state_flag = DtS_No_Revolt_Martial_Law }
+			NOT = { has_state_flag = DtS_declare_martial_law_cooldown }
+		}
+	}
+}
+
+is_on_stage1 = {
+	check_variable = { TUR_DOW > 32 }
+	check_variable = { TUR_DOW < 67 }
+}
+is_on_stage2 = {
+	check_variable = { TUR_DOW > 66 }
+}
+is_on_stage3 = {
+	check_variable = { TUR_DOW < 33 }
+}

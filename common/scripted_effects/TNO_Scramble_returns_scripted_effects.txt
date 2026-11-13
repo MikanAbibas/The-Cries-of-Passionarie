@@ -1,0 +1,313 @@
+# New Scramble for Africa: what a patron gets, and its orders (plan 4.5, 4.7; phase 5).
+# Income: each patron earns from the states its bloc holds in consolidated regions, paid as misc income.
+# Exports: a region consolidated for a patron gives its regional state an idea that raises exports to that patron.
+# Orders: a patron points one of its proxies at a state. The GUI's order button (phase 6) and AI patrons call
+# SFA_give_order; this file holds what an order does, its cost and its cooldown.
+
+SFA_update_income = {
+	# plan 4.5 (user, 2026-10-16): each patron earns 14 x the value of the states its bloc (proxies and sovereign
+	# allies) holds in consolidated regions, recomputed each pulse and paid as the change in its misc income. A state
+	# taken in war pays its new holder's patron from the next pulse. States in open regions count as pending (GUI).
+	# South Africa's stable regions pay nothing: they are not contested (user, 2026-10-16).
+	set_temp_variable = { sfa_inc_1 = 0 }
+	set_temp_variable = { sfa_inc_2 = 0 }
+	set_temp_variable = { sfa_inc_3 = 0 }
+	set_temp_variable = { sfa_inc_4 = 0 }
+	set_temp_variable = { sfa_inc_5 = 0 }
+	set_temp_variable = { sfa_inc_6 = 0 }
+	set_temp_variable = { sfa_pend_1 = 0 }
+	set_temp_variable = { sfa_pend_2 = 0 }
+	set_temp_variable = { sfa_pend_3 = 0 }
+	set_temp_variable = { sfa_pend_4 = 0 }
+	set_temp_variable = { sfa_pend_5 = 0 }
+	set_temp_variable = { sfa_pend_6 = 0 }
+	for_each_scope_loop = {
+		array = global.SFA_states
+		set_temp_variable = { sfa_v = SFA_value }
+		if = {
+			limit = { has_state_flag = SFA_stable_state }
+			set_temp_variable = { sfa_v = 0 }
+		}
+		set_temp_variable = { sfa_cons = 0 }
+		if = {
+			limit = { check_variable = { global.SFA_consolidated^SFA_region = 1 } }
+			set_temp_variable = { sfa_cons = 1 }
+		}
+		OWNER = {
+			if = {
+				limit = { has_country_flag = SFA_patron_USA }
+				if = {
+					limit = { check_variable = { sfa_cons = 1 } }
+					add_to_temp_variable = { sfa_inc_1 = sfa_v }
+				}
+				else = {
+					add_to_temp_variable = { sfa_pend_1 = sfa_v }
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = SFA_patron_GER }
+				if = {
+					limit = { check_variable = { sfa_cons = 1 } }
+					add_to_temp_variable = { sfa_inc_2 = sfa_v }
+				}
+				else = {
+					add_to_temp_variable = { sfa_pend_2 = sfa_v }
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = SFA_patron_ITA }
+				if = {
+					limit = { check_variable = { sfa_cons = 1 } }
+					add_to_temp_variable = { sfa_inc_3 = sfa_v }
+				}
+				else = {
+					add_to_temp_variable = { sfa_pend_3 = sfa_v }
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = SFA_patron_JAP }
+				if = {
+					limit = { check_variable = { sfa_cons = 1 } }
+					add_to_temp_variable = { sfa_inc_4 = sfa_v }
+				}
+				else = {
+					add_to_temp_variable = { sfa_pend_4 = sfa_v }
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = SFA_patron_BRG }
+				if = {
+					limit = { check_variable = { sfa_cons = 1 } }
+					add_to_temp_variable = { sfa_inc_5 = sfa_v }
+				}
+				else = {
+					add_to_temp_variable = { sfa_pend_5 = sfa_v }
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = SFA_patron_IBR }
+				if = {
+					limit = { check_variable = { sfa_cons = 1 } }
+					add_to_temp_variable = { sfa_inc_6 = sfa_v }
+				}
+				else = {
+					add_to_temp_variable = { sfa_pend_6 = sfa_v }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { USA = { exists = yes has_country_flag = SFA_patron } }
+		set_temp_variable = { sfa_new = sfa_inc_1 }
+		set_temp_variable = { sfa_pend = sfa_pend_1 }
+		USA = { SFA_apply_income = yes }
+	}
+	if = {
+		limit = { GER = { exists = yes has_country_flag = SFA_patron } }
+		set_temp_variable = { sfa_new = sfa_inc_2 }
+		set_temp_variable = { sfa_pend = sfa_pend_2 }
+		GER = { SFA_apply_income = yes }
+	}
+	if = {
+		limit = { ITA = { exists = yes has_country_flag = SFA_patron } }
+		set_temp_variable = { sfa_new = sfa_inc_3 }
+		set_temp_variable = { sfa_pend = sfa_pend_3 }
+		ITA = { SFA_apply_income = yes }
+	}
+	if = {
+		limit = { JAP = { exists = yes has_country_flag = SFA_patron } }
+		set_temp_variable = { sfa_new = sfa_inc_4 }
+		set_temp_variable = { sfa_pend = sfa_pend_4 }
+		JAP = { SFA_apply_income = yes }
+	}
+	if = {
+		limit = { BRG = { exists = yes has_country_flag = SFA_patron } }
+		set_temp_variable = { sfa_new = sfa_inc_5 }
+		set_temp_variable = { sfa_pend = sfa_pend_5 }
+		BRG = { SFA_apply_income = yes }
+	}
+	if = {
+		limit = { IBR = { exists = yes has_country_flag = SFA_patron } }
+		set_temp_variable = { sfa_new = sfa_inc_6 }
+		set_temp_variable = { sfa_pend = sfa_pend_6 }
+		IBR = { SFA_apply_income = yes }
+	}
+}
+
+SFA_apply_income = {
+	# in a patron's scope: temp sfa_new and sfa_pend hold this pulse's value totals. The misc income changes by the
+	# difference from what the scramble paid last time, so other misc income is never touched.
+	multiply_temp_variable = { sfa_new = 14 }
+	multiply_temp_variable = { sfa_pend = 14 }
+	set_temp_variable = { temp_misc_income = sfa_new }
+	subtract_from_temp_variable = { temp_misc_income = SFA_income }
+	if = {
+		limit = { NOT = { check_variable = { temp_misc_income = 0 } } }
+		econ_misc_income_change = yes
+	}
+	set_variable = { SFA_income = sfa_new }
+	set_variable = { SFA_income_pending = sfa_pend }
+}
+
+SFA_add_export_idea = {
+	# plan 4.5 (user, 2026-10-16), in a regional state's scope: more of its exports go to its patron. Independents
+	# have no patron and get nothing.
+	if = {
+		limit = {
+			has_country_flag = SFA_patron_USA
+			NOT = { has_idea = SFA_exports_to_USA }
+		}
+		add_ideas = SFA_exports_to_USA
+	}
+	if = {
+		limit = {
+			has_country_flag = SFA_patron_GER
+			NOT = { has_idea = SFA_exports_to_GER }
+		}
+		add_ideas = SFA_exports_to_GER
+	}
+	if = {
+		limit = {
+			has_country_flag = SFA_patron_ITA
+			NOT = { has_idea = SFA_exports_to_ITA }
+		}
+		add_ideas = SFA_exports_to_ITA
+	}
+	if = {
+		limit = {
+			has_country_flag = SFA_patron_JAP
+			NOT = { has_idea = SFA_exports_to_JAP }
+		}
+		add_ideas = SFA_exports_to_JAP
+	}
+	if = {
+		limit = {
+			has_country_flag = SFA_patron_BRG
+			NOT = { has_idea = SFA_exports_to_BRG }
+		}
+		add_ideas = SFA_exports_to_BRG
+	}
+	if = {
+		limit = {
+			has_country_flag = SFA_patron_IBR
+			NOT = { has_idea = SFA_exports_to_IBR }
+		}
+		add_ideas = SFA_exports_to_IBR
+	}
+}
+
+SFA_get_own_patron_code = {
+	# in a patron's scope: temp sfa_order_code, its code (1 US, 2 Germany, 3 Italy, 4 Japan, 5 Burgundy, 6 Iberia)
+	set_temp_variable = { sfa_order_code = 0 }
+	if = {
+		limit = { tag = USA }
+		set_temp_variable = { sfa_order_code = 1 }
+	}
+	else_if = {
+		limit = { tag = GER }
+		set_temp_variable = { sfa_order_code = 2 }
+	}
+	else_if = {
+		limit = { tag = ITA }
+		set_temp_variable = { sfa_order_code = 3 }
+	}
+	else_if = {
+		limit = { tag = JAP }
+		set_temp_variable = { sfa_order_code = 4 }
+	}
+	else_if = {
+		limit = { tag = BRG }
+		set_temp_variable = { sfa_order_code = 5 }
+	}
+	else_if = {
+		limit = { tag = IBR }
+		set_temp_variable = { sfa_order_code = 6 }
+	}
+}
+
+SFA_give_order = {
+	# plan 4.7, in the patron's scope, for the state saved as event target SFA_order_target_state; check
+	# SFA_can_order_state first (with SFA_get_own_patron_code). 60 political power, 45 after winning Madagascar, and a
+	# 180-day cooldown. A proxy of the patron beside the state, of its holder's tier, makes the state its war aim for
+	# 90 days: its AI declares on the holder first, and the state is the first one taken at the peace.
+	SFA_get_own_patron_code = yes
+	save_event_target_as = SFA_order_patron
+	if = {
+		limit = { has_country_flag = MAD_proxy_war_won }
+		add_political_power = -45
+	}
+	else = {
+		add_political_power = -60
+	}
+	set_country_flag = { flag = SFA_order_cooldown days = 180 value = 1 }
+	# the day it is ready again, as a date for the GUI: date variables count hours / 100000, so 180 days = 0.0432 (Bloc Aid)
+	set_variable = { SFA_order_ready_date = global.date }
+	add_to_variable = { SFA_order_ready_date = 0.0432 }
+	country_event = { id = SFA.20 days = 180 }
+	event_target:SFA_order_target_state = {
+		set_state_flag = { flag = SFA_order_target days = 90 value = 1 }
+		set_temp_variable = { sfa_tr = SFA_region }
+		random_neighbor_state = {
+			limit = { SFA_neighbor_can_take = yes }
+			OWNER = {
+				set_country_flag = { flag = SFA_order_pending days = 90 value = 1 }
+				if = {
+					limit = { is_ai = yes }
+					set_country_flag = { flag = SFA_ai_war_window days = 90 value = 1 }
+				}
+				save_event_target_as = SFA_order_proxy
+			}
+		}
+	}
+	log = "[GetDateText]: New Scramble for Africa: [SFA_order_patron.GetName] orders [SFA_order_proxy.GetName] to take [SFA_order_target_state.GetName]"
+	SFA_gui_refresh = yes
+}
+
+SFA_ai_patron_orders = {
+	# plan 4.7, each pulse: an AI patron off its cooldown, with the political power, orders an attack on the most
+	# valuable state its proxies can reach (value band 4-5 first, then 2-3, then any)
+	every_country = {
+		limit = {
+			has_country_flag = SFA_patron
+			is_ai = yes
+			NOT = { has_country_flag = SFA_order_cooldown }
+			has_political_power > 60
+		}
+		SFA_get_own_patron_code = yes
+		set_temp_variable = { sfa_found = 0 }
+		random_scope_in_array = {
+			array = global.SFA_states
+			limit = {
+				check_variable = { SFA_value_band > 3 }
+				SFA_can_order_state = yes
+			}
+			save_event_target_as = SFA_order_target_state
+			set_temp_variable = { sfa_found = 1 }
+		}
+		if = {
+			limit = { check_variable = { sfa_found = 0 } }
+			random_scope_in_array = {
+				array = global.SFA_states
+				limit = {
+					check_variable = { SFA_value_band > 1 }
+					SFA_can_order_state = yes
+				}
+				save_event_target_as = SFA_order_target_state
+				set_temp_variable = { sfa_found = 1 }
+			}
+		}
+		if = {
+			limit = { check_variable = { sfa_found = 0 } }
+			random_scope_in_array = {
+				array = global.SFA_states
+				limit = { SFA_can_order_state = yes }
+				save_event_target_as = SFA_order_target_state
+				set_temp_variable = { sfa_found = 1 }
+			}
+		}
+		if = {
+			limit = { check_variable = { sfa_found = 1 } }
+			SFA_give_order = yes
+		}
+	}
+}

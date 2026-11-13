@@ -1,0 +1,575 @@
+SAH_military_support_category = {
+    SAH_meet_with_the_president = {
+        visible = {
+            tag = SAH
+        }
+        available = {
+            hidden_trigger = {
+                tag = SAH
+            }
+        }
+		ai_will_do = {
+            factor = 10
+        } 
+        days_remove = 10
+        days_re_enable = 50
+		cost = 50
+	    complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SAH_meet_with_the_president"
+            add_to_variable = {
+                SAH_presidential_approval = 5
+            }
+            custom_effect_tooltip = {
+                localization_key = SAH_presidential_approval_tt
+                VALUE = {
+                    localization_key = TNO_COLOR_GREEN
+                    VALUE_CHANGE = "+5"
+                }
+            }
+        }
+    }
+
+    SAH_seek_governmental_compromise = {
+        visible = {
+            tag = SAH
+        }
+        available = {
+            hidden_trigger = {
+                tag = SAH
+            }
+        }
+		ai_will_do = {
+            factor = 10
+        } 
+        days_remove = 10
+        days_re_enable = 50
+		cost = 150
+	    complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SAH_meet_with_the_president"
+            add_to_variable = {
+                SAH_presidential_approval = 10
+            }
+            custom_effect_tooltip = {
+                localization_key = SAH_presidential_approval_tt
+                VALUE = {
+                    localization_key = TNO_COLOR_GREEN
+                    VALUE_CHANGE = "+10"
+                }
+            }
+            add_stability = -0.05
+        }
+    }
+
+    SAH_public_campaign = {
+        visible = {
+            tag = SAH
+        }
+        available = {
+            hidden_trigger = {
+                tag = SAH
+            }
+        }
+		ai_will_do = {
+            factor = 10
+        } 
+        days_remove = 10
+        days_re_enable = 50
+		cost = 50
+	    complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SAH_public_campaign"
+            add_to_variable = {
+                SAH_public_approval = 5
+            }
+            custom_effect_tooltip = {
+                localization_key = SAH_public_approval_tt
+                VALUE = {
+                    localization_key = TNO_COLOR_GREEN
+                    VALUE_CHANGE = "+5"
+                }
+            }
+        }
+    }
+
+    SAH_bread_and_vodka = {
+        visible = {
+            tag = SAH
+        }
+        available = {
+            hidden_trigger = {
+                tag = SAH
+            }
+        }
+		ai_will_do = {
+            factor = 10
+        } 
+        days_remove = 10
+        days_re_enable = 50
+		cost = 150
+	    complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SAH_bread_and_vodka"
+            add_to_variable = {
+                SAH_public_approval = 10
+            }
+            custom_effect_tooltip = {
+                localization_key = SAH_public_approval_tt
+                VALUE = {
+                    localization_key = TNO_COLOR_GREEN
+                    VALUE_CHANGE = "+10"
+                }
+            }
+            add_stability = -0.05
+        }
+    }
+
+    SAH_appease_the_military = {
+        visible = {
+            tag = SAH
+        }
+        available = {
+            hidden_trigger = {
+                tag = SAH
+            }
+        }
+		ai_will_do = {
+            factor = 10
+        } 
+        days_remove = 10
+        days_re_enable = 80
+		cost = 100
+	    complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SAH_appease_the_military"
+            add_to_variable = {
+                SAH_military_approval = 5
+            }
+            custom_effect_tooltip = {
+                localization_key = SAH_military_approval_tt
+                VALUE = {
+                    localization_key = TNO_COLOR_GREEN
+                    VALUE_CHANGE = "+5"
+                }
+            }
+            add_stability = -0.1
+        }
+    }
+
+    SAH_support_the_psr = {
+        visible = {
+            tag = SAH
+        }
+        available = {
+            hidden_trigger = {
+                tag = SAH
+            }
+        }
+		ai_will_do = {
+            factor = 10
+        } 
+        days_remove = 1
+        days_re_enable = 700
+		cost = 50
+	    complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SAH_support_the_psr"
+            add_popularity = {
+                ideology = authoritarian_democrat
+                popularity = 0.1
+            }
+        }
+    }
+
+    SAH_support_the_prp = {
+        visible = {
+            tag = SAH
+        }
+        available = {
+            hidden_trigger = {
+                tag = SAH
+            }
+        }
+		ai_will_do = {
+            factor = 10
+        } 
+        days_remove = 1
+        days_re_enable = 700
+		cost = 50
+	    complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SAH_support_the_prp"
+            add_popularity = {
+                ideology = social_conservative
+                popularity = 0.1
+            }
+        }
+    }
+
+    SAH_support_the_vkp = {
+        visible = {
+            tag = SAH
+        }
+        available = {
+            hidden_trigger = {
+                tag = SAH
+            }
+        }
+		ai_will_do = {
+            factor = 10
+        } 
+        days_remove = 1
+        days_re_enable = 700
+		cost = 50
+	    complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SAH_support_the_vkp"
+            if = {
+                limit = { 
+                    has_country_flag = SAH_menshevik_vkp
+                }
+                add_popularity = {
+                    ideology = socialist
+                    popularity = 0.1
+                }
+            }
+            else = {
+                add_popularity = {
+                    ideology = communist
+                    popularity = 0.1
+                }
+            }
+        }
+    }
+
+    SAH_promise_to_keep = {
+        activation = {
+			#activate on startup
+			always = no
+		}
+
+		available = {
+			has_country_flag = SAH_one_promise_met
+		}
+
+		days_mission_timeout = 450
+
+		is_good = no
+
+		complete_effect = {
+            add_political_power = 100
+			add_to_variable = {
+                SAH_public_approval = 10
+            }
+            custom_effect_tooltip = {
+                localization_key = SAH_public_approval_tt
+                VALUE = {
+                    localization_key = TNO_COLOR_GREEN
+                    VALUE_CHANGE = "+10"
+                }
+            }
+            add_to_variable = {
+                SAH_military_approval = 5
+            }
+            custom_effect_tooltip = {
+                localization_key = SAH_military_approval_tt
+                VALUE = {
+                    localization_key = TNO_COLOR_GREEN
+                    VALUE_CHANGE = "+5"
+                }
+            }
+		}
+
+		timeout_effect = {
+            add_stability = -0.1
+			add_to_variable = {
+                SAH_public_approval = -20
+            }
+            custom_effect_tooltip = {
+                localization_key = SAH_public_approval_tt
+                VALUE = {
+                    localization_key = TNO_COLOR_RED
+                    VALUE_CHANGE = "-20"
+                }
+            }
+            add_to_variable = {
+                SAH_military_approval = -15
+            }
+            custom_effect_tooltip = {
+                localization_key = SAH_military_approval_tt
+                VALUE = {
+                    localization_key = TNO_COLOR_RED
+                    VALUE_CHANGE = "-15"
+                }
+            }
+		}
+    }
+
+    SAH_elections_start = {
+        activation = {
+			#activate on startup
+			always = no
+		}
+
+        available = {
+            always = no
+        }
+
+		days_mission_timeout = 74
+
+		is_good = no
+
+		complete_effect = {
+
+		}
+
+		timeout_effect = {
+            country_event = {
+				id = SAH.13
+			}
+		}
+    }
+
+    SAH_public_support_waning = {
+        activation = {
+			#activate on startup
+			always = no
+		}
+
+        available = {
+            hidden_trigger = {
+                NOT = {
+                    OR = {
+                        has_country_flag = SAH_legion_coup
+					    has_country_flag = SAH_trotskyite_coup
+                    }
+                }
+            }
+        }
+
+		days_mission_timeout = 60
+
+		is_good = no
+
+		complete_effect = {
+
+		}
+
+		timeout_effect = {
+            if = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            has_country_flag = SAH_legion_coup
+                            has_country_flag = SAH_trotskyite_coup
+                        }
+                    }
+                }
+                activate_mission = SAH_public_support_waning
+            }
+            add_to_variable = {
+                SAH_public_approval = -6
+            }
+            custom_effect_tooltip = {
+			    localization_key = SAH_public_approval_tt
+                VALUE = {
+                    localization_key = TNO_COLOR_RED
+                    VALUE_CHANGE = "-6"
+                }
+            }
+		}
+    }
+
+    SAH_presidential_support_waning = {
+        activation = {
+			#activate on startup
+			always = no
+		}
+
+        available = {
+            hidden_trigger = {
+                NOT = {
+                    OR = {
+                        has_idea = SAH_technocrat_guided_democracy
+                        has_country_flag = SAH_legion_coup
+					    has_country_flag = SAH_trotskyite_coup
+                    }
+                }
+            }
+        }
+
+		days_mission_timeout = 60
+
+		is_good = no
+
+		complete_effect = {
+
+		}
+
+		timeout_effect = {
+            if = {
+                limit = {
+                    NOT = {
+                        has_idea = SAH_technocrat_guided_democracy
+                    }
+                }
+                activate_mission = SAH_presidential_support_waning
+            }
+            add_to_variable = {
+                SAH_presidential_approval = -5
+            }
+            custom_effect_tooltip = {
+                localization_key = SAH_presidential_approval_tt
+                VALUE = {
+                    localization_key = TNO_COLOR_RED
+                    VALUE_CHANGE = "-5"
+                }
+            }
+		}
+    }
+
+    SAH_government_collapse_imminent = {
+        activation = {			
+            custom_trigger_tooltip = {
+			    tooltip = {
+                    localization_key = SAH_public_approval_trigger_less_than_or_equals_tt
+                    VALUE = "20"
+                }
+                check_variable = {
+                    var = SAH_public_approval
+                    value = 20
+                    compare = less_than_or_equals
+                }
+            }
+		}
+
+		available = {			
+            custom_trigger_tooltip = {
+			    tooltip = {
+                    localization_key = SAH_public_approval_trigger_greater_than_tt
+                    VALUE = "20"
+                }
+                check_variable = {
+                    var = SAH_public_approval
+                    value = 20
+                    compare = greater_than
+                }
+            }
+		}
+
+		days_mission_timeout = 30
+
+		is_good = no
+
+		complete_effect = {
+			
+		}
+
+		timeout_effect = {
+			country_event = { id = SAH.20 }
+            set_variable = {
+                SAH_public_approval = 35
+            }
+		}
+    }
+
+    SAH_presidential_intervention_imminent = {
+        activation = {	
+            custom_trigger_tooltip = {
+			    tooltip = {
+                    localization_key = SAH_presidential_approval_trigger_less_than_or_equals_tt
+                    VALUE = "20"
+                }
+                check_variable = {
+                    var = SAH_presidential_approval
+                    value = 20
+                    compare = less_than_or_equals
+                }
+            }
+            hidden_trigger = {
+                NOT = {
+                    has_idea = SAH_technocrat_guided_democracy
+                }
+            }
+		}
+
+		available = {
+			OR = {
+                custom_trigger_tooltip = {
+                    tooltip = {
+                        localization_key = SAH_presidential_approval_trigger_greater_than_tt
+                        VALUE = "20"
+                    }
+                    check_variable = {
+                        var = SAH_presidential_approval
+                        value = 20
+                        compare = greater_than
+                    }
+                }
+                hidden_trigger = {
+                    has_idea = SAH_technocrat_guided_democracy
+                }
+            }
+		}
+
+		days_mission_timeout = 15
+
+		is_good = no
+
+		complete_effect = {
+			
+		}
+
+		timeout_effect = {
+			country_event = { id = SAH.21 }
+            set_variable = {
+                SAH_presidential_approval = 35
+            }
+		}
+    }
+
+    SAH_legion_coup_imminent = {
+        activation = {		
+            custom_trigger_tooltip = {
+                tooltip = {
+                    localization_key = SAH_military_approval_tt_trigger_less_than_or_equals_tt
+                    VALUE = "20"
+                }
+                check_variable = {
+                    var = SAH_military_approval
+                    value = 20
+                    compare = less_than_or_equals
+                }
+            }
+            hidden_trigger = {
+                has_country_flag = SAH_legion_coup_active
+            }
+		}
+
+		available = {
+			OR = {            
+                custom_trigger_tooltip = {
+                    tooltip = {
+                        localization_key = SAH_military_approval_trigger_greater_than_tt
+                        VALUE = "20"
+                    }
+                     check_variable = {
+                        var = SAH_military_approval
+                        value = 20
+                        compare = greater_than
+                    }
+                }
+                NOT = {
+                    hidden_trigger = {
+                        has_country_flag = SAH_legion_coup_active
+                    }
+                }
+            }
+		}
+
+		days_mission_timeout = 15
+
+		is_good = no
+
+		complete_effect = {
+			
+		}
+
+		timeout_effect = {
+			country_event = { id = SAH.12 }
+		}
+    }
+}

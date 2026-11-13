@@ -1,0 +1,1050 @@
+SAW_record_outcome = {
+	# New Scramble for Africa (plan 3.1). How the South African War ended. Each of the five endings sets
+	# global.SAW_outcome first and then calls this, so exactly one SAW_outcome_* flag is set:
+	#   1 OFN total (SAFWAR.13), 2 OFN leaning (.22), 3 status quo (.21), 4 Pakt leaning (.20), 5 Pakt total (.9)
+	clr_global_flag = SAW_outcome_ofn_total
+	clr_global_flag = SAW_outcome_ofn_leaning
+	clr_global_flag = SAW_outcome_status_quo
+	clr_global_flag = SAW_outcome_pakt_leaning
+	clr_global_flag = SAW_outcome_pakt_total
+	if = {
+		limit = { check_variable = { global.SAW_outcome = 1 } }
+		set_global_flag = SAW_outcome_ofn_total
+	}
+	else_if = {
+		limit = { check_variable = { global.SAW_outcome = 2 } }
+		set_global_flag = SAW_outcome_ofn_leaning
+	}
+	else_if = {
+		limit = { check_variable = { global.SAW_outcome = 3 } }
+		set_global_flag = SAW_outcome_status_quo
+	}
+	else_if = {
+		limit = { check_variable = { global.SAW_outcome = 4 } }
+		set_global_flag = SAW_outcome_pakt_leaning
+	}
+	else_if = {
+		limit = { check_variable = { global.SAW_outcome = 5 } }
+		set_global_flag = SAW_outcome_pakt_total
+	}
+	log = "[GetDateText]: South African War outcome recorded: [?global.SAW_outcome]"
+}
+
+SFA_strip_rk_ideas_all = {
+	# plan 4.0: master brings ANG and COG back as native states (UNITA, the Federal Republic) still carrying their
+	# Reichskommissariat ideas. Runs when a revolt releases them and once more at the breakdown.
+	if = {
+		limit = { country_exists = ANG }
+		ANG = { SFA_strip_rk_ideas_ANG = yes }
+	}
+	if = {
+		limit = { country_exists = COG }
+		COG = { SFA_strip_rk_ideas_COG = yes }
+	}
+}
+
+SFA_start = {
+	# plan 4.0: runs once, from SFA.1, 160 days after the breakdown
+	set_global_flag = SFA_active
+	SFA_setup_regions = yes
+	SFA_spawn_burgundian_remnant = yes
+	every_country = {
+		limit = {
+			OR = {
+				SFA_is_scramble_tag = yes
+				SFA_is_scramble_ally_tag = yes
+			}
+		}
+		SFA_assign_patron = yes
+	}
+	SFA_cut_old_ties = yes
+	SFA_build_nations = yes
+	SFA_arm_nations = yes
+	set_global_flag = SFA_nations_armed
+	SFA_set_all_nation_laws = yes
+	set_global_flag = SFA_laws_set
+	SFA_update_land_strength = yes
+	SFA_notify_patrons = yes
+	every_country = {
+		news_event = { id = RA_GLOBAL_NEWS.69 days = 1 }
+	}
+	country_event = { id = SFA.10 days = 30 }
+	set_global_flag = SFA_pulse_running
+	SFA_count_proxies_at_war = yes
+	SFA_board_recompute = yes
+	SFA_gui_refresh = yes
+	log = "[GetDateText]: New Scramble for Africa started; South African War outcome [?global.SAW_outcome]"
+}
+
+SFA_strip_collapse_cores = {
+	# user's test (2026-10-18): when the Oberkommando collapses, the remnant and the two old Reichskommissariats keep no
+	# cores on the land they lost. Runs once, at the end of the collapse (MZB_REICHSTAAT.8071 / .809), after the revolts.
+	if = {
+		limit = { country_exists = MZB }
+		every_state = {
+			limit = {
+				is_core_of = MZB
+				NOT = { is_owned_by = MZB }
+			}
+			remove_core_of = MZB
+		}
+	}
+	if = {
+		limit = { country_exists = ANG }
+		every_state = {
+			limit = {
+				is_core_of = ANG
+				NOT = { is_owned_by = ANG }
+			}
+			remove_core_of = ANG
+		}
+	}
+	if = {
+		limit = { country_exists = COG }
+		every_state = {
+			limit = {
+				is_core_of = COG
+				NOT = { is_owned_by = COG }
+			}
+			remove_core_of = COG
+		}
+	}
+}
+
+SFA_free_the_boers = {
+	# user, 2026-10-24: when the Oberkommando collapses (MZB_REICHSTAAT.8071 / .809), the Boer republic stops being
+	# Grossafrika's subject and leaves its faction. So does SFG, which MZB puppets when it wins the Second South African
+	# Civil War (SEC_SAF_CW_ENDING.3; user, 2026-10-26): it is Burgundy's sovereign ally in the scramble. Runs from the
+	# collapse, and from each pulse, since that war can end after the scramble starts.
+	if = {
+		limit = {
+			country_exists = BOR
+			BOR = { is_subject_of = MZB }
+		}
+		MZB = { end_puppet = BOR }
+	}
+	if = {
+		limit = {
+			country_exists = BOR
+			country_exists = MZB
+			BOR = { is_in_faction_with = MZB }
+		}
+		BOR = { leave_faction = yes }
+	}
+	if = {
+		limit = {
+			country_exists = SFG
+			SFG = { is_subject_of = MZB }
+		}
+		MZB = { end_puppet = SFG }
+	}
+	if = {
+		limit = {
+			country_exists = SFG
+			country_exists = MZB
+			SFG = { is_in_faction_with = MZB }
+		}
+		SFG = { leave_faction = yes }
+	}
+}
+
+SFA_after_south_african_partition = {
+	# user, 2026-10-26: from the partition that ends the Third South African Civil War (MZB_REICHSTAAT.810). An SFG win
+	# after Hüttig's fall starts that war at once (SEC_SAF_CW_ENDING.3 sets SAF_third_civil_war_pending), so the
+	# partition can land mid-scramble. Simonstown, now Dommes's, takes the patron its government gives it; the new tags
+	# join on the next pulse (SFA_adopt_late_allies); South Africa's regions, held back meanwhile (SFA_south_settling),
+	# are checked again.
+	clr_global_flag = SAF_third_civil_war_pending
+	if = {
+		limit = {
+			has_global_flag = SFA_active
+			country_exists = SFG
+		}
+		SFG = {
+			clr_country_flag = SFA_patron_USA
+			clr_country_flag = SFA_patron_GER
+			clr_country_flag = SFA_patron_ITA
+			clr_country_flag = SFA_patron_JAP
+			clr_country_flag = SFA_patron_BRG
+			clr_country_flag = SFA_patron_IBR
+			SFA_assign_patron = yes
+			log = "[GetDateText]: New Scramble for Africa: [This.GetName] changes patron after South Africa's partition"
+		}
+	}
+}
+
+SFA_adopt_late_allies = {
+	# user, 2026-10-26: a sovereign ally that appears after the start, or a save from before South Africa's civil-war
+	# tags were allies, gets its patron like the rest and joins the nations' list. Runs from each pulse.
+	if = {
+		limit = {
+			any_country = {
+				SFA_is_scramble_ally_tag = yes
+				NOT = { has_country_flag = SFA_sovereign_ally }
+			}
+		}
+		every_country = {
+			limit = {
+				SFA_is_scramble_ally_tag = yes
+				NOT = { has_country_flag = SFA_sovereign_ally }
+			}
+			SFA_assign_patron = yes
+			log = "[GetDateText]: New Scramble for Africa: [This.GetName] joins late as a sovereign ally"
+		}
+		SFA_build_nations = yes
+	}
+}
+
+SFA_cut_old_ties = {
+	# user's test (2026-10-18): the remnant (MZB) and the old Reichskommissariats were still the Reich's subjects and in
+	# its faction, which kept them out of every scramble war (SFA_war_ready): no one could attack them, nor they anyone.
+	# A scramble nation is no one's subject and in no faction; its patron backs it through the scramble instead.
+	every_country = {
+		limit = {
+			has_country_flag = SFA_african_nation
+			OR = {
+				is_subject = yes
+				is_in_faction = yes
+			}
+		}
+		if = {
+			limit = { is_subject = yes }
+			OVERLORD = { end_puppet = PREV }
+		}
+		if = {
+			limit = { is_in_faction = yes }
+			leave_faction = yes
+		}
+		log = "[GetDateText]: New Scramble for Africa: [This.GetName] leaves its overlord and faction"
+	}
+}
+
+SFA_arm_nations = {
+	# user's test (2026-10-18): the collapse releases most nations with no army. Master's revolts only move states, and
+	# the history OOBs those tags name (BFR_1962, CAF_1962) do not exist. Every scramble nation with fewer than three
+	# divisions gets the techs for infantry, two templates, a militia division in each state it holds and three
+	# infantry divisions at its capital. Runs once, from SFA_start; Italy's and Iberia's proxies bring their own OOBs.
+	every_country = {
+		limit = {
+			has_country_flag = SFA_african_nation
+			NOT = { has_country_flag = SFA_zanzibar }
+			NOT = { has_army_size = { size > 2 } }
+		}
+		if = {
+			limit = { NOT = { has_tech = infantry_weapons_1 } }
+			set_technology = { infantry_weapons_1 = 1 }
+		}
+		if = {
+			limit = { NOT = { has_tech = infantry_at } }
+			set_technology = { infantry_at = 1 }
+		}
+		if = {
+			limit = { NOT = { has_template = "Militia" } }
+			division_template = {
+				name = "Militia"
+				regiments = {
+					light_infantry = { x = 0 y = 0 }
+					light_infantry = { x = 0 y = 1 }
+					light_infantry = { x = 1 y = 0 }
+					light_infantry = { x = 1 y = 1 }
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { has_template = "Infantry" } }
+			division_template = {
+				name = "Infantry"
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					infantry = { x = 2 y = 0 }
+					infantry = { x = 2 y = 1 }
+				}
+			}
+		}
+		every_owned_state = {
+			limit = { is_controlled_by = PREV }
+			create_unit = {
+				division = "division_template = \"Militia\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
+				owner = PREV
+			}
+		}
+		capital_scope = {
+			create_unit = {
+				division = "division_template = \"Infantry\" start_experience_factor = 0.3 start_equipment_factor = 1.0"
+				owner = PREV
+				count = 3
+			}
+		}
+		log = "[GetDateText]: New Scramble for Africa: [This.GetName] raises its army"
+	}
+}
+
+SFA_assign_patron = {
+	# plan 4.1, in the scope of a scramble nation or a sovereign ally: the user's per-tag table first, then ideology
+	# (democrats, socialists and communists to the US, ultranationalists to Japan, the rest neutral).
+	# Germany and the US take part whenever they exist: proxies stay as they spawn (user, 2026-10-16).
+	if = {
+		limit = { SFA_is_scramble_tag = yes }
+		set_country_flag = SFA_african_nation
+	}
+	if = {
+		limit = { SFA_is_scramble_ally_tag = yes }
+		set_country_flag = SFA_sovereign_ally
+	}
+	if = {
+		limit = {
+			OR = {
+				tag = KTG
+				tag = RSL
+				tag = RSZ
+				tag = RSQ
+				tag = MZB
+				tag = MDG
+				tag = BOR
+			}
+		}
+		# Germany backs its factions and the Boers in every outcome for now: proxies stay as they spawn (user,
+		# 2026-10-16). Part 2's outcome routes may change this.
+		if = {
+			limit = { country_exists = GER }
+			set_country_flag = SFA_patron_GER
+		}
+	}
+	else_if = {
+		# SS-run German tags are Burgundy's (plan): RSD, and SFG while Chmielewski's SS run it. After the Third South
+		# African Civil War SFG is Dommes's despotic Simonstown (MZB_REICHSTAAT.810) and follows its government instead.
+		limit = {
+			OR = {
+				tag = RSD
+				AND = {
+					tag = SFG
+					has_government = burgundian_system
+				}
+			}
+		}
+		if = {
+			limit = { country_exists = BRG }
+			set_country_flag = SFA_patron_BRG
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				tag = SWA
+				tag = MDJ
+			}
+		}
+		if = {
+			limit = { country_exists = ITA }
+			set_country_flag = SFA_patron_ITA
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				tag = ANL
+				tag = NAM
+				# not ZIM (user, 2026-10-25): it follows its government below, the US under Nkomo (social liberal), Japan
+				# under Mugabe (ultranational socialism, after Grossafrika's "Nkomo reported dead", MZB_REICHSTAAT.702)
+				tag = GAZ
+				tag = TNZ
+				tag = ZZS
+				tag = LUO
+				tag = BTS
+				tag = CFS
+				tag = MAD
+				tag = SAF
+			}
+		}
+		if = {
+			limit = { SFA_us_takes_part = yes }
+			set_country_flag = SFA_patron_USA
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				tag = ANG
+				tag = HRR
+				tag = ZMO
+				tag = GZO
+				tag = UGD
+				tag = FMF
+				tag = RWA
+				tag = KSI
+				tag = BKV
+				tag = ZBO
+				tag = MDM
+			}
+		}
+		if = {
+			limit = { country_exists = JAP }
+			set_country_flag = SFA_patron_JAP
+		}
+	}
+	else_if = {
+		# Kongo's communists stay independent whatever their government (user, 2026-10-18)
+		limit = { tag = CPR }
+	}
+	else_if = {
+		# Iberia's proxy (user, 2026-10-18); it normally spawns later, from SFA_spawn_iberian_proxy
+		limit = { tag = MEZ }
+		if = {
+			limit = {
+				country_exists = IBR
+				NOT = { has_global_flag = Iberian_Wars }
+			}
+			set_country_flag = SFA_patron_IBR
+		}
+	}
+	else_if = {
+		limit = { tag = ZZB }
+		# an island: neutral, never taken, joins its region's merged nation (plan 4.3)
+		set_country_flag = SFA_zanzibar
+	}
+	else_if = {
+		limit = { SFA_government_us_aligned = yes }
+		if = {
+			limit = { SFA_us_takes_part = yes }
+			set_country_flag = SFA_patron_USA
+		}
+	}
+	else_if = {
+		limit = { SFA_government_japan_aligned = yes }
+		if = {
+			limit = { country_exists = JAP }
+			set_country_flag = SFA_patron_JAP
+		}
+	}
+}
+
+SFA_notify_patrons = {
+	# plan 4.0: tell each patron it can act. Italy's notice spawns SWA.
+	if = {
+		limit = { SFA_us_takes_part = yes }
+		USA = {
+			set_country_flag = SFA_patron
+			country_event = { id = SFA.2 }
+		}
+	}
+	if = {
+		limit = { country_exists = GER }
+		GER = {
+			set_country_flag = SFA_patron
+			country_event = { id = SFA.3 }
+		}
+	}
+	if = {
+		limit = { country_exists = ITA }
+		ITA = {
+			set_country_flag = SFA_patron
+			country_event = { id = SFA.4 }
+		}
+	}
+	if = {
+		limit = { country_exists = JAP }
+		JAP = {
+			set_country_flag = SFA_patron
+			country_event = { id = SFA.5 }
+		}
+	}
+	if = {
+		limit = {
+			country_exists = BRG
+			country_exists = RSD
+		}
+		BRG = {
+			set_country_flag = SFA_patron
+			country_event = { id = SFA.6 }
+		}
+	}
+	if = {
+		# Iberia (user, 2026-10-18): its own proxy seizes Kéllé shortly after the start; Iberia stays out once the
+		# Iberian Wars have begun
+		limit = {
+			country_exists = IBR
+			NOT = { has_global_flag = Iberian_Wars }
+		}
+		IBR = {
+			set_country_flag = SFA_patron
+			country_event = { id = SFA.7 days = 14 }
+		}
+	}
+}
+
+SFA_spawn_italian_proxy = {
+	# plan 4.1: SWA, the Autorità Militare dell'Africa Meridionale, replaces Luoland (user, 2026-10-16): it takes Kisumu
+	# (1091) and everything else LUO holds, and LUO is gone. If LUO no longer holds Kisumu, SWA takes Kisumu from
+	# whoever does, as long as they keep another state; failing that, Arusha (1079). Cores on all of it.
+	# Runs once, from Italy's notice.
+	if = {
+		limit = { NOT = { country_exists = SWA } }
+		if = {
+			limit = {
+				OR = {
+					1091 = { is_owned_by = LUO }
+					1091 = {
+						OWNER = {
+							any_owned_state = { NOT = { state = 1091 } }
+						}
+					}
+				}
+			}
+			SWA = {
+				set_state_owner = 1091
+				set_state_controller = 1091
+			}
+		}
+		else = {
+			SWA = {
+				set_state_owner = 1079
+				set_state_controller = 1079
+			}
+		}
+		if = {
+			limit = { country_exists = LUO }
+			LUO = {
+				every_owned_state = {
+					transfer_state_to = SWA
+					set_state_controller_to = SWA
+				}
+			}
+		}
+		SWA = {
+			every_owned_state = { add_core_of = SWA }
+			add_to_array = { global.SFA_nations = THIS }
+			set_country_flag = SFA_african_nation
+			set_country_flag = SFA_patron_ITA
+			SFA_set_nation_laws = yes
+			inherit_technology = ITA
+			# Italy's industry supplies it from home (user, 2026-10-18)
+			add_offsite_building = { type = arms_factory level = 15 }
+			add_manpower = 20000
+			# about twice what its OOB fields (user, 2026-10-27): 24 infantry battalions (100 rifles, 15 AT each) and 8
+			# light infantry (80 rifles) need 3040 rifles and 360 anti-tank
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 6000 producer = ITA }
+			add_equipment_to_stockpile = { type = anti_tank_equipment amount = 800 producer = ITA }
+			add_equipment_to_stockpile = { type = support_equipment amount = 800 producer = ITA }
+			if = {
+				limit = { owns_state = 1091 }
+				set_capital = { state = 1091 }
+				load_oob = "SWA_scramble_kisumu"
+			}
+			else = {
+				set_capital = { state = 1079 }
+				load_oob = "SWA_scramble_arusha"
+			}
+		}
+		log = "[GetDateText]: New Scramble for Africa: SWA spawned for Italy"
+		SFA_board_recompute = yes
+		SFA_gui_refresh = yes
+	}
+}
+
+SFA_spawn_iberian_proxy = {
+	# user, 2026-10-18: MEZ, the Área de Protecção do Congo, Iberia's one powerful proxy, seizes Kéllé (1165) in
+	# Westkongo, with cores. Its holder loses only that state. Runs once, from Iberia's notice (SFA.7), and not once
+	# the Iberian Wars have begun.
+	if = {
+		limit = {
+			NOT = { country_exists = MEZ }
+			NOT = { has_global_flag = Iberian_Wars }
+			country_exists = IBR
+		}
+		MEZ = {
+			set_state_owner = 1165
+			set_state_controller = 1165
+		}
+		MEZ = {
+			every_owned_state = { add_core_of = MEZ }
+			add_to_array = { global.SFA_nations = THIS }
+			set_country_flag = SFA_african_nation
+			set_country_flag = SFA_patron_IBR
+			SFA_set_nation_laws = yes
+			inherit_technology = IBR
+			# Iberia's industry supplies it from home (user, 2026-10-18)
+			add_offsite_building = { type = arms_factory level = 15 }
+			add_manpower = 20000
+			# about twice what its OOB fields (user, 2026-10-27): 24 infantry battalions (100 rifles, 15 AT each) and 8
+			# light infantry (80 rifles) need 3040 rifles and 360 anti-tank
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 6000 producer = IBR }
+			add_equipment_to_stockpile = { type = anti_tank_equipment amount = 800 producer = IBR }
+			add_equipment_to_stockpile = { type = support_equipment amount = 800 producer = IBR }
+			set_capital = { state = 1165 }
+			load_oob = "MEZ_scramble_kelle"
+		}
+		log = "[GetDateText]: New Scramble for Africa: MEZ spawned in Kéllé for Iberia"
+		SFA_board_recompute = yes
+		SFA_gui_refresh = yes
+	}
+}
+
+SFA_check_iberian_wars = {
+	# user, 2026-10-18: once the Iberian Wars begin, Iberia leaves the scramble and its proxy goes independent.
+	# Iberia's scramble income stops, the proxy loses its export idea, and regions held for Iberia pay nobody.
+	if = {
+		limit = {
+			has_global_flag = Iberian_Wars
+			OR = {
+				IBR = { has_country_flag = SFA_patron }
+				MEZ = { has_country_flag = SFA_patron_IBR }
+			}
+		}
+		if = {
+			limit = { IBR = { has_country_flag = SFA_patron } }
+			IBR = {
+				clr_country_flag = SFA_patron
+				set_temp_variable = { sfa_new = 0 }
+				set_temp_variable = { sfa_pend = 0 }
+				SFA_apply_income = yes
+			}
+		}
+		MEZ = {
+			clr_country_flag = SFA_patron_IBR
+			if = {
+				limit = { has_idea = SFA_exports_to_IBR }
+				remove_ideas = SFA_exports_to_IBR
+			}
+		}
+		set_temp_variable = { sfa_drop_code = 6 }
+		SFA_regions_drop_patron = yes
+		IBR = { set_variable = { SFA_regions = 0 } }
+		log = "[GetDateText]: New Scramble for Africa: the Iberian Wars began; Iberia leaves the scramble and MEZ goes independent"
+	}
+}
+
+SFA_spawn_burgundian_remnant = {
+	# user, 2026-10-16: Burgundy's SS remnant (RSD), led by Kurt Franz, takes Dar es Salaam (1078) when the collapse
+	# did not create it, because Sansibar revolted before stage 3. Only after an AI-run Grossafrika, which never loses
+	# Franz (MZB_REICHSTAAT_GHOST.1007); a player-run one keeps master's rules. Runs once, from SFA_start.
+	if = {
+		limit = {
+			NOT = { country_exists = RSD }
+			country_exists = BRG
+			OR = {
+				NOT = { country_exists = MZB }
+				MZB = { is_ai = yes }
+			}
+			NOT = { MZB = { has_country_flag = MZB_REICHSTAAT_franz_is_dead_flag } }
+			1078 = {
+				OWNER = {
+					any_owned_state = { NOT = { state = 1078 } }
+				}
+			}
+		}
+		RSD = {
+			set_state_owner = 1078
+			set_state_controller = 1078
+			add_state_core = 1078
+		}
+		log = "[GetDateText]: New Scramble for Africa: RSD spawned in Dar es Salaam for Burgundy"
+	}
+}
+
+SFA_pulse = {
+	# plan 4.3: the monthly pulse (SFA.10). Consolidation is the only peaceful unification; everything else is war
+	# (user, 2026-10-16: no absorption). Wars that ended other ways get their cooldowns first, so the region check and
+	# the AI's war windows see the map as it stands.
+	if = {
+		# a save from before the wars existed
+		limit = { NOT = { has_global_flag = SFA_nations_built } }
+		SFA_build_nations = yes
+	}
+	if = {
+		# a save from before the old ties were cut and the empty nations armed (2026-10-18)
+		limit = { NOT = { has_global_flag = SFA_nations_armed } }
+		set_global_flag = SFA_nations_armed
+		SFA_cut_old_ties = yes
+		SFA_arm_nations = yes
+	}
+	if = {
+		# a save from before the scramble nations got their laws (2026-10-24)
+		limit = { NOT = { has_global_flag = SFA_laws_set } }
+		set_global_flag = SFA_laws_set
+		SFA_set_all_nation_laws = yes
+	}
+	SFA_free_the_boers = yes
+	SFA_adopt_late_allies = yes
+	SFA_check_wars = yes
+	SFA_check_iberian_wars = yes
+	SFA_check_regions = yes
+	SFA_update_home_regions = yes
+	SFA_update_income = yes
+	SFA_burgundy_african_supplies = yes
+	SFA_update_land_strength = yes
+	SFA_supply_repairs = yes
+	SFA_ai_supply = yes
+	SFA_ai_supply_drop = yes
+	SFA_ai_burgundy = yes
+	SFA_ai_patron_orders = yes
+	SFA_roll_ai_war_windows = yes
+	SFA_count_proxies_at_war = yes
+	SFA_board_recompute = yes
+	SFA_gui_refresh = yes
+}
+
+SFA_check_current_region = {
+	# plan 4.3, for the states in global.SFA_cur (filled by SFA_check_region_<n>, which sets temp sfa_cur_region). Sets
+	# temp sfa_result: 0 open, 1 US, 2 Germany, 3 Italy, 4 Japan, 5 Burgundy, 6 Iberia, 9 one independent holds it.
+	# Only the nations based in the region count (user, 2026-10-19): it consolidates once every nation with its capital
+	# there that holds land in it is on one side, or a single independent is left. Land that outsiders hold there (South
+	# Africa's in Mosambik after an OFN-leaning war) neither blocks it nor merges. A region with no local holder
+	# consolidates only when South Africa or the Boers hold all of it (user, 2026-10-19). Zanzibar never blocks a region
+	# and joins the merged nation. Saves the survivor as event target SFA_survivor.
+	set_temp_variable = { sfa_result = 0 }
+	set_temp_variable = { sfa_have_cand = 0 }
+	set_temp_variable = { sfa_whole_holder = 0 }
+	random_scope_in_array = {
+		array = global.SFA_cur
+		limit = {
+			NOT = { is_owned_by = ZZB }
+			NOT = { SFA_minor_island = yes }
+			SFA_held_locally = yes
+		}
+		OWNER = { save_event_target_as = SFA_cand }
+		set_temp_variable = { sfa_have_cand = 1 }
+	}
+	if = {
+		# no local holder: South Africa or the Boers holding the whole region
+		limit = { check_variable = { sfa_have_cand = 0 } }
+		random_scope_in_array = {
+			array = global.SFA_cur
+			limit = {
+				NOT = { is_owned_by = ZZB }
+				NOT = { SFA_minor_island = yes }
+				OWNER = {
+					OR = {
+						tag = SAF
+						tag = BOR
+					}
+				}
+			}
+			OWNER = { save_event_target_as = SFA_cand }
+			set_temp_variable = { sfa_have_cand = 2 }
+		}
+		if = {
+			limit = {
+				check_variable = { sfa_have_cand = 2 }
+				all_of_scopes = {
+					array = global.SFA_cur
+					OR = {
+						is_owned_by = ZZB
+						SFA_minor_island = yes
+						is_owned_by = event_target:SFA_cand
+					}
+				}
+			}
+			event_target:SFA_cand = {
+				SFA_get_patron_code = yes
+				save_event_target_as = SFA_survivor
+			}
+			set_temp_variable = { sfa_result = sfa_code }
+			set_temp_variable = { sfa_whole_holder = 1 }
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				all_of_scopes = {
+					array = global.SFA_cur
+					OR = {
+						is_owned_by = ZZB
+						SFA_minor_island = yes
+						NOT = { SFA_held_locally = yes }
+						OWNER = { has_country_flag = SFA_patron_USA }
+					}
+				}
+			}
+			set_temp_variable = { sfa_result = 1 }
+		}
+		else_if = {
+			limit = {
+				all_of_scopes = {
+					array = global.SFA_cur
+					OR = {
+						is_owned_by = ZZB
+						SFA_minor_island = yes
+						NOT = { SFA_held_locally = yes }
+						OWNER = { has_country_flag = SFA_patron_GER }
+					}
+				}
+			}
+			set_temp_variable = { sfa_result = 2 }
+		}
+		else_if = {
+			limit = {
+				all_of_scopes = {
+					array = global.SFA_cur
+					OR = {
+						is_owned_by = ZZB
+						SFA_minor_island = yes
+						NOT = { SFA_held_locally = yes }
+						OWNER = { has_country_flag = SFA_patron_ITA }
+					}
+				}
+			}
+			set_temp_variable = { sfa_result = 3 }
+		}
+		else_if = {
+			limit = {
+				all_of_scopes = {
+					array = global.SFA_cur
+					OR = {
+						is_owned_by = ZZB
+						SFA_minor_island = yes
+						NOT = { SFA_held_locally = yes }
+						OWNER = { has_country_flag = SFA_patron_JAP }
+					}
+				}
+			}
+			set_temp_variable = { sfa_result = 4 }
+		}
+		else_if = {
+			limit = {
+				all_of_scopes = {
+					array = global.SFA_cur
+					OR = {
+						is_owned_by = ZZB
+						SFA_minor_island = yes
+						NOT = { SFA_held_locally = yes }
+						OWNER = { has_country_flag = SFA_patron_BRG }
+					}
+				}
+			}
+			set_temp_variable = { sfa_result = 5 }
+		}
+		else_if = {
+			limit = {
+				all_of_scopes = {
+					array = global.SFA_cur
+					OR = {
+						is_owned_by = ZZB
+						SFA_minor_island = yes
+						NOT = { SFA_held_locally = yes }
+						OWNER = { has_country_flag = SFA_patron_IBR }
+					}
+				}
+			}
+			set_temp_variable = { sfa_result = 6 }
+		}
+		else_if = {
+			limit = {
+				event_target:SFA_cand = {
+					OR = {
+						has_country_flag = SFA_african_nation
+						has_country_flag = SFA_sovereign_ally
+					}
+				}
+				all_of_scopes = {
+					array = global.SFA_cur
+					OR = {
+						is_owned_by = ZZB
+						SFA_minor_island = yes
+						NOT = { SFA_held_locally = yes }
+						is_owned_by = event_target:SFA_cand
+					}
+				}
+			}
+			set_temp_variable = { sfa_result = 9 }
+		}
+	}
+	if = {
+		limit = { check_variable = { sfa_result > 0 } }
+		if = {
+			limit = { check_variable = { sfa_whole_holder = 0 } }
+			SFA_pick_survivor = yes
+		}
+		SFA_merge_into_survivor = yes
+	}
+}
+
+SFA_pick_survivor = {
+	# plan 4.3: among the nations based in the region (SFA_held_locally), the one with the most states there survives,
+	# ties to the higher state value; a sovereign ally (the Madagascar winner taking the Comoros) always does. Zanzibar
+	# never survives. Reads temp sfa_cur_region, set by SFA_check_region_<n>.
+	for_each_scope_loop = {
+		array = global.SFA_cur
+		if = {
+			limit = {
+				SFA_held_locally = yes
+				NOT = { SFA_minor_island = yes }
+			}
+			OWNER = {
+				set_variable = { SFA_cur_states = 0 }
+				set_variable = { SFA_cur_value = 0 }
+			}
+		}
+	}
+	for_each_scope_loop = {
+		array = global.SFA_cur
+		if = {
+			limit = {
+				SFA_held_locally = yes
+				NOT = { SFA_minor_island = yes }
+			}
+			OWNER = {
+				add_to_variable = { SFA_cur_states = 1 }
+				add_to_variable = { SFA_cur_value = PREV.SFA_value }
+			}
+		}
+	}
+	set_temp_variable = { sfa_best = -1 }
+	for_each_scope_loop = {
+		array = global.SFA_cur
+		if = {
+			limit = {
+				SFA_held_locally = yes
+				NOT = { SFA_minor_island = yes }
+			}
+			OWNER = {
+				if = {
+					limit = { NOT = { tag = ZZB } }
+					set_temp_variable = { sfa_score = SFA_cur_states }
+					multiply_temp_variable = { var = sfa_score value = 1000 }
+					add_to_temp_variable = { sfa_score = SFA_cur_value }
+					if = {
+						limit = { has_country_flag = SFA_sovereign_ally }
+						add_to_temp_variable = { sfa_score = 2000000 }
+					}
+					if = {
+						limit = { check_variable = { sfa_score > sfa_best } }
+						set_temp_variable = { sfa_best = sfa_score }
+						save_event_target_as = SFA_survivor
+					}
+				}
+			}
+		}
+	}
+}
+
+SFA_merge_into_survivor = {
+	# plan 4.3 (user): the survivor absorbs the other nations based in the region, and Zanzibar, whole; sovereign allies
+	# and outsiders holding land there are never absorbed (user, 2026-10-19). A player on an absorbed nation moves to
+	# the survivor first (change_tag_from, as TNO_Ostland2.txt does).
+	event_target:SFA_survivor = { set_country_flag = SFA_merge_survivor }
+	set_temp_variable = { sfa_order_code = sfa_result }
+	for_each_scope_loop = {
+		array = global.SFA_cur
+		if = {
+			limit = {
+				OR = {
+					is_owned_by = ZZB
+					AND = {
+						SFA_held_locally = yes
+						NOT = { SFA_minor_island = yes }
+					}
+					AND = {
+						SFA_minor_island = yes
+						OWNER = { SFA_on_merge_side = yes }
+					}
+				}
+			}
+			OWNER = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = SFA_merge_survivor }
+						NOT = { has_country_flag = SFA_sovereign_ally }
+					}
+					if = {
+						limit = {
+							is_ai = no
+							event_target:SFA_survivor = { is_ai = yes }
+						}
+						event_target:SFA_survivor = { change_tag_from = PREV }
+					}
+					if = {
+						# two human nations never merge
+						limit = { is_ai = yes }
+						log = "[GetDateText]: New Scramble for Africa: [SFA_survivor.GetName] absorbs [This.GetName] in the merger"
+						event_target:SFA_survivor = { annex_country = { target = PREV transfer_troops = yes } }
+					}
+				}
+			}
+		}
+	}
+	event_target:SFA_survivor = {
+		clr_country_flag = SFA_merge_survivor
+		every_owned_state = {
+			limit = {
+				has_state_flag = SFA_state
+				NOT = { is_core_of = PREV }
+			}
+			add_core_of = PREV
+		}
+	}
+}
+
+SFA_push_dispatch = {
+	# plan 7.5: five slots, newest first, for the board's dispatches. Reads temp sfa_d_type (1 war, 2 consolidated,
+	# 3 peace, 4 white peace) and sfa_d_region, and event targets SFA_d_actor and SFA_d_target. A peace also reads
+	# sfa_d_kind (1 annexed, 2 took one state, 3 took several, 0 took none), sfa_d_state (the first state taken) and
+	# sfa_d_more (how many more). Each side's patron is recorded as it stood (_apat, _tpat: SFA_get_patron_code).
+	set_variable = { global.SFA_feed_5_type = global.SFA_feed_4_type }
+	set_variable = { global.SFA_feed_5_actor = global.SFA_feed_4_actor }
+	set_variable = { global.SFA_feed_5_target = global.SFA_feed_4_target }
+	set_variable = { global.SFA_feed_5_region = global.SFA_feed_4_region }
+	set_variable = { global.SFA_feed_5_date = global.SFA_feed_4_date }
+	set_variable = { global.SFA_feed_5_apat = global.SFA_feed_4_apat }
+	set_variable = { global.SFA_feed_5_tpat = global.SFA_feed_4_tpat }
+	set_variable = { global.SFA_feed_5_kind = global.SFA_feed_4_kind }
+	set_variable = { global.SFA_feed_5_more = global.SFA_feed_4_more }
+	set_variable = { global.SFA_feed_5_state = global.SFA_feed_4_state }
+	set_variable = { global.SFA_feed_4_type = global.SFA_feed_3_type }
+	set_variable = { global.SFA_feed_4_actor = global.SFA_feed_3_actor }
+	set_variable = { global.SFA_feed_4_target = global.SFA_feed_3_target }
+	set_variable = { global.SFA_feed_4_region = global.SFA_feed_3_region }
+	set_variable = { global.SFA_feed_4_date = global.SFA_feed_3_date }
+	set_variable = { global.SFA_feed_4_apat = global.SFA_feed_3_apat }
+	set_variable = { global.SFA_feed_4_tpat = global.SFA_feed_3_tpat }
+	set_variable = { global.SFA_feed_4_kind = global.SFA_feed_3_kind }
+	set_variable = { global.SFA_feed_4_more = global.SFA_feed_3_more }
+	set_variable = { global.SFA_feed_4_state = global.SFA_feed_3_state }
+	set_variable = { global.SFA_feed_3_type = global.SFA_feed_2_type }
+	set_variable = { global.SFA_feed_3_actor = global.SFA_feed_2_actor }
+	set_variable = { global.SFA_feed_3_target = global.SFA_feed_2_target }
+	set_variable = { global.SFA_feed_3_region = global.SFA_feed_2_region }
+	set_variable = { global.SFA_feed_3_date = global.SFA_feed_2_date }
+	set_variable = { global.SFA_feed_3_apat = global.SFA_feed_2_apat }
+	set_variable = { global.SFA_feed_3_tpat = global.SFA_feed_2_tpat }
+	set_variable = { global.SFA_feed_3_kind = global.SFA_feed_2_kind }
+	set_variable = { global.SFA_feed_3_more = global.SFA_feed_2_more }
+	set_variable = { global.SFA_feed_3_state = global.SFA_feed_2_state }
+	set_variable = { global.SFA_feed_2_type = global.SFA_feed_1_type }
+	set_variable = { global.SFA_feed_2_actor = global.SFA_feed_1_actor }
+	set_variable = { global.SFA_feed_2_target = global.SFA_feed_1_target }
+	set_variable = { global.SFA_feed_2_region = global.SFA_feed_1_region }
+	set_variable = { global.SFA_feed_2_date = global.SFA_feed_1_date }
+	set_variable = { global.SFA_feed_2_apat = global.SFA_feed_1_apat }
+	set_variable = { global.SFA_feed_2_tpat = global.SFA_feed_1_tpat }
+	set_variable = { global.SFA_feed_2_kind = global.SFA_feed_1_kind }
+	set_variable = { global.SFA_feed_2_more = global.SFA_feed_1_more }
+	set_variable = { global.SFA_feed_2_state = global.SFA_feed_1_state }
+	set_variable = { global.SFA_feed_1_type = sfa_d_type }
+	event_target:SFA_d_actor = {
+		set_variable = { global.SFA_feed_1_actor = THIS }
+		SFA_get_patron_code = yes
+		set_variable = { global.SFA_feed_1_apat = sfa_code }
+	}
+	event_target:SFA_d_target = {
+		set_variable = { global.SFA_feed_1_target = THIS }
+		SFA_get_patron_code = yes
+		set_variable = { global.SFA_feed_1_tpat = sfa_code }
+	}
+	set_variable = { global.SFA_feed_1_region = sfa_d_region }
+	set_variable = { global.SFA_feed_1_date = global.date }
+	set_variable = { global.SFA_feed_1_kind = sfa_d_kind }
+	set_variable = { global.SFA_feed_1_more = sfa_d_more }
+	set_variable = { global.SFA_feed_1_state = sfa_d_state }
+	# a later dispatch in the same chain starts clean
+	set_temp_variable = { sfa_d_kind = 0 }
+	set_temp_variable = { sfa_d_more = 0 }
+	set_temp_variable = { sfa_d_state = 0 }
+}
+
+SFA_log_consolidation = {
+	# plan 4.3: no event; the board's dispatches show it (user, 2026-10-16)
+	log = "[GetDateText]: New Scramble for Africa: region [?sfa_d_region] consolidated (result [?sfa_result]) under [SFA_survivor.GetName]"
+}

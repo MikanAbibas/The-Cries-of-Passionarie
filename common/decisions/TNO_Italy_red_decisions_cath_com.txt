@@ -1,0 +1,446 @@
+############################################################################
+## ██╗████████╗ █████╗ ██╗         ██╗███╗   ███╗██████╗ ███████╗██████╗  ##
+## ██║╚══██╔══╝██╔══██╗██║         ██║████╗ ████║██╔══██╗██╔════╝██╔══██╗ ##
+## ██║   ██║   ███████║██║         ██║██╔████╔██║██████╔╝█████╗  ██████╔╝ ##
+## ██║   ██║   ██╔══██║██║         ██║██║╚██╔╝██║██╔═══╝ ██╔══╝  ██╔══██╗ ##
+## ██║   ██║   ██║  ██║███████╗    ██║██║ ╚═╝ ██║██║     ███████╗██║  ██║ ##
+## ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝ ##
+############################################################################ (not)
+#Decisions
+
+ITA_RED_rodano_mechanic = {
+	ITA_Rodano_scale_shift = {
+		priority = 100
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		is_good = yes
+		cancel_if_not_visible = no
+		days_mission_timeout = 30
+
+		timeout_effect = {
+			if = { 
+				limit = { check_variable = { ITA_RED_rodano_opinions > 50 } }
+				set_temp_variable = { ITA_RED_rodano_opinions_temp = ITA_RED_rodano_pcdi_opinion_shift }
+				ITA_RED_rodano_increase_pcdi_opinion = yes
+			}
+			else = {
+				set_temp_variable = { ITA_RED_rodano_opinions_temp = ITA_RED_rodano_vatican_opinion_shift }
+				ITA_RED_rodano_increase_vatican_opinion = yes
+			}
+			custom_effect_tooltip = ITA_RED_rodano_scale_shift_tt
+			activate_mission = ITA_Rodano_scale_shift
+		}
+	}	
+	ITA_RED_appeal_to_marxist_leninist_factions = { 
+		visible = { 
+			has_country_flag = ITA_RED_cathcom_mechanic_active
+		}
+		icon = GFX_decision_document_socialism
+		available = { }
+		
+		custom_cost_trigger = {
+			set_temp_variable = { t_pp_check = 25 }
+			
+			set_temp_variable = { t_ita_reaction_check = 5 }
+			
+			has_political_power > 24.99
+			check_variable = { ITA_RED_reaction < 94.99 }
+		}
+		custom_cost_text = decision_cost_pp_ita_reaction
+		
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -25
+			}
+			set_temp_variable = {ITA_RED_reaction_temp = 5}
+			ITA_RED_cultrev_reaction_change = yes
+		}
+		
+		remove_effect = {
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 5 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes 
+			set_temp_variable = { ITA_RED_militant_approval_temp = 5 }
+			ITA_RED_cultrev_militant_approval_change = yes
+			set_temp_variable = { ITA_RED_rodano_opinions_temp = 15 }
+			ITA_RED_rodano_increase_pcdi_opinion = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+	ITA_RED_promote_bolshevist_policies = { 
+		visible = { 
+			has_country_flag = ITA_RED_cathcom_mechanic_active
+		}
+		icon = GFX_decision_generic_propaganda
+		available = { }
+		custom_cost_trigger = {
+			set_temp_variable = { t_pp_check = 15 }
+			
+			set_temp_variable = { t_ita_militant_check = 5 }
+			
+			has_political_power > 14.99
+			check_variable = { ITA_RED_militant_approval < 94.99 }
+		}
+		custom_cost_text = decision_cost_pp_ita_militant
+		
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -15
+			}
+			set_temp_variable = {ITA_RED_militant_approval_temp = -5}
+			ITA_RED_cultrev_militant_approval_change = yes
+		}
+		
+		remove_effect = {
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 5 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes 
+			set_temp_variable = { ITA_RED_rodano_opinions_temp = 10 }
+			ITA_RED_rodano_increase_pcdi_opinion = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+
+		days_remove = 14
+		days_re_enable = 28
+	}
+	ITA_RED_soothe_moderate_concerns = { 
+		visible = { 
+			has_country_flag = ITA_RED_cathcom_mechanic_active
+		}
+		icon = GFX_decision_generic_political_action
+		available = { }
+		custom_cost_trigger = {
+			set_temp_variable = { t_pp_check = 15 }
+			set_temp_variable = { t_pp_check_extra = t_pp_check }
+			subtract_from_temp_variable = { t_pp_check_extra = 0.01 }
+			
+			set_temp_variable = { t_ita_fervor_check = 5 }
+			set_temp_variable = { t_ita_fervor_check_extra = t_ita_fervor_check }
+			subtract_from_temp_variable = { t_ita_fervor_check_extra = 0.01 }
+
+			has_political_power > t_pp_check_extra
+			check_variable = { ITA_RED_revolutionary_fervor > t_ita_fervor_check_extra }
+		}
+		custom_cost_text = decision_cost_pp_ita_fervor_dynamic
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -15
+			}
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = -5 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes 
+		}
+		remove_effect = {
+			set_temp_variable = { ITA_RED_reaction_temp = -10 }
+			ITA_RED_cultrev_reaction_change = yes
+			set_temp_variable = { ITA_RED_rodano_opinions_temp = 5 }
+			ITA_RED_rodano_increase_pcdi_opinion = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		days_remove = 7
+		days_re_enable = 21
+	}
+	ITA_RED_revise_the_party_line = { 
+		icon = GFX_decision_document_cancel
+		visible = { 
+			has_country_flag = ITA_RED_cathcom_mechanic_active
+		}
+		available = { }
+		
+		custom_cost_trigger = {
+			set_temp_variable = { t_pp_check = 25 }
+			
+			set_temp_variable = { t_ita_militant_check = 5 }
+			
+			has_political_power > 24.99
+			check_variable = { ITA_RED_militant_approval < 94.99 }
+		}
+		custom_cost_text = decision_cost_pp_ita_reaction
+		
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -25
+			}
+			set_temp_variable = {ITA_RED_militant_approval_temp = -5}
+			ITA_RED_cultrev_militant_approval_change = yes
+		}
+		
+		remove_effect = {
+			set_temp_variable = { ITA_RED_reaction_temp = -10 }
+			ITA_RED_cultrev_reaction_change = yes
+			set_temp_variable = { ITA_RED_rodano_opinions_temp = 15 }
+			ITA_RED_rodano_increase_vatican_opinion = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+	ITA_RED_plan_reforms_with_the_clergy = { 
+		icon = GFX_decision_generic_shake_hands
+		visible = { 
+			has_country_flag = ITA_RED_cathcom_mechanic_active
+		}
+		available = { }
+		remove_effect = {
+			set_temp_variable = {ITA_RED_severity_temp = 2.5}
+			ITA_RED_cultrev_severity_change = yes 
+			set_temp_variable = { ITA_RED_rodano_opinions_temp = 10 }
+			ITA_RED_rodano_increase_vatican_opinion = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 30
+		days_remove = 14
+		days_re_enable = 28
+	}
+	ITA_RED_appeal_to_humanism = {
+		icon = GFX_decision_generic_political_discourse
+		visible = { 
+			has_country_flag = ITA_RED_cathcom_mechanic_active
+		}
+		available = { }
+		remove_effect = {
+			set_temp_variable = { ITA_RED_red_terror_temp = -5 }
+			ITA_RED_cultrev_red_terror_change = yes
+			tno_gender_rights_improve = yes
+			set_temp_variable = { ITA_RED_rodano_opinions_temp = 5 }
+			ITA_RED_rodano_increase_vatican_opinion = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 20
+		days_remove = 7
+		days_re_enable = 21
+	}
+	
+	# ACT 2
+	ITA_RED_solidifying_our_independence = { 
+		visible = { 
+			has_country_flag = ITA_RED_cathcom_mechanic_active
+			has_country_flag = ITA_RED_middle_decisions_on
+		}
+		icon = GFX_decision_document_socialism
+		available = { }
+		
+		custom_cost_trigger = {
+			set_temp_variable = { t_ita_reaction_check = 5 }
+			
+			set_temp_variable = { t_ita_militant_check = 5 }
+
+			check_variable = { ITA_RED_reaction < 95 }
+			check_variable = { ITA_RED_severity < 95 }
+		}
+		custom_cost_text = decision_cost_reaction_ita_militant
+		complete_effect = {
+			set_temp_variable = {ITA_RED_reaction_temp = 5}
+			ITA_RED_cultrev_reaction_change = yes 
+			set_temp_variable = {ITA_RED_militant_approval_temp = -5}
+			ITA_RED_cultrev_militant_approval_change = yes 
+		}
+		
+		remove_effect = {
+			set_temp_variable = { ITA_RED_rodano_opinions_temp = 5 }
+			ITA_RED_rodano_increase_middle_opinion = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+	
+	ITA_RED_push_for_greater_reforms = { 
+		visible = { 
+			has_country_flag = ITA_RED_cathcom_mechanic_active
+			has_country_flag = ITA_RED_rev_fervor_for_reaction
+		}
+		icon = GFX_decision_document_socialism
+		available = { }
+		
+		custom_cost_trigger = {
+			set_temp_variable = { t_pp_check = 15 }
+			
+			set_temp_variable = { t_ita_reaction_check = 10 }
+			
+			has_political_power > 14.99
+			check_variable = { ITA_RED_reaction < 89.99 }
+		}
+		custom_cost_text = decision_cost_pp_ita_reaction
+		
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -15
+			}
+			set_temp_variable = {ITA_RED_reaction_temp = 5}
+			ITA_RED_cultrev_reaction_change = yes
+		}
+		
+		remove_effect = {
+			set_temp_variable = { ITA_RED_rodano_opinions_temp = 2.5 }
+			ITA_RED_rodano_increase_middle_opinion = yes
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 5 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes 
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+	
+	ITA_RED_undoing_rural_autonomy = { 
+		visible = { 
+			has_country_flag = ITA_RED_cathcom_mechanic_active
+			has_country_flag = ITA_RED_undoing_nep_rodano
+		}
+		icon = GFX_decision_document_socialism
+		available = { }
+		
+		custom_cost_trigger = {
+			set_temp_variable = { t_pp_check = 25 }
+			
+			set_temp_variable = { t_ita_red_terror_check = 5 }
+			
+			has_political_power > 24.99
+			check_variable = { ITA_RED_red_terror < 95 }
+		}
+		custom_cost_text = decision_cost_pp_ita_red_terror_dynamic
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -25
+			}
+			set_temp_variable = {ITA_RED_red_terror_temp = 5}
+			ITA_RED_cultrev_red_terror_change = yes 
+		}
+		
+		remove_effect = {
+			set_temp_variable = {ITA_RED_pillar_change_farmers_temp = 3}
+			ITA_RED_cultrev_progress_farmers = yes 
+			set_temp_variable = {ITA_RED_pillar_change_middle_class_temp = 3}
+			ITA_RED_cultrev_progress_middle_class = yes 
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		days_remove = 14
+		days_re_enable = 28
+	}
+}
+
+ITA_RED_gallo_mechanic = {
+	ITA_RED_gallo_party_tick = {
+		priority = 102
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		is_good = yes
+		cancel_if_not_visible = no
+		days_mission_timeout = 7
+
+		timeout_effect = {
+			hidden_effect = {
+				if = {
+					limit = { 
+						has_country_flag = ITA_RED_gallo_mechanic_active
+					}
+					activate_mission = ITA_RED_gallo_party_tick
+				}
+				#tick down based on uh... something
+			}
+		}
+	}
+	ITA_RED_gallo_clergy_tick = {
+		priority = 101
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		is_good = yes
+		cancel_if_not_visible = no
+		days_mission_timeout = 7
+
+		timeout_effect = {
+			
+			hidden_effect = {
+				if = {
+					limit = { 
+						has_country_flag = ITA_RED_gallo_mechanic_active
+					}
+					activate_mission = ITA_RED_gallo_clergy_tick
+				}
+				#ticks down based on severity
+				# ITA_RED_clergy_stage ITA_RED_severity
+			}
+		}
+	}
+	ITA_RED_gallo_vatican_tick = {
+		priority = 100
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		is_good = yes
+		cancel_if_not_visible = no
+		days_mission_timeout = 7
+
+		timeout_effect = {
+			hidden_effect = {
+				if = {
+					limit = { 
+						has_country_flag = ITA_RED_gallo_mechanic_active
+					}
+					activate_mission = ITA_RED_gallo_vatican_tick
+				}
+				#ticks down based on ITA_RED_red_terror
+				# ITA_RED_gallo_vatican_opinion
+			}
+		}
+	}
+	#party coop decisions - ITA_RED_gallo_party_cooperation
+	#clergy coop decisions - ITA_RED_gallo_clergy_cooperation
+	#student approval -> popular mobilization ITA_RED_gallo_popular_mobilization
+}

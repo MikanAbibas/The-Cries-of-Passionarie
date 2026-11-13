@@ -1,0 +1,1335 @@
+balkan_intervention = {
+	#german decisions
+	GER_send_soldiers_to_hungary = {
+		icon = decision_generic_military_parade
+		targets = { HUN }
+		available = {
+			FROM = {
+				exists = yes
+				has_war = yes
+			}
+		}
+		available = {
+			tag = GER
+			FROM = {
+				exists = yes
+				has_war = yes
+				has_country_flag = ZZZ_prepping_for_war
+			}
+		}
+		visible = {
+			tag = GER
+		}
+		days_remove = 1
+		fire_only_once = yes
+		
+		highlight_states = {
+			highlight_states_trigger = {
+				is_owned_and_controlled_by = FROM
+				is_capital = yes
+			}
+		}
+		on_map_mode = map_and_decisions_view
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_send_soldiers_to_hungary"
+		}
+		remove_effect = {
+			#set country flag to enable sending volunteers
+			set_country_flag = GER_hungarian_intervention
+			custom_effect_tooltip = "You Can Now Send Troops To Hungary!"
+		}
+		ai_will_do = { 
+			factor = 100
+		}
+	}
+
+	GER_send_soldiers_to_bulgaria = {
+		icon = decision_generic_military_parade
+		targets = { BUL }
+		available = {
+			FROM = {
+				exists = yes
+				has_war = yes
+			}
+		}
+		available = {
+			tag = GER
+			FROM = {
+				exists = yes
+				has_war = yes
+				has_country_flag = ZZZ_prepping_for_war
+			}
+		}
+		visible = {
+			tag = GER
+		}
+
+		days_remove = 1
+		fire_only_once = yes
+		
+		highlight_states = {
+			highlight_states_trigger = {
+				is_owned_and_controlled_by = FROM
+				is_capital = yes
+			}
+		}
+		on_map_mode = map_and_decisions_view
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_send_soldiers_to_bulgaria"
+		}
+		remove_effect = {
+			#set country flag to enable sending volunteers
+			set_country_flag = GER_bulgarian_intervention
+			custom_effect_tooltip = "You Can Now Send Troops To Bulgaria!"
+		}
+		ai_will_do = { 
+			factor = 100
+		}
+	}
+
+	GER_send_wehrmacht_instructors_to_balkan_ally = {
+		icon = decision_generic_military_parade
+		targets = { BUL HUN }
+		target_trigger = {
+			FROM = {
+				exists = yes
+				
+			}
+		}
+		visible = {
+			tag = GER
+			FROM = {
+				exists = yes
+				has_country_flag = ZZZ_prepping_for_war
+			}
+		}
+
+		custom_cost_trigger = {
+			has_political_power > 24
+			command_power > 9
+		}
+		custom_cost_text = decision_cost_10_cp_25_pp
+		days_remove = 7
+		days_re_enable = 21
+		
+		highlight_states = {
+			highlight_states_trigger = {
+				is_owned_and_controlled_by = FROM
+				is_capital = yes
+			}
+		}
+		on_map_mode = map_and_decisions_view
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_send_wehrmacht_instructors_to_balkan_ally"
+			hidden_effect = {
+				add_command_power = -10
+				add_political_power = -25
+			}
+		}
+		remove_effect = {
+			FROM = {
+				add_timed_idea = { idea = ZZZ_allied_advisors days = 200 }
+				hidden_effect = {
+					if = { limit = { is_ai = no } country_event = bormann.1210 }
+				}
+			}
+		}
+		ai_will_do = { 
+			factor = 20
+		}
+	}
+
+	GER_send_weapons_to_balkan_ally = {
+		icon = decision_black_market_infantry_purchase
+		available = {
+			has_equipment = { infantry_equipment > 999 }
+			has_equipment = { anti_tank_equipment > 999 }
+			has_equipment = { support_equipment > 299 }
+			has_equipment = { artillery_equipment > 199 }
+		}
+		targets = { BUL HUN }
+		target_trigger = {
+			FROM = {
+				exists = yes
+				
+			}
+		}
+		visible = {
+			tag = GER
+			FROM = {
+				exists = yes
+				has_country_flag = ZZZ_prepping_for_war
+			}
+		}
+
+		custom_cost_trigger = { command_power > 2 }
+		custom_cost_text = decision_cost_3_cp
+		days_remove = 3
+		days_re_enable = 14
+
+		highlight_states = {
+			highlight_states_trigger = {
+				is_owned_and_controlled_by = FROM
+				is_capital = yes
+			}
+		}
+		# on_map_mode = map_and_decisions_view
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_send_weapons_to_balkan_ally"
+			hidden_effect = { add_command_power = -3 }
+		}
+		remove_effect = {
+			send_equipment = {
+				type = infantry_equipment
+				amount = 1000
+				target = FROM
+			}
+			send_equipment = {
+				type = anti_tank_equipment
+				amount = 1000
+				target = FROM
+			}
+			send_equipment = {
+				type = support_equipment
+				amount = 300
+				target = FROM
+			}
+			send_equipment = {
+				type = artillery_equipment
+				amount = 200
+				target = FROM
+			}
+		}
+		ai_will_do = { 
+			factor = 20
+		}
+	}
+
+	GER_industrial_aid_for_balkan_ally = {
+		icon = generic_industry
+		targets = { BUL HUN }
+		target_trigger = {
+			FROM = {
+				exists = yes
+				
+			}
+		}
+		visible = {
+			tag = GER
+			FROM = {
+				exists = yes
+				has_country_flag = ZZZ_prepping_for_war
+			}
+		}
+
+		custom_cost_trigger = { check_variable = { GDP > 0 } }
+		custom_cost_text = decision_cost_25_million
+		fire_only_once = yes
+		days_remove = 25
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_industrial_aid_for_balkan_ally"
+			BOR_EconMech_cost_25M = yes
+		}
+		remove_effect = {
+			add_command_power = 25
+			FROM = {
+				add_offsite_building = { type = arms_factory level = 3 }
+			}
+		}
+		ai_will_do = { 
+			factor = 20
+		}
+	}
+
+	#italian decisions
+
+	ITA_send_soldiers_to_romania = {
+		icon = decision_generic_military_parade
+		targets = { ROM }
+		target_trigger = {
+			FROM = {
+				exists = yes
+				has_war = yes
+			}
+		}
+		available = {
+			tag = ITA
+			FROM = {
+				exists = yes
+				has_war = yes
+				has_country_flag = ZZZ_prepping_for_war
+			}
+		}
+		visible = {
+			tag = ITA
+		}
+		days_remove = 1
+		fire_only_once = yes
+		
+		highlight_states = {
+			highlight_states_trigger = {
+				is_owned_and_controlled_by = FROM
+				is_capital = yes
+			}
+		}
+		on_map_mode = map_and_decisions_view
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_send_soldiers_to_romania"
+		}
+		remove_effect = {
+			#set country flag to enable sending volunteers
+			set_country_flag = ITA_romanian_intervention
+			custom_effect_tooltip = "You Can Now Send Troops To Romania!"
+		}
+		ai_will_do = { 
+			factor = 100
+		}
+	}
+
+	ITA_send_soldiers_to_serbia = {
+		icon = decision_generic_military_parade
+		targets = { SER }
+		target_trigger = {
+			FROM = {
+				exists = yes
+				has_war = yes
+			}
+		}
+		available = {
+			tag = ITA
+			FROM = {
+				exists = yes
+				has_war = yes
+				has_country_flag = ZZZ_prepping_for_war
+			}
+		}
+		visible = {
+			tag = ITA
+		}
+		days_remove = 1
+		fire_only_once = yes
+		
+		highlight_states = {
+			highlight_states_trigger = {
+				is_owned_and_controlled_by = FROM
+				is_capital = yes
+			}
+		}
+		on_map_mode = map_and_decisions_view
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_send_soldiers_to_serbia"
+		}
+		remove_effect = {
+			#set country flag to enable sending volunteers
+			set_country_flag = ITA_serbian_intervention
+			custom_effect_tooltip = "You Can Now Send Troops To Serbia!"
+		}
+		ai_will_do = { 
+			factor = 100
+		}
+	}
+
+	ITA_send_wehrmacht_instructors_to_balkan_ally = {
+		icon = decision_generic_military_parade
+		targets = { ROM SER GRE }
+		target_trigger = {
+			FROM = {
+				exists = yes
+				
+			}
+		}
+		visible = {
+			tag = ITA
+			FROM = {
+				exists = yes
+				has_country_flag = ZZZ_prepping_for_war
+			}
+		}
+
+		custom_cost_trigger = {
+			has_political_power > 24
+			command_power > 9
+		}
+		custom_cost_text = decision_cost_10_cp_25_pp
+		days_remove = 7
+		days_re_enable = 21
+		
+		highlight_states = {
+			highlight_states_trigger = {
+				is_owned_and_controlled_by = FROM
+				is_capital = yes
+			}
+		}
+		on_map_mode = map_and_decisions_view
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_send_wehrmacht_instructors_to_balkan_ally"
+			hidden_effect = {
+				add_command_power = -10
+				add_political_power = -25
+			}
+		}
+		remove_effect = {
+			FROM = {
+				add_timed_idea = { idea = ZZZ_allied_advisors days = 200 }
+				hidden_effect = {
+					if = { limit = { is_ai = no } country_event = bormann.1210 }
+				}
+			}
+		}
+		ai_will_do = { 
+			factor = 20
+		}
+	}
+
+	ITA_send_weapons_to_balkan_ally = {
+		icon = decision_black_market_infantry_purchase
+		available = {
+			has_equipment = { infantry_equipment > 999 }
+			has_equipment = { anti_tank_equipment > 999 }
+			has_equipment = { support_equipment > 299 }
+			has_equipment = { artillery_equipment > 199 }
+		}
+		targets = { ROM SER GRE }
+		target_trigger = {
+			FROM = {
+				exists = yes
+				
+			}
+		}
+		visible = {
+			tag = ITA
+			FROM = {
+				exists = yes
+				has_country_flag = ZZZ_prepping_for_war
+			}
+		}
+
+		custom_cost_trigger = { command_power > 2 }
+		custom_cost_text = decision_cost_3_cp
+		days_remove = 3
+		days_re_enable = 14
+
+		highlight_states = {
+			highlight_states_trigger = {
+				is_owned_and_controlled_by = FROM
+				is_capital = yes
+			}
+		}
+		# on_map_mode = map_and_decisions_view
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_send_weapons_to_balkan_ally"
+			hidden_effect = { add_command_power = -3 }
+		}
+		remove_effect = {
+			send_equipment = {
+				type = infantry_equipment
+				amount = 1000
+				target = FROM
+			}
+			send_equipment = {
+				type = anti_tank_equipment
+				amount = 1000
+				target = FROM
+			}
+			send_equipment = {
+				type = support_equipment
+				amount = 300
+				target = FROM
+			}
+			send_equipment = {
+				type = artillery_equipment
+				amount = 200
+				target = FROM
+			}
+		}
+		ai_will_do = { 
+			factor = 20
+		}
+	}
+
+	ITA_industrial_aid_for_balkan_ally = {
+		icon = generic_industry
+		targets = { ROM SER GRE }
+		target_trigger = {
+			FROM = {
+				exists = yes
+				
+			}
+		}
+		visible = {
+			tag = ITA
+			FROM = {
+				exists = yes
+				has_country_flag = ZZZ_prepping_for_war
+			}
+		}
+
+		custom_cost_trigger = { check_variable = { GDP > 0 } }
+		custom_cost_text = decision_cost_25_million
+		fire_only_once = yes
+		days_remove = 25
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ITA_industrial_aid_for_balkan_ally"
+			BOR_EconMech_cost_25M = yes
+		}
+		remove_effect = {
+			add_command_power = 25
+			FROM = {
+				add_offsite_building = { type = arms_factory level = 3 }
+			}
+		}
+		ai_will_do = { 
+			factor = 20
+		}
+	}
+
+	ZZZ_hungary_surrender = {
+		available = {
+			tag = ITA
+		}
+		activation = {
+			HUN = {
+				surrender_progress > 0.3
+				has_country_flag = ZZZ_prepping_for_war
+			}
+		}
+		cancel_trigger = {
+			
+		}
+		days_mission_timeout = 1
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ZZZ_romania_peace"
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ZZZ_romania_peace"
+			set_global_flag = ZZZ_transylvania_rom_vic
+			ROM = {
+				white_peace = HUN
+				clr_country_flag = ZZZ_prepping_for_war
+				save_party_popularities = yes
+				ITA = {
+					set_autonomy = {
+						target = ROM
+						autonomous_state = autonomy_italy_associate
+						end_wars = no
+						end_civil_wars = no
+					}
+				}
+				apply_party_popularities = yes
+				set_politics = {
+					ruling_party = despotism
+				}
+				set_state_owner = 154
+				set_state_owner = 73
+				remove_ideas = ZZZ_transylvania_war
+			}
+			HUN = {
+				clr_country_flag = ZZZ_prepping_for_war
+				save_party_popularities = yes
+				ITA = {
+					set_autonomy = {
+						target = HUN
+						autonomous_state = autonomy_italy_associate
+						end_wars = no
+						end_civil_wars = no
+					}
+				}
+				apply_party_popularities = yes
+				set_politics = {
+					ruling_party = fascism
+				}
+				remove_ideas = ZZZ_transylvania_war
+			}
+			ITA = {
+				#prestige from event
+				country_event = ZZZ_balkan_war.9
+			}
+			CRO = {
+				set_state_owner = 45
+				set_state_owner = 771
+			}
+			#news event
+		}
+	}
+
+	ZZZ_romania_surrender = {
+		available = {
+			tag = GER
+		}
+		activation = {
+			ROM = {
+				surrender_progress > 0.3
+				has_country_flag = ZZZ_prepping_for_war
+			}
+		}
+		cancel_trigger = {
+			
+		}
+		days_mission_timeout = 1
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ZZZ_romania_peace"
+			
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision ZZZ_romania_peace"
+			set_global_flag = ZZZ_transylvania_hun_vic
+			ROM = {
+				white_peace = HUN
+				clr_country_flag = ZZZ_prepping_for_war
+				remove_ideas = ZZZ_transylvania_war
+				remove_ideas = ROM_ethnic_upheaval
+				add_ideas = Pakt_Bundnispartner
+			}
+			HUN = {
+				clr_country_flag = ZZZ_prepping_for_war
+				remove_ideas = ZZZ_transylvania_war
+				set_state_owner = 968
+				set_state_owner = 82
+				set_state_owner = 1287
+				set_state_owner = 84
+				set_state_owner = 1289
+				set_state_owner = 1288
+				set_state_owner = 76
+				set_state_owner = 83
+				add_ideas = Pakt_Bundnispartner
+			}
+			GER = {
+				#prestige from event
+				country_event = ZZZ_balkan_war.10
+				add_to_faction = ROM
+				add_to_faction = HUN
+			}
+			UKR = {
+				set_state_owner = 198
+				set_state_owner = 192
+			}
+			#news event
+		}
+	}
+
+	# ---------------------------------------------------------------------------------
+	# Pressing a claim. One decision per contested state, so each carries exactly the
+	# claimants who have business with it. A nation can run one border war at a time, must
+	# rest 180 days between them, and stops entirely once it has fought the open war.
+	# A state's 1962 holder is a claimant too, so it can take the state back once lost; Greece,
+	# which did not hold Thrace in 1962, only once a border war has taken it from Greece.
+	# ---------------------------------------------------------------------------------
+	BALKAN_press_76 = {
+		allowed = {
+			OR = {
+				tag = HUN
+				tag = ROM
+			}
+		}
+		visible = {
+			has_global_flag = BALKAN_BORDER_WARS
+			NOT = { has_country_flag = BALKAN_open_war_resolved }
+			NOT = { 76 = { is_owned_by = ROOT } }
+		}
+		available = {
+			BALKAN_presser_ready = yes
+			76 = { BALKAN_state_contestable = yes }
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 76 }
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 35
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_press_76 (Bihor)"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: BALKAN_press_76 resolves into a border war"
+			76 = { save_global_event_target_as = BALKAN_defender_state }
+			BALKAN_begin_border_war = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 25
+				has_war = no
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+	BALKAN_press_1288 = {
+		allowed = {
+			OR = {
+				tag = HUN
+				tag = ROM
+			}
+		}
+		visible = {
+			has_global_flag = BALKAN_BORDER_WARS
+			NOT = { has_country_flag = BALKAN_open_war_resolved }
+			NOT = { 1288 = { is_owned_by = ROOT } }
+		}
+		available = {
+			BALKAN_presser_ready = yes
+			1288 = { BALKAN_state_contestable = yes }
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 1288 }
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 35
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_press_1288 (Maramures)"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: BALKAN_press_1288 resolves into a border war"
+			1288 = { save_global_event_target_as = BALKAN_defender_state }
+			BALKAN_begin_border_war = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 25
+				has_war = no
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+	BALKAN_press_1289 = {
+		allowed = {
+			OR = {
+				tag = HUN
+				tag = ROM
+			}
+		}
+		visible = {
+			has_global_flag = BALKAN_BORDER_WARS
+			NOT = { has_country_flag = BALKAN_open_war_resolved }
+			NOT = { 1289 = { is_owned_by = ROOT } }
+		}
+		available = {
+			BALKAN_presser_ready = yes
+			1289 = { BALKAN_state_contestable = yes }
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 1289 }
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 35
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_press_1289 (Szeklerland)"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: BALKAN_press_1289 resolves into a border war"
+			1289 = { save_global_event_target_as = BALKAN_defender_state }
+			BALKAN_begin_border_war = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 25
+				has_war = no
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+	BALKAN_press_45 = {
+		allowed = {
+			OR = {
+				tag = SER
+				tag = CRO
+				tag = HUN
+			}
+		}
+		visible = {
+			has_global_flag = BALKAN_BORDER_WARS
+			NOT = { has_country_flag = BALKAN_open_war_resolved }
+			NOT = { 45 = { is_owned_by = ROOT } }
+		}
+		available = {
+			BALKAN_presser_ready = yes
+			BALKAN_CRO_may_press_vojvodina = yes
+			45 = { BALKAN_state_contestable = yes }
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 45 }
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 35
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_press_45 (Vojvodina)"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: BALKAN_press_45 resolves into a border war"
+			45 = { save_global_event_target_as = BALKAN_defender_state }
+			BALKAN_begin_border_war = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 25
+				has_war = no
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+	BALKAN_press_771 = {
+		allowed = {
+			OR = {
+				tag = SER
+				tag = CRO
+				tag = HUN
+			}
+		}
+		visible = {
+			has_global_flag = BALKAN_BORDER_WARS
+			NOT = { has_country_flag = BALKAN_open_war_resolved }
+			NOT = { 771 = { is_owned_by = ROOT } }
+		}
+		available = {
+			BALKAN_presser_ready = yes
+			# Hungary takes back its own; for anyone else it is a Yugoslav demand
+			OR = {
+				tag = HUN
+				BALKAN_is_yugoslav = yes
+			}
+			771 = { BALKAN_state_contestable = yes }
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 771 }
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 35
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_press_771 (Hungarian Slovenia)"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: BALKAN_press_771 resolves into a border war"
+			771 = { save_global_event_target_as = BALKAN_defender_state }
+			BALKAN_begin_border_war = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 25
+				has_war = no
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+	BALKAN_press_968 = {
+		allowed = {
+			OR = {
+				tag = SER
+				tag = CRO
+				tag = ROM
+			}
+		}
+		visible = {
+			has_global_flag = BALKAN_BORDER_WARS
+			NOT = { has_country_flag = BALKAN_open_war_resolved }
+			NOT = { 968 = { is_owned_by = ROOT } }
+		}
+		available = {
+			BALKAN_presser_ready = yes
+			BALKAN_CRO_may_press_banat = yes
+			968 = { BALKAN_state_contestable = yes }
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 968 }
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 35
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_press_968 (Panciova)"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: BALKAN_press_968 resolves into a border war"
+			968 = { save_global_event_target_as = BALKAN_defender_state }
+			BALKAN_begin_border_war = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 25
+				has_war = no
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+	BALKAN_press_969 = {
+		allowed = {
+			OR = {
+				tag = SER
+				tag = CRO
+			}
+		}
+		visible = {
+			has_global_flag = BALKAN_BORDER_WARS
+			NOT = { has_country_flag = BALKAN_open_war_resolved }
+			NOT = { 969 = { is_owned_by = ROOT } }
+		}
+		available = {
+			BALKAN_presser_ready = yes
+			969 = { BALKAN_state_contestable = yes }
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 969 }
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 35
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_press_969 (Srijem)"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: BALKAN_press_969 resolves into a border war"
+			969 = { save_global_event_target_as = BALKAN_defender_state }
+			BALKAN_begin_border_war = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 25
+				has_war = no
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+	BALKAN_press_731 = {
+		allowed = {
+			OR = {
+				tag = BUL
+				tag = GRE
+			}
+		}
+		visible = {
+			has_global_flag = BALKAN_BORDER_WARS
+			NOT = { has_country_flag = BALKAN_open_war_resolved }
+			NOT = { 731 = { is_owned_by = ROOT } }
+		}
+		available = {
+			BALKAN_presser_ready = yes
+			731 = { BALKAN_state_contestable = yes }
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 731 }
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 35
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_press_731 (Thessaloniki)"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: BALKAN_press_731 resolves into a border war"
+			731 = { save_global_event_target_as = BALKAN_defender_state }
+			BALKAN_begin_border_war = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 25
+				has_war = no
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+	BALKAN_press_1265 = {
+		allowed = {
+			OR = {
+				tag = BUL
+				tag = GRE
+			}
+		}
+		visible = {
+			has_global_flag = BALKAN_BORDER_WARS
+			NOT = { has_country_flag = BALKAN_open_war_resolved }
+			NOT = { 1265 = { is_owned_by = ROOT } }
+		}
+		available = {
+			BALKAN_presser_ready = yes
+			1265 = { BALKAN_state_contestable = yes }
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 1265 }
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 35
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_press_1265 (Anatoliki Makedonia)"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: BALKAN_press_1265 resolves into a border war"
+			1265 = { save_global_event_target_as = BALKAN_defender_state }
+			BALKAN_begin_border_war = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 25
+				has_war = no
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+	BALKAN_press_184 = {
+		allowed = {
+			OR = {
+				tag = BUL
+				tag = GRE
+			}
+		}
+		visible = {
+			has_global_flag = BALKAN_BORDER_WARS
+			NOT = { has_country_flag = BALKAN_open_war_resolved }
+			NOT = { 184 = { is_owned_by = ROOT } }
+			# Greece never held Thrace in 1962: it takes back only what a border war took from it
+			OR = {
+				NOT = { tag = GRE }
+				184 = { has_state_flag = BALKAN_lost_by_GRE }
+			}
+		}
+		available = {
+			BALKAN_presser_ready = yes
+			BALKAN_thrace_open = yes
+			184 = { BALKAN_state_contestable = yes }
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 184 }
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 35
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_press_184 (West Thrace)"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: BALKAN_press_184 resolves into a border war"
+			184 = { save_global_event_target_as = BALKAN_defender_state }
+			BALKAN_begin_border_war = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 25
+				has_war = no
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+	BALKAN_press_1266 = {
+		allowed = {
+			OR = {
+				tag = BUL
+				tag = GRE
+			}
+		}
+		visible = {
+			has_global_flag = BALKAN_BORDER_WARS
+			NOT = { has_country_flag = BALKAN_open_war_resolved }
+			NOT = { 1266 = { is_owned_by = ROOT } }
+			# Greece never held Thrace in 1962: it takes back only what a border war took from it
+			OR = {
+				NOT = { tag = GRE }
+				1266 = { has_state_flag = BALKAN_lost_by_GRE }
+			}
+		}
+		available = {
+			BALKAN_presser_ready = yes
+			BALKAN_thrace_open = yes
+			1266 = { BALKAN_state_contestable = yes }
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 1266 }
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 35
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_press_1266 (Central Thrace)"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: BALKAN_press_1266 resolves into a border war"
+			1266 = { save_global_event_target_as = BALKAN_defender_state }
+			BALKAN_begin_border_war = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 25
+				has_war = no
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+	BALKAN_press_105 = {
+		allowed = {
+			OR = {
+				tag = SER
+				tag = CRO
+			}
+		}
+		visible = {
+			has_global_flag = BALKAN_BORDER_WARS
+			NOT = { has_country_flag = BALKAN_open_war_resolved }
+			NOT = { 105 = { is_owned_by = ROOT } }
+		}
+		available = {
+			BALKAN_presser_ready = yes
+			BALKAN_italian_states_open = yes
+			105 = { BALKAN_state_contestable = yes }
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 105 }
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 35
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_press_105 (Kossovo)"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: BALKAN_press_105 resolves into a border war"
+			105 = { save_global_event_target_as = BALKAN_defender_state }
+			BALKAN_begin_border_war = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 25
+				has_war = no
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+	BALKAN_press_745 = {
+		allowed = {
+			OR = {
+				tag = SER
+				tag = CRO
+			}
+		}
+		visible = {
+			has_global_flag = BALKAN_BORDER_WARS
+			NOT = { has_country_flag = BALKAN_open_war_resolved }
+			NOT = { 745 = { is_owned_by = ROOT } }
+		}
+		available = {
+			BALKAN_presser_ready = yes
+			BALKAN_italian_states_open = yes
+			745 = { BALKAN_state_contestable = yes }
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 745 }
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 35
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_press_745 (Montenegro)"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: BALKAN_press_745 resolves into a border war"
+			745 = { save_global_event_target_as = BALKAN_defender_state }
+			BALKAN_begin_border_war = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 25
+				has_war = no
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+
+	# Vardar Macedonia: the interwar Vardar Banovina, so a Yugoslav claim is historical even
+	# though the state carries only a Bulgarian core. Yugoslav claimants, or Bulgaria taking it
+	# back - BALKAN_is_yugoslav keeps Ustase Croatia out, as it does on Hungarian Slovenia.
+	BALKAN_press_106 = {
+		allowed = {
+			OR = {
+				tag = SER
+				tag = CRO
+				tag = BUL
+			}
+		}
+		visible = {
+			has_global_flag = BALKAN_BORDER_WARS
+			NOT = { has_country_flag = BALKAN_open_war_resolved }
+			NOT = { 106 = { is_owned_by = ROOT } }
+		}
+		available = {
+			BALKAN_presser_ready = yes
+			# Bulgaria retakes its own; for anyone else it is a Yugoslav demand
+			OR = {
+				tag = BUL
+				BALKAN_is_yugoslav = yes
+			}
+			106 = { BALKAN_state_contestable = yes }
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 106 }
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 35
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_press_106 (Skopje)"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: BALKAN_press_106 resolves into a border war"
+			106 = { save_global_event_target_as = BALKAN_defender_state }
+			BALKAN_begin_border_war = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 25
+				has_war = no
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+	# Vardar Macedonia: the interwar Vardar Banovina, so a Yugoslav claim is historical even
+	# though the state carries only a Bulgarian core. Yugoslav claimants, or Bulgaria taking it
+	# back - BALKAN_is_yugoslav keeps Ustase Croatia out, as it does on Hungarian Slovenia.
+	BALKAN_press_1271 = {
+		allowed = {
+			OR = {
+				tag = SER
+				tag = CRO
+				tag = BUL
+			}
+		}
+		visible = {
+			has_global_flag = BALKAN_BORDER_WARS
+			NOT = { has_country_flag = BALKAN_open_war_resolved }
+			NOT = { 1271 = { is_owned_by = ROOT } }
+		}
+		available = {
+			BALKAN_presser_ready = yes
+			# Bulgaria retakes its own; for anyone else it is a Yugoslav demand
+			OR = {
+				tag = BUL
+				BALKAN_is_yugoslav = yes
+			}
+			1271 = { BALKAN_state_contestable = yes }
+		}
+		highlight_states = {
+			highlight_state_targets = { state = 1271 }
+		}
+		on_map_mode = map_and_decisions_view
+		cost = 35
+		days_remove = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_press_1271 (Vardar)"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: BALKAN_press_1271 resolves into a border war"
+			1271 = { save_global_event_target_as = BALKAN_defender_state }
+			BALKAN_begin_border_war = yes
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 25
+				has_war = no
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_political_power > 60 }
+			}
+		}
+	}
+
+}

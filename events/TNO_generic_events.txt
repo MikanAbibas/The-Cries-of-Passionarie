@@ -1,0 +1,562 @@
+﻿#GENERIC EVENTS
+
+add_namespace = ZZZ_generic
+add_namespace = ZZZ_balkan_war
+
+country_event = { #REMOVES OIL CRISIS
+	id = ZZZ_generic.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_generic.1"}
+	title = ZZZ_generic.1.t
+	desc = ZZZ_generic.1.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	
+	option = {
+		name = ZZZ_generic.1.a
+		TNO_Oil_Crisis_remove_modifier = yes
+	}
+}
+
+country_event = { #skirmishes with Romanian border guards fires for hungary
+	id = ZZZ_balkan_war.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.1"}
+	title = ZZZ_balkan_war.1.t
+	desc = ZZZ_balkan_war.1.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	
+	option = {
+		name = ZZZ_balkan_war.1.a
+		#HUN remove negative modifiers
+		set_country_flag = ZZZ_prepping_for_war
+		ROM = {
+			country_event = {
+				id = ZZZ_balkan_war.2
+				days = 2
+			}
+		}
+		add_threat = 10
+		remove_ideas = HUN_suffocated_economy
+		ROM = { save_global_event_target_as = BALKAN_opponent }
+		# A belligerent only breaks with its bloc if the enemy is a bloc partner. Fighting the
+		# other camp's proxy costs it nothing - that is what makes this a proxy war.
+		BALKAN_sever_if_former_ally = yes
+		# An overlord only releases both when it owns both sides of the quarrel.
+		if = {
+			limit = {
+				ROM = { is_subject_of = GER }
+				HUN = { is_subject_of = GER }
+			}
+			GER = {
+				end_puppet = ROM
+				end_puppet = HUN
+			}
+		}
+		if = {
+			limit = {
+				ROM = { is_subject_of = ITA }
+				HUN = { is_subject_of = ITA }
+			}
+			ITA = {
+				end_puppet = ROM
+				end_puppet = HUN
+			}
+		}
+	}
+}
+
+country_event = { #romania get's the border skirmish event and starts preparing for war
+	id = ZZZ_balkan_war.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.2"}
+	title = ZZZ_balkan_war.2.t
+	desc = ZZZ_balkan_war.2.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	
+	option = {
+		name = ZZZ_balkan_war.2.a
+		set_country_flag = ZZZ_prepping_for_war
+		#set_global_flag = ZZZ_balkan_troubles
+		HUN = { save_global_event_target_as = BALKAN_opponent }
+		BALKAN_sever_if_former_ally = yes
+		GER = {
+			country_event = {
+				id = ZZZ_balkan_war.3
+				days = 1
+			}
+		}
+		ITA = {
+			country_event = {
+				id = ZZZ_balkan_war.3
+				days = 1
+			}
+		}
+		HUN = {
+			country_event = {
+				id = ZZZ_balkan_war.4
+				days = 60
+			}
+		}
+		GRE = {
+			country_event = {
+				id = ZZZ_balkan_war.5
+				days = 400
+			}
+		}
+	}
+}
+
+country_event = { #warning for italy and germany that things are about to go hot
+	id = ZZZ_balkan_war.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.3"}
+	title = ZZZ_balkan_war.3.t
+	desc = ZZZ_balkan_war.3.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	
+	option = {
+		name = ZZZ_balkan_war.3.a
+		trigger = {
+			tag = GER
+		}
+		custom_effect_tooltip = "New Decisions To Assist Hungary Are Available"
+		add_ideas = ZZZ_balkan_intervention
+	}
+
+	option = {
+		name = ZZZ_balkan_war.3.b
+		trigger = {
+			tag = ITA
+		}
+		custom_effect_tooltip = "New Decisions To Assist Romania Are Available"
+		add_ideas = ZZZ_balkan_intervention
+	}
+}
+
+country_event = { #hungary declares war on Romania!
+	id = ZZZ_balkan_war.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.4"}
+	title = ZZZ_balkan_war.4.t
+	desc = ZZZ_balkan_war.4.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	
+	option = {
+		name = ZZZ_balkan_war.4.a
+		declare_war_on = {
+			target = ROM
+			type = annex_everything
+		}
+		add_ideas = ZZZ_transylvania_war
+		set_war_support = 0.6
+		ROM = {
+			add_ideas = ZZZ_transylvania_war
+		}
+		hidden_effect = {
+			every_country = {
+				news_event = {
+					id = RA_GLOBAL_NEWS.4
+					days = 2
+				}
+			}
+		}
+	}
+}
+
+country_event = { #bulgaria mobilizing for conflict with greece
+	id = ZZZ_balkan_war.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.5"}
+	title = ZZZ_balkan_war.5.t
+	desc = ZZZ_balkan_war.5.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	
+	option = {
+		name = ZZZ_balkan_war.5.a
+		GER = {
+			country_event = {
+				id = ZZZ_balkan_war.6
+				days = 1
+			}
+			end_puppet = SER
+			end_puppet = GRE
+			end_puppet = BUL
+		}
+		ITA = {
+			country_event = {
+				id = ZZZ_balkan_war.6
+				days = 1
+			}
+		}
+		# Rome only lets go of a client when it owns both sides of the quarrel.
+		if = {
+			limit = {
+				BUL = { is_subject_of = ITA }
+				GRE = { is_subject_of = ITA }
+			}
+			ITA = {
+				end_puppet = GRE
+				end_puppet = BUL
+			}
+		}
+		if = {
+			limit = {
+				BUL = { is_subject_of = ITA }
+				SER = { is_subject_of = ITA }
+			}
+			ITA = {
+				end_puppet = SER
+				end_puppet = BUL
+			}
+		}
+		# Each belligerent keeps its bloc unless the enemy is a bloc partner.
+		BUL = { save_global_event_target_as = BALKAN_opponent }
+		SER = {
+			country_event = {
+				id = ZZZ_balkan_war.7
+				days = 1
+			}
+			set_country_flag = ZZZ_prepping_for_war
+			BALKAN_sever_if_former_ally = yes
+		}
+		set_country_flag = ZZZ_prepping_for_war
+		BALKAN_sever_if_former_ally = yes
+		GRE = { save_global_event_target_as = BALKAN_opponent }
+		BUL = {
+			set_country_flag = ZZZ_prepping_for_war
+			BALKAN_sever_if_former_ally = yes
+		}
+	}
+}
+
+country_event = { #italy and germany are warned about war between bulgaria and greece + serbia
+	id = ZZZ_balkan_war.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.6"}
+	title = ZZZ_balkan_war.6.t
+	desc = ZZZ_balkan_war.6.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	
+	option = {
+		name = ZZZ_balkan_war.6.a
+		trigger = {
+			tag = GER
+		}
+		custom_effect_tooltip = "New Decisions To Assist Bulgaria Are Available"
+	}
+
+	option = {
+		name = ZZZ_balkan_war.6.b
+		trigger = {
+			tag = ITA
+		}
+		custom_effect_tooltip = "New Decisions To Assist Serbia and Greece Are Available"
+	}
+}
+
+country_event = { #serbia forms alliance with greece
+	id = ZZZ_balkan_war.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.7"}
+	title = ZZZ_balkan_war.7.t
+	desc = ZZZ_balkan_war.7.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	
+	option = {
+		name = ZZZ_balkan_war.7.a
+		BUL = {
+			country_event = {
+				id = ZZZ_balkan_war.8
+				days = 50
+			}
+		}
+		load_oob = SER_1962
+		# create_faction = "Marble Alliance"
+		# add_to_faction = GRE
+	}
+}
+
+country_event = { #bulgaria declares war on greece and serbia
+	id = ZZZ_balkan_war.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.8"}
+	title = ZZZ_balkan_war.8.t
+	desc = ZZZ_balkan_war.8.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	
+	option = {
+		name = ZZZ_balkan_war.8.a
+		declare_war_on = {
+			target = SER
+			type = annex_everything
+		}
+		declare_war_on = {
+			target = GRE
+			type = annex_everything
+		}
+		add_ideas = ZZZ_macedonia_war
+		SER = {
+			add_ideas = ZZZ_macedonia_war
+		}
+		GRE = {
+			add_ideas = ZZZ_macedonia_war
+		}
+		#news event
+		hidden_effect = {
+			every_country = {
+				news_event = {
+					id = RA_GLOBAL_NEWS.5
+					days = 2
+				}
+			}
+		}
+	}
+}
+
+country_event = { #for italy, romania wins war
+	id = ZZZ_balkan_war.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.9"}
+	title = ZZZ_balkan_war.9.t
+	desc = ZZZ_balkan_war.9.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	
+	option = {
+		name = ZZZ_balkan_war.9.a
+		hidden_effect = {
+			every_country = {
+				news_event = {
+					id = RA_GLOBAL_NEWS.7
+					days = 1
+				}
+			}
+		}
+		#prestige
+		custom_effect_tooltip = {
+			localization_key = TNO_prestige_gain
+			PRESTIGE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+6"
+			}
+		}
+		add_to_variable = {
+			var = prestige
+			value = 6
+		}
+		add_to_faction = ROM
+		add_to_faction = HUN
+		ROM = {
+			add_ideas = Rome_member
+		}
+		HUN = {
+			add_ideas = Rome_client
+		}
+	}
+}
+
+country_event = { #for germany, hun wins war
+	id = ZZZ_balkan_war.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.10"}
+	title = ZZZ_balkan_war.10.t
+	desc = ZZZ_balkan_war.10.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	
+	option = {
+		name = ZZZ_balkan_war.10.a
+		hidden_effect = {
+			every_country = {
+				news_event = {
+					id = RA_GLOBAL_NEWS.8
+					days = 1
+				}
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_prestige_gain
+			PRESTIGE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+6"
+			}
+		}
+		add_to_variable = {
+			var = prestige
+			value = 6
+		}
+		add_to_faction = ROM
+		add_to_faction = HUN
+		ROM = {
+			add_ideas = Pakt_Marionettenstaat
+		}
+		HUN = {
+			add_ideas = Pakt_Bundnispartner
+		}
+	}
+}
+
+country_event = { #for italy, serb and greece wins war
+	id = ZZZ_balkan_war.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.11"}
+	title = ZZZ_balkan_war.11.t
+	desc = ZZZ_balkan_war.11.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	
+	option = {
+		name = ZZZ_balkan_war.11.a
+		hidden_effect = {
+			every_country = {
+				news_event = {
+					id = RA_GLOBAL_NEWS.9
+					days = 1
+				}
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_prestige_gain
+			PRESTIGE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+6"
+			}
+		}
+		add_to_variable = {
+			var = prestige
+			value = 6
+		}
+		add_to_faction = SER
+		add_to_faction = GRE
+		SER = {
+			add_ideas = Rome_member
+		}
+		GRE = {
+			add_ideas = Rome_member
+		}
+	}
+}
+
+country_event = { # Opens the Balkan crisis, 40 days after the German Civil War begins.
+	# Hidden: the player learns of it through RA_GLOBAL_NEWS.49, not a popup.
+	# Fired from GER_GCW_begin (common/scripted_effects/TNO_Germany_scripted_effects.txt).
+	id = ZZZ_balkan_war.13
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.13 (Balkan crisis opens)"
+		set_global_flag = ZZZ_balkan_troubles
+		# Opens the border-war window: the decade of single-state contests before the
+		# crisis proper. Closed again by the Crisis dispatcher when it is built.
+		set_global_flag = BALKAN_BORDER_WARS
+		set_variable = { global.BALKAN_tension = 0 }
+		# Kossovo and Montenegro open to Belgrade once Yugoslavia forms; the date is the
+		# fallback so a Serbia that never unites still gets its chance.
+		if = {
+			limit = { has_global_flag = CRO_yugoslavia }
+			set_global_flag = BALKAN_italian_claims_open
+		}
+		else = {
+			random_country = {
+				limit = { tag = SER }
+				country_event = { id = balkanborder.4 days = 900 }
+			}
+		}
+		# Who sponsors whom, from the Great Game rather than hardcoded sides.
+		BALKAN_resolve_backing = yes
+		every_country = {
+			news_event = RA_GLOBAL_NEWS.49
+		}
+	}
+}
+
+country_event = { # The guns go quiet: close the border-war window.
+	# Fired 30 days after whichever of the two open wars settles LAST
+	# (BALKAN_check_crisis_over).
+	id = ZZZ_balkan_war.14
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: ZZZ_balkan_war.14 Balkan border wars close"
+		clr_global_flag = BALKAN_BORDER_WARS
+		set_global_flag = BALKAN_BORDER_WARS_OVER
+		every_country = {
+			limit = {
+				OR = {
+					tag = ROM
+					tag = HUN
+					tag = BUL
+					tag = GRE
+					tag = SER
+					tag = CRO
+				}
+			}
+			clr_country_flag = BALKAN_border_war_active
+			clr_country_flag = BALKAN_border_war_cooldown
+		}
+		every_country = {
+			news_event = RA_GLOBAL_NEWS.50
+		}
+	}
+}
+
+country_event = { #for Germany, bulgaria wins the Macedonian war under Pakt sponsorship
+	id = ZZZ_balkan_war.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.12"}
+	title = ZZZ_balkan_war.12.t
+	desc = ZZZ_balkan_war.12.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ZZZ_balkan_war.12.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = { #for Italy, bulgaria wins the Macedonian war under Roman sponsorship
+	id = ZZZ_balkan_war.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.15"}
+	title = ZZZ_balkan_war.15.t
+	desc = ZZZ_balkan_war.15.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ZZZ_balkan_war.15.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = { #for Italy, hungary wins the Transylvanian war under Roman sponsorship
+	id = ZZZ_balkan_war.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.16"}
+	title = ZZZ_balkan_war.16.t
+	desc = ZZZ_balkan_war.16.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ZZZ_balkan_war.16.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = { #for Germany, romania wins the Transylvanian war under Pakt sponsorship
+	id = ZZZ_balkan_war.17
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ZZZ_balkan_war.17"}
+	title = ZZZ_balkan_war.17.t
+	desc = ZZZ_balkan_war.17.d
+	picture = GFX_report_event_Generic_Papers
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ZZZ_balkan_war.17.a
+		ai_chance = { factor = 1 }
+	}
+}

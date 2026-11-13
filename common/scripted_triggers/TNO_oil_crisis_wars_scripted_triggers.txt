@@ -1,0 +1,89 @@
+# The Oil Crisis wars. OIL_check_crisis_end (TNO_useful_scripted_effects.txt) ends the crisis once none
+# of them is still to come and none is being fought. A war counts as still to come from the moment its
+# chain is scheduled, or for Egypt and Yemen until their collapse has been decided. A client Italy's
+# Empire Management has stabilized (empire_stabilized, or empire_keystone_ally after it) never collapses,
+# and since stabilization is never lost, its war never counts.
+
+OIL_crisis_wars_settled = {
+	OIL_egypt_war_settled = yes
+	OIL_syria_war_settled = yes
+	OIL_iraq_war_settled = yes
+	OIL_yemen_war_settled = yes
+	OIL_oman_war_settled = yes
+}
+
+# Egypt: egy.999 decides once, after 1969.10.8, and sets OIL_egypt_decided. A stabilized Egypt stays
+# whole (egy.999.d). Otherwise the Ba'athists (EGB) rise at once (egy.43-.45), the Qutbists (EGQ) three
+# days later, and Sudan splits five ways a week later (sudandebug.1); the ten days cover both.
+OIL_egypt_war_settled = {
+	has_global_flag = { flag = OIL_egypt_decided days > 10 }
+	NOT = {
+		EGY = { OR = { has_war_with = EGB has_war_with = EGQ } }
+		EGB = { has_war_with = EGQ }
+		RPS = { OR = { has_war_with = SDS has_war_with = SDF has_war_with = AZA has_war_with = AYA } }
+		SDS = { OR = { has_war_with = SDF has_war_with = AZA has_war_with = AYA } }
+		SDF = { OR = { has_war_with = AZA has_war_with = AYA } }
+		AZA = { has_war_with = AYA }
+	}
+}
+
+# Syria: a strong Ba'athist rising in Egypt (egy.45) sets OIL_syrian_revolt_pending and sends Turkey
+# down turkey.28 (+270), .29 (+10) and .26 (+10), the Syrian Revolt, which sets Syrian_Revolt.
+# turkey.28 does not fire during World War Three.
+OIL_syria_war_settled = {
+	NOT = {
+		AND = {
+			has_global_flag = OIL_syrian_revolt_pending
+			NOT = { has_global_flag = Syrian_Revolt }
+			country_exists = TUR
+			NOT = { has_global_flag = TNO_world_tension_WW3 }
+		}
+		SYR = { OR = { has_war_with = TUR has_war_with = DAM has_war_with = LEB } }
+	}
+}
+
+# Iraq: the Syrian Revolt (turkey.26, +25) or a stabilized Egypt (egy.999.d, +315) schedules IraqCW.1
+# unless Iraq is stabilized, and sets OIL_iraq_war_pending. The war is declared about 54 days on
+# (IraqCW.8), which sets Iraq_CW.
+OIL_iraq_war_settled = {
+	NOT = {
+		AND = {
+			has_global_flag = OIL_iraq_war_pending
+			NOT = { has_global_flag = Iraq_CW }
+			country_exists = IRQ
+		}
+		IRQ = { OR = { has_war_with = IRP has_war_with = BIR has_war_with = SNI has_war_with = KUR } }
+		IRP = { OR = { has_war_with = BIR has_war_with = SNI has_war_with = KUR } }
+		BIR = { OR = { has_war_with = SNI has_war_with = KUR } }
+		SNI = { has_war_with = KUR }
+	}
+}
+
+# Yemen: YEM.50 fires from 1969.6.3 unless Yemen is stabilized, and sets arab_war_ongoing; YEM.51
+# declares the civil war four days later. A victorious North Yemen may then attack Saudi Arabia (YEM.56).
+OIL_yemen_war_settled = {
+	NOT = {
+		AND = {
+			country_exists = YEM
+			NOT = { has_global_flag = arab_war_ongoing }
+			NOT = { has_global_flag = arab_war_over }
+			YEM = {
+				NOT = { has_idea = empire_stabilized }
+				NOT = { has_idea = empire_keystone_ally }
+			}
+		}
+		has_global_flag = { flag = arab_war_ongoing days < 10 }
+		YEM = { has_war_with = NYM }
+		NYM = { has_war_with = SAU }
+	}
+}
+
+# Oman: YEM.50 starts Qaboos's coup (OMA.1, +4) unless Oman is stabilized. The Imamate (OMA.4) and
+# Dhofar (OMA.5) rise 20 and 22 days after YEM.50.
+OIL_oman_war_settled = {
+	NOT = {
+		has_global_flag = { flag = arab_war_ongoing days < 30 }
+		OMA = { OR = { has_war_with = OMI has_war_with = OMB } }
+		OMI = { has_war_with = OMB }
+	}
+}

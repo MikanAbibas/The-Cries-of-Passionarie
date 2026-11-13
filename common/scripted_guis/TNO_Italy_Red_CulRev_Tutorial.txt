@@ -1,0 +1,221 @@
+scripted_gui = {
+
+	TNO_ITA_RED_open_culrev_tutorial_container = {
+		context_type = player_context
+		parent_window_token = politics_tab
+		window_name = "TNO_ITA_RED_open_culrev_tutorial_container"
+
+		visible = {
+			tag = ITA
+			has_country_flag = ITA_RED_kings_culrev_available
+		}
+
+		triggers = {
+			# The gui_alert icon is commented out of the .gui, so this controls
+			# nothing. Kept for when the arrow comes back.
+			gui_alert_visible = { always = no }
+			#gui_alert_visible = {
+			#NOT = { has_country_flag = ITA_RED_culrev_tutorial_alert_hidden }
+			#NOT = { has_country_flag = ITA_RED_culrev_tutorial_open }
+			#}
+		}
+
+		effects = {
+			open_culrev_button_click = {
+				if = {
+					limit = { NOT = { has_country_flag = ITA_RED_culrev_tutorial_open } }
+					set_country_flag = ITA_RED_culrev_tutorial_open
+				}
+				else = {
+					clr_country_flag = ITA_RED_culrev_tutorial_open
+				}
+				set_country_flag = ITA_RED_culrev_tutorial_alert_hidden
+			}
+		}
+	}
+
+	TNO_ITA_RED_culrev_tutorial_main_container = {
+		context_type = player_context
+		window_name = "TNO_ITA_RED_culrev_tutorial_main_container"
+
+		visible = {
+			has_country_flag = ITA_RED_culrev_tutorial_open
+		}
+
+		triggers = {
+			Old_Left_coup_alert_visible = {
+				OR = {
+					check_variable = {ITA_RED_Old_Left_Power = 80}
+					check_variable = {ITA_RED_Old_Left_Power > 80}
+				}
+			}
+			Old_Left_increasing_visible = {
+					check_variable = {modifier@ITA_RED_weekly_old_guard_modifier > 0}
+			}
+			Old_Left_decreasing_visible = {
+					check_variable = {modifier@ITA_RED_weekly_old_guard_modifier < 0}
+			}
+
+			New_Left_approval_coup_alert_visible = {
+				OR = {
+					check_variable = {ITA_RED_New_Left_Power = 80}
+					check_variable = {ITA_RED_New_Left_Power > 80}
+				}
+			}
+			New_Left_increasing_visible = {
+					check_variable = {modifier@ITA_RED_weekly_new_left_modifier > 0}
+			}
+			New_Left_decreasing_visible = {
+					check_variable = {modifier@ITA_RED_weekly_new_left_modifier < 0}
+			}
+
+			CathCom_approval_coup_alert_visible = {
+				OR = {
+					check_variable = {ITA_RED_CathCom_Power = 80}
+					check_variable = {ITA_RED_CathCom_Power > 80}
+				}
+			}
+			CathCom_increasing_visible = {
+					check_variable = {modifier@ITA_RED_weekly_cath_com_modifier > 0}
+			}
+			CathCom_decreasing_visible = {
+					check_variable = {modifier@ITA_RED_weekly_cath_com_modifier < 0}
+			}
+
+			Fascist_approval_coup_alert_visible = {
+				OR = {
+					check_variable = {ITA_RED_Fascist_Power = 80}
+					check_variable = {ITA_RED_Fascist_Power > 80}
+				}
+			}
+			Fascist_increasing_visible = {
+					check_variable = {modifier@ITA_RED_weekly_fascist_modifier > 0}
+			}
+			Fascist_decreasing_visible = {
+					check_variable = {modifier@ITA_RED_weekly_fascist_modifier < 0}
+			}
+
+
+			ITA_cultrev_tutorial_first_decrees_box_visible = {
+				check_variable = {ITA_RED_kings_selected_policy_1 = 0}
+			}
+			ITA_cultrev_tutorial_second_decrees_box_visible = {
+				check_variable = {ITA_RED_kings_selected_policy_2 = 0}
+			}
+			ITA_cultrev_tutorial_third_decrees_box_visible = {
+				check_variable = {ITA_RED_kings_selected_policy_3 = 0}
+			}
+
+			ITA_cultrev_tutorial_first_decrees_box_empty_visible = {
+				check_variable = {ITA_RED_kings_selected_policy_1 > 0}
+			}
+			ITA_cultrev_tutorial_second_decrees_box_empty_visible = {
+				check_variable = {ITA_RED_kings_selected_policy_2 > 0}
+			}
+			ITA_cultrev_tutorial_third_decrees_box_empty_visible = {
+				check_variable = {ITA_RED_kings_selected_policy_3 > 0}
+			}
+		}
+
+		effects = {
+			ITA_RED_culrev_tutorial_close_click = {
+				clr_country_flag = ITA_RED_culrev_tutorial_open
+			}
+			ITA_cultrev_tutorial_first_decrees_box_click = {
+				set_country_flag = ITA_RED_cultrev_tutorial_decrees_open
+				set_variable = {ITA_RED_tutorial_selecting_policies = 1}
+			}
+			ITA_cultrev_tutorial_second_decrees_box_click = {
+				set_country_flag = ITA_RED_cultrev_tutorial_decrees_open
+				set_variable = {ITA_RED_tutorial_selecting_policies = 2}
+			}
+			ITA_cultrev_tutorial_third_decrees_box_click = {
+				set_country_flag = ITA_RED_cultrev_tutorial_decrees_open
+				set_variable = {ITA_RED_tutorial_selecting_policies = 3}
+			}
+		}
+
+		properties = {
+			ITA_cultrev_flavour_text_box_pic = {
+				image = "[ITA_RED_cultrev_events_picture]"
+			}
+			ITA_cultrev_rev_fervour_bar = {frame = ITA_RED_revolutionary_fervor}
+
+			Old_Left_pillar_bar = { frame = ITA_RED_Old_Left_Power }
+			New_Left_pillar_bar = { frame = ITA_RED_New_Left_Power }
+			CathCom_pillar_bar = { frame = ITA_RED_CathCom_Power }
+			Fascist_pillar_bar = { frame = ITA_RED_Fascist_Power }
+
+			farmers_pillar_frame = { frame = ITA_RED_farmers_stage }
+			farmers_pillar_fashvines = { frame = ITA_RED_Fascist_Vines_Farmers }
+
+			workers_pillar_frame = { frame = ITA_RED_workers_stage }
+			workers_pillar_fashvines = { frame = ITA_RED_Fascist_Vines_Workers }
+
+			middle_class_pillar_frame = { frame = ITA_RED_middle_class_stage }
+			middle_class_pillar_fashvines = { frame = ITA_RED_Fascist_Vines_Middle_Classes }
+
+			soldiers_police_pillar_frame = { frame = ITA_RED_soldiers_police_stage }
+			soldiers_pillar_fashvines = { frame = ITA_RED_Fascist_Vines_Soldiers }
+
+			clergy_pillar_frame = { frame = ITA_RED_clergy_stage }
+			clergy_pillar_fashvines = { frame = ITA_RED_Fascist_Vines_Clergy }
+
+			academia_pillar_frame = { frame = ITA_RED_academia_stage }
+			academia_pillar_fashvines = { frame = ITA_RED_Fascist_Vines_Academia }
+
+			marginalized_pillar_frame = { frame = ITA_RED_marginalized_stage }
+			marginalized_pillar_fashvines = { frame = ITA_RED_Fascist_Vines_Marginalized }
+		}
+	}
+	ITA_RED_king_decrees_container = {
+		context_type = player_context
+		window_name = "ITA_RED_king_decrees_container"
+		parent_window_token = TNO_ITA_RED_culrev_tutorial_main_container
+
+		visible = {
+			has_country_flag = ITA_RED_cultrev_tutorial_decrees_open
+		}
+
+		effects = {
+		}
+	}
+	ITA_RED_king_decrees_container_gridbox = {
+		context_type = player_context
+		window_name = "ITA_RED_king_decrees_container_gridbox"
+		parent_window_token = ITA_RED_king_decrees_container
+
+		visible = {
+			has_country_flag = ITA_RED_cultrev_tutorial_decrees_open
+		}
+
+		triggers = {
+			decrees_box_outline_na_visible = {
+				OR = {
+					check_variable = {ITA_RED_king_decrees^i = ITA_RED_kings_selected_policy_1}
+					check_variable = {ITA_RED_king_decrees^i = ITA_RED_kings_selected_policy_2}
+					check_variable = {ITA_RED_king_decrees^i = ITA_RED_kings_selected_policy_3}
+				}
+			}
+		}
+
+		effects = {
+			decrees_box_outline_click = {
+				ITA_RED_selected_kings_decree = yes
+			}
+			ITA_RED_king_decrees_close_click = {
+				clr_country_flag = ITA_RED_cultrev_tutorial_decrees_open
+			}
+		}
+
+		dynamic_lists = {
+			ITA_RED_king_decrees = {
+				array = ITA_RED_king_decrees
+				index = i
+				change_scope = no
+
+				entry_container = ITA_RED_king_decrees_box
+			}
+		}
+	}
+}

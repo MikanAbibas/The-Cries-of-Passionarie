@@ -1,0 +1,232 @@
+FSR_morality = {
+	FSR_morality_level_decrease = {
+		available = {
+			OR = {
+				AND = {
+					#has good morality idea
+					has_idea = FSR_morality_status_good
+					check_variable = {
+						var = FSR_morality_value
+						value = 5
+						compare = less_than
+					}
+				}
+				AND = {
+					#has neutral morality idea
+					has_idea = FSR_morality_status_neutral
+					check_variable = {
+						var = FSR_morality_value
+						value = -2
+						compare = less_than
+					}
+				}
+			}
+		}
+		activation = {
+			OR = {
+				AND = {
+					#has good morality idea
+					has_idea = FSR_morality_status_good
+					check_variable = {
+						var = FSR_morality_value
+						value = 5
+						compare = less_than
+					}
+				}
+				AND = {
+					#has neutral morality idea
+					has_idea = FSR_morality_status_neutral
+					check_variable = {
+						var = FSR_morality_value
+						value = -2
+						compare = less_than
+					}
+				}
+			}
+		}
+		cancel_trigger = {
+			
+		}
+		days_mission_timeout = 1
+		selectable_mission = no
+		is_good = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FSR_morality_level_decrease"
+			FSR_lower_morality_level = yes
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove FSR_morality_level_decrease"
+		}
+	}
+	FSR_morality_level_increase = {
+		available = {
+			OR = {
+				AND = {
+					#has neutral morality idea
+					has_idea = FSR_morality_status_neutral
+					check_variable = {
+						var = FSR_morality_value
+						value = 5
+						compare = greater_than_or_equals
+					}
+				}
+				AND = {
+					#has bad morality idea
+					has_idea = FSR_morality_status_evil
+					check_variable = {
+						var = FSR_morality_value
+						value = -2
+						compare = greater_than_or_equals
+					}
+				}
+			}
+		}
+		activation = {
+			OR = {
+				AND = {
+					#has neutral morality idea
+					has_idea = FSR_morality_status_neutral
+					check_variable = {
+						var = FSR_morality_value
+						value = 5
+						compare = greater_than_or_equals
+					}
+				}
+				AND = {
+					#has bad morality idea
+					has_idea = FSR_morality_status_evil
+					check_variable = {
+						var = FSR_morality_value
+						value = -2
+						compare = greater_than_or_equals
+					}
+				}
+			}
+		}
+		cancel_trigger = {
+			
+		}
+		days_mission_timeout = 1
+		selectable_mission = no
+		is_good = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FSR_morality_level_increase"
+			FSR_raise_morality_level = yes
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove FSR_morality_level_increase"
+		}
+	}
+
+	FSR_seek_indulgences = {
+		#icon = GFX_decision_generic_industry
+		visible = {
+			
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 100
+		days_remove = 10
+		days_re_enable = 70
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FSR_seek_indulgences"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove FSR_seek_indulgences"
+			FSR_raise_morality_value = yes
+			add_stability = -0.1
+			add_popularity = {
+				ideology = social_conservative
+				popularity = 0.08
+			}
+		}
+	}
+
+	FSR_press_gang = {
+		#icon = GFX_decision_generic_industry
+		visible = {
+			
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		cost = 10
+		days_remove = 10
+		days_re_enable = 20
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FSR_press_gang"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove FSR_press_gang"
+			FSR_lower_morality_value = yes
+			add_manpower = 20000
+		}
+	}
+
+	FSR_seize_land = {
+		#icon = GFX_decision_generic_industry
+		visible = {
+			
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		cost = 30
+		days_remove = 10
+		days_re_enable = 20
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FSR_seize_land"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove FSR_seize_land"
+			FSR_lower_morality_value = yes
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	FSR_terror_tactics = {
+		#icon = GFX_decision_generic_industry
+		visible = {
+			
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		cost = 15
+		days_remove = 10
+		days_re_enable = 50
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision FSR_terror_tactics"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove FSR_terror_tactics"
+			FSR_lower_morality_value = yes
+			every_neighbor_country = {
+				limit = {
+					is_iberian_nation = yes
+				}
+				add_stability = -0.1
+				add_war_support = -0.05
+			}
+		}
+	}
+}

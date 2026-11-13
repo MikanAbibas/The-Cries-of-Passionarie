@@ -1,0 +1,277 @@
+#its never too late
+
+focus_tree = {
+	id = GER_ler_uprising
+	country = {
+		factor = 0
+	}
+	default = no
+	shared_focus = LER_the_moment
+}
+
+shared_focus = {
+	id = LER_the_moment
+	icon = GFX_LER_the_moment_wojciech_jaruzelski
+	cost = 2
+	#relative_position_id = LER_the_moment
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus LER_the_moment"
+		#event
+		add_war_support = 0.15
+		set_variable = { GER_g4_ler_for_liberation_army_attack_factor = 0 }
+		set_variable = { GER_g4_ler_for_liberation_army_speed_factor = 0 }
+		set_variable = { GER_g4_ler_for_liberation_war_support_weekly = 0 }
+		set_variable = { GER_g4_ler_for_liberation_army_morale_factor = 0.1 }
+		set_variable = { GER_g4_ler_for_liberation_industrial_capacity_factory = 0 }
+		set_variable = { GER_g4_ler_for_liberation_attrition = 0 }
+		set_variable = { GER_g4_ler_for_liberation_supply_consumption_factor = 0 }
+		add_dynamic_modifier = {
+			modifier = GER_g4_ler_for_liberation
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_g4_ler_for_liberation_effect
+		}
+	}
+}
+
+shared_focus = {
+	id = LER_to_arms
+	icon = GFX_LER_to_arms_partisans
+	cost = 5
+	relative_position_id = LER_the_moment
+	prerequisite = {
+		focus = LER_the_moment
+	}
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus LER_to_arms"
+		#
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 4000
+			producer = GER
+		}
+	}
+}
+
+shared_focus = {
+	id = LER_no_time_for_cowardice
+	icon = GFX_LER_no_time_for_cowardice_soldier_running_explosion
+	cost = 5
+	relative_position_id = LER_the_moment
+	prerequisite = {
+		focus = LER_to_arms
+	}
+	x = -1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus LER_no_time_for_cowardice"
+		#10 attack
+		add_to_variable = {
+			GER_g4_ler_for_liberation_army_attack_factor = 0.10
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_g4_ler_for_liberation_effect
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_army_attack
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = LER_forward_unto_glory
+	icon = GFX_GER_SGR_all_brave_sons_of_liberty
+	cost = 5
+	relative_position_id = LER_the_moment
+	prerequisite = {
+		focus = LER_to_arms
+	}
+	x = 1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus LER_forward_unto_glory"
+		#10 speed
+		add_to_variable = {
+			GER_g4_ler_for_liberation_army_speed_factor = 0.10
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_g4_ler_for_liberation_effect
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_army_speed
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = LER_the_future_is_in_sight
+	icon = GFX_LER_the_future_is_in_sight_sunrise
+	cost = 5
+	relative_position_id = LER_the_moment
+	prerequisite = {
+		focus = LER_no_time_for_cowardice
+	}
+	prerequisite = {
+		focus = LER_forward_unto_glory
+	}
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus LER_the_future_is_in_sight"
+		#weekly war support 0.03
+		add_to_variable = {
+			GER_g4_ler_for_liberation_war_support_weekly = 0.03
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_g4_ler_for_liberation_effect
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_war_support_weekly
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+0.03"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = LER_against_the_madness
+	icon = GFX_Generic_Political_Oppression
+	cost = 5
+	relative_position_id = LER_the_moment
+	prerequisite = {
+		focus = LER_the_future_is_in_sight
+	}
+	x = -2
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus LER_against_the_madness"
+		#15 % recover rate
+		add_to_variable = {
+			GER_g4_ler_for_liberation_army_morale_factor = 0.15
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_g4_ler_for_liberation_effect
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_recovery_rate
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+15.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = LER_for_prosperity_promised
+	icon = GFX_CAU_freeze_the_slush_funds
+	cost = 5
+	relative_position_id = LER_the_moment
+	prerequisite = {
+		focus = LER_the_future_is_in_sight
+	}
+	x = 0
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus LER_for_prosperity_promised"
+		#15% factory output
+		add_to_variable = {
+			GER_g4_ler_for_liberation_industrial_capacity_factory = 0.15
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_g4_ler_for_liberation_effect
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_factory_output
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+15.00%"
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = LER_liberty_for_all
+	icon = GFX_Generic_Bill_of_Rights
+	cost = 5
+	relative_position_id = LER_the_moment
+	prerequisite = {
+		focus = LER_the_future_is_in_sight
+	}
+	x = 2
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus LER_liberty_for_all"
+		add_manpower = 40000
+	}
+}
+
+shared_focus = {
+	id = LER_to_berlin
+	icon = GFX_LER_to_berlin_poppies
+	cost = 5
+	relative_position_id = LER_the_moment
+	prerequisite = {
+		focus = LER_against_the_madness
+	}
+	prerequisite = {
+		focus = LER_for_prosperity_promised
+	}
+	prerequisite = {
+		focus = LER_liberty_for_all
+	}
+	x = 0
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus LER_to_berlin"
+		#-20% attrition -20% supply usage +10% attack
+		add_to_variable = {
+			GER_g4_ler_for_liberation_attrition = -0.20
+		}
+		add_to_variable = {
+			GER_g4_ler_for_liberation_supply_consumption_factor = -0.20
+		}
+		add_to_variable = {
+			GER_g4_ler_for_liberation_army_attack_factor = 0.10
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_g4_ler_for_liberation_effect
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_attrition
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "-20.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_supply_consumption
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "-20.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_army_attack
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.00%"
+			}
+		}
+	}
+}

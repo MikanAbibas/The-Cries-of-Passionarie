@@ -1,0 +1,624 @@
+RAJ_loksabha_category = {
+
+	# ---------- standing overview (display only) ----------
+	# RAJ_LS_overview = {
+	# 	icon = GFX_decision_generic_political_discourse
+	# 	allowed = { tag = RAJ }
+	# 	custom_cost_trigger = { always = yes } # no cost
+	# 	fire_only_once = no
+	# 	days_re_enable = 1
+	# 	ai_will_do = { factor = 0 }
+	# 	complete_effect = {
+	# 		log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_overview"
+	# 		custom_effect_tooltip = RAJ_LS_overview_tt
+	# 	}
+	# }
+
+	# ---------- election campaigning ----------
+	# 1) pick a party to back (BJS/CPI not electable yet)
+	# 2) all 18 state campaigns open at once; each runs 20 days
+	RAJ_LS_pick_party_0 = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			NOT = { has_country_flag = RAJ_LS_party_chosen }
+			check_variable = { RAJ_LS_party_active^0 > 0 }
+			is_ai = no
+		}
+		custom_cost_trigger = { always = yes }
+		fire_only_once = no
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_pick_party_0"
+			set_variable = { RAJ_LS_backed = 0 }
+			set_country_flag = RAJ_LS_party_chosen
+			custom_effect_tooltip = RAJ_LS_pick_party_tt
+		}
+	}
+	RAJ_LS_pick_party_3 = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			NOT = { has_country_flag = RAJ_LS_party_chosen }
+			check_variable = { RAJ_LS_party_active^3 > 0 }
+			is_ai = no
+		}
+		custom_cost_trigger = { always = yes }
+		fire_only_once = no
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_pick_party_3"
+			set_variable = { RAJ_LS_backed = 3 }
+			set_country_flag = RAJ_LS_party_chosen
+			custom_effect_tooltip = RAJ_LS_pick_party_tt
+		}
+	}
+	RAJ_LS_pick_party_4 = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			NOT = { has_country_flag = RAJ_LS_party_chosen }
+			check_variable = { RAJ_LS_party_active^4 > 0 }
+			is_ai = no
+		}
+		custom_cost_trigger = { always = yes }
+		fire_only_once = no
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_pick_party_4"
+			set_variable = { RAJ_LS_backed = 4 }
+			set_country_flag = RAJ_LS_party_chosen
+			custom_effect_tooltip = RAJ_LS_pick_party_tt
+		}
+	}
+	RAJ_LS_pick_party_5 = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			NOT = { has_country_flag = RAJ_LS_party_chosen }
+			check_variable = { RAJ_LS_party_active^5 > 0 }
+			is_ai = no
+		}
+		custom_cost_trigger = { always = yes }
+		fire_only_once = no
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_pick_party_5"
+			set_variable = { RAJ_LS_backed = 5 }
+			set_country_flag = RAJ_LS_party_chosen
+			custom_effect_tooltip = RAJ_LS_pick_party_tt
+		}
+	}
+	RAJ_LS_campaign_0 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^0 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_0"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 0 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_1 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^1 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_1"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 1 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_2 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^2 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_2"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 2 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_3 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^3 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_3"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 3 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_4 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^4 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_4"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 4 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_5 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^5 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_5"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 5 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_6 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^6 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_6"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 6 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_7 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^7 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_7"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 7 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_8 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^8 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_8"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 8 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_9 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^9 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_9"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 9 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_10 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^10 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_10"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 10 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_11 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^11 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_11"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 11 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_12 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^12 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_12"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 12 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_13 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^13 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_13"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 13 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_14 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^14 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_14"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 14 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_15 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^15 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_15"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 15 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_16 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^16 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_16"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 16 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	RAJ_LS_campaign_17 = {
+		icon = GFX_decision_generic_speech
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_election_active
+			has_country_flag = RAJ_LS_party_chosen
+			check_variable = { RAJ_LS_held^17 > 0 }
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_remove = 20
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_campaign_17"
+		}
+		remove_effect = {
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_backed }
+			set_temp_variable = { RAJ_LS_t_state = 17 }
+			set_temp_variable = { RAJ_LS_t_amount = 3 }
+			RAJ_LS_add_support = yes
+		}
+	}
+	# ---------- bill voting ----------
+	# Bill flow (see scripted effects header): a focus/decision sets its own
+	# dispatch flag, calls RAJ_LS_start_bill, activates RAJ_LS_bill_vote_mission.
+	RAJ_LS_bill_vote_mission = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = { tag = RAJ }
+		activation = {
+			has_country_flag = RAJ_LS_bill_active
+		}
+		available = {
+			check_variable = { RAJ_LS_bill_pledged > RAJ_LS_majority }
+		}
+		is_good = yes
+		selectable_mission = yes
+		days_mission_timeout = 35
+		fire_only_once = no
+		cancel_trigger = {
+			NOT = { has_country_flag = RAJ_LS_bill_active }
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_bill_vote_mission PASSED"
+			custom_effect_tooltip = RAJ_LS_bill_passed_tt
+			set_country_flag = RAJ_LS_bill_passed
+			RAJ_LS_bill_resolve = yes
+			hidden_effect = {
+				RAJ_LS_end_bill = yes
+			}
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_bill_vote_mission FAILED"
+			custom_effect_tooltip = RAJ_LS_bill_failed_tt
+			set_country_flag = RAJ_LS_bill_failed
+			hidden_effect = {
+				RAJ_LS_fail_bill = yes
+			}
+		}
+	}
+
+	# whip your own benches (ruling + coalition remainders, cheap)
+	RAJ_LS_whip_own = {
+		icon = GFX_decision_generic_shake_hands
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_bill_active
+			is_ai = no
+		}
+		cost = 25
+		fire_only_once = no
+		days_re_enable = 5
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_whip_own"
+			for_loop_effect = {
+				start = 0
+				end = RAJ_LS_party_count
+				value = i
+				if = {
+					limit = {
+						OR = {
+							check_variable = { RAJ_LS_ruling = i }
+							check_variable = { RAJ_LS_coalition^i > 0 }
+						}
+					}
+					set_temp_variable = { RAJ_LS_t_party = i }
+					RAJ_LS_woo_party = yes
+				}
+			}
+		}
+	}
+
+	# woo an outside party (selector + woo, pricier)
+	RAJ_LS_woo_target_next = {
+		icon = GFX_decision_generic_form_nation
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_bill_active
+			is_ai = no
+		}
+		custom_cost_trigger = { always = yes }
+		fire_only_once = no
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_woo_target_next"
+			add_to_variable = { RAJ_LS_woo_target = 1 }
+			if = {
+				limit = { check_variable = { RAJ_LS_woo_target > 5 } }
+				set_variable = { RAJ_LS_woo_target = 0 }
+			}
+			custom_effect_tooltip = RAJ_LS_woo_target_tt
+		}
+	}
+
+	RAJ_LS_woo_outside = {
+		icon = GFX_decision_generic_shake_hands
+		allowed = { tag = RAJ }
+		visible = {
+			has_country_flag = RAJ_LS_bill_active
+			is_ai = no
+		}
+		available = {
+			check_variable = { RAJ_LS_party_active^RAJ_LS_woo_target > 0 }
+			NOT = { check_variable = { RAJ_LS_ruling = RAJ_LS_woo_target } }
+			check_variable = { RAJ_LS_coalition^RAJ_LS_woo_target < 1 }
+		}
+		cost = 75
+		fire_only_once = no
+		days_re_enable = 5
+		ai_will_do = { factor = 0 }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision RAJ_LS_woo_outside"
+			set_temp_variable = { RAJ_LS_t_party = RAJ_LS_woo_target }
+			RAJ_LS_woo_party = yes
+		}
+	}
+}

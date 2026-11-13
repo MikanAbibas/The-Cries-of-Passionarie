@@ -1,0 +1,3465 @@
+######################################
+## Croatia Skeleton : )  fuck you dataminer jk love you < 3 ##
+######################################
+##made by targai, i hope this is read in 6 years and no one knows who that is##
+
+######################################
+
+add_namespace = cro
+add_namespace = cropartisans
+add_namespace = bosnia
+add_namespace = crocrisis
+
+country_event = { # Sympathy choice — which faction the player backs IF the government collapses.
+	# Sets a flag only; no immediate flip. Read at the coup (cro.100, Phase 3) to decide which side the player leads.
+	id = cro.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event cro.1 (sympathy choice)"}
+	title = cro.1.t
+	desc = cro.1.d
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # stand with the government
+		name = cro.1.a
+		ai_chance = { base = 40 }
+		set_country_flag = CRO_sympathy_government
+		clr_country_flag = CRO_sympathy_ustase
+		clr_country_flag = CRO_sympathy_tito
+		hidden_effect = {
+			load_focus_tree = government_intermission_tree
+		}
+	}
+	option = { # lean toward the Ustase
+		name = cro.1.b
+		ai_chance = { base = 30 }
+		set_country_flag = CRO_sympathy_ustase
+		clr_country_flag = CRO_sympathy_tito
+		clr_country_flag = CRO_sympathy_government
+		hidden_effect = {
+			load_focus_tree = ustase_intermission_tree
+		}
+	}
+	option = { # lean toward the Partisans
+		name = cro.1.c
+		ai_chance = { base = 30 }
+		set_country_flag = CRO_sympathy_tito
+		clr_country_flag = CRO_sympathy_ustase
+		clr_country_flag = CRO_sympathy_government
+		hidden_effect = {
+			load_focus_tree = partisan_intermission_tree
+		}
+	}
+}
+
+
+country_event = { # The ustase win
+	id = cropartisans.8
+	# Not while a human runs Italy. This flips Croatia's government whole -
+	# politics, leader, ministers, ideas - and then declares war on Rome, all
+	# without the player having a say. the Ustase only take over under an AI Italy
+	# until the path gives the player a way to intervene.
+	trigger = { ITA = { is_ai = yes } }
+	immediate = {log = "[GetDateText]: [Root.GetName]: event cropartisans.8"}
+	title = cropartisans.8.t
+	desc = cropartisans.8.d
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = {
+		name = cropartisans.8.a
+		hidden_effect = {
+			leave_faction = yes
+			ITA = {
+				country_event = { id = cropartisans.9 days = 100 }
+			}
+			country_event = { id = bosnia.1 days = 30 }
+			every_country = { news_event = WORLD.907 }
+			set_country_flag = ustasevictory
+		}
+		set_popularities = {
+			communist = 20
+			authoritarian_democrat = 40
+			national_socialism = 40
+		}
+		set_politics = {
+			ruling_party = national_socialism
+		}
+		create_country_leader = {
+			name = "Jure Francetić"
+			desc = "POLITICS_Jure_Francetic_DESC"
+			picture = "Portrait_Croatia_Jure_Francetic_DDS.dds"
+			expire = "1965.1.1"
+			ideology = national_socialism_subtype
+			traits = {
+			}
+		}
+		remove_all_ministers = yes
+		add_ideas = {
+			CRO_PARTISAN_ACTIVITY
+			CRO_Andrija_Artukovic_hog
+			CRO_Vladimir_Kosak_eco
+			CRO_Ante_Vokic_sec
+			CRO_Mladen_Lorkovic_for
+		}
+		ITA = {
+			set_autonomy = {
+				target = CRO
+				autonomy_state = autonomy_free
+			}
+			set_variable = { CRO_ITA_Influence = 0 }
+		}
+		remove_ideas = {
+			CRO_the_partisan_problem
+			CRO_legacy_of_the_ustase
+		}
+	}
+}
+
+country_event = { # The ustase win in Croatia, we're invading
+	id = cropartisans.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event cropartisans.9"}
+	title = cropartisans.9.t
+	desc = cropartisans.9.d
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #
+		name = cropartisans.9.a
+		# Already fighting Croatia (cro.103 joined the civil war) or already beaten by it:
+		# no second declaration, and the running hold-out clock is left alone.
+		if = {
+			limit = {
+				NOT = { has_war_with = CRO }
+				NOT = { has_global_flag = CRO_civil_war_resolved }
+			}
+			declare_war_on = {
+				target = CRO
+				type = annex_everything
+			}
+			# The mission belongs to Croatia, not to whoever declared the war. Run
+			# unscoped it armed for Italy, and 180 days later cro.110 fired for Italy:
+			# white peace with itself and the Ustase tree loaded over Italy's own.
+			CRO = { activate_mission = CRO_hold_out_against_rome }
+		}
+	}
+}
+
+country_event = { # Tito takes power
+	id = cropartisans.12
+	# Not while a human runs Italy. This flips Croatia's government whole -
+	# politics, leader, ministers, ideas - and then declares war on Rome, all
+	# without the player having a say. the Partisans only take over under an AI Italy
+	# until the path gives the player a way to intervene.
+	trigger = { ITA = { is_ai = yes } }
+	immediate = {log = "[GetDateText]: [Root.GetName]: event cropartisans.12"}
+	title = cropartisans.12.t
+	desc = cropartisans.12.d
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # More partisans come up
+		name = cropartisans.12.a
+		hidden_effect = {
+			leave_faction = yes
+			ITA = {
+				# No title or description written for this one yet, so it only goes to an
+				# AI Italy. Drop the limit once the text exists.
+				if = {
+					limit = { is_ai = yes }
+					country_event = { id = cropartisans.13 days = 50 }
+				}
+			}
+			set_country_flag = titovictory
+			#country_event = {id = bosnia.3 days = 30 }
+			every_country = { news_event = WORLD.908 }
+			set_popularities = {
+				communist = 60
+				socialist = 30
+				social_democrat = 10
+			}
+			set_politics = {
+				ruling_party = communist
+			}
+			set_party_name = {
+				ideology = communist
+				long_name = CRO_AUTHDEM_LONG
+				name = CRO_AUTHDEM
+			}
+			create_country_leader = {
+				name = "Josip Broz Tito"
+				desc = "POLITICS_tito_DESC"
+				picture = "Portrait_Yugoslavia_Josip_Broz_Tito.dds"
+				expire = "1982.1.1"
+				ideology = communist_subtype
+				traits = {
+					the_last_yugoslav
+				}
+			}
+			ITA = {
+				set_autonomy = {
+					target = CRO
+					autonomy_state = autonomy_free
+				}
+				set_variable = { CRO_ITA_Influence = 0 }
+			}
+			set_cosmetic_tag = CRO_Yugoslavia
+			remove_all_ministers = yes
+			add_ideas = {
+				CRO_Andrija_Hebrang_hog
+				CRO_Leon_Gerskovic_eco
+				CRO_Ivan_Gosnjak_sec
+				CRO_Edvard_Kardelj_for
+			}
+			remove_ideas = {
+				CRO_the_partisan_problem
+				CRO_legacy_of_the_ustase
+			}
+		}
+	}
+}
+
+country_event = { # Communists in Croatia, we're invading
+	id = cropartisans.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event cropartisans.13"}
+	title = cropartisans.13.t
+	desc = cropartisans.13.d
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #
+		name = cropartisans.13.a
+		# Already fighting Croatia (cro.103 joined the civil war) or already beaten by it:
+		# no second declaration, and the running hold-out clock is left alone.
+		if = {
+			limit = {
+				NOT = { has_war_with = CRO }
+				NOT = { has_global_flag = CRO_civil_war_resolved }
+			}
+			declare_war_on = {
+				target = CRO
+				type = annex_everything
+			}
+			# The mission belongs to Croatia, not to whoever declared the war. Run
+			# unscoped it armed for Italy, and 180 days later cro.110 fired for Italy:
+			# white peace with itself and the Ustase tree loaded over Italy's own.
+			CRO = { activate_mission = CRO_hold_out_against_rome }
+		}
+	}
+}
+
+country_event = { # Peace Deal :))
+	id = cro.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event cro.2"}
+	title = cro.2.t
+	desc = cro.2.d
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #
+		name = cro.2.a
+		ITA = {
+			white_peace = CRO
+			if = {
+				limit = {
+					NOT = {
+						country_exists = BOS
+					}
+				}
+				CRO = {
+					transfer_state = 109
+					transfer_state = 1293
+					transfer_state = 1280
+					transfer_state = 746
+					transfer_state = 104
+					transfer_state = 1278
+					transfer_state = 1279
+					transfer_state = 969
+					transfer_state = 1276
+					transfer_state = 1277
+				}
+			}
+			else_if = {
+				limit = {
+					country_exists = BOS
+				}
+				CRO = {
+					transfer_state = 109
+					transfer_state = 1293
+					transfer_state = 1280
+					transfer_state = 746
+					transfer_state = 1279
+					transfer_state = 969
+				}
+				
+			}
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Together for Victory"
+						has_dlc = "Man the Guns"
+					}
+				}
+				set_autonomy = {
+					target = CRO
+					autonomous_state = autonomy_italy_hefty_influence
+				}
+				else = {
+					puppet = CRO
+				}
+			}
+		}
+		CRO = {
+			white_peace = ITA
+			retire_country_leader = yes
+			set_politics = {
+				ruling_party = despotism
+			}
+			set_popularities = {
+				despotism = 60
+				fascism = 20
+				authoritarian_democrat = 20
+			}
+			create_country_leader = {
+				name = "Zvonimir II"
+				desc = "POLITICS_Zvonimir_DESC"
+				picture = "Tomislav_III.dds"
+				expire = "1985.1.1"
+				ideology = despotism_subtype
+				traits = {
+
+				}
+			}
+			set_party_name = {
+				ideology = authoritarian_democrat
+				long_name = CRO_ITA_AUTH_LONG
+				name = CRO_ITA_AUTH
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_flag = ustasevictory
+					}
+					every_country = {
+						news_event = { id = WORLD.18006 days = 1 }
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = titovictory
+					}
+					every_country = {
+						news_event = { id = WORLD.18027 days = 1 }
+					}
+				}
+				drop_cosmetic_tag = yes
+				load_focus_tree = CRO_italian_tree
+				add_ideas = CRO_PARTISAN_ACTIVITY
+				ITA = {
+					country_event = { id = cro.141 days = 1 }
+				}
+				remove_faction_status = yes
+				add_ideas = Rome_client
+			}
+		}
+	}
+}
+
+country_event = { #Bosnia breaks off! (Partisans)
+	id = bosnia.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event bosnia.3"}
+	title = bosnia.3.t
+	desc = bosnia.3.d
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #
+		name = bosnia.3.a
+		remove_ideas = CRO_bosnian_autonomy
+		BOS = {
+			transfer_state = 104
+			add_state_core = 104
+			transfer_state = 1278
+			add_state_core = 1278
+			transfer_state = 1277
+			add_state_core = 1277
+			transfer_state = 1276
+			add_state_core = 1276
+		}
+		hidden_effect = {
+			ITA = {
+				# No title or description written for this one yet, so it only goes to an
+				# AI Italy. Drop the limit once the text exists.
+				if = {
+					limit = { is_ai = yes }
+					country_event = { id = bosnia.4 days = 1 }
+				}
+			}
+		}
+	}
+}
+
+country_event = { #Bosnia works with us (Italy, Partisans)
+	id = bosnia.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event bosnia.4"}
+	title = bosnia.4.t
+	desc = bosnia.4.d
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { #
+		name = bosnia.4.a
+		BOS = {
+			country_event = { id = ita.1002 days = 3 }
+		}
+	}
+}
+
+###### MERGED FROM PanzersCrackHouse (trees' flavor events) ######
+add_namespace = tomislav
+add_namespace = yugo
+add_namespace = tito
+add_namespace = ustase
+add_namespace = crocollab
+
+country_event = { # Explanation of Tomislav's reluctancy
+	id = tomislav.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tomislav.1"}
+	title = tomislav.1.t
+	desc = tomislav.1.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Daily life
+		name = tomislav.1.a
+		
+	}
+}
+
+country_event = { # Denial and cover up of war crimes
+	id = tomislav.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tomislav.2"}
+	title = tomislav.2.t
+	desc = tomislav.2.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tomislav.2.a
+		
+	}
+}
+
+country_event = { # Tomislav escapes from work
+	id = tomislav.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tomislav.3"}
+	title = tomislav.3.t
+	desc = tomislav.3.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tomislav.3.a
+		
+	}
+}
+
+country_event = { # Tomislav requests money from Rome
+	id = tomislav.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tomislav.4"}
+	title = tomislav.4.t
+	desc = tomislav.4.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tomislav.4.a
+		ITA = {
+			# No title or description written for this one yet, so it only goes to an
+			# AI Italy. Drop the limit once the text exists.
+			if = {
+				limit = { is_ai = yes }
+				country_event = { id = tomislav.5 days = 1 }
+			}
+		}
+	}
+}
+
+country_event = { # Tomislav asks for money
+	id = tomislav.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tomislav.5"}
+	title = tomislav.5.t
+	desc = tomislav.5.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # No
+		name = tomislav.5.a
+		CRO = {
+			country_event = { id = tomislav.6 days = 1 }
+		}
+	}
+	option = { # Yes
+		name = tomislav.5.b
+		CRO = {
+			country_event = { id = tomislav.7 days = 1 }
+		}
+	}
+}
+
+country_event = { # Rome says no to money
+	id = tomislav.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tomislav.6"}
+	title = tomislav.6.t
+	desc = tomislav.6.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # They said no
+		name = tomislav.6.a
+	}
+}
+
+country_event = { # Rome says yes to money
+	id = tomislav.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tomislav.7"}
+	title = tomislav.7.t
+	desc = tomislav.7.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # A bit rought, its not much though
+		name = tomislav.7.a
+	}
+}
+
+country_event = { # The "death" of Tito
+	id = tomislav.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tomislav.8"}
+	title = tomislav.8.t
+	desc = tomislav.8.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tomislav.8.a
+	}
+}
+
+country_event = { # Military stops Tomislavs plans to abdicate
+	id = tomislav.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tomislav.9"}
+	title = tomislav.9.t
+	desc = tomislav.9.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tomislav.9.a
+		set_country_flag = CRO_military_stops
+		complete_national_focus = CRO_another_day
+	}
+}
+
+country_event = { # Another day of Tomislav's strife
+	id = tomislav.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tomislav.10"}
+	title = tomislav.10.t
+	desc = tomislav.10.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tomislav.10.a
+	}
+}
+
+country_event = { # Tomislav disappears
+	id = tomislav.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tomislav.11"}
+	title = tomislav.11.t
+	desc = tomislav.11.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tomislav.11.a
+		retire_country_leader = yes
+		create_country_leader = {
+			name = "Carlo Ciglieri"
+			desc = "POLITICS_CIGLIERI_CRO_DESC"
+			picture = "portrait_italy_carlo_ciglieri.dds"
+			expire = "1985.1.1"
+			ideology = despotism_subtype
+			traits = {
+				emergency_regent
+			}
+		}
+		hidden_effect = {
+			country_event = { id = cro.1 days = 3 }
+		}
+	}
+}
+
+country_event = { # chaos, partisans rise
+	id = cropartisans.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event cropartisans.1"}
+	title = cropartisans.1.t
+	desc = cropartisans.1.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Call Italy
+		name = cropartisans.1.a
+		hidden_effect = {
+			ITA = {
+				# No title or description written for this one yet, so it only goes to an
+				# AI Italy. Drop the limit once the text exists.
+				if = {
+					limit = { is_ai = yes }
+					country_event = { id = cropartisans.2 days = 2 }
+				}
+			}
+		}
+	}
+	option = { # Handle it ourselves
+		name = cropartisans.1.b
+		hidden_effect = {
+			if = {
+				limit = {
+					CRO = {
+						has_country_flag = CRO_ustase_dead
+					}
+				}
+				country_event = { id = cropartisans.10 days = 2 }
+				}
+			if = {
+				limit = {
+					CRO = {
+						has_country_flag = CRO_partisans_dead
+					}
+				}
+				country_event = { id = cropartisans.6 days = 2 }
+			}
+		}
+	}
+}
+
+country_event = { # chaos, partisans rise
+	id = cropartisans.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event cropartisans.2"}
+	title = cropartisans.2.t
+	desc = cropartisans.2.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Sogno alligned
+		name = cropartisans.2.a
+		hidden_effect = {
+			CRO = {	
+				country_event = { id = cropartisans.3 days = 2 }
+			}
+		}
+		add_to_variable = {
+			var = ITA_Sogno_RoyalArmy
+			value = 1
+		}
+		custom_effect_tooltip = ita_sog_arm_yay
+	}
+	option = { # Borghese alligned
+		name = cropartisans.2.b
+		hidden_effect = {
+			CRO = {	
+				country_event = { id = cropartisans.3 days = 2 }
+			}
+		}
+		add_to_variable = {
+			var = ITA_Borghese_RoyalArmy
+			value = 1
+		}
+		custom_effect_tooltip = ita_bor_arm_yay
+	}
+}
+
+country_event = { # chaos, partisans rise
+	id = cropartisans.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event cropartisans.3"}
+	title = cropartisans.3.t
+	desc = cropartisans.3.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Yes but wait
+		name = cropartisans.3.a
+		hidden_effect = {
+			ITA = {
+				# No title or description written for this one yet, so it only goes to an
+				# AI Italy. Drop the limit once the text exists.
+				if = {
+					limit = { is_ai = yes }
+					country_event = { id = cropartisans.4 days = 2 }
+				}
+			}
+		}
+	}
+	option = { # We can handle thisourselves
+		name = cropartisans.3.b
+		hidden_effect = {
+			random_list = {
+				60 = {
+					hidden_effect = {
+						if = {
+							limit = {
+								CRO = {
+									has_country_flag = CRO_ustase_dead
+								}
+							}
+							country_event = { id = cropartisans.12 days = 2 }
+						}
+						if = {
+							limit = {
+								CRO = {
+									has_country_flag = CRO_partisans_dead
+								}
+							}
+							country_event = { id = cropartisans.8 days = 2 }
+						}
+					}
+				}
+				40 = {
+					hidden_effect = {
+						country_event = { id = cropartisans.4 days = 2 }
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { # The situation is resolved
+	id = cropartisans.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event cropartisans.4"}
+	title = cropartisans.4.t
+	desc = cropartisans.4.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = cropartisans.4.a
+		hidden_effect = {
+			CRO = {
+				country_event = { id = cropartisans.5 days = 2 }
+			}
+		}
+	}
+}
+
+country_event = { # The situation is resolved, Croatia transitions to new Government
+	id = cropartisans.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event cropartisans.5"}
+	title = cropartisans.5.t
+	desc = cropartisans.5.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Nice
+		name = cropartisans.5.a
+		set_country_flag = CRO_italian_victory
+		add_ideas = CRO_italian_resistance
+		remove_ideas = {
+			CRO_the_partisan_problem
+			CRO_legacy_of_the_ustase
+		}
+	}
+}
+
+country_event = { # Ustase, terror in the streets
+	id = cropartisans.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event cropartisans.6"}
+	title = cropartisans.6.t
+	desc = cropartisans.6.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = cropartisans.6.a
+		hidden_effect = {
+			CRO = {
+				country_event = { id = cropartisans.7 days = 2 }
+			}
+		}
+	}
+}
+
+country_event = { # Enlists are in mutiny!
+	id = cropartisans.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event cropartisans.7"}
+	title = cropartisans.7.t
+	desc = cropartisans.7.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # call Italy!
+		name = cropartisans.7.a
+		hidden_effect = {
+			ITA = {
+				# No title or description written for this one yet, so it only goes to an
+				# AI Italy. Drop the limit once the text exists.
+				if = {
+					limit = { is_ai = yes }
+					country_event = { id = cropartisans.3 days = 2 }
+				}
+			}
+		}
+	}
+	option = { # whip them ourselves
+		name = cropartisans.7.a
+		hidden_effect = {
+			CRO = {
+				country_event = { id = cropartisans.8 days = 2 }
+			}
+		}
+	}
+}
+
+country_event = { # Partisans, guerilla tactis
+	id = cropartisans.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event cropartisans.10"}
+	title = cropartisans.10.t
+	desc = cropartisans.10.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Call Italy!
+		name = cropartisans.10.a
+		hidden_effect = {
+			CRO = {
+				country_event = { id = cropartisans.3 days = 2 }
+			}
+		}
+	}
+	option = { # Be vigilant!
+		name = cropartisans.10.a
+		hidden_effect = {
+			CRO = {
+				country_event = { id = cropartisans.11 days = 2 }
+			}
+		}
+	}
+}
+
+country_event = { # More citizens pick up arms against government
+	id = cropartisans.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event cropartisans.11"}
+	title = cropartisans.11.t
+	desc = cropartisans.11.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # More partisans come up
+		name = cropartisans.11.a
+		hidden_effect = {
+			CRO = {
+				country_event = { id = cropartisans.12 days = 2 }
+			}
+		}
+	}
+}
+
+country_event = { # event for India, support Yugo?
+	id = yugo.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.1"}
+	title = yugo.1.t
+	desc = yugo.1.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # No
+		name = yugo.1.a
+		ai_chance = {
+			factor = 30
+		}
+		CRO = {
+			country_event = { id = yugo.3 days = 2 }
+		}
+	}
+	option = { # Yes
+		name = yugo.1.b
+		ai_chance = {
+			factor = 70
+		}
+		CRO = {
+			add_to_variable = { cro_market_socialism = 1 }
+			country_event = { id = yugo.2 days = 2 }
+		}
+	}
+}
+
+country_event = { # event for Yugo, India supports us!
+	id = yugo.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.2"}
+	title = yugo.2.t
+	desc = yugo.2.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Great!
+		name = yugo.2.a
+		
+	}
+}
+
+country_event = { # event for Yugo, India doesnt support us
+	id = yugo.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.3"}
+	title = yugo.3.t
+	desc = yugo.3.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.3.a
+		
+	}
+}
+
+country_event = { # event for Sweden, support Yugo?
+	id = yugo.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.4"}
+	title = yugo.4.t
+	desc = yugo.4.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # No
+		name = yugo.4.a
+		ai_chance = {
+			factor = 50
+		}
+		CRO = {
+			country_event = { id = yugo.6 days = 2 }
+		}
+	}
+	option = { # Yes
+		name = yugo.4.b
+		ai_chance = {
+			factor = 50
+		}
+		CRO = {
+			add_to_variable = { cro_market_socialism = 1 } 
+			country_event = { id = yugo.5 days = 2 }
+		}
+	}
+}
+
+country_event = { # event for Yugo, Sweden supports us!
+	id = yugo.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.5"}
+	title = yugo.5.t
+	desc = yugo.5.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Great!
+		name = yugo.5.a
+		
+	}
+}
+
+country_event = { # event for Yugo, Sweden doesnt support us
+	id = yugo.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.6"}
+	title = yugo.6.t
+	desc = yugo.6.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.6.a
+		
+	}
+}
+
+country_event = { # event for USA, support Yugo?
+	id = yugo.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.7"}
+	title = yugo.7.t
+	desc = yugo.7.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # No
+		name = yugo.7.a
+		ai_chance = {
+			factor = 90
+		}
+		CRO = {
+			country_event = { id = yugo.9 days = 2 }
+		}
+	}
+	option = { # Yes
+		name = yugo.7.b
+		ai_chance = {
+			factor = 10
+		}
+		CRO = {
+			add_to_variable = { cro_market_socialism = 1 } 
+			country_event = { id = yugo.8 days = 2 }
+		}
+	}
+}
+
+country_event = { # event for Yugo, OFN supports us!
+	id = yugo.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.8"}
+	title = yugo.8.t
+	desc = yugo.8.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Great!
+		name = yugo.8.a
+		
+	}
+}
+
+country_event = { # event for Yugo, OFN doesnt support us
+	id = yugo.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.9"}
+	title = yugo.9.t
+	desc = yugo.9.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.9.a
+		
+	}
+}
+
+country_event = { # the reformers and their beliefs
+	id = yugo.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.10"}
+	title = yugo.10.t
+	desc = yugo.10.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.10.a
+		
+	}
+}
+
+country_event = { # the reformers and their corruption are rooted
+	id = yugo.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.11"}
+	title = yugo.11.t
+	desc = yugo.11.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.11.a
+		
+	}
+}
+
+country_event = { # the hardliners and their beliefs
+	id = yugo.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.12"}
+	title = yugo.12.t
+	desc = yugo.12.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.12.a
+		
+	}
+}
+
+country_event = { # Tito's Paranoia
+	id = yugo.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.13"}
+	title = yugo.13.t
+	desc = yugo.13.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.13.a
+		
+	}
+}
+
+country_event = { # changing abroad stage, less aggressive
+	id = yugo.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.14"}
+	title = yugo.14.t
+	desc = yugo.14.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.14.a
+		
+	}
+}
+
+country_event = { # changing in army, be less influential
+	id = yugo.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.15"}
+	title = yugo.15.t
+	desc = yugo.15.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.15.a
+		
+	}
+}
+
+country_event = { # changing in political climate, please dont be corrupt
+	id = yugo.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.16"}
+	title = yugo.16.t
+	desc = yugo.16.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.16.a
+		
+	}
+}
+
+country_event = { # discharging corrupt people
+	id = yugo.17
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.17"}
+	title = yugo.17.t
+	desc = yugo.17.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.17.a
+		
+	}
+}
+
+country_event = { # reforming the country
+	id = yugo.18
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.18"}
+	title = yugo.18.t
+	desc = yugo.18.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.18.a
+		
+	}
+}
+
+country_event = { # elections
+	id = yugo.19
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.19"}
+	title = yugo.19.t
+	desc = yugo.19.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.19.a
+		
+	}
+}
+
+country_event = { # Bakaric removes Hebrang
+	id = yugo.20
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.20"}
+	title = yugo.20.t
+	desc = yugo.20.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.20.a
+		kill_country_leader = yes
+		set_politics = {
+			ruling_party = authoritarian_democrat
+		}
+		complete_national_focus = CRO_the_reformers_take_charge
+		clr_country_flag = CRO_hebrang_leader
+	}
+}
+
+country_event = { # party on lockdown
+	id = yugo.21
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.21"}
+	title = yugo.21.t
+	desc = yugo.21.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.21.a
+	}
+}
+
+country_event = { # delegation of powers, who now rules
+	id = yugo.22
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.22"}
+	title = yugo.22.t
+	desc = yugo.22.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.22.a
+	}
+}
+
+country_event = { # new kind of democracy
+	id = yugo.23
+	immediate = {log = "[GetDateText]: [Root.GetName]: event yugo.23"}
+	title = yugo.23.t
+	desc = yugo.23.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = yugo.23.a
+	}
+}
+
+country_event = { # Tito becomes sick
+	id = tito.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.1"}
+	title = tito.1.t
+	desc = tito.1.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.1.a
+		country_event = { id = tito.2 days = 2 }
+	}
+}
+
+country_event = { # Tito cannot appear before public
+	id = tito.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.2"}
+	title = tito.2.t
+	desc = tito.2.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # See a doctor
+		name = tito.2.a
+		country_event = { id = tito.3 days = 2 }
+	}
+	option = { # Let him be
+		name = tito.2.b
+		country_event = { id = tito.5 days = 2 }
+	}
+}
+
+country_event = { # Tito sees a doctor, he had the plague
+	id = tito.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.3"}
+	title = tito.3.t
+	desc = tito.3.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Oh wow
+		name = tito.3.a
+		country_event = { id = tito.4 days = 2 }
+	}
+}
+
+country_event = { # Tito is cured
+	id = tito.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.4"}
+	title = tito.4.t
+	desc = tito.4.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Oh wow
+		name = tito.4.a
+	}
+}
+
+country_event = { # Tito is hacking in his office
+	id = tito.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.5"}
+	title = tito.5.t
+	desc = tito.5.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Oh wow
+		name = tito.5.a
+		country_event = { id = tito.6 days = 2 }
+	}
+}
+
+country_event = { # Tito is dead, pretend he isnt
+	id = tito.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.6"}
+	title = tito.6.t
+	desc = tito.6.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Oh wow
+		name = tito.6.a
+		country_event = { id = tito.7 days = 2 }
+	}
+}
+
+country_event = { # weekend at titos
+	id = tito.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.7"}
+	title = tito.7.t
+	desc = tito.7.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Oh wow
+		name = tito.7.a
+		country_event = { id = tito.8 days = 2 }
+	}
+}
+
+country_event = { # revealed that tito has died
+	id = tito.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.8"}
+	title = tito.8.t
+	desc = tito.8.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Hebrang
+		name = tito.8.a
+		trigger = { 
+			has_country_flag = CRO_Tito_friend_Hebrang
+			NOT = { has_country_flag = CRO_cringe_ass_nae_nae_hebrang }
+		}
+		country_event = { id = tito.9 days = 2 }
+	}
+	option = { # Bakaric
+		name = tito.8.b
+		trigger = { 
+			has_country_flag = CRO_Tito_friend_Bakaric
+			NOT = { has_country_flag = CRO_cringe_ass_nae_nae_bakaric }
+		}
+		country_event = { id = tito.10 days = 2 }
+	}
+	option = { # No one
+		name = tito.8.c
+		trigger = { 
+			has_country_flag = CRO_cringe_ass_nae_nae_bakaric
+			has_country_flag = CRO_cringe_ass_nae_nae_hebrang
+		}
+		ITA = {
+			# No title or description written for this one yet, so it only goes to an
+			# AI Italy. Drop the limit once the text exists.
+			if = {
+				limit = { is_ai = yes }
+				country_event = { id = tito.25 days = 2 }
+			}
+		}		
+	}
+}
+
+country_event = { # Hebrang's ascention 
+	id = tito.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.9"}
+	title = tito.9.t
+	desc = tito.9.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Hebrang
+		name = tito.9.a
+		kill_country_leader = yes
+		create_country_leader = {
+			name = "Vladimir Bakarić"
+			desc = "POLITICS_Bakaric_DESC"
+			picture = "Portrait_Yugoslavia_Vladimir_Bakaric.dds"
+			expire = "1999.1.1"
+			ideology = authoritarian_democrat_subtype
+			traits = {
+					
+			}
+		}
+		create_country_leader = {
+			name = "Andrija Hebrang"
+			desc = "POLITICS_Hebrang_DESC"
+			picture = "Portrait_Croatia_Andrija_Hebrang_DDS.dds"
+			expire = "1999.1.1"
+			ideology = communist_subtype
+			traits = {
+					
+			}
+		}
+		set_politics = {
+			ruling_party = communist
+		}
+		clr_country_flag = CRO_tito_leader
+	}
+}
+
+country_event = { # Bakarić's ascention 
+	id = tito.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.10"}
+	title = tito.10.t
+	desc = tito.10.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Bakarić
+		name = tito.10.a
+		kill_country_leader = yes
+		create_country_leader = {
+			name = "Vladimir Bakarić"
+			desc = "POLITICS_Bakaric_DESC"
+			picture = "Portrait_Yugoslavia_Vladimir_Bakaric.dds"
+			expire = "1999.1.1"
+			ideology = authoritarian_democrat_subtype
+			traits = {
+					
+			}
+		}
+		create_country_leader = {
+			name = "Andrija Hebrang"
+			desc = "POLITICS_Hebrang_DESC"
+			picture = "Portrait_Croatia_Andrija_Hebrang_DDS.dds"
+			expire = "1999.1.1"
+			ideology = communist_subtype
+			traits = {
+					
+			}
+		}
+		set_politics = {
+			ruling_party = authoritarian_democrat
+		}
+		clr_country_flag = CRO_tito_leader
+	}
+}
+
+country_event = { # Lost war, Hungary 
+	id = tito.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.11"}
+	title = tito.11.t
+	desc = tito.11.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.11.a
+		white_peace = HUN
+		HUN = {
+			white_peace = CRO
+		}
+	}
+}
+
+country_event = { # Win war, Hungary 
+	id = tito.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.12"}
+	title = tito.12.t
+	desc = tito.12.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.12.a
+		white_peace = HUN
+		HUN = {
+			white_peace = CRO
+		}
+		transfer_state = 771
+		add_state_core = 771
+		transfer_state = 45
+		add_state_core = 45
+		ITA = {
+			set_country_flag = CRO_hungary_win
+		}
+	}
+}
+
+country_event = { # Lost war, Serbia 
+	id = tito.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.13"}
+	title = tito.13.t
+	desc = tito.13.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.13.a
+		white_peace = SER
+		SER = {
+			white_peace = CRO
+		}
+	}
+}
+
+country_event = { # Win war, Serbia 
+	id = tito.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.14"}
+	title = tito.14.t
+	desc = tito.14.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.14.a
+		transfer_state = 107
+		add_state_core = 107
+		transfer_state = 1274
+		add_state_core = 1274
+		transfer_state = 1273
+		add_state_core = 1273
+		transfer_state = 1272
+		add_state_core = 1272
+		transfer_state = 1275
+		add_state_core = 1275
+		transfer_state = 108
+		add_state_core = 108
+		ITA = {
+			set_country_flag = CRO_serbia_win
+		}
+	}
+}
+
+country_event = { # Lost war, Romania 
+	id = tito.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.15"}
+	title = tito.15.t
+	desc = tito.15.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.15.a
+		white_peace = ROM
+		ROM = {
+			white_peace = CRO
+		}
+	}
+}
+
+country_event = { # Win war, Romania 
+	id = tito.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.16"}
+	title = tito.16.t
+	desc = tito.16.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.16.a
+		transfer_state = 968
+		add_state_core = 968
+		ITA = {
+			set_country_flag = CRO_romania_win
+		}
+	}
+}
+
+country_event = { # Victory against Italy! #2
+	id = tito.17
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.17"}
+	title = tito.17.t
+	desc = tito.17.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.17.a
+		hidden_effect = {
+			ITA = {
+				set_country_flag = ITA_war_2
+			}
+			set_country_flag = ITA_war_2
+		}
+		white_peace = ITA
+		ITA = {
+			white_peace = CRO
+		}
+	}
+}
+
+country_event = { # Victory against Italy! #3
+	id = tito.18
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.18"}
+	title = tito.18.t
+	desc = tito.18.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.18.a
+		white_peace = ITA
+		ITA = {
+			white_peace = CRO
+		}
+	}
+}
+
+country_event = { # Loss in the Yugoslav war #1
+	id = tito.19
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.19"}
+	title = tito.19.t
+	desc = tito.19.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.19.a
+		hidden_effect = {
+			country_event = { id = tito.22 days = 365 }
+		}
+		add_stability = -0.05
+	}
+}
+
+country_event = { # Loss in the Yugoslav war #2
+	id = tito.20
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.20"}
+	title = tito.20.t
+	desc = tito.20.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.20.a
+		hidden_effect = {
+			country_event = { id = tito.23 days = 365 }
+		}
+		add_stability = -0.05
+	}
+}
+
+country_event = { # Loss in the Yugoslav war #3
+	id = tito.21
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.21"}
+	title = tito.21.t
+	desc = tito.21.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.21.a
+		add_stability = -0.05
+	}
+}
+
+country_event = { # Another invasion of Yugoslavia, following 1st
+	id = tito.22
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.22"}
+	title = tito.22.t
+	desc = tito.22.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.22.a
+		declare_war_on = {
+			target = CRO
+			type = annex_everything
+		}
+	}
+}
+
+country_event = { # Another invasion of Yugoslavia, following 2nd
+	id = tito.23
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.23"}
+	title = tito.23.t
+	desc = tito.23.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.23.a
+		declare_war_on = {
+			target = CRO
+			type = annex_everything
+		}
+	}
+}
+
+country_event = { # Victory against Yugoslavs, put in our government
+	id = tito.24
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.24"}
+	title = tito.24.t
+	desc = tito.24.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.24.a
+		CRO = {
+			retire_country_leader = yes
+			set_politics = {
+				ruling_party = despotism
+			}
+			create_country_leader = {
+				name = "Zvonimir II"
+				desc = "POLITICS_Zvonimir_DESC"
+				picture = "Tomislav_III.dds"
+				expire = "1985.1.1"
+				ideology = despotism_subtype
+				traits = {
+					
+				}
+			}
+			set_party_name = {
+				ideology = authoritarian_democrat
+				long_name = CRO_ITA_AUTH_LONG
+				name = CRO_ITA_AUTH
+			}
+			hidden_effect = {
+				drop_cosmetic_tag = yes
+				load_focus_tree = CRO_italian_tree
+				complete_national_focus = CRO_the_vanished_king
+				complete_national_focus = CRO_lock_down_the_court
+				complete_national_focus = CRO_prevent_leaks
+				complete_national_focus = CRO_emergency_measures
+				if = {
+					limit = {
+						has_country_flag = ita_ciano_wins
+					}
+					complete_national_focus = CRO_the_prince
+				}
+				if = {
+					limit = {
+						has_country_flag = ita_scorza_wins
+					}
+					complete_national_focus = CRO_the_lieutenant
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = CRO_serbia_win
+			}
+			SER = {
+				transfer_state = 107
+				transfer_state = 1274
+				transfer_state = 1273
+				transfer_state = 1272
+				transfer_state = 1275
+				transfer_state = 108
+				country_event = { id = ita.1002 days = 1 }
+				if = {
+					limit = {
+						ITA = {
+							has_country_flag = ita_scorza_wins
+						}
+					}
+					set_politics = {
+						ruling_party = fascism
+					}
+					create_country_leader = {
+						name = "Konstantin Kosta Mušicki"
+						desc = "POLITICS_Konstantin_Kosta_Mušicki_DESC"
+						picture = portrait_italy_carlo_scorza.dds
+						expire = 1988.12.23
+						ideology = fascism_subtype
+					}
+				}
+				if = {
+					limit = {
+						ITA = {
+							has_country_flag = ita_ciano_wins
+						}
+					}
+					set_politics = {
+						ruling_party = authoritarian_democrat
+					}
+					create_country_leader = {
+						name = "Nikola Milošević"
+						desc = "POLITICS_Nikola_Milošević_DESC"
+						picture = portrait_italy_carlo_scorza.dds
+						expire = 1988.12.23
+						ideology = authoritarian_democrat_subtype
+					}
+				}				
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = CRO_hungary_win
+			}
+			HUN = {
+				transfer_state = 771
+				transfer_state = 45
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = CRO_romania_win
+			}
+			ROM = {
+				transfer_state = 968
+			}
+		}
+	}
+}
+
+country_event = { # Yugoslav state collapses, move in and restart gov
+	id = tito.25
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.25"}
+	title = tito.25.t
+	desc = tito.25.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.25.a
+		CRO = {
+			retire_country_leader = yes
+			set_politics = {
+				ruling_party = despotism
+			}
+			create_country_leader = {
+				name = "Zvonimir II"
+				desc = "POLITICS_Zvonimir_DESC"
+				picture = "Tomislav_III.dds"
+				expire = "1985.1.1"
+				ideology = despotism_subtype
+				traits = {
+					
+				}
+			}
+			hidden_effect = {
+				drop_cosmetic_tag = yes
+				load_focus_tree = CRO_italian_tree
+				complete_national_focus = CRO_the_vanished_king
+				complete_national_focus = CRO_lock_down_the_court
+				complete_national_focus = CRO_prevent_leaks
+				complete_national_focus = CRO_emergency_measures
+				if = {
+					limit = {
+						has_country_flag = ita_ciano_wins
+					}
+					complete_national_focus = CRO_the_prince
+				}
+				if = {
+					limit = {
+						has_country_flag = ita_scorza_wins
+					}
+					complete_national_focus = CRO_the_lieutenant
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = CRO_serbia_win
+			}
+			SER = {
+				transfer_state = 107
+				transfer_state = 1274
+				transfer_state = 1273
+				transfer_state = 1272
+				transfer_state = 1275
+				transfer_state = 108
+				country_event = { id = ita.1002 days = 1 }
+				if = {
+					limit = {
+						ITA = {
+							has_country_flag = ita_scorza_wins
+						}
+					}
+					set_politics = {
+						ruling_party = fascism
+					}
+					create_country_leader = {
+						name = "Konstantin Kosta Mušicki"
+						desc = "POLITICS_Konstantin_Kosta_Mušicki_DESC"
+						picture = portrait_italy_carlo_scorza.dds
+						expire = 1988.12.23
+						ideology = fascism_subtype
+					}
+				}
+				if = {
+					limit = {
+						ITA = {
+							has_country_flag = ita_ciano_wins
+						}
+					}
+					set_politics = {
+						ruling_party = authoritarian_democrat
+					}
+					create_country_leader = {
+						name = "Nikola Milošević"
+						desc = "POLITICS_Nikola_Milošević_DESC"
+						picture = portrait_italy_carlo_scorza.dds
+						expire = 1988.12.23
+						ideology = authoritarian_democrat_subtype
+					}
+				}				
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = CRO_hungary_win
+			}
+			HUN = {
+				transfer_state = 771
+				transfer_state = 45
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = CRO_romania_win
+			}
+			ROM = {
+				transfer_state = 968
+			}
+		}
+	}
+}
+
+country_event = { # Late delivery of package adressed to Tito
+	id = tito.26
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.26"}
+	title = tito.26.t
+	desc = tito.26.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Send this on express!
+		name = tito.26.a
+		hidden_effect = {
+			country_event = { id = tito.27 days = 3 }
+		}
+	}	
+	option = { # This is no big deal!
+		name = tito.26.b
+		
+	}
+}
+
+country_event = { # Car Wreck delays package!
+	id = tito.27
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.27"}
+	title = tito.27.t
+	desc = tito.27.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # I'll walk there for God's sake!
+		name = tito.27.a
+		hidden_effect = {
+			country_event = { id = tito.28 days = 3 }
+		}
+	}
+	option = { # Send it back, it'll get there eventually
+		name = tito.27.b
+		
+	}
+}
+
+country_event = { # Arrival at the capital
+	id = tito.29
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.29"}
+	title = tito.29.t
+	desc = tito.29.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # I'll wait for Tito to show my commitment!
+		name = tito.29.a
+		hidden_effect = {
+			country_event = { id = tito.30 days = 3 }
+		}
+	}
+	option = { # I'll leave it here
+		name = tito.29.b
+		
+	}
+}
+
+country_event = { # Tito dies because of anthrax
+	id = tito.30
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.30"}
+	title = tito.30.t
+	desc = tito.30.d	
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { # Hebrang
+		name = tito.30.a
+		trigger = { 
+			has_country_flag = CRO_Tito_friend_Hebrang
+			NOT = { has_country_flag = CRO_cringe_ass_nae_nae_hebrang }
+		}
+		country_event = { id = tito.9 days = 2 }
+	}
+	option = { # Bakaric
+		name = tito.30.b
+		trigger = { 
+			has_country_flag = CRO_Tito_friend_Bakaric
+			NOT = { has_country_flag = CRO_cringe_ass_nae_nae_bakaric }
+		}
+		country_event = { id = tito.10 days = 2 }
+	}
+	option = { # No one
+		name = tito.30.c
+		trigger = { 
+			OR = {
+				AND = {
+					has_country_flag = CRO_cringe_ass_nae_nae_bakaric
+					has_country_flag = CRO_cringe_ass_nae_nae_hebrang
+				}
+				AND = {
+					NOT = {
+						has_country_flag = CRO_Tito_friend_Hebrang
+					}
+					NOT = {
+						has_country_flag = CRO_Tito_friend_Bakaric
+					}
+				}
+			}
+		}
+		ITA = {
+			# No title or description written for this one yet, so it only goes to an
+			# AI Italy. Drop the limit once the text exists.
+			if = {
+				limit = { is_ai = yes }
+				country_event = { id = tito.25 days = 2 }
+			}
+		}		
+	}
+}
+
+country_event = { # Death check for plague 
+	id = tito.31
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.31"}
+	title = tito.31.t
+	desc = tito.31.d	
+	picture = GFX_error
+	is_triggered_only = yes
+	hidden = yes
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.31.a
+		if = {
+			limit = {
+				has_country_leader = {
+					name = "Josip Broz Tito"
+					ruling_only = yes
+				}
+			}
+			country_event = { id = tito.1 days = 2 }
+		}
+	}
+}
+
+country_event = { # Death check for anthrax 
+	id = tito.32
+	immediate = {log = "[GetDateText]: [Root.GetName]: event tito.32"}
+	title = tito.32.t
+	desc = tito.32.d	
+	picture = GFX_error
+	is_triggered_only = yes
+	hidden = yes
+	fire_only_once = yes
+
+	option = { # 
+		name = tito.32.a
+		if = {
+			limit = {
+				has_country_leader = {
+					name = "Josip Broz Tito"
+					ruling_only = yes
+				}
+			}
+			country_event = { id = tito.26 days = 2 }
+		}
+	}
+}
+
+country_event = { #Forced Convertions
+	id = ustase.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustase.1"}
+	title = ustase.1.t
+	desc = ustase.1.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = ustase.1.a
+		
+	}
+}
+
+country_event = { #A state for Croatians
+	id = ustase.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustase.2"}
+	title = ustase.2.t
+	desc = ustase.2.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = ustase.2.a
+		
+	}
+}
+
+country_event = { #Catholic Connection
+	id = ustase.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustase.3"}
+	title = ustase.3.t
+	desc = ustase.3.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = ustase.3.a
+		
+	}
+}
+
+country_event = { # Intervention in Crotaita (ITA)
+	id = ustase.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustase.4"}
+	title = ustase.4.t
+	desc = ustase.4.d
+	picture = GFX_error
+	is_triggered_only = yes
+	# CRO_ustase_tree only loads once the Ustase have outlasted Rome (cro.110).
+	# Rome does not get a second war it already lost.
+	trigger = {
+		NOT = { has_global_flag = CRO_civil_war_resolved }
+		NOT = { has_war_with = CRO }
+	}
+
+	fire_only_once = yes
+
+	option = { # Yes
+		name = ustase.4.a
+		declare_war_on = {
+			target = CRO
+			type = annex_everything
+		}
+	}
+	option = { # No
+		name = ustase.4.b
+	}
+}
+
+country_event = { # Croatia contacts us (GER)
+	id = ustase.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustase.5"}
+	title = ustase.5.t
+	desc = ustase.5.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Yes
+		name = ustase.5.a
+	}
+}
+
+country_event = { # Croatia contacts Germany (ITA)
+	id = ustase.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustase.6"}
+	title = ustase.6.t
+	desc = ustase.6.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Yes
+		name = ustase.6.a
+	}
+}
+
+country_event = { # Fight Partisans
+	id = ustase.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustase.7"}
+	title = ustase.7.t
+	desc = ustase.7.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Yes
+		name = ustase.7.a
+	}
+}
+
+country_event = { # Crackdowns in Cities
+	id = ustase.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustase.8"}
+	title = ustase.8.t
+	desc = ustase.8.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Yes
+		name = ustase.8.a
+	}
+}
+
+country_event = { # Unorthodox Methods
+	id = ustase.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustase.9"}
+	title = ustase.9.t
+	desc = ustase.9.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Yes
+		name = ustase.9.a
+	}
+}
+
+country_event = { # Unorthodox Methods
+	id = ustase.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustase.10"}
+	title = ustase.10.t
+	desc = ustase.10.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Yes
+		name = ustase.10.a
+	}
+}
+
+country_event = { # Ustase contacts (SWI)
+	id = ustase.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustase.11"}
+	title = ustase.11.t
+	desc = ustase.11.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Yes
+		name = ustase.11.a
+	}
+}
+
+country_event = { # Decry the Human Rights Declaration
+	id = ustase.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustase.12"}
+	title = ustase.12.t
+	desc = ustase.12.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Yes
+		name = ustase.12.a
+	}
+}
+
+country_event = { # Croatia wishes to join the Pakt
+	id = ustase.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ustase.13"}
+	title = ustase.13.t
+	desc = ustase.13.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # A Welcome Addition (formality — Germany accepts)
+		name = ustase.13.a
+		add_to_faction = CRO
+		CRO = {
+			add_ideas = Pakt_Bundnispartner
+			add_ideas = CRO_pakt_volunteer_corps
+		}
+	}
+}
+
+country_event = { # Ciano orders in Croatia
+	id = crocollab.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.1"}
+	title = crocollab.1.t
+	desc = crocollab.1.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Focus on Ustase
+		name = crocollab.1.a
+		hidden_effect = {
+			complete_national_focus = CRO_the_prince
+		}
+	}
+}
+
+country_event = { # Scorza orders in Croatia
+	id = crocollab.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.2"}
+	title = crocollab.2.t
+	desc = crocollab.2.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # Focus on Ustase
+		name = crocollab.2.a
+		hidden_effect = {
+			complete_national_focus = CRO_the_lieutenant
+		}
+	}
+}
+
+country_event = { # Lock down the Court
+	id = crocollab.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.3"}
+	title = crocollab.3.t
+	desc = crocollab.3.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = crocollab.3.a
+		
+	}
+}
+
+country_event = { # Leak prevention
+	id = crocollab.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.4"}
+	title = crocollab.4.t
+	desc = crocollab.4.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = crocollab.4.a
+		
+	}
+}
+
+country_event = { # Croatia wonders what to do (ITA)
+	id = crocollab.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.5"}
+	title = crocollab.5.t
+	desc = crocollab.5.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = crocollab.5.a
+		hidden_effect = {
+			country_event = { id = crocollab.6 days = 3 }
+		}	
+	}
+}
+
+country_event = { # Wait for after the Verona conference
+	id = crocollab.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.6"}
+	title = crocollab.6.t
+	desc = crocollab.6.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = crocollab.6.a
+		
+	}
+}
+
+country_event = { # Matica Hrvatska
+	id = crocollab.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.7"}
+	title = crocollab.7.t
+	desc = crocollab.7.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = crocollab.7.a
+		
+	}
+}
+
+country_event = { # Hrvatsko Sveuciliste
+	id = crocollab.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.8"}
+	title = crocollab.8.t
+	desc = crocollab.8.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = crocollab.8.a
+		
+	}
+}
+
+country_event = { # solved debt
+	id = crocollab.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.9"}
+	title = crocollab.9.t
+	desc = crocollab.9.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = crocollab.9.a
+		
+	}
+}
+
+country_event = { # upcoming elections
+	id = crocollab.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.10"}
+	title = crocollab.10.t
+	desc = crocollab.10.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = crocollab.10.a
+		
+	}
+}
+
+country_event = { # Koalicija Narodnog Sporazuma
+	id = crocollab.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.11"}
+	title = crocollab.11.t
+	desc = crocollab.11.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = crocollab.11.a
+		
+	}
+}
+
+country_event = { # Democratic Croatia elections and freedom
+	id = crocollab.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.12"}
+	title = crocollab.12.t
+	desc = crocollab.12.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # the republic is born; Italian Power decides how much of it Rome keeps
+		name = crocollab.12.a
+		# The election itself happens regardless of Rome's grip.
+		set_cosmetic_tag = CRO_normal
+		set_politics = {
+			ruling_party = social_democrat
+		}
+		create_country_leader = {
+			name = "Miko Tripalo"
+			desc = "POLITICS_Miko_Tripalo_DESC"
+			picture = Miko_Tripalo_.dds
+			expire = 1988.12.23
+			ideology = social_democrat_subtype
+		}
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.3
+		}
+		# Full independence.
+		if = {
+			limit = {
+				check_variable = {
+					var = CRO_italian_power
+					value = .4
+					compare = less_than
+				}
+			}
+			remove_ideas = TRI_Member
+			ITA = {
+				set_autonomy = {
+					target = CRO
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		# Loose associate of Rome.
+		if = {
+			limit = {
+				check_variable = {
+					var = CRO_italian_power
+					value = .4
+					compare = greater_than_or_equals
+				}
+				check_variable = {
+					var = CRO_italian_power
+					value = .6
+					compare = less_than
+				}
+			}
+			remove_ideas = TRI_Member
+			add_ideas = Rome_member
+			CRO = {
+				country_event = { id = ita.1001 days = 3 }
+			}
+		}
+		# Hefty Italian influence.
+		if = {
+			limit = {
+				check_variable = {
+					var = CRO_italian_power
+					value = .6
+					compare = greater_than_or_equals
+				}
+				check_variable = {
+					var = CRO_italian_power
+					value = .8
+					compare = less_than
+				}
+			}
+			CRO = {
+				country_event = { id = ita.1002 days = 3 }
+			}
+		}
+		# Reliant on Rome in all but name.
+		if = {
+			limit = {
+				check_variable = {
+					var = CRO_italian_power
+					value = .8
+					compare = greater_than_or_equals
+				}
+			}
+			CRO = {
+				country_event = { id = ita.1003 days = 3 }
+			}
+		}
+	}
+}
+
+country_event = { # Zvonimir's Exile
+	id = crocollab.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.13"}
+	title = crocollab.13.t
+	desc = crocollab.13.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = crocollab.13.a
+		
+	}
+}
+
+country_event = { # Zvonimir returns to Rome
+	id = crocollab.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.14"}
+	title = crocollab.14.t
+	desc = crocollab.14.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = crocollab.14.a
+		
+	}
+}
+
+country_event = { # Circolare 3C
+	id = crocollab.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.15"}
+	title = crocollab.15.t
+	desc = crocollab.15.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = crocollab.15.a
+		
+	}
+}
+
+country_event = { # Redraw borders?
+	id = crocollab.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.16"}
+	title = crocollab.16.t
+	desc = crocollab.16.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # No
+		name = crocollab.16.a
+		hidden_effect = {
+			country_event = { id = crocollab.17 days = 2 }
+		}
+	}
+	option = { # Yes
+		name = crocollab.16.b
+		hidden_effect = {
+			country_event = { id = crocollab.18 days = 2 }
+		}
+	}
+}
+
+country_event = { # Government shakey due to push back
+	id = crocollab.17
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.17"}
+	title = crocollab.17.t
+	desc = crocollab.17.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = crocollab.17.a
+		add_timed_idea = {
+			idea = CRO_government_questioned
+			days = 180
+		}
+	}
+}
+
+country_event = { # Cede Dubrovnik
+	id = crocollab.18
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.18"}
+	title = crocollab.18.t
+	desc = crocollab.18.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # no.
+		name = crocollab.18.a
+		hidden_effect = {
+			country_event = { id = crocollab.17 days = 2 }
+		}
+	}
+	option = { # ok
+		name = crocollab.18.b
+		hidden_effect = {
+			ITA = {
+				# No title or description written for this one yet, so it only goes to an
+				# AI Italy. Drop the limit once the text exists.
+				if = {
+					limit = { is_ai = yes }
+					country_event = { id = crocollab.19 days = 2 }
+				}
+			}	
+		}
+	}
+}
+
+country_event = { # Croatia cedes Dubrovnik (ITA)
+	id = crocollab.19
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.19"}
+	title = crocollab.19.t
+	desc = crocollab.19.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # no.
+		name = crocollab.19.a
+		transfer_state = 1293
+	}
+}
+
+country_event = { # New autonomy in CRO
+	id = crocollab.20
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocollab.20"}
+	title = crocollab.20.t
+	desc = crocollab.20.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = crocollab.20.a
+		if = {
+			limit = {
+				check_variable = {
+					var = CRO_italian_power
+					value = .8
+					compare = greater_than_or_equals
+				}
+			}
+			CRO = {
+				country_event = { id = ita.1004 days = 3 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					var = CRO_italian_power
+					value = .8
+					compare = less_than
+				}
+				check_variable = {
+					var = CRO_italian_power
+					value = .6
+					compare = greater_than_or_equals
+				}
+			}
+			CRO = {
+				country_event = { id = ita.1003 days = 3 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					var = CRO_italian_power
+					value = .6
+					compare = less_than
+				}
+			}
+			CRO = {
+				country_event = { id = ita.1002 days = 3 }
+			}
+		}
+	}
+}
+
+country_event = { #Bosnia breaks off! (USTASE)
+	id = bosnia.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event bosnia.1"}
+	title = bosnia.1.t
+	desc = bosnia.1.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = bosnia.1.a
+		remove_ideas = CRO_bosnian_autonomy
+		BOS = {
+			transfer_state = 104
+			add_state_core = 104
+			transfer_state = 1278
+			add_state_core = 1278
+			transfer_state = 1277
+			add_state_core = 1277
+			transfer_state = 1276
+			add_state_core = 1276
+		}	
+		hidden_effect = {
+			ITA = {
+				# No title or description written for this one yet, so it only goes to an
+				# AI Italy. Drop the limit once the text exists.
+				if = {
+					limit = { is_ai = yes }
+					country_event = { id = bosnia.2 days = 3 }
+				}
+			}	
+		}
+	}
+}
+
+country_event = { #Bosnia works with us (Italy, ustase)
+	id = bosnia.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event bosnia.2"}
+	title = bosnia.2.t
+	desc = bosnia.2.d	
+	picture = GFX_error
+	is_triggered_only = yes
+
+	fire_only_once = yes
+
+	option = { # 
+		name = bosnia.2.a
+		BOS = {
+			country_event = { id = ita.1002 days = 3 }
+		}
+	}
+}
+
+
+###### Government Control collapse -> coup + civil war (Phase 3) ######
+# Follows the LER/GER precedent: the player STAYS on CRO and CRO transforms in place
+# (set_party_name + leader + cosmetic + load_focus_tree). No human-player tag switch (engine can't).
+# Sympathy (cro.1) decides which faction the player BECOMES; the other faction is the AI enemy.
+
+# Dispatcher.
+country_event = {
+	id = cro.100
+	title = cro.100.t
+	desc = cro.100.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event cro.100 (government control collapsed)"
+		set_country_flag = CRO_couped
+		clr_country_flag = CRO_intermission_active
+		hidden_effect = { every_country = { news_event = { id = RA_GLOBAL_NEWS.45 hours = 6 } } }
+		# Fallback if the player never picked a sympathy: default to the Ustase.
+		if = {
+			limit = {
+				NOT = { has_country_flag = CRO_sympathy_tito }
+				NOT = { has_country_flag = CRO_sympathy_ustase }
+			}
+			set_country_flag = CRO_sympathy_ustase
+		}
+	}
+
+	option = {
+		name = cro.100.a
+		if = {
+			limit = { has_country_flag = CRO_sympathy_tito }
+			country_event = { id = cro.102 hours = 2 }
+		}
+		else = {
+			country_event = { id = cro.101 hours = 2 }
+		}
+	}
+}
+
+# Ustase sympathy: player stays CRO (the Ustase); Bosnia (BOS) rises under Tito as the AI enemy.
+country_event = {
+	id = cro.101
+	title = cro.101.t
+	desc = cro.101.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = cro.101.a
+		set_country_flag = CRO_path_ustase
+		CRO_begin_civil_war = yes
+	}
+}
+
+# Tito sympathy: identical world, but the player is moved to BOS (Tito) via change_tag_from.
+country_event = {
+	id = cro.102
+	title = cro.102.t
+	desc = cro.102.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = cro.102.a
+		CRO_begin_civil_war = yes
+		# Move the player from CRO (now Ustase, AI) to BOS (Tito).
+		BOS = {
+			set_country_flag = CRO_path_tito
+			change_tag_from = CRO
+		}
+	}
+}
+
+# Italy intervenes against BOTH breakaways (fired to ITA, +60 days). Phase 5 handles the survival window.
+country_event = {
+	id = cro.103
+	title = cro.103.t
+	desc = cro.103.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	trigger = {
+		BOS = {
+			exists = yes
+			has_government = communist
+		}
+		CRO = {
+			has_war_with = BOS
+		}
+	}
+
+	option = {
+		name = cro.103.a
+		declare_war_on = { target = CRO type = annex_everything }
+		declare_war_on = { target = BOS type = annex_everything }
+		# Without the mission nothing ever resolved this war: no cro.110, no victory
+		# news, and Rome never made peace with a Croatia that held out.
+		CRO = { activate_mission = CRO_hold_out_against_rome }
+	}
+}
+
+
+###### Phase 5: civil war resolution ######
+
+# Ustase held out 180 days -> independent Ustase Croatia (player stays CRO).
+country_event = {
+	id = cro.110
+	title = cro.110.t
+	desc = cro.110.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = cro.110.a
+		if = {
+			limit = {
+				NOT = { has_global_flag = CRO_civil_war_resolved }
+				# Only Croatia wins the Croatian civil war, and only if it is still
+				# standing. Without this the tree loaded for whoever held the mission.
+				original_tag = CRO
+				has_capitulated = no
+			}
+			set_global_flag = CRO_civil_war_resolved
+			set_country_flag = CRO_path_resolved
+			white_peace = ITA
+			# Ustase Croatia (nat-soc) or Tito's Yugoslavia (communist) has outlasted Rome.
+			if = {
+				limit = { has_government = communist }
+				hidden_effect = { every_country = { news_event = { id = RA_GLOBAL_NEWS.48 hours = 6 } } }
+				country_event = { id = cro.133 days = 1 }
+				load_focus_tree = partisan_victory_tree
+				CRO_start_titotangle = yes
+			}
+			else = {
+				hidden_effect = { every_country = { news_event = { id = RA_GLOBAL_NEWS.47 hours = 6 } } }
+				country_event = { id = cro.132 days = 1 }
+				load_focus_tree = CRO_ustase_tree
+			}
+		}
+	}
+}
+###### Government wins the intermission (no coup, no civil war) ######
+
+# Via the government tree's final focus (CRO_end_the_crisis).
+country_event = {
+	id = cro.120
+	title = cro.120.t
+	desc = cro.120.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = cro.120.a
+		hidden_effect = { every_country = { news_event = { id = RA_GLOBAL_NEWS.46 hours = 6 } } }
+		set_country_flag = CRO_path_resolved
+		clr_country_flag = CRO_intermission_active
+		load_focus_tree = CRO_italian_tree
+		add_ideas = CRO_PARTISAN_ACTIVITY
+		hidden_effect = {
+			country_event = { id = cro.140 days = 1 }
+		}
+	}
+}
+
+# Via the state-endures mission: rebels failed to collapse the government in time.
+country_event = {
+	id = cro.121
+	title = cro.121.t
+	desc = cro.121.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = cro.121.a
+		hidden_effect = { every_country = { news_event = { id = RA_GLOBAL_NEWS.46 hours = 6 } } }
+		set_country_flag = CRO_path_resolved
+		clr_country_flag = CRO_intermission_active
+		load_focus_tree = CRO_italian_tree
+		add_ideas = CRO_PARTISAN_ACTIVITY
+		hidden_effect = {
+			country_event = { id = cro.140 days = 1 }
+		}
+	}
+}
+
+
+# BOS mobilization (fired 1 day after the coup creates BOS; load_oob needs the tag to exist).
+country_event = {
+	id = cro.105
+	hidden = yes
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event cro.105 (BOS mobilizes)"
+		load_oob = "BOS_uprising"
+		add_equipment_to_stockpile = { type = infantry_equipment amount = 8000 producer = BOS }
+		add_equipment_to_stockpile = { type = support_equipment amount = 1500 producer = BOS }
+		add_equipment_to_stockpile = { type = artillery_equipment amount = 600 producer = BOS }
+		add_manpower = 15000
+		if = {
+			limit = { CRO = { check_variable = { CRO_partisan_prep > 1 } } }
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 3000 producer = BOS }
+		}
+		if = {
+			limit = { CRO = { check_variable = { CRO_partisan_prep > 3 } } }
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 3000 producer = BOS }
+			add_manpower = 20000
+			add_war_support = 0.1
+		}
+		if = {
+			limit = { CRO = { has_country_flag = CRO_partisans_sabotaged } }
+			add_equipment_to_stockpile = { type = infantry_equipment amount = -3000 producer = BOS }
+			add_war_support = -0.1
+		}
+	}
+}
+
+
+###### Victory events ######
+
+# Ustase win the civil war.
+country_event = {
+	id = cro.130
+	title = cro.130.t
+	desc = cro.130.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = cro.130.a
+	}
+}
+
+# Tito wins the civil war.
+country_event = {
+	id = cro.131
+	title = cro.131.t
+	desc = cro.131.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = cro.131.a
+	}
+}
+
+# Ustase Croatia defeats Italy.
+country_event = {
+	id = cro.132
+	title = cro.132.t
+	desc = cro.132.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = cro.132.a
+	}
+}
+
+# Tito's Yugoslavia defeats Italy.
+country_event = {
+	id = cro.133
+	title = cro.133.t
+	desc = cro.133.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = cro.133.a
+	}
+}
+
+
+###### Succession choice (italian tree fork) ######
+
+# Croatia chooses its own course (gov path won the intermission).
+country_event = {
+	id = cro.140
+	title = cro.140.t
+	desc = cro.140.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { # crown Zvonimir
+		name = cro.140.a
+		ai_chance = { base = 50 }
+		set_country_flag = CRO_prince_path
+		custom_effect_tooltip = CRO_prince_path_tt
+	}
+	option = { # Italian military government
+		name = cro.140.b
+		ai_chance = { base = 50 }
+		set_country_flag = CRO_lieutenant_path
+		custom_effect_tooltip = CRO_lieutenant_path_tt
+	}
+}
+
+# Italy dictates Croatia's course (the tree came via crushing the rebels).
+country_event = {
+	id = cro.141
+	title = cro.141.t
+	desc = cro.141.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { # crown Zvonimir
+		name = cro.141.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 5
+				has_country_flag = ita_ciano_wins
+			}
+		}
+		CRO = {
+			set_country_flag = CRO_prince_path
+		}
+		custom_effect_tooltip = CRO_prince_path_tt
+	}
+	option = { # direct military rule
+		name = cro.141.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 5
+				has_country_flag = ita_scorza_wins
+			}
+		}
+		CRO = {
+			set_country_flag = CRO_lieutenant_path
+		}
+		custom_effect_tooltip = CRO_lieutenant_path_tt
+	}
+}
+
+
+###### Serbian unification results ######
+
+# Serbia accepts — brotherhood and unity.
+country_event = {
+	id = cro.150
+	title = cro.150.t
+	desc = cro.150.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = cro.150.a
+		every_state = {
+			limit = { is_core_of = SER }
+			set_state_flag = CRO_war_coreable
+		}
+		annex_country = {
+			target = SER
+			transfer_troops = yes
+		}
+		set_country_flag = CRO_serbia_unified
+	}
+}
+
+# Serbia refuses — so be it.
+country_event = {
+	id = cro.151
+	title = cro.151.t
+	desc = cro.151.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = cro.151.a
+		custom_effect_tooltip = CRO_unlock_invade_SER_tt
+	}
+}
+
+###### The Poglavnik's Twilight — Ustase leadership crisis (Phase 6c) ######
+# Fires ~1970 (on_monthly_CRO) once the Ustase state has joined the Pakt.
+# Resolution: the Black Council (mission timeout, or a convene focus in Phase 2).
+
+country_event = { # The succession struggle opens
+	id = crocrisis.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocrisis.1"}
+	title = crocrisis.1.t
+	desc = crocrisis.1.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = crocrisis.1.a
+		custom_effect_tooltip = CRO_leadership_race_available_tt
+		hidden_effect = {
+			CRO_initialize_leadership_race = yes
+		}
+	}
+}
+
+country_event = { # The Black Council decides
+	id = crocrisis.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocrisis.2"}
+	title = crocrisis.2.t
+	desc = crocrisis.2.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = crocrisis.2.a
+		CRO_sort_leader = yes
+	}
+}
+
+country_event = { # Old Guard holds (skeleton — narrative by user)
+	id = crocrisis.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocrisis.3"}
+	title = crocrisis.3.t
+	desc = crocrisis.3.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = crocrisis.3.a
+	}
+}
+
+country_event = { # Lorkovic's plot succeeds (skeleton — narrative by user)
+	id = crocrisis.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocrisis.4"}
+	title = crocrisis.4.t
+	desc = crocrisis.4.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = crocrisis.4.a
+	}
+}
+
+country_event = { # The Crusaders rise (skeleton — narrative by user)
+	id = crocrisis.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event crocrisis.5"}
+	title = crocrisis.5.t
+	desc = crocrisis.5.d
+	picture = GFX_error
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = crocrisis.5.a
+	}
+}

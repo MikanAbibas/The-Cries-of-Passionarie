@@ -1,0 +1,31 @@
+### Italo-Turkish War - shared by the legacy and Mediterranean Italy paths.
+
+# Run in ITA scope once the war is settled, from itatur.4, itatur.5 and itatur.10.
+#
+# IME is pulled out of the Rome Security Protocols at maltaconference.22 and again
+# at itatur.1, because the engine refuses volunteers to a country you share a
+# faction with and would have called Italy into the war outright. With the peace
+# signed that reason is gone, so IME rejoins the pact as an ally rather than a
+# governorate - itatur.1's end_puppet is not undone.
+#
+# The advisor commitment built up by ita_send_volunteers_to_levant goes with it.
+ITA_itw_stand_down = {
+	set_variable = { ITA_advisor_level = 0 }
+	hidden_effect = {
+		remove_ideas = {
+			advisor_level_1
+			advisor_level_2
+			advisor_level_3
+			advisor_level_4
+			advisor_level_5
+		}
+	}
+	if = {
+		limit = {
+			is_faction_leader = yes
+			IME = { exists = yes }
+			NOT = { is_in_faction_with = IME }
+		}
+		add_to_faction = IME
+	}
+}

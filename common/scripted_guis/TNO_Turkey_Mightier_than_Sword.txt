@@ -1,0 +1,145 @@
+scripted_gui = {
+	TUR_GUI_Mightier_than_Sword = { 
+		context_type = decision_category
+		window_name = "TUR_GUI_Mightier_than_Sword"
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			always = yes
+		}
+		triggers = {
+			speech_topic_1_visible = {
+				NOT = { has_country_flag = TUR_Speech_Selecting_1 }
+			}
+			speech_topic_2_visible = {
+				NOT = { has_country_flag = TUR_Speech_Selecting_2 }
+			}
+			speech_topic_3_visible = {
+				NOT = { has_country_flag = TUR_Speech_Selecting_3 }
+			}
+			speech_topic_1_select_1_visible = {
+				has_country_flag = TUR_Speech_Selecting_1
+			}
+			speech_topic_1_select_2_visible = {
+				has_country_flag = TUR_Speech_Selecting_1
+			}
+			speech_topic_1_select_3_visible = {
+				has_country_flag = TUR_Speech_Selecting_1
+			}
+			speech_topic_2_select_1_visible = {
+				has_country_flag = TUR_Speech_Selecting_2
+			}
+			speech_topic_2_select_2_visible = {
+				has_country_flag = TUR_Speech_Selecting_2
+			}
+			speech_topic_2_select_3_visible = {
+				has_country_flag = TUR_Speech_Selecting_2
+			}
+			speech_topic_3_select_1_visible = {
+				has_country_flag = TUR_Speech_Selecting_3
+			}
+			speech_topic_3_select_2_visible = {
+				has_country_flag = TUR_Speech_Selecting_3
+			}
+			speech_topic_3_select_3_visible = {
+				has_country_flag = TUR_Speech_Selecting_3
+			}
+		}
+		effects = {
+			speech_topic_box_1_click = {
+				set_country_flag = TUR_Speech_Selecting_1
+				if = {
+					limit = {
+						has_country_flag = TUR_Speech_Selecting_2
+					}
+					clr_country_flag = TUR_Speech_Selecting_2
+				}
+				if = {
+					limit = {
+						has_country_flag = TUR_Speech_Selecting_3
+					}
+					clr_country_flag = TUR_Speech_Selecting_3
+				}
+			}
+			speech_topic_box_2_click = {
+				set_country_flag = TUR_Speech_Selecting_2
+				if = {
+					limit = {
+						has_country_flag = TUR_Speech_Selecting_1
+					}
+					clr_country_flag = TUR_Speech_Selecting_1
+				}
+				if = {
+					limit = {
+						has_country_flag = TUR_Speech_Selecting_3
+					}
+					clr_country_flag = TUR_Speech_Selecting_3
+				}
+			}
+			speech_topic_box_3_click = {
+				set_country_flag = TUR_Speech_Selecting_3
+				if = {
+					limit = {
+						has_country_flag = TUR_Speech_Selecting_1
+					}
+					clr_country_flag = TUR_Speech_Selecting_1
+				}
+				if = {
+					limit = {
+						has_country_flag = TUR_Speech_Selecting_2
+					}
+					clr_country_flag = TUR_Speech_Selecting_2
+				}
+			}
+			speech_topic_1_select_1_click = {
+				set_variable = { TUR_Speech_1 = 1 }
+				clr_country_flag = TUR_Speech_Selecting_1
+			}
+			speech_topic_1_select_2_click = {
+				set_variable = { TUR_Speech_1 = 2 }
+				clr_country_flag = TUR_Speech_Selecting_1
+			}
+			speech_topic_1_select_3_click = {
+				set_variable = { TUR_Speech_1 = 3 }
+				clr_country_flag = TUR_Speech_Selecting_1
+			}
+			speech_topic_2_select_1_click = {
+				set_variable = { TUR_Speech_2 = 1 }
+				clr_country_flag = TUR_Speech_Selecting_2
+			}
+			speech_topic_2_select_2_click = {
+				set_variable = { TUR_Speech_2 = 2 }
+				clr_country_flag = TUR_Speech_Selecting_2
+			}
+			speech_topic_2_select_3_click = {
+				set_variable = { TUR_Speech_2 = 3 }
+				clr_country_flag = TUR_Speech_Selecting_2
+			}
+			speech_topic_3_select_1_click = {
+				set_variable = { TUR_Speech_3 = 1 }
+				clr_country_flag = TUR_Speech_Selecting_3
+			}
+			speech_topic_3_select_2_click = {
+				set_variable = { TUR_Speech_3 = 2 }
+				clr_country_flag = TUR_Speech_Selecting_3
+			}
+			speech_topic_3_select_3_click = {
+				set_variable = { TUR_Speech_3 = 3 }
+				clr_country_flag = TUR_Speech_Selecting_3
+			}
+			speech_final_button_click = {
+				if = {
+					limit = {
+						NOT = {
+							OR = {
+								check_variable = { TUR_Speech_1 = 0 }
+								check_variable = { TUR_Speech_2 = 0 }
+								check_variable = { TUR_Speech_3 = 0 }
+							}
+						}
+					}
+					clr_country_flag = TUR_Inonu_Speech
+					country_event = { id = tur.86 }
+				}
+			}
+		}
+	}
+}

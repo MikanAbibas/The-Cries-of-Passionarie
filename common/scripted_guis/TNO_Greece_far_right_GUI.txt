@@ -1,0 +1,78 @@
+scripted_gui = {
+    TNO_GRE_Far_Right_Decisions_GUI = { 
+		context_type = decision_category
+		window_name = "TNO_GRE_Far_Right_GUI"
+		dirty = far_right_gui_dirty
+
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			always = yes
+		}
+
+		effects = {
+			GRE_NOX_flag_click = {
+				set_variable = {
+					GRE_far_right_group_view = 1
+				}
+				add_to_variable = {
+					far_right_gui_dirty = 1
+				}
+				set_variable = {
+					GRE_group_flag_selected_1 = 2
+				}
+				clear_variable = GRE_group_flag_selected_2
+				clear_variable = GRE_group_flag_selected_3
+			}
+
+			GRE_K4A_flag_click = {
+				set_variable = {
+					GRE_far_right_group_view = 2
+				}
+				add_to_variable = {
+					far_right_gui_dirty = 1
+				}
+				set_variable = {
+					GRE_group_flag_selected_2 = 2
+				}
+				clear_variable = GRE_group_flag_selected_1
+				clear_variable = GRE_group_flag_selected_3
+			}
+
+			GRE_MEA_flag_click = {
+				set_variable = {
+					GRE_far_right_group_view = 3
+				}
+				add_to_variable = {
+					far_right_gui_dirty = 1
+				}
+				set_variable = {
+					GRE_group_flag_selected_3 = 2
+				}
+				clear_variable = GRE_group_flag_selected_1
+				clear_variable = GRE_group_flag_selected_2
+			}
+		}
+		properties = {
+			GRE_far_right_power_bar = {
+				frame = GRE_Far_Right_Group_Power^GRE_far_right_group_view
+			}
+
+			GRE_far_right_anger_bar = {
+				frame = GRE_Far_Right_Group_Anger^GRE_far_right_group_view
+			}
+			GRE_NOX_flag = {
+				frame = GRE_group_flag_selected_1
+			}
+
+			GRE_K4A_flag = {
+				frame = GRE_group_flag_selected_2
+			}
+
+			GRE_MEA_flag = {
+				frame = GRE_group_flag_selected_3
+			}
+			GRE_leader_portrait = {
+				image = "[GRE_far_right_leader_image]"
+			}
+		}
+    }
+}

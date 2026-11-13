@@ -1,0 +1,128 @@
+scripted_gui = {
+
+	# Button strip under the research slots - TNO_research_focus_anchor is the
+	# bottom-aligned container inside research_slots (interface/countrytechnologyview.gui)
+	TNO_research_focus_opener = {
+		window_name = "TNO_research_focus_open_container"
+		context_type = player_context
+		parent_window_name = "TNO_research_focus_anchor"
+
+		ai_enabled = { always = no }
+
+		visible = {
+			always = yes
+		}
+
+		effects = {
+			TNO_research_focus_open_button_click = {
+				if = {
+					limit = { has_country_flag = TNO_research_focus_window_open }
+					clr_country_flag = TNO_research_focus_window_open
+				}
+				else = {
+					set_country_flag = TNO_research_focus_window_open
+				}
+			}
+		}
+	}
+
+	# The picker. The five base priorities are fixed entries; anything a country has
+	# unlocked comes out of TNO_research_focus_available through the dynamic list, so
+	# national academias need no work in here at all.
+	TNO_research_focus_picker = {
+		window_name = "TNO_research_focus_window"
+		context_type = player_context
+		parent_window_name = "countrytechnologyview"
+
+		ai_enabled = { always = no }
+
+		visible = {
+			has_country_flag = TNO_research_focus_window_open
+		}
+
+		dynamic_lists = {
+			TNO_research_focus_extra_grid = {
+				array = TNO_research_focus_available
+				index = TNO_research_focus_i
+				change_scope = no
+
+				entry_container = TNO_research_focus_extra_entry
+			}
+		}
+
+		triggers = {
+			# Base entries key off the idea directly, so they read correctly in saves
+			# from before TNO_research_focus_current existed.
+			TNO_research_focus_current_balanced_visible = { has_idea = tno_research_focus_balanced }
+			TNO_research_focus_current_doctrine_visible = { has_idea = tno_research_focus_doctrine }
+			TNO_research_focus_current_land_naval_visible = { has_idea = tno_research_focus_land_naval }
+			TNO_research_focus_current_air_visible = { has_idea = tno_research_focus_air }
+			TNO_research_focus_current_industry_visible = { has_idea = tno_research_focus_industry }
+
+			TNO_research_focus_pick_balanced_visible = { NOT = { has_idea = tno_research_focus_balanced } }
+			TNO_research_focus_pick_doctrine_visible = { NOT = { has_idea = tno_research_focus_doctrine } }
+			TNO_research_focus_pick_land_naval_visible = { NOT = { has_idea = tno_research_focus_land_naval } }
+			TNO_research_focus_pick_air_visible = { NOT = { has_idea = tno_research_focus_air } }
+			TNO_research_focus_pick_industry_visible = { NOT = { has_idea = tno_research_focus_industry } }
+
+			# The pick button's label is a separate textbox (the frame's scale would
+			# otherwise shrink buttonText), so it needs the same visibility as its button
+			# or it keeps showing over the entry that is already selected.
+			TNO_research_focus_pick_balanced_text_visible = { NOT = { has_idea = tno_research_focus_balanced } }
+			TNO_research_focus_pick_doctrine_text_visible = { NOT = { has_idea = tno_research_focus_doctrine } }
+			TNO_research_focus_pick_land_naval_text_visible = { NOT = { has_idea = tno_research_focus_land_naval } }
+			TNO_research_focus_pick_air_text_visible = { NOT = { has_idea = tno_research_focus_air } }
+			TNO_research_focus_pick_industry_text_visible = { NOT = { has_idea = tno_research_focus_industry } }
+
+			TNO_research_focus_pick_balanced_click_enabled = { TNO_can_switch_research_focus = yes }
+			TNO_research_focus_pick_doctrine_click_enabled = { TNO_can_switch_research_focus = yes }
+			TNO_research_focus_pick_land_naval_click_enabled = { TNO_can_switch_research_focus = yes }
+			TNO_research_focus_pick_air_click_enabled = { TNO_can_switch_research_focus = yes }
+			TNO_research_focus_pick_industry_click_enabled = { TNO_can_switch_research_focus = yes }
+
+			# Dynamic entries have no idea token to test against, so they compare IDs
+			TNO_research_focus_extra_current_visible = {
+				check_variable = { TNO_research_focus_current = TNO_research_focus_available^TNO_research_focus_i }
+			}
+			TNO_research_focus_extra_pick_visible = {
+				NOT = { check_variable = { TNO_research_focus_current = TNO_research_focus_available^TNO_research_focus_i } }
+			}
+			TNO_research_focus_extra_pick_text_visible = {
+				NOT = { check_variable = { TNO_research_focus_current = TNO_research_focus_available^TNO_research_focus_i } }
+			}
+			TNO_research_focus_extra_pick_click_enabled = { TNO_can_switch_research_focus = yes }
+		}
+
+		effects = {
+			TNO_research_focus_close_button_click = {
+				clr_country_flag = TNO_research_focus_window_open
+			}
+
+			TNO_research_focus_pick_balanced_click = {
+				set_variable = { TNO_research_focus_target = 0 }
+				TNO_research_focus_switch = yes
+			}
+			TNO_research_focus_pick_doctrine_click = {
+				set_variable = { TNO_research_focus_target = 1 }
+				TNO_research_focus_switch = yes
+			}
+			TNO_research_focus_pick_land_naval_click = {
+				set_variable = { TNO_research_focus_target = 2 }
+				TNO_research_focus_switch = yes
+			}
+			TNO_research_focus_pick_air_click = {
+				set_variable = { TNO_research_focus_target = 3 }
+				TNO_research_focus_switch = yes
+			}
+			TNO_research_focus_pick_industry_click = {
+				set_variable = { TNO_research_focus_target = 4 }
+				TNO_research_focus_switch = yes
+			}
+
+			TNO_research_focus_extra_pick_click = {
+				set_variable = { TNO_research_focus_target = TNO_research_focus_available^TNO_research_focus_i }
+				TNO_research_focus_switch = yes
+			}
+		}
+	}
+}

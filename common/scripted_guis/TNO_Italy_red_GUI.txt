@@ -1,0 +1,92 @@
+scripted_gui = {
+	ITA_RED_army_management_GUI = {
+		context_type = decision_category
+		window_name = "ITA_RED_army_management_GUI"
+
+		visible = {
+			always = yes
+		}
+
+		properties = {
+
+			ITA_RED_army_officer_corps_bar = {
+				frame = ITA_RED_army_officer_corps_frame
+			}
+			ITA_RED_army_force_primacy_bar = {
+				frame = ITA_RED_army_force_primacy_frame
+			}
+
+			ITA_RED_statecontrol_Regions_Entry = {
+				image = "[ITA_RED_statecontrol_GetRegionGFX]"
+				x = ITA_RED_statecontrol_Regions_X^ITA_RED_statecontrol_Region_i
+				y = ITA_RED_statecontrol_Regions_Y^ITA_RED_statecontrol_Region_i
+			}
+		}
+
+		dynamic_lists = {
+			ITA_RED_statecontrol_Regions = {
+				array = ITA_RED_statecontrol_Regions
+				index = ITA_RED_statecontrol_Region_i
+				change_scope = no
+				entry_container = ITA_RED_statecontrol_Regions_Container
+			}
+		}
+
+		effects = {
+			ITA_RED_statecontrol_Regions_Entry_click = {
+				set_variable = { ITA_RED_statecontrol_SelectedEntry_i = ITA_RED_statecontrol_Region_i }
+				set_country_flag = ITA_RED_statecontrol_popout_Visible
+			}
+		}
+	}
+	
+	ITA_RED_statecontrol_popout = {
+		context_type = player_context
+		window_name = "ITA_RED_statecontrol_popout"
+
+		visible = {
+			has_country_flag = ITA_RED_statecontrol_popout_Visible
+		}
+
+		properties = {
+			ITA_RED_statecontrol_civ_bar = { frame = var:ITA_RED_statecontrol_civ^ITA_RED_statecontrol_SelectedEntry_i }
+			ITA_RED_statecontrol_mil_bar = { frame = var:ITA_RED_statecontrol_mil^ITA_RED_statecontrol_SelectedEntry_i }
+		}
+
+		effects = {
+			ITA_RED_statecontrol_popout_Close_Button_click = {
+				clr_country_flag = ITA_RED_statecontrol_popout_Visible
+				clear_variable = ITA_RED_statecontrol_SelectedEntry_i
+			}
+		}
+		
+		triggers = {
+			ITA_RED_statecontrol_first_mil_active_visible = {
+				OR = {
+					check_variable = { ITA_RED_statecontrol_mil^ITA_RED_statecontrol_SelectedEntry_i > 33.33 }
+				}
+			}
+			ITA_RED_statecontrol_second_mil_active_visible = {
+				OR = {
+					check_variable = { ITA_RED_statecontrol_mil^ITA_RED_statecontrol_SelectedEntry_i > 66.66 }
+				}
+			}
+			ITA_RED_statecontrol_third_mil_active_visible = {
+				check_variable = { ITA_RED_statecontrol_mil^ITA_RED_statecontrol_SelectedEntry_i > 99 }
+			}
+			ITA_RED_statecontrol_first_authority_active_visible = {
+				OR = {
+					check_variable = { ITA_RED_statecontrol_civ^ITA_RED_statecontrol_SelectedEntry_i > 33.33 }
+				}
+			}
+			ITA_RED_statecontrol_second_authority_active_visible = {
+				OR = {
+					check_variable = { ITA_RED_statecontrol_civ^ITA_RED_statecontrol_SelectedEntry_i > 66.66 }
+				}
+			}
+			ITA_RED_statecontrol_third_authority_active_visible = {
+				check_variable = { ITA_RED_statecontrol_civ^ITA_RED_statecontrol_SelectedEntry_i > 99 }
+			}
+		}
+	}
+}

@@ -1,0 +1,2176 @@
+############################################################################
+## ██╗████████╗ █████╗ ██╗         ██╗███╗   ███╗██████╗ ███████╗██████╗  ##
+## ██║╚══██╔══╝██╔══██╗██║         ██║████╗ ████║██╔══██╗██╔════╝██╔══██╗ ##
+## ██║   ██║   ███████║██║         ██║██╔████╔██║██████╔╝█████╗  ██████╔╝ ##
+## ██║   ██║   ██╔══██║██║         ██║██║╚██╔╝██║██╔═══╝ ██╔══╝  ██╔══██╗ ##
+## ██║   ██║   ██║  ██║███████╗    ██║██║ ╚═╝ ██║██║     ███████╗██║  ██║ ##
+## ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝ ##
+############################################################################
+
+#Index; Search for these names using CTRL+F and you'll find the section they entitle.
+#   QUADRUMVIRATE
+#       a) Main Tree
+#       b) Pavolini Subtree
+#       c) Balbo Subtree
+#       d) Muti Subtree
+#       e) Giani Subtree
+#
+
+#################################################################################################################
+##  ██████╗ ██╗   ██╗ █████╗ ██████╗ ██████╗ ██╗   ██╗███╗   ███╗██╗   ██╗██╗██████╗  █████╗ ████████╗███████╗ ##
+## ██╔═══██╗██║   ██║██╔══██╗██╔══██╗██╔══██╗██║   ██║████╗ ████║██║   ██║██║██╔══██╗██╔══██╗╚══██╔══╝██╔════╝ ##
+## ██║   ██║██║   ██║███████║██║  ██║██████╔╝██║   ██║██╔████╔██║██║   ██║██║██████╔╝███████║   ██║   █████╗   ##
+## ██║▄▄ ██║██║   ██║██╔══██║██║  ██║██╔══██╗██║   ██║██║╚██╔╝██║╚██╗ ██╔╝██║██╔══██╗██╔══██║   ██║   ██╔══╝   ##
+## ╚██████╔╝╚██████╔╝██║  ██║██████╔╝██║  ██║╚██████╔╝██║ ╚═╝ ██║ ╚████╔╝ ██║██║  ██║██║  ██║   ██║   ███████╗ ##
+##  ╚══▀▀═╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝  ╚═══╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚══════╝ ##
+#################################################################################################################
+
+###=====| a) Main Tree |=====###
+
+shared_focus = {
+	id = ITA_a_new_dawn_for_fascism
+	icon = GFX_New_Dawn_for_Fascism
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+
+	x = 8
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_new_dawn_for_fascism"
+		custom_effect_tooltip = ITA_RAD_TT
+	}
+}
+
+shared_focus = {
+	id = ITA_four_men_enter
+	icon = GFX_ITA_four_men_enter
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_new_dawn_for_fascism
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_four_men_enter"
+		country_event = {
+			id = ITA_quadrumvirate.1
+			hours = 12
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_e_quattruor_unus
+	icon = GFX_The_Path_To_Chose
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_four_men_enter
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_e_quattruor_unus"
+		country_event = {
+			id = ITA_quadrumvirate.7
+			hours = 12
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_organize_the_council
+	icon = GFX_meet_with_the_grand_council
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_four_men_enter
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 1
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_organize_the_council"
+		add_political_power = 25
+		# Ministri. Running the session at all is a favour to the men who hold the offices.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+		ITA_GCF_boost_chosen = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_and_only_one_leaves
+	icon = GFX_ITA_one_leaves
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_organize_the_council
+	}
+	prerequisite = {
+		focus = ITA_e_quattruor_unus
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_and_only_one_leaves"
+		custom_effect_tooltip = ITA_RAD_TT2
+		set_country_flag = ITA_show_grand_council_of_fascism
+		ITA_GCF_init = yes
+	}
+}
+
+
+shared_focus = {
+	id = ITA_a_black_octavianus
+	# Pavolini is the least finished fascist leader: 2 of his 149 focuses carry
+	# a real reward and 13 are described. ITA_med_wip_paths_active is set only
+	# when the rule is on _WIP, so with the plain rework the Quadrumvirate
+	# resolves to Balbo, Muti or Giani only.
+	available = {
+		# Wrapped so the player reads a sentence instead of "Has country flag:
+		# ITA_med_wip_paths_active", which is what a bare flag check renders as.
+		custom_trigger_tooltip = {
+			tooltip = ITA_pavolini_wip_gate_tt
+			has_country_flag = ITA_med_wip_paths_active
+		}
+	}
+	bypass_if_unavailable = no
+	icon = GFX_ITA_Generic_Pavolini
+	cost = 4.00
+	ai_will_do = { factor = 0 }
+	prerequisite = {
+		focus = ITA_and_only_one_leaves
+	}
+	mutually_exclusive = {
+		focus = ITA_a_radical_cato
+		focus = ITA_a_fascist_lepidus
+		focus = ITA_a_new_antonius
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -3
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_black_octavianus"
+		set_country_flag = ITA_pavolini_chosen
+		custom_effect_tooltip = ITA_RAD_Pavolini_TT
+	}
+}
+
+shared_focus = {
+	id = ITA_a_new_antonius
+	icon = GFX_ITA_Generic_Balbo
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_and_only_one_leaves
+	}
+	mutually_exclusive = {
+		focus = ITA_a_radical_cato
+		focus = ITA_a_fascist_lepidus
+		focus = ITA_a_black_octavianus
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -1
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_new_antonius"
+		set_country_flag = ITA_balbo_chosen
+		custom_effect_tooltip = ITA_RAD_Balbo_TT
+	}
+}
+
+shared_focus = {
+	id = ITA_a_fascist_lepidus
+	icon = GFX_ITA_Generic_Muti
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_and_only_one_leaves
+	}
+	mutually_exclusive = {
+		focus = ITA_a_radical_cato
+		focus = ITA_a_new_antonius
+		focus = ITA_a_black_octavianus
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 1
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_fascist_lepidus"
+		set_country_flag = ITA_muti_chosen
+		custom_effect_tooltip = ITA_RAD_Muti_TT
+	}
+}
+
+shared_focus = {
+	id = ITA_a_radical_cato
+	icon = GFX_ITA_Generic_Giani
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_and_only_one_leaves
+	}
+	mutually_exclusive = {
+		focus = ITA_a_fascist_lepidus
+		focus = ITA_a_new_antonius
+		focus = ITA_a_black_octavianus
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 3
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_radical_cato"
+		set_country_flag = ITA_giani_chosen
+		custom_effect_tooltip = ITA_RAD_Giani_TT
+	}
+}
+
+shared_focus = {
+	id = ITA_a_meeting_with_the_king_quadrumvirate
+	icon = GFX_ITA_demand_full_powers
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_fascist_lepidus
+		focus = ITA_a_new_antonius
+		focus = ITA_a_black_octavianus
+		focus = ITA_a_radical_cato
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_meeting_with_the_king_quadrumvirate"
+		country_event = {
+			id = ITA_quadrumvirate.50
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_primus_inter_pares
+	icon = GFX_ITA_primus_inter_pares
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_meeting_with_the_king_quadrumvirate
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -1
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_primus_inter_pares"
+		# Moderati. The King's blessing is worth most to the men who want a quiet succession.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.06 }
+		ITA_GCF_boost_chosen = yes
+		# Ministri.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+		ITA_GCF_boost_chosen = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_concordia_ordinum
+	icon = GFX_ITA_Concordia_Ordinum
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_meeting_with_the_king_quadrumvirate
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 1
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_concordia_ordinum"
+		
+		country_event = {
+			id = ITA_quadrumvirate.9
+			hours = 12
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_let_the_games_begin
+	icon = GFX_ITA_let_the_games_begin
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_concordia_ordinum
+	}
+	prerequisite = {
+		focus = ITA_primus_inter_pares
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_let_the_games_begin"
+		mark_focus_tree_layout_dirty = yes
+		custom_effect_tooltip = ITA_RAD_TT3
+		ITA_GCF_Start_100_day_session = yes
+		ITA_fash_resistance_start = yes
+		if = {
+			limit = {
+				has_country_flag = ITA_pavolini_chosen
+			}
+			ITA_GCF_PavoliniSetup = yes
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ITA_balbo_chosen
+			}
+			ITA_GCF_BalboSetup = yes
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ITA_muti_chosen
+			}
+			ITA_GCF_MutiSetup = yes
+		}
+		else_if = {
+			limit = {
+				has_country_flag = ITA_giani_chosen
+			}
+			ITA_GCF_GianiSetup = yes
+		}
+	}
+}
+
+###=====| b) Pavolini Subtree |=====###
+shared_focus = {
+	id = ITA_we_must_be_loyal
+	icon = GFX_ITA_we_must_be_loyal
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_let_the_games_begin
+	}
+	allow_branch = {
+		AND = {
+			has_completed_focus = ITA_let_the_games_begin
+			has_country_flag = ITA_pavolini_chosen
+		}
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_we_must_be_loyal"
+		# MVSN. Loyalty to the Duce is the Blackshirts' whole argument.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.08 }
+		ITA_GCF_boost_chosen = yes
+		# Burocrati. The party machine likes hearing it too.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.03 }
+		ITA_GCF_boost_chosen = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_organize_the_blackshirts
+	icon = GFX_ITA_Blackshirt_generic_terror
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_we_must_be_loyal
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -1
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_organize_the_blackshirts"
+		
+		country_event = {
+			id = ITA_quadrumvirate.24
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_a_not_so_free_press
+	icon = GFX_WAL_Cover_Up
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_we_must_be_loyal
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 1
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_not_so_free_press"
+		
+		country_event = {
+			id = ITA_quadrumvirate.10
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_make_an_example
+	icon = GFX_ITA_make_an_example
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_not_so_free_press
+	}
+	prerequisite = {
+		focus = ITA_organize_the_blackshirts
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 10
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_make_an_example"
+		custom_effect_tooltip = ITA_RAD_Pavolini_TT_1
+		
+		hidden_effect = {
+			country_event = {
+				id = ITA_quadrumvirate.11
+				hours = 6
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_only_two_left
+	icon = GFX_ITA_Only_Two_Left
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_make_an_example
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 11
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_only_two_left"
+		custom_effect_tooltip = ITA_RAD_TT4
+		ITA_GCF_Start_100_day_session = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_a_meeting_on_the_libyan_coast
+	icon = GFX_ITA_a_meeting_on_the_libyan_coast
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_only_two_left
+	}
+	mutually_exclusive = {
+		focus = ITA_the_fast_and_furious
+		focus = ITA_we_need_no_allies
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -2
+	y = 12
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_meeting_on_the_libyan_coast"
+		custom_effect_tooltip = ITA_RAD_Pavolini_TT_2
+		
+		hidden_effect = {
+			country_event = {
+				id = ITA_quadrumvirate.13
+				hours = 12
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_we_need_no_allies
+	icon = GFX_ITA_our_splendid_isolation
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_only_two_left
+	}
+	mutually_exclusive = {
+		focus = ITA_the_fast_and_furious
+		focus = ITA_a_meeting_on_the_libyan_coast
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 12
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_we_need_no_allies"
+		
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = ITA_the_fast_and_furious
+	icon = GFX_ITA_the_fast_and_the_furious
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_only_two_left
+	}
+	mutually_exclusive = {
+		focus = ITA_we_need_no_allies
+		focus = ITA_a_meeting_on_the_libyan_coast
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 2
+	y = 12
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_fast_and_furious"
+		custom_effect_tooltip = ITA_RAD_Pavolini_TT_3
+		
+		hidden_effect = {
+			country_event = {
+				id = ITA_quadrumvirate.14
+				hours = 12
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_propaganda_on_the_streets
+	icon = GFX_GIB_propaganda_for_pay
+	cost = 2.15
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_fast_and_furious
+		focus = ITA_a_meeting_on_the_libyan_coast
+		focus = ITA_we_need_no_allies
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -2
+	y = 13
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_propaganda_on_the_streets"
+		# MVSN. The street is theirs, and it is being told who to cheer for.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.07 }
+		ITA_GCF_boost_chosen = yes
+		# Moderati.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.03 }
+		ITA_GCF_boost_chosen = yes
+		add_stability = 0.02
+	}
+}
+
+shared_focus = {
+	id = ITA_smile_and_wave
+	icon = GFX_GIB_lights_camera
+	cost = 2.15
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_fast_and_furious
+		focus = ITA_a_meeting_on_the_libyan_coast
+		focus = ITA_we_need_no_allies
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 2
+	y = 13
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_smile_and_wave"
+		country_event = {
+			id = ITA_quadrumvirate.22
+			hours = 12
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_hide_the_records
+	icon = GFX_IBR_burning_paperwork
+	cost = 2.15
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_fast_and_furious
+		focus = ITA_a_meeting_on_the_libyan_coast
+		focus = ITA_we_need_no_allies
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 14
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_hide_the_records"
+		# Burocrati. The files that would have embarrassed them are gone.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.06 }
+		ITA_GCF_boost_chosen = yes
+		# Corporazioni. So are the ones about their contracts.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 1 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.06 }
+		ITA_GCF_boost_chosen = yes
+		add_political_power = -20
+	}
+}
+
+shared_focus = {
+	id = ITA_promise_the_corporates
+	icon = GFX_Generic_Industry
+	cost = 2.15
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_propaganda_on_the_streets
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -2
+	y = 15
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_promise_the_corporates"
+		
+		country_event = {
+			id = ITA_quadrumvirate.25
+			hours = 6
+		}
+	}
+}
+shared_focus = {
+	id = ITA_pavolini_a_man_of_the_people
+	icon = GFX_generic_crowd_cheering
+	cost = 2.15
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_smile_and_wave
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 2
+	y = 15
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_pavolini_a_man_of_the_people"
+		country_event = {
+			id = ITA_quadrumvirate.23
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_a_touch_away_from_the_throne
+	icon = GFX_ITA_a_touch_away_from_the_throne
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_promise_the_corporates
+	}
+	prerequisite = {
+		focus = ITA_pavolini_a_man_of_the_people
+	}
+	prerequisite = {
+		focus = ITA_hide_the_records
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 16
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_touch_away_from_the_throne"
+		custom_effect_tooltip = ITA_RAD_TT5
+		ITA_GCF_Start_100_day_session = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_dirty_dirty_lies
+	icon = GFX_USA_The_Juciest_Blackmail
+	cost = 7.15
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_touch_away_from_the_throne
+	}
+	mutually_exclusive = {
+		focus = ITA_all_eyes_on_us
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -2
+	y = 17
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_dirty_dirty_lies"
+		country_event = {
+			id = ITA_quadrumvirate.54
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_all_eyes_on_us
+	icon = GFX_ITA_Eyes_On_Pavolini
+	cost = 7.15
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_touch_away_from_the_throne
+	}
+	mutually_exclusive = {
+		focus = ITA_dirty_dirty_lies
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 2
+	y = 17
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_all_eyes_on_us"
+		country_event = {
+			id = ITA_quadrumvirate.55
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_promises_to_the_church
+	icon = GFX_TNO_generic_church
+	cost = 7.15
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_all_eyes_on_us
+		focus = ITA_dirty_dirty_lies
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -2
+	y = 18
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_promises_to_the_church"
+		
+		country_event = {
+			id = ITA_quadrumvirate.26
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_assassinations_in_the_dark
+	icon = GFX_NOV_eliminate_target
+	cost = 7.15
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_all_eyes_on_us
+		focus = ITA_dirty_dirty_lies
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 2
+	y = 18
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_assassinations_in_the_dark"
+		
+		country_event = {
+			id = ITA_quadrumvirate.27
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_ave_pavolini_gloria_al_nuovo_ordine
+	icon = GFX_ITA_pavolini_salute
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_promises_to_the_church
+	}
+	prerequisite = {
+		focus = ITA_assassinations_in_the_dark
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 19
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_ave_pavolini_gloria_al_nuovo_ordine"
+		ITA_GCF_Activate_appropriate_missions = yes
+		ITA_GCF_PickWinner = yes 
+	}
+}
+###=====| c) Balbo Subtree |=====###
+shared_focus = {
+	id = ITA_we_must_be_strong
+	icon = GFX_ITA_we_must_be_strong
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_let_the_games_begin
+	}
+	allow_branch = {
+		AND = {
+			has_completed_focus = ITA_let_the_games_begin
+			has_country_flag = ITA_balbo_chosen
+		}
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_we_must_be_strong"
+		# Militaristi. Strength of character is what the armed forces are listening for.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.08 }
+		ITA_GCF_boost_chosen = yes
+		# MVSN.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.03 }
+		ITA_GCF_boost_chosen = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_invite_the_reformists
+	icon = GFX_ITA_I_Love_Umberto_And_Democracy
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_we_must_be_strong
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -2
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_invite_the_reformists"
+		country_event = {
+			id = ITA_quadrumvirate.28
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_ties_in_the_airforce
+	icon = GFX_ITA_Train_With_The_Army
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_we_must_be_strong
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_ties_in_the_airforce"
+		country_event = {
+			id = ITA_quadrumvirate.29
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_and_the_old_guard
+	icon = GFX_ITA_In_the_PNF
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_we_must_be_strong
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 2
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_and_the_old_guard"
+		country_event = {
+			id = ITA_quadrumvirate.30
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_a_coalition_for_the_future
+	icon = GFX_generic_diplomacy_political
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_invite_the_reformists
+	}
+	prerequisite = {
+		focus = ITA_ties_in_the_airforce
+	}
+	prerequisite = {
+		focus = ITA_and_the_old_guard
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 10
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_coalition_for_the_future"
+		custom_effect_tooltip = ITA_RAD_TT4
+		ITA_GCF_Start_100_day_session = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_the_woes_of_the_empire
+	icon = GFX_ITA_generic_empire
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_coalition_for_the_future
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -2
+	y = 11
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_woes_of_the_empire"
+		# Militaristi. The empire's troubles are an argument for their man.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.07 }
+		ITA_GCF_boost_chosen = yes
+		# Ministri.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+		ITA_GCF_boost_chosen = yes
+		add_war_support = 0.03
+	}
+}
+
+shared_focus = {
+	id = ITA_i_saved_libya
+	icon = GFX_ITA_i_saved_libya
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_woes_of_the_empire
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -1
+	y = 12
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_i_saved_libya"
+		country_event = { 
+			id = ITA_quadrumvirate.60
+			hours = 12
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_an_old_wise_man
+	icon = GFX_GER_Close_The_Books
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_coalition_for_the_future
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 2
+	y = 11
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_an_old_wise_man"
+		country_event = { 
+			id = ITA_quadrumvirate.61
+			hours = 12
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_a_wide_smile_and_a_loving_heart
+	icon = GFX_ITA_a_wide_smile_and_a_loving_heart
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_an_old_wise_man
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 1
+	y = 12
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_wide_smile_and_a_loving_heart"
+		# Moderati. Charm is the whole of this one.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.08 }
+		ITA_GCF_boost_chosen = yes
+		# Ministri.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.03 }
+		ITA_GCF_boost_chosen = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_on_the_offensive
+	icon = GFX_ITA_forza_rework
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_i_saved_libya
+	}
+	prerequisite = {
+		focus = ITA_a_wide_smile_and_a_loving_heart
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 13
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_on_the_offensive"
+		custom_effect_tooltip = ITA_RAD_TT5
+		ITA_GCF_Start_100_day_session = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_secure_the_blackshirts
+	icon = GFX_ITA_Blackshirt_generic_terror
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_on_the_offensive
+	}
+	mutually_exclusive = {
+		focus = ITA_propaganda_in_every_home
+	}
+	available = {
+		has_country_flag = ITA_has_not_promised_curtail_paramilitaries
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -2
+	y = 14
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_secure_the_blackshirts"
+		custom_effect_tooltip = ITA_RAD_Balbo_TT_1
+	}
+}
+
+shared_focus = {
+	id = ITA_knock_on_doors
+	icon = GFX_GER_kick_down_the_door
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_secure_the_blackshirts
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -3
+	y = 15
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_knock_on_doors"
+		country_event = {
+			id = ITA_quadrumvirate.31
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_plant_the_bugs
+	icon = GFX_ITA_Plant_The_Bugs
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_secure_the_blackshirts
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -1
+	y = 15
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_plant_the_bugs"
+		country_event = {
+			id = ITA_quadrumvirate.32
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_you_cant_hide_from_us
+	icon = GFX_ITA_the_road_to_order_rework
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_knock_on_doors
+	}
+	prerequisite = {
+		focus = ITA_plant_the_bugs
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -2
+	y = 16
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_you_cant_hide_from_us"
+		country_event = {
+			id = ITA_quadrumvirate.33
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_propaganda_in_every_home
+	icon = GFX_GIB_propaganda_for_pay
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_on_the_offensive
+	}
+	mutually_exclusive = {
+		focus = ITA_secure_the_blackshirts
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 2
+	y = 14
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_propaganda_in_every_home"
+		custom_effect_tooltip = ITA_RAD_Balbo_TT_2
+	}
+}
+
+shared_focus = {
+	id = ITA_balbo_speaks
+	icon = GFX_ITA_speak_to_the_council_rework
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_propaganda_in_every_home
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 3
+	y = 15
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_balbo_speaks"
+		country_event = {
+			id = ITA_quadrumvirate.36
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_they_want_to_take_away_your_freedom
+	icon = GFX_ITA_reforms_can_wait_rework
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_propaganda_in_every_home
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 1
+	y = 15
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_they_want_to_take_away_your_freedom"
+		country_event = {
+			id = ITA_quadrumvirate.66
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_can_you_hear_the_people_cheer
+	icon = GFX_generic_crowd_cheering
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_balbo_speaks
+	}
+	prerequisite = {
+		focus = ITA_they_want_to_take_away_your_freedom
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 2
+	y = 16
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_can_you_hear_the_people_cheer"
+		country_event = {
+			id = ITA_quadrumvirate.37
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_the_most_grand_of_speeches
+	icon = GFX_ITA_grandest_speech
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_you_cant_hide_from_us
+		focus = ITA_can_you_hear_the_people_cheer
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 17
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_most_grand_of_speeches"
+		country_event = {
+			id = ITA_quadrumvirate.38
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_ave_balbo_gloria_all_impero
+	icon = GFX_ITA_ave_balbo_ave_mussolini
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_you_cant_hide_from_us
+	}
+	prerequisite = {
+		focus = ITA_can_you_hear_the_people_cheer
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 19
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_ave_balbo_gloria_all_impero"
+		ITA_GCF_Activate_appropriate_missions = yes
+		ITA_GCF_PickWinner = yes
+	}
+}
+###=====| d) Muti Subtree |=====###
+shared_focus = {
+	id = ITA_we_must_change
+	icon = GFX_ITA_must_change
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_let_the_games_begin
+	}
+	allow_branch = {
+		AND = {
+			has_completed_focus = ITA_let_the_games_begin
+			has_country_flag = ITA_muti_chosen
+		}
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_we_must_change"
+		# Corporazioni. Business wants a reformer.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 1 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.08 }
+		ITA_GCF_boost_chosen = yes
+		# Moderati.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.03 }
+		ITA_GCF_boost_chosen = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_he_was_born_to_break_the_past
+	icon = GFX_ITA_Born_To_Break_The_Past
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_we_must_change
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_he_was_born_to_break_the_past"
+		custom_effect_tooltip = ITA_RAD_Muti_TT_3
+	}
+}
+
+shared_focus = {
+	id = ITA_and_mold_a_new_future
+	icon = GFX_ITA_sicurezza_rework
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_he_was_born_to_break_the_past
+	}
+	mutually_exclusive = {
+		focus = ITA_and_fix_what_is_current
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -1
+	y = 10
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_and_mold_a_new_future"
+		custom_effect_tooltip = ITA_RAD_Muti_TT_1
+		hidden_effect = {
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+			set_temp_variable = { ITA_GCF_amount_to_add = -0.05 }
+			ITA_GCF_AddLoy = yes
+			
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+			set_temp_variable = { ITA_GCF_amount_to_add = -0.05 }
+			ITA_GCF_AddLoy = yes
+			
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_and_fix_what_is_current
+	icon = GFX_YUN_Repair_All_You_Can
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_he_was_born_to_break_the_past
+	}
+	mutually_exclusive = {
+		focus = ITA_and_mold_a_new_future
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 1
+	y = 10
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_and_fix_what_is_current"
+		custom_effect_tooltip = ITA_RAD_Muti_TT_2
+		hidden_effect = {
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+			set_temp_variable = { ITA_GCF_amount_to_add = -0.05 }
+			ITA_GCF_AddLoy = yes
+			
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+			set_temp_variable = { ITA_GCF_amount_to_add = -0.05 }
+			ITA_GCF_AddLoy = yes
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_the_rebirth_of_the_future
+	icon = GFX_SPS_Phoenix_From_The_Ashes
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_and_mold_a_new_future
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -1
+	y = 11
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_rebirth_of_the_future"
+		country_event = {
+			id = ITA_quadrumvirate.56
+			hours = 12
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_the_issues_that_face_us
+	icon = GFX_ITA_fascisti_dopo_ciano
+	cost = 3.60
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_and_fix_what_is_current
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 1
+	y = 11
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_issues_that_face_us"
+		country_event = {
+			id = ITA_quadrumvirate.57
+			hours = 12
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_the_road_ahead
+	icon = GFX_IBR_open_road
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_rebirth_of_the_future
+		focus = ITA_the_issues_that_face_us
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 12
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_road_ahead"
+		custom_effect_tooltip = ITA_RAD_TT4
+		ITA_GCF_Start_100_day_session = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_smile_for_the_cameras
+	icon = GFX_BRY_broadcast_message
+	cost = 2.86
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_road_ahead
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -2
+	y = 13
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_smile_for_the_cameras"
+		
+		country_event = {
+			id = ITA_quadrumvirate.90
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_train_with_the_army
+	icon = GFX_ITA_Train_With_The_Army
+	cost = 2.86
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_road_ahead
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 13
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_train_with_the_army"
+		
+		country_event = {
+			id = ITA_quadrumvirate.100
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_convince_the_moderates
+	icon = GFX_ITA_I_Love_Umberto_And_Democracy
+	cost = 2.86
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_road_ahead
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 2
+	y = 13
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_convince_the_moderates"
+		
+		country_event = { 
+			id = ITA_quadrumvirate.41
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_they_made_the_nation_weak
+	icon = GFX_TNO_generic_italy
+	cost = 2.86
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_smile_for_the_cameras
+	}
+	prerequisite = {
+		focus = ITA_train_with_the_army
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -1
+	y = 14
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_they_made_the_nation_weak"
+		country_event = {
+			id = ITA_quadrumvirate.66
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_the_rot_must_be_purged
+	icon = GFX_BurnPartyPapers
+	cost = 2.86
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_convince_the_moderates
+	}
+	prerequisite = {
+		focus = ITA_train_with_the_army
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 1
+	y = 14
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_rot_must_be_purged"
+		country_event = {
+			id = ITA_quadrumvirate.67
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_no_place_for_the_old
+	icon = GFX_ITA_No_place_for_the_old
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_they_made_the_nation_weak
+	}
+	prerequisite = {
+		focus = ITA_the_rot_must_be_purged
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 15
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_no_place_for_the_old"
+		custom_effect_tooltip = ITA_RAD_TT5
+		ITA_GCF_Start_100_day_session = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_mussolini_wasnt_always_right
+	icon = GFX_ITA_The_Death_of_Mussolini
+	cost = 4.72
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_no_place_for_the_old
+	}
+	mutually_exclusive = {
+		focus = ITA_unity_above_all
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -1
+	y = 16
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_mussolini_wasnt_always_right"
+		custom_effect_tooltip = ITA_RAD_Muti_TT_1
+		hidden_effect = {
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_unity_above_all
+	icon = GFX_ITA_a_strong_italy
+	cost = 4.72
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_no_place_for_the_old
+	}
+	mutually_exclusive = {
+		focus = ITA_mussolini_wasnt_always_right
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 1
+	y = 16
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_unity_above_all"
+		custom_effect_tooltip = ITA_RAD_Muti_TT_2
+		hidden_effect = {
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+		}
+	}
+}
+
+
+shared_focus = {
+	id = ITA_break_the_chains
+	icon = GFX_ITA_Rage_Against_The_Machine
+	cost = 4.72
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_unity_above_all
+		focus = ITA_mussolini_wasnt_always_right
+	}
+	mutually_exclusive = {
+		focus = ITA_not_too_fast
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -1
+	y = 17
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_break_the_chains"
+		custom_effect_tooltip = ITA_RAD_Muti_TT_1
+		hidden_effect = {
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_not_too_fast
+	icon = GFX_IBR_Help_Italy
+	cost = 4.72
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_unity_above_all
+		focus = ITA_mussolini_wasnt_always_right
+	}
+	mutually_exclusive = {
+		focus = ITA_break_the_chains
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 1
+	y = 17
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_not_too_fast"
+		custom_effect_tooltip = ITA_RAD_Muti_TT_2
+		hidden_effect = {
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_a_new_wave_of_art
+	icon = GFX_TYM_workers_culture
+	cost = 4.86
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_break_the_chains
+		focus = ITA_not_too_fast
+	}
+	mutually_exclusive = {
+		focus = ITA_speeches_and_ads
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = -1
+	y = 18
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_new_wave_of_art"
+		custom_effect_tooltip = ITA_RAD_Muti_TT_1
+		hidden_effect = {
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_speeches_and_ads
+	icon = GFX_ITA_the_road_to_order_rework
+	cost = 4.86
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_break_the_chains
+		focus = ITA_not_too_fast
+	}
+	mutually_exclusive = {
+		focus = ITA_a_new_wave_of_art
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 1
+	y = 18
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_speeches_and_ads"
+		custom_effect_tooltip = ITA_RAD_Muti_TT_2
+		hidden_effect = {
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+			
+			ITA_GCF_Get_leading_duce = yes
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.05 }
+			ITA_GCF_AddLoy = yes
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_ave_muti_gloria_al_futuro
+	icon = GFX_ITA_ave_muti
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_speeches_and_ads
+		focus = ITA_a_new_wave_of_art
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 19
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_ave_muti_gloria_al_futuro"
+		ITA_GCF_Activate_appropriate_missions = yes
+		ITA_GCF_PickWinner = yes
+		ITA_GCF_MutiGUIQuadrumvirate = yes
+	}
+}
+
+###=====| e) Giani Subtree |=====###
+shared_focus = {
+	id = ITA_we_must_be_pure
+	icon = GFX_ITA_we_must_be_pure
+	cost = 2.86
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_let_the_games_begin
+	}
+	allow_branch = {
+		AND = {
+			has_completed_focus = ITA_let_the_games_begin
+			has_country_flag = ITA_giani_chosen
+		}
+	}
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	x = 0
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_we_must_be_pure"
+		# Burocrati. Ideological certainty is what they mean by stability.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.08 }
+		ITA_GCF_boost_chosen = yes
+		# MVSN.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.03 }
+		ITA_GCF_boost_chosen = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_spread_the_poison
+	icon = GFX_USA_The_Juciest_Blackmail
+	cost = 2.86
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_we_must_be_pure
+	}
+	x = -1
+	y = 10
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_spread_the_poison"
+		country_event = {
+			id = ITA_quadrumvirate.42
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_divide_them
+	icon = GFX_ITA_Split_Them
+	cost = 2.86
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_spread_the_poison
+	}
+	x = -1
+	y = 11
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_divide_them"
+		custom_effect_tooltip = ITA_RAD_Giani_TT_1
+	}
+}
+
+shared_focus = {
+	id = ITA_march_through_the_streets
+	icon = GFX_ITA_Giani_March
+	cost = 2.86
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_we_must_be_pure
+	}
+	x = 1
+	y = 10
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_march_through_the_streets"
+		country_event = {
+			id = ITA_quadrumvirate.43
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_conquer_them
+	icon = GFX_ITA_Conquer_Them
+	cost = 2.86
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_march_through_the_streets
+	}
+	x = 1
+	y = 11
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_conquer_them"
+		custom_effect_tooltip = ITA_RAD_Giani_TT_2
+	}
+}
+
+shared_focus = {
+	id = ITA_a_direct_hit
+	icon = GFX_ITA_Giani_Direct_Hit
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_conquer_them
+	}
+	prerequisite = {
+		focus = ITA_divide_them
+	}
+	x = 0
+	y = 12
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_direct_hit"
+		custom_effect_tooltip = ITA_RAD_TT4
+		ITA_GCF_Start_100_day_session = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_the_degeneracy_of_muti
+	icon = GFX_ITA_The_Degeneracy_of_Muti
+	cost = 4.72
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_direct_hit
+	}
+	x = -2
+	y = 13
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_degeneracy_of_muti"
+		country_event = {
+			id = ITA_quadrumvirate.44
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_the_destructiveness_of_balbo
+	icon = GFX_ITA_The_Destructivness_of_Balbo
+	cost = 4.86
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_direct_hit
+	}
+	x = 0
+	y = 13
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_destructiveness_of_balbo"
+		country_event = {
+			id = ITA_quadrumvirate.45
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_the_lunacy_of_pavolini
+	icon = GFX_ITA_The_Lunacy_of_Pavolini
+	cost = 4.72
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_direct_hit
+	}
+	x = 2
+	y = 13
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_lunacy_of_pavolini"
+		country_event = {
+			id = ITA_quadrumvirate.46
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_a_light_shining_from_the_pit
+	icon = GFX_ITA_a_light_shining_from_the_pit
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_degeneracy_of_muti
+	}
+	prerequisite = {
+		focus = ITA_the_destructiveness_of_balbo
+	}
+	prerequisite = {
+		focus = ITA_the_lunacy_of_pavolini
+	}
+	x = 0
+	y = 14
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_light_shining_from_the_pit"
+		custom_effect_tooltip = ITA_RAD_TT5
+		ITA_GCF_Start_100_day_session = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_united_in_their_faith
+	icon = GFX_ITA_united_in_their_faith
+	cost = 2.15
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_light_shining_from_the_pit
+	}
+	x = -2
+	y = 15
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_united_in_their_faith"
+		custom_effect_tooltip = ITA_RAD_Giani_TT_3
+	}
+}
+
+shared_focus = {
+	id = ITA_lost_in_their_cause
+	icon = GFX_meet_with_the_grand_council
+	cost = 2.15
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_light_shining_from_the_pit
+	}
+	x = 2
+	y = 15
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_lost_in_their_cause"
+		custom_effect_tooltip = ITA_RAD_Giani_TT_4
+	}
+}
+
+shared_focus = {
+	id = ITA_giani_spread_the_word
+	icon = GFX_ITA_per_la_tua_salvezza_il_nostro_coraggio
+	cost = 2.15
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_united_in_their_faith
+	}
+	mutually_exclusive = {
+		focus = ITA_blame_it_on_the_vipers
+	}
+	x = -3
+	y = 16
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_giani_spread_the_word"
+		country_event = {
+			id = ITA_quadrumvirate.47
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_blame_it_on_the_vipers
+	icon = GFX_UPO_Kiddush_HaShem
+	cost = 2.15
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_united_in_their_faith
+	}
+	mutually_exclusive = {
+		focus = ITA_giani_spread_the_word
+	}
+	x = -1
+	y = 16
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_blame_it_on_the_vipers"
+		country_event = { # Blame it on the Vipers
+			id = ITA_quadrumvirate.58
+			hours = 12
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_destroy_the_corporates
+	icon = GFX_ITA_Break_The_Monopolies
+	cost = 2.15
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_lost_in_their_cause
+	}
+	mutually_exclusive = {
+		focus = ITA_wipe_out_the_moderates
+	}
+	x = 3
+	y = 16
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_destroy_the_corporates"
+		country_event = {
+			id = ITA_quadrumvirate.48
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_wipe_out_the_moderates
+	icon = GFX_ITA_bolt_parliament
+	cost = 2.15
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_lost_in_their_cause
+	}
+	mutually_exclusive = {
+		focus = ITA_destroy_the_corporates
+	}
+	x = 1
+	y = 16
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_wipe_out_the_moderates"
+		country_event = {
+			id = ITA_quadrumvirate.49
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_a_man_of_fate
+	icon = GFX_ITA_a_man_of_fate
+	cost = 2.86
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_giani_spread_the_word
+		focus = ITA_blame_it_on_the_vipers
+	}
+	prerequisite = {
+		focus = ITA_destroy_the_corporates
+		focus = ITA_wipe_out_the_moderates
+	}
+	x = 0
+	y = 17
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_man_of_fate"
+		# The capstone: every bloc hears that the succession is already settled.
+		# Ministri.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+		ITA_GCF_boost_chosen = yes
+		# Corporazioni.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 1 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+		ITA_GCF_boost_chosen = yes
+		# Burocrati.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+		ITA_GCF_boost_chosen = yes
+		# Militaristi.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+		ITA_GCF_boost_chosen = yes
+		# MVSN.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+		ITA_GCF_boost_chosen = yes
+		# Moderati.
+		set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+		set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+		ITA_GCF_boost_chosen = yes
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = ITA_and_the_faith_of_the_nation
+	icon = GFX_ITA_the_faith_of_a_nation
+	cost = 2.86
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_man_of_fate
+	}
+	x = 0
+	y = 18
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_and_the_faith_of_the_nation"
+		country_event = { 
+			id = ITA_quadrumvirate.59
+			hours = 12
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_ave_giani_ave_fascismo
+	icon = GFX_ITA_ave_giani_ave_fascismo
+	cost = 4.00
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_and_the_faith_of_the_nation
+	}
+	x = 0
+	y = 19
+	relative_position_id = ITA_a_new_dawn_for_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_ave_giani_ave_fascismo"
+		ITA_GCF_Activate_appropriate_missions = yes
+		ITA_GCF_PickWinner = yes
+	}
+}

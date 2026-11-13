@@ -1,0 +1,2114 @@
+# ############################################################
+# ## Lok Sabha — Indian parliament mechanic (dem India)
+# ##
+# ## Party slots (fixed):
+# ##   0 INC (ruling umbrella pre-split)   §S salmon
+# ##   1 BJS                               §O saffron
+# ##   2 CPI                               §e dark red
+# ##   3 Swatantra    (activates on INC collapse, demindia.110)  §m blue
+# ##   4 Janata (JP)  (activates on INC collapse)                §n dark green
+# ##   5 PSP          (activates on INC collapse)                §V scarlet
+# ##
+# ## Federal states (array index / 1962 Lok Sabha seats):
+# ##   0 Uttar Pradesh 86   1 Bihar 53        2 Maharashtra 44
+# ##   3 Andhra Pradesh 43  4 Madras 41       5 West Bengal 36
+# ##   6 Madhya Pradesh 36  7 Mysore 26       8 Gujarat 22
+# ##   9 Rajasthan 22      10 Punjab 22      11 Orissa 20
+# ##  12 Kerala 18         13 Assam 12       14 Jammu & Kashmir 6
+# ##  15 Delhi & Territories 7
+# ##  16 West Punjab 18    17 Sindh 14        (Pakistani zones)
+# ## Adding federal states later (e.g. GAW annexations): append
+# ## seats + per-party support entries and raise RAJ_LS_state_count.
+# ##
+# ## Performance notes:
+# ##  - projections recomputed weekly, only while RAJ_LS_election_active
+# ##    is set AND RAJ is the player (AI resolves in a single end tally)
+# ##  - no GUI, no daily hooks; everything else is one-shot
+# ############################################################
+# ---------- one-time init (called from startup on_action) ----------
+RAJ_LS_init = {
+	set_variable = {
+		RAJ_LS_state_count = 18
+	}
+	set_variable = {
+		RAJ_LS_party_count = 6
+	}
+	# seats per federal state
+	clear_array = RAJ_LS_seats
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 86
+	}	# 0 UP
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 53
+	}	# 1 Bihar
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 44
+	}	# 2 Maharashtra
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 43
+	}	# 3 Andhra
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 41
+	}	# 4 Madras
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 36
+	}	# 5 West Bengal
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 36
+	}	# 6 Madhya Pradesh
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 26
+	}	# 7 Mysore
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 22
+	}	# 8 Gujarat
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 22
+	}	# 9 Rajasthan
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 22
+	}	# 10 Punjab
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 20
+	}	# 11 Orissa
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 18
+	}	# 12 Kerala
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 12
+	}	# 13 Assam
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 6
+	}	# 14 J&K
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 7
+	}	# 15 Delhi & Territories
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 18
+	}	# 16 West Punjab
+	add_to_array = {
+		array = RAJ_LS_seats
+		value = 14
+	}	# 17 Sindh
+	# state held by New Delhi? 1 = yes (all at start)
+	clear_array = RAJ_LS_held
+	for_loop_effect = {
+		start = 0
+		end = RAJ_LS_state_count
+		add_to_array = {
+			array = RAJ_LS_held
+			value = 1
+		}
+	}
+	# party active flags: INC/BJS/CPI at start
+	clear_array = RAJ_LS_party_active
+	add_to_array = {
+		array = RAJ_LS_party_active
+		value = 1
+	}	# INC
+	add_to_array = {
+		array = RAJ_LS_party_active
+		value = 1
+	}	# BJS
+	add_to_array = {
+		array = RAJ_LS_party_active
+		value = 1
+	}	# CPI
+	add_to_array = {
+		array = RAJ_LS_party_active
+		value = 0
+	}	# Liberal
+	add_to_array = {
+		array = RAJ_LS_party_active
+		value = 0
+	}	# Conservative
+	add_to_array = {
+		array = RAJ_LS_party_active
+		value = 0
+	}	# LibSoc
+	# per-state support, one array per party slot (0-100 scale)
+	#            UP Bih Mah And Mad WB  MP  Mys Guj Raj Pun Ori Ker Asm J&K Del WPj Snd
+	clear_array = RAJ_LS_sup_0
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 52
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 50
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 51
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 47
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 45
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 47
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 49
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 52
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 50
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 45
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 44
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 55
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 38
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 48
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 42
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 50
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 30
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_0
+		value = 28
+	}
+	clear_array = RAJ_LS_sup_1	# BJS: Hindi belt, weak south, near-nil Pak zones
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 9
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 1
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 2
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 5
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 2
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 3
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 4
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 3
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 6
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 8
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 5
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 6
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 3
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 3
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 8
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 6
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 3
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_1
+		value = 2
+	}
+	clear_array = RAJ_LS_sup_2	# CPI: Kerala, WB, Andhra pockets
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 2
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 3
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 3
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 9
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 3
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 11
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 5
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 6
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 2
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 2
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 2
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 4
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 12
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 4
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 4
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 4
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 4
+	}
+	add_to_array = {
+		array = RAJ_LS_sup_2
+		value = 5
+	}
+	# inactive slots start at 0 support everywhere
+	clear_array = RAJ_LS_sup_3
+	clear_array = RAJ_LS_sup_4
+	clear_array = RAJ_LS_sup_5
+	for_loop_effect = {
+		start = 0
+		end = RAJ_LS_state_count
+		add_to_array = {
+			array = RAJ_LS_sup_3
+			value = 0
+		}
+		add_to_array = {
+			array = RAJ_LS_sup_4
+			value = 0
+		}
+		add_to_array = {
+			array = RAJ_LS_sup_5
+			value = 0
+		}
+	}
+	# current seats (Lok Sabha as elected 1959, pre-game): rough INC supermajority
+	clear_array = RAJ_LS_party_seats
+	add_to_array = {
+		array = RAJ_LS_party_seats
+		value = 455
+	}	# INC
+	add_to_array = {
+		array = RAJ_LS_party_seats
+		value = 40
+	}	# BJS
+	add_to_array = {
+		array = RAJ_LS_party_seats
+		value = 31
+	}	# CPI
+	add_to_array = {
+		array = RAJ_LS_party_seats
+		value = 0
+	}
+	add_to_array = {
+		array = RAJ_LS_party_seats
+		value = 0
+	}
+	add_to_array = {
+		array = RAJ_LS_party_seats
+		value = 0
+	}
+	# coalition membership bits (ruling party tracked via RAJ_LS_ruling)
+	clear_array = RAJ_LS_coalition
+	for_loop_effect = {
+		start = 0
+		end = RAJ_LS_party_count
+		add_to_array = {
+			array = RAJ_LS_coalition
+			value = 0
+		}
+	}
+	set_variable = {
+		RAJ_LS_ruling = 0
+	}	# INC
+	RAJ_LS_recount_house = yes
+}
+
+# total seats of held states -> RAJ_LS_house_size, majority -> RAJ_LS_majority
+RAJ_LS_recount_house = {
+	set_variable = {
+		RAJ_LS_house_size = 0
+	}
+	for_loop_effect = {
+		value = i
+		start = 0
+		end = RAJ_LS_state_count
+		if = {
+			limit = {
+				check_variable = {
+					RAJ_LS_held^i > 0
+				}
+			}
+			add_to_variable = {
+				RAJ_LS_house_size = RAJ_LS_seats^i
+			}
+		}
+	}
+	set_variable = {
+		RAJ_LS_majority = RAJ_LS_house_size
+	}
+	divide_variable = {
+		RAJ_LS_majority = 2
+	}
+	round_variable = RAJ_LS_majority
+	add_to_variable = {
+		RAJ_LS_majority = 1
+	}
+}
+
+# ---------- support changes (OOSG display pattern) ----------
+# caller sets:
+#   RAJ_LS_t_party (temp, slot 0-5)
+#   RAJ_LS_t_state (temp, index; -1 = all held states)
+#   RAJ_LS_t_amount (temp, +/- support points)
+# then: RAJ_LS_add_support = yes
+# BJS (1) and CPI (2) gains are halved and capped at 40 per state:
+# their road to power is not the ballot box (content pending).
+RAJ_LS_add_support = {
+	if = {
+		limit = {
+			check_variable = {
+				RAJ_LS_t_amount > 0
+			}
+			OR = {
+				check_variable = {
+					RAJ_LS_t_party = 1
+				}
+				check_variable = {
+					RAJ_LS_t_party = 2
+				}
+			}
+		}
+		divide_temp_variable = {
+			RAJ_LS_t_amount = 2
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				RAJ_LS_t_state = -1
+			}
+		}
+		for_loop_effect = {
+			value = i
+			start = 0
+			end = RAJ_LS_state_count
+			set_temp_variable = {
+				RAJ_LS_t_i = i
+			}
+			RAJ_LS_apply_support_one = yes
+		}
+	}
+	else = {
+		set_temp_variable = {
+			RAJ_LS_t_i = RAJ_LS_t_state
+		}
+		RAJ_LS_apply_support_one = yes
+	}
+	custom_effect_tooltip = RAJ_LS_add_support_tt
+}
+
+# internal: apply RAJ_LS_t_amount to party RAJ_LS_t_party in state RAJ_LS_t_i
+RAJ_LS_apply_support_one = {
+	if = {
+		limit = {
+			check_variable = {
+				RAJ_LS_t_party = 0
+			}
+		}
+		add_to_variable = {
+			RAJ_LS_sup_0^RAJ_LS_t_i = RAJ_LS_t_amount
+		}
+		clamp_variable = {
+			var = RAJ_LS_sup_0^RAJ_LS_t_i
+			min = 0
+			max = 100
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				RAJ_LS_t_party = 1
+			}
+		}
+		add_to_variable = {
+			RAJ_LS_sup_1^RAJ_LS_t_i = RAJ_LS_t_amount
+		}
+		clamp_variable = {
+			var = RAJ_LS_sup_1^RAJ_LS_t_i
+			min = 0
+			max = 40
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				RAJ_LS_t_party = 2
+			}
+		}
+		add_to_variable = {
+			RAJ_LS_sup_2^RAJ_LS_t_i = RAJ_LS_t_amount
+		}
+		clamp_variable = {
+			var = RAJ_LS_sup_2^RAJ_LS_t_i
+			min = 0
+			max = 40
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				RAJ_LS_t_party = 3
+			}
+		}
+		add_to_variable = {
+			RAJ_LS_sup_3^RAJ_LS_t_i = RAJ_LS_t_amount
+		}
+		clamp_variable = {
+			var = RAJ_LS_sup_3^RAJ_LS_t_i
+			min = 0
+			max = 100
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				RAJ_LS_t_party = 4
+			}
+		}
+		add_to_variable = {
+			RAJ_LS_sup_4^RAJ_LS_t_i = RAJ_LS_t_amount
+		}
+		clamp_variable = {
+			var = RAJ_LS_sup_4^RAJ_LS_t_i
+			min = 0
+			max = 100
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				RAJ_LS_t_party = 5
+			}
+		}
+		add_to_variable = {
+			RAJ_LS_sup_5^RAJ_LS_t_i = RAJ_LS_t_amount
+		}
+		clamp_variable = {
+			var = RAJ_LS_sup_5^RAJ_LS_t_i
+			min = 0
+			max = 100
+		}
+	}
+}
+
+# ---------- INC collapse (call from demindia.110) ----------
+# splits the umbrella: INC keeps ~55%, LibSoc 25%, Conservative 15%, Liberal 5%
+RAJ_LS_inc_split = {
+	for_loop_effect = {
+		value = i
+		start = 0
+		end = RAJ_LS_state_count
+		set_temp_variable = {
+			ls_base = RAJ_LS_sup_0^i
+		}
+		# PSP 10%
+		set_temp_variable = {
+			ls_part = ls_base
+		}
+		multiply_temp_variable = {
+			ls_part = 0.1
+		}
+		round_temp_variable = ls_part
+		add_to_variable = {
+			RAJ_LS_sup_5^i = ls_part
+		}
+		subtract_from_variable = {
+			RAJ_LS_sup_0^i = ls_part
+		}
+		# Janata 24%
+		set_temp_variable = {
+			ls_part = ls_base
+		}
+		multiply_temp_variable = {
+			ls_part = 0.24
+		}
+		round_temp_variable = ls_part
+		add_to_variable = {
+			RAJ_LS_sup_4^i = ls_part
+		}
+		subtract_from_variable = {
+			RAJ_LS_sup_0^i = ls_part
+		}
+		# Swatantra 16%
+		set_temp_variable = {
+			ls_part = ls_base
+		}
+		multiply_temp_variable = {
+			ls_part = 0.16
+		}
+		round_temp_variable = ls_part
+		add_to_variable = {
+			RAJ_LS_sup_3^i = ls_part
+		}
+		subtract_from_variable = {
+			RAJ_LS_sup_0^i = ls_part
+		}
+	}
+	set_variable = {
+		RAJ_LS_party_active^3 = 1
+	}
+	set_variable = {
+		RAJ_LS_party_active^4 = 1
+	}
+	set_variable = {
+		RAJ_LS_party_active^5 = 1
+	}
+	# sitting seats redistribute the same way (MPs walk out)
+	set_temp_variable = {
+		ls_base = RAJ_LS_party_seats^0
+	}
+	set_temp_variable = {
+		ls_part = ls_base
+	}
+	multiply_temp_variable = {
+		ls_part = 0.1
+	}
+	round_temp_variable = ls_part
+	add_to_variable = {
+		RAJ_LS_party_seats^5 = ls_part
+	}
+	subtract_from_variable = {
+		RAJ_LS_party_seats^0 = ls_part
+	}
+	set_temp_variable = {
+		ls_part = ls_base
+	}
+	multiply_temp_variable = {
+		ls_part = 0.24
+	}
+	round_temp_variable = ls_part
+	add_to_variable = {
+		RAJ_LS_party_seats^4 = ls_part
+	}
+	subtract_from_variable = {
+		RAJ_LS_party_seats^0 = ls_part
+	}
+	set_temp_variable = {
+		ls_part = ls_base
+	}
+	multiply_temp_variable = {
+		ls_part = 0.16
+	}
+	round_temp_variable = ls_part
+	add_to_variable = {
+		RAJ_LS_party_seats^3 = ls_part
+	}
+	subtract_from_variable = {
+		RAJ_LS_party_seats^0 = ls_part
+	}
+	custom_effect_tooltip = RAJ_LS_inc_split_tt
+}
+
+# ---------- elections ----------
+# projections: seats per state shared by support^2 (FPTP sweep emerges
+# naturally: 45% vs 10% support = 20:1 weight)
+RAJ_LS_compute_projections = {
+	for_loop_effect = {
+		value = i
+		start = 0
+		end = RAJ_LS_party_count
+		set_variable = {
+			RAJ_LS_proj^i = 0
+		}
+	}
+	for_loop_effect = {
+		value = i
+		start = 0
+		end = RAJ_LS_state_count
+		if = {
+			limit = {
+				check_variable = {
+					RAJ_LS_held^i > 0
+				}
+			}
+			set_temp_variable = {
+				ls_i = i
+			}
+			RAJ_LS_project_state = yes
+		}
+	}
+}
+
+# internal: allocate state ls_i seats by sup^2 into RAJ_LS_proj array
+RAJ_LS_project_state = {
+	# weights = sup*sup for active parties
+	set_temp_variable = {
+		w0 = RAJ_LS_sup_0^ls_i
+	}
+	multiply_temp_variable = {
+		w0 = w0
+	}
+	set_temp_variable = {
+		w1 = RAJ_LS_sup_1^ls_i
+	}
+	multiply_temp_variable = {
+		w1 = w1
+	}
+	set_temp_variable = {
+		w2 = RAJ_LS_sup_2^ls_i
+	}
+	multiply_temp_variable = {
+		w2 = w2
+	}
+	set_temp_variable = {
+		w3 = RAJ_LS_sup_3^ls_i
+	}
+	multiply_temp_variable = {
+		w3 = w3
+	}
+	set_temp_variable = {
+		w4 = RAJ_LS_sup_4^ls_i
+	}
+	multiply_temp_variable = {
+		w4 = w4
+	}
+	set_temp_variable = {
+		w5 = RAJ_LS_sup_5^ls_i
+	}
+	multiply_temp_variable = {
+		w5 = w5
+	}
+	if = {
+		limit = {
+			check_variable = {
+				RAJ_LS_party_active^0 < 1
+			}
+		}
+		set_temp_variable = {
+			w0 = 0
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				RAJ_LS_party_active^1 < 1
+			}
+		}
+		set_temp_variable = {
+			w1 = 0
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				RAJ_LS_party_active^2 < 1
+			}
+		}
+		set_temp_variable = {
+			w2 = 0
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				RAJ_LS_party_active^3 < 1
+			}
+		}
+		set_temp_variable = {
+			w3 = 0
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				RAJ_LS_party_active^4 < 1
+			}
+		}
+		set_temp_variable = {
+			w4 = 0
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				RAJ_LS_party_active^5 < 1
+			}
+		}
+		set_temp_variable = {
+			w5 = 0
+		}
+	}
+	set_temp_variable = {
+		wsum = w0
+	}
+	add_to_temp_variable = {
+		wsum = w1
+	}
+	add_to_temp_variable = {
+		wsum = w2
+	}
+	add_to_temp_variable = {
+		wsum = w3
+	}
+	add_to_temp_variable = {
+		wsum = w4
+	}
+	add_to_temp_variable = {
+		wsum = w5
+	}
+	if = {
+		limit = {
+			check_variable = {
+				wsum > 0
+			}
+		}
+		set_temp_variable = {
+			ls_share = RAJ_LS_seats^ls_i
+		}
+		divide_temp_variable = {
+			ls_share = wsum
+		}
+		set_temp_variable = {
+			ls_add = w0
+		}
+		multiply_temp_variable = {
+			ls_add = ls_share
+		}
+		round_temp_variable = ls_add
+		add_to_variable = {
+			RAJ_LS_proj^0 = ls_add
+		}
+		set_variable = {
+			RAJ_LS_pr_0^ls_i = ls_add
+		}
+		set_temp_variable = {
+			ls_add = w1
+		}
+		multiply_temp_variable = {
+			ls_add = ls_share
+		}
+		round_temp_variable = ls_add
+		add_to_variable = {
+			RAJ_LS_proj^1 = ls_add
+		}
+		set_variable = {
+			RAJ_LS_pr_1^ls_i = ls_add
+		}
+		set_temp_variable = {
+			ls_add = w2
+		}
+		multiply_temp_variable = {
+			ls_add = ls_share
+		}
+		round_temp_variable = ls_add
+		add_to_variable = {
+			RAJ_LS_proj^2 = ls_add
+		}
+		set_variable = {
+			RAJ_LS_pr_2^ls_i = ls_add
+		}
+		set_temp_variable = {
+			ls_add = w3
+		}
+		multiply_temp_variable = {
+			ls_add = ls_share
+		}
+		round_temp_variable = ls_add
+		add_to_variable = {
+			RAJ_LS_proj^3 = ls_add
+		}
+		set_variable = {
+			RAJ_LS_pr_3^ls_i = ls_add
+		}
+		set_temp_variable = {
+			ls_add = w4
+		}
+		multiply_temp_variable = {
+			ls_add = ls_share
+		}
+		round_temp_variable = ls_add
+		add_to_variable = {
+			RAJ_LS_proj^4 = ls_add
+		}
+		set_variable = {
+			RAJ_LS_pr_4^ls_i = ls_add
+		}
+		set_temp_variable = {
+			ls_add = w5
+		}
+		multiply_temp_variable = {
+			ls_add = ls_share
+		}
+		round_temp_variable = ls_add
+		add_to_variable = {
+			RAJ_LS_proj^5 = ls_add
+		}
+		set_variable = {
+			RAJ_LS_pr_5^ls_i = ls_add
+		}
+	}
+}
+
+# call at election-period start (existing election event chain)
+RAJ_LS_start_election = {
+	set_country_flag = RAJ_LS_election_active
+	clr_country_flag = RAJ_LS_party_chosen
+	RAJ_LS_recount_house = yes
+	RAJ_LS_compute_projections = yes
+	custom_effect_tooltip = RAJ_LS_start_election_tt
+}
+
+# call at election-period end: final tally, award seats, pick winner
+RAJ_LS_finish_election = {
+	RAJ_LS_compute_projections = yes
+	for_loop_effect = {
+		value = i
+		start = 0
+		end = RAJ_LS_party_count
+		set_variable = {
+			RAJ_LS_party_seats^i = RAJ_LS_proj^i
+		}
+	}
+	# winner = largest party
+	set_variable = {
+		RAJ_LS_winner = 0
+	}
+	set_variable = {
+		ls_best = RAJ_LS_party_seats^0
+	}
+	for_loop_effect = {
+		value = i
+		start = 1
+		end = RAJ_LS_party_count
+		if = {
+			limit = {
+				check_variable = {
+					RAJ_LS_party_seats^i > ls_best
+				}
+			}
+			set_variable = {
+				ls_best = RAJ_LS_party_seats^i
+			}
+			set_variable = {
+				RAJ_LS_winner = i
+			}
+		}
+	}
+	set_variable = {
+		RAJ_LS_ruling = RAJ_LS_winner
+	}
+	# fresh mandate: coalition resets
+	for_loop_effect = {
+		value = i
+		start = 0
+		end = RAJ_LS_party_count
+		set_variable = {
+			RAJ_LS_coalition^i = 0
+		}
+	}
+	clr_country_flag = RAJ_LS_election_active
+	custom_effect_tooltip = RAJ_LS_finish_election_tt
+}
+
+# ---------- coalitions (call from coalition focuses) ----------
+# caller sets RAJ_LS_t_party (temp) first
+RAJ_LS_join_coalition = {
+	set_variable = {
+		RAJ_LS_coalition^RAJ_LS_t_party = 1
+	}
+	custom_effect_tooltip = RAJ_LS_join_coalition_tt
+}
+
+# ---------- bills ----------
+# Start from a focus/decision:
+#   1. set_country_flag = RAJ_LS_bill_<yourbill>   (your payoff dispatch key)
+#   2. RAJ_LS_start_bill = yes
+#   3. activate_mission = RAJ_LS_bill_vote_mission
+# Pass: mission completes -> your on-pass handling keyed off your flag.
+# Fail: mission times out -> RAJ_LS_bill_failed fires + support malus.
+# AI never runs the mission: give AI paths an instant stability roll instead.
+RAJ_LS_start_bill = {
+	set_country_flag = RAJ_LS_bill_active
+	RAJ_LS_recount_house = yes
+	# pledged = ruling+coalition seats scaled by stability (65-95%) + jitter
+	set_variable = {
+		RAJ_LS_bill_base = 0
+	}
+	for_loop_effect = {
+		value = i
+		start = 0
+		end = RAJ_LS_party_count
+		if = {
+			limit = {
+				OR = {
+					check_variable = {
+						RAJ_LS_ruling = i
+					}
+					check_variable = {
+						RAJ_LS_coalition^i > 0
+					}
+				}
+			}
+			add_to_variable = {
+				RAJ_LS_bill_base = RAJ_LS_party_seats^i
+			}
+		}
+	}
+	set_temp_variable = {
+		ls_rate = stability
+	}
+	multiply_temp_variable = {
+		ls_rate = 0.3
+	}
+	add_to_temp_variable = {
+		ls_rate = 0.65
+	}
+	random_list = {
+		25 = {
+			add_to_temp_variable = {
+				ls_rate = -0.04
+			}
+		}
+		50 = {
+		}
+		25 = {
+			add_to_temp_variable = {
+				ls_rate = 0.04
+			}
+		}
+	}
+	clamp_temp_variable = {
+		var = ls_rate
+		min = 0.5
+		max = 0.98
+	}
+	set_variable = {
+		RAJ_LS_bill_pledged = RAJ_LS_bill_base
+	}
+	multiply_variable = {
+		RAJ_LS_bill_pledged = ls_rate
+	}
+	round_variable = RAJ_LS_bill_pledged
+	# track per-party wooing exhaustion
+	for_loop_effect = {
+		value = i
+		start = 0
+		end = RAJ_LS_party_count
+		set_variable = {
+			RAJ_LS_wooed^i = 0
+		}
+	}
+	custom_effect_tooltip = RAJ_LS_start_bill_tt
+}
+
+# woo a party: caller sets RAJ_LS_t_party (temp).
+# grants 30% of the party's not-yet-pledged seats (own/coalition parties
+# start mostly pledged already, so wooing them yields the remainder cheap)
+RAJ_LS_woo_party = {
+	set_temp_variable = {
+		ls_pool = RAJ_LS_party_seats^RAJ_LS_t_party
+	}
+	subtract_from_temp_variable = {
+		ls_pool = RAJ_LS_wooed^RAJ_LS_t_party
+	}
+	# outside parties only offer up to half their bench
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					RAJ_LS_ruling = RAJ_LS_t_party
+				}
+			}
+			check_variable = {
+				RAJ_LS_coalition^RAJ_LS_t_party < 1
+			}
+		}
+		set_temp_variable = {
+			ls_cap = RAJ_LS_party_seats^RAJ_LS_t_party
+		}
+		divide_temp_variable = {
+			ls_cap = 2
+		}
+		set_temp_variable = {
+			ls_pool2 = ls_cap
+		}
+		subtract_from_temp_variable = {
+			ls_pool2 = RAJ_LS_wooed^RAJ_LS_t_party
+		}
+		if = {
+			limit = {
+				check_variable = {
+					ls_pool2 < ls_pool
+				}
+			}
+			set_temp_variable = {
+				ls_pool = ls_pool2
+			}
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				ls_pool < 0
+			}
+		}
+		set_temp_variable = {
+			ls_pool = 0
+		}
+	}
+	set_temp_variable = {
+		ls_gain = ls_pool
+	}
+	multiply_temp_variable = {
+		ls_gain = 0.3
+	}
+	round_temp_variable = ls_gain
+	add_to_variable = {
+		RAJ_LS_bill_pledged = ls_gain
+	}
+	add_to_variable = {
+		RAJ_LS_wooed^RAJ_LS_t_party = ls_gain
+	}
+	set_temp_variable = {
+		RAJ_LS_woo_display = ls_gain
+	}
+	custom_effect_tooltip = RAJ_LS_woo_party_tt
+}
+
+# ---------- The Permit Raj: claw-back tiers ----------
+# political_power_gain starts at -0.5 (eased toward 0 by adding),
+# consumer_goods_factor starts at +0.05 (eased toward 0 by subtracting).
+# reluctant = socialist paths, moderate = INC/liberal/authdem, aggressive =
+# conservative (pro-market) paths. One tier fires per term tree, so four
+# terms dismantle most of it whatever party the player runs.
+RAJ_permit_raj_ease_reluctant = {
+	add_to_variable = { RAJ_permit_raj_political_power_gain = 0.10 }
+	clamp_variable = { var = RAJ_permit_raj_political_power_gain min = -0.5 max = 0 }
+	subtract_from_variable = { RAJ_permit_raj_consumer_goods_factor = 0.010 }
+	clamp_variable = { var = RAJ_permit_raj_consumer_goods_factor min = 0 max = 0.05 }
+	custom_effect_tooltip = RAJ_permit_raj_effect
+	custom_effect_tooltip = {
+		localization_key = TNO_political_power_gain
+		VALUE = { localization_key = TNO_COLOR_GREEN VALUE_CHANGE = "+0.10" }
+	}
+	custom_effect_tooltip = {
+		localization_key = TNO_consumer_goods_factor
+		VALUE = { localization_key = TNO_COLOR_GREEN VALUE_CHANGE = "-1%" }
+	}
+}
+RAJ_permit_raj_ease_moderate = {
+	add_to_variable = { RAJ_permit_raj_political_power_gain = 0.13 }
+	clamp_variable = { var = RAJ_permit_raj_political_power_gain min = -0.5 max = 0 }
+	subtract_from_variable = { RAJ_permit_raj_consumer_goods_factor = 0.013 }
+	clamp_variable = { var = RAJ_permit_raj_consumer_goods_factor min = 0 max = 0.05 }
+	custom_effect_tooltip = RAJ_permit_raj_effect
+	custom_effect_tooltip = {
+		localization_key = TNO_political_power_gain
+		VALUE = { localization_key = TNO_COLOR_GREEN VALUE_CHANGE = "+0.13" }
+	}
+	custom_effect_tooltip = {
+		localization_key = TNO_consumer_goods_factor
+		VALUE = { localization_key = TNO_COLOR_GREEN VALUE_CHANGE = "-1.3%" }
+	}
+}
+RAJ_permit_raj_ease_aggressive = {
+	add_to_variable = { RAJ_permit_raj_political_power_gain = 0.16 }
+	clamp_variable = { var = RAJ_permit_raj_political_power_gain min = -0.5 max = 0 }
+	subtract_from_variable = { RAJ_permit_raj_consumer_goods_factor = 0.016 }
+	clamp_variable = { var = RAJ_permit_raj_consumer_goods_factor min = 0 max = 0.05 }
+	custom_effect_tooltip = RAJ_permit_raj_effect
+	custom_effect_tooltip = {
+		localization_key = TNO_political_power_gain
+		VALUE = { localization_key = TNO_COLOR_GREEN VALUE_CHANGE = "+0.16" }
+	}
+	custom_effect_tooltip = {
+		localization_key = TNO_consumer_goods_factor
+		VALUE = { localization_key = TNO_COLOR_GREEN VALUE_CHANGE = "-1.6%" }
+	}
+}
+
+# ---------- bill payloads (former focus completion rewards) ----------
+# Each converted focus sets its RAJ_LS_bill_* flag and starts the vote;
+# passing dispatches the payload, failing discards it (RAJ_LS_end_bill
+# clears the flags). AI countries skip the vote and get payloads directly.
+RAJ_LS_payload_welfare_overhaul = {
+	tno_pensions_improve = yes
+	tno_minimum_wage_improve = yes
+	tno_child_labor_improve = yes
+	tno_tax_rate_improve = yes
+	tno_income_taxation_improve = yes
+	add_political_power = 100
+}
+
+RAJ_LS_payload_education_act = {
+	tno_education_improve = yes
+	add_to_variable = { RAJ_caste_cage_poverty = 0.5 }
+	clamp_variable = { var = RAJ_caste_cage_poverty min = -0.5 max = 0 }
+	add_to_variable = { poverty_monthly_change = 0.5 }
+	custom_effect_tooltip = RAJ_caste_cage_effect
+	custom_effect_tooltip = RAJ_caste_cage_poverty_ease_tt
+}
+
+RAJ_LS_payload_land_reform = {
+	country_event = {
+		id = demindia.122
+	}
+	add_to_variable = { RAJ_caste_cage_stability_factor = 0.3 }
+	clamp_variable = { var = RAJ_caste_cage_stability_factor min = -0.5 max = 0 }
+	custom_effect_tooltip = RAJ_caste_cage_effect
+	custom_effect_tooltip = {
+		localization_key = TNO_stability_factor
+		VALUE = {
+			localization_key = TNO_COLOR_GREEN
+			VALUE_CHANGE = "+30%"
+		}
+	}
+}
+
+RAJ_LS_payload_one_language = {
+	country_event = {
+		id = demindia.128
+	}
+	add_to_variable = { RAJ_caste_cage_political_power_factor = 0.2 }
+	clamp_variable = { var = RAJ_caste_cage_political_power_factor min = -0.4 max = 0 }
+	custom_effect_tooltip = RAJ_caste_cage_effect
+	custom_effect_tooltip = {
+		localization_key = TNO_political_power_factor
+		VALUE = {
+			localization_key = TNO_COLOR_GREEN
+			VALUE_CHANGE = "+20%"
+		}
+	}
+}
+
+RAJ_LS_payload_nationalize = {
+	custom_effect_tooltip = TNO_RAJ_socdem2_nationalize_industries_tt
+	hidden_effect = {
+		random_owned_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+RAJ_LS_payload_free_market = {
+	custom_effect_tooltip = RAJ_soccon4_free_market_reforms_tt
+	hidden_effect = {
+		tno_trade_laws_worsen = yes
+	}
+	add_political_power = 150
+	add_to_variable = {
+		misc_income = 1000
+	}
+	TNO_improve_industrial_expertise_high = yes
+	RAJ_permit_raj_ease_aggressive = yes
+}
+
+RAJ_LS_payload_cut_welfare = {
+	custom_effect_tooltip = RAJ_soccon4_cut_the_welfare_tt
+	hidden_effect = {
+		tno_pensions_worsen = yes
+	}
+	add_political_power = 150
+	add_to_variable = {
+		misc_income = 1000
+	}
+}
+
+RAJ_LS_payload_workers_rights = {
+	add_stability = 0.05
+	add_war_support = 0.03
+	tno_trade_unions_improve = yes
+	TNO_improve_industrial_equipment_high = yes
+}
+
+RAJ_LS_payload_election_reform = {
+	add_political_power = 50
+	add_popularity = {
+		ideology = national_socialism
+		popularity = -0.1
+	}
+	add_popularity = {
+		ideology = social_conservative
+		popularity = -0.05
+	}
+	add_stability = 0.1
+}
+
+RAJ_LS_payload_agri_reform = {
+	add_stability = -0.05
+	random_owned_controlled_state = {
+		limit = {
+			is_core_of = ROOT
+		}
+		add_extra_state_shared_building_slots = 2
+		add_building_construction = {
+			type = industrial_complex
+			level = 2
+			instant_build = yes
+		}
+	}
+	TNO_improve_agriculture_high = yes
+}
+
+RAJ_LS_payload_modern_tax = {
+	add_political_power = 40
+	add_stability = 0.03
+}
+
+RAJ_LS_payload_tax_relief = {
+	add_to_variable = {
+		misc_costs = 0.02
+	}
+	add_stability = 0.03
+	add_to_variable = { RAJ_caste_cage_poverty = 0.5 }
+	clamp_variable = { var = RAJ_caste_cage_poverty min = -0.5 max = 0 }
+	add_to_variable = { poverty_monthly_change = 0.5 }
+	custom_effect_tooltip = RAJ_caste_cage_effect
+	custom_effect_tooltip = RAJ_caste_cage_poverty_ease_tt
+	RAJ_permit_raj_ease_moderate = yes
+}
+
+RAJ_LS_payload_eoo_laws = {
+	tno_gender_rights_improve = yes
+	TNO_improve_poverty_high = yes
+	add_to_variable = { RAJ_caste_cage_stability_factor = 0.3 }
+	clamp_variable = { var = RAJ_caste_cage_stability_factor min = -0.5 max = 0 }
+	add_to_variable = { RAJ_caste_cage_recruitable_population_factor = 0.1 }
+	clamp_variable = { var = RAJ_caste_cage_recruitable_population_factor min = -0.5 max = 0 }
+	custom_effect_tooltip = RAJ_caste_cage_effect
+	custom_effect_tooltip = {
+		localization_key = TNO_stability_factor
+		VALUE = {
+			localization_key = TNO_COLOR_GREEN
+			VALUE_CHANGE = "+30%"
+		}
+	}
+	custom_effect_tooltip = {
+		localization_key = TNO_recruitable_population_factor
+		VALUE = {
+			localization_key = TNO_COLOR_GREEN
+			VALUE_CHANGE = "+10%"
+		}
+	}
+}
+
+RAJ_LS_payload_civil_rights = {
+	custom_effect_tooltip = RAJ_Soclib3_I_Have_Dream_tt
+	hidden_effect = {
+		tno_minorities_improve = yes
+	}
+	add_to_variable = { RAJ_caste_cage_war_support_factor = 0.25 }
+	clamp_variable = { var = RAJ_caste_cage_war_support_factor min = -0.3 max = 0 }
+	add_to_variable = { RAJ_caste_cage_recruitable_population_factor = 0.20 }
+	clamp_variable = { var = RAJ_caste_cage_recruitable_population_factor min = -0.5 max = 0 }
+	custom_effect_tooltip = RAJ_caste_cage_effect
+	custom_effect_tooltip = {
+		localization_key = TNO_war_support_factor
+		VALUE = {
+			localization_key = TNO_COLOR_GREEN
+			VALUE_CHANGE = "+25%"
+		}
+	}
+	custom_effect_tooltip = {
+		localization_key = TNO_recruitable_population_factor
+		VALUE = {
+			localization_key = TNO_COLOR_GREEN
+			VALUE_CHANGE = "+20%"
+		}
+	}
+}
+
+RAJ_LS_payload_segregation = {
+	custom_effect_tooltip = RAJ_Soclib3_Separate_But_Equal_tt
+	hidden_effect = {
+		tno_minorities_worsen = yes
+	}
+	add_to_variable = { RAJ_caste_cage_stability_factor = 0.30 }
+	clamp_variable = { var = RAJ_caste_cage_stability_factor min = -0.5 max = 0 }
+	add_to_variable = { RAJ_caste_cage_recruitable_population_factor = -0.10 }
+	clamp_variable = { var = RAJ_caste_cage_recruitable_population_factor min = -0.5 max = 0 }
+	custom_effect_tooltip = RAJ_caste_cage_effect
+	custom_effect_tooltip = {
+		localization_key = TNO_stability_factor
+		VALUE = {
+			localization_key = TNO_COLOR_GREEN
+			VALUE_CHANGE = "+30%"
+		}
+	}
+	custom_effect_tooltip = {
+		localization_key = TNO_recruitable_population_factor
+		VALUE = {
+			localization_key = TNO_COLOR_RED
+			VALUE_CHANGE = "-10%"
+		}
+	}
+}
+
+RAJ_LS_payload_small_business = {
+	custom_effect_tooltip = RAJ_soclib4_Encourage_Small_Businesses_tt
+	hidden_effect = {
+		random_list = {
+			80 = {
+				multiply_variable = {
+					var = misc_income
+					value = 1.02
+				}
+			}
+			20 = {
+				multiply_variable = {
+					var = misc_income
+					value = 1.03
+				}
+			}
+		}
+	}
+	add_to_variable = { RAJ_caste_cage_consumer_goods_factor = -0.05 }
+	clamp_variable = { var = RAJ_caste_cage_consumer_goods_factor min = 0 max = 0.1 }
+	custom_effect_tooltip = RAJ_caste_cage_effect
+	custom_effect_tooltip = {
+		localization_key = TNO_consumer_goods_factor
+		VALUE = {
+			localization_key = TNO_COLOR_GREEN
+			VALUE_CHANGE = "-5%"
+		}
+	}
+	RAJ_permit_raj_ease_moderate = yes
+}
+
+RAJ_LS_payload_welfare_cuts = {
+	add_to_variable = {
+		misc_costs = -1000
+	}
+}
+
+RAJ_LS_payload_rail_privatisation = {
+	add_ideas = RAJ_Con_Railroad_Privatized
+}
+
+RAJ_LS_payload_neutrality_act = {
+	custom_effect_tooltip = RAJ_soccon3_neutrality_tt
+	hidden_effect = {
+		reverse_add_opinion_modifier = {
+			target = GER
+			modifier = RAJ_neutrality
+		}
+		reverse_add_opinion_modifier = {
+			target = JAP
+			modifier = RAJ_neutrality
+		}
+		reverse_add_opinion_modifier = {
+			target = USA
+			modifier = RAJ_neutrality
+		}
+	}
+}
+
+RAJ_LS_payload_unity_reforms = {
+	custom_effect_tooltip = TNO_RAJ_socdem3_unity_reforms_tt
+	hidden_effect = {
+		add_stability = 0.1
+		add_political_power = 150
+	}
+}
+
+RAJ_LS_payload_edu_for_all = {
+	tno_education_improve = yes
+	TNO_improve_academic_base_high = yes
+}
+
+RAJ_LS_payload_new_constitution = {
+	add_stability = 0.05
+	add_to_variable = { RAJ_caste_cage_political_power_factor = 0.2 }
+	clamp_variable = { var = RAJ_caste_cage_political_power_factor min = -0.4 max = 0 }
+	custom_effect_tooltip = RAJ_caste_cage_effect
+	custom_effect_tooltip = {
+		localization_key = TNO_political_power_factor
+		VALUE = {
+			localization_key = TNO_COLOR_GREEN
+			VALUE_CHANGE = "+20%"
+		}
+	}
+}
+
+RAJ_LS_payload_welfare_abolition = {
+	custom_effect_tooltip = RAJ_authdem4_mass_welfare_cuts_tt
+	hidden_effect = {
+		tno_unemployment_worsen = yes
+		tno_unemployment_worsen = yes
+	}
+	add_political_power = 200
+	add_to_variable = { RAJ_caste_cage_consumer_goods_factor = -0.05 }
+	clamp_variable = { var = RAJ_caste_cage_consumer_goods_factor min = 0 max = 0.1 }
+	custom_effect_tooltip = RAJ_caste_cage_effect
+	custom_effect_tooltip = {
+		localization_key = TNO_consumer_goods_factor
+		VALUE = {
+			localization_key = TNO_COLOR_GREEN
+			VALUE_CHANGE = "-5%"
+		}
+	}
+}
+
+RAJ_LS_payload_autonomy_act = {
+	add_timed_idea = {
+	idea = RAJ_SocDem1_autonomous_communes2
+	days = 200
+	}
+
+	add_stability = 0.03
+}
+
+RAJ_LS_payload_agri_subsidies = {
+	custom_effect_tooltip = TNO_RAJ_socdem2_agricultural_subsidies_tt
+	hidden_effect = {
+	tno_improve_agriculture = yes
+	}
+
+	add_stability = 0.02
+}
+
+RAJ_LS_payload_const_powers = {
+	custom_effect_tooltip = TNO_RAJ_socdem3_assert_constitutional_power_tt
+	hidden_effect = {
+	add_popularity = {
+	ideology = social_democrat
+	popularity = 0.05
+	}
+	}
+
+	add_political_power = 50
+	add_stability = 0.03
+}
+
+RAJ_LS_payload_atomic_energy = {
+	custom_effect_tooltip = TNO_RAJ_socdem4_arsenal_of_democracy_tt
+	hidden_effect = {
+	tno_improve_nuclear_stockpile = yes
+	}
+}
+
+RAJ_LS_payload_construction_std = {
+	tno_improve_construction_laws = yes
+	add_timed_idea = {
+	idea = RAJ_SocLib1_adjusting_funds
+	days = 700
+	}
+
+	add_stability = 0.02
+}
+
+RAJ_LS_payload_reservations = {
+	add_political_power = 50
+	hidden_effect = {
+	add_popularity = {
+	ideology = social_democrat
+	popularity = -0.03
+	}
+	}
+	add_popularity = {
+	ideology = social_conservative
+	popularity = -0.03
+	}
+
+	add_to_variable = { RAJ_caste_cage_stability_factor = 0.10 }
+	clamp_variable = { var = RAJ_caste_cage_stability_factor min = -0.5 max = 0 }
+	custom_effect_tooltip = RAJ_caste_cage_effect
+	custom_effect_tooltip = {
+		localization_key = TNO_stability_factor
+		VALUE = {
+			localization_key = TNO_COLOR_GREEN
+			VALUE_CHANGE = "+10%"
+		}
+	}
+}
+
+RAJ_LS_payload_welfare_stream = {
+	custom_effect_tooltip = RAJ_Soclib3_Cut_Welfare_tt
+	hidden_effect = {
+	add_to_variable = { misc_costs = -0.02 }
+	}
+
+	add_political_power = 50
+}
+
+RAJ_LS_payload_basic_income = {
+	custom_effect_tooltip = RAJ_soclib4_A_Basic_Income_For_Indians_tt
+	hidden_effect = {
+	if = {
+	limit = {
+	check_variable = {
+	var = RAJ_SocLib4_Approval
+	value = 4
+	compare = greater_than
+	}
+	}
+	add_ideas = RAJ_LIBERAL_Welfare
+	}
+	if = {
+	limit = {
+	check_variable = {
+	var = RAJ_SocLib4_Approval
+	value = 4
+	compare = equals
+	}
+	}
+	random_list = {
+	50 = {
+	add_ideas = RAJ_LIBERAL_Welfare
+	}
+	50 = {
+	add_political_power = -100
+	}
+	}
+	}
+	else = {
+	add_political_power = -100
+	}
+	}
+
+	add_stability = 0.03
+	add_to_variable = { RAJ_caste_cage_poverty = 0.25 }
+	clamp_variable = { var = RAJ_caste_cage_poverty min = -0.5 max = 0 }
+	add_to_variable = { poverty_monthly_change = 0.25 }
+	custom_effect_tooltip = RAJ_caste_cage_effect
+	custom_effect_tooltip = RAJ_caste_cage_poverty_ease_small_tt
+}
+
+RAJ_LS_payload_anti_terror = {
+	tno_security_improve = yes
+	add_to_variable = { misc_costs = 0.01 }
+
+	add_political_power = 25
+	add_stability = 0.02
+}
+
+RAJ_LS_payload_market_easing = {
+	add_timed_idea = {
+	idea = RAJ_Con_Ease_Free_Market
+	days = 200
+	}
+
+	add_to_variable = { misc_income = 0.1 }
+	RAJ_permit_raj_ease_aggressive = yes
+}
+
+RAJ_LS_payload_trade_lib = {
+	custom_effect_tooltip = RAJ_soccon3_economic_liberalism_tt
+	hidden_effect = {
+	add_popularity = {
+	ideology = social_liberal
+	popularity = 0.02
+	}
+	tno_trade_laws_improve = yes
+	}
+
+	add_to_variable = { misc_income = 0.1 }
+	RAJ_permit_raj_ease_aggressive = yes
+}
+
+RAJ_LS_payload_clean_air = {
+	custom_effect_tooltip = RAJ_soccon4_a_real_threat_tt
+	hidden_effect = {
+	tno_pollution_improve = yes
+	}
+
+	add_stability = 0.02
+}
+
+RAJ_LS_payload_prog_tax = {
+	tno_tax_rate_improve = yes
+	tno_income_taxation_improve = yes
+
+	add_political_power = 50
+	RAJ_permit_raj_ease_reluctant = yes
+}
+
+RAJ_LS_payload_natl_service = {
+	tno_conscription_improve = yes
+
+	army_experience = 25
+	add_to_variable = { RAJ_caste_cage_recruitable_population_factor = 0.05 }
+	clamp_variable = { var = RAJ_caste_cage_recruitable_population_factor min = -0.5 max = 0 }
+	custom_effect_tooltip = RAJ_caste_cage_effect
+	custom_effect_tooltip = {
+		localization_key = TNO_recruitable_population_factor
+		VALUE = {
+			localization_key = TNO_COLOR_GREEN
+			VALUE_CHANGE = "+5%"
+		}
+	}
+}
+
+RAJ_LS_payload_wealth_redist = {
+	add_stability = -0.05
+	add_political_power = 75
+
+	add_to_variable = { RAJ_caste_cage_poverty = 0.25 }
+	clamp_variable = { var = RAJ_caste_cage_poverty min = -0.5 max = 0 }
+	add_to_variable = { poverty_monthly_change = 0.25 }
+	custom_effect_tooltip = RAJ_caste_cage_effect
+	custom_effect_tooltip = RAJ_caste_cage_poverty_ease_small_tt
+	RAJ_permit_raj_ease_reluctant = yes
+}
+
+RAJ_LS_payload_public_order = {
+	custom_effect_tooltip = RAJ_authdem3_fight_extremism_tt
+	hidden_effect = {
+	add_stability = 0.03
+	}
+
+	add_political_power = 50
+	add_war_support = 0.02
+	RAJ_permit_raj_ease_moderate = yes
+}
+
+RAJ_LS_payload_self_reliance = {
+	custom_effect_tooltip = RAJ_authdem4_autarkic_policy_tt
+	hidden_effect = {
+	tno_trade_laws_improve = yes
+	add_to_variable = { misc_costs = -0.5 }
+	}
+
+	add_stability = 0.03
+}
+
+RAJ_LS_payload_foreign_investment = {
+	custom_effect_tooltip = RAJ_find_foreign_investors_tt
+	hidden_effect = {
+		random_list = {
+			60 = { country_event = { id = demindia.369 days = 3 } }
+			40 = { country_event = { id = demindia.370 days = 3 } }
+		}
+	}
+	RAJ_permit_raj_ease_moderate = yes
+}
+
+# pass dispatcher: called by the vote mission on success
+RAJ_LS_bill_resolve = {
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_welfare_overhaul
+		}
+		RAJ_LS_payload_welfare_overhaul = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_education_act
+		}
+		RAJ_LS_payload_education_act = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_land_reform
+		}
+		RAJ_LS_payload_land_reform = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_one_language
+		}
+		RAJ_LS_payload_one_language = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_nationalize
+		}
+		RAJ_LS_payload_nationalize = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_free_market
+		}
+		RAJ_LS_payload_free_market = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_cut_welfare
+		}
+		RAJ_LS_payload_cut_welfare = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_workers_rights
+		}
+		RAJ_LS_payload_workers_rights = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_election_reform
+		}
+		RAJ_LS_payload_election_reform = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_agri_reform
+		}
+		RAJ_LS_payload_agri_reform = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_modern_tax
+		}
+		RAJ_LS_payload_modern_tax = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_foreign_investment }
+		RAJ_LS_payload_foreign_investment = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_tax_relief
+		}
+		RAJ_LS_payload_tax_relief = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_eoo_laws
+		}
+		RAJ_LS_payload_eoo_laws = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_civil_rights
+		}
+		RAJ_LS_payload_civil_rights = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_segregation
+		}
+		RAJ_LS_payload_segregation = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_small_business
+		}
+		RAJ_LS_payload_small_business = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_welfare_cuts
+		}
+		RAJ_LS_payload_welfare_cuts = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_rail_privatisation
+		}
+		RAJ_LS_payload_rail_privatisation = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_neutrality_act
+		}
+		RAJ_LS_payload_neutrality_act = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_unity_reforms
+		}
+		RAJ_LS_payload_unity_reforms = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_edu_for_all
+		}
+		RAJ_LS_payload_edu_for_all = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_new_constitution
+		}
+		RAJ_LS_payload_new_constitution = yes
+	}
+	if = {
+		limit = {
+			has_country_flag = RAJ_LS_bill_welfare_abolition
+		}
+		RAJ_LS_payload_welfare_abolition = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_autonomy_act }
+		RAJ_LS_payload_autonomy_act = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_agri_subsidies }
+		RAJ_LS_payload_agri_subsidies = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_const_powers }
+		RAJ_LS_payload_const_powers = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_atomic_energy }
+		RAJ_LS_payload_atomic_energy = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_construction_std }
+		RAJ_LS_payload_construction_std = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_reservations }
+		RAJ_LS_payload_reservations = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_welfare_stream }
+		RAJ_LS_payload_welfare_stream = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_basic_income }
+		RAJ_LS_payload_basic_income = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_anti_terror }
+		RAJ_LS_payload_anti_terror = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_market_easing }
+		RAJ_LS_payload_market_easing = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_trade_lib }
+		RAJ_LS_payload_trade_lib = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_clean_air }
+		RAJ_LS_payload_clean_air = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_prog_tax }
+		RAJ_LS_payload_prog_tax = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_natl_service }
+		RAJ_LS_payload_natl_service = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_wealth_redist }
+		RAJ_LS_payload_wealth_redist = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_public_order }
+		RAJ_LS_payload_public_order = yes
+	}
+	if = {
+		limit = { has_country_flag = RAJ_LS_bill_self_reliance }
+		RAJ_LS_payload_self_reliance = yes
+	}
+}
+
+# clean slate after any voting session (pass or fail)
+RAJ_LS_end_bill = {
+	clr_country_flag = RAJ_LS_bill_welfare_overhaul
+	clr_country_flag = RAJ_LS_bill_education_act
+	clr_country_flag = RAJ_LS_bill_land_reform
+	clr_country_flag = RAJ_LS_bill_one_language
+	clr_country_flag = RAJ_LS_bill_nationalize
+	clr_country_flag = RAJ_LS_bill_free_market
+	clr_country_flag = RAJ_LS_bill_cut_welfare
+	clr_country_flag = RAJ_LS_bill_workers_rights
+	clr_country_flag = RAJ_LS_bill_election_reform
+	clr_country_flag = RAJ_LS_bill_agri_reform
+	clr_country_flag = RAJ_LS_bill_modern_tax
+	clr_country_flag = RAJ_LS_bill_foreign_investment
+	clr_country_flag = RAJ_LS_bill_tax_relief
+	clr_country_flag = RAJ_LS_bill_eoo_laws
+	clr_country_flag = RAJ_LS_bill_civil_rights
+	clr_country_flag = RAJ_LS_bill_segregation
+	clr_country_flag = RAJ_LS_bill_small_business
+	clr_country_flag = RAJ_LS_bill_welfare_cuts
+	clr_country_flag = RAJ_LS_bill_rail_privatisation
+	clr_country_flag = RAJ_LS_bill_neutrality_act
+	clr_country_flag = RAJ_LS_bill_unity_reforms
+	clr_country_flag = RAJ_LS_bill_edu_for_all
+	clr_country_flag = RAJ_LS_bill_new_constitution
+	clr_country_flag = RAJ_LS_bill_welfare_abolition
+	clr_country_flag = RAJ_LS_bill_autonomy_act
+	clr_country_flag = RAJ_LS_bill_agri_subsidies
+	clr_country_flag = RAJ_LS_bill_const_powers
+	clr_country_flag = RAJ_LS_bill_atomic_energy
+	clr_country_flag = RAJ_LS_bill_construction_std
+	clr_country_flag = RAJ_LS_bill_reservations
+	clr_country_flag = RAJ_LS_bill_welfare_stream
+	clr_country_flag = RAJ_LS_bill_basic_income
+	clr_country_flag = RAJ_LS_bill_anti_terror
+	clr_country_flag = RAJ_LS_bill_market_easing
+	clr_country_flag = RAJ_LS_bill_trade_lib
+	clr_country_flag = RAJ_LS_bill_clean_air
+	clr_country_flag = RAJ_LS_bill_prog_tax
+	clr_country_flag = RAJ_LS_bill_natl_service
+	clr_country_flag = RAJ_LS_bill_wealth_redist
+	clr_country_flag = RAJ_LS_bill_public_order
+	clr_country_flag = RAJ_LS_bill_self_reliance
+	clr_country_flag = RAJ_LS_bill_active
+	set_variable = {
+		RAJ_LS_bill_pledged = 0
+	}
+	set_variable = {
+		RAJ_LS_bill_base = 0
+	}
+	for_loop_effect = {
+		value = i
+		start = 0
+		end = RAJ_LS_party_count
+		set_variable = {
+			RAJ_LS_wooed^i = 0
+		}
+	}
+}
+
+# failure fallout: ruling party bleeds support everywhere
+RAJ_LS_fail_bill = {
+	set_temp_variable = {
+		RAJ_LS_t_party = RAJ_LS_ruling
+	}
+	set_temp_variable = {
+		RAJ_LS_t_state = -1
+	}
+	set_temp_variable = {
+		RAJ_LS_t_amount = -2
+	}
+	RAJ_LS_add_support = yes
+	RAJ_LS_end_bill = yes
+}
+
+# ---------- territorial control (GAW-ready) ----------
+# caller sets RAJ_LS_t_state (temp) + RAJ_LS_t_held (temp, 0/1)
+RAJ_LS_set_state_held = {
+	set_variable = {
+		RAJ_LS_held^RAJ_LS_t_state = RAJ_LS_t_held
+	}
+	RAJ_LS_recount_house = yes
+}

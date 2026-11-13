@@ -1,0 +1,455 @@
+## smart work badhye sir india
+focus_tree = {
+	id = tno_schwab_speer
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = GER
+		}
+	}
+	default = no
+	focus = {
+		id = SGR_look_to_the_future
+		icon = GFX_GER_schwabism
+		cost = 3
+		x = 8
+		y = 0
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_look_to_the_future"
+			country_event = {
+				id = schwab.1
+				days = 2
+			}
+		}
+	}
+	##foreign policy sir
+	focus = {
+		id = SGR_beyond_europe
+		icon = GFX_GER_observations_of_outside
+		prerequisite = {
+			focus = SGR_look_to_the_future
+		}
+		cost = 3
+		x = 4
+		y = 2
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_beyond_europe"
+			country_event = {
+				id = schwab.2
+				days = 2
+			}
+			hidden_effect = {
+				every_country = {
+					news_event = {
+						id = schwabnews.5
+						days = 4
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SGR_anglo_saxon_bretheren
+		icon = GFX_GER_enemy_of_my_enemy
+		prerequisite = {
+			focus = SGR_beyond_europe
+		}
+		cost = 3
+		x = 3
+		y = 3
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_anglo_saxon_bretheren"
+			country_event = {
+				id = schwab.5
+				days = 2
+			}
+		}
+	}
+	## just so you know goodwinson, this depends on who won the GAW, i know TFR does this with russia if belarus falls to the western protests, so a custom icon and custom loc. do your code magic
+	focus = {
+		id = SGR_a_flight_east
+		icon = {
+			GFX_GER_china_will_grow = {
+				CHI = {
+					has_country_flag = CHI_GAW_won
+				}
+			}
+			GER_GOR_Eclipse_the_Rising_Sun = yes
+		}
+		dynamic = yes
+		prerequisite = {
+			focus = SGR_anglo_saxon_bretheren
+		}
+		cost = 3
+		x = 3
+		y = 4
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_a_flight_east"
+			if = {
+				limit = {
+					CHI = {
+						has_country_flag = CHI_GAW_won
+					}
+				}
+				country_event = {
+					id = schwab.7
+				}
+			}
+			else_if = {
+				limit = {
+					JAP = {
+						has_country_flag = JAP_GAW_won
+					}
+				}
+				country_event = {
+					id = schwab.6
+				}
+			}
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = SGR_sit_down_with_rome
+		icon = GFX_GER_A_Pact_Of_Non_Aggression
+		prerequisite = {
+			focus = SGR_beyond_europe
+		}
+		cost = 3
+		dynamic = yes
+		x = 5
+		y = 3
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_sit_down_with_rome"
+			if = {
+				limit = {
+					ITA = {
+						NOT = {
+							has_country_flag = ITA_IL_DUCE_DEMOCRACY_FLAG
+						}
+					}
+				}
+				country_event = {
+					id = schwab.8
+					days = 2
+				}
+			}
+			else_if = {
+				limit = {
+					ITA = {
+						has_country_flag = ITA_IL_DUCE_DEMOCRACY_FLAG
+					}
+				}
+				country_event = {
+					id = schwab.9
+					days = 2
+				}
+			}
+		}
+	}
+	focus = {
+		id = SGR_unity_pact
+		icon = GFX_GER_Pakt_Wargames
+		prerequisite = {
+			focus = SGR_sit_down_with_rome
+		}
+		cost = 3
+		x = 5
+		y = 4
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_unity_pact"
+			country_event = {
+				id = schwab.10
+				days = 2
+			}
+			hidden_effect = {
+				every_country = {
+					news_event = {
+						id = schwabnews.4
+						days = 4
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SGR_a_united_europe
+		icon = GFX_GER_europes_dreams
+		prerequisite = {
+			focus = SGR_unity_pact
+		}
+		prerequisite = {
+			focus = SGR_a_flight_east
+		}
+		cost = 3
+		x = 4
+		y = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_a_united_europe"
+			country_event = {
+				id = schwab.11
+				days = 2
+			}
+		}
+	}
+	## political tree
+	focus = {
+		id = SGR_ever_evolving_ideology
+		icon = GFX_GER_survival_at_all_costs
+		prerequisite = {
+			focus = SGR_look_to_the_future
+		}
+		cost = 3
+		x = 8
+		y = 2
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_ever_evolving_ideology"
+			country_event = {
+				id = schwab.3
+				days = 2
+			}
+		}
+	}
+	focus = {
+		id = SGR_a_well_oiled_machine
+		icon = GFX_GER_reforming_business
+		prerequisite = {
+			focus = SGR_ever_evolving_ideology
+		}
+		cost = 3
+		x = 7
+		y = 3
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_a_well_oiled_machine"
+			country_event = {
+				id = schwab.12
+				days = 2
+			}
+		}
+	}
+	focus = {
+		id = SGR_a_responsible_volk
+		icon = GFX_GER_a_responsible_volk
+		prerequisite = {
+			focus = SGR_a_well_oiled_machine
+		}
+		cost = 3
+		x = 7
+		y = 4
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_a_responsible_volk"
+			country_event = {
+				id = schwab.13
+				days = 2
+			}
+		}
+	}
+	focus = {
+		id = SGR_the_party_not_the_fuhrer
+		icon = GFX_GER_meeting_in_the_reichskanzlei
+		prerequisite = {
+			focus = SGR_ever_evolving_ideology
+		}
+		cost = 3
+		x = 9
+		y = 3
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_the_party_not_the_fuhrer"
+			country_event = {
+				id = schwab.14
+				days = 2
+			}
+		}
+	}
+	focus = {
+		id = SGR_men_of_science
+		icon = GFX_GER_revitalizing_science
+		prerequisite = {
+			focus = SGR_the_party_not_the_fuhrer
+		}
+		cost = 3
+		x = 9
+		y = 4
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_men_of_science"
+			country_event = {
+				id = schwab.15
+				days = 2
+			}
+		}
+	}
+	focus = {
+		id = SGR_a_world_economic_forum
+		icon = GFX_GER_Meeting_For_A_Banquet
+		prerequisite = {
+			focus = SGR_men_of_science
+		}
+		prerequisite = {
+			focus = SGR_a_responsible_volk
+		}
+		cost = 3
+		x = 8
+		y = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_a_world_economic_forum"
+			country_event = {
+				id = schwab.16
+				days = 2
+			}
+			hidden_effect = {
+				every_country = {
+					news_event = {
+						id = schwabnews.3
+						days = 4
+					}
+				}
+			}
+		}
+	}
+	## econ tree
+	focus = {
+		id = SGR_finishing_what_speer_started
+		icon = GFX_GER_defining_agenda_2000
+		prerequisite = {
+			focus = SGR_look_to_the_future
+		}
+		cost = 3
+		x = 12
+		y = 2
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_finishing_what_speer_started"
+			country_event = {
+				id = schwab.4
+				days = 2
+			}
+		}
+	}
+	focus = {
+		id = SGR_production_capital_of_the_world
+		icon = GFX_GER_industry_generic
+		prerequisite = {
+			focus = SGR_finishing_what_speer_started
+		}
+		cost = 3
+		x = 11
+		y = 3
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_production_capital_of_the_world"
+			country_event = {
+				id = schwab.17
+				days = 2
+			}
+		}
+	}
+	focus = {
+		id = SGR_look_to_the_stars
+		icon = GFX_GER_reich_station
+		prerequisite = {
+			focus = SGR_production_capital_of_the_world
+		}
+		cost = 3
+		x = 11
+		y = 4
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_look_to_the_stars"
+			country_event = {
+				id = schwab.18
+				days = 2
+			}
+			hidden_effect = {
+				every_country = {
+					news_event = {
+						id = schwabnews.2
+						days = 4
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = SGR_nazi_computer
+		icon = GFX_GER_invest_in_the_future
+		prerequisite = {
+			focus = SGR_finishing_what_speer_started
+		}
+		cost = 3
+		x = 13
+		y = 3
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_nazi_computer"
+			country_event = {
+				id = schwab.19
+				days = 2
+			}
+		}
+	}
+	focus = {
+		id = SGR_nazi_internet
+		icon = GFX_BRT_Smuggling_Networks
+		prerequisite = {
+			focus = SGR_nazi_computer
+		}
+		cost = 3
+		x = 13
+		y = 4
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_nazi_internet"
+			country_event = {
+				id = schwab.20
+				days = 2
+			}
+		}
+	}
+	focus = {
+		id = SGR_atlantropa_fixed_baby
+		icon = GFX_GER_fix_atlantropa
+		prerequisite = {
+			focus = SGR_look_to_the_stars
+		}
+		prerequisite = {
+			focus = SGR_nazi_internet
+		}
+		cost = 3
+		x = 12
+		y = 5
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_atlantropa_fixed_baby"
+			country_event = {
+				id = schwab.21
+				days = 2
+			}
+		}
+	}
+	##NOW IZ ZE TIME TO SHAPE ZE SYSTEM
+	focus = {
+		id = SGR_host_the_WEF
+		icon = GFX_GER_davos
+		prerequisite = {
+			focus = SGR_atlantropa_fixed_baby
+		}
+		prerequisite = {
+			focus = SGR_a_world_economic_forum
+		}
+		prerequisite = {
+			focus = SGR_a_united_europe
+		}
+		cost = 3
+		x = 8
+		y = 7
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SGR_host_the_WEF"
+			country_event = {
+				id = schwab.22
+				days = 2
+			}
+			hidden_effect = {
+				every_country = {
+					news_event = {
+						id = schwabnews.6
+						days = 4
+					}
+				}
+			}
+		}
+	}
+}

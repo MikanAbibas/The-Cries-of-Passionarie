@@ -1,0 +1,1355 @@
+# shared_focus = {
+# 	id = FSR_blankfocus
+# 	icon = GFX_generic_defence
+# 	x = 0
+# 	y = 7
+# 	cost = 5
+
+# 	allow_branch = {
+# 		has_country_flag = neversetthisflag
+# 	}
+
+# 	completion_reward = {
+# 		log = "[GetDateText]: [Root.GetName]: Focus FSR_blankfocus"
+# 	}
+# }
+
+##########WAR TREE
+shared_focus = {
+	id = FSR_the_only_choice
+	icon = GFX_FSR_burn_the_crown
+	cost = 2
+	x = 10
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_the_only_choice"
+		custom_effect_tooltip = FSR_the_only_choice_tt
+		
+	}
+}
+
+shared_focus = {
+	id = FSR_have_mercy_on_us
+	icon = GFX_FSR_crown_of_thorns
+	cost = 2
+	x = 0
+	y = 1
+	prerequisite = {
+		focus = FSR_the_only_choice
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_have_mercy_on_us"
+		add_political_power = 100
+	}
+}
+
+shared_focus = {
+	id = FSR_the_satanic_ideologies
+	icon = GFX_ra_rus_fsr_evil_ideologies
+	cost = 2
+	x = 0
+	y = 2
+	prerequisite = {
+		focus = FSR_have_mercy_on_us
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_the_satanic_ideologies"
+		tno_security_improve = yes
+		tno_public_meetings_worsen = yes
+	}
+}
+
+shared_focus = {
+	id = FSR_soulless_socialists
+	icon = GFX_TNO_generic_global_anti_communism
+	cost = 2
+	x = -2
+	y = 3
+	prerequisite = {
+		focus = FSR_the_satanic_ideologies
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_soulless_socialists"
+		#event
+		country_event = {
+			id = fsr_flavor.1
+			days = 1
+		}
+		add_popularity = {
+			ideology = socialist
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = communist
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = social_democrat
+			popularity = -0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_godless_liberals
+	icon = GFX_VIN_Expel_Liberal
+	cost = 2
+	x = 0
+	y = 3
+	prerequisite = {
+		focus = FSR_the_satanic_ideologies
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_godless_liberals"
+		#event
+		country_event = {
+			id = fsr_flavor.2
+			days = 1
+		}
+		add_popularity = {
+			ideology = social_liberal
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = market_liberal
+			popularity = -0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_lifeless_nazis
+	icon = GFX_UPO_Death_to_All_Nazis
+	cost = 2
+	x = 2
+	y = 3
+	prerequisite = {
+		focus = FSR_the_satanic_ideologies
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_lifeless_nazis"
+		#event
+		country_event = {
+			id = fsr_flavor.3
+			days = 1
+		}
+		add_popularity = {
+			ideology = national_socialism
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_the_worst_evil
+	icon = GFX_BRG_focus_the_burgundian_system
+	cost = 2
+	x = 0
+	y = 4
+	prerequisite = {
+		focus = FSR_soulless_socialists
+	}
+	prerequisite = {
+		focus = FSR_godless_liberals
+	}
+	prerequisite = {
+		focus = FSR_lifeless_nazis
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_the_worst_evil"
+		#event about finding burgundian spies
+		country_event = {
+			id = fsr_flavor.4
+			days = 1
+		}
+		add_popularity = {
+			ideology = burgundian_system
+			popularity = -0.99
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_deliver_us
+	icon = GFX_ra_fsr_church
+	cost = 2
+	x = 0
+	y = 5
+	prerequisite = {
+		focus = FSR_the_worst_evil
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_deliver_us"
+		#idea reducing heathen ideology popularity
+		add_ideas = FSR_sinful_ideas
+	}
+}
+
+shared_focus = {
+	id = FSR_the_regents_strength
+	icon = GFX_FSR_The_Holy_Regent
+	cost = 2
+	x = -3
+	y = 2
+	prerequisite = {
+		focus = FSR_have_mercy_on_us
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_the_regents_strength"
+		add_war_support = 0.15
+	}
+}
+
+shared_focus = {
+	id = FSR_devolve_the_kingdom
+	icon = GFX_ra_fsr_iberian_devolution
+	cost = 2
+	x = -3
+	y = 4
+	prerequisite = {
+		focus = FSR_the_regents_strength
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_devolve_the_kingdom"
+		#idea
+		add_ideas = FSR_decentralized_authority
+	}
+}
+
+shared_focus = {
+	id = FSR_iberian_tapestry
+	icon = GFX_ra_fsr_iberian_tapestry
+	cost = 2
+	x = -4
+	y = 5
+	prerequisite = {
+		focus = FSR_devolve_the_kingdom
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_iberian_tapestry"
+		tno_minorities_improve = yes
+		tno_racial_integration_improve = yes
+	}
+}
+
+shared_focus = {
+	id = FSR_honour_and_loyalty
+	icon = GFX_ra_rus_fsr_templar
+	cost = 2
+	x = -2
+	y = 5
+	prerequisite = {
+		focus = FSR_devolve_the_kingdom
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_honour_and_loyalty"
+		add_popularity = {
+			ideology = ultranational_socialism
+			popularity = 0.05
+		}
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = FSR_the_churchs_place
+	icon = GFX_FSR_The_Simancas_Decree
+	cost = 2
+	x = 3
+	y = 2
+	prerequisite = {
+		focus = FSR_have_mercy_on_us
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_the_churchs_place"
+		add_stability = 0.1
+	}
+}
+
+shared_focus = {
+	id = FSR_union_with_the_state
+	icon = GFX_FSR_Execute_The_Carlists
+	cost = 2
+	x = 3
+	y = 4
+	prerequisite = {
+		focus = FSR_the_churchs_place
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_union_with_the_state"
+		#idea
+		add_ideas = FSR_state_catholicism
+	}
+}
+
+shared_focus = {
+	id = FSR_see_to_the_poor
+	icon = GFX_IBR_promote_religious_charity
+	cost = 2
+	x = 2
+	y = 5
+	prerequisite = {
+		focus = FSR_union_with_the_state
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_see_to_the_poor"
+		TNO_improve_poverty_high = yes
+		custom_effect_tooltip = econ_increase_debt_small
+		add_to_variable = {
+			national_debt = 100
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_priests_in_the_army
+	icon = GFX_FSR_archbishop
+	cost = 2
+	x = 4
+	y = 5
+	prerequisite = {
+		focus = FSR_union_with_the_state
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_priests_in_the_army"
+		tno_military_supervision_improve = yes
+		add_war_support = 0.1
+	}
+}
+
+shared_focus = {
+	id = FSR_bride_of_christ
+	icon = GFX_ra_fsr_cross_masses
+	cost = 2
+	x = -3
+	y = 6
+	prerequisite = {
+		focus = FSR_iberian_tapestry
+	}
+	prerequisite = {
+		focus = FSR_honour_and_loyalty
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_bride_of_christ"
+		tno_vote_franchise_improve = yes
+	}
+}
+
+shared_focus = {
+	id = FSR_god_is_calling
+	icon = GFX_FSR_in_the_footsteps_of_barnabas
+	cost = 2
+	x = 3
+	y = 6
+	prerequisite = {
+		focus = FSR_see_to_the_poor
+	}
+	prerequisite = {
+		focus = FSR_priests_in_the_army
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_god_is_calling"
+		tno_vote_franchise_improve = yes
+	}
+}
+
+shared_focus = {
+	id = FSR_approach_peters_heir
+	icon = GFX_ITA_Generic_Vatican_Deal
+	cost = 2
+	x = -1
+	y = 6
+	prerequisite = {
+		focus = FSR_honour_and_loyalty
+	}
+	prerequisite = {
+		focus = FSR_deliver_us
+	}
+	available = {
+		has_idea = FSR_morality_status_good
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_god_is_calling"
+		#event
+		country_event = {
+			id = fsr_flavor.5
+			days = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_sermons_and_rallies
+	icon = GFX_GGR_Prolonged_Occupation
+	cost = 2
+	x = 1
+	y = 6
+	prerequisite = {
+		focus = FSR_honour_and_loyalty
+	}
+	prerequisite = {
+		focus = FSR_deliver_us
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_god_is_calling"
+		#event
+		country_event = {
+			id = fsr_flavor.6
+			days = 1
+		}
+		add_war_support = 0.1
+	}
+}
+
+shared_focus = {
+	id = FSR_he_is_risen
+	icon = GFX_FSR_Only_God_And_His_Servants
+	cost = 2
+	x = 0
+	y = 7
+	prerequisite = {
+		focus = FSR_bride_of_christ
+	}
+	prerequisite = {
+		focus = FSR_deliver_us
+	}
+	prerequisite = {
+		focus = FSR_god_is_calling
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_god_is_calling"
+		#idea
+		add_ideas = FSR_thy_salvation
+	}
+}
+
+shared_focus = {
+	id = FSR_defence_of_the_realm
+	icon = GFX_IBR_Cross_Freedom
+	cost = 2
+	x = -8
+	y = 1
+	prerequisite = {
+		focus = FSR_the_only_choice
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_defence_of_the_realm"
+		add_manpower = 20000
+		add_war_support = 0.1
+	}
+}
+
+shared_focus = {
+	id = FSR_reform_the_orders
+	icon = GFX_OMO_Bring_The_Sword
+	cost = 2
+	x = 0
+	y = 1
+	prerequisite = {
+		focus = FSR_defence_of_the_realm
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_reform_the_orders"
+		#event
+		country_event = {
+			id = fsr_flavor.7
+			days = 1
+		}
+		army_experience = 20
+	}
+}
+
+shared_focus = {
+	id = FSR_calatrava
+	icon = GFX_ra_fsr_calatrava_order
+	cost = 2
+	x = -3
+	y = 2
+	prerequisite = {
+		focus = FSR_reform_the_orders
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_calatrava"
+		#idea for tanks
+		add_ideas = FSR_modern_cavalry
+	}
+}
+
+shared_focus = {
+	id = FSR_new_knights
+	icon = GFX_KEM_Columns_of_Tanks
+	cost = 2
+	x = -3
+	y = 3
+	prerequisite = {
+		focus = FSR_calatrava
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_new_knights"
+		add_equipment_to_stockpile = {
+			type = IFV_equipment
+			amount = 300
+			producer = FSR
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_santiago
+	icon = GFX_FSR_The_New_Knights_Of_Santiago
+	cost = 2
+	x = -1
+	y = 2
+	prerequisite = {
+		focus = FSR_reform_the_orders
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_santiago"
+		#idea for infantry
+		add_ideas = FSR_men_of_god
+	}
+}
+
+shared_focus = {
+	id = FSR_god_favors_the_bold
+	icon = GFX_RAJ_India_New_Training
+	cost = 2
+	x = -1
+	y = 3
+	prerequisite = {
+		focus = FSR_santiago
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_new_knights"
+		TNO_improve_army_professionalism_high = yes
+		tno_training_improve = yes
+	}
+}
+
+shared_focus = {
+	id = FSR_alcantara
+	icon = GFX_ra_fsr_alcantara_order
+	cost = 2
+	x = 1
+	y = 2
+	prerequisite = {
+		focus = FSR_reform_the_orders
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_alcantara"
+		#idea for artillery
+		add_ideas = FSR_wrath_of_heaven
+	}
+}
+
+shared_focus = {
+	id = FSR_masters_of_siege
+	icon = GFX_OMO_Infiltrate_Their_Castle
+	cost = 2
+	x = 1
+	y = 3
+	prerequisite = {
+		focus = FSR_alcantara
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_new_knights"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = artillery
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_montesa
+	icon = GFX_ra_fsr_montesa_order
+	cost = 2
+	x = 3
+	y = 2
+	prerequisite = {
+		focus = FSR_reform_the_orders
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_montesa"
+		#idea for aircraft
+		add_ideas = FSR_2_wings_many_bombs
+	}
+}
+
+shared_focus = {
+	id = FSR_a_new_dimension
+	icon = GFX_OMO_Yet_The_Darkness_Did_Not_Overcome
+	cost = 2
+	x = 3
+	y = 3
+	prerequisite = {
+		focus = FSR_montesa
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_a_new_dimension"
+		add_equipment_to_stockpile = {
+			type = jet_fighter_equipment
+			amount = 40
+			producer = FSR
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_reconquista
+	icon = GFX_IBR_legacy_of_reconquista
+	cost = 2
+	x = -2
+	y = 4
+	prerequisite = {
+		focus = FSR_new_knights
+	}
+	prerequisite = {
+		focus = FSR_god_favors_the_bold
+	}
+	prerequisite = {
+		focus = FSR_masters_of_siege
+	}
+	prerequisite = {
+		focus = FSR_a_new_dimension
+	}
+	mutually_exclusive = {
+		focus = FSR_to_banish_evil
+	}
+	mutually_exclusive = {
+		focus = FSR_defend_the_innocent
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_reconquista"
+		#idea
+		add_ideas = FSR_stoic_and_steady
+	}
+}
+
+shared_focus = {
+	id = FSR_to_banish_evil
+	icon = GFX_ra_fsr_catholic_tank
+	cost = 2
+	x = -0
+	y = 4
+	prerequisite = {
+		focus = FSR_new_knights
+	}
+	prerequisite = {
+		focus = FSR_god_favors_the_bold
+	}
+	prerequisite = {
+		focus = FSR_masters_of_siege
+	}
+	prerequisite = {
+		focus = FSR_a_new_dimension
+	}
+	mutually_exclusive = {
+		focus = FSR_reconquista
+	}
+	mutually_exclusive = {
+		focus = FSR_defend_the_innocent
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_to_banish_evil"
+		#idea
+		add_ideas = FSR_blast_them_away
+	}
+}
+
+shared_focus = {
+	id = FSR_defend_the_innocent
+	icon = GFX_ra_fsr_shield
+	cost = 2
+	x = 2
+	y = 4
+	prerequisite = {
+		focus = FSR_new_knights
+	}
+	prerequisite = {
+		focus = FSR_god_favors_the_bold
+	}
+	prerequisite = {
+		focus = FSR_masters_of_siege
+	}
+	prerequisite = {
+		focus = FSR_a_new_dimension
+	}
+	mutually_exclusive = {
+		focus = FSR_reconquista
+	}
+	mutually_exclusive = {
+		focus = FSR_to_banish_evil
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_defend_the_innocent"
+		#idea
+		add_ideas = FSR_hold_no_matter_what
+	}
+}
+
+shared_focus = {
+	id = FSR_the_angels_sing
+	icon = GFX_FSR_Erase_Secular_Music
+	cost = 2
+	x = -1
+	y = 5
+	prerequisite = {
+		focus = FSR_reconquista
+		focus = FSR_to_banish_evil
+		focus = FSR_defend_the_innocent
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_the_angels_sing"
+		#event
+		if = {
+			limit = {
+				has_idea = FSR_morality_status_good
+			}
+			country_event = {
+				id = fsr_flavor.8
+				days = 1
+			}
+		}
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 3
+			category = air_equipment
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_death_has_perished
+	icon = GFX_ra_fsr_crossed_out_reaper
+	cost = 2
+	x = 1
+	y = 5
+	prerequisite = {
+		focus = FSR_reconquista
+		focus = FSR_to_banish_evil
+		focus = FSR_defend_the_innocent
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_the_angels_sing"
+		add_war_support = 0.15
+	}
+}
+
+shared_focus = {
+	id = FSR_for_the_kingdom_of_god
+	icon = GFX_generic_christianity
+	cost = 2
+	x = 0
+	y = 6
+	prerequisite = {
+		focus = FSR_the_angels_sing
+	}
+	prerequisite = {
+		focus = FSR_death_has_perished
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_for_the_kingdom_of_god"
+		#improve last idea
+		add_ideas = FSR_god_is_with_us
+	}
+}
+
+shared_focus = {
+	id = FSR_for_the_kingdom_of_spain
+	icon = GFX_ra_fsr_salvation_front_flag
+	cost = 2
+	x = 3
+	y = 6
+	prerequisite = {
+		focus = FSR_the_angels_sing
+	}
+	prerequisite = {
+		focus = FSR_death_has_perished
+	}
+	relative_position_id = FSR_defence_of_the_realm
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_for_the_kingdom_of_spain"
+		add_manpower = 25000
+		tno_training_improve = yes
+	}
+}
+
+shared_focus = {
+	id = FSR_tresures_of_the_earth
+	icon = GFX_COG_Blood_Diamonds
+	cost = 2
+	x = 8
+	y = 1
+	prerequisite = {
+		focus = FSR_the_only_choice
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_tresures_of_the_earth"
+		tno_economic_focus_improve = yes
+		#dynamic modifier
+		set_variable = {
+			var = FSR_christlike_economy_political_power_gain
+			value = 0
+		}
+		set_variable = {
+			var = FSR_christlike_economy_production_factory_max_efficiency_factor
+			value = 0
+		}
+		set_variable = {
+			var = FSR_christlike_economy_production_factory_efficiency_gain_factor
+			value = 0
+		}
+		set_variable = {
+			var = FSR_christlike_economy_line_change_production_efficiency_factor
+			value = 0
+		}
+		set_variable = {
+			var = FSR_christlike_economy_industrial_capacity_factory
+			value = 0
+		}
+		set_variable = {
+			var = FSR_christlike_economy_production_speed_buildings_factor
+			value = 0
+		}
+		add_dynamic_modifier = {
+			modifier = FSR_christlike_economy
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_reject_the_thievery
+	icon = GFX_blood_money
+	cost = 2
+	x = -1
+	y = 1
+	prerequisite = {
+		focus = FSR_tresures_of_the_earth
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_reject_the_thievery"
+		tno_trade_laws_improve = yes
+	}
+}
+
+shared_focus = {
+	id = FSR_land_to_the_peasents
+	icon = GFX_RAJ_agricultural_aid
+	cost = 2
+	x = 0
+	y = 2
+	prerequisite = {
+		focus = FSR_reject_the_thievery
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_land_to_the_peasents"
+		add_stability = -0.1
+		every_owned_state = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_social_harmony
+	icon = GFX_generic_change_law_property
+	cost = 2
+	x = -2
+	y = 2
+	prerequisite = {
+		focus = FSR_reject_the_thievery
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_social_harmony"
+		#improve output
+		custom_effect_tooltip = "Factory Output Will Improve 8%"
+		add_to_variable = {
+			var = FSR_christlike_economy_industrial_capacity_factory
+			value = 0.08
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_everyone_in_their_place
+	icon = GFX_ra_fsr_hierarchy
+	cost = 2
+	x = -3
+	y = 3
+	prerequisite = {
+		focus = FSR_social_harmony
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_everyone_in_their_place"
+		#improve construction speed, lower daily pp
+		custom_effect_tooltip = "Construction Speed Will Improve 7% Daily Political Power Gain Will Worsen -0.05"
+		add_to_variable = {
+			var = FSR_christlike_economy_production_speed_buildings_factor
+			value = 0.07
+		}
+		add_to_variable = {
+			var = FSR_christlike_economy_political_power_gain
+			value = -0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_revive_the_guilds
+	icon = GFX_JAP_Rebuilding_the_Cities
+	cost = 2
+	x = -1
+	y = 3
+	prerequisite = {
+		focus = FSR_reject_the_thievery
+	}
+	prerequisite = {
+		focus = FSR_social_harmony
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_revive_the_guilds"
+		tno_trade_unions_improve = yes
+		tno_minimum_wage_improve = yes
+		TNO_improve_industrial_expertise_med = yes
+	}
+}
+
+shared_focus = {
+	id = FSR_localized_economics
+	icon = GFX_KEM_Support_the_Unions
+	cost = 2
+	x = -2
+	y = 4
+	prerequisite = {
+		focus = FSR_everyone_in_their_place
+	}
+	prerequisite = {
+		focus = FSR_social_harmony
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_localized_economics"
+		#improve efficiency gain and retention
+		tno_tax_rate_improve = yes
+	}
+}
+
+shared_focus = {
+	id = FSR_a_moral_economy
+	icon = GFX_generic_change_law_welfare
+	cost = 2
+	x = 0
+	y = 4
+	prerequisite = {
+		focus = FSR_everyone_in_their_place
+	}
+	prerequisite = {
+		focus = FSR_social_harmony
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_a_moral_economy"
+		TNO_improve_poverty_high = yes
+		tno_pensions_improve = yes
+		tno_unemployment_improve = yes
+	}
+}
+
+shared_focus = {
+	id = FSR_the_duty_of_men
+	icon = GFX_generic_change_law_labor
+	cost = 2
+	x = -1
+	y = 5
+	prerequisite = {
+		focus = FSR_localized_economics
+	}
+	prerequisite = {
+		focus = FSR_a_moral_economy
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_the_duty_of_men"
+		#construction speed and efficiency gain will increase
+		custom_effect_tooltip = "Construction Speed Will Improve 8% Efficiency Gain Will Improve 6%"
+		add_to_variable = {
+			var = FSR_christlike_economy_production_speed_buildings_factor
+			value = 0.08
+		}
+		add_to_variable = {
+			var = FSR_christlike_economy_production_factory_efficiency_gain_factor
+			value = 0.06
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_agrarian_kingdom
+	icon = GFX_RAJ_Question_Agriculture
+	cost = 2
+	x = 1
+	y = 5
+	prerequisite = {
+		focus = FSR_localized_economics
+	}
+	prerequisite = {
+		focus = FSR_a_moral_economy
+	}
+	prerequisite = {
+		focus = FSR_rural_workshops
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_agrarian_kingdom"
+		#monthly pop will increase
+		custom_effect_tooltip = "Efficiency Gain Will Improve 6% Daily Political Power Gain Will Worsen -0.04"
+		add_to_variable = {
+			var = FSR_christlike_economy_line_change_production_efficiency_factor
+			value = 0.06
+		}
+		add_to_variable = {
+			var = FSR_christlike_economy_political_power_gain
+			value = -0.04
+		}
+		TNO_improve_agriculture_high = yes
+	}
+}
+
+shared_focus = {
+	id = FSR_for_the_struggle
+	icon = GFX_POL_build_our_guns
+	cost = 2
+	x = 1
+	y = 1
+	prerequisite = {
+		focus = FSR_tresures_of_the_earth
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_reject_the_thievery"
+		#output increases
+		custom_effect_tooltip = "Factory Output Will Improve 7%"
+		add_to_variable = {
+			var = FSR_christlike_economy_industrial_capacity_factory
+			value = 0.07
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_break_the_banks
+	icon = GFX_GER_end_the_bankers
+	cost = 2
+	x = 2
+	y = 2
+	prerequisite = {
+		focus = FSR_for_the_struggle
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_reject_the_thievery"
+		#construction increases
+		custom_effect_tooltip = "Construction Speed Will Improve 4%"
+		add_to_variable = {
+			var = FSR_christlike_economy_production_speed_buildings_factor
+			value = 0.04
+		}
+		add_stability = -0.15
+		custom_effect_tooltip = econ_misc_income_add_small_increase
+		add_to_variable = {
+			misc_income = 700
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_guns_of_the_holy
+	icon = GFX_RAJ_rifles_guns_cannons
+	cost = 2
+	x = 4
+	y = 3
+	prerequisite = {
+		focus = FSR_break_the_banks
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_guns_of_the_holy"
+		random_owned_state = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_state = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_rural_workshops
+	icon = GFX_RAJ_Reject_Urbanization
+	cost = 2
+	x = 2
+	y = 3
+	prerequisite = {
+		focus = FSR_break_the_banks
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_rural_workshops"
+		random_owned_state = {
+			limit = {
+				OR = {
+					has_state_category = rural
+					has_state_category = pastoral
+					has_state_category = wasteland
+				}
+			}
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_state = {
+			limit = {
+				OR = {
+					has_state_category = rural
+					has_state_category = pastoral
+					has_state_category = wasteland
+				}
+			}
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_give_to_caesar
+	icon = GFX_MAG_Rule_Like_A_Caesar
+	cost = 2
+	x = 3
+	y = 4
+	prerequisite = {
+		focus = FSR_guns_of_the_holy
+	}
+	prerequisite = {
+		focus = FSR_rural_workshops
+	}
+	mutually_exclusive = {
+		focus = FSR_observe_the_holy_day
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_give_to_caesar"
+		tno_max_workhours_worsen = yes
+		FSR_lower_morality_value = yes
+		random_owned_state = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_state = {
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_observe_the_holy_day
+	icon = GFX_IBR_Debate_Siestas
+	cost = 2
+	x = 5
+	y = 4
+	prerequisite = {
+		focus = FSR_guns_of_the_holy
+	}
+	prerequisite = {
+		focus = FSR_rural_workshops
+	}
+	mutually_exclusive = {
+		focus = FSR_give_to_caesar
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_observe_the_holy_day"
+		tno_max_workhours_improve = yes
+		FSR_raise_morality_value = yes
+		add_stability = 0.15
+		add_popularity = {
+			ideology = ultranational_socialism
+			popularity = 0.07
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_oppose_greed
+	icon = GFX_NIK_Honor_in_a_Humble_Life
+	cost = 2
+	x = 3
+	y = 5
+	prerequisite = {
+		focus = FSR_give_to_caesar
+		focus = FSR_observe_the_holy_day
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_observe_the_holy_day"
+		TNO_improve_poverty_high = yes
+		tno_pollution_improve = yes
+	}
+}
+
+shared_focus = {
+	id = FSR_stone_by_stone
+	icon = GFX_AKT_Gravestone
+	cost = 2
+	x = 1
+	y = 6
+	prerequisite = {
+		focus = FSR_the_duty_of_men
+	}
+	prerequisite = {
+		focus = FSR_agrarian_kingdom
+	}
+	prerequisite = {
+		focus = FSR_oppose_greed
+	}
+	relative_position_id = FSR_tresures_of_the_earth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_stone_by_stone"
+		#improve retention gain and max
+		custom_effect_tooltip = "Efficiency Cap Will Improve 12% Efficiency Retention Will Improve 5% Efficiency Gain Will Improve 7%"
+		add_to_variable = {
+			var = FSR_christlike_economy_production_factory_max_efficiency_factor
+			value = 0.12
+		}
+		add_to_variable = {
+			var = FSR_christlike_economy_line_change_production_efficiency_factor
+			value = 0.05
+		}
+		add_to_variable = {
+			var = FSR_christlike_economy_production_factory_efficiency_gain_factor
+			value = 0.07
+		}
+	}
+}
+
+shared_focus = {
+	id = FSR_first_before_god
+	icon = GFX_FSR_no_more_nations
+	cost = 2
+	x = 0
+	y = 8
+	prerequisite = {
+		focus = FSR_he_is_risen
+	}
+	prerequisite = {
+		focus = FSR_for_the_kingdom_of_god
+		focus = FSR_for_the_kingdom_of_spain
+		focus = FSR_stone_by_stone
+	}
+	relative_position_id = FSR_the_only_choice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus FSR_first_before_god"
+		custom_effect_tooltip = FSR_first_before_god_tt
+		#effect decided by morality, better morality means better outcome
+		hidden_effect = {
+			if = {
+				limit = {
+					has_idea = FSR_morality_status_evil
+				}
+				country_event = {
+					id = fsr_flavor.9
+					days = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = FSR_morality_status_neutral
+				}
+				country_event = {
+					id = fsr_flavor.10
+					days = 1
+				}
+			}
+			else = {
+				country_event = {
+					id = fsr_flavor.11
+					days = 1
+				}
+			}
+		}
+	}
+}

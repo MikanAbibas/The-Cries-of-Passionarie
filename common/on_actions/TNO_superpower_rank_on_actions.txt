@@ -1,0 +1,125 @@
+on_actions = {
+	#initial setup
+	on_startup = {
+		effect = {
+			#every country starts with prestige but only great powers get ranked by it
+			#array size set to 0, remember to reset it and arrays themselves
+			every_country = {
+				set_variable = {
+					var = prestige
+					value = 0
+				}
+				#default value is 0
+				set_variable = {
+					var = superpower_rank
+					value = 0
+				}
+			}
+			#GER and JAP get extra for winning ww2
+			GER = {
+				set_variable = {
+					var = prestige
+					value = 10
+				}
+			}
+			JAP = {
+				set_variable = {
+					var = prestige
+					value = 10
+				}
+			}
+			set_variable = {
+				var = global.superpower_array_size
+				value = 0
+			}
+			set_variable = {
+				var = global.detente_active
+				value = 0
+			}
+			#finds every superpower, scores them, and adds their tag and scores to array as well as increase array size variable by one for each
+			every_country = {
+				limit = {
+					has_country_flag = ZZZ_superpower
+				}
+				add_to_array = {
+					array = global.superpowers
+					value = THIS
+				}
+				TNO_calculate_superpower_score = yes
+				# add_to_array = {
+				# 	array = global.superpowers_scores
+				# 	value = THIS.rank_score_total
+				# }
+				add_to_variable = {
+					var = global.superpower_array_size
+					value = 1
+				}
+			}
+			#bubble sort
+			random_country = {
+				limit = {
+					exists = yes
+				}
+				superpower_bubble_sort = yes
+			}
+			#assign ranks and bonuses
+			random_country = {
+				limit = {
+					exists = yes
+				}
+				TNO_assign_superpower_ranks = yes
+				add_to_array = {
+					array = global.detentes_list
+					value = 0
+				}
+			}
+		}
+	}
+	#monthly calculation
+	on_monthly_USA = {
+		effect = {
+			clear_array = global.superpowers
+			clear_array = global.superpowers_scores
+			set_variable = {
+				var = global.superpower_array_size
+				value = 0
+			}
+			#finds every superpower, scores them, and adds their tag and scores to array as well as increase array size variable by one for each
+			#also will automatically update array with new superpowers
+			every_country = {
+				limit = {
+					has_country_flag = ZZZ_superpower
+				}
+				add_to_array = {
+					array = global.superpowers
+					value = THIS
+				}
+				TNO_calculate_superpower_score = yes
+				# add_to_array = {
+				# 	array = global.superpowers_scores
+				# 	value = THIS.rank_score_total
+				# }
+				add_to_variable = {
+					var = global.superpower_array_size
+					value = 1
+				}
+			}
+			#bubble sort
+			random_country = {
+				limit = {
+					exists = yes
+				}
+				superpower_bubble_sort = yes
+			}
+			#assign ranks and bonuses
+			#also check for detentes and display them
+			random_country = {
+				limit = {
+					exists = yes
+				}
+				TNO_assign_superpower_ranks = yes
+				TNO_check_for_detentes = yes
+			}
+		}
+	}
+}

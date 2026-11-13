@@ -1,0 +1,7612 @@
+###########
+#KIDO TREE#
+###########
+#Focus for Kido's Ministry
+#WHY IS IT ALL HIDDEN EFFECTS WHY WHY WHY WHY WHY
+shared_focus = {
+	id = JAP_kido_kidos_ministry
+	icon = GFX_JAP_PM_Kido
+	x = 30
+	y = 0
+	cost = 5
+	available_if_capitulated = yes
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_kidos_ministry"
+		add_ideas = JAP_factional_chaos
+		set_country_flag = JAP_kido_in_power_1963
+		#TODO: Add event
+	}
+ }
+
+#Focus for A window of opportunity
+shared_focus = {
+	id = JAP_kido_a_window_of_opportunity
+	icon = GFX_JAP_window_of_opportunity
+	relative_position_id = JAP_kido_kidos_ministry
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_kidos_ministry
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		custom_effect_tooltip = JAP_a_window_of_opportunity_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_a_window_of_opportunity"
+			add_stability = 0.03
+			add_to_variable = {
+				var = PEERS_OPINION
+				value = 4
+			}
+			clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+			add_to_variable = {
+				var = PARTY_UNITY
+				value = 4
+			}
+			clamp_variable = {
+			var = PARTY_UNITY
+			max = 100
+			min = 0
+		}
+			hidden_effect = {
+				every_owned_state = {
+					limit = {
+						JAP_can_have_elections_in_state = yes
+					}
+					add_to_variable = { PUBLIC_APPROVAL = -2 }
+					clamp_variable = {
+						var = PUBLIC_APPROVAL
+						max = 100
+						min = 0
+					}
+				}
+			}
+		}
+	}
+}
+ 
+#Focus for Make the most of it
+shared_focus = {
+	id = JAP_kido_make_the_most_of_it
+	icon = GFX_generic_diplomacy_political
+	relative_position_id = JAP_kido_a_window_of_opportunity
+	x = -4
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_a_window_of_opportunity
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_keep_it_open
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+  custom_effect_tooltip = JAP_make_the_most_of_it_tt
+  hidden_effect = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_make_the_most_of_it"
+  add_to_variable = {
+	var = PEERS_OPINION
+	value = 7
+	}
+	clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+  add_to_variable = {
+	var = PARTY_UNITY
+	value = 5
+	  }
+	  clamp_variable = {
+			var = PARTY_UNITY
+			max = 100
+			min = 0
+		}
+	  }
+  }
+}
+
+#Focus for Run like the wind
+shared_focus = {
+	id = JAP_kido_run_like_the_wind
+	icon = GFX_JAP_Shinkansen
+	relative_position_id = JAP_kido_make_the_most_of_it
+	x = -1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_make_the_most_of_it
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+  custom_effect_tooltip = JAP_run_like_the_wind_tt
+  hidden_effect = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_run_like_the_wind"
+  add_to_variable = {
+	var = PARTY_UNITY
+	value = -5
+	  }
+  add_to_variable = {
+	var = DIET_SUPPORT
+	value = 32
+	  }
+	}
+	}
+}
+ 
+#Focus for Solidify the peers
+shared_focus = {
+	id = JAP_kido_solidify_the_peers
+	icon = GFX_JAP_solidify_the_peers
+	relative_position_id = JAP_kido_run_like_the_wind
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_run_like_the_wind
+	}
+	ai_will_do = {
+	factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_solidify_the_peers_tt
+	hidden_effect = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_solidify_the_peers"
+	 add_to_variable = {
+	var = PEERS_OPINION
+	value = 10
+	}
+	clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+	add_stability = 0.05
+	}
+  }
+}
+
+#Focus for Take what we can
+shared_focus = {
+	id = JAP_kido_take_what_we_can
+	icon = GFX_ORE_salvage_what_we_have
+	relative_position_id = JAP_kido_make_the_most_of_it
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_make_the_most_of_it
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_take_what_we_can_tt
+	hidden_effect = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_take_what_we_can"
+	add_to_variable = {
+	  var = PARTY_UNITY
+	  value = -5
+	  }
+	hidden_effect = {
+			every_owned_state = {
+				limit = {
+					JAP_can_have_elections_in_state = yes
+				}
+				add_to_variable = { PUBLIC_APPROVAL = -5 }
+				clamp_variable = {
+					var = PUBLIC_APPROVAL
+					max = 100
+					min = 0
+				}
+			}
+		}
+	add_to_variable = {
+	  var = DIET_SUPPORT
+	  value = 24
+	  }
+	}
+  }
+}
+
+#Focus for Coax the moderates
+shared_focus = {
+	id = JAP_kido_coax_the_moderates
+	icon = GFX_JAP_coax_the_moderates
+	relative_position_id = JAP_kido_take_what_we_can
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_take_what_we_can
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_coax_the_moderates_tt
+	hidden_effect = {
+	  add_to_variable = {
+		var = DIET_SUPPORT
+		value = 42
+	  }
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_coax_the_moderates"
+	}
+	}
+}
+ 
+#Focus for Keep it open
+shared_focus = {
+	id = JAP_kido_keep_it_open
+	icon = GFX_JAP_Keep_it_Open
+	relative_position_id = JAP_kido_a_window_of_opportunity
+	x = 4
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_a_window_of_opportunity
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_make_the_most_of_it
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_keep_it_open_tt
+	hidden_effect= {
+	  add_to_variable = {
+		var = DIET_SUPPORT
+		value = 25
+	  }
+	  add_to_variable = {
+		var = PEERS_OPINION
+		value = 5
+	  }
+	  clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_keep_it_open"
+	}
+	}
+}
+
+#Focus for Brew factionalism
+shared_focus = {
+	id = JAP_kido_brew_factionalism
+	icon = GFX_JAP_Brew_Factionalism
+	relative_position_id = JAP_kido_keep_it_open
+	x = -2
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_keep_it_open
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_brew_factionalism_tt
+	hidden_effect = {
+	  add_to_variable = {
+		var = PARTY_UNITY
+		value = -10
+	  }
+	  add_to_variable = {
+		var = DIET_SUPPORT
+		value = 10
+	  }
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_brew_factionalism"
+	  }
+  }
+}
+
+#Focus for Cut the cord
+shared_focus = {
+	id = JAP_kido_cut_the_cord
+	icon = GFX_JAP_cut_the_cord
+	relative_position_id = JAP_kido_keep_it_open
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_keep_it_open
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_cut_the_cord_tt
+	hidden_effect = {
+	  add_to_variable = {
+		var = PARTY_UNITY
+		value = -15
+	  }
+	  add_to_variable = {
+		var = DIET_SUPPORT
+		value = -10
+	  }
+	  add_to_variable = {
+		var = PEERS_OPINION
+		value = 10
+	  }
+	  clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_cut_the_cord"
+	}
+	}
+}
+
+#Focus for Antagonize liberalism
+shared_focus = {
+	id = JAP_kido_antagonize_liberalism
+	icon = GFX_JAP_antagonize_liberalism
+	relative_position_id = JAP_kido_keep_it_open
+	x = 2
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_keep_it_open
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_antagonize_liberalism_tt
+	hidden_effect = {
+	  hidden_effect = {
+			every_owned_state = {
+				limit = {
+					JAP_can_have_elections_in_state = yes
+				}
+				add_to_variable = { PUBLIC_APPROVAL = 10 }
+				clamp_variable = {
+					var = PUBLIC_APPROVAL
+					max = 100
+					min = 0
+				}
+			}
+		}
+	  add_to_variable = {
+		var = DIET_SUPPORT
+		value = 20
+	  }
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_antagonize_liberalism"
+	}
+ }
+}
+
+#Focus for Integrate the reformists
+shared_focus = {
+	id = JAP_kido_integrate_the_reformists
+	icon = GFX_JAP_Integrate_reformists
+	relative_position_id = JAP_kido_brew_factionalism
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_antagonize_liberalism
+	}
+	prerequisite = {
+		focus = JAP_kido_cut_the_cord
+	}
+	prerequisite = {
+		focus = JAP_kido_brew_factionalism
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_eyes_in_the_upper_house
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_integrate_the_reformists_tt
+	hidden_effect = {
+	  add_to_variable = {
+		var = DIET_SUPPORT
+		value = 30
+	  }
+	  add_to_variable = {
+		var = PARTY_UNITY
+		value = 8
+	  }
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_integrate_the_reformists"
+	set_country_flag = KIDO_INTEGRATED_REFORMISTS
+	}
+ }
+}
+
+#Focus for Eyes in the upper house
+shared_focus = {
+	id = JAP_kido_eyes_in_the_upper_house
+	icon = GFX_JAP_Eyes_in_the_Upper_House
+	relative_position_id = JAP_kido_cut_the_cord
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_antagonize_liberalism
+	}
+	prerequisite = {
+		focus = JAP_kido_cut_the_cord
+	}
+	prerequisite = {
+		focus = JAP_kido_brew_factionalism
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_integrate_the_reformists
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_eyes_in_the_upper_house_tt
+	hidden_effect = {
+	  add_to_variable = {
+		var = PEERS_OPINION
+		value = 12
+	  }
+	  clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_eyes_in_the_upper_house"
+	}
+	}
+}
+ 
+#Focus for A limited timeframe
+shared_focus = {
+	id = JAP_kido_a_limited_time_frame
+	icon = GFX_OST_The_future_frozen
+	relative_position_id = JAP_kido_solidify_the_peers
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_solidify_the_peers
+	}
+	prerequisite = {
+		focus = JAP_kido_coax_the_moderates
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_our_hat_in_the_ring
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_barely_afloat
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+  custom_effect_tooltip = JAP_a_limited_time_frame_tt
+  hidden_effect = {
+	hidden_effect = {
+			every_owned_state = {
+				limit = {
+					JAP_can_have_elections_in_state = yes
+				}
+				add_to_variable = { PUBLIC_APPROVAL = 5 }
+				clamp_variable = {
+					var = PUBLIC_APPROVAL
+					max = 100
+					min = 0
+				}
+			}
+		}
+	add_to_variable = {
+	  var = PEERS_OPINION
+	  value = 6
+	}
+	clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+	add_stability = 0.03
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_a_limited_time_frame"
+	}
+	}
+}
+
+#Focus for Beg the emperor
+shared_focus = {
+	id = JAP_kido_beg_the_emperor
+	icon = GFX_JAP_Beg_the_Emperor
+	relative_position_id = JAP_kido_a_limited_time_frame
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_a_limited_time_frame
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_beg_the_emperor_tt
+	hidden_effect = {
+   hidden_effect = {
+			every_owned_state = {
+				limit = {
+					JAP_can_have_elections_in_state = yes
+				}
+				add_to_variable = { PUBLIC_APPROVAL = 5 }
+				clamp_variable = {
+					var = PUBLIC_APPROVAL
+					max = 100
+					min = 0
+				}
+			}
+		}
+	add_to_variable = {
+	  var = PEERS_OPINION
+	  value = 5
+	}
+	clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_beg_the_emperor"
+	}
+	}
+}
+
+#Focus for Call on old debts
+shared_focus = {
+	id = JAP_kido_call_on_old_debts
+	icon = GFX_generic_paperwork
+	relative_position_id = JAP_kido_beg_the_emperor
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_beg_the_emperor
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_call_on_old_debts_tt
+	hidden_effect = {
+	add_to_variable = {
+	  var = DIET_SUPPORT
+	  value = 6
+	}
+	add_to_variable = {
+	  var = PARTY_UNITY
+	  value = 2
+	}
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_call_on_old_debts"
+	}
+	}
+}
+ 
+#Focus for Our hat in the ring
+shared_focus = {
+	id = JAP_kido_our_hat_in_the_ring
+	icon = GFX_JAP_our_hat_in_the_ring
+	relative_position_id = JAP_kido_a_window_of_opportunity
+	x = 0
+	y = 4
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_coax_the_moderates
+		focus = JAP_kido_integrate_the_reformists
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_a_limited_time_frame
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_barely_afloat
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_our_hat_in_the_ring_tt
+	hidden_effect = {
+	add_to_variable = {
+	  var = DIET_SUPPORT
+	  value = 10
+	}
+	add_to_variable = {
+	  var = PARTY_UNITY
+	  value = 3
+	}
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_our_hat_in_the_ring"
+	}
+	}
+}
+ 
+#Focus for Invest time to intrigue
+shared_focus = {
+	id = JAP_kido_invest_time_to_intrigue
+	icon = GFX_Generic_Espionage
+	relative_position_id = JAP_kido_our_hat_in_the_ring
+	x = -1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_our_hat_in_the_ring
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_invest_time_to_intrigue_tt
+	hidden_effect = {
+	add_to_variable = {
+	  var = PEERS_OPINION
+	  value = 2
+	}
+	clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+	add_to_variable = {
+	  var = DIET_SUPPORT
+	  value = 3
+	}
+	country_event = {
+	  id = japkido.1
+	  days = 5
+	}
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_invest_time_to_intrigue"
+	}
+	}
+}
+
+#Focus for More than just petty squabbling
+shared_focus = {
+	id = JAP_kido_more_than_just_petty_squabbling
+	icon = GFX_TNO_generic_inviting_people
+	relative_position_id = JAP_kido_invest_time_to_intrigue
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_invest_time_to_intrigue
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_more_than_just_petty_squabbling_tt
+	hidden_effect = {
+	add_to_variable = {
+	  var = PARTY_UNITY
+	  value = 15
+	}
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_more_than_just_petty_squabbling"
+	}
+	}
+}
+
+#Focus for Our last favors
+shared_focus = {
+	id = JAP_kido_our_last_favors
+	icon = GFX_JAP_invite_holdouts
+	relative_position_id = JAP_kido_our_hat_in_the_ring
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_our_hat_in_the_ring
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_our_last_favors_tt
+	hidden_effect = {
+	add_to_variable = {
+	  var = DIET_SUPPORT
+	  value = 10
+	}
+	add_to_variable = {
+	  var = PEERS_OPINION
+	  value = 4
+	}
+	clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_our_last_favors"
+	}
+	}
+}
+
+#Focus for ...Maybe a few more
+shared_focus = {
+	id = JAP_kido_maybe_a_few_more
+	icon = GFX_ORE_accept_their_aid
+	relative_position_id = JAP_kido_our_last_favors
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_our_last_favors
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_maybe_a_few_more_tt
+	hidden_effect = {
+	 add_to_variable = {
+		var = PEERS_OPINION
+		value = 2
+	  }
+	  clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+	  log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_maybe_a_few_more"
+	}
+	}
+}
+
+#Focus for Barely afloat
+shared_focus = {
+	id = JAP_kido_barely_afloat
+	icon = GFX_Generic_Political_Crisis
+	relative_position_id = JAP_kido_eyes_in_the_upper_house
+	x = -1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_eyes_in_the_upper_house
+		focus = JAP_kido_integrate_the_reformists
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_a_limited_time_frame
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_our_hat_in_the_ring
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_barely_afloat_tt
+	hidden_effect = {
+	add_to_variable = {
+	  var = PARTY_UNITY
+	  value = -8
+	}
+	clamp_variable = { #find out wtf this does but it's probably depreicated
+			var = PARTY_UNITY
+			max = 100
+			min = 0
+		}
+	add_to_variable = {
+	  var = PEERS_OPINION
+	  value = 8
+	}
+	clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+   hidden_effect = { #clicked into this at random to discover this exists, yay
+			every_owned_state = {
+				limit = {
+					JAP_can_have_elections_in_state = yes
+				}
+				add_to_variable = { PUBLIC_APPROVAL = 2 }
+				clamp_variable = {
+					var = PUBLIC_APPROVAL
+					max = 100
+					min = 0
+				}
+			}
+		}
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_barely_afloat"
+	}
+	}
+}
+ 
+#Focus for Define what's to be accomplished
+shared_focus = {
+	id = JAP_kido_define_whats_to_be_accomplished
+	icon = GFX_the_planned_economy
+	relative_position_id = JAP_kido_barely_afloat
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = { focus = JAP_kido_barely_afloat }
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_define_whats_to_be_accomplished_tt
+	hidden_effect = {
+	  country_event = {
+		id = japkido.2
+	  }
+	add_to_variable = {
+	  var = DIET_SUPPORT
+	  value = 2
+	}
+	add_to_variable = {
+	  var = PEERS_OPINION
+	  value = 1
+	}
+	clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_define_whats_to_be_accomplished"
+	}
+	}
+}
+
+#Focus for Work towards it
+shared_focus = {
+	id = JAP_kido_work_towards_it
+	icon = GFX_goal_workers_fist
+	relative_position_id = JAP_kido_define_whats_to_be_accomplished
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_define_whats_to_be_accomplished
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_work_towards_it_tt
+	hidden_effect = {
+	  country_event = {
+		id = japkido.3
+	  }
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_work_towards_it"
+	}
+	}
+}
+
+#Focus for Plan for the worst
+shared_focus = {
+	id = JAP_kido_plan_for_the_worst
+	icon = GFX_JAP_Weathered_the_Storm
+	relative_position_id = JAP_kido_more_than_just_petty_squabbling
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_call_on_old_debts
+		focus = JAP_kido_work_towards_it
+		focus = JAP_kido_more_than_just_petty_squabbling
+		focus = JAP_kido_maybe_a_few_more
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_plan_for_the_worst_tt
+	hidden_effect = {
+	  country_event = {
+		id = japkido.4
+	  }
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_plan_for_the_worst"
+	}
+	}
+}
+
+#Focus for Hope for the best
+shared_focus = {
+	id = JAP_kido_hope_for_the_best
+	icon = GFX_BRG_focus_a_ray_of_hope
+	relative_position_id = JAP_kido_plan_for_the_worst
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_plan_for_the_worst
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_hope_for_the_best_tt
+	hidden_effect = {
+	  country_event = {
+		id = japkido.5
+	  }
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_hope_for_the_best"
+	}
+	}
+}
+
+#Focus for Execute the plan
+shared_focus = {
+	id = JAP_kido_execute_the_plan
+	icon = GFX_IBR_paperwork
+	relative_position_id = JAP_kido_hope_for_the_best
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes
+	prerequisite = {
+		focus = JAP_kido_hope_for_the_best
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	custom_effect_tooltip = JAP_execute_the_plan_tt
+	hidden_effect = {
+	  complete_national_focus = JAP_kido_strengthening_the_civilian_government
+	  country_event = {
+		id = japkido.6
+	  }
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_execute_the_plan"
+	}
+	}
+}
+ 
+shared_focus = {
+	id = JAP_kido_strengthening_the_civilian_government
+	icon = GFX_JAP_Strengthening_the_Civilian_Government
+	prerequisite = {
+		focus = JAP_kido_execute_the_plan
+	}
+	relative_position_id = JAP_kido_execute_the_plan
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_strengthening_the_civilian_government_tt
+	  hidden_effect = {
+	  country_event = {
+		id = japkido.7
+	  }
+######Marechal please add decisions onto here I beg you please###########
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_strengthening_the_civilian_government"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_a_manoeuvre_from_above
+	icon = GFX_JAP_a_manuver_from_above
+	prerequisite = {
+		focus = JAP_kido_strengthening_the_civilian_government
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_work_from_below
+	}
+	relative_position_id = JAP_kido_strengthening_the_civilian_government
+	x = -4
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_a_manoeuvre_from_above_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PEERS_OPINION
+		  value = 6
+	  }
+	  clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+################VARIABLE FOR CIVILIAN GOVERNMENT STRENGTH ADD 6#####################
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_a_manoeuvre_from_above"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_enforcing_the_kokutai
+	icon = GFX_JAP_Enforcing_the_kokutai
+	prerequisite = {
+		focus = JAP_kido_a_manoeuvre_from_above
+	}
+	relative_position_id = JAP_kido_a_manoeuvre_from_above
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_enforcing_the_kokutai_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PARTY_UNITY
+		  value = 5
+		}
+		hidden_effect = {
+			every_owned_state = {
+				limit = {
+					JAP_can_have_elections_in_state = yes
+				}
+				add_to_variable = { PUBLIC_APPROVAL = 3 }
+				clamp_variable = {
+					var = PUBLIC_APPROVAL
+					max = 100
+					min = 0
+				}
+			}
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_enforcing_the_kokutai"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_imperial_rule
+	icon = GFX_JAP_Imperial_Rule
+	prerequisite = {
+		focus = JAP_kido_enforcing_the_kokutai
+	}
+	relative_position_id = JAP_kido_enforcing_the_kokutai
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_imperial_rule_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PEERS_OPINION
+		  value = 3
+		}
+		clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+###############VARIABLE FOR CIVILIAN GOVERNMENT STRENGTH ADD 3##################
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_imperial_rule"
+	}
+ }
+}
+
+shared_focus = {
+	id = JAP_kido_sewing_discord
+	icon = GFX_JAP_Patch_Over_Factional_Seams
+	prerequisite = {
+		focus = JAP_kido_imperial_rule
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_consolidating_power
+	}
+	relative_position_id = JAP_kido_imperial_rule
+	x = -1
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_sewing_discord_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PARTY_UNITY
+		  value = -6
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_sewing_discord"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_block_communications
+	icon = GFX_JAP_The_Hawaii_Blockade
+	prerequisite = {
+		focus = JAP_kido_sewing_discord
+	}
+	relative_position_id = JAP_kido_sewing_discord
+	x = -2
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_kido_block_communications_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PEERS_OPINION
+		  value = 4
+		}
+		clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		add_to_variable = {
+		  var = PARTY_UNITY
+		  value = -6
+		}
+		clamp_variable = {
+			var = PARTY_UNITY
+			max = 100
+			min = 0
+		}
+		add_to_variable = {
+		  var = DIET_SUPPORT
+		  value = -20
+		}
+#################CIVILIAN GOVERNMENT STRENGTH ADD 6#####################
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_block_communications"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_exploit_the_emperors_apathy
+	icon = GFX_JAP_Exploit_the_Emperors_apathy
+	prerequisite = {
+		focus = JAP_kido_block_communications
+	}
+	relative_position_id = JAP_kido_block_communications
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_exploit_the_emperors_apathy_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PEERS_OPINION
+		  value = -3
+		}
+		clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		add_to_variable = {
+		  var = DIET_SUPPORT
+		  value = 15
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_exploit_the_emperors_apathy"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_strengthen_ties
+	icon = GFX_JAP_Reassure_the_peers
+	prerequisite = {
+		focus = JAP_kido_sewing_discord
+	}
+	relative_position_id = JAP_kido_sewing_discord
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_strengthen_ties_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PEERS_OPINION
+		  value = 6
+		}
+		clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		add_to_variable = {
+		  var = IJA_opinion
+		  value = 3
+		}
+		add_to_variable = {
+		  var = IJN_opinion
+		  value = 4
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_strengthen_ties"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_less_power_to_the_pm
+	icon = GFX_JAP_Less_Power_to_the_Prime_Minister
+	prerequisite = {
+		focus = JAP_kido_exploit_the_emperors_apathy
+	}
+	prerequisite = {
+		focus = JAP_kido_strengthen_ties
+	}
+	relative_position_id = JAP_kido_exploit_the_emperors_apathy
+	x = 1
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_less_power_to_the_pm_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PEERS_OPINION
+		  value = 6
+		}
+		clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		add_to_variable = {
+		  var = DIET_SUPPORT
+		  value = -12
+		}
+#########LESS GOVERNMENT STRENGTH: -5#####################################
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_less_power_to_the_pm"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_consolidating_power
+	icon = GFX_JAP_end_factionalism
+	prerequisite = {
+		focus = JAP_kido_imperial_rule
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_sewing_discord
+	}
+	relative_position_id = JAP_kido_imperial_rule
+	x = 1
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_consolidating_power_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PEERS_OPINION
+		  value = -2
+		}
+		clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		add_to_variable = {
+		  var = DIET_SUPPORT
+		  value = -12
+		}
+		add_to_variable = {
+		  var = PARTY_UNITY
+		  value = -4
+		}
+		clamp_variable = {
+			var = PARTY_UNITY
+			max = 100
+			min = 0
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_sewing_discord"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_upper_approval
+	icon = GFX_JAP_A_Trusted_Choice
+	prerequisite = {
+		focus = JAP_kido_consolidating_power
+	}
+	relative_position_id = JAP_kido_consolidating_power
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_upper_approval_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PEERS_OPINION
+		  value = 7
+		}
+		clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_upper_approval"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_constitutional_enforcement
+	icon = GFX_generic_conservative_constitution
+	prerequisite = {
+		focus = JAP_kido_consolidating_power
+	}
+	relative_position_id = JAP_kido_consolidating_power
+	x = 2
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_constitutional_enforcement_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PEERS_OPINION
+		  value = 2
+		}
+		clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		add_to_variable = {
+		  var = DIET_SUPPORT
+		  value = -12
+		}
+####################GOVERNMENT STRENGTH ADDED BY 8##########
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_constitutional_enforcement"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_backdoor_negotiations
+	icon = GFX_JAP_Make_Promises_to_the_Bureaucrats
+	prerequisite = {
+		focus = JAP_kido_upper_approval
+	}
+	prerequisite = {
+		focus = JAP_kido_constitutional_enforcement
+	}
+	relative_position_id = JAP_kido_upper_approval
+	x = 1
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_backdoor_negotiations_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PARTY_UNITY
+		  value = -10
+		}
+		add_to_variable = {
+		  var = DIET_SUPPORT
+		  value = 23
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_backdoor_negotiations"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_all_power_to_the_lord
+	icon = GFX_JAP_Support_From_the_Barons
+	prerequisite = {
+		focus = JAP_kido_backdoor_negotiations
+	}
+	relative_position_id = JAP_kido_backdoor_negotiations
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_all_power_to_the_lord_tt
+###################GOVERNMENT STRENGTH ADDED BY 6#########
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_all_power_to_the_lord"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_secret_reforms
+	icon = GFX_JAP_Secret_Reforms
+	prerequisite = {
+		focus = JAP_kido_strengthen_ties
+		focus = JAP_kido_upper_approval
+	}
+	relative_position_id = JAP_kido_strengthen_ties
+	x = 1
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_secret_reforms_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = IJA_opinion
+		  value = -6
+		}
+		add_to_variable = {
+		  var = IJN_opinion
+		  value = -6
+		}
+		add_to_variable = {
+		  var = DIET_SUPPORT
+		  value = -5
+		}
+		add_to_variable = {
+		  var = IJA_strength
+		  value = -3
+		}
+		add_to_variable = {
+		  var = IJN_strength
+		  value = -3
+		}
+###############ADD GOVERNMENT STRENGTH BY 8###########
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_secret_reforms"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_the_sacred_decision
+	icon = GFX_JAP_The_Sacred_Decision
+	prerequisite = {
+		focus = JAP_kido_less_power_to_the_pm
+		focus = JAP_kido_secret_reforms
+		focus = JAP_kido_all_power_to_the_lord
+	}
+	relative_position_id = JAP_kido_secret_reforms
+	x = 0
+	y = 2
+	cost = 5
+	completion_reward = {
+		remove_ideas = JAP_factional_chaos
+	  custom_effect_tooltip = JAP_the_sacred_decision_tt
+	  hidden_effect = {
+		country_event = {
+		  id = japkido.8
+		}
+############################ADD CIVILIAN GOVERNMENT STRENGTH BY 12###########################
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_the_sacred_decision"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_work_from_below
+	icon = GFX_JAP_work_from_below
+	prerequisite = {
+		focus = JAP_kido_strengthening_the_civilian_government
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_a_manoeuvre_from_above
+	}
+	relative_position_id = JAP_kido_strengthening_the_civilian_government
+	x = 3
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_work_from_below_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PARTY_UNITY
+		  value = 3
+		}
+		add_to_variable = {
+		  var = DIET_SUPPORT
+		  value = 12
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_work_from_below"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_our_sad_state
+	icon = GFX_Generic_Bad_Expansionism
+	prerequisite = {
+		focus = JAP_kido_work_from_below
+	}
+	relative_position_id = JAP_kido_work_from_below
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+	  country_event = {
+		id = japkido.9
+	  }
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_our_sad_state"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_end_factionalism
+	icon = GFX_JAP_end_factionalism
+	prerequisite = {
+		focus = JAP_kido_our_sad_state
+	}
+	relative_position_id = JAP_kido_our_sad_state
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_end_factionalism_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PARTY_UNITY
+		  value = 10
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_end_factionalism"
+	}
+	}
+}
+
+shared_focus = { #wowie this one's gonna be a doozy to actually do I think I'm gonna stop here before I fucking shoot myself
+	id = JAP_kido_the_dainihon_seijikai
+	icon = GFX_JAP_DaiNihonSeijikai_pinkishred_silver
+	prerequisite = {
+		focus = JAP_kido_end_factionalism
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_the_usupers_successor
+	}
+	relative_position_id = JAP_kido_end_factionalism
+	x = -1
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_the_dainihon_seijikai
+	  hidden_effect = {
+	  set_country_flag = JAP_dainihon_seijikai_formed
+		country_event = {
+			id = japkido.13
+			days = 0
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_the_dainihon_seijikai"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_the_usupers_successor
+	icon = GFX_JAP_The_Usurpers_successor
+	prerequisite = {
+		focus = JAP_kido_end_factionalism
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_the_dainihon_seijikai
+	}
+	relative_position_id = JAP_kido_end_factionalism
+	x = 1
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_the_usurpers_successor_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PARTY_UNITY
+		  value = 6
+		}
+		add_to_variable = {
+		  var = DIET_SUPPORT
+		  value = 23
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_the_usurpers_successor"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_a_true_servant
+	icon = GFX_Generic_Hedonism_2
+	prerequisite = {
+		focus = JAP_kido_the_dainihon_seijikai
+	}
+	relative_position_id = JAP_kido_the_dainihon_seijikai
+	x = -1
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_a_true_servant_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PEERS_OPINION
+		  value = 10
+		}
+		clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_a_true_servant"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_formally_unified
+	icon = GFX_JAP_Better_Party_Structure
+	prerequisite = {
+		focus = JAP_kido_a_true_servant
+	}
+	relative_position_id = JAP_kido_a_true_servant
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_formally_unified_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PEERS_OPINION
+		  value = 4
+		}
+		clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		add_to_variable = {
+		  var = PARTY_UNITY
+		  value = 8
+		}
+		clamp_variable = {
+			var = PARTY_UNITY
+			max = 100
+			min = 0
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_a_true_servant"
+	}
+ }
+}
+
+shared_focus = {
+	id = JAP_kido_a_front_against_upstarts
+	icon = GFX_JAP_Suppress_the_Independents
+	prerequisite = {
+		focus = JAP_kido_the_dainihon_seijikai
+		focus = JAP_kido_the_usupers_successor
+	}
+	relative_position_id = JAP_kido_the_dainihon_seijikai
+	x = 1
+	y = 2
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_a_front_against_upstarts_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = DIET_SUPPORT
+		  value = 12
+		}
+		add_to_variable = {
+		  var = PARTY_UNITY
+		  value = 5
+		}
+		clamp_variable = {
+			var = PARTY_UNITY
+			max = 100
+			min = 0
+		}
+		add_to_variable = {
+		  var = PEERS_OPINION
+		  value = 3
+		}
+		clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+###also shit on independents because fuck libtards xdxddxdxxdxdxdxddxddxd#######
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_a_front_against_upstarts"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_cave_in_to_change
+	icon = GFX_JAP_Cave_in_to_Change
+	prerequisite = {
+		focus = JAP_kido_formally_unified
+	}
+	prerequisite = {
+		focus = JAP_kido_a_front_against_upstarts
+	}
+	relative_position_id = JAP_kido_formally_unified
+	x = 1
+	y = 1
+	cost = 5
+	completion_reward = {
+	  remove_ideas = JAP_factional_chaos
+	  custom_effect_tooltip = JAP_cave_in_to_change_tt
+########event chain courtesy of ackbar being coded in here#######
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PARTY_UNITY
+		  value = 3
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_cave_in_to_change"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_the_moral_choice
+	icon = GFX_generic_judicial_opinion
+	prerequisite = {
+		focus = JAP_kido_the_usupers_successor
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_the_old_alliance
+	}
+	relative_position_id = JAP_kido_the_usupers_successor
+	x = 1
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_the_moral_choice_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PARTY_UNITY
+		  value = 3
+		}
+		add_to_variable = {
+		  var = DIET_SUPPORT
+		  value = 14
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_the_moral_choice"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_a_new_path
+	icon = GFX_generic_writing
+	prerequisite = {
+		focus = JAP_kido_the_moral_choice
+	}
+	relative_position_id = JAP_kido_the_moral_choice
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_a_new_path_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = DIET_SUPPORT
+		  value = 10
+		}
+		add_to_variable = {
+		  var = PARTY_UNITY
+		  value = 5
+		}
+		clamp_variable = {
+			var = PARTY_UNITY
+			max = 100
+			min = 0
+		}
+		subtract_from_variable = {
+		  var = PEERS_OPINION
+		  value = 2
+		}
+		clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_a_new_path"
+	}
+ }
+}
+
+shared_focus = {
+	id = JAP_kido_the_old_alliance
+	icon = GFX_JAP_Make_New_Friends
+	prerequisite = {
+		focus = JAP_kido_the_usupers_successor
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_the_moral_choice
+	}
+	relative_position_id = JAP_kido_the_usupers_successor
+	x = 3
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_the_old_alliance_tt
+	  hidden_effect = {
+	  set_country_flag = KIDO_INTEGRATED_REFORMISTS
+	  add_to_variable = {
+		var = PARTY_UNITY
+		value = 12
+	  }
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_the_old_alliance"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_a_synergetic_coalition
+	icon = GFX_AST_friends_japan
+	prerequisite = {
+		focus = JAP_kido_the_old_alliance
+	}
+	relative_position_id = JAP_kido_the_old_alliance
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+	  custom_effect_tooltip = JAP_a_synergetic_coalition_tt
+	  hidden_effect = {
+		add_to_variable = {
+		  var = PARTY_UNITY
+		  value = 10
+		}
+		hidden_effect = {
+			every_owned_state = {
+				limit = {
+					JAP_can_have_elections_in_state = yes
+				}
+				add_to_variable = { PUBLIC_APPROVAL = 10 }
+				clamp_variable = {
+					var = PUBLIC_APPROVAL
+					max = 100
+					min = 0
+				}
+			}
+		}
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_a_synergetic_coalition"
+	}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_total_control
+	icon = GFX_JAP_Total_Control
+	prerequisite = {
+		focus = JAP_kido_a_new_path
+		focus = JAP_kido_a_synergetic_coalition
+	}
+	relative_position_id = JAP_kido_a_new_path
+	x = 1
+	y = 1
+	cost = 5
+	completion_reward = {
+	  remove_ideas = JAP_factional_chaos
+	  custom_effect_tooltip = JAP_total_control_tt
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_total_control"
+	}
+}
+
+####################
+#Kido Economic Tree#
+####################
+shared_focus = {
+	id = JAP_kido_the_reformists_demands
+	icon = GFX_JAP_PM_Kaya
+	allow_branch = {
+		has_country_flag = JAP_Kido_Money
+	}
+	x = 6
+	y = 0
+	cost = 5
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_political_power = -40
+		country_event = {
+				id = japkidoeco.1
+		}
+		custom_effect_tooltip = JAP_kido_the_reformists_demands_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_the_reformists_demands"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_oh_our_manchuria
+	icon = GFX_JAP_Bring_Nissan_Back
+	prerequisite = {
+		focus = JAP_kido_the_reformists_demands
+	}
+	relative_position_id = JAP_kido_the_reformists_demands
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_resource = {
+			type = aluminium
+			amount = 8
+			state = 328
+		}
+		add_resource = {
+			type = oil
+			amount = 12
+			state = 714
+		}
+		add_resource = {
+			type = steel
+			amount = 6
+			state = 801
+		}
+		MAN = {
+			add_ideas = JAP_MAN_kido_manchuria_exploited
+			add_opinion_modifier = {
+			target = JAP
+			modifier = JAP_MAN_exploited_us
+			}
+		}
+		custom_effect_tooltip = JAP_kido_oh_our_manchuria_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_oh_our_manchuria"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_economic_oversight_commitees
+	icon = GFX_JAP_Evidence_Collected
+	prerequisite = {
+		focus = JAP_kido_oh_our_manchuria
+	}
+	relative_position_id = JAP_kido_oh_our_manchuria
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		country_event = {
+				id = japkidoeco.2
+		}
+		custom_effect_tooltip = JAP_kido_economic_oversight_commitees_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_economic_oversight_commitees"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_take_the_credit
+	icon = GFX_JAP_Integrate_reformists
+	prerequisite = {
+		focus = JAP_kido_economic_oversight_commitees
+	}
+	relative_position_id = JAP_kido_economic_oversight_commitees
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_stability = 0.04
+		custom_effect_tooltip = JAP_kido_take_the_credit_tt
+		custom_effect_tooltip = JAP_PUBLIC_APPROVAL_RAISED_LOW_tt
+		hidden_effect = {
+			every_owned_state = {
+				limit = {
+					JAP_can_have_elections_in_state = yes
+				}
+				add_to_variable = { PUBLIC_APPROVAL = 3 }
+				clamp_variable = {
+					var = PUBLIC_APPROVAL
+					max = 100
+					min = 0
+				}
+			}
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_take_the_credit"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_seek_zaibatsu_patronage
+	icon = GFX_JAP_old_zaibatsus
+	x = 8
+	y = 0
+	cost = 5
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		country_event = {
+				id = japkidoeco.3
+		}
+		custom_effect_tooltip = JAP_kido_seek_zaibatsu_patronage_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_seek_zaibatsu_patronage"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_renew_defence_contracts
+	icon = GFX_TNO_generic_military_contacts
+	prerequisite = {
+		focus = JAP_kido_seek_zaibatsu_patronage
+	}
+	relative_position_id = JAP_kido_seek_zaibatsu_patronage
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_ideas = JAP_kido_new_defence_contracts_idea
+		custom_effect_tooltip = JAP_kido_renew_defence_contracts_tt
+		custom_effect_tooltip = JAP_increase_zaibatsu_strength
+		hidden_effect = {
+			add_to_variable = { Zaibatsu_Strength = 3 }
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_renew_defence_contracts"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_make_connections
+	icon = GFX_JAP_solidify_the_peers
+	prerequisite = {
+		focus = JAP_kido_renew_defence_contracts
+	}
+	relative_position_id = JAP_kido_renew_defence_contracts
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_political_power = -50
+		custom_effect_tooltip = JAP_kido_make_connections_tt
+		custom_effect_tooltip = JAP_increase_zaibatsu_strength
+		custom_effect_tooltip = JAP_increase_zaibatsu_approval
+		custom_effect_tooltip = JAP_PEERS_OPINION_RAISED_LOW_tt
+		hidden_effect = {
+			add_to_variable = { Zaibatsu_Strength = 4 }
+			add_to_variable = { Political_Approval_Zaibatsus = 3 }
+			add_to_variable = { PEERS_OPINION = 4 }
+			clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_make_connections"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_political_tradeoffs
+	icon = GFX_RAJ_fight_the_system
+	prerequisite = {
+		focus = JAP_kido_make_connections
+	}
+	relative_position_id = JAP_kido_make_connections
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_stability = -0.04
+		country_event = {
+				id = japkidoeco.4
+		}
+		custom_effect_tooltip = JAP_kido_political_tradeoffs_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_political_tradeoffs"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_use_the_keirestu
+	icon = GFX_JAP_Flexible_Keirestus
+	x = 10
+	y = 0
+	cost = 5
+	available_if_capitulated = no
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		add_political_power = -40
+		country_event = {
+				id = japkidoeco.5
+		}
+		custom_effect_tooltip = JAP_kido_use_the_keirestu_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_use_the_keirestu"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_sumitomo_photo_op
+	icon = GFX_JAP_Modern_Keirestus
+	prerequisite = {
+		focus = JAP_kido_use_the_keirestu
+	}
+	relative_position_id = JAP_kido_use_the_keirestu
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		country_event = {
+			id = japkidoeco.6
+		}
+		custom_effect_tooltip = JAP_kido_sumitomo_photo_op_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_sumitomo_photo_op"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_loosen_banking_regulations
+	icon = GFX_SLO_Economic_Liberalization
+	prerequisite = {
+		focus = JAP_kido_sumitomo_photo_op
+	}
+	relative_position_id = JAP_kido_sumitomo_photo_op
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_ideas = JAP_kido_loosen_banking_regulations_idea
+		custom_effect_tooltip = JAP_kido_loosen_banking_regulations_tt
+		custom_effect_tooltip = JAP_increase_keiretsu_strength
+		hidden_effect = {
+			add_to_variable = { Econ_War_Lethality = 5 }
+			add_to_variable = { Keiretsu_strength = 6 }
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_loosen_banking_regulations"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_sink_or_swim
+	icon = GFX_JAP_subdue_the_navy
+	prerequisite = {
+		focus = JAP_kido_loosen_banking_regulations
+	}
+	relative_position_id = JAP_kido_loosen_banking_regulations
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_stability = -0.05
+		custom_effect_tooltip = JAP_kido_sink_or_swim_tt
+		custom_effect_tooltip = JAP_increase_keiretsu_approval
+		hidden_effect = {
+			add_to_variable = { Political_Approval_Keiretsus = 7 }
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_sink_or_swim"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_stop_the_labour_riots
+	icon = GFX_USA_We_fight_for_Stability
+	prerequisite = {
+		focus = JAP_kido_take_the_credit
+	}
+	prerequisite = {
+		focus = JAP_kido_political_tradeoffs
+	}
+	prerequisite = {
+		focus = JAP_kido_sink_or_swim
+	}
+	relative_position_id = JAP_kido_political_tradeoffs
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		country_event = {
+				id = japkidoeco.7
+		}
+		custom_effect_tooltip = JAP_stop_the_labour_riots_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_stop_the_labour_riots"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_market_corruption
+	icon = GFX_JAP_Double_or_Nothing
+	prerequisite = {
+		focus = JAP_stop_the_labour_riots
+	}
+	relative_position_id = JAP_stop_the_labour_riots
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		country_event = {
+				id = japkidoeco.8
+		}
+		custom_effect_tooltip = JAP_kido_market_corruption_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_market_corruption"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_the_most_patriotic_coporations
+	icon = GFX_JAP_Never_Been_Better
+	prerequisite = {
+		focus = JAP_kido_market_corruption
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_trust_the_families
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_encourage_restructuring
+	}
+	relative_position_id = JAP_kido_market_corruption
+	x = -3
+	y = 1
+	cost = 5
+	completion_reward = {
+		country_event = {
+				id = japkidoeco.9
+		}
+		custom_effect_tooltip = JAP_kido_the_most_patriotic_coporations_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_the_most_patriotic_coporations"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_blame_the_economic_conflict
+	icon = GFX_JAP_Denounce_the_Reformists
+	prerequisite = {
+		focus = JAP_kido_the_most_patriotic_coporations
+	}
+	relative_position_id = JAP_kido_the_most_patriotic_coporations
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		custom_effect_tooltip = JAP_kido_blame_the_economic_conflict_tt
+		custom_effect_tooltip = JAP_PUBLIC_APPROVAL_RAISED_LOW_tt
+		custom_effect_tooltip = JAP_decrease_zaibatsu_approval
+		custom_effect_tooltip = JAP_decrease_keiretsu_approval
+		custom_effect_tooltip = JAP_decrease_zaibatsu_strength
+		hidden_effect = {
+			subtract_from_variable = { Political_Approval_Zaibatsus = 4 }
+			subtract_from_variable = { Political_Approval_Keiretsus = 4 }
+			subtract_from_variable = { Zaibatsu_Strength = 3 }
+			every_owned_state = {
+				limit = {
+					JAP_can_have_elections_in_state = yes
+				}
+				add_to_variable = { PUBLIC_APPROVAL = 2 }
+				clamp_variable = {
+					var = PUBLIC_APPROVAL
+					max = 100
+					min = 0
+				}
+			}
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_blame_the_economic_conflict"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_offer_a_solution
+	icon = GFX_RAJ_India_Comprimise_Constitution
+	prerequisite = {
+		focus = JAP_kido_blame_the_economic_conflict
+	}
+	relative_position_id = JAP_kido_blame_the_economic_conflict
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_political_power = -40
+		country_event = {
+				id = japkidoeco.10
+		}
+		custom_effect_tooltip = JAP_kido_offer_a_solution_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_offer_a_solution"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_strongarm_the_families
+	icon = GFX_JAP_hurt_the_zaibatsus
+	prerequisite = {
+		focus = JAP_kido_offer_a_solution
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_backstab_the_families
+	}
+	relative_position_id = JAP_kido_offer_a_solution
+	x = -1
+	y = 1
+	cost = 5
+	completion_reward = {
+		custom_effect_tooltip = JAP_kido_strongarm_the_families_tt
+		custom_effect_tooltip = JAP_increase_zaibatsu_approval
+		custom_effect_tooltip = JAP_increase_zaibatsu_size
+		custom_effect_tooltip = JAP_decrease_zaibatsu_strength
+		hidden_effect = {
+			add_to_variable = { Political_Approval_Zaibatsus = 4 }
+			add_to_variable = { Zaibatsu_size = 3 }
+			subtract_from_variable = { Zaibatsu_Strength = 5 }
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_strongarm_the_families"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_economic_consolidation
+	icon = GFX_Generic_Good_Economy
+	prerequisite = {
+		focus = JAP_kido_strongarm_the_families
+	}
+	relative_position_id = JAP_kido_strongarm_the_families
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_ideas = JAP_kido_economic_consolidation_idea
+		country_event = {
+				id = japkidoeco.11
+		}
+		custom_effect_tooltip = JAP_kido_economic_consolidation_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_economic_consolidation"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_backstab_the_families
+	icon = GFX_JAP_imperial_rule_free_from_corruption
+	prerequisite = {
+		focus = JAP_kido_offer_a_solution
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_strongarm_the_families
+	}
+	relative_position_id = JAP_kido_offer_a_solution
+	x = 1
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_stability = -0.08
+		custom_effect_tooltip = JAP_kido_backstab_the_families_tt
+		custom_effect_tooltip = JAP_decrease_zaibatsu_approval
+		custom_effect_tooltip = JAP_decrease_zaibatsu_strength
+		custom_effect_tooltip = JAP_decrease_zaibatsu_size
+		custom_effect_tooltip = JAP_decrease_keiretsu_approval
+		custom_effect_tooltip = JAP_decrease_keiretsu_strength
+		custom_effect_tooltip = JAP_decrease_keiretsu_size
+		hidden_effect = {
+			subtract_from_variable = { Political_Approval_Zaibatsus = 6 }
+			subtract_from_variable = { Zaibatsu_Strength = 3 }
+			subtract_from_variable = { Zaibatsu_size = 5 }
+			subtract_from_variable = { Political_Approval_Keiretsus = 5 }
+			subtract_from_variable = { Keiretsu_strength = 5 }
+			subtract_from_variable = { Keiretsu_size = 4 }
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_backstab_the_families"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_divide_and_conquer
+	icon = GFX_JAP_Make_Them_Bend
+	prerequisite = {
+		focus = JAP_kido_backstab_the_families
+	}
+	relative_position_id = JAP_kido_backstab_the_families
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_ideas = JAP_kido_divide_and_conquer_idea
+		country_event = {
+				id = japkidoeco.12
+		}
+		custom_effect_tooltip = JAP_kido_divide_and_conquer_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_divide_and_conquer"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_control_interest_rates
+	icon = GFX_the_planned_economy
+	prerequisite = {
+		focus = JAP_kido_economic_consolidation
+		focus = JAP_kido_divide_and_conquer
+	}
+	relative_position_id = JAP_kido_economic_consolidation
+	x = 1
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_ideas = JAP_kido_control_interest_rates_idea
+		custom_effect_tooltip = JAP_kido_control_interest_rates_tt
+		hidden_effect = {
+			subtract_from_variable = { Econ_War_Lethality = 5 }
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_control_interest_rates"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_monopolize_the_aerospace_industry
+	icon = GFX_JAP_fighter_plane
+	prerequisite = {
+		focus = JAP_kido_control_interest_rates
+	}
+	relative_position_id = JAP_kido_control_interest_rates
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		country_event = {
+				id = japkidoeco.13
+		}
+		custom_effect_tooltip = JAP_kido_monopolize_the_aerospace_industry_tt
+		custom_effect_tooltip = JAP_decrease_zaibatsu_approval
+		custom_effect_tooltip = JAP_decrease_zaibatsu_size
+		hidden_effect = {
+			subtract_from_variable = { Political_Approval_Zaibatsus = 6 }
+			subtract_from_variable = { Zaibatsu_size = 5 }
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_monopolize_the_aerospace_industry"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_nationalise_nakajima
+	icon = GFX_JAP_Nakajima_G10N
+	prerequisite = {
+		focus = JAP_kido_monopolize_the_aerospace_industry
+	}
+	relative_position_id = JAP_kido_monopolize_the_aerospace_industry
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_ideas = JAP_kido_nationalise_nakajima_idea
+		random_owned_state = {
+			prioritize = {
+				534
+			}
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+		random_owned_state = {
+			prioritize = {
+				1234
+			}
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+		custom_effect_tooltip = JAP_kido_nationalise_nakajima_tt
+		custom_effect_tooltip = JAP_decrease_zaibatsu_approval
+		custom_effect_tooltip = JAP_decrease_zaibatsu_strength
+		hidden_effect = {
+			subtract_from_variable = { Political_Approval_Zaibatsus = 5 }
+			subtract_from_variable = { Zaibatsu_Strength = 6 }
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_nationalise_nakajima"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_trust_the_families
+	icon = GFX_JAP_Deregulate_the_Families
+	prerequisite = {
+		focus = JAP_kido_market_corruption
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_the_most_patriotic_coporations
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_encourage_restructuring
+	}
+	relative_position_id = JAP_kido_market_corruption
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		country_event = {
+				id = japkidoeco.14
+		}
+		custom_effect_tooltip = JAP_kido_trust_the_families_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_trust_the_families"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_the_old_boys_club
+	icon = GFX_JAP_old_friends
+	prerequisite = {
+		focus = JAP_kido_trust_the_families
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_make_them_compete
+	}
+	relative_position_id = JAP_kido_trust_the_families
+	x = -1
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_political_power = 40
+		custom_effect_tooltip = JAP_kido_the_old_boys_club_tt
+		custom_effect_tooltip = JAP_PEERS_OPINION_RAISED_LOW_tt
+		custom_effect_tooltip = JAP_increase_zaibatsu_approval
+		custom_effect_tooltip = JAP_increase_keiretsu_approval
+		hidden_effect = {
+			add_to_variable = { PEERS_OPINION = 5 }
+			clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+			add_to_variable = { Political_Approval_Zaibatsus = 4 }
+			add_to_variable = { Political_Approval_Keiretsus = 3 }
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_the_old_boys_club"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_handshake_deals
+	icon = GFX_JAP_Make_New_Friends
+	prerequisite = {
+		focus = JAP_kido_the_old_boys_club
+	}
+	relative_position_id = JAP_kido_the_old_boys_club
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		country_event = {
+				id = japkidoeco.15
+		}
+		custom_effect_tooltip = JAP_kido_handshake_deals_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_handshake_deals"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_make_them_compete
+	icon = GFX_JAP_Staving_off_the_Beast
+	prerequisite = {
+		focus = JAP_kido_trust_the_families
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_the_old_boys_club
+	}
+	relative_position_id = JAP_kido_trust_the_families
+	x = 1
+	y = 1
+	cost = 5
+	completion_reward = {
+		custom_effect_tooltip = JAP_kido_make_them_compete_tt
+		custom_effect_tooltip = JAP_decrease_zaibatsu_strength
+		custom_effect_tooltip = JAP_decrease_zaibatsu_size
+		custom_effect_tooltip = JAP_decrease_keiretsu_strength
+		custom_effect_tooltip = JAP_decrease_keiretsu_size
+		hidden_effect = {
+			subtract_from_variable = { Zaibatsu_Strength = 4 }
+			subtract_from_variable = { Zaibatsu_size = 2 }
+			subtract_from_variable = { Keiretsu_strength = 2 }
+			subtract_from_variable = { Keiretsu_size = 3 }
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_make_them_compete"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_battle_in_the_boardrooms
+	icon = GFX_JAP_Baptism_by_Fire
+	prerequisite = {
+		focus = JAP_kido_make_them_compete
+	}
+	relative_position_id = JAP_kido_make_them_compete
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		country_event = {
+				id = japkidoeco.16
+		}
+		custom_effect_tooltip = JAP_kido_battle_in_the_boardrooms_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_battle_in_the_boardrooms"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_zaibatsu_credit
+	icon = GFX_GER_nationalize_credit 
+	prerequisite = {
+		focus = JAP_kido_handshake_deals
+		focus = JAP_kido_battle_in_the_boardrooms
+	}
+	relative_position_id = JAP_kido_handshake_deals
+	x = 1
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_ideas = JAP_kido_zaibatsu_credit_idea
+		custom_effect_tooltip = JAP_kido_zaibatsu_credit_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_zaibatsu_credit"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_starve_the_keirestu_of_capital
+	icon = GFX_JAP_Kill_the_Keiretsu
+	prerequisite = {
+		focus = JAP_kido_zaibatsu_credit
+	}
+	relative_position_id = JAP_kido_zaibatsu_credit
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Decision 	id = JAP_kido_starve_the_keirestu_of_capital"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_monopolize_resources
+	icon = GFX_IRQ_Oil_Deals
+	prerequisite = {
+		focus = JAP_kido_starve_the_keirestu_of_capital
+	}
+	relative_position_id = JAP_kido_starve_the_keirestu_of_capital
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_resource = {
+			type = aluminium
+			amount = 13
+			state = 531
+		}
+		add_resource = {
+			type = oil
+			amount = 8
+			state = 807
+		}
+		add_resource = {
+			type = steel
+			amount = 12
+			state = 592
+		}
+		add_resource = {
+			type = rubber
+			amount = 28
+			state = 673
+		}
+		add_ideas = JAP_kido_monopolize_resources_idea
+		custom_effect_tooltip = JAP_kido_monopolize_resources_tt
+		custom_effect_tooltip = JAP_increase_zaibatsu_strength
+		hidden_effect = {
+			add_to_variable = { Zaibatsu_Strength = 8 }
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_monopolize_resources"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_let_regulations_slide
+	icon = GFX_Lose_The_Orders
+	prerequisite = {
+		focus = JAP_kido_monopolize_resources
+	}
+	relative_position_id = JAP_kido_monopolize_resources
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		country_event = {
+			id = japkidoeco.17
+		}
+		custom_effect_tooltip = JAP_kido_let_regulations_slide_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_let_regulations_slide"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_reap_the_rewards
+	icon = GFX_JAP_useful_zaibatsus
+	prerequisite = {
+		focus = JAP_kido_let_regulations_slide
+	}
+	relative_position_id = JAP_kido_let_regulations_slide
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_political_power = 40
+		country_event = {
+			id = japkidoeco.18
+		}
+		custom_effect_tooltip = JAP_kido_reap_the_rewards_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_reap_the_rewards"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_encourage_restructuring
+	icon = GFX_OST_Twist_the_Council
+	prerequisite = {
+		focus = JAP_kido_market_corruption
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_the_most_patriotic_coporations
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_trust_the_families
+	}
+	relative_position_id = JAP_kido_market_corruption
+	x = 3
+	y = 1
+	cost = 5
+	completion_reward = {
+		country_event = {
+				id = japkidoeco.19
+		}
+		custom_effect_tooltip = JAP_kido_encourage_restructuring_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_encourage_restructuring"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_offer_government_contracts
+	icon = GFX_JAP_Make_Promises_to_the_Bureaucrats
+	prerequisite = {
+		focus = JAP_kido_encourage_restructuring
+	}
+	relative_position_id = JAP_kido_encourage_restructuring
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_political_power = 40
+		custom_effect_tooltip = JAP_kido_offer_government_contracts_tt
+		custom_effect_tooltip = JAP_decrease_zaibatsu_approval
+		custom_effect_tooltip = JAP_decrease_zaibatsu_size
+		custom_effect_tooltip = JAP_decrease_keiretsu_approval
+		custom_effect_tooltip = JAP_decrease_keiretsu_size
+		hidden_effect = {
+			subtract_from_variable = { Political_Approval_Zaibatsus = 4 }
+			subtract_from_variable = { Zaibatsu_size = 3 }
+			subtract_from_variable = { Political_Approval_Keiretsus = 4 }
+			subtract_from_variable = { Keiretsu_size = 4 }
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_offer_government_contracts"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_loans_for_new_companies
+	icon = GFX_RAJ_India_Wealth_Question
+	prerequisite = {
+		focus = JAP_kido_offer_government_contracts
+	}
+	relative_position_id = JAP_kido_offer_government_contracts
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_ideas = JAP_kido_loans_for_new_companies_idea
+		custom_effect_tooltip = JAP_kido_loans_for_new_companies_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_loans_for_new_companies"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_labour_reforms
+	icon = GFX_generic_change_law_labor
+	prerequisite = {
+		focus = JAP_kido_loans_for_new_companies
+	}
+	relative_position_id = JAP_kido_loans_for_new_companies
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		country_event = {
+				id = japkidoeco.20
+		}
+		custom_effect_tooltip = JAP_kido_labour_reforms_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_labour_reforms"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_protect_workers_from_retaliation
+	icon = GFX_RAJ_India_Minority_Protections
+	prerequisite = {
+		focus = JAP_kido_labour_reforms
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_target_interlocking_directorships
+	}
+	relative_position_id = JAP_kido_labour_reforms
+	x = -1
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_ideas = JAP_kido_protect_workers_from_retaliation_idea
+		tno_unemployment_improve = yes
+		custom_effect_tooltip = JAP_kido_protect_workers_from_retaliation_tt
+		custom_effect_tooltip = JAP_decrease_zaibatsu_strength
+		hidden_effect = {
+			subtract_from_variable = { Zaibatsu_Strength = 4 }
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_protect_workers_from_retaliation"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_let_the_keirestu_poach
+	icon = GFX_JAP_Reverse_the_Nationalization
+	prerequisite = {
+		focus = JAP_kido_protect_workers_from_retaliation
+	}
+	relative_position_id = JAP_kido_protect_workers_from_retaliation
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		country_event = {
+				id = japkidoeco.21
+		}
+		custom_effect_tooltip = JAP_kido_let_the_keirestu_poach_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_let_the_keirestu_poach"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_target_interlocking_directorships
+	icon = GFX_JAP_a_delicate_web
+	prerequisite = {
+		focus = JAP_kido_labour_reforms
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_protect_workers_from_retaliation
+	}
+	relative_position_id = JAP_kido_labour_reforms
+	x = 1
+	y = 1
+	cost = 5
+	completion_reward = {
+		add_ideas = JAP_kido_target_interlocking_directorships_idea
+		custom_effect_tooltip = JAP_kido_target_interlocking_directorships_tt
+		custom_effect_tooltip = JAP_increase_keiretsu_strength
+		custom_effect_tooltip = JAP_increase_zaibatsu_size
+		hidden_effect = {
+			add_to_variable = { Keiretsu_strength = 4 }
+			add_to_variable = { Zaibatsu_size = 4 }
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_target_interlocking_directorships"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_praise_the_salaryman
+	icon = GFX_USA_workers_for_business
+	prerequisite = {
+		focus = JAP_kido_target_interlocking_directorships
+	}
+	relative_position_id = JAP_kido_target_interlocking_directorships
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		country_event = {
+				id = japkidoeco.22
+		}
+		custom_effect_tooltip = JAP_kido_praise_the_salaryman_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_praise_the_salaryman"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_champagne_and_lunch_clubs
+	icon = GFX_JAP_Dine_with_Admirals
+	prerequisite = {
+		focus = JAP_kido_let_the_keirestu_poach
+		focus = JAP_kido_praise_the_salaryman
+	}
+	relative_position_id = JAP_kido_let_the_keirestu_poach
+	x = 1
+	y = 1
+	cost = 5
+	completion_reward = {
+		custom_effect_tooltip = JAP_kido_champagne_and_lunch_clubs_tt
+		custom_effect_tooltip = JAP_increase_keiretsu_approval
+		custom_effect_tooltip = JAP_increase_zaibatsu_approval
+		custom_effect_tooltip = JAP_increase_keiretsu_strength
+		hidden_effect = {
+			add_to_variable = { Political_Approval_Keiretsus = 5 }
+			add_to_variable = { Political_Approval_Zaibatsus = 3 }
+			add_to_variable = { Keiretsu_strength = 4 }
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_champagne_and_lunch_clubs"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_enthrall_the_middle_class
+	icon = GFX_JAP_Imperial_Rule
+	prerequisite = {
+		focus = JAP_kido_champagne_and_lunch_clubs
+	}
+	relative_position_id = JAP_kido_champagne_and_lunch_clubs
+	x = 0
+	y = 1
+	cost = 5
+	completion_reward = {
+		country_event = {
+				id = japkidoeco.23
+		}
+		custom_effect_tooltip = JAP_kido_enthrall_the_middle_class_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_enthrall_the_middle_class"
+		}
+	}
+}
+
+
+
+###############
+#Kido Mid-Tier#
+###############
+
+shared_focus = {
+	id = JAP_kido_Our_Victory_is_Close
+	icon = GFX_JAP_PM_Kido
+    allow_branch = {
+		has_country_flag = JAP_Kido_Mid
+	}
+	x = 8
+	y = 0
+	cost = 5
+	completion_reward = {
+		country_event = {
+				id = japkidomid.1
+				days = 0
+		}
+		custom_effect_tooltip = JAP_kido_Our_Victory_is_Close_tt
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Our_Victory_is_Close"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_The_Final_Reforms
+	icon = GFX_JAP_Treaty_Generic
+	relative_position_id = JAP_kido_Our_Victory_is_Close
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Our_Victory_is_Close
+	}
+	completion_reward = {
+		custom_effect_tooltip = JAP_kido_The_Final_Reforms_tt
+		add_ideas = JAP_kido_implementing_reforms_idea
+		hidden_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_The_Final_Reforms"
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Consent_from_the_Chambers
+	icon = GFX_JAP_national_diet
+	relative_position_id = JAP_kido_The_Final_Reforms
+	x = -6
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_The_Final_Reforms
+	}
+	completion_reward = {
+		add_political_power = 40
+		custom_effect_tooltip = JAP_kido_Consent_from_the_Chambers_tt
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Consent_from_the_Chambers"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Authority_From_Tokyo
+	icon = GFX_JAP_Authority_From_Tokyo
+	relative_position_id = JAP_kido_The_Final_Reforms
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_The_Final_Reforms
+	}
+	completion_reward = {
+		add_to_variable = {
+			JAP_Tension = 10
+		}
+		clamp_variable = {
+			var = JAP_Tension
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_kido_Authority_From_Tokyo_tt
+		custom_effect_tooltip = JAP_JAP_TENSION_RAISED_LOW_tt
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Authority_From_Tokyo"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_A_New_Approach_to_Appeasement
+	icon = GFX_JAP_A_New_Approach_to_Appeasement
+	relative_position_id = JAP_kido_The_Final_Reforms
+	x = 6
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_The_Final_Reforms
+	}
+	completion_reward = {
+		add_to_variable = {
+			JAP_Tension = 10
+		}
+		clamp_variable = {
+			var = JAP_Tension
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_kido_A_New_Approach_to_Appeasement_tt
+		custom_effect_tooltip = JAP_JAP_TENSION_RAISED_LOW_tt
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_A_New_Approach_to_Appeasement"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Consent_From_the_Peers
+	icon = GFX_JAP_solidify_the_peers
+	relative_position_id = JAP_kido_Consent_from_the_Chambers
+	x = -1
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Consent_from_the_Chambers
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_Consent_From_the_Representatives
+	}
+	completion_reward = {
+		add_to_variable = {
+			PEERS_OPINION = 5
+		}
+		clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_PEERS_OPINION_RAISED_LOW_tt
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Consent_From_the_Peers"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Consent_From_the_Representatives
+	icon = GFX_generic_judicial_opinion
+	relative_position_id = JAP_kido_Consent_from_the_Chambers
+	x = 1
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Consent_from_the_Chambers
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_Consent_From_the_Peers
+	}
+	completion_reward = {
+		add_to_variable = {
+			JAP_Party_Unity = 10
+		}
+		clamp_variable = {
+			var = JAP_Party_Unity
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_PARTY_UNITY_RAISED_LOW_tt
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Consent_From_the_Representatives"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Make_Them_Bend
+	icon = GFX_JAP_Make_Them_Bend
+	relative_position_id = JAP_kido_Authority_From_Tokyo
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Authority_From_Tokyo
+	}
+	completion_reward = {
+		subtract_from_variable = {
+			IJA_Power = 10
+		}
+		clamp_variable = {
+			var = IJA_Power
+			max = 100
+			min = 0
+		}
+		add_to_variable = {
+			JAP_Tension = 20
+		}
+		clamp_variable = {
+			var = JAP_Tension
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_IJA_POWER_LOWERED_LOW_tt
+		custom_effect_tooltip = JAP_JAP_TENSION_RAISED_MEDIUM_tt
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Make_Them_Bend"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Throwing_Out_the_Past
+	icon = GFX_JAP_Throwing_Out_the_Past
+	relative_position_id = JAP_kido_A_New_Approach_to_Appeasement
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_A_New_Approach_to_Appeasement
+	}
+	completion_reward = {
+		add_to_variable = {
+			JAP_Tension = 10
+		}
+		clamp_variable = {
+			var = JAP_Tension
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_JAP_TENSION_RAISED_LOW_tt
+		country_event = {
+		 id = japkidomid.2
+		 days = 0
+		 }
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Throwing_Out_the_Past"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Support_From_the_Emperor
+	icon = GFX_JAP_imperial_chamber
+	relative_position_id = JAP_kido_Consent_From_the_Peers
+	x = -2
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Consent_From_the_Peers
+	}
+	completion_reward = {
+		add_war_support = 0.05
+		subtract_from_variable = {
+			JAP_Tension = 10
+		}
+		clamp_variable = {
+			var = JAP_Tension
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_JAP_TENSION_LOWERED_LOW_tt
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Support_From_the_Emperor"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Support_From_the_Barons
+	icon = GFX_JAP_Support_From_the_Barons
+	relative_position_id = JAP_kido_Consent_From_the_Peers
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Consent_From_the_Peers
+	}
+	completion_reward = {
+		country_event = {
+		 id = japkidomid.3
+		 days = 0
+		 }
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Support_From_the_Barons"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Support_From_the_Conservatives
+	icon = GFX_generic_conservative_constitution
+	relative_position_id = JAP_kido_Consent_From_the_Representatives
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Consent_From_the_Representatives
+	}
+	completion_reward = {
+		add_political_power = 100
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Support_From_the_Conservatives"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Support_From_the_Liberals
+	icon = GFX_Generic_Social_Liberal
+	relative_position_id = JAP_kido_Consent_From_the_Representatives
+	x = 2
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Consent_From_the_Representatives
+	}
+	completion_reward = {
+		increase_party_unity_low = yes
+		custom_effect_tooltip = JAP_PARTY_UNITY_RAISED_LOW_tt
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Support_From_the_Liberals"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Expand_the_Imperial_Guard
+	icon = GFX_JAP_Expand_the_Imperial_Guard
+	relative_position_id = JAP_kido_Make_Them_Bend
+	x = -1
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Make_Them_Bend
+	}
+	completion_reward = {
+		add_ideas = JAP_kido_Expanded_Imperial_Guard_idea
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Expand_the_Imperial_Guard"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_A_Voice_in_General_Headquarters
+	icon = GFX_JAP_A_Voice_in_General_Headquarters
+	relative_position_id = JAP_kido_Make_Them_Bend
+	x = 1
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Make_Them_Bend
+	}
+	completion_reward = {
+		increase_ija_strength_low = yes
+		increase_ijn_strength_low = yes
+		subtract_from_variable = {
+			JAP_Tension = 10
+		}
+		clamp_variable = {
+			var = JAP_Tension
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_JAP_TENSION_LOWERED_LOW_tt
+		custom_effect_tooltip = JAP_IJA_POWER_RAISED_LOW_tt
+		custom_effect_tooltip = JAP_IJN_POWER_RAISED_LOW_tt
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_A_Voice_in_General_Headquarters"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Crippling_the_Army
+	icon = GFX_JAP_Crippling_the_Army
+	relative_position_id = JAP_kido_Throwing_Out_the_Past
+	x = -1
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Throwing_Out_the_Past
+	}
+	completion_reward = {
+		decrease_ija_strength_medium = yes
+		custom_effect_tooltip = JAP_IJA_POWER_LOWERED_MEDIUM_tt
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Crippling_the_Army"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Subserving_the_Navy
+	icon = GFX_JAP_Subserving_the_Navy
+	relative_position_id = JAP_kido_Throwing_Out_the_Past
+	x = 1
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Throwing_Out_the_Past
+	}
+	completion_reward = {
+		#increase_ijn_opinion_medium = yes
+		increase_ijn_strength_low = yes
+		custom_effect_tooltip = JAP_IJN_POWER_RAISED_LOW_tt
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Subserving_the_Navy"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_A_Trusted_Choice
+	icon = GFX_JAP_A_Trusted_Choice
+	relative_position_id = JAP_kido_Support_From_the_Emperor
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Support_From_the_Emperor
+	}
+	completion_reward = {
+		country_event = {
+		 id = japkidomid.5
+		 days = 0
+		 }
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_A_Trusted_Choice"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Our_Political_Inheritance
+	icon = GFX_JAP_Our_Political_Inheritance
+	relative_position_id = JAP_kido_Support_From_the_Barons
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Support_From_the_Barons
+	}
+	completion_reward = {
+		add_ideas = JAP_kido_Our_Political_Inheritance_idea
+		every_owned_state = {
+				limit = {
+					JAP_can_have_elections_in_state = yes
+					OR = {
+						check_variable = { nationality = 62 } #japanese
+						check_variable = { nationality = 66 } #ainu
+						check_variable = { nationality = 194 } #taiwanese
+					}
+				}
+				add_to_variable = { PUBLIC_APPROVAL = 3 }
+				clamp_variable = {
+					var = PUBLIC_APPROVAL
+					max = 100
+					min = 0
+				}
+			}
+		custom_effect_tooltip = JAP_PUBLIC_APPROVAL_RAISED_LOW_tt
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Our_Political_Inheritance"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Blood_Iron_and_Representative_Democracy
+	icon = GFX_JAP_Blood_Iron_and_Representative_Democracy
+	relative_position_id = JAP_kido_Support_From_the_Conservatives
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Support_From_the_Conservatives
+	}
+	completion_reward = {
+		country_event = {
+		 id = japkidomid.4
+		 days = 0
+		 }
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Blood_Iron_and_Representative_Democracy"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Restore_National_Spirit
+	icon = GFX_JAP_Restore_National_Spirit
+	relative_position_id = JAP_kido_Support_From_the_Liberals
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Support_From_the_Liberals
+	}
+	completion_reward = {
+		add_ideas = JAP_kido_Restore_National_Spirit_idea
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Restore_National_Spirit"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Purge_the_Ambitious
+	icon = GFX_Generic_Political_Purge
+	relative_position_id = JAP_kido_Expand_the_Imperial_Guard
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Expand_the_Imperial_Guard
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Purge_the_Ambitious"
+		add_stability = -0.05
+		add_political_power = -60
+		country_event = {
+		 id = japkidomid.6
+		 days = 30
+		 }
+		 custom_effect_tooltip = JAP_kido_Purge_the_Ambitious_tt
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Our_Presence_is_Everywhere
+	icon = GFX_JAP_Our_Presence_is_Everywhere
+	relative_position_id = JAP_kido_A_Voice_in_General_Headquarters
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_A_Voice_in_General_Headquarters
+	}
+	completion_reward = {
+		add_ideas = JAP_kido_Our_Presence_is_Everywhere_idea
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_Our_Presence_is_Everywhere"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_From_Garrisons_to_Expeditionaries
+	icon = GFX_JAP_From_Garrisons_to_Expeditionaries
+	relative_position_id = JAP_kido_Crippling_the_Army
+	x = -2
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Crippling_the_Army
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_From_Colonies_to_Nations
+	}
+	completion_reward = {
+		country_event = {
+		 id = japkidomid.7
+		 days = 0
+		 }
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_From_Garrisons_to_Expeditionaries"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_From_Colonies_to_Nations
+	icon = GFX_JAP_From_Colonies_to_Nations
+	relative_position_id = JAP_kido_Crippling_the_Army
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Crippling_the_Army
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_From_Garrisons_to_Expeditionaries
+	}
+	completion_reward = {
+		country_event = {
+		 id = japkidomid.8
+		 days = 0
+		 }
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_From_Colonies_to_Nations"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_For_the_Security_of_Commerce
+	icon = GFX_JAP_For_the_Security_of_Commerce
+	relative_position_id = JAP_kido_Subserving_the_Navy
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Subserving_the_Navy
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_For_the_Projection_of_Power
+	}
+	completion_reward = {
+		add_ideas = JAP_kido_For_the_Security_of_Commerce_idea
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_For_the_Security_of_Commerce"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_For_the_Projection_of_Power
+	icon = GFX_JAP_For_the_Projection_of_Power
+	relative_position_id = JAP_kido_Subserving_the_Navy
+	x = 2
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Subserving_the_Navy
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_For_the_Security_of_Commerce
+	}
+	completion_reward = {
+		add_ideas = JAP_kido_For_the_Projection_of_Power_idea
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_For_the_Projection_of_Power"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_The_Triumph
+	icon = GFX_JAP_The_Triumph
+	relative_position_id = JAP_kido_The_Final_Reforms
+	x = 0
+	y = 5
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_A_Trusted_Choice
+		focus = JAP_kido_Blood_Iron_and_Representative_Democracy
+	}
+	prerequisite = {
+		focus = JAP_kido_Our_Political_Inheritance
+		focus = JAP_kido_Restore_National_Spirit
+	}
+	prerequisite = {
+		focus = JAP_kido_Purge_the_Ambitious
+	}
+	prerequisite = {
+		focus = JAP_kido_Our_Presence_is_Everywhere
+	}
+	prerequisite = {
+		focus = JAP_kido_From_Garrisons_to_Expeditionaries
+		focus = JAP_kido_For_the_Security_of_Commerce
+	}
+	prerequisite = {
+		focus = JAP_kido_From_Colonies_to_Nations
+		focus = JAP_kido_For_the_Projection_of_Power
+	}
+	completion_reward = {
+		country_event = {
+		 id = japkidomid.9
+		 days = 0
+		 }
+		log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_The_Triumph"
+	}
+}
+
+################
+#Kido Low Balll#
+################
+
+shared_focus = {
+	id = JAP_kido_we_cannot_fail
+	icon = GFX_goal_unknown
+	allow_branch = {
+		has_country_flag = JAP_Kido_NotFailNotWin
+	}
+	x = 8
+	y = 0
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_we_cannot_fail"
+		 country_event = {
+				id = japkidolow.1
+		}
+	}
+} 
+	
+#Political tree#
+	
+shared_focus = {
+	id = JAP_kido_taisei_yokusankai
+	icon = GFX_JAP_One_Party_Moral_and_Unified
+	prerequisite = { focus = JAP_kido_we_cannot_fail }
+	relative_position_id = JAP_kido_we_cannot_fail
+	x = -6
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_taisei_yokusankai"
+		 country_event = {
+				id = japkidolow.2
+		}
+	} 
+}	
+
+shared_focus = {
+	id = JAP_kido_shifting_the_blame
+	icon = GFX_JAP_Condemn_Corruption
+	prerequisite = { focus = JAP_kido_taisei_yokusankai }
+	relative_position_id = JAP_kido_taisei_yokusankai
+	x = -1
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_shifting_the_blame"
+		 add_political_power = 20
+		 add_to_variable = {
+			JAP_Party_Unity = 4
+		}
+		clamp_variable = {
+			var = JAP_Party_Unity
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_PARTY_UNITY_RAISED_LOW_tt
+	} 
+}	
+
+shared_focus = {
+	id = JAP_kido_a_necessary_sacrifice
+	icon = GFX_JAP_Nihon_No_Yokai
+	prerequisite = { focus = JAP_kido_shifting_the_blame }
+	relative_position_id = JAP_kido_shifting_the_blame
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_a_necessary_sacrifice"
+		 country_event = {	
+				id = japkidolow.3
+		}
+	} 
+}	
+
+shared_focus = {
+	id = JAP_kido_kidos_old_guard
+	icon = GFX_JAP_old_friends
+	prerequisite = { focus = JAP_kido_a_necessary_sacrifice }
+	mutually_exclusive = { focus = JAP_kido_new_figures }
+	relative_position_id = JAP_kido_a_necessary_sacrifice
+	x = -2
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_kidos_old_guard"
+		 add_political_power = -40
+		 add_to_variable = {
+			JAP_Party_Unity = 10
+		}
+		clamp_variable = {
+			var = JAP_Party_Unity
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_PARTY_UNITY_RAISED_LOW_tt
+	} 
+}	
+
+shared_focus = {
+	id = JAP_kido_wisdom_comes_with_age
+	icon = GFX_JAP_Our_Political_Inheritance
+	prerequisite = { focus = JAP_kido_kidos_old_guard }
+	relative_position_id = JAP_kido_kidos_old_guard
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_wisdom_comes_with_age"
+		 subtract_from_variable = {
+			JAP_Tension = 5
+		}
+		clamp_variable = {
+			var = JAP_Tension
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_JAP_TENSION_LOWERED_LOW_tt
+	} 
+}	
+
+shared_focus = {
+	id = JAP_kido_new_figures
+	icon = GFX_JAP_cabinet_reshuffle
+	prerequisite = { focus = JAP_kido_a_necessary_sacrifice }
+	mutually_exclusive = { focus = JAP_kido_kidos_old_guard }
+	relative_position_id = JAP_kido_a_necessary_sacrifice
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_new_figures"
+		 add_stability = -0.04
+		 add_to_variable = {
+			TAKAGI_SUPPORT = 10
+		}
+		clamp_variable = { 
+			var = TAKAGI_SUPPORT
+			max = TAKAGI_SEATS
+			min = 0
+		}
+		add_to_variable = {
+			KAYA_SUPPORT = 5
+		}
+		clamp_variable = { 
+			var = KAYA_SUPPORT
+			max = KAYA_SEATS
+			min = 0
+		}
+		custom_effect_tooltip = JAP_DIET_SUPPORT_RAISED_MEDIUM_tt
+		subtract_from_variable = {
+			JAP_Party_Unity = 10
+		}
+		clamp_variable = {
+			var = JAP_Party_Unity
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_PARTY_UNITY_LOWERED_LOW_tt
+	} 
+}	
+
+shared_focus = {
+	id = JAP_kido_control_the_youngsters
+	icon = GFX_Generic_Political_Purge
+	prerequisite = { focus = JAP_kido_new_figures }
+	relative_position_id = JAP_kido_new_figures
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_control_the_youngsters"
+		 add_political_power = -80
+		 add_stability = 0.05
+		 add_to_variable = {
+			JAP_Party_Unity = 15
+		}
+		clamp_variable = {
+			var = JAP_Party_Unity
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_PARTY_UNITY_RAISED_MEDIUM_tt
+	} 
+}	
+
+shared_focus = {
+	id = JAP_kido_approaching_the_cliques
+	icon = GFX_JAP_Patch_Over_Factional_Seams
+	prerequisite = { focus = JAP_kido_taisei_yokusankai }
+	relative_position_id = JAP_kido_taisei_yokusankai
+	x = 1
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 20
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_approaching_the_cliques"
+		 add_political_power = 50
+	} 
+}	
+
+shared_focus = {
+	id = JAP_kido_exploit_their_conflicts
+	icon = GFX_JAP_Brew_Factionalism
+	prerequisite = { focus = JAP_kido_approaching_the_cliques }
+	mutually_exclusive = { focus = JAP_kido_support_of_the_house }
+	relative_position_id = JAP_kido_approaching_the_cliques
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_exploit_their_conflicts"
+		 subtract_from_variable = {
+			JAP_Party_Unity = 10
+		}
+		clamp_variable = {
+			var = JAP_Party_Unity
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_PARTY_UNITY_LOWERED_LOW_tt
+		subtract_from_variable = {
+			TAKAGI_SEATS = 5
+		}
+		clamp_variable = {
+			var = TAKAGI_SEATS
+			max = 495
+			min = 0
+		}
+		subtract_from_variable = {
+			TAKAGI_SUPPORT = 5
+		}
+		clamp_variable = { 
+		var = TAKAGI_SUPPORT
+		max = TAKAGI_SEATS
+		min = 0
+	}
+		subtract_from_variable = {
+			KAYA_SEATS = 5
+		}
+		clamp_variable = {
+			var = KAYA_SEATS
+			max = 495
+			min = 0
+		}
+		subtract_from_variable = {
+			KAYA_SUPPORT = 5
+		}
+		clamp_variable = { 
+		var = KAYA_SUPPORT
+		max = KAYA_SEATS
+		min = 0
+	}
+	subtract_from_variable = {
+			IKEDA_SEATS = 5
+		}
+		clamp_variable = {
+			var = IKEDA_SEATS
+			max = 495
+			min = 0
+		}
+		subtract_from_variable = {
+			IKEDA_SUPPORT = 5
+		}
+		clamp_variable = { 
+		var = IKEDA_SUPPORT
+		max = IKEDA_SEATS
+		min = 0
+	}
+		add_to_variable = {
+			KIDO_SEATS = 15
+		}
+		clamp_variable = {
+			var = KIDO_SEATS
+			max = 495
+			min = 0
+		}
+		add_to_variable = {
+			KIDO_SUPPORT = 15
+		}
+		clamp_variable = { 
+		var = KIDO_SUPPORT
+		max = KIDO_SEATS
+		min = 0
+	}
+		custom_effect_tooltip = JAP_DIET_SUPPORT_RAISED_LOW_tt
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_push_out_kaya
+	icon = GFX_JAP_kayas_downfall
+	prerequisite = { focus = JAP_kido_exploit_their_conflicts }
+	relative_position_id = JAP_kido_exploit_their_conflicts
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_push_out_kaya"
+		 add_stability = -0.06
+		subtract_from_variable = {
+			KAYA_SEATS = 15
+		}
+		clamp_variable = {
+			var = KAYA_SEATS
+			max = 495
+			min = 0
+		}
+		subtract_from_variable = {
+			KAYA_SUPPORT = 15
+		}
+		clamp_variable = { 
+		var = KAYA_SUPPORT
+		max = KAYA_SEATS
+		min = 0
+	}
+		add_to_variable = {
+			KIDO_SEATS = 15
+		}
+		clamp_variable = {
+			var = KIDO_SEATS
+			max = 495
+			min = 0
+		}
+		add_to_variable = {
+			KIDO_SUPPORT = 15
+		}
+		clamp_variable = { 
+		var = KIDO_SUPPORT
+		max = KIDO_SEATS
+		min = 0
+	}
+		custom_effect_tooltip = JAP_DIET_SUPPORT_RAISED_LOW_tt
+	} 
+}	
+
+shared_focus = {
+	id = JAP_kido_subdue_the_rest
+	icon = GFX_goal_unknown
+	prerequisite = { focus = JAP_kido_push_out_kaya }
+	relative_position_id = JAP_kido_push_out_kaya
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_subdue_the_rest"
+		add_to_variable = {
+			TAKAGI_SUPPORT = 10
+		}
+		clamp_variable = { 
+		var = TAKAGI_SUPPORT
+		max = TAKAGI_SEATS
+		min = 0
+	}
+	add_to_variable = {
+			IKEDA_SUPPORT = 10
+		}
+		clamp_variable = { 
+		var = IKEDA_SUPPORT
+		max = IKEDA_SEATS
+		min = 0
+	}
+	add_to_variable = {
+			INO_SUPPORT = 10
+		}
+		clamp_variable = { 
+		var = INO_SUPPORT
+		max = INO_SEATS
+		min = 0
+	}
+
+		custom_effect_tooltip = JAP_DIET_SUPPORT_RAISED_MEDIUM_tt
+	} 
+}			
+
+shared_focus = {
+	id = JAP_kido_support_of_the_house
+	icon = GFX_JAP_national_diet
+	prerequisite = { focus = JAP_kido_approaching_the_cliques }
+	mutually_exclusive = { focus = JAP_kido_exploit_their_conflicts }
+	relative_position_id = JAP_kido_approaching_the_cliques
+	x = 2
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_support_of_the_house"
+		 add_political_power = -40
+		 add_to_variable = {
+			JAP_Party_Unity = 4
+		}
+		clamp_variable = {
+			var = JAP_Party_Unity
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_PARTY_UNITY_RAISED_LOW_tt
+		add_to_variable = {
+			JAP_PEERS_OPINION = 4
+		}
+		clamp_variable = {
+			var = JAP_PEERS_OPINION
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_PEERS_OPINION_RAISED_LOW_tt
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_force_them_in_line
+	icon = GFX_JAP_Independants_kept_in_their_place
+	prerequisite = { focus = JAP_kido_support_of_the_house }
+	relative_position_id = JAP_kido_support_of_the_house
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_force_them_in_line"
+		 add_political_power = -60
+		 add_to_variable = {
+			TAKAGI_SUPPORT = 5
+		}
+		clamp_variable = { 
+		var = TAKAGI_SUPPORT
+		max = TAKAGI_SEATS
+		min = 0
+	}
+	add_to_variable = {
+			IKEDA_SUPPORT = 5
+		}
+		clamp_variable = { 
+		var = IKEDA_SUPPORT
+		max = IKEDA_SEATS
+		min = 0
+	}
+	add_to_variable = {
+			KAYA_SUPPORT = 5
+		}
+		clamp_variable = { 
+		var = KAYA_SUPPORT
+		max = KAYA_SEATS
+		min = 0
+	}
+	add_to_variable = {
+			INO_SUPPORT = 5
+		}
+		clamp_variable = { 
+		var = INO_SUPPORT
+		max = INO_SEATS
+		min = 0
+	}
+	add_to_variable = {
+			KIDO_SUPPORT = 5
+		}
+		clamp_variable = { 
+		var = KIDO_SUPPORT
+		max = KIDO_SEATS
+		min = 0
+	}
+		custom_effect_tooltip = JAP_DIET_SUPPORT_RAISED_MEDIUM_tt
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_united_under_kido
+	icon = GFX_JAP_Preserve_the_Yokusankai
+	prerequisite = { focus = JAP_kido_force_them_in_line }
+	relative_position_id = JAP_kido_force_them_in_line
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_united_under_kido"
+		 add_to_variable = {
+			JAP_Party_Unity = 15
+		}
+		clamp_variable = {
+			var = JAP_Party_Unity
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_PARTY_UNITY_RAISED_MEDIUM_tt
+	} 
+}
+
+#Securing financial support#
+
+shared_focus = {
+	id = JAP_kido_the_business_relations
+	icon = GFX_JAP_useful_zaibatsus
+	prerequisite = { focus = JAP_kido_we_cannot_fail }
+	relative_position_id = JAP_kido_we_cannot_fail
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 40
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_the_business_relations"
+		 country_event = {
+				id = japkidolow.4
+		}
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_bailout_the_zaibatsus
+	icon = GFX_TED_really_fucking_gold
+	prerequisite = { focus = JAP_kido_the_business_relations }
+	relative_position_id = JAP_kido_the_business_relations
+	x = -1
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 40
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_bailout_the_zaibatsus"
+		 add_to_variable = {
+			national_debt = 4000
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_calm_down_the_families
+	icon = GFX_JAP_Kill_the_Keiretsu
+	prerequisite = { focus = JAP_kido_bailout_the_zaibatsus }
+	relative_position_id = JAP_kido_bailout_the_zaibatsus
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 40
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_calm_down_the_families"
+		 add_political_power = -35
+		 add_to_variable = { Political_Approval_Zaibatsus = 7 }	
+		 custom_effect_tooltip = JAP_increase_zaibatsu_approval
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_establish_ties_with_keiretsus
+	icon = GFX_JAP_Golfing_with_the_Douwakai
+	prerequisite = { focus = JAP_kido_the_business_relations }
+	relative_position_id = JAP_kido_the_business_relations
+	x = 1
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 40
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_establish_ties_with_keiretsus"
+		 add_political_power = -30
+		 add_to_variable = { Political_Approval_Keiretsus  = 6 }	
+		 custom_effect_tooltip = JAP_increase_keiretsu_approval
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_make_them_hope
+	icon = GFX_JAP_Flexible_Keirestus
+	prerequisite = { focus = JAP_kido_establish_ties_with_keiretsus }
+	relative_position_id = JAP_kido_establish_ties_with_keiretsus
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 40
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_make_them_hope"
+		 custom_effect_tooltip = JAP_decrease_zaibatsu_approval
+		 custom_effect_tooltip = JAP_increase_keiretsu_size
+		 subtract_from_variable = { Political_Approval_Zaibatsus = 6 }
+			add_to_variable = { Keiretsu_size  = 5 }
+	} 
+}
+
+#Securing military support#
+
+shared_focus = {
+	id = JAP_kido_support_of_the_military
+	icon = GFX_JAP_Yokusankai_Military_Wing
+	prerequisite = { focus = JAP_kido_we_cannot_fail }
+	relative_position_id = JAP_kido_we_cannot_fail
+	x = 4
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 40
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_support_of_the_military"
+		 country_event = {
+				id = japkidolow.5
+		}
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_the_army #Automatically bypassed by the event
+	icon = GFX_JAP_Our_Soldiers_Control_The_Ground
+	prerequisite = { focus = JAP_kido_support_of_the_military }
+	mutually_exclusive = { focus = JAP_kido_the_navy }
+	relative_position_id = JAP_kido_support_of_the_military
+	x = -1
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 40
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_the_army"
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_redirect_the_investments
+	icon = GFX_Generic_Foreign_Investment
+	prerequisite = { focus = JAP_kido_the_army }
+	relative_position_id = JAP_kido_the_army
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 40
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_redirect_the_investments"
+		 add_to_variable = {
+		  var = IJA_opinion
+		  value = 6
+		}
+		 custom_effect_tooltip = JAP_IJA_OPINION_RAISED_LOW_tt
+		 add_to_variable = {
+			national_debt = 3000
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_support_of_the_military_cliques
+	icon = GFX_JAP_the_military_is_enough
+	prerequisite = { focus = JAP_kido_redirect_the_investments }
+	relative_position_id = JAP_kido_redirect_the_investments
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 40
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_support_of_the_military_cliques"
+		 add_to_variable = {
+		  var = PEERS_OPINION
+		  value = 6
+		}
+		clamp_variable = {
+			var = PEERS_OPINION
+			max = 100
+			min = 0
+		}
+	add_to_variable = {
+			IKEDA_SUPPORT = 3
+		}
+		clamp_variable = { 
+		var = IKEDA_SUPPORT
+		max = IKEDA_SEATS
+		min = 0
+	}
+	add_to_variable = {
+			KAYA_SUPPORT = 5
+		}
+		clamp_variable = { 
+		var = KAYA_SUPPORT
+		max = KAYA_SEATS
+		min = 0
+	}
+	add_to_variable = {
+			KIDO_SUPPORT = 2
+		}
+		clamp_variable = { 
+		var = KIDO_SUPPORT
+		max = KIDO_SEATS
+		min = 0
+	}
+		custom_effect_tooltip = JAP_DIET_SUPPORT_RAISED_LOW_tt
+		custom_effect_tooltip = JAP_PEERS_OPINION_RAISED_LOW_tt
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_the_navy #Automatically bypassed by the event
+	icon = GFX_JAP_Our_Ships_Rule_The_Waves
+	prerequisite = { focus = JAP_kido_support_of_the_military }
+	mutually_exclusive = { focus = JAP_kido_the_army }
+	relative_position_id = JAP_kido_support_of_the_military
+	x = 1
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 40
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_the_navy"
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_renew_the_alliance
+	icon = GFX_JAP_Kakushin_Godo
+	prerequisite = { focus = JAP_kido_the_navy }
+	relative_position_id = JAP_kido_the_navy
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 40
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_renew_the_alliance"
+		 add_to_variable = {
+			TAKAGI_SUPPORT = 10
+		}
+		clamp_variable = { 
+		var = TAKAGI_SUPPORT
+		max = TAKAGI_SEATS
+		min = 0
+	}
+		 custom_effect_tooltip = JAP_DIET_SUPPORT_RAISED_LOW_tt
+		 add_to_variable = {
+		var = IJN_opinion
+		value = 6
+	  }
+		 custom_effect_tooltip = JAP_IJN_OPINION_RAISED_LOW_tt
+		 
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_undermine_rival_influence
+	icon = GFX_JAP_The_Militaries_Friendly_Rivalry
+	prerequisite = { focus = JAP_kido_renew_the_alliance }
+	relative_position_id = JAP_kido_renew_the_alliance
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 40
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_undermine_rival_influence"
+		 add_to_variable = {
+			JAP_Tension = 5
+		}
+		clamp_variable = {
+			var = JAP_Tension
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_JAP_TENSION_RAISED_LOW_tt
+		subtract_from_variable = {
+		var = IJN_strength
+		value = 8
+	  }
+	  custom_effect_tooltip = JAP_IJN_POWER_LOWERED_LOW_tt
+	} 
+}
+
+#Second part of the focus tree#
+
+shared_focus = {
+	id = JAP_kido_the_position_is_secure
+	icon = GFX_JAP_kido_peace
+	prerequisite = { focus = JAP_kido_wisdom_comes_with_age focus = JAP_kido_control_the_youngsters }
+	prerequisite = { focus = JAP_kido_subdue_the_rest focus = JAP_kido_united_under_kido }
+	prerequisite = { focus = JAP_kido_support_of_the_military_cliques focus = JAP_kido_undermine_rival_influence }
+	prerequisite = { focus = JAP_kido_calm_down_the_families }
+	prerequisite = { focus = JAP_kido_make_them_hope }
+	relative_position_id = JAP_kido_we_cannot_fail
+	x = 0
+	y = 6
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_the_position_is_secure"
+		 country_event = {
+				id = japkidolow.6
+		}
+	} 
+}
+
+#Preparations for the Treaty Ports Negotiations#
+
+shared_focus = {
+	id = JAP_kido_the_treaty_ports
+	icon = GFX_USA_Finance_the_Ports
+	prerequisite = { focus = JAP_kido_the_position_is_secure }
+	relative_position_id = JAP_kido_the_position_is_secure
+	x = -2
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_the_treaty_ports"
+		 country_event = {
+				id = japkidolow.7
+		}
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_prepare_for_the_negotiations
+	icon = GFX_generic_diplomacy_trade
+	prerequisite = { focus = JAP_kido_the_treaty_ports }
+	relative_position_id = JAP_kido_the_treaty_ports
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_prepare_for_the_negotiations"
+		 add_political_power = -60
+		 country_event = {
+				id = japkidolow.8
+				days = 30
+		}
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_aggresive_negotiations
+	icon = GFX_generic_diplomacy_expansion
+	prerequisite = { focus = JAP_kido_prepare_for_the_negotiations }
+	mutually_exclusive = { focus = JAP_kido_a_diplomatic_solution}
+	relative_position_id = JAP_kido_prepare_for_the_negotiations
+	x = -1
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 30
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_aggresive_negotiations"
+		 custom_effect_tooltip = JAP_kido_aggresive_negotiations_tt
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_move_in_the_reinforcements
+	icon = GFX_OST_Unite_the_Garrison
+	prerequisite = { focus = JAP_kido_aggresive_negotiations }
+	relative_position_id = JAP_kido_aggresive_negotiations
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 50
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_move_in_the_reinforcements"
+		 add_manpower = -3000
+		 add_political_power = -40
+		 add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -3000
+		}
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_fortify_the_ports
+	icon = GFX_COG_Fortify_The_Border
+	prerequisite = { focus = JAP_kido_move_in_the_reinforcements }
+	relative_position_id = JAP_kido_move_in_the_reinforcements
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_fortify_the_ports"
+		 #TODO: add bunkers in the treaty ports
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_a_diplomatic_solution
+	icon = GFX_generic_diplomacy_peace
+	prerequisite = { focus = JAP_kido_prepare_for_the_negotiations }
+	mutually_exclusive = { focus = JAP_kido_aggresive_negotiations }
+	relative_position_id = JAP_kido_prepare_for_the_negotiations
+	x = 1
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_a_diplomatic_solution"
+		 custom_effect_tooltip = JAP_kido_a_diplomatic_solution_tt
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_a_new_mission_for_takeuchi
+	icon = GFX_RAJ_india_diplomatic_usa
+	prerequisite = { focus = JAP_kido_a_diplomatic_solution }
+	relative_position_id = JAP_kido_a_diplomatic_solution
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_a_new_mission_for_takeuchi"
+		 country_event = {
+				id = japkidolow.9
+		}
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_a_new_guest_list
+	icon = GFX_USA_Ready_the_Fleets
+	prerequisite = { focus = JAP_kido_a_new_mission_for_takeuchi }
+	relative_position_id = JAP_kido_a_new_mission_for_takeuchi
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_a_new_guest_list"
+		 add_political_power = -40
+		 custom_effect_tooltip = JAP_kido_a_new_guest_list_tt
+	} 
+}
+
+#Dealing with the Economic Wars
+
+shared_focus = {
+	id = JAP_kido_the_economic_wars
+	icon = GFX_RAJ_Close_the_Economy
+	prerequisite = { focus = JAP_kido_the_position_is_secure }
+	relative_position_id = JAP_kido_the_position_is_secure
+	x = 2
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_the_economic_wars"
+		 country_event = {
+				id = japkidolow.10
+		}
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_take_a_side
+	icon = GFX_INS_zaibatsu_support
+	prerequisite = { focus = JAP_kido_the_economic_wars }
+	relative_position_id = JAP_kido_the_economic_wars
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_take_a_side"
+		 add_stability = 0.04
+		 custom_effect_tooltip = JAP_kido_take_a_side_tt
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_help_the_zaibatsus
+	icon = GFX_JAP_old_zaibatsus
+	prerequisite = { focus = JAP_kido_take_a_side }
+	mutually_exclusive = { focus = JAP_kido_aid_the_keiretsus }
+	relative_position_id = JAP_kido_take_a_side
+	x = -1
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_help_the_zaibatsus"
+		 custom_effect_tooltip = JAP_increase_zaibatsu_strength
+		add_to_variable = { Zaibatsu_Strength = 6 }
+		add_to_variable = {
+			national_debt = 5000
+		}
+		custom_effect_tooltip = econ_increase_debt_small
+		
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_dealing_with_the_fallout
+	icon = GFX_Ease_Price_Controls
+	prerequisite = { focus = JAP_kido_help_the_zaibatsus }
+	relative_position_id = JAP_kido_help_the_zaibatsus
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_dealing_with_the_fallout"
+		 country_event = {
+				id = japkidolow.11
+		}
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_a_new_family
+	icon = GFX_JAP_useful_zaibatsus
+	prerequisite = { focus = JAP_kido_dealing_with_the_fallout }
+	relative_position_id = JAP_kido_dealing_with_the_fallout
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_a_new_family"
+		 country_event = {
+				id = japkidolow.12
+		}
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_aid_the_keiretsus
+	icon = GFX_JAP_Modern_Keirestus
+	prerequisite = { focus = JAP_kido_take_a_side }
+	mutually_exclusive = { focus = JAP_kido_help_the_zaibatsus }
+	relative_position_id = JAP_kido_take_a_side
+	x = 1
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 50
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_aid_the_keiretsus"
+		 add_political_power = -40
+		 custom_effect_tooltip = JAP_increase_keiretsu_strength
+		add_to_variable = { Keiretsu_strength = 4 }
+		custom_effect_tooltip = JAP_increase_keiretsu_approval
+		add_to_variable = { Political_Approval_Keiretsus = 4 }
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_yasudas_fall
+	icon = GFX_JAP_Dismantling_the_Yen_Block
+	prerequisite = { focus = JAP_kido_aid_the_keiretsus }
+	relative_position_id = JAP_kido_aid_the_keiretsus
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_yasudas_fall"
+		add_stability = 0.06
+		custom_effect_tooltip = JAP_decrease_zaibatsu_approval
+		custom_effect_tooltip = JAP_decrease_keiretsu_approval
+		custom_effect_tooltip = JAP_decrease_zaibatsu_strength
+		subtract_from_variable = { Political_Approval_Zaibatsus = 4 }
+		subtract_from_variable = { Political_Approval_Keiretsus = 4 }
+		subtract_from_variable = { Zaibatsu_Strength = 6 }
+	} 
+}
+
+shared_focus = {
+	id = JAP_kido_turn_away_from_the_mitsui
+	icon = GFX_SPA_Strangle_Central_Bank
+	prerequisite = { focus = JAP_kido_yasudas_fall }
+	relative_position_id = JAP_kido_yasudas_fall
+	x = 0
+	y = 1
+	cost = 5
+	ai_will_do = {
+		factor = 80
+	}
+	completion_reward = {
+		 log = "[GetDateText]: [Root.GetName]: Decision JAP_kido_turn_away_from_the_mitsui"
+		 country_event = {
+				id = japkidolow.13
+		}
+	} 
+}
+
+#Kido High
+#Focus for We Have Triumphed
+shared_focus = { 
+	id = JAP_we_have_triumphed
+	icon = GFX_JAP_end_factionalism
+	allow_branch = {
+		has_country_flag = JAP_Kido_High
+	}
+	x = 3
+	y = 0
+	cost = 5
+	available_if_capitulated = yes 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_we_have_triumphed"
+		
+		add_political_power = 50
+	}
+}
+
+#Focus for The Final Reforms
+shared_focus = { 
+	id = JAP_the_final_reforms
+	icon = GFX_JAP_Treaty_Generic
+	relative_position_id = JAP_we_have_triumphed
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_we_have_triumphed } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_the_final_reforms"
+		
+		add_political_power = 50
+	}
+} 
+
+#Focus for Sweeping the Opposition
+shared_focus = { 
+	id = JAP_sweeping_the_opposition
+	icon = GFX_JAP_Our_Presence_is_Everywhere
+	relative_position_id = JAP_the_final_reforms
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_the_final_reforms } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_sweeping_the_opposition"
+		
+		add_to_variable = { KIDO_SUPPORT = 10 }
+		custom_effect_tooltip = JAP_DIET_SUPPORT_RAISED_LOW_tt
+	}
+} 
+
+#Focus for The Siege of the Interior
+shared_focus = { 
+	id = JAP_the_siege_of_the_interior
+	icon = GFX_generic_political_chaos
+	allow_branch = {
+		has_country_flag = JAP_Kido_High
+	}
+	x = 12
+	y = 0
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_the_final_defense_against_militarism } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_the_siege_of_the_interior"
+		
+		add_stability = -0.05
+	}
+} 
+
+#Focus for Providing the Basics
+shared_focus = { 
+	id = JAP_providing_the_basics
+	icon = GFX_generic_change_law_healthcare
+	relative_position_id = JAP_the_siege_of_the_interior
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_the_siege_of_the_interior } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_providing_the_basics"
+		
+		add_political_power = -50
+	}
+} 
+
+#Focus for Assessing Situational Policies
+shared_focus = { 
+	id = JAP_assessing_situational_policies
+	icon = GFX_JAP_Evidence_Collected
+	relative_position_id = JAP_providing_the_basics
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_providing_the_basics } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_assessing_situational_policies"
+		
+		add_political_power = -20
+	}
+} 
+
+#Focus for The Long Term Benefits of Mitsui
+shared_focus = { 
+	id = JAP_the_long_term_benefits_of_mitsui
+	icon = GFX_generic_change_law_immigration
+	relative_position_id = JAP_assessing_situational_policies
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_assessing_situational_policies } 
+	mutually_exclusive = { focus = JAP_the_short_term_goals_of_mitsubishi } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_the_long_term_benefits_of_mitsui"
+		
+		add_stability = 0.05
+	}
+} 
+
+#Focus for Spreading MOECO
+shared_focus = { 
+	id = JAP_spreading_moeco
+	icon = GFX_JAP_oil_concessions
+	relative_position_id = JAP_the_long_term_benefits_of_mitsui
+	x = 2
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_the_long_term_benefits_of_mitsui } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_spreading_moeco"
+		
+		random_owned_controlled_state = {
+			limit = {
+				is_core_of = JAP
+				has_resources_amount = {
+					resource = oil
+					amount > 10
+				}
+			}
+			add_resource = {
+				type = oil
+				amount = 20
+			}
+		}
+		
+		add_to_variable = { national_debt = 1500 }
+	}
+} 
+
+#Focus for Expanding MOL
+shared_focus = { 
+	id = JAP_expanding_mol
+	icon = GFX_TNO_generic_railway_work
+	relative_position_id = JAP_the_long_term_benefits_of_mitsui
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_the_long_term_benefits_of_mitsui } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_expanding_mol"
+		
+		random_owned_controlled_state = {
+			limit = {
+				is_core_of = JAP
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 2
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 2
+		}
+		
+		add_to_variable = { national_debt = 500 }
+		custom_effect_tooltip = econ_increase_debt_small
+	}
+} 
+
+
+#Focus for Home Island Financing
+shared_focus = { 
+	id = JAP_home_island_financing
+	icon = GFX_TNO_generic_japan
+	relative_position_id = JAP_spreading_moeco
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_expanding_mol } 
+	prerequisite = { focus = JAP_spreading_moeco } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_home_island_financing"
+		
+		add_to_variable = { gdp_growth = 0.003 }
+		custom_effect_tooltip = econ_increase_GDP_growth_small
+	}
+} 
+
+#Focus for Revoking the Contracts
+shared_focus = { 
+	id = JAP_revoking_the_contracts
+	icon = GFX_generic_diplomacy_expansion
+	relative_position_id = JAP_spreading_moeco
+	x = 2
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_expanding_mol } 
+	prerequisite = { focus = JAP_spreading_moeco } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_revoking_the_contracts"
+		
+		add_political_power = -50
+		add_to_variable = { misc_costs = -2000 }
+		custom_effect_tooltip = econ_misc_income_add_small_increase
+	}
+} 
+
+#Focus for The Short Term Goals of Mitsubishi
+shared_focus = { 
+	id = JAP_the_short_term_goals_of_mitsubishi
+	icon = GFX_generic_change_law_welfare
+	relative_position_id = JAP_assessing_situational_policies
+	x = -1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_assessing_situational_policies } 
+	mutually_exclusive = { focus = JAP_the_long_term_benefits_of_mitsui } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_the_short_term_goals_of_mitsubishi"
+		
+		add_political_power = 70
+	}
+} 
+
+#Focus for Contracts to the Merchant Fleets
+shared_focus = { 
+	id = JAP_contracts_to_the_merchant_fleets
+	icon = GFX_generic_change_law_trade
+	relative_position_id = JAP_the_short_term_goals_of_mitsubishi
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_the_short_term_goals_of_mitsubishi } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_contracts_to_the_merchant_fleets"
+		
+		add_to_variable = { misc_costs = 1500 }
+		add_to_variable = { gdp_growth = 0.0025 }
+		custom_effect_tooltip = econ_misc_expenses_add_small_increase
+		custom_effect_tooltip = econ_increase_GDP_growth_small
+	}
+} 
+
+#Focus for Incorporating UFJ
+shared_focus = { 
+	id = JAP_incorporating_ufj
+	icon = GFX_JAP_Make_the_Most_of_It_2
+	relative_position_id = JAP_contracts_to_the_merchant_fleets
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_contracts_to_the_merchant_fleets } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_incorporating_ufj"
+		
+		add_political_power = -70
+		add_to_variable = { gdp_growth = 0.0025 }
+		custom_effect_tooltip = econ_increase_GDP_growth_small
+	}
+} 
+
+#Focus for Getting our Share
+shared_focus = { 
+	id = JAP_getting_our_share
+	icon = GFX_JAP_Double_or_Nothing
+	relative_position_id = JAP_incorporating_ufj
+	x = -1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_power_and_chemistry } 
+	prerequisite = { focus = JAP_mitsubisui_automobile } 
+	prerequisite = { focus = JAP_incorporating_ufj } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_getting_our_share"
+		
+		add_to_variable = { misc_income = 2000 }
+		custom_effect_tooltip = econ_misc_income_add_small_increase
+	}
+} 
+
+#Focus for State Liquidities
+shared_focus = { 
+	id = JAP_state_liquidities
+	icon = GFX_TNO_generic_gold_coins
+	relative_position_id = JAP_expanding_mol
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_expanding_mol } 
+	prerequisite = { focus = JAP_spreading_moeco } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_state_liquidities"
+		
+		add_to_variable = { misc_costs = -3000 }
+		custom_effect_tooltip = econ_misc_income_add_small_increase
+	}
+} 
+
+#Focus for Responsible Central Banking
+shared_focus = { 
+	id = JAP_responsible_central_banking
+	icon = GFX_TNO_generic_gold_bars
+	relative_position_id = JAP_state_liquidities
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_state_liquidities } 
+	prerequisite = { focus = JAP_home_island_financing } 
+	prerequisite = { focus = JAP_revoking_the_contracts } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_responsible_central_banking"
+		
+		add_to_variable = { interest_rates = -0.005 }
+		custom_effect_tooltip = econ_debt_rate_generic_decrease
+	}
+} 
+
+#Focus for Encouraging Diversification
+shared_focus = { 
+	id = JAP_encouraging_diversification
+	icon = GFX_Generic_Industry
+	relative_position_id = JAP_home_island_financing
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_home_island_financing } 
+	prerequisite = { focus = JAP_revoking_the_contracts } 
+	prerequisite = { focus = JAP_state_liquidities } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_encouraging_diversification"
+		
+		add_to_variable = { gdp_growth = 0.003 }
+		custom_effect_tooltip = econ_increase_GDP_growth_small
+	}
+} 
+
+#Focus for The Innovations of Mitsubishi Research
+shared_focus = { 
+	id = JAP_the_innovations_of_mitsubishi_research
+	icon = GFX_TNO_generic_artificial_intelligence
+	relative_position_id = JAP_getting_our_share
+	x = -1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_getting_our_share } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_the_innovations_of_mitsubishi_research"
+		
+		tno_improve_research_facilities = yes
+	}
+} 
+
+#Focus for The Resources of Mitsubishi Material
+shared_focus = { 
+	id = JAP_the_resources_of_mitsubishi_material
+	icon = GFX_JAP_subcontinental_oil
+	relative_position_id = JAP_getting_our_share
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_getting_our_share } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_the_resources_of_mitsubishi_material"
+		random_owned_controlled_state ={
+			limit = {
+				is_core_of = JAP
+			}
+		 	add_resource = {
+				type = oil
+				amount = 5
+			}
+		}
+		random_owned_controlled_state ={
+			limit = {
+				is_core_of = JAP
+			}
+		 	add_resource = {
+				type = oil
+				amount = 5
+			}
+		}
+	}
+} 
+
+#Focus for Intervention and Legislation
+shared_focus = { 
+	id = JAP_intervention_and_legislation
+	icon = GFX_JAP_From_Colonies_to_Nations
+	relative_position_id = JAP_responsible_central_banking
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_responsible_central_banking } 
+	prerequisite = { focus = JAP_encouraging_diversification } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_intervention_and_legislation"
+		
+		add_political_power = -30
+		add_stability = 0.05
+	}
+} 
+
+#Focus for Arranging the Negotiations
+shared_focus = { 
+	id = JAP_arranging_the_negotiations
+	icon = GFX_JAP_Get_to_Work
+	x = 19
+	y = 0
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_adapt_and_appropriate } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_arranging_the_negotiations"
+		
+		add_political_power = -50
+	}
+} 
+
+#Focus for Halving the Garrisons
+shared_focus = { 
+	id = JAP_halving_the_garrisons
+	icon = GFX_JAP_Crippling_the_Army
+	relative_position_id = JAP_arranging_the_negotiations
+	x = -1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_arranging_the_negotiations } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_halving_the_garrisons"
+		
+		add_political_power = -50
+		768 = { set_demilitarized_zone = yes }
+		769 = { set_demilitarized_zone = yes }
+	}
+} 
+
+#Focus for Doubling our Presense
+shared_focus = { 
+	id = JAP_doubling_our_presense
+	icon = GFX_JAP_New_Showa_Warfare_2
+	relative_position_id = JAP_halving_the_garrisons
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_halving_the_garrisons } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_doubling_our_presense"
+		
+		increase_ija_strength_low = yes
+		add_to_variable = { national_debt = 5000 }
+		
+		629 = {
+			add_building_construction = {
+				type = fuel_silo
+				level = 2
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 2
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = air_base
+				level = 2
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				instant_build = yes
+				province = {
+					all_provinces = yes
+					limit_to_border = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 2
+		}
+	}
+} 
+
+#Focus for The Battle for the Pacific
+shared_focus = { 
+	id = JAP_the_battle_for_the_pacific
+	icon = GFX_JAP_Weathered_the_Storm
+	relative_position_id = JAP_arranging_the_negotiations
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_arranging_the_negotiations } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: JAP_the_battle_for_the_pacific"
+		
+		increase_ijn_strength_medium = yes
+		navy_experience = 50
+		custom_effect_tooltip = JAP_IJN_POWER_RAISED_MEDIUM_tt
+	}
+} 
+
+#Focus for Inflating the Aleutian Price
+shared_focus = { 
+	id = JAP_inflating_the_aleutian_price
+	icon = GFX_JAP_Kokka_Kyocho_Ho
+	relative_position_id = JAP_the_battle_for_the_pacific
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_the_battle_for_the_pacific } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_inflating_the_aleutian_price"
+		
+		772 = {
+			set_state_category = small_island
+		}
+	}
+} 
+
+#Focus for Sending the Note
+shared_focus = { 
+	id = JAP_sending_the_note
+	icon = GFX_goal_unknown
+	relative_position_id = JAP_doubling_our_presense
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_doubling_our_presense } 
+	prerequisite = { focus = JAP_inflating_the_aleutian_price } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_sending_the_note"
+		
+		#TODO: foreign policy stuff
+	}
+} 
+
+#Focus for Investment in Industry
+shared_focus = { 
+	id = JAP_investment_in_industry
+	icon = GFX_generic_diplomacy_industrial
+	relative_position_id = JAP_the_short_term_goals_of_mitsubishi
+	x = -2
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_the_short_term_goals_of_mitsubishi } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_investment_in_industry"
+		
+		add_to_variable = { national_debt = 7500 }
+		custom_effect_tooltip = econ_increase_debt_small
+	}
+} 
+
+#Focus for Take No Risks
+#Focus for Keeping Our Cool
+shared_focus = { 
+	id = JAP_keeping_our_cool
+	icon = GFX_JAP_cooler_heads
+	relative_position_id = JAP_sweeping_the_opposition
+	x = 0
+	y = 2
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_maintaining_a_majority } 
+	prerequisite = { focus = JAP_begin_deconstruction } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_keeping_our_cool"
+		
+		add_stability = 0.05
+	}
+} 
+
+#Focus for In for the Kill
+shared_focus = { 
+	id = JAP_in_for_the_kill
+	icon = GFX_Generic_Espionage
+	relative_position_id = JAP_keeping_our_cool
+	x = -1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_keeping_our_cool } 
+	mutually_exclusive = { focus = JAP_take_no_risks } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_in_for_the_kill"
+		
+		add_political_power = -50
+	}
+} 
+
+shared_focus = { 
+	id = JAP_take_no_risks
+	icon = GFX_Generic_Shady_Deal
+	relative_position_id = JAP_keeping_our_cool
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_keeping_our_cool } 
+	mutually_exclusive = { focus = JAP_in_for_the_kill } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_take_no_risks"
+		
+		add_political_power = 20
+	}
+} 
+
+#Focus for Keeping Them Isolated
+shared_focus = { 
+	id = JAP_keeping_them_isolated
+	icon = GFX_goal_unknown
+	relative_position_id = JAP_take_no_risks
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_take_no_risks } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_keeping_them_isolated"
+		
+		add_to_variable = { KAYA_SUPPORT = -15 }
+		add_to_variable = { IKEDA_SUPPORT = -15 }
+		add_to_variable = { TAKAGI_SUPPORT = -15 }
+	}
+} 
+
+
+#Focus for Splitting Their Wings
+shared_focus = { 
+	id = JAP_splitting_their_wings
+	icon = GFX_Generic_Political_Purge
+	relative_position_id = JAP_keeping_them_isolated
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_keeping_them_isolated } 
+	prerequisite = { focus = JAP_a_steady_decline } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_splitting_their_wings"
+		
+		decrease_party_unity_low = yes
+		JAP_HoP_support_increase_small = yes
+		add_political_power = 50
+		custom_effect_tooltip = JAP_PARTY_UNITY_LOWERED_LOW_tt
+		custom_effect_tooltip = JAP_PEERS_OPINION_RAISED_LOW_tt
+	}
+} 
+
+#Focus for Wooing the Conservatives
+shared_focus = { 
+	id = JAP_wooing_the_conservatives
+	icon = GFX_Generic_Social_Conservative
+	relative_position_id = JAP_in_for_the_kill
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_in_for_the_kill } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_wooing_the_conservatives"
+		
+		add_political_power = 50
+		add_to_variable = { KIDO_SUPPORT = 15 }
+		custom_effect_tooltip = JAP_DIET_SUPPORT_RAISED_LOW_tt
+	}
+} 
+
+#Focus for The Ends Justifies the Means
+shared_focus = { 
+	id = JAP_the_ends_justifies_the_means
+	icon = GFX_JAP_Better_Party_Structure
+	relative_position_id = JAP_wooing_the_conservatives
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_deals_with_the_reform_bureaucrats } 
+	prerequisite = { focus = JAP_wooing_the_conservatives } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_the_ends_justifies_the_means"
+		
+		increase_party_unity_medium = yes
+		custom_effect_tooltip = JAP_PARTY_UNITY_RAISED_MEDIUM_tt
+	}
+} 
+
+#Focus for The Final Defense Against Militarism
+shared_focus = { 
+	id = JAP_the_final_defense_against_militarism
+	icon = GFX_Generic_Authoritarian_Conscription
+	relative_position_id = JAP_the_ends_justifies_the_means
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { 
+		focus = JAP_the_ends_justifies_the_means 
+		focus = JAP_splitting_their_wings 
+	} 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_the_final_defense_against_militarism"
+		
+		decrease_tension_low = yes
+		decrease_ija_strength_medium = yes
+		decrease_ijn_strength_medium = yes
+		custom_effect_tooltip = JAP_JAP_TENSION_LOWERED_LOW_tt
+		custom_effect_tooltip = JAP_IJA_POWER_LOWERED_MEDIUM_tt
+		custom_effect_tooltip = JAP_IJN_POWER_LOWERED_MEDIUM_tt
+	}
+} 
+
+#Focus for A Steady Decline
+shared_focus = { 
+	id = JAP_a_steady_decline
+	icon = GFX_JAP_solidify_the_peers
+	relative_position_id = JAP_take_no_risks
+	x = 2
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_take_no_risks } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_a_steady_decline"
+		
+		increase_party_unity_low = yes
+		JAP_HoP_support_increase_small = yes
+		custom_effect_tooltip = JAP_PARTY_UNITY_RAISED_LOW_tt
+		custom_effect_tooltip = JAP_PEERS_OPINION_RAISED_LOW_tt
+	}
+} 
+
+
+#Focus for Maintaining a Majority
+shared_focus = { 
+	id = JAP_maintaining_a_majority
+	icon = GFX_generic_elections
+	relative_position_id = JAP_sweeping_the_opposition
+	x = -1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_sweeping_the_opposition } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_maintaining_a_majority"
+		
+		add_to_variable = { KIDO_SEATS = 24 }
+		custom_effect_tooltip = JAP_DIET_SUPPORT_RAISED_MEDIUM_tt
+	}
+} 
+
+#Focus for Begin Deconstruction
+shared_focus = { 
+	id = JAP_begin_deconstruction
+	icon = GFX_goal_unknown
+	relative_position_id = JAP_sweeping_the_opposition
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_sweeping_the_opposition } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_begin_deconstruction"
+		
+		add_to_variable = { KAYA_SEATS = -8 }
+		add_to_variable = { IKEDA_SEATS = -8 }
+		add_to_variable = { TAKAGI_SEATS = -8 }
+	}
+}
+
+#Focus for Deals with the Reform Bureaucrats
+shared_focus = { 
+	id = JAP_deals_with_the_reform_bureaucrats
+	icon = GFX_JAP_Make_Promises_to_the_Bureaucrats
+	relative_position_id = JAP_in_for_the_kill
+	x = -2
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_in_for_the_kill } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_deals_with_the_reform_bureaucrats"
+		
+		add_political_power = 70
+		add_to_variable = { KIDO_SUPPORT = 15 }
+		custom_effect_tooltip = JAP_DIET_SUPPORT_RAISED_MEDIUM_tt
+	}
+} 
+
+#Focus for Power and Chemistry
+shared_focus = { 
+	id = JAP_power_and_chemistry
+	icon = GFX_JAP_Standardizing_Heavy_Industry
+	relative_position_id = JAP_investment_in_industry
+	x = -2
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_investment_in_industry } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_power_and_chemistry"
+		
+		tno_improve_industrial_equipment = yes
+	}
+} 
+
+#Focus for Mitsubishi Automobile
+shared_focus = { 
+	id = JAP_mitsubisui_automobile
+	icon = GFX_JAP_Kokka_Sangyo_Ho
+	relative_position_id = JAP_investment_in_industry
+	x = 0
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { focus = JAP_investment_in_industry } 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_mitsubisui_automobile"
+		
+		random_owned_controlled_state = {
+			limit = {
+				industrial_complex > 1
+				is_core_of = JAP
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 2
+		}
+	}
+} 
+
+#Focus for Adapt and Appropriate
+shared_focus = { 
+	id = JAP_adapt_and_appropriate
+	icon = GFX_JAP_Never_Been_Better
+	relative_position_id = JAP_the_resources_of_mitsubishi_material
+	x = 1
+	y = 1
+	cost = 5
+	available_if_capitulated = yes 
+	prerequisite = { 
+		focus = JAP_the_innovations_of_mitsubishi_research 
+		focus = JAP_intervention_and_legislation
+	} 
+	prerequisite = { 
+		focus = JAP_the_resources_of_mitsubishi_material 
+		focus = JAP_intervention_and_legislation 
+	} 
+	ai_will_do = { 
+		factor = 1
+	} 
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_adapt_and_appropriate"
+		
+		add_stability = 0.05
+	}
+} 
+###################
+#Kido Reconstruction#
+###################
+
+shared_focus = {
+	id = JAP_kido_Tend_to_the_Country
+	icon = GFX_generic_labor
+	allow_branch = {
+		has_country_flag = JAP_Kido_Recon
+	}
+	x = 18
+	y = 20
+	cost = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Tend_to_the_Country"
+		country_event = {
+			id = japkidoreconstruction.1
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_The_Imperial_Economy
+	icon = GFX_JAP_Double_or_Nothing
+	relative_position_id = JAP_kido_Tend_to_the_Country
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Tend_to_the_Country
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_The_Imperial_Economy"
+		add_to_variable = {
+			GDP_growth = 0.01
+		}
+		custom_effect_tooltip = econ_increase_GDP_small
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Relations_In_The_Sphere
+	icon = GFX_VIN_Co_Prosperity_Sphere
+	relative_position_id = JAP_kido_Tend_to_the_Country
+	x = -12
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Tend_to_the_Country
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Relations_In_The_Sphere"
+		add_political_power = 50
+		country_event = {
+			id = japkidoreconstruction.3
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Foreign_Diplomacy
+	icon = GFX_TNO_generic_international_diplomacy
+	relative_position_id = JAP_kido_Tend_to_the_Country
+	x = 12
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Tend_to_the_Country
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Foreign_Diplomacy"
+		add_timed_idea = {
+			idea = JAP_kido_foreign_diplomacy_idea
+			days = 150
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Reestablishing_Personal_Contacts
+	icon = GFX_JAP_Make_New_Friends
+	relative_position_id = JAP_kido_The_Imperial_Economy
+	x = -2
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_The_Imperial_Economy
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Reestablishing_Personal_Contacts"
+		add_stability = 0.05
+		
+		add_to_variable = {
+			national_debt = 500
+		}
+		custom_effect_tooltip = econ_jap_debt_increase_half
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Favoritism_in_the_Economy
+	icon = GFX_JAP_useful_zaibatsus
+	relative_position_id = JAP_kido_Reestablishing_Personal_Contacts
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Reestablishing_Personal_Contacts
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Favoritism_in_the_Economy"
+		tno_income_taxation_worsen = yes
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Loans_for_Favors
+	icon = GFX_Generic_Shady_Deal
+	relative_position_id = JAP_kido_Favoritism_in_the_Economy
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Favoritism_in_the_Economy
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Loans_for_Favors"
+		add_ideas = JAP_kido_loans_for_favors
+		
+		add_to_variable = {
+			misc_income = 2000
+		}
+		custom_effect_tooltip = econ_jap_income_add_two
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_The_Benevolent_Government
+	icon = GFX_JAP_national_diet
+	relative_position_id = JAP_kido_The_Imperial_Economy
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_The_Imperial_Economy
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_The_Benevolent_Government"
+		
+		hidden_effect = {
+			every_owned_state = {
+				limit = {
+					JAP_can_have_elections_in_state = yes
+					OR = {
+						check_variable = { nationality = 65  } #korean
+						check_variable = { nationality = 66 } #ainu
+						check_variable = { nationality = 194 } #taiwanese
+					}
+				}
+				add_to_variable = { PUBLIC_APPROVAL = 5 }
+				clamp_variable = {
+					var = PUBLIC_APPROVAL
+					max = 100
+					min = 0
+				}
+			}
+		}
+		custom_effect_tooltip = JAP_PUBLIC_APPROVAL_RAISED_LOW_tt
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Accept_the_Corporate_Influence
+	icon = GFX_JAP_Our_Presence_is_Everywhere
+	relative_position_id = JAP_kido_The_Benevolent_Government
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_The_Benevolent_Government
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Accept_the_Corporate_Influence"
+		add_political_power = -100
+		add_to_variable = { misc_income = 1000 }
+		custom_effect_tooltip = econ_jap_income_add_one
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Lower_the_Interest_Rates
+	icon = GFX_goal_generic_graph_rising
+	relative_position_id = JAP_kido_Accept_the_Corporate_Influence
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Accept_the_Corporate_Influence
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Lower_the_Interest_Rates"
+		subtract_from_variable = {
+			interest_rates = 0.01
+		}
+		custom_effect_tooltip = econ_interest_rates_lower
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Expand_Civilian_Industry
+	icon = GFX_Generic_Industry
+	relative_position_id = JAP_kido_The_Imperial_Economy
+	x = 2
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_The_Imperial_Economy
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Expand_Civilian_Industry"
+		random_owned_controlled_state = {
+			limit = {
+				industrial_complex > 1
+				is_core_of = JAP
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_controlled_state = {
+			limit = {
+				industrial_complex > 1
+				is_core_of = JAP
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_controlled_state = {
+			limit = {
+				industrial_complex > 1
+				is_core_of = JAP
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Put_the_Military_in_Its_Place
+	icon = GFX_JAP_The_Militaries_Friendly_Rivalry
+	relative_position_id = JAP_kido_Expand_Civilian_Industry
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Expand_Civilian_Industry
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Put_the_Military_in_Its_Place"
+		add_war_support = -0.1
+		subtract_from_variable = {
+			IJA_Power = 5
+		}
+		clamp_variable = {
+			var = IJA_Power
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_IJA_POWER_LOWERED_LOW_tt
+		subtract_from_variable = {
+			IJN_Power = 5
+		}
+		clamp_variable = {
+			var = IJN_Power
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_IJN_POWER_LOWERED_LOW_tt
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Redirect_the_Investments
+	icon = GFX_Generic_Controlled_Economy
+	relative_position_id = JAP_kido_Put_the_Military_in_Its_Place
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Put_the_Military_in_Its_Place
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Redirect_the_Investments"
+		random_owned_controlled_state = {
+			limit = {
+				arms_factory > 1
+				is_core_of = JAP
+			}
+			remove_building = {
+				type = arms_factory
+				level = 1
+			}
+		}
+		random_owned_controlled_state = {
+			limit = {
+				arms_factory > 1
+				is_core_of = JAP
+			}
+			remove_building = {
+				type = arms_factory
+				level = 1
+			}
+		}
+		add_to_variable = {
+			money_reserves = 2000
+		}
+		custom_effect_tooltip = econ_jap_money_reserve_increase_two
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Ready_for_a_Change
+	icon = GFX_JAP_Deciding_Our_Policy
+	relative_position_id = JAP_kido_Lower_the_Interest_Rates
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Loans_for_Favors
+	}
+	prerequisite = {
+		focus = JAP_kido_Lower_the_Interest_Rates
+	}
+	prerequisite = {
+		focus = JAP_kido_Redirect_the_Investments
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Ready_for_a_Change"
+		add_political_power = 100
+		country_event = {
+			id = japkidoreconstruction.8
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_The_Rising_Sun
+	icon = GFX_JAP_the_empire
+	relative_position_id = JAP_kido_Ready_for_a_Change
+	x = -4
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Ready_for_a_Change
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_Fight_the_Militarys_Influence
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_The_Rising_Sun"
+		add_political_power = 50
+		subtract_from_variable = {
+			JAP_Tension = 10
+		}
+		clamp_variable = {
+			var = JAP_Tension
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_JAP_TENSION_LOWERED_LOW_tt
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Controlling_the_Money_Routes
+	icon = GFX_TNO_generic_gold_coins
+	relative_position_id = JAP_kido_The_Rising_Sun
+	x = -2
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_The_Rising_Sun
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Controlling_the_Money_Routes"
+		add_to_variable = {
+			GDP_growth = 0.001
+		}
+		custom_effect_tooltip = econ_increase_GDP_small
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_More_Careful_Investments
+	icon = GFX_Generic_Foreign_Investment
+	relative_position_id = JAP_kido_Controlling_the_Money_Routes
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Controlling_the_Money_Routes
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_More_Careful_Investments"
+		random_owned_controlled_state = {
+			limit = {
+				industrial_complex > 1
+				is_core_of = JAP
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_controlled_state = {
+			limit = {
+				dockyard > 1
+				is_core_of = JAP
+			}
+			add_building_construction = {
+				type = dockyard
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_core_of = JAP
+			}
+			add_building_construction = {
+				type = synthetic_refinery
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+		
+		add_to_variable = {
+			GDP_growth = 0.001
+		}
+		custom_effect_tooltip = econ_increase_GDP_small
+		
+		add_to_variable = {
+			national_debt = 5000
+		}
+		custom_effect_tooltip = econ_jap_debt_increase_five
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Controlled_Corruption
+	icon = GFX_Generic_Organized_Crime
+	relative_position_id = JAP_kido_More_Careful_Investments
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_More_Careful_Investments
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Controlled_Corruption"
+		add_ideas = JAP_kido_corruption_on_a_leash
+		add_to_variable = { misc_income = 2000 }
+		custom_effect_tooltip = econ_jap_income_add_two
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Benefits_of_the_Cheap_Yen
+	icon = GFX_VIN_Power_of_Yen
+	relative_position_id = JAP_kido_The_Rising_Sun
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_The_Rising_Sun
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Benefits_of_the_Cheap_Yen"
+		add_to_variable = {
+			GDP_growth = 0.005
+		}
+		custom_effect_tooltip = econ_increase_GDP_small
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Finding_New_Markets
+	icon = GFX_generic_diplomacy_trade
+	relative_position_id = JAP_kido_Benefits_of_the_Cheap_Yen
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Benefits_of_the_Cheap_Yen
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Finding_New_Markets"
+		tno_trade_laws_worsen = yes
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Look_out_of_the_Sphere
+	icon = GFX_TNO_generic_world
+	relative_position_id = JAP_kido_Finding_New_Markets
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Finding_New_Markets
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Look_out_of_the_Sphere"
+		add_ideas = JAP_kido_international_trade
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Stakes_in_the_Colonies
+	icon = GFX_JAP_From_Colonies_to_Nations
+	relative_position_id = JAP_kido_The_Rising_Sun
+	x = 2
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_The_Rising_Sun
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Stakes_in_the_Colonies"
+		
+		every_other_country = {
+			limit = {
+				is_in_faction_with = JAP
+			}
+			add_ideas = JAP_kido_colony_control_1
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Retaking_Control
+	icon = GFX_TNO_generic_spying_assassination
+	relative_position_id = JAP_kido_Stakes_in_the_Colonies
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Stakes_in_the_Colonies
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Retaking_Control"
+		
+		every_other_country = {
+			limit = {
+				is_in_faction_with = JAP
+			}
+			swap_ideas = {
+				remove_idea = JAP_kido_colony_control_1
+				add_idea = JAP_kido_colony_control_2
+			}
+			add_opinion_modifier = {
+				target = JAP
+				modifier = JAP_kido_resource_demands
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Using_the_Corporate_Influence
+	icon = GFX_JAP_Make_Promises_to_the_Bureaucrats
+	relative_position_id = JAP_kido_Retaking_Control
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Retaking_Control
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Using_the_Corporate_Influence"
+		country_event = japkidoreconstruction.14
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Export_Oriented_Economy
+	icon = GFX_generic_change_law_trade
+	relative_position_id = JAP_kido_Look_out_of_the_Sphere
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Controlled_Corruption
+	}
+	prerequisite = {
+		focus = JAP_kido_Look_out_of_the_Sphere
+	}
+	prerequisite = {
+		focus = JAP_kido_Using_the_Corporate_Influence
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Export_Oriented_Economy"
+		swap_ideas = {
+			remove_idea = JAP_kido_international_trade
+			add_idea = JAP_kido_export_focused_economy
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Fight_the_Militarys_Influence
+	icon = GFX_JAP_Staving_off_the_Beast
+	relative_position_id = JAP_kido_Ready_for_a_Change
+	x = 4
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Ready_for_a_Change
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_The_Rising_Sun
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Fight_the_Militarys_Influence"
+		add_political_power = -75
+		add_war_support = -0.05
+		subtract_from_variable = {
+			IJA_Power = 5
+		}
+		clamp_variable = {
+			var = IJA_Power
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_IJA_POWER_LOWERED_LOW_tt
+		subtract_from_variable = {
+			IJN_Power = 5
+		}
+		clamp_variable = {
+			var = IJN_Power
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_IJN_POWER_LOWERED_LOW_tt
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Redirect_Money_to_the_Zaibatsu
+	icon = GFX_JAP_old_zaibatsus
+	relative_position_id = JAP_kido_Fight_the_Militarys_Influence
+	x = 0
+	y = 2
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Fight_the_Militarys_Influence
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Redirect_Money_to_the_Zaibatsu"
+		add_timed_idea = {
+			idea = JAP_kido_redirected_funds
+			days = 360
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Reduce_Unemployment
+	icon = GFX_generic_change_law_labor
+	relative_position_id = JAP_kido_Redirect_Money_to_the_Zaibatsu
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Redirect_Money_to_the_Zaibatsu
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Reduce_Unemployment"
+		tno_unemployment_improve = yes
+		tno_minimum_wage_improve = yes
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Market_at_Home
+	icon = GFX_JAP_For_the_Security_of_Commerce
+	relative_position_id = JAP_kido_Reduce_Unemployment
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Reduce_Unemployment
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Market_at_Home"
+		tno_economic_focus_worsen = yes
+		tno_trade_laws_improve = yes
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Focus_on_the_Army
+	icon = GFX_JAP_Crippling_the_Army
+	relative_position_id = JAP_kido_Fight_the_Militarys_Influence
+	x = -2
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Fight_the_Militarys_Influence
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_Focus_on_the_Navy
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Focus_on_the_Army"
+		army_experience = -50
+		subtract_from_variable = {
+			IJA_Power = 5
+		}
+		clamp_variable = {
+			var = IJA_Power
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_IJA_POWER_LOWERED_LOW_tt
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Dubious_Projects
+	icon = GFX_JAP_gas_gas_gas
+	relative_position_id = JAP_kido_Focus_on_the_Army
+	x = 0
+	y = 2
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Focus_on_the_Army
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Dubious_Projects"
+		add_tech_bonus = {
+			bonus = 0.15
+			uses = 1
+			category = engineers_tech
+			category = radar_tech
+		}
+		add_tech_bonus = {
+			bonus = 0.15
+			uses = 1
+			category = helicopter
+			category = stealth
+		}
+		add_tech_bonus = {
+			bonus = 0.15
+			uses = 1
+			category = encryption_tech
+			category = decryption_tech
+		}
+		
+		country_event = {
+			id = japkidoreconstruction.9
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Slash_the_Expenditure
+	icon = GFX_JAP_imperial_rule_free_from_corruption
+	relative_position_id = JAP_kido_Dubious_Projects
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Dubious_Projects
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Slash_the_Expenditure"
+		tno_training_worsen = yes
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Focus_on_the_Navy
+	icon = GFX_JAP_subdue_the_navy
+	relative_position_id = JAP_kido_Fight_the_Militarys_Influence
+	x = 2
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Fight_the_Militarys_Influence
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_Focus_on_the_Army
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Focus_on_the_Navy"
+		navy_experience = -50
+		subtract_from_variable = {
+			IJN_Power = 5
+		}
+		clamp_variable = {
+			var = IJN_Power
+			max = 100
+			min = 0
+		}
+		custom_effect_tooltip = JAP_IJN_POWER_LOWERED_LOW_tt
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Investigate_the_Hawaii_Case
+	icon = GFX_TNO_generic_investigation
+	relative_position_id = JAP_kido_Focus_on_the_Navy
+	x = 0
+	y = 2
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Focus_on_the_Navy
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Investigate_the_Hawaii_Case"
+		add_political_power = -50
+		add_stability = -0.05
+		add_to_variable = {
+			national_debt = 500
+		}
+		country_event = {
+			id = japkidoreconstruction.10
+		}
+		custom_effect_tooltip = econ_jap_debt_increase_half
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Blame_the_Leadership
+	icon = GFX_JAP_Make_Them_Bend
+	relative_position_id = JAP_kido_Investigate_the_Hawaii_Case
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Investigate_the_Hawaii_Case
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Blame_the_Leadership"
+		navy_experience = -50
+		random_navy_leader = {
+			retire = yes
+		}
+		every_navy_leader = {
+			add_timed_unit_leader_trait = {
+				trait = disgruntled
+				days = 150
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_A_Civilian_Economy
+	icon = GFX_Generic_Good_Economy
+	relative_position_id = JAP_kido_Market_at_Home
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Market_at_Home
+	}
+	prerequisite = {
+		focus = JAP_kido_Slash_the_Expenditure
+		focus = JAP_kido_Blame_the_Leadership
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_A_Civilian_Economy"
+		hidden_effect = {
+			every_owned_state = {
+				limit = {
+					JAP_can_have_elections_in_state = yes
+					OR = {
+						check_variable = { nationality = 65  } #korean
+						check_variable = { nationality = 66 } #ainu
+						check_variable = { nationality = 194 } #taiwanese
+					}
+				}
+				add_to_variable = { PUBLIC_APPROVAL = 2 }
+				clamp_variable = {
+					var = PUBLIC_APPROVAL
+					max = 100
+					min = 0
+				}
+			}
+		}
+		tno_improve_poverty = yes
+		custom_effect_tooltip = JAP_PUBLIC_APPROVAL_RAISED_LOW_tt
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Outcome_of_the_Indonesian_Insurgency
+	icon = GFX_JAP_PM_Kido
+	relative_position_id = JAP_kido_Relations_In_The_Sphere
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Relations_In_The_Sphere
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Outcome_of_the_Indonesian_Insurgency"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Start_Repairing_the_Relations #Defeat
+	icon = GFX_JAP_PM_Kido
+	relative_position_id = JAP_kido_Outcome_of_the_Indonesian_Insurgency
+	x = -2
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Outcome_of_the_Indonesian_Insurgency
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_Start_the_Deescalation
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_Increase_the_Garrisons
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Start_Repairing_the_Relations"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Buy_Their_Politicians
+	icon = GFX_JAP_PM_Kido
+	relative_position_id = JAP_kido_Start_Repairing_the_Relations
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Start_Repairing_the_Relations
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Buy_Their_Politicians"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Use_New_Influence
+	icon = GFX_JAP_PM_Kido
+	relative_position_id = JAP_kido_Buy_Their_Politicians
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Buy_Their_Politicians
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Use_New_Influence"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Start_the_Deescalation #Ongoing
+	icon = GFX_JAP_PM_Kido
+	relative_position_id = JAP_kido_Outcome_of_the_Indonesian_Insurgency
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Outcome_of_the_Indonesian_Insurgency
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_Start_Repairing_the_Relations
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_Increase_the_Garrisons
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Start_the_Deescalation"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Lower_the_Military_Presence
+	icon = GFX_JAP_PM_Kido
+	relative_position_id = JAP_kido_Start_the_Deescalation
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Start_the_Deescalation
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Lower_the_Military_Presence"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Start_the_Negotiations
+	icon = GFX_JAP_PM_Kido
+	relative_position_id = JAP_kido_Lower_the_Military_Presence
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Lower_the_Military_Presence
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Start_the_Negotiations"
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Increase_the_Garrisons
+	icon = GFX_TNO_generic_military_contacts
+	relative_position_id = JAP_kido_Outcome_of_the_Indonesian_Insurgency
+	x = 2
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Outcome_of_the_Indonesian_Insurgency
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_Start_Repairing_the_Relations
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_Start_the_Deescalation
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Increase_the_Garrisons"
+		add_manpower = -10000
+		INS = {
+			add_manpower = 10000
+			country_event = {
+				id = japkidoreconstruction.6
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Take_Control_of_the_Forests
+	icon = GFX_Generic_Army_Focus_Green
+	relative_position_id = JAP_kido_Increase_the_Garrisons
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Increase_the_Garrisons
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Take_Control_of_the_Forests"
+		add_tech_bonus = {
+			bonus = 0.85
+			uses = 1
+			category = mountaineers_tech
+			category = marine_tech
+			category = para_tech
+		}
+		INS = {
+			add_ideas = JAP_kido_komando_pasukan_khusus
+			country_event = {
+				id = japkidoreconstruction.7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Limited_Concessions
+	icon = GFX_Generic_Liberty_Handshake
+	relative_position_id = JAP_kido_Take_Control_of_the_Forests
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Take_Control_of_the_Forests
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Limited_Concessions"
+		add_political_power = -100
+		add_stability = 0.05
+		INS = {
+			add_political_power = 75
+			add_stability = 0.05
+			country_event = {
+				id = japkidoreconstruction.7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Revisiting_China
+	icon = GFX_JAP_next_step
+	relative_position_id = JAP_kido_Relations_In_The_Sphere
+	x = -5
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Relations_In_The_Sphere
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Revisiting_China"
+		add_opinion_modifier = {
+			target = CHI
+			modifier = JAP_kido_man_relations
+		}
+		reverse_add_opinion_modifier = {
+			target = CHI
+			modifier = JAP_kido_man_relations
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Keep_up_the_Investments
+	icon = GFX_CHI_Modern_Construction_Equipment
+	relative_position_id = JAP_kido_Revisiting_China
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Revisiting_China
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Keep_up_the_Investments"
+		country_event = {
+			id = japkidoreconstruction.23
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Support_our_Corporations
+	icon = GFX_Generic_Authoritarian_Democracy
+	relative_position_id = JAP_kido_Keep_up_the_Investments
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Keep_up_the_Investments
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Support_our_Corporations"
+		add_timed_idea = {
+			idea = JAP_kido_corporate_support
+			days = 150
+		}
+		CHI = {
+			add_timed_idea = {
+				idea = JAP_kido_japanese_corporations_reinforced
+				days = 150
+			}
+			country_event = {
+				id = japkidoreconstruction.27
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Tighten_the_Grip
+	icon = GFX_Generic_Authoritarian_Conscription
+	relative_position_id = JAP_kido_Support_our_Corporations
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Support_our_Corporations
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Tighten_the_Grip"
+		add_opinion_modifier = {
+			target = CHI
+			modifier = JAP_kido_tightened_grip
+		}
+		reverse_add_opinion_modifier = {
+			target = CHI
+			modifier = JAP_kido_tightened_grip
+		}
+		
+		add_to_variable = {
+			national_debt = 500
+		}
+		custom_effect_tooltip = econ_jap_debt_increase_half
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Our_Manchukuo
+	icon = GFX_JAP_Rein_in_the_Kwantung_Army
+	relative_position_id = JAP_kido_Relations_In_The_Sphere
+	x = 5
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Relations_In_The_Sphere
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Our_Manchukuo"
+		add_opinion_modifier = {
+			target = MAN
+			modifier = JAP_kido_man_relations
+		}
+		reverse_add_opinion_modifier = {
+			target = MAN
+			modifier = JAP_kido_man_relations
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Deal_with_the_Corruption
+	icon = GFX_Generic_Smash_State
+	relative_position_id = JAP_kido_Our_Manchukuo
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Our_Manchukuo
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Deal_with_the_Corruption"
+		country_event = {
+			id = japkidoreconstruction.16
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Shake_up_the_Leadership
+	icon = GFX_Generic_Espionage
+	relative_position_id = JAP_kido_Deal_with_the_Corruption
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Deal_with_the_Corruption
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Shake_up_the_Leadership"
+		MAN = {
+			add_timed_idea = {
+				idea = JAP_kido_leadership_shake_up
+				days = 70
+			}
+			country_event = {
+				id = japkidoreconstruction.20
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = japkidoreconstruction.21
+				days = 75
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Money_for_Loyalty
+	icon = GFX_TNO_generic_gold_bars
+	relative_position_id = JAP_kido_Shake_up_the_Leadership
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Shake_up_the_Leadership
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Money_for_Loyalty"
+		add_opinion_modifier = {
+			target = MAN
+			modifier = JAP_kido_purchased_loyalty
+		}
+		reverse_add_opinion_modifier = {
+			target = MAN
+			modifier = JAP_kido_purchased_loyalty
+		}
+		hidden_effect = {
+			MAN = {
+				add_to_variable = {
+					money_reserves = 500
+				}
+				country_event = {
+					id = japkidoreconstruction.22
+				}
+			}
+		}
+		custom_effect_tooltip = econ_kido_man_payments
+		add_to_variable = {
+			national_debt = 500
+		}
+		custom_effect_tooltip = econ_jap_debt_increase_half
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Ever_Strong
+	icon = GFX_JAP_Never_Been_Better
+	relative_position_id = JAP_kido_Start_the_Negotiations
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Use_New_Influence
+		focus = JAP_kido_Start_the_Negotiations
+		focus = JAP_kido_Limited_Concessions
+	}
+	prerequisite = {
+		focus = JAP_kido_Tighten_the_Grip
+	}
+	prerequisite = {
+		focus = JAP_kido_Money_for_Loyalty
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Ever_Strong"
+		add_political_power = 150
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Treaty_Ports_Negotiations
+	icon = GFX_RAJ_india_diplomatic_usa
+	relative_position_id = JAP_kido_Foreign_Diplomacy
+	x = 4
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Foreign_Diplomacy
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Treaty_Ports_Negotiations"
+		country_event = {
+			id = japkidoreconstruction.4
+		}
+		hidden_effect = {
+			USA = {
+				country_event = {
+					id = japkidoreconstruction.5
+					days = 3
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Being_Considerate
+	#PORTS ARE DEMILITARIZED, GIVEN BACK TO THE US IN AN AGREED AMOUNT OF MONTHS, AMERICAN AND JAPANESE BUSINESS START TO COOPERATE
+	icon = GFX_JAP_Treaty_Generic
+	relative_position_id = JAP_kido_Treaty_Ports_Negotiations
+	x = -2
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Treaty_Ports_Negotiations
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_A_Strong_Appearance
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Being_Considerate"
+		768 = {
+			set_demilitarized_zone = yes
+		}
+		769 = {
+			set_demilitarized_zone = yes
+		}
+		hidden_effect = {
+			USA = {
+				country_event = {
+					id = japkidoreconstruction.28
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Contact_the_Business_Groups
+	icon = GFX_Generic_Constitution02
+	relative_position_id = JAP_kido_Being_Considerate
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Being_Considerate
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Contact_the_Business_Groups"
+		add_opinion_modifier = {
+			target = USA
+			modifier = JAP_kido_business_contacts
+		}
+		reverse_add_opinion_modifier = {
+			target = USA
+			modifier = JAP_kido_business_contacts
+		}
+		hidden_effect = {
+			USA = {
+				country_event = {
+					id = japkidoreconstruction.29
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_An_Atmosphere_of_Cooperation
+	icon = GFX_generic_diplomacy_peace
+	relative_position_id = JAP_kido_Contact_the_Business_Groups
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Contact_the_Business_Groups
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_An_Atmosphere_of_Cooperation"
+		add_opinion_modifier = {
+			target = USA
+			modifier = JAP_kido_cooperative_atmosphere
+		}
+		reverse_add_opinion_modifier = {
+			target = USA
+			modifier = JAP_kido_cooperative_atmosphere
+		}
+		hidden_effect = {
+			USA = {
+				country_event = {
+					id = japkidoreconstruction.30
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_a_diplomatic_victory
+	icon = GFX_generic_liberty
+	relative_position_id = JAP_kido_An_Atmosphere_of_Cooperation
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_An_Atmosphere_of_Cooperation
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_a_diplomatic_victory"
+		add_opinion_modifier = {
+			target = USA
+			modifier = JAP_kido_treaty_port_solution
+		}
+		reverse_add_opinion_modifier = {
+			target = USA
+			modifier = JAP_kido_treaty_port_solution
+		}
+		hidden_effect = {
+			USA = {
+				country_event = {
+					id = japkidoreconstruction.31
+				}
+				country_event = {
+					id = japkidoreconstruction.32
+					days = 120
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_A_Strong_Appearance
+	#PORTS ARE GIVEN BACK IN A SET AMOUNT OF MONTHS(LONGER) FOR SOME CONCESSIONS FROM THE US(PAYMENTS, REMOVING THE WARHEADS, LOWERING THE MILITARY PRESENCE) 
+	icon = GFX_JAP_Our_Ships_Rule_The_Waves
+	relative_position_id = JAP_kido_Treaty_Ports_Negotiations
+	x = 2
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Treaty_Ports_Negotiations
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_Being_Considerate
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_A_Strong_Appearance"
+		add_opinion_modifier = {
+			target = USA
+			modifier = JAP_kido_treaty_port_stubborness
+		}
+		reverse_add_opinion_modifier = {
+			target = USA
+			modifier = JAP_kido_treaty_port_stubborness
+		}
+		add_war_support = 0.05
+		hidden_effect = {
+			USA = {
+				country_event = {
+					id = japkidoreconstruction.34
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Leveraging_the_Position
+	icon = GFX_JAP_cabinet_reshuffle
+	relative_position_id = JAP_kido_A_Strong_Appearance
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_A_Strong_Appearance
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Leveraging_the_Position"
+		hidden_effect = {
+		768 = {
+			add_building_construction = {
+				type = bunker
+				level = 1
+				instant_build = yes
+				province = 13285
+			}
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				instant_build = yes
+				province = 13285
+			}
+		}
+		769 = {
+			add_building_construction = {
+				type = bunker
+				level = 1
+				instant_build = yes
+				province = 13280
+			}
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				instant_build = yes
+				province = 13280
+			}
+		}
+		}
+		custom_effect_tooltip = jap_ikeda_treaty_port_forts
+		add_to_variable = {
+			national_debt = 500
+		}
+		custom_effect_tooltip = econ_jap_debt_increase_half
+		hidden_effect = {
+			USA = {
+				country_event = {
+					id = japkidoreconstruction.35
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Threatening_the_Americans
+	icon = GFX_JAP_rocketry
+	relative_position_id = JAP_kido_Leveraging_the_Position
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Leveraging_the_Position
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Threatening_the_Americans"
+		add_war_support = 0.1
+		add_opinion_modifier = {
+			target = USA
+			modifier = JAP_kido_treaty_port_threats
+		}
+		reverse_add_opinion_modifier = {
+			target = USA
+			modifier = JAP_kido_treaty_port_threats
+		}
+		hidden_effect = {
+			USA = {
+				country_event = {
+					id = japkidoreconstruction.36
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_An_Adequate_Compensation
+	icon = GFX_generic_diplomacy_political
+	relative_position_id = JAP_kido_Threatening_the_Americans
+	x = 0
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Threatening_the_Americans
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_An_Adequate_Compensation"
+		country_event = {
+			id = japkidoreconstruction.37
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Looking_West
+	icon = GFX_USA_The_Western_Plan
+	relative_position_id = JAP_kido_Foreign_Diplomacy
+	x = -3
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Foreign_Diplomacy
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Looking_West"
+		add_political_power = 150
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Presence_in_the_Persian_Gulf
+	icon = GFX_USA_Ready_the_Fleets
+	relative_position_id = JAP_kido_Looking_West
+	x = -1
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Looking_West
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_Look_to_the_Peninsula
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Presence_in_the_Persian_Gulf"
+		add_political_power = -25
+		add_opinion_modifier = {
+			target = PER
+			modifier = JAP_kido_per_relations
+		}
+		reverse_add_opinion_modifier = {
+			target = PER
+			modifier = JAP_kido_per_relations
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Dealing_with_Iran
+	icon = GFX_JAP_For_the_Projection_of_Power
+	relative_position_id = JAP_kido_Presence_in_the_Persian_Gulf
+	x = -1
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Presence_in_the_Persian_Gulf
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Dealing_with_Iran"
+		add_opinion_modifier = {
+			target = PER
+			modifier = JAP_kido_per_basing_rights
+		}
+		reverse_add_opinion_modifier = {
+			target = PER
+			modifier = JAP_kido_per_basing_rights
+		}
+		hidden_effect = {
+			PER = {
+				add_to_variable = {
+					misc_income = 100
+				}
+				country_event = {
+					id = japkidoreconstruction.2
+				}
+			}
+		}
+		custom_effect_tooltip = econ_jap_per_payments_monthly
+		add_to_variable = {
+			misc_costs = 100
+		}
+		custom_effect_tooltip = econ_jap_per_payments_monthly_kido
+		
+		hidden_effect = {
+			diplomatic_relation = {
+				country = PER
+				relation = docking_rights
+				active = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_Look_to_the_Peninsula
+	icon = GFX_generic_islam
+	relative_position_id = JAP_kido_Looking_West
+	x = 1
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Looking_West
+	}
+	mutually_exclusive = {
+		focus = JAP_kido_Presence_in_the_Persian_Gulf
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_Look_to_the_Peninsula"
+		add_political_power = -25
+		add_opinion_modifier = {
+			target = SAU
+			modifier = JAP_ikeda_diplomatic_efforts
+		}
+		reverse_add_opinion_modifier = {
+			target = SAU
+			modifier = JAP_ikeda_diplomatic_efforts
+		}
+	}
+}
+
+shared_focus = {
+	id = JAP_kido_The_Gold_of_Arabia
+	icon = GFX_IRQ_Oil_Deals
+	relative_position_id = JAP_kido_Look_to_the_Peninsula
+	x = 1
+	y = 1
+	cost = 5
+	prerequisite = {
+		focus = JAP_kido_Look_to_the_Peninsula
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus JAP_kido_The_Gold_of_Arabia"
+		add_opinion_modifier = {
+			target = SAU
+			modifier = JAP_ikeda_oil_deal
+		}
+		reverse_add_opinion_modifier = {
+			target = SAU
+			modifier = JAP_ikeda_oil_deal
+		}
+		hidden_effect = {
+			SAU = {
+				add_to_variable = {
+					money_reserves = 4000
+				}
+				country_event = {
+					id = japikedareconstruction.16
+				}
+			}
+		}
+		custom_effect_tooltip = econ_jap_sau_payments
+		add_to_variable = {
+			national_debt = 4000
+		}
+		custom_effect_tooltip = econ_jap_debt_increase_four
+	}
+}

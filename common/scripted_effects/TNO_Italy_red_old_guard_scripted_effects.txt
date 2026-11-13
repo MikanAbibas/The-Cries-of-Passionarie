@@ -1,0 +1,220 @@
+ITA_RED_setup_post_IGW_OG = {
+	hidden_effect = {
+		if = {
+			limit = { 
+				has_country_leader = {
+					name = "Pietro Secchia"
+					ruling_only = yes 
+				}
+			}
+			load_focus_tree = { tree = ITA_RED_secchia keep_completed = yes }
+		}
+		else_if = {
+			limit = { 
+				has_country_leader = {
+					name = "Onorato Damen"
+					ruling_only = yes 
+				}
+			}
+			load_focus_tree = { tree = ITA_RED_damen keep_completed = yes }
+		}
+	}
+}
+
+# Secchia Mechanic
+ITA_RED_secchia_setup = {
+	set_country_flag = ITA_RED_secchia_mechanic_active
+	add_dynamic_modifier = { modifier = ITA_RED_Secchia_CulRev_modifier }
+	set_variable = { ITA_RED_secchia_party = 40 }
+	set_variable = { ITA_RED_secchia_state = 55 }
+	set_variable = { ITA_RED_secchia_revolution = 70 }
+	set_variable = { ITA_RED_secchia_selected_area = 1 }
+	activate_mission = ITA_secchia_party_degrade
+	ITA_RED_secchia_math = yes 
+}
+
+ITA_RED_secchia_math = {
+	clamp_variable = { var = ITA_RED_secchia_party min = 0 max = 100 }
+	clamp_variable = { var = ITA_RED_secchia_state min = 0 max = 100 }
+	clamp_variable = { var = ITA_RED_secchia_revolution min = 0 max = 100 }
+	if = {
+		limit = { check_variable = { ITA_RED_secchia_party > 80 } }
+		set_variable = { ITA_RED_secchia_party_frame = 1 }
+	}
+	else_if = {
+		limit = { 
+			AND = {
+				check_variable = { ITA_RED_secchia_party < 81 }
+				check_variable = { ITA_RED_secchia_party > 60 } 
+			}
+		}
+		set_variable = { ITA_RED_secchia_party_frame = 2 }
+	}
+	else_if = {
+		limit = { 
+			AND = {
+				check_variable = { ITA_RED_secchia_party < 61 }
+				check_variable = { ITA_RED_secchia_party > 40 } 
+			}
+		}
+		set_variable = { ITA_RED_secchia_party_frame = 3 }
+	}
+	else_if = {
+		limit = { 
+			AND = {
+				check_variable = { ITA_RED_secchia_party < 41 }
+				check_variable = { ITA_RED_secchia_party > 20 } 
+			}
+		}
+		set_variable = { ITA_RED_secchia_party_frame = 4 }
+	}
+	else = {
+		set_variable = { ITA_RED_secchia_party_frame = 5 }
+	}
+	
+	if = {
+		limit = { check_variable = { ITA_RED_secchia_state > 80 } }
+		set_variable = { ITA_RED_secchia_state_frame = 1 }
+	}
+	else_if = {
+		limit = { 
+			AND = {
+				check_variable = { ITA_RED_secchia_state < 81 }
+				check_variable = { ITA_RED_secchia_state > 60 } 
+			}
+		}
+		set_variable = { ITA_RED_secchia_state_frame = 2 }
+	}
+	else_if = {
+		limit = { 
+			AND = {
+				check_variable = { ITA_RED_secchia_state < 61 }
+				check_variable = { ITA_RED_secchia_state > 40 } 
+			}
+		}
+		set_variable = { ITA_RED_secchia_state_frame = 3 }
+	}
+	else_if = {
+		limit = { 
+			AND = {
+				check_variable = { ITA_RED_secchia_state < 41 }
+				check_variable = { ITA_RED_secchia_state > 20 } 
+			}
+		}
+		set_variable = { ITA_RED_secchia_state_frame = 4 }
+	}
+	else = {
+		set_variable = { ITA_RED_secchia_state_frame = 5 }
+	}
+	
+	if = {
+		limit = { check_variable = { ITA_RED_secchia_revolution > 80 } }
+		set_variable = { ITA_RED_secchia_revolution_frame = 1 }
+	}
+	else_if = {
+		limit = { 
+			AND = {
+				check_variable = { ITA_RED_secchia_revolution < 81 }
+				check_variable = { ITA_RED_secchia_revolution > 60 } 
+			}
+		}
+		set_variable = { ITA_RED_secchia_revolution_frame = 2 }
+	}
+	else_if = {
+		limit = { 
+			AND = {
+				check_variable = { ITA_RED_secchia_revolution < 61 }
+				check_variable = { ITA_RED_secchia_revolution > 40 } 
+			}
+		}
+		set_variable = { ITA_RED_secchia_revolution_frame = 3 }
+	}
+	else_if = {
+		limit = { 
+			AND = {
+				check_variable = { ITA_RED_secchia_revolution < 41 }
+				check_variable = { ITA_RED_secchia_revolution > 20 } 
+			}
+		}
+		set_variable = { ITA_RED_secchia_revolution_frame = 4 }
+	}
+	else = {
+		set_variable = { ITA_RED_secchia_revolution_frame = 5 }
+	}
+	
+	# Dynmod shit
+	set_variable = { ITA_RED_secchia_party_dynmod = ITA_RED_secchia_party }
+	subtract_from_variable = { ITA_RED_secchia_party_dynmod = 50 }
+	divide_variable = { ITA_RED_secchia_party_dynmod = 200 }
+	
+	set_variable = { ITA_RED_secchia_revolution_dynmod = ITA_RED_secchia_revolution }
+	subtract_from_variable = { ITA_RED_secchia_revolution_dynmod = 50 }
+	divide_variable = { ITA_RED_secchia_revolution_dynmod = 20 }
+	
+	set_variable = { ITA_RED_secchia_state_dynmod = ITA_RED_secchia_state }
+	subtract_from_variable = { ITA_RED_secchia_state_dynmod = 50 }
+	set_variable = { ITA_RED_secchia_state_dynmod_percent = ITA_RED_secchia_state_dynmod }
+	divide_variable = { ITA_RED_secchia_state_dynmod_percent = 20 }
+	divide_variable = { ITA_RED_secchia_state_dynmod = -20 }
+}
+
+ITA_RED_secchia_party_tooltip = {
+	set_temp_variable = { ITA_RED_secchia_party_dynmod_tt = ITA_RED_secchia_party_tt }
+	divide_temp_variable = { ITA_RED_secchia_party_dynmod_tt = 200 }
+}
+ITA_RED_secchia_revolution_tooltip = {
+	set_temp_variable = { ITA_RED_secchia_revolution_dynmod_tt = ITA_RED_secchia_revolution_tt }
+	divide_temp_variable = { ITA_RED_secchia_revolution_dynmod_tt = 2000 }
+}
+ITA_RED_secchia_state_tooltip = {
+	set_temp_variable = { ITA_RED_secchia_state_dynmod_tt = ITA_RED_secchia_state_tt }
+	set_temp_variable = { ITA_RED_secchia_state_dynmod_percent_tt = ITA_RED_secchia_state_dynmod_tt }
+	divide_temp_variable = { ITA_RED_secchia_state_dynmod_percent_tt = 2000 }
+	divide_temp_variable = { ITA_RED_secchia_state_dynmod_tt = -2000 }
+}
+
+ITA_RED_secchia_party_increase = {
+	add_to_variable = { ITA_RED_secchia_party = ITA_RED_secchia_party_temp }
+	set_temp_variable = { ITA_RED_secchia_party_tt = ITA_RED_secchia_party_temp }
+	ITA_RED_secchia_math = yes
+	ITA_RED_secchia_party_tooltip = yes 
+	custom_effect_tooltip = ITA_RED_secchia_party_increase_tt
+}
+ITA_RED_secchia_party_decrease = {
+	subtract_from_variable = { ITA_RED_secchia_party = ITA_RED_secchia_party_temp }
+	set_temp_variable = { ITA_RED_secchia_party_tt = ITA_RED_secchia_party_temp }
+	multiply_temp_variable = { ITA_RED_secchia_party_tt = -1 }
+	ITA_RED_secchia_math = yes
+	ITA_RED_secchia_party_tooltip = yes 
+	custom_effect_tooltip = ITA_RED_secchia_party_decrease_tt
+}
+ITA_RED_secchia_state_increase = {
+	add_to_variable = { ITA_RED_secchia_state = ITA_RED_secchia_state_temp }
+	set_temp_variable = { ITA_RED_secchia_state_tt = ITA_RED_secchia_state_temp }
+	ITA_RED_secchia_math = yes
+	ITA_RED_secchia_state_tooltip = yes
+	custom_effect_tooltip = ITA_RED_secchia_state_increase_tt
+}
+ITA_RED_secchia_state_decrease = {
+	subtract_from_variable = { ITA_RED_secchia_state = ITA_RED_secchia_state_temp }
+	set_temp_variable = { ITA_RED_secchia_state_tt = ITA_RED_secchia_state_temp }
+	multiply_temp_variable = { ITA_RED_secchia_state_tt = -1 }
+	ITA_RED_secchia_math = yes
+	ITA_RED_secchia_state_tooltip = yes
+	custom_effect_tooltip = ITA_RED_secchia_state_decrease_tt
+}
+ITA_RED_secchia_revolution_increase = {
+	add_to_variable = { ITA_RED_secchia_revolution = ITA_RED_secchia_revolution_temp }
+	set_temp_variable = { ITA_RED_secchia_revolution_tt = ITA_RED_secchia_revolution_temp }
+	ITA_RED_secchia_math = yes
+	ITA_RED_secchia_revolution_tooltip = yes
+	custom_effect_tooltip = ITA_RED_secchia_revolution_increase_tt
+}
+ITA_RED_secchia_revolution_decrease = {
+	subtract_from_variable = { ITA_RED_secchia_revolution = ITA_RED_secchia_revolution_temp }
+	set_temp_variable = { ITA_RED_secchia_revolution_tt = ITA_RED_secchia_revolution_temp }
+	multiply_temp_variable = { ITA_RED_secchia_revolution_tt = -1 }
+	ITA_RED_secchia_math = yes
+	ITA_RED_secchia_revolution_tooltip = yes
+	custom_effect_tooltip = ITA_RED_secchia_revolution_decrease_tt
+}

@@ -1,0 +1,1455 @@
+############################################################################
+## ██╗████████╗ █████╗ ██╗         ██╗███╗   ███╗██████╗ ███████╗██████╗  ##
+## ██║╚══██╔══╝██╔══██╗██║         ██║████╗ ████║██╔══██╗██╔════╝██╔══██╗ ##
+## ██║   ██║   ███████║██║         ██║██╔████╔██║██████╔╝█████╗  ██████╔╝ ##
+## ██║   ██║   ██╔══██║██║         ██║██║╚██╔╝██║██╔═══╝ ██╔══╝  ██╔══██╗ ##
+## ██║   ██║   ██║  ██║███████╗    ██║██║ ╚═╝ ██║██║     ███████╗██║  ██║ ##
+## ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝ ##
+############################################################################
+# Scripted localisation
+
+#################################################
+##=|   Empire Management Mech Scripted Loc   |=##
+##======================| |====================##
+#################################################
+
+#Index; Search for these names using ctrl+f and you'll find the section they entitle.
+#	Map & Regional Info
+#       EmpireManagement_GetRegionImage
+#       EmpireManagement_GetRegionType
+#       EmpireManagement_GetRegionName
+#       EmpireManagement_GetRegionNameTooltip
+#		EmpireManagement_GetRegionNameTooltipFlag
+#       EmpireManagement_GetRegionBackstory
+#		EmpireManagement_GetRegionAlert
+#		EmpireManagement_GetRegionAlertExplanation
+#
+#	Specific Variables
+#		EmpireManagement_GetImperialPolicy
+#		EmpireManagement_GetImperialPolicyDesc
+#		EmpireManagement_GetImperialPolicyEffects
+#		EmpireManagement_GarrisonsOrDiplomats
+#		EmpireManagement_GarrisonsOrDiplomats_Singular
+#		EmpireManagement_GarrisonsOrDiplomats_Alt
+#		EmpireManagement_ControlOrFavour
+#		EmpireManagement_ExploitationOrDependency
+#		EmpireManagement_ControlOrFavourDesc
+#		EmpireManagement_ExploitationOrDependencyDesc
+#		EmpireManagement_GetDiplomacyLevel
+#		EmpireManagement_GetEconomicsLevel
+#		EmpireManagement_GetDiplomacyLevelDetails
+#		EmpireManagement_GetEconomicsLevelDetails
+#		EmpireManagement_GetEnvoyLevel
+#		EmpireManagement_GetOilAvailability
+#		EmpireManagement_GetOilAvailabilityDesc
+#		EmpireManagement_GetOilExploitationButton_Availability
+#		EmpireManagement_GetOilExploitationButton_Cost
+#		EmpireManagement_GetOilExploitationButton_DisabledReason
+#		EmpireManagement_GetPolicyDiploModifierColor
+#		EmpireManagement_GetPolicyEconModifierColor
+#		EmpireManagement_GetSpecialActionDisabledTooltip
+#		EmpireManagement_GetSpecialActionDelayedTooltip
+#
+#	Envoy Tooltips
+#		EmpireManagement_GetDiplomatDeployments
+#		EmpireManagement_GetDiplomatDeploymentsEntry
+#		EmpireManagement_GetGarrisonDeployments
+#		EmpireManagement_GetGarrisonDeploymentsEntry
+#		EmpireManagement_GetRegionalAlerts
+#		EmpireManagement_GetRegionalAlertsEntry
+#		EmpireManagement_GetRegionalAlertsAlert
+#		EmpireManagement_GetEnvoyLevelAlt
+#
+#   Debug
+#       EmpireManagement_GetDebugTooltip
+#       EmpireManagement_GetRegionPosition
+
+#################################################
+#                Map & Region Info              #
+#################################################
+
+# Used to determine the GFX for each region in the GUI
+# Independent tags use tag ID, internal regions (Libya, Sudan, etc.) use a specific ID
+# Value can be set to 0 to hide the asset
+defined_text = {
+	name = EmpireManagement_GetRegionImage
+	# Internal Regions
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 1 } } # Libya
+		localization_key = "GFX_EmpireManagement_Region_Libya"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 2 } } # Sudan
+		localization_key = "GFX_EmpireManagement_Region_Sudan"
+	}
+	text = {
+		trigger = { 
+			check_variable = { ITA_EM_Regions^Region_i = 3 } # Eritrea
+			has_country_flag = ITA_EM_Regions_IEA_decol_colors
+		} 
+		localization_key = "GFX_EmpireManagement_Region_IEA_Eritrea_decol"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 3 } } # Eritrea
+		localization_key = "GFX_EmpireManagement_Region_IEA_Eritrea"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_EM_Regions^Region_i = 4 } # Ethiopia
+			has_country_flag = ITA_EM_Regions_IEA_decol_colors
+		} 
+		localization_key = "GFX_EmpireManagement_Region_IEA_Ethiopia_decol"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 4 } } # Ethiopia
+		localization_key = "GFX_EmpireManagement_Region_IEA_Ethiopia"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_EM_Regions^Region_i = 5 } # Somalia
+			has_country_flag = ITA_EM_Regions_IEA_decol_colors
+		} 
+		localization_key = "GFX_EmpireManagement_Region_IEA_Somalia_decol"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 5 } } # Somalia
+		localization_key = "GFX_EmpireManagement_Region_IEA_Somalia"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_EM_Regions^Region_i = 6 } # Kenya
+			has_country_flag = ITA_EM_Regions_IEA_decol_colors
+		} 
+		localization_key = "GFX_EmpireManagement_Region_IEA_Kenya_decol"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 6 } } # Kenya
+		localization_key = "GFX_EmpireManagement_Region_IEA_Kenya"
+	}
+
+	# Western Europe
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = FRA.id } } # France
+		localization_key = "GFX_EmpireManagement_Region_France"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = IBR.id } } # Iberia
+		localization_key = "GFX_EmpireManagement_Region_Iberia"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = SWI.id } } # Switzerland
+		localization_key = "GFX_EmpireManagement_Region_Switzerland"
+	}
+
+	# Balkans
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = CRO.id } } # Croatia
+		localization_key = "GFX_EmpireManagement_Region_Croatia"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = HUN.id } } # Hungary
+		localization_key = "GFX_EmpireManagement_Region_Hungary"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = ROM.id } } # Romania
+		localization_key = "GFX_EmpireManagement_Region_Romania"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = SER.id } } # Serbia
+		localization_key = "GFX_EmpireManagement_Region_Serbia"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = MNT.id } } # Montenegro
+		localization_key = "GFX_EmpireManagement_Region_Montenegro"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = ALB.id } } # Albania
+		localization_key = "GFX_EmpireManagement_Region_Albania"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = BUL.id } } # Bulgaria
+		localization_key = "GFX_EmpireManagement_Region_Bulgaria"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = GRE.id } GRE = { owns_state = 183 } } # Greece w/ Cyprus (WILL NEED A BETTER CHECK EVENTUALLY) #FIXME
+		localization_key = "GFX_EmpireManagement_Region_Greece_Cyprus"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = GRE.id } } # Greece
+		localization_key = "GFX_EmpireManagement_Region_Greece"
+	}
+
+	# Middle East
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = TUR.id } TUR = { owns_state = 183 } } # Turkey w/ Cyprus (WILL NEED A BETTER CHECK EVENTUALLY) #FIXME
+		localization_key = "GFX_EmpireManagement_Region_Turkey_Cyprus"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = TUR.id } } # Turkey
+		localization_key = "GFX_EmpireManagement_Region_Turkey"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = IME.id } } # IME
+		localization_key = "GFX_EmpireManagement_Region_IME"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = IRQ.id } } # Iraq
+		localization_key = "GFX_EmpireManagement_Region_Iraq"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = SAU.id } } # Saudi Arabia
+		localization_key = "GFX_EmpireManagement_Region_SaudiArabia"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = GUL.id } } # Gulf
+		localization_key = "GFX_EmpireManagement_Region_Gulf"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = YEM.id } } # Yemen
+		localization_key = "GFX_EmpireManagement_Region_Yemen"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = OMA.id } } # Oman
+		localization_key = "GFX_EmpireManagement_Region_Oman"
+	}
+
+	# Africa
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = AGR.id } } # Algeria
+		localization_key = "GFX_EmpireManagement_Region_Algeria"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = TUN.id } } # Tunisia
+		localization_key = "GFX_EmpireManagement_Region_Tunisia"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = EGY.id } } # Egypt
+		localization_key = "GFX_EmpireManagement_Region_Egypt"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = MOR.id } } # Morocco
+		localization_key = "GFX_EmpireManagement_Region_Morocco"
+	}
+
+	text = { localization_key = "GFX_COG_head_mount_gorilla" } # Monke
+}
+
+# Returns the specified region type (colony, ally, etc.)
+defined_text = {
+	name = EmpireManagement_GetRegionType
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i = 0 } } # Colony of the Empire
+		localization_key = "ITA_EmpireManagement_RegionType_Colony"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i = 1 } } # Vassal State
+		localization_key = "ITA_EmpireManagement_RegionType_Vassal"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i = 2 } } # Allied State
+		localization_key = "ITA_EmpireManagement_RegionType_Ally"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i = 3 } } # Neutral State
+		localization_key = "ITA_EmpireManagement_RegionType_Neutral"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i = 4 } } # German Vassal
+		localization_key = "ITA_EmpireManagement_RegionType_GermanVassal"
+	}
+	text = { localization_key = "ERROR - Invalid Type" }
+}
+
+# Returns the specified region's name
+defined_text = {
+	name = EmpireManagement_GetRegionName
+	# Internal Regions
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 1 } } # Libya
+		localization_key = "ITA_EmpireManagement_Libya_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 2 } } # Sudan
+		localization_key = "ITA_EmpireManagement_Sudan_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 3 } } # Eritrea
+		localization_key = "ITA_EmpireManagement_Eritrea_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 4 } } # Ethiopia
+		localization_key = "ITA_EmpireManagement_Ethiopia_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 5 } } # Somalia
+		localization_key = "ITA_EmpireManagement_Somalia_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 6 } } # Kenya
+		localization_key = "ITA_EmpireManagement_Kenya_Name"
+	}
+
+	# Western Europe
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = FRA.id } } # France
+		localization_key = "ITA_EmpireManagement_France_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = IBR.id } } # Iberia
+		localization_key = "ITA_EmpireManagement_Iberia_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = SWI.id } } # Switzerland
+		localization_key = "ITA_EmpireManagement_Switzerland_Name"
+	}
+
+	# Balkans
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = CRO.id } } # Croatia
+		localization_key = "ITA_EmpireManagement_Croatia_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = HUN.id } } # Hungary
+		localization_key = "ITA_EmpireManagement_Hungary_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = ROM.id } } # Romania
+		localization_key = "ITA_EmpireManagement_Romania_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = SER.id } } # Serbia
+		localization_key = "ITA_EmpireManagement_Serbia_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = MNT.id } } # Montenegro
+		localization_key = "ITA_EmpireManagement_Montenegro_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = ALB.id } } # Albania
+		localization_key = "ITA_EmpireManagement_Albania_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = BUL.id } } # Bulgaria
+		localization_key = "ITA_EmpireManagement_Bulgaria_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = GRE.id } } # Greece
+		localization_key = "ITA_EmpireManagement_Greece_Name"
+	}
+
+	# Middle East
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = TUR.id } } # Turkey
+		localization_key = "ITA_EmpireManagement_Turkey_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = IME.id } } # IME
+		localization_key = "ITA_EmpireManagement_IME_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = IRQ.id } } # Iraq
+		localization_key = "ITA_EmpireManagement_Iraq_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = SAU.id } } # Saudi Arabia
+		localization_key = "ITA_EmpireManagement_Saudi_Arabia_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = GUL.id } } # Gulf
+		localization_key = "ITA_EmpireManagement_Gulf_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = YEM.id } } # Yemen
+		localization_key = "ITA_EmpireManagement_Yemen_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = OMA.id } } # Oman
+		localization_key = "ITA_EmpireManagement_Oman_Name"
+	}
+
+	# Africa
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = AGR.id } } # Algeria
+		localization_key = "ITA_EmpireManagement_Algeria_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = TUN.id } } # Tunisia
+		localization_key = "ITA_EmpireManagement_Tunisia_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = EGY.id } } # Egypt
+		localization_key = "ITA_EmpireManagement_Egypt_Name"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = MOR.id } } # Morocco
+		localization_key = "ITA_EmpireManagement_Morocco_Name"
+	}
+	text = { localization_key = "ERROR - Invalid Type" }
+}
+
+# Returns the specified region's name (for tooltips)
+# This works by assuming that all ID values higher than 6 are tag IDs, so please be sure to edit that check if you add more value IDs for internal regions
+defined_text = {
+	name = EmpireManagement_GetRegionNameTooltip
+	# Internal Regions
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 1 } } # Libya
+		localization_key = "Southern Military Territory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 2 } } # Sudan
+		localization_key = "Italo-Egyptian Sudan"
+	}
+	text = {
+		trigger = { 
+			check_variable = { ITA_EM_Regions^Region_i = 3 } # Eritrea
+			has_country_flag = ITA_EM_Regions_IEA_decol_colors
+		} 
+		localization_key = "Eritrea"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 3 } } # Eritrea
+		localization_key = "Governorate of Eritrea"
+	}
+	text = {
+		trigger = { 
+			check_variable = { ITA_EM_Regions^Region_i = 4 } # Ethiopia
+			has_country_flag = ITA_EM_Regions_IEA_decol_colors
+		} 
+		localization_key = "Ethiopia"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 4 } } # Ethiopia
+		localization_key = "Governorate of Ethiopia"
+	}
+	text = {
+		trigger = { 
+			check_variable = { ITA_EM_Regions^Region_i = 5 } # Somalia
+			has_country_flag = ITA_EM_Regions_IEA_decol_colors
+		} 
+		localization_key = "Somalia"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 5 } } # Somalia
+		localization_key = "Governorate of Greater Somalia"
+	}
+	text = {
+		trigger = { 
+			check_variable = { ITA_EM_Regions^Region_i = 6 } # Kenya
+			has_country_flag = ITA_EM_Regions_IEA_decol_colors
+		} 
+		localization_key = "Kenya"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 6 } } # Kenya
+		localization_key = "Governorate of Kenya"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i > 6 } }
+		localization_key = "[?ITA_EM_Regions^Region_i.GetName]"
+	}
+	text = { localization_key = "ERROR - Invalid Type" }
+}
+
+# Returns the specified region's name AND flag (for tooltips)
+# Works in the same way as detailed above
+defined_text = {
+	name = EmpireManagement_GetRegionNameTooltipFlag
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 1 } } # Libya
+		localization_key = "[ITA.GetFlag] Southern Libya"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 2 } } # Sudan
+		localization_key = "[EGY.GetFlag] Sudan"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 3 } } # Eritrea
+		localization_key = "[IEA.GetFlag] Eritrea"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 4 } } # Ethiopia
+		localization_key = "[IEA.GetFlag] Ethiopia"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 5 } } # Somalia
+		localization_key = "[IEA.GetFlag] Greater Somalia"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i = 6 } } # Kenya
+		localization_key = "[IEA.GetFlag] Kenya"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^Region_i > 6 } }
+		localization_key = "[?ITA_EM_Regions^Region_i.GetFlag][?ITA_EM_Regions^Region_i.GetName]"
+	}
+	text = { localization_key = "ERROR - Invalid Type" }
+}
+
+# Returns the specified region's backstory
+defined_text = {
+	name = EmpireManagement_GetRegionBackstory
+	# Internal Regions
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 1 } } # Libya
+		localization_key = "ITA_EmpireManagement_Libya_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 2 } } # Sudan
+		localization_key = "ITA_EmpireManagement_Sudan_Backstory"
+	}
+	text = {
+		trigger = { 
+			check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 3 } # Eritrea
+			has_country_flag = ITA_EM_Regions_IEA_decol_colors
+		} 
+		localization_key = "ITA_EmpireManagement_Eritrea_Backstory_Decol"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 3 } } # Eritrea
+		localization_key = "ITA_EmpireManagement_Eritrea_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 4 } always = no } # Ethiopia (post fash collapse) #FIXME: needs proper trigger
+		localization_key = "ITA_EmpireManagement_Ethiopia_Backstory_PostFashCollapse"
+	}
+	text = {
+		trigger = { 
+			check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 4 } # Ethiopia
+			has_country_flag = ITA_EM_Regions_IEA_decol_colors
+		} 
+		localization_key = "ITA_EmpireManagement_Ethiopia_Backstory_Decol"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 4 } } # Ethiopia
+		localization_key = "ITA_EmpireManagement_Ethiopia_Backstory"
+	}
+	text = {
+		trigger = { 
+			check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 5 } # Somalia
+			has_country_flag = ITA_EM_Regions_IEA_decol_colors
+		} 
+		localization_key = "ITA_EmpireManagement_Somalia_Backstory_Decol"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 5 } } # Somalia
+		localization_key = "ITA_EmpireManagement_Somalia_Backstory"
+	}
+	text = {
+		trigger = { 
+			check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 6 } # Kenya
+			has_country_flag = ITA_EM_Regions_IEA_decol_colors
+		} 
+		localization_key = "ITA_EmpireManagement_Kenya_Backstory_Decol"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = 6 } } # Kenya
+		localization_key = "ITA_EmpireManagement_Kenya_Backstory"
+	}
+
+	# Western Europe
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = FRA.id } } # France
+		localization_key = "ITA_EmpireManagement_France_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = IBR.id } } # Iberia
+		localization_key = "ITA_EmpireManagement_Iberia_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = SWI.id } } # Switzerland
+		localization_key = "ITA_EmpireManagement_Switzerland_Backstory"
+	}
+
+	# Balkans
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = CRO.id } } # Croatia
+		localization_key = "ITA_EmpireManagement_Croatia_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = HUN.id } } # Hungary
+		localization_key = "ITA_EmpireManagement_Hungary_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = ROM.id } } # Romania
+		localization_key = "ITA_EmpireManagement_Romania_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = SER.id } } # Serbia
+		localization_key = "ITA_EmpireManagement_Serbia_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = MNT.id } } # Montenegro
+		localization_key = "ITA_EmpireManagement_Montenegro_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = ALB.id } } # Albania
+		localization_key = "ITA_EmpireManagement_Albania_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = BUL.id } } # Bulgaria
+		localization_key = "ITA_EmpireManagement_Bulgaria_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = GRE.id } always = no } # Greece (independent) #FIXME: needs proper trigger
+		localization_key = "ITA_EmpireManagement_Greece_Backstory_Independent"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = GRE.id } always = no } # Greece (puppet) #FIXME: needs proper trigger
+		localization_key = "ITA_EmpireManagement_Greece_Backstory_Puppet"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = GRE.id } } # Greece
+		localization_key = "ITA_EmpireManagement_Greece_Backstory"
+	}
+
+	# Middle East
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = TUR.id } } # Turkey
+		localization_key = "ITA_EmpireManagement_Turkey_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = IME.id } always = no } # IME (independent) #FIXME: needs proper trigger
+		localization_key = "ITA_EmpireManagement_IME_Backstory_Independent"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = IME.id } always = no } # IME (governate) #FIXME: needs proper trigger
+		localization_key = "ITA_EmpireManagement_IME_Backstory_Governate"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = IME.id } } # IME
+		localization_key = "ITA_EmpireManagement_IME_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = IRQ.id } } # Iraq
+		localization_key = "ITA_EmpireManagement_Iraq_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = SAU.id } } # Saudi Arabia
+		localization_key = "ITA_EmpireManagement_Saudi_Arabia_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = GUL.id } } # Gulf
+		localization_key = "ITA_EmpireManagement_Gulf_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = YEM.id } } # Yemen
+		localization_key = "ITA_EmpireManagement_Yemen_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = OMA.id } } # Oman
+		localization_key = "ITA_EmpireManagement_Oman_Backstory"
+	}
+
+	# Africa
+	text = {
+		trigger = { # Algeria (independent)
+			check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = AGR.id }
+			has_global_flag = Sand_Wars_RadicalFLN_Victory
+		}
+		localization_key = "ITA_EmpireManagement_Algeria_Backstory_Independent"
+	}
+	text = {
+		trigger = { # Algeria (Italy-aligned)
+			check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = AGR.id }
+			OR = {
+				has_global_flag = Sand_Wars_ModerateFLN_Victory
+				has_global_flag = Sand_Wars_Italian_Victory
+			}
+		}
+		localization_key = "ITA_EmpireManagement_Algeria_Backstory_ITAaligned"
+	}
+	text = {
+		trigger = { # Algeria (France/Iberia-aligned)
+			check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = AGR.id }
+			OR = {
+				has_global_flag = Sand_Wars_OASA_Victory
+				has_global_flag = Sand_Wars_Iberian_Victory
+			}
+		}
+		localization_key = "ITA_EmpireManagement_Algeria_Backstory_FRAaligned"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = AGR.id } } # Algeria
+		localization_key = "ITA_EmpireManagement_Algeria_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = TUN.id } } # Tunisia
+		localization_key = "ITA_EmpireManagement_Tunisia_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = EGY.id } } # Egypt
+		localization_key = "ITA_EmpireManagement_Egypt_Backstory"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions^EM_SelectedEntry_i = MOR.id } } # Morocco
+		localization_key = "ITA_EmpireManagement_Morocco_Backstory"
+	}
+	text = { localization_key = "ERROR - Invalid Type" }
+}
+
+# Returns the region's alert, if it has one
+defined_text = {
+	name = EmpireManagement_GetRegionAlert
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^Region_i = 0 } } # No Alert/Emergency
+		localization_key = ""
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^Region_i = 1 } } # Ongoing Conflict
+		localization_key = "ITA_EmpireManagement_Alert_1"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^Region_i = 2 } } # German Confrontation
+		localization_key = "ITA_EmpireManagement_Alert_2"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^Region_i = 3 } } # Low Control
+		localization_key = "ITA_EmpireManagement_Alert_3"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^Region_i = 4 } } # ENI Action Available
+		localization_key = "ITA_EmpireManagement_Alert_4"
+	}
+}
+
+# Returns the explanation of the alert, for tooltips
+defined_text = {
+	name = EmpireManagement_GetRegionAlertExplanation
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^Region_i = 0 } } # No Alert/Emergency
+		localization_key = ""
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^Region_i = 1 } } # Ongoing Conflict
+		localization_key = "ITA_EmpireManagement_Alert_1_Explanation"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^Region_i = 2 } } # German Confrontation
+		localization_key = "ITA_EmpireManagement_Alert_2_Explanation"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^Region_i = 3 } } # Low Control
+		localization_key = "ITA_EmpireManagement_Alert_3_Explanation"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^Region_i = 4 } } # ENI Action Available
+		localization_key = "ITA_EmpireManagement_Alert_4_Explanation"
+	}
+}
+
+#################################################
+#               Specific Variables              #
+#################################################
+
+# Returns the current Imperial (general) Policy's name
+defined_text = {
+	name = EmpireManagement_GetImperialPolicy
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 0 } } # Mediterranean Supremacy (starter/Ciano)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_Starter"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 1 } } # A New Concert of Europe (Balbo)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_Balbo"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 2 } } # An Imperial Brotherhood (Muti)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_Muti"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 3 } } # All Roads Lead to Rome (Pavolini)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_Pavolini"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 4 } } # The New Order (Giani)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_Giani"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 5 } } # Una Nuova Italia (LeftDem)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_LeftDem"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 6 } } # Steady as She Goes (CenterDem)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_CenterDem"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 7 } } # Embers of a New Empire (RightDem)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_RightDem"
+	}
+	text = { localization_key = "ERROR - Invalid Type" }
+}
+
+# Same as above, but for the description instead
+defined_text = {
+	name = EmpireManagement_GetImperialPolicyDesc
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 0 } } # Mediterranean Supremacy (starter/Ciano)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_Starter_desc"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 1 } } # A New Concert of Europe (Balbo)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_Balbo_desc"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 2 } } # An Imperial Brotherhood (Muti)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_Muti_desc"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 3 } } # All Roads Lead to Rome (Pavolini)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_Pavolini_desc"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 4 } } # The New Order (Giani)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_Giani_desc"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 5 } } # Una Nuova Italia (LeftDem)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_LeftDem_desc"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 6 } } # Steady as She Goes (CenterDem)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_CenterDem_desc"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 7 } } # Embers of a New Empire (RightDem)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_RightDem_desc"
+	}
+	text = { localization_key = "ERROR - Invalid Type" }
+}
+
+# And the same thing again, but for effects
+defined_text = {
+	name = EmpireManagement_GetImperialPolicyEffects
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 0 } } # Mediterranean Supremacy (starter/Ciano)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_Starter_effects"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 1 } } # A New Concert of Europe (Balbo)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_Balbo_effects"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 2 } } # An Imperial Brotherhood (Muti)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_Muti_effects"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 3 } } # All Roads Lead to Rome (Pavolini)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_Pavolini_effects"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 4 } } # The New Order (Giani)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_Giani_effects"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 5 } } # Una Nuova Italia (LeftDem)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_LeftDem_effects"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 6 } } # Steady as She Goes (CenterDem)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_CenterDem_effects"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_ImperialPolicy = 7 } } # Embers of a New Empire (RightDem)
+		localization_key = "ITA_EmpireManagement_ImperialPolicy_RightDem_effects"
+	}
+	text = { localization_key = "ERROR - Invalid Type" }
+}
+
+# These four return the appropriate loc depending on the region type
+defined_text = {
+	name = EmpireManagement_GarrisonsOrDiplomats
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i > 1 } }
+		localization_key = "Diplomats"
+	}
+	text = {
+		localization_key = "Garrisons"
+	}
+}
+defined_text = {
+	name = EmpireManagement_GarrisonsOrDiplomats_Singular
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i > 1 } }
+		localization_key = "Diplomat"
+	}
+	text = {
+		localization_key = "Garrison"
+	}
+}
+defined_text = {
+	name = EmpireManagement_GarrisonsOrDiplomats_Alt
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i > 1 } }
+		localization_key = "Diplomatic Corps"
+	}
+	text = {
+		localization_key = "Garrison Size"
+	}
+}
+defined_text = {
+	name = EmpireManagement_ControlOrFavour
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Status^Region_i > 1 } }
+		localization_key = "Favour"
+	}
+	text = {
+		localization_key = "Control"
+	}
+}
+defined_text = {
+	name = EmpireManagement_ExploitationOrDependency
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Status^Region_i > 1 } }
+		localization_key = "Dependency"
+	}
+	text = {
+		localization_key = "Exploitation"
+	}
+}
+
+# Returns the appropriate description for the concepts
+defined_text = {
+	name = EmpireManagement_ControlOrFavourDesc
+	text = {
+		trigger = {
+			check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i > 1 }
+			set_temp_variable = { RegionFavour_PPGain = ITA_EM_Regions_DiploValue^EM_SelectedEntry_i }
+			divide_temp_variable = { RegionFavour_PPGain = 6000 }
+		}
+		localization_key = "ITA_EmpireManagement_Diplomacy_Favour_tt"
+	}
+	text = {
+		trigger = {
+			set_temp_variable = { RegionControl_StabilityGain = ITA_EM_Regions_DiploValue^EM_SelectedEntry_i }
+			set_temp_variable = { RegionControl_ManpowerGain = ITA_EM_Regions_DiploValue^EM_SelectedEntry_i }
+			
+			multiply_temp_variable = { RegionControl_ManpowerGain = 1.1 }
+			divide_temp_variable = { RegionControl_StabilityGain = 10000 }
+			round_temp_variable = RegionControl_ManpowerGain
+		}
+		localization_key = "ITA_EmpireManagement_Diplomacy_Control_tt"
+	}
+}
+defined_text = {
+	name = EmpireManagement_ExploitationOrDependencyDesc
+	text = {
+		trigger = {
+			check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i > 1 }
+			set_temp_variable = { RegionDependency_GDPGrowthGain = ITA_EM_Regions_EconValue^EM_SelectedEntry_i }
+			divide_temp_variable = { RegionDependency_GDPGrowthGain = 5000 }
+		}
+		localization_key = "ITA_EmpireManagement_Economy_Dependency_tt"
+	}
+	text = {
+		trigger = {
+			set_temp_variable = { RegionDependency_CGUseGain = ITA_EM_Regions_EconValue^EM_SelectedEntry_i }
+			divide_temp_variable = { RegionDependency_CGUseGain = -10000 }
+		}
+		localization_key = "ITA_EmpireManagement_Economy_Exploitation_tt"
+	}
+}
+
+# These four are for specific instances of the previous scripts being called
+defined_text = {
+	name = EmpireManagement_ControlOrFavourMap
+	text = {
+		trigger = { set_temp_variable = { Region_i = EM_SelectedEntry_i } }
+		localization_key = "[EmpireManagement_ControlOrFavour]"
+	}
+}
+defined_text = {
+	name = EmpireManagement_ExploitationOrDependencyMap
+	text = {
+		trigger = { set_temp_variable = { Region_i = EM_SelectedEntry_i } }
+		localization_key = "[EmpireManagement_ExploitationOrDependency]"
+	}
+}
+defined_text = {
+	name = EmpireManagement_ControlOrFavourPolicy
+	text = {
+		trigger = { set_temp_variable = { Region_i = Policy_i } }
+		localization_key = "[EmpireManagement_ControlOrFavour]"
+	}
+}
+defined_text = {
+	name = EmpireManagement_ExploitationOrDependencyPolicy
+	text = {
+		trigger = { set_temp_variable = { Region_i = Policy_i } }
+		localization_key = "[EmpireManagement_ExploitationOrDependency]"
+	}
+}
+
+# Returns the control/favour level and value
+defined_text = {
+	name = EmpireManagement_GetDiplomacyLevel
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^EM_SelectedEntry_i = 1 } }
+		localization_key = "---"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_DiploValue^EM_SelectedEntry_i > 79 } }
+		localization_key = "EmpireManagement_Diplomacy_Value_Very_High"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_DiploValue^EM_SelectedEntry_i > 59 } }
+		localization_key = "EmpireManagement_Diplomacy_Value_High"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_DiploValue^EM_SelectedEntry_i > 39 } }
+		localization_key = "EmpireManagement_Diplomacy_Value_Moderate"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_DiploValue^EM_SelectedEntry_i > 19 } }
+		localization_key = "EmpireManagement_Diplomacy_Value_Low"
+	}
+	text = {
+		localization_key = "EmpireManagement_Diplomacy_Value_Very_Low"
+	}
+}
+
+# Returns the exploitation/dependency level and value
+defined_text = {
+	name = EmpireManagement_GetEconomicsLevel
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^EM_SelectedEntry_i = 1 } }
+		localization_key = "---"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_EconValue^EM_SelectedEntry_i > 79 } }
+		localization_key = "EmpireManagement_Economics_Value_Very_High"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_EconValue^EM_SelectedEntry_i > 59 } }
+		localization_key = "EmpireManagement_Economics_Value_High"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_EconValue^EM_SelectedEntry_i > 39 } }
+		localization_key = "EmpireManagement_Economics_Value_Moderate"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_EconValue^EM_SelectedEntry_i > 19 } }
+		localization_key = "EmpireManagement_Economics_Value_Low"
+	}
+	text = {
+		localization_key = "EmpireManagement_Economics_Value_Very_Low"
+	}
+}
+
+# Returns detailed value breakdowns for diplo and econ
+defined_text = {
+	name = EmpireManagement_GetDiplomacyLevelDetails
+	text = {
+		trigger = {
+			# Get envoy modifier value
+			set_temp_variable = { EnvoyValue = 10 }
+			multiply_temp_variable = { EnvoyValue = ITA_EM_Regions_Envoys^EM_SelectedEntry_i }
+
+			# Get base value
+			set_temp_variable = { BaseValue = ITA_EM_Regions_DiploValue^EM_SelectedEntry_i }
+			subtract_from_temp_variable = { BaseValue = EnvoyValue }
+			subtract_from_temp_variable = { BaseValue = ITA_EM_ImperialPolicy_DiploEffect^EM_SelectedEntry_i }
+			subtract_from_temp_variable = { BaseValue = ITA_EM_Policy_DiploEffect^EM_SelectedEntry_i }
+			subtract_from_temp_variable = { BaseValue = ITA_EM_SpecialAction_DiploEffect^EM_SelectedEntry_i }
+
+			# Set variable for flag tooltip scripted loc
+			set_temp_variable = { Region_i = EM_SelectedEntry_i }
+		}
+		localization_key = "ITA_EmpireManagement_Diplomacy_ValueDetailed"
+	}
+}
+defined_text = {
+	name = EmpireManagement_GetEconomicsLevelDetails
+	text = {
+		trigger = {
+			# Get base value
+			set_temp_variable = { BaseValue = ITA_EM_Regions_EconValue^EM_SelectedEntry_i }
+			subtract_from_temp_variable = { BaseValue = ITA_EM_ImperialPolicy_EconEffect^EM_SelectedEntry_i }
+			subtract_from_temp_variable = { BaseValue = ITA_EM_Policy_EconEffect^EM_SelectedEntry_i }
+			subtract_from_temp_variable = { BaseValue = ITA_EM_SpecialAction_EconEffect^EM_SelectedEntry_i }
+
+			# Set variable for flag tooltip scripted loc
+			set_temp_variable = { Region_i = EM_SelectedEntry_i }
+		}
+		localization_key = "ITA_EmpireManagement_Economics_ValueDetailed"
+	}
+}
+
+# Returns the level of envoys
+defined_text = {
+	name = EmpireManagement_GetEnvoyLevel
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Envoys^EM_SelectedEntry_i = 0 } }
+		localization_key = "ITA_EmpireManagement_Envoys_None"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Envoys^EM_SelectedEntry_i = 1 } }
+		localization_key = "ITA_EmpireManagement_Envoys_Very_Small"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Envoys^EM_SelectedEntry_i = 2 } }
+		localization_key = "ITA_EmpireManagement_Envoys_Small"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Envoys^EM_SelectedEntry_i = 3 } }
+		localization_key = "ITA_EmpireManagement_Envoys_Average"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Envoys^EM_SelectedEntry_i = 4 } }
+		localization_key = "ITA_EmpireManagement_Envoys_Large"
+	}
+	text = {
+		localization_key = "ITA_EmpireManagement_Envoys_Very_Large"
+	}
+}
+
+# really hope this works
+# update: it does not
+# defined_text = {
+# 	name = EmpireManagement_GetEnvoyLevel
+# 	text = {
+# 		trigger = { check_variable = { ITA_EM_Regions_Envoys^EM_SelectedEntry_i < 6 } }
+# 		localization_key = ITA_EmpireManagement_Envoys_[?ITA_EM_Regions_Envoys^EM_SelectedEntry_i]
+# 	}
+# }
+
+# Checks to see if the country has oil available or not
+defined_text = {
+	name = EmpireManagement_GetOilAvailability
+	text = {
+		trigger = {
+			OR = {
+				check_variable = { ITA_EM_HasOil^EM_SelectedEntry_i = 0 } # Doesn't have oil
+				check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i > 2 } # Isn't in sphere
+			}
+		}
+		localization_key = "ITA_EmpireManagement_OilExploitation_Quantity_Unnavailable"
+	}
+	text = {
+		localization_key = "ITA_EmpireManagement_OilExploitation_Quantity_Available"
+	}
+}
+
+# Returns the description w/values for Oil Exploitation effects
+defined_text = {
+	name = EmpireManagement_GetOilAvailabilityDesc
+	text = {
+		trigger = {
+			NOT = {
+				check_variable = { ITA_EM_HasOil^EM_SelectedEntry_i = 0 } # Doesn't have oil
+				check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i > 2 } # Isn't in sphere
+			}
+			check_variable = { EM_SelectedEntry_i > 5 }
+			var:ITA_EM_HasOil^EM_SelectedEntry_i = { set_temp_variable = { ITA.RegionOilExploitation_OilGain = resource_produced@oil } }
+			multiply_temp_variable = { RegionOilExploitation_OilGain = ITA_EM_OilExploitation^i }
+			divide_temp_variable = { RegionOilExploitation_OilGain = 5 }
+
+			set_temp_variable = { RegionOilExploitation_ResourceGain = ITA_EM_OilExploitation^EM_SelectedEntry_i }
+			divide_temp_variable = { RegionOilExploitation_ResourceGain = 4 }
+		}
+		localization_key = "ITA_EmpireManagement_OilExploitation_Quantity_tt"
+	}
+}
+
+# This edits the button text of the ENI button if it is unnavailable to be taken
+defined_text = {
+	name = EmpireManagement_GetOilExploitationButton_Availability
+	text = {
+		trigger = {
+			OR = {
+				check_variable = { ITA_EM_HasOil^EM_SelectedEntry_i = 0 } # Doesn't have oil
+				check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i > 2 } # Isn't in sphere
+				check_variable = { ITA_EM_OilExploitation^EM_SelectedEntry_i = 100 } # ENI presence is already max
+			}
+		}
+		localization_key = "ITA_EmpireManagement_OilExploitation_Button_Disabled"
+	}
+	text = {
+		localization_key = "ITA_EmpireManagement_OilExploitation_Button_Enabled"
+	}
+}
+
+# Here we make some quick calcs to get the PP and money costs without needing to put in a bunch of different scripted loc checks
+defined_text = {
+	name = EmpireManagement_GetOilExploitationButton_Cost
+	text = {
+		trigger = {
+			set_temp_variable = { PPCost = 50 }
+			set_temp_variable = { MoneyCost = 0.05 }
+			if = {
+				limit = {
+					OR = {
+						check_variable = { EM_SelectedEntry_i = 1  } # Sudan
+						check_variable = { EM_SelectedEntry_i = 23 } # Oman
+						check_variable = { EM_SelectedEntry_i = 26 } # Egypt
+					}
+				}
+				multiply_temp_variable = { PPCost = 2 }
+				multiply_temp_variable = { MoneyCost = 2 }
+			}
+			else_if = {
+				limit = {
+					OR = {
+						check_variable = { EM_SelectedEntry_i = 0  } # Libya
+						check_variable = { EM_SelectedEntry_i = 19 } # Iraq
+						check_variable = { EM_SelectedEntry_i = 20 } # Saudi Arabia
+						check_variable = { EM_SelectedEntry_i = 21 } # Gulf
+						check_variable = { EM_SelectedEntry_i = 24 } # Algeria
+					}
+				}
+				multiply_temp_variable = { PPCost = 3 }
+				multiply_temp_variable = { MoneyCost = 3 }
+			}
+		}
+		localization_key = "ITA_EmpireManagement_OilExploitation_Button_Cost_tt"
+	}
+}
+
+# Returns to the player the reason why the ENI button is locked
+defined_text = {
+	name = EmpireManagement_GetOilExploitationButton_DisabledReason
+	text = { # This is also going to be moved away from here once NSB merge happens and we get disabled button tooltips
+		trigger = {
+			EmpireManagement_ENIActionIsAvailable = yes
+			EmpireManagement_ENIActionCostTrigger = yes
+		}
+		localization_key = "ITA_EmpireManagement_OilExploitation_Button_Enabled_tt"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_HasOil^EM_SelectedEntry_i = 0 } }
+		localization_key = "ITA_EmpireManagement_OilExploitation_Button_Disabled_NoOil"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_OilExploitation^EM_SelectedEntry_i = 1 } }
+		localization_key = "ITA_EmpireManagement_OilExploitation_Button_Disabled_MaxExploitation"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_OilExploitationCooldown^EM_SelectedEntry_i > 0 } }
+		localization_key = "ITA_EmpireManagement_OilExploitation_Button_Disabled_Cooldown"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i > 2 } }
+		localization_key = "ITA_EmpireManagement_OilExploitation_Button_Disabled_NoAccess"
+	}
+	text = {
+		localization_key = "ITA_EmpireManagement_OilExploitation_Button_Disabled_TooCostly"
+	}
+}
+
+# These two are used to define the coloring for policy effects in the selection box
+defined_text = {
+	name = EmpireManagement_GetPolicyDiploModifierColor
+	text = {
+		trigger = { check_variable = { ITA_EM_PolicyList_DiploEffect^Policy_i > 0 } }
+		localization_key = "ITA_EmpireManagement_Color_G"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_PolicyList_DiploEffect^Policy_i = 0 } }
+		localization_key = "ITA_EmpireManagement_Color_Y"
+	}
+	text = {
+		localization_key = "ITA_EmpireManagement_Color_R"
+	}
+}
+defined_text = {
+	name = EmpireManagement_GetPolicyEconModifierColor
+	text = {
+		trigger = { check_variable = { ITA_EM_PolicyList_EconEffect^Policy_i > 0 } }
+		localization_key = "ITA_EmpireManagement_Color_G"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_PolicyList_EconEffect^Policy_i = 0 } }
+		localization_key = "ITA_EmpireManagement_Color_Y"
+	}
+	text = {
+		localization_key = "ITA_EmpireManagement_Color_R"
+	}
+}
+
+# Returns the reason why you can't take the Special Action
+defined_text = {
+	name = EmpireManagement_GetSpecialActionDisabledTooltip
+	text = {
+		trigger = { check_variable = { ITA_EM_SpecialAction_Cooldown^EM_SelectedEntry_i = 1 } }
+		localization_key = "ITA_EmpireManagement_SpecialAction_Disabled_Cooldown_tt"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_SpecialAction_Cooldown^EM_SelectedEntry_i = 2 } }
+		localization_key = "ITA_EmpireManagement_SpecialAction_Disabled_MaxUse_tt"
+	}
+	text = {
+		localization_key = "ITA_EmpireManagement_SpecialAction_Disabled_CantAfford_tt"
+	}
+}
+
+# This one is merely temporary until NSB is integrated and disabled button tooltips become available
+defined_text = {
+	name = EmpireManagement_GetSpecialActionDelayedTooltip
+	text = {
+		trigger = { check_variable = { ITA_EM_SpecialAction_Cooldown^EM_SelectedEntry_i = 0 } }
+		localization_key = "ITA_EmpireManagement_SpecialAction_Enabled_tt"
+	}
+	text = {
+		localization_key = "ITA_EmpireManagement_SpecialAction_Disabled_tt"
+	}
+}
+
+#################################################
+#                 Envoy Tooltips                #
+#################################################
+# recursive scripted loc dark magic testing zone
+
+# For diplomats
+defined_text = {
+	name = EmpireManagement_GetDiplomatDeployments
+	text = {
+		trigger = {
+			NOT = { check_variable = { ITA_EM_Regions_Envoys^num = 0 } }
+			set_temp_variable = { Recursion_i = -1 }
+		}
+		localization_key = "[EmpireManagement_GetDiplomatDeploymentsEntry]"
+	}
+}
+defined_text = {
+	name = EmpireManagement_GetDiplomatDeploymentsEntry
+	text = {
+		trigger = {
+			add_to_temp_variable = { Recursion_i = 1 } # Continues the loop
+			check_variable = { ITA_EM_Regions_Envoys^num > Recursion_i } # Used to terminate the loop
+			check_variable = { ITA_EM_Regions_Envoys^Recursion_i > 0 } # Must have more than one envoy
+			check_variable = { ITA_EM_Regions_Status^Recursion_i > 1 } # Must be able to have Diplomats
+			set_temp_variable = { Region_i = Recursion_i }
+		}
+		localization_key = "ITA_EmpireManagement_Diplomats_Progbar_Entry_tt"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Envoys^num > Recursion_i } } # If the above conditions return false for the region but the loop still hasn't been terminated, it will simply just skip the region and continue
+		localization_key = "[EmpireManagement_GetDiplomatDeploymentsEntry]"
+	}
+}
+
+# For garrisons
+defined_text = {
+	name = EmpireManagement_GetGarrisonDeployments
+	text = {
+		trigger = {
+			NOT = { check_variable = { ITA_EM_Regions_Envoys^num = 0 } }
+			set_temp_variable = { Recursion_i = -1 }
+		}
+		localization_key = "[EmpireManagement_GetGarrisonDeploymentsEntry]"
+	}
+}
+defined_text = {
+	name = EmpireManagement_GetGarrisonDeploymentsEntry
+	text = {
+		trigger = {
+			add_to_temp_variable = { Recursion_i = 1 } # Continues the loop
+			check_variable = { ITA_EM_Regions_Envoys^num > Recursion_i } # Used to terminate the loop
+			check_variable = { ITA_EM_Regions_Envoys^Recursion_i > 0 } # Must have more than one envoy
+			check_variable = { ITA_EM_Regions_Status^Recursion_i < 2 } # Must be able to have Garrisons
+			set_temp_variable = { Region_i = Recursion_i }
+		}
+		localization_key = "ITA_EmpireManagement_Garrisons_Progbar_Entry_tt"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Envoys^num > Recursion_i } } # If the above conditions return false for the region but the loop still hasn't been terminated, it will simply just skip the region and continue
+		localization_key = "[EmpireManagement_GetGarrisonDeploymentsEntry]"
+	}
+}
+
+# For alerts
+defined_text = {
+	name = EmpireManagement_GetRegionalAlerts
+	text = {
+		trigger = {
+			NOT = { check_variable = { ITA_EM_Alerts^num = 0 } }
+			set_temp_variable = { Recursion_i = -1 }
+		}
+		localization_key = "[EmpireManagement_GetRegionalAlertsEntry]"
+	}
+}
+defined_text = {
+	name = EmpireManagement_GetRegionalAlertsEntry
+	text = {
+		trigger = {
+			add_to_temp_variable = { Recursion_i = 1 } # Continues the loop
+			check_variable = { ITA_EM_Alerts^num > Recursion_i } # Used to terminate the loop
+			check_variable = { ITA_EM_Alerts^Recursion_i > 0 } # Must have one active alert
+			set_temp_variable = { Region_i = Recursion_i }
+		}
+		localization_key = "ITA_EmpireManagement_AlertList_Entry_tt"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^num > Recursion_i } } # If the above conditions return false for the region but the loop still hasn't been terminated, it will simply just skip the region and continue
+		localization_key = "[EmpireManagement_GetRegionalAlertsEntry]"
+	}
+}
+
+# Used on the Alert list scripted loc, this one doesn't have a linebreak
+defined_text = {
+	name = EmpireManagement_GetRegionalAlertsAlert
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^Region_i = 1 } } # Ongoing Conflict
+		localization_key = "ITA_EmpireManagement_AlertAlt_1"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^Region_i = 2 } } # German Confrontation
+		localization_key = "ITA_EmpireManagement_AlertAlt_2"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^Region_i = 3 } } # Low Control
+		localization_key = "ITA_EmpireManagement_AlertAlt_3"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Alerts^Region_i = 4 } } # ENI Action Available
+		localization_key = "ITA_EmpireManagement_AlertAlt_4"
+	}
+}
+
+# EmpireManagement_GetEnvoyLevel but under a different variable
+# I should really clean this up eventually
+defined_text = {
+	name = EmpireManagement_GetEnvoyLevelAlt
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Envoys^Recursion_i = 0 } }
+		localization_key = "ITA_EmpireManagement_Envoys_None"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Envoys^Recursion_i = 1 } }
+		localization_key = "ITA_EmpireManagement_Envoys_Very_Small"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Envoys^Recursion_i = 2 } }
+		localization_key = "ITA_EmpireManagement_Envoys_Small"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Envoys^Recursion_i = 3 } }
+		localization_key = "ITA_EmpireManagement_Envoys_Average"
+	}
+	text = {
+		trigger = { check_variable = { ITA_EM_Regions_Envoys^Recursion_i = 4 } }
+		localization_key = "ITA_EmpireManagement_Envoys_Large"
+	}
+	text = {
+		localization_key = "ITA_EmpireManagement_Envoys_Very_Large"
+	}
+}
+
+#################################################
+#                     Debug                     #
+#################################################
+# These two are only used to show certain debug features
+defined_text = {
+	name = EmpireManagement_GetDebugTooltip
+	text = {
+		trigger = { is_debug = yes }
+		localization_key = "ITA_EmpireManagement_OpenButton_tt_delayed_info"
+	}
+}
+defined_text = {
+	name = EmpireManagement_GetRegionPosition
+	text = {
+		trigger = { is_debug = yes }
+		localization_key = "ITA_EmpireManagement_MapAssetPosition"
+	}
+}

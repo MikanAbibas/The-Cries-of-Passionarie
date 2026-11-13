@@ -1,0 +1,62 @@
+UAR_is_baathist_nation = {
+    OR = {
+		tag = BIR
+		tag = EGB
+		tag = OMB
+		tag = SYR
+		tag = NYM
+		tag = SDS
+		AND = {
+			tag = PAL
+			OR = {
+				has_ideology = communist_subtype
+				has_government = ultranational_socialism
+			}
+		}
+		# SNS (Syrian National State, registered with med's Turkey and Greece) starts as
+		# Shishakli's Turkish client, which is not Ba'athist. It is Ba'athist once Aflaq rises
+		# (SNS_Aflaq) or it absorbs NASIL, after which Assad or Jadid take it over
+		# (SNS_NASIL_merger). SNS exists only under the _WIP rule, so this is inert elsewhere.
+		AND = {
+			tag = SNS
+			OR = {
+				has_cosmetic_tag = SNS_Aflaq
+				has_cosmetic_tag = SNS_NASIL_merger
+			}
+			# not while Turkey's (or anyone's) subject: joining would take Syria out of a puppet (Phase F)
+			is_subject = no
+		}
+	}
+}
+
+# Ready to proclaim or join the UAR: Ba'athist, at peace, and past the civil war it broke
+# away in. Ba'athist Iraq (BIR) and North Yemen (NYM) break away days before their civil
+# wars are declared (IraqCW.5 -> IraqCW.8, YEM.50 -> YEM.51). At peace in that gap, BIR
+# could unite before fighting, which left Iraq partitioned for good. Each now waits until
+# its war has begun (the flag the war event sets) and ended, the same test its own victory
+# event uses (CWIraq.4, yemcw.2).
+UAR_baathist_ready_to_unite = {
+	UAR_is_baathist_nation = yes
+	has_war = no
+	custom_trigger_tooltip = {
+		tooltip = UAR_baathist_civil_war_won_tt
+		OR = {
+			NOT = { tag = BIR }
+			has_global_flag = Iraq_CW
+		}
+		OR = {
+			NOT = { tag = NYM }
+			has_global_flag = Yemen_CW
+		}
+	}
+}
+
+# True while a Ba'athist nation other than the UAR still stands: it exists and has not
+# capitulated. UAR_baathist_defeated is set on capitulation (TNO_UAR_on_actions.txt).
+UAR_baathists_still_standing = {
+	any_country = {
+		NOT = { tag = UAR }
+		UAR_is_baathist_nation = yes
+		NOT = { has_country_flag = UAR_baathist_defeated }
+	}
+}

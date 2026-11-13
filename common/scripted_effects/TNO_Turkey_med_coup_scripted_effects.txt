@@ -1,0 +1,252 @@
+### Turkey's Kemalist coup and the Maoist rising (_WIP only).
+###
+### The branch shipped the pieces and wired none of them: the "Kemalism and Coup" panel in the
+### parliament GUI (TNO_Turkey_DtS.txt, flags kemalism_gui_enabled and coup_stage_1..10_enabled),
+### Talat Aydemir's 27 May Committee (burgundian_system), Muhsin Batur's Maoists (communist), the
+### Turkish Leftists tag (TKP) and the two coup trees. The chain:
+###
+###   1. A post-war government takes office (any of the trees in TUR_coup_meter_monthly), and the
+###      army's patience starts at stage 10. It drops a stage every 8 months, every 4 below 40%
+###      stability. The decision TUR_placate_the_army buys a stage back for political power.
+###   2. Stage 1: the army moves (tur_coup.1). Aydemir's 27 May Committee takes power.
+###   3. Ten days later the Maoists rise (tur_coup.2): TKP takes the eastern states the government
+###      still holds, raises its army there and goes to war with Turkey.
+###   4. The capitulation handler (TNO_peace_on_actions.txt) settles it. If the rising falls, Turkey
+###      annexes TKP and loads the Kemalist tree (tur_coup.3). If Turkey falls, Turkey annexes TKP
+###      with its army and becomes Maoist, so the TUR tag and the player carry on (tur_coup.4).
+###
+### No vanilla civil war: TKP is a real tag with its own states, army and war.
+
+# TUR scope. From Turkey's monthly on_action, under the WIP flag.
+TUR_coup_meter_monthly = {
+	if = {
+		limit = {
+			NOT = { has_country_flag = TUR_coup_meter_started }
+			OR = {
+				has_focus_tree = TNO_Turkey_CHP_ITWVictory
+				has_focus_tree = TNO_Turkey_CHP_ITWLoss
+				has_focus_tree = TNO_Turkey_CHP_ITWLoss_2
+				has_focus_tree = TNO_Turkey_DYP_ITWLoss
+				has_focus_tree = TNO_Turkey_DYP_ITWLoss_2
+				has_focus_tree = TNO_Turkey_UDP_ITWLoss
+				has_focus_tree = TNO_Turkey_UDP_ITWLoss_2
+				has_focus_tree = TNO_Turkey_UDP_ITWLoss_3
+				has_focus_tree = TNO_Turkey_UDP_ITWLoss_4
+			}
+		}
+		set_country_flag = TUR_coup_meter_started
+		TUR_coup_meter_start = yes
+	}
+	if = {
+		limit = { has_country_flag = TUR_coup_meter_active }
+		add_to_variable = { TUR_coup_months = 1 }
+		set_temp_variable = { tur_coup_interval = 8 }
+		if = {
+			limit = { has_stability < 0.4 }
+			set_temp_variable = { tur_coup_interval = 4 }
+		}
+		if = {
+			limit = { check_variable = { var = TUR_coup_months value = tur_coup_interval compare = greater_than_or_equals } }
+			set_variable = { TUR_coup_months = 0 }
+			TUR_coup_stage_advance = yes
+		}
+	}
+	# The rising ended without a capitulation (another country took TKP's last state): the
+	# Kemalists have won by default.
+	if = {
+		limit = {
+			has_global_flag = TUR_maoist_civil_war
+			NOT = { country_exists = TKP }
+		}
+		TUR_kemalists_crush_maoists = yes
+	}
+}
+
+TUR_coup_meter_start = {
+	set_country_flag = TUR_coup_meter_active
+	set_country_flag = kemalism_gui_enabled
+	set_variable = { TUR_coup_stage = 10 }
+	set_variable = { TUR_coup_months = 0 }
+	TUR_coup_stage_sync = yes
+}
+
+# Stage 10 is the army at rest, stage 1 the coup. One flag per lit segment of the panel's bar.
+TUR_coup_stage_sync = {
+	if = { limit = { check_variable = { var = TUR_coup_stage value = 10 compare = less_than_or_equals } } set_country_flag = coup_stage_10_enabled } else = { clr_country_flag = coup_stage_10_enabled }
+	if = { limit = { check_variable = { var = TUR_coup_stage value = 9 compare = less_than_or_equals } } set_country_flag = coup_stage_9_enabled } else = { clr_country_flag = coup_stage_9_enabled }
+	if = { limit = { check_variable = { var = TUR_coup_stage value = 8 compare = less_than_or_equals } } set_country_flag = coup_stage_8_enabled } else = { clr_country_flag = coup_stage_8_enabled }
+	if = { limit = { check_variable = { var = TUR_coup_stage value = 7 compare = less_than_or_equals } } set_country_flag = coup_stage_7_enabled } else = { clr_country_flag = coup_stage_7_enabled }
+	if = { limit = { check_variable = { var = TUR_coup_stage value = 6 compare = less_than_or_equals } } set_country_flag = coup_stage_6_enabled } else = { clr_country_flag = coup_stage_6_enabled }
+	if = { limit = { check_variable = { var = TUR_coup_stage value = 5 compare = less_than_or_equals } } set_country_flag = coup_stage_5_enabled } else = { clr_country_flag = coup_stage_5_enabled }
+	if = { limit = { check_variable = { var = TUR_coup_stage value = 4 compare = less_than_or_equals } } set_country_flag = coup_stage_4_enabled } else = { clr_country_flag = coup_stage_4_enabled }
+	if = { limit = { check_variable = { var = TUR_coup_stage value = 3 compare = less_than_or_equals } } set_country_flag = coup_stage_3_enabled } else = { clr_country_flag = coup_stage_3_enabled }
+	if = { limit = { check_variable = { var = TUR_coup_stage value = 2 compare = less_than_or_equals } } set_country_flag = coup_stage_2_enabled } else = { clr_country_flag = coup_stage_2_enabled }
+	if = { limit = { check_variable = { var = TUR_coup_stage value = 1 compare = less_than_or_equals } } set_country_flag = coup_stage_1_enabled } else = { clr_country_flag = coup_stage_1_enabled }
+}
+
+TUR_coup_stage_advance = {
+	if = {
+		limit = {
+			has_country_flag = TUR_coup_meter_active
+			check_variable = { TUR_coup_stage > 1 }
+		}
+		subtract_from_variable = { TUR_coup_stage = 1 }
+		TUR_coup_stage_sync = yes
+		if = {
+			limit = { check_variable = { TUR_coup_stage < 2 } }
+			clr_country_flag = TUR_coup_meter_active
+			country_event = { id = tur_coup.1 days = 1 }
+		}
+	}
+}
+
+# TUR_placate_the_army.
+TUR_coup_stage_recede = {
+	if = {
+		limit = { check_variable = { TUR_coup_stage < 10 } }
+		add_to_variable = { TUR_coup_stage = 1 }
+		set_variable = { TUR_coup_months = 0 }
+		TUR_coup_stage_sync = yes
+	}
+	custom_effect_tooltip = TUR_coup_stage_recede_tt
+}
+
+# TUR scope, tur_coup.1. Aydemir's 27 May Committee takes power; the Maoists answer ten days later.
+TUR_kemalist_coup = {
+	set_country_flag = TUR_kemalist_coup_done
+	clr_country_flag = TUR_coup_meter_active
+	set_politics = { ruling_party = burgundian_system elections_allowed = no }
+	add_popularity = { ideology = burgundian_system popularity = 0.3 }
+	TUR_med_promote_Talat_Aydemir = yes
+	hidden_effect = { country_event = { id = tur_coup.2 days = 10 } }
+}
+
+# TUR scope, tur_coup.2. The Turkish Leftists take the eastern states the government still holds
+# (Sivas, Malatya, Van, Erzurum, Ardahan; Dersim lies between them) and go to war. If none is left in
+# government hands, the rising never gets going and the Kemalists keep Turkey.
+TUR_maoist_rising = {
+	every_owned_state = {
+		limit = {
+			is_controlled_by = TUR
+			OR = {
+				state = 349
+				state = 350
+				state = 352
+				state = 353
+				state = 1398
+			}
+		}
+		add_core_of = TKP
+		TKP = { transfer_state = PREV }
+	}
+	if = {
+		limit = { country_exists = TKP }
+		set_global_flag = TUR_maoist_civil_war
+		TKP = {
+			set_politics = { ruling_party = communist elections_allowed = no }
+			TUR_med_promote_Muhsin_Batur = yes
+			set_cosmetic_tag = TUR_mao
+			if = { limit = { owns_state = 350 } set_capital = { state = 350 } }
+			else_if = { limit = { owns_state = 353 } set_capital = { state = 353 } }
+			else_if = { limit = { owns_state = 349 } set_capital = { state = 349 } }
+			else_if = { limit = { owns_state = 352 } set_capital = { state = 352 } }
+			else_if = { limit = { owns_state = 1398 } set_capital = { state = 1398 } }
+			TUR_maoist_army = yes
+			add_manpower = 20000
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 3000 }
+			declare_war_on = { target = TUR type = civil_war }
+		}
+	}
+	else = {
+		TUR_kemalists_crush_maoists = yes
+	}
+}
+
+# TKP scope. Two militia and one infantry division in every state the rising holds.
+TUR_maoist_army = {
+	if = {
+		limit = { NOT = { has_template = "Maoist Militia" } }
+		division_template = {
+			name = "Maoist Militia"
+			is_locked = yes
+			regiments = {
+				light_infantry = { x = 0 y = 0 }
+				light_infantry = { x = 0 y = 1 }
+				light_infantry = { x = 1 y = 0 }
+				light_infantry = { x = 1 y = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { NOT = { has_template = "People's Army Division" } }
+		division_template = {
+			name = "People's Army Division"
+			is_locked = yes
+			regiments = {
+				infantry = { x = 0 y = 0 }
+				infantry = { x = 0 y = 1 }
+				infantry = { x = 0 y = 2 }
+				infantry = { x = 1 y = 0 }
+				infantry = { x = 1 y = 1 }
+				infantry = { x = 1 y = 2 }
+			}
+		}
+	}
+	every_owned_state = {
+		create_unit = {
+			division = "name = \"Maoist Militia\" division_template = \"Maoist Militia\" start_experience_factor = 0.1 start_equipment_factor = 1"
+			owner = PREV
+		}
+		create_unit = {
+			division = "name = \"Maoist Militia\" division_template = \"Maoist Militia\" start_experience_factor = 0.1 start_equipment_factor = 1"
+			owner = PREV
+		}
+		create_unit = {
+			division = "name = \"People's Army Division\" division_template = \"People's Army Division\" start_experience_factor = 0.2 start_equipment_factor = 1"
+			owner = PREV
+		}
+	}
+}
+
+# TUR scope. The rising has fallen (its capitulation, or TKP gone some other way).
+TUR_kemalists_crush_maoists = {
+	clr_global_flag = TUR_maoist_civil_war
+	set_global_flag = TUR_kemalist_victory
+	if = {
+		limit = { country_exists = TKP }
+		annex_country = { target = TKP transfer_troops = no }
+	}
+	TUR_maoist_rising_clear_cores = yes
+	TUR_EsoKemalist_Coup = yes # the Kemalist tree, the 27 May Committee in power, the Republic of Turkeli
+	country_event = { id = tur_coup.3 days = 1 }
+}
+
+# TUR scope, after Turkey's capitulation to TKP. The Maoists take the TUR tag rather than the other way
+# round, so everything that names TUR keeps working: Turkey makes peace with the rising and annexes it,
+# army and all, under a Maoist government. A player who had gone over to the rising is handed Turkey.
+TUR_maoists_take_turkey = {
+	clr_global_flag = TUR_maoist_civil_war
+	set_global_flag = TUR_maoist_victory
+	if = {
+		limit = { country_exists = TKP }
+		white_peace = TKP
+		change_tag_from = TKP
+	}
+	TUR_Maoist_Coup = yes # the Maoist tree, the communist government, the Anatolian People's Kurultay
+	add_popularity = { ideology = communist popularity = 0.5 }
+	TUR_med_promote_Muhsin_Batur = yes
+	if = {
+		limit = { country_exists = TKP }
+		annex_country = { target = TKP transfer_troops = yes }
+	}
+	TUR_maoist_rising_clear_cores = yes
+	country_event = { id = tur_coup.4 days = 1 }
+}
+
+# The cores the rising was given, so nobody can release the Turkish Leftists afterwards.
+TUR_maoist_rising_clear_cores = {
+	every_state = {
+		limit = { is_core_of = TKP }
+		remove_core_of = TKP
+	}
+}

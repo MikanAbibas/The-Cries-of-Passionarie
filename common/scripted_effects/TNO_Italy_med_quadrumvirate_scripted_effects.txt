@@ -1,0 +1,36 @@
+### Grand Council of Fascism - helper for the Quadrumvirate focuses.
+###
+### The contest runs on ITA_GCF_AddLoy, which wants three temp variables:
+###   ITA_GCF_fella_to_add     0 Pavolini, 1 Balbo, 2 Muti, 3 Giani
+###   ITA_GCF_gerarchi_to_add  0 Ministri, 1 Corporazioni, 2 Burocrati,
+###                            3 Militaristi, 4 MVSN, 5 Moderati
+###   ITA_GCF_amount_to_add    a fraction, so 0.08 is eight points of loyalty
+###
+### The Quadrumvirate focuses are taken by whichever candidate the player is
+### running, so the focus sets the bloc and the amount and this resolves the
+### candidate from the flag ITA_let_the_games_begin planted. Calling AddLoy
+### with no candidate would silently credit Pavolini, so nothing happens when
+### no flag is set.
+
+ITA_GCF_boost_chosen = {
+	if = {
+		limit = { has_country_flag = ITA_pavolini_chosen }
+		set_temp_variable = { ITA_GCF_fella_to_add = 0 }
+		ITA_GCF_AddLoy = yes
+	}
+	else_if = {
+		limit = { has_country_flag = ITA_balbo_chosen }
+		set_temp_variable = { ITA_GCF_fella_to_add = 1 }
+		ITA_GCF_AddLoy = yes
+	}
+	else_if = {
+		limit = { has_country_flag = ITA_muti_chosen }
+		set_temp_variable = { ITA_GCF_fella_to_add = 2 }
+		ITA_GCF_AddLoy = yes
+	}
+	else_if = {
+		limit = { has_country_flag = ITA_giani_chosen }
+		set_temp_variable = { ITA_GCF_fella_to_add = 3 }
+		ITA_GCF_AddLoy = yes
+	}
+}

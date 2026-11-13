@@ -1,0 +1,344 @@
+# Phase E of the Greece and Turkey import (GREECE_INTEGRATION_PLAN.md): who governs Greece after its
+# elections. On the Mediterranean branch only debug decisions loaded these trees. GRE scope throughout.
+
+# After GRE_election_select_national_victors. The higher of EDA and ERE governs (EK, KKE and MK have no
+# trees); a tie goes to the EDA. The second election, at the end of the EDA's first term, also
+# decides Pyromaglou's successor.
+GRE_election_form_government = {
+	if = {
+		limit = { has_country_flag = GRE_colonels_junta } # the colonels hold on (Phase G)
+	}
+	else_if = {
+		limit = { check_variable = { ERE_popularity_national > EDA_popularity_national } }
+		GRE_form_ERE_government = yes
+	}
+	else_if = {
+		limit = { has_country_flag = GRE_second_election }
+		GRE_EDA_succession = yes
+	}
+	else = {
+		GRE_form_EDA_government = yes
+	}
+	clr_country_flag = GRE_second_election
+}
+
+GRE_form_EDA_government = {
+	set_politics = { ruling_party = social_democrat }
+	if = {
+		limit = { NOT = { has_country_leader = { name = "Komninos Pyromaglou" ruling_only = yes } } }
+		GRE_med_promote_Komninos_Pyromaglou = yes
+	}
+	set_country_flag = GRE_EDA_government
+	load_focus_tree = GRE_EDA_First_Term_Tree
+	mark_focus_tree_layout_dirty = yes
+}
+
+# Kanellopoulos in 1964, Karamanlis (med's ERE candidate in the second campaign) after it. The ERE tree
+# runs on Control of the State, which only a debug decision started on the branch.
+GRE_form_ERE_government = {
+	set_politics = { ruling_party = social_conservative }
+	if = {
+		limit = { has_country_flag = GRE_second_election }
+		if = {
+			limit = { NOT = { has_country_leader = { name = "Konstantinos Karamanlis" ruling_only = yes } } }
+			GRE_med_promote_Konstantinos_Karamanlis = yes
+		}
+	}
+	else = {
+		if = {
+			limit = { NOT = { has_country_leader = { name = "Panagiotis Kanellopoulos" ruling_only = yes } } }
+			GRE_med_promote_Panagiotis_Kanellopoulos = yes
+		}
+	}
+	if = {
+		limit = { NOT = { has_country_flag = GRE_ERE_control_gui_enabled } }
+		GRE_CoTS_init = yes
+	}
+	clr_country_flag = GRE_EDA_government
+	set_country_flag = GRE_ERE_government
+	load_focus_tree = GRE_ERE_First_Term_Tree
+	mark_focus_tree_layout_dirty = yes
+}
+
+# The EDA keeps power: whoever leads the influence bar (GRE_Party_Stability_init, the Papandreou/Kyrkos
+# GUI) succeeds Pyromaglou. A tie, or a bar never started, goes to Papandreou.
+GRE_EDA_succession = {
+	if = {
+		limit = { check_variable = { GRE_EDA_kyrkos_progress > GRE_EDA_papandreou_progress } }
+		set_politics = { ruling_party = socialist }
+		if = {
+			limit = { NOT = { has_country_leader = { name = "Leonidas Kyrkos" ruling_only = yes } } }
+			create_country_leader = {
+				name = "Leonidas Kyrkos"
+				desc = "POLITICS_LEONIDAS_KYRKOS_DESC"
+				picture = "gfx/leaders/GRE/Leonidas_Kyrkos.dds"
+				expire = "2011.8.28.1"
+				ideology = socialist_revolutionary_frontism_subtype
+				traits = { }
+			}
+		}
+		set_country_flag = GRE_Kyrkos_government
+		load_focus_tree = GRE_EDA_Kyrkos_Tree
+		GRE_kyrkos_referendum_setup_effect = yes
+	}
+	else = {
+		set_politics = { ruling_party = social_democrat }
+		if = {
+			limit = { NOT = { has_country_leader = { name = "Andreas Papandreou" ruling_only = yes } } }
+			GRE_med_promote_Andreas_Papandreou = yes
+		}
+		set_country_flag = GRE_Papandreou_government
+		load_focus_tree = GRE_EDA_Papandreou_Tree
+	}
+	mark_focus_tree_layout_dirty = yes
+	GRE_EDA_oil_crisis_response = yes # the crisis may already be on (Phase F)
+}
+
+# The Oil Crisis reaches the EDA's second government (Phase F). Med's responses were reachable only by
+# debug decision: Papandreou's opens his System Shock branch (and through it the negotiations fork),
+# Kyrkos's opens the branch that holds his referendum. Once, while either tree is loaded. Med's debug
+# decisions also added GRE_oil_crisis_specific, whose values nothing ever sets; it is left out.
+GRE_EDA_oil_crisis_response = {
+	if = {
+		limit = {
+			has_global_flag = oil_crisis_full_swing
+			NOT = { has_country_flag = GRE_EDA_oil_crisis }
+			NOT = { has_country_flag = GRE_EDA_oil_crisis_response_sent }
+		}
+		if = {
+			limit = { has_focus_tree = GRE_EDA_Papandreou_Tree }
+			set_country_flag = GRE_EDA_oil_crisis_response_sent
+			country_event = { id = greEDA.247 days = 1 }
+		}
+		else_if = {
+			limit = { has_focus_tree = GRE_EDA_Kyrkos_Tree }
+			set_country_flag = GRE_EDA_oil_crisis_response_sent
+			country_event = { id = greEDA.382 days = 1 }
+		}
+	}
+}
+
+# The Colonels' government (Papadopoulos). Moved out of greColonelsJunta.1 so that the EAM's
+# defeat under a democratic Italy installs the same regime (greColonelsJunta.2). GRE scope.
+GRE_install_colonels_junta = {
+	set_country_flag = GRE_colonels_junta # Phase G: the 1964 vote does not replace it
+	set_politics = {
+		ruling_party = despotism
+	}
+	set_popularities = {
+		communist = 5
+		socialist = 5
+		social_democrat = 10
+		social_liberal = 12.5
+		social_conservative = 12.5
+		authoritarian_democrat = 0
+		fascism = 10
+		despotism = 40
+		national_socialism = 5
+		ultranational_socialism = 0
+		burgundian_system = 0
+	}
+	remove_ideas = GRE_the_new_republic
+	add_ideas = GRE_The_Dictatorship_of_the_Colonels
+	remove_ideas = GRE_Recovering_Economy
+	add_ideas = GRE_Greece_is_a_Construction_Zone
+	remove_ideas = GRE_The_Mountain_Government
+	add_ideas = GRE_Elliniki_Stratiotiki_Astynomia
+
+	remove_all_ministers = yes 
+	add_ideas = {
+		GRE_Dimitrios_Ioannidis_hog
+		GRE_Stylianos_Pattakos_sec
+		GRE_Adamantios_Androutsopoulos_eco
+		GRE_Konstantinos_Kollias_for
+	}
+	
+	set_party_name = { 
+		ideology = communist 
+		long_name = GRE_Communist_Junta_long 
+		name = GRE_Communist_Junta
+	}
+	# med: GRE_Alexandros_Giotopoulos (character scope), converted
+	create_country_leader = {
+		name = "Alexandros Giotopoulos"
+		expire = "1999.1.1.1"
+		ideology = communist_bukharinism_subtype
+		traits = { }
+	}
+	
+	set_party_name = { 
+		ideology = socialist 
+		long_name = GRE_Socialist_Junta_long 
+		name = GRE_Socialist_Junta
+	}
+	
+	set_party_name = { 
+		ideology = social_democrat 
+		long_name = GRE_social_democrat_Junta_long 
+		name = GRE_social_democrat_Junta
+	}
+	GRE_med_promote_Andreas_Papandreou = yes
+	
+	set_party_name = { 
+		ideology = social_liberal 
+		long_name = GRE_social_liberal_Junta_long 
+		name = GRE_social_liberal_Junta
+	}
+	# med: GRE_Alexandros_Panagoulis (character scope), converted
+	create_country_leader = {
+		name = "Alexandros Panagoulis"
+		expire = "1999.1.1.1"
+		ideology = social_liberal_subtype
+		traits = { }
+	}
+	
+	set_party_name = { 
+		ideology = social_conservative 
+		long_name = GRE_social_conservative_Junta_long 
+		name = GRE_social_conservative_Junta
+	}
+	# med: GRE_Georgios_Rallis (character scope), converted
+	create_country_leader = {
+		name = "Georgios Rallis"
+		expire = "1999.1.1.1"
+		ideology = social_conservative_subtype
+		traits = { }
+	}
+	
+	set_party_name = { 
+		ideology = authoritarian_democrat 
+		long_name = GRE_authoritarian_democrat_Junta_long
+		name = GRE_authoritarian_democrat_Junta
+	}
+	# med: GRE_Michalis_Vardanis (character scope), converted
+	create_country_leader = {
+		name = "Michalis Vardanis"
+		expire = "1999.1.1.1"
+		ideology = authoritarian_democrat_subtype
+		traits = { }
+	}
+	
+	set_party_name = { 
+		ideology = despotism 
+		long_name = GRE_Despotism_Junta_long 
+		name = GRE_Despotism_Junta
+	}
+	GRE_med_promote_Georgios_Papadopoulos = yes
+	
+	set_party_name = { 
+		ideology = fascism 
+		long_name = GRE_Fascism_Junta_long 
+		name = GRE_Fascism_Junta
+	}
+	# med: GRE_Dimitrios_Ioannidis (character scope), converted
+	create_country_leader = {
+		name = "Dimitrios Ioannidis"
+		desc = "POLITICS_DIMITRIOS_IOANNIDIS_DESC"
+		picture = "gfx/leaders/GRE/Portrait_Greece_Dimitrios_Ionnidis.dds"
+		expire = "2010.8.16.1"
+		ideology = fascism_subtype
+		traits = { }
+	}
+	
+	set_variable = { GRE_BOG_Approval_Pos^0 = 22 }
+	set_variable = { GRE_BOG_Approval_Mid^0 = 38 }
+	set_variable = { GRE_BOG_Approval_Neg^0 = 40 }
+		
+	set_variable = { GRE_BOG_Approval_Pos^1 = 20 }
+	set_variable = { GRE_BOG_Approval_Mid^1 = 10 }
+	set_variable = { GRE_BOG_Approval_Neg^1 = 70 }
+		
+	set_variable = { GRE_BOG_Approval_Pos^2 = 70 }
+	set_variable = { GRE_BOG_Approval_Mid^2 = 20 }
+	set_variable = { GRE_BOG_Approval_Neg^2 = 10 }
+	
+	set_variable = { GRE_BOG_Approval_Pos^3 = 30 }
+	set_variable = { GRE_BOG_Approval_Mid^3 = 40 }
+	set_variable = { GRE_BOG_Approval_Neg^3 = 30 }
+		
+	set_variable = { GRE_BOG_Approval_Pos^4 = 60 }
+	set_variable = { GRE_BOG_Approval_Mid^4 = 15 }
+	set_variable = { GRE_BOG_Approval_Neg^4 = 25 }
+		
+	set_variable = { GRE_BOG_Approval_Pos^5 = 70 }
+	set_variable = { GRE_BOG_Approval_Mid^5 = 5 }
+	set_variable = { GRE_BOG_Approval_Neg^5 = 25 }
+}
+
+# Italy has beaten the EAM (the ITA-GRE capitulation handler in TNO_peace_on_actions.txt). Rome
+# does not leave a Greek government it just fought in place: a fascist Italy restores the
+# collaborators (greEAMGovernment.19), a democratic one hands Athens to the Colonels
+# (greColonelsJunta.2). Neither regime has a tree of its own yet. GRE scope throughout.
+GRE_EAM_defeat_cleanup = {
+	# the liberation war is over: the front tracking (GRE_EAM_liberation_war) stops
+	clr_country_flag = eam_war_liberation
+	clr_country_flag = eam_albania_front
+	clr_country_flag = eam_border_front
+	clr_country_flag = eam_home_front
+	clr_country_flag = GRE_EAM_takeover
+	set_country_flag = GRE_EAM_defeated
+	# ELAS's commanders, created by greEAMGovernment.1
+	remove_unit_leader = 730002 # Aris Velouchiotis
+	remove_unit_leader = 730003 # Charilaos Florakis
+	remove_unit_leader = 730004 # Ydraios
+	remove_unit_leader = 730005 # Dimitris Vlantas
+	remove_unit_leader = 730006 # Konstantinos Karagiorgis
+	remove_unit_leader = 730007 # Papaflessas
+	remove_unit_leader = 730008 # Kepetan Markos
+	remove_all_ministers = yes
+	set_cosmetic_tag = GRE_med
+	econ_join_sphere_ITA = yes
+	if = {
+		limit = {
+			ITA = { is_faction_leader = yes }
+			NOT = { is_in_faction_with = ITA }
+		}
+		ITA = { add_to_faction = GRE }
+	}
+	load_focus_tree = blank_no_tree_apoc
+	mark_focus_tree_layout_dirty = yes
+}
+
+# The Hellenic State as GRE_med_wip_startup built it. Themelis died at grePostITW.14, so his
+# National Union is handed to Ioannis Ladas, whose fascist role the startup already created.
+GRE_restore_collaborator_government = {
+	GRE_EAM_defeat_cleanup = yes
+	set_politics = {
+		ruling_party = fascism
+		elections_allowed = no
+	}
+	set_popularities = {
+		communist = 8
+		despotism = 20
+		socialist = 7
+		social_democrat = 6
+		social_liberal = 7
+		social_conservative = 9
+		authoritarian_democrat = 8
+		fascism = 26
+		national_socialism = 9
+		ultranational_socialism = 0
+	}
+	create_country_leader = {
+		name = "Ioannis Ladas"
+		picture = "gfx/leaders/GRE/Portrait_Greece_Ioannis_Ladas.dds"
+		expire = "1999.1.1.1"
+		ideology = fascism_subtype
+		traits = { }
+	}
+	add_ideas = {
+		GRE_katochiko_kratos
+		GRE_Antonio_Gandin_hog
+		GRE_Phaedon_Gizikis_sec
+		GRE_Ioannis_Voulpiotis_eco
+		GRE_Antonis_Livieratos_for
+	}
+	set_country_flag = GRE_collaborators_restored
+}
+
+# The Colonels after the EAM. GRE_install_colonels_junta is the same regime greColonelsJunta.1
+# installs after failed negotiations.
+GRE_EAM_defeat_install_junta = {
+	GRE_EAM_defeat_cleanup = yes
+	GRE_install_colonels_junta = yes
+}

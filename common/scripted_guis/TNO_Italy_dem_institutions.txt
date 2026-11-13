@@ -1,0 +1,279 @@
+scripted_gui = {
+    TNO_Italy_dem_institutions = {
+        context_type = decision_category
+        window_name = "TNO_Italy_dem_institutions"
+
+        visible = {
+			always = yes
+		}
+
+		effects = {
+
+		}
+		
+		triggers = {
+			# The six policy slots open TNO_my_window, which is scaffolding - a
+			# tiled developer background, a Burgundy plus button and grid entries
+			# drawn with an Astrakhan focus icon, over an ITA_selected_institution
+			# variable that nothing reads. Hidden until the policies themselves
+			# exist; the bars and the ticks above them are real.
+			add_policy1_visible = { always = no }
+			add_policy2_visible = { always = no }
+			add_policy3_visible = { always = no }
+			add_policy4_visible = { always = no }
+			add_policy5_visible = { always = no }
+			add_policy6_visible = { always = no }
+			add_centralization_visible = {
+				has_country_flag = ITA_Institutions_Debug_Buttons
+			}
+			remove_centralization_visible = {
+				has_country_flag = ITA_Institutions_Debug_Buttons
+			}
+			add_plurality_visible = {
+				has_country_flag = ITA_Institutions_Debug_Buttons
+			}
+            remove_plurality_visible = {
+				has_country_flag = ITA_Institutions_Debug_Buttons
+			}
+			add_technocracy_visible = {
+				has_country_flag = ITA_Institutions_Debug_Buttons
+			}
+			remove_technocracy_visible = {
+				has_country_flag = ITA_Institutions_Debug_Buttons
+			}
+            add_fash_visible = {
+				has_country_flag = ITA_Institutions_Debug_Buttons
+			}
+			remove_fash_visible = {
+				has_country_flag = ITA_Institutions_Debug_Buttons
+            }
+            add_stability_visible = {
+				has_country_flag = ITA_Institutions_Debug_Buttons
+			}
+			remove_stability_visible = {
+				has_country_flag = ITA_Institutions_Debug_Buttons
+			}
+		}
+        
+        properties = {
+            defash_bar = {
+                frame = ITA_defash_bar
+            }
+			centralization_bar = {
+                frame = ITA_centralization
+            }
+			plurality_bar = {
+                frame = ITA_plurality
+            }
+			technocracy_bar = {
+                frame = ITA_technocracy
+            }
+			stability_bar = {
+                frame = ITA_stability
+            }
+			ita_centralization_tick = { 
+			    x = ITA_centralization_x_axis
+				y = 140
+			}
+			ita_plurality_tick = { 
+			    x = ITA_plurality_x_axis
+				y = 201
+			}
+			ita_technocracy_tick = { 
+			    x = ITA_technocracy_x_axis
+				y = 262
+			}
+			ita_stability_tick = { 
+			    x = ITA_stability_x_axis
+				y = 323
+			}
+			add_policy1 = { 
+			image = "[GetInstitutionIcon_1]" }
+			add_policy2 = { 
+			image = "[GetInstitutionIcon_2]" }
+			add_policy3 = { 
+			image = "[GetInstitutionIcon_3]" }
+			add_policy4 = { 
+			image = "[GetInstitutionIcon_4]" }
+			add_policy5 = { 
+			image = "[GetInstitutionIcon_5]" }
+			add_policy6 = { 
+			image = "[GetInstitutionIcon_6]" }
+        }
+        effects = {  #Debug Buttons
+            add_centralization_click = {
+                add_to_variable = { ITA_centralization = 1 }
+                clamp_variable = { var = ITA_centralization min = 0 max = 100 }
+				ITA_clamp_centralization_var = yes
+            }
+            add_centralization_right_click = {
+                add_to_variable = { ITA_centralization = 5 }
+                clamp_variable = { var = ITA_centralization min = 0 max = 100 }
+				ITA_clamp_centralization_var = yes
+            }
+            remove_centralization_click = {
+			    subtract_from_variable = { ITA_centralization = 1 }
+                clamp_variable = { var = ITA_centralization min = 0 max = 100 }
+				ITA_clamp_centralization_var = yes
+            }
+            remove_centralization_right_click = {
+			    subtract_from_variable = { ITA_centralization = 5 }
+                clamp_variable = { var = ITA_centralization min = 0 max = 100 }
+				ITA_clamp_centralization_var = yes
+            }
+            add_plurality_click = {
+                add_to_variable = { ITA_plurality = 1 }
+                clamp_variable = { var = ITA_plurality min = 0 max = 100 }
+				ITA_clamp_plurality_var = yes
+            }
+            add_plurality_right_click = {
+                add_to_variable = { ITA_plurality = 5 }
+                clamp_variable = { var = ITA_plurality min = 0 max = 100 }
+				ITA_clamp_plurality_var = yes
+            }
+            remove_plurality_click = {
+                subtract_from_variable = { ITA_plurality = 1 }
+                clamp_variable = { var = ITA_plurality min = 0 max = 100 }
+				ITA_clamp_plurality_var = yes
+            }
+            remove_plurality_right_click = {
+                subtract_from_variable = { ITA_plurality = 5 }
+                clamp_variable = { var = ITA_plurality min = 0 max = 100 }
+				ITA_clamp_plurality_var = yes
+            }
+            add_technocracy_click = {
+                add_to_variable = { ITA_technocracy = 1 }
+                clamp_variable = { var = ITA_technocracy min = 0 max = 100 }
+				ITA_clamp_technocracy_var = yes
+            }
+            add_technocracy_right_click = {
+                add_to_variable = { ITA_technocracy = 5 }
+                clamp_variable = { var = ITA_technocracy min = 0 max = 100 }
+				ITA_clamp_technocracy_var = yes
+            }
+            remove_technocracy_click = {
+                subtract_from_variable = { ITA_technocracy = 1 }
+                clamp_variable = { var = ITA_technocracy min = 0 max = 100 }
+				ITA_clamp_technocracy_var = yes
+            }
+            remove_technocracy_right_click = {
+                subtract_from_variable = { ITA_technocracy = 5 }
+                clamp_variable = { var = ITA_technocracy min = 0 max = 100 }
+				ITA_clamp_technocracy_var = yes
+            }
+            add_fash_click = {
+                add_to_variable = { ITA_defash_bar = 1 }
+                clamp_variable = { var = ITA_defash_bar min = 0 max = 100 }
+            }
+            add_fash_right_click = {
+                add_to_variable = { ITA_defash_bar = 5 }
+                clamp_variable = { var = ITA_defash_bar min = 0 max = 100 }
+            }
+            remove_fash_click = {
+                subtract_from_variable = { ITA_defash_bar = 1 }
+                clamp_variable = { var = ITA_defash_bar min = 0 max = 100 }
+            }
+            remove_fash_right_click = {
+                subtract_from_variable = { ITA_defash_bar = 5 }
+                clamp_variable = { var = ITA_defash_bar min = 0 max = 100 }
+            }
+            add_stability_click = {
+                add_to_variable = { ITA_stability = 1 }
+                clamp_variable = { var = ITA_stability min = 0 max = 100 }
+				ITA_clamp_stability_var = yes
+            }
+            add_stability_right_click = {
+                add_to_variable = { ITA_stability = 5 }
+                clamp_variable = { var = ITA_stability min = 0 max = 100 }
+				ITA_clamp_stability_var = yes
+            }
+            remove_stability_click = {
+                subtract_from_variable = { ITA_stability = 1 }
+                clamp_variable = { var = ITA_stability min = 0 max = 100 }
+				ITA_clamp_stability_var = yes
+            }
+            remove_stability_right_click = {
+                subtract_from_variable = { ITA_stability = 5 }
+                clamp_variable = { var = ITA_stability min = 0 max = 100 }
+				ITA_clamp_stability_var = yes
+            }
+            add_policy1_click = {
+			    set_variable = {ITA_selecting_institutions = 1}
+                set_country_flag = TNO_ITA_Policy_select
+            }
+			add_policy2_click = {
+			    set_variable = {ITA_selecting_institutions = 2}
+                set_country_flag = TNO_ITA_Policy_select
+            }
+			add_policy3_click = {
+			    set_variable = {ITA_selecting_institutions = 3}
+                set_country_flag = TNO_ITA_Policy_select
+            }
+			add_policy4_click = {
+			    set_variable = {ITA_selecting_institutions = 4}
+                set_country_flag = TNO_ITA_Policy_select
+            }
+			add_policy5_click = {
+			    set_variable = {ITA_selecting_institutions = 5}
+                set_country_flag = TNO_ITA_Policy_select
+            }
+			add_policy6_click = {
+			    set_variable = {ITA_selecting_institutions = 6}
+                set_country_flag = TNO_ITA_Policy_select
+            }
+        }
+    }
+
+    TNO_Italy_Institutions_policy_select = {
+        context_type = player_context
+		window_name = "TNO_Italy_Institutions_Policy_Select"
+		parent_window_token = top_bar
+
+        # An empty fifty-by-fifty window that was pinned to the top bar for the
+        # whole game. It holds nothing and drives nothing.
+        visible = {
+            always = no
+        }
+		#visible = {
+        #    always = yes 
+        #}
+		
+    }
+
+    TNO_gridbox_example = {
+        context_type = player_context
+        window_name = "TNO_my_window"
+        
+        # The policy picker. Scaffolding, and unreachable now that the six slots
+        # that set TNO_ITA_Policy_select are hidden. Left in place for whoever
+        # builds the policies.
+        visible = {
+            always = no
+        }
+        #visible = {
+        #    has_country_flag = TNO_ITA_Policy_select
+        #}
+        
+        effects = {
+            TNO_example_button_click = {
+			add_to_array = {TNO_Institutions = 1}
+            }
+            policy_select_close_button_click = {
+                clr_country_flag = TNO_ITA_Policy_select
+            }
+			TNO_inst_1_entry_click = {
+				ITA_select_institution_policy = yes
+				}
+		    }
+		
+        dynamic_lists = {
+            TNO_inst_gridbox = {
+                array = TNO_Institutions
+                index = i
+				change_scope = no
+                
+                entry_container = TNO_Institutions_entry
+            }
+        }
+    }
+}

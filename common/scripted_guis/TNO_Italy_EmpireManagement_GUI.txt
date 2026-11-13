@@ -1,0 +1,438 @@
+scripted_gui = {
+	TNO_EmpireManagement_OpenButtonContainer = {
+		context_type = player_context
+		parent_window_token = politics_tab
+		window_name = "TNO_EmpireManagement_OpenButton"
+
+		visible = {
+			tag = ITA
+			has_country_flag = ITA_EM_Active
+		}
+		
+		triggers = {
+			# Own flag, not the shared gui_alert_hidden: three Italian mechanics
+			# were reading that one, so dismissing any of them dismissed all three.
+			# The arrow also goes the moment the window has been opened, however
+			# the player got there - clicking the arrow itself does not press the
+			# button beneath it, which is why it used to survive the first click.
+			# The gui_alert icon is commented out of the .gui, so this controls
+			# nothing. Kept for when the arrow comes back.
+			gui_alert_visible = { always = no }
+			#gui_alert_visible = {
+			#NOT = { has_country_flag = ITA_EM_alert_hidden }
+			#NOT = { has_country_flag = ITA_Empire_GUI_open_flag }
+			#}
+		}
+
+		effects = {
+			EmpireManagement_OpenButton_click = {
+				if = {
+					limit = { NOT = { has_country_flag = ITA_Empire_GUI_open_flag } }
+					set_country_flag = ITA_Empire_GUI_open_flag
+					ITA_EmpireManagement_UpdateAlerts = yes
+				}
+				else = { clr_country_flag = ITA_Empire_GUI_open_flag }
+				set_country_flag = ITA_EM_alert_hidden
+			}
+
+			EmpireManagement_OpenButton_right_click = {
+				if = {
+					limit = {
+						is_debug = yes
+						NOT = { has_country_flag = ITA_Empire_GUI_debug_flag }
+					}
+					set_country_flag = ITA_Empire_GUI_debug_flag
+				}
+				else = { clr_country_flag = ITA_Empire_GUI_debug_flag }
+				add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+			}
+		}
+	}
+
+	TNO_EmpireManagement_MainDisplayContainer = {
+		context_type = player_context
+		parent_window_token = "TNO_EmpireManagement_open"
+		window_name = "TNO_EmpireManagement_Main"
+		# dirty = TNO_EmpireManagement_dirty #FIXME
+
+		visible = { has_country_flag = ITA_Empire_GUI_open_flag }
+		
+		triggers = {
+			EmpireManagement_Regions_Entry_visible = {
+				NOT = { check_variable = { ITA_EM_Regions^Region_i = 0 } }
+			}
+			EmpireManagement_Alerts_Entry_visible = {
+				NOT = { check_variable = { ITA_EM_Alerts^Region_i = 0 } }
+			}
+
+			# Chaos stuff
+			EmpireManagement_Info_History_visible = {
+				NOT = { check_variable = { ITA_EM_Alerts^EM_SelectedEntry_i = 1 } }
+			}
+			EmpireManagement_Sidebar_Chaos_visible = {
+				check_variable = { ITA_EM_Alerts^EM_SelectedEntry_i = 1 }
+			}
+			EmpireManagement_Sidebar_Chaos_Cover_visible = {
+				check_variable = { ITA_EM_Alerts^EM_SelectedEntry_i = 1 }
+			}
+
+			# Envoy control and progressbar
+			EmpireManagement_Envoys_Minus_click_enabled = {
+				check_variable = { ITA_EM_Regions_Envoys^EM_SelectedEntry_i > 0 } # Amount of currently assigned envoys must be higher than 0 (duh)
+			}
+			EmpireManagement_Envoys_Plus_click_enabled = {
+				check_variable = { ITA_EM_Regions_Envoys^EM_SelectedEntry_i < ITA_EM_Regions_MaxEnvoys^EM_SelectedEntry_i } # Amount of currently assigned envoys must be lower than the max
+				if = { # If neutral or higher, must have available diplomats
+					limit = { check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i > 1 } }
+					check_variable = { ITA_EM_FreeDiplomats > 0 }
+				}
+				else = { # Otherwise, must have available garrisons
+					check_variable = { ITA_EM_FreeGarrisons > 0 }
+				}
+			}
+			EmpireManagement_AssignedEnvoys_Progbar_visible = { # This is here just to make sure the progbar doesn't display anything when its frame value is 0
+				check_variable = { ITA_EM_Regions_Envoys^EM_SelectedEntry_i > 0 }
+			}
+
+			# Policy changes
+			EmpireManagement_PolicySwitch_click_enabled = {
+				check_variable = { ITA_EM_PolicySwitch_Cooldown^EM_SelectedEntry_i = 0 }
+			}
+
+			# Special Action
+			EmpireManagement_SpecialAction_click_enabled = {
+				check_variable = { ITA_EM_Policies^EM_SelectedEntry_i > 0 } # Must have a policy selected
+				check_variable = { ITA_EM_SpecialAction_Cooldown^EM_SelectedEntry_i = 0 } # Must not be on cooldown or disabled
+
+				# Meta trigger used to check for specific conditions in each Special Action
+				meta_trigger = { # pain
+					text = { ITA_EmpireManagement_SpecialAction_[TARGET]_[ID]_Trigger = yes }
+					TARGET = "[EmpireManagement_GetMetaRegionTitle]"
+					ID = "[?ITA_EM_Policies^EM_SelectedEntry_i]"
+				}
+			}
+			EmpireManagement_SpecialAction_Active_visible = {
+				check_variable = { ITA_EM_SpecialAction_Cooldown^EM_SelectedEntry_i = 1 } # Must be active
+			}
+
+			# ENI Presence increase
+			EmpireManagement_OilExploitation_Button_click_enabled = {
+				EmpireManagement_ENIActionIsAvailable = yes
+				EmpireManagement_ENIActionCostTrigger = yes
+			}
+		}
+
+		effects = {
+			EmpireManagement_CloseBtn_click = {
+				clr_country_flag = ITA_Empire_GUI_open_flag
+			}
+
+			EmpireManagement_Regions_Entry_click = {
+				set_variable = { EM_SelectedEntry_i = Region_i } # We need to specify a normal var for the index value here because Region_i gets cleared if you try to use it for anything besides tooltips
+				if = {
+					limit = {
+						has_country_flag = ITA_Empire_GUI_policy_change_open_flag
+						check_variable = { ITA_EM_PolicySwitch_Cooldown^EM_SelectedEntry_i = 0 }
+					}
+					ITA_EmpireManagement_BuildPolicyArrays = yes
+				}
+				add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+			}
+
+			# Envoy addition/subtraction
+			EmpireManagement_Envoys_Minus_click = {
+				add_to_variable = { ITA_EM_Regions_Envoys^EM_SelectedEntry_i = -1 }
+				add_to_variable = { ITA_EM_Regions_DiploValue^EM_SelectedEntry_i = -10 }
+				clamp_variable = { var = ITA_EM_Regions_DiploValue^EM_SelectedEntry_i min = 0 }
+				ITA_EmpireManagement_Calculate_EnvoyUsage = yes
+				ITA_EmpireManagement_UpdateAlerts = yes
+			}
+			EmpireManagement_Envoys_Plus_click = {
+				add_to_variable = { ITA_EM_Regions_Envoys^EM_SelectedEntry_i = 1 }
+				add_to_variable = { ITA_EM_Regions_DiploValue^EM_SelectedEntry_i = 10 }
+				clamp_variable = { var = ITA_EM_Regions_DiploValue^EM_SelectedEntry_i min = 0 }
+				ITA_EmpireManagement_Calculate_EnvoyUsage = yes
+				ITA_EmpireManagement_UpdateAlerts = yes
+			}
+
+			# Policy Switch menu open
+			EmpireManagement_PolicySwitch_click = {
+				if = {
+					limit = { NOT = { has_country_flag = ITA_Empire_GUI_policy_change_open_flag } }
+					set_country_flag = ITA_Empire_GUI_policy_change_open_flag
+					ITA_EmpireManagement_BuildPolicyArrays = yes
+				}
+				else = {
+					clr_country_flag = ITA_Empire_GUI_policy_change_open_flag
+					ITA_EmpireManagement_ClearPolicyArrays = yes
+				}
+				add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+			}
+
+			# Special Action
+			EmpireManagement_SpecialAction_click = {
+				meta_effect = { # pain #2
+					text = { ITA_EmpireManagement_SpecialAction_[TARGET]_[ID]_Effect = yes }
+					TARGET = "[EmpireManagement_GetMetaRegionTitle]"
+					ID = "[?ITA_EM_Policies^EM_SelectedEntry_i]"
+				}
+				add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+			}
+
+			EmpireManagement_OilExploitation_Button_click = {
+				ITA_EmpireManagement_IncreaseENIPresence = yes
+				add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+			}
+		}
+
+		dynamic_lists = {
+			# Map gridbox
+			# This allows us to greatly simplify the code as well as make the map dynamic (eg. new regions can pop in or out at will) much more easily
+			EmpireManagement_Regions = {
+				array = ITA_EM_Regions
+				index = Region_i
+				change_scope = no
+				entry_container = EmpireManagement_Regions_Container
+			}
+
+			# Alerts girdbox
+			# Same thing as above
+			EmpireManagement_Alerts = {
+				array = ITA_EM_Alerts
+				index = Region_i
+				change_scope = no
+				entry_container = EmpireManagement_Alerts_Container
+			}
+		}
+
+		properties = {
+			# Map entry properties
+			# GFX is given through scripted loc, X & Y positions have to be defined on separate arrays
+			EmpireManagement_Regions_Entry = {
+				image = "[EmpireManagement_GetRegionImage]"
+				x = ITA_EM_Regions_X^Region_i
+				y = ITA_EM_Regions_Y^Region_i
+			}
+			EmpireManagement_Alerts_Entry = {
+				frame = ITA_EM_Alerts^Region_i
+				x = ITA_EM_Alerts_X^Region_i
+				y = ITA_EM_Alerts_Y^Region_i
+			}
+
+			# Diplomats/Garrisons usage progessbars
+			EmpireManagement_Diplomats_Progbar = {
+				frame = ITA_EM_DiplomatUsagePerc
+			}
+			EmpireManagement_Garrisons_Progbar = {
+				frame = ITA_EM_GarrisonUsagePerc
+			}
+
+			# Progbars for assigned envoys
+			EmpireManagement_AssignedEnvoys_Progbar = {
+				frame = ITA_EM_Regions_Envoys^EM_SelectedEntry_i
+			}
+			EmpireManagement_MaxAssignedEnvoys_Progbar = {
+				frame = ITA_EM_Regions_MaxEnvoys^EM_SelectedEntry_i
+			}
+		}
+	}
+
+	TNO_EmpireManagement_PolicyChangeDisplayContainer = {
+		context_type = player_context
+		parent_window_name = "TNO_EmpireManagement_Main"
+		window_name = "TNO_EmpireManagement_PolicyChange_Container"
+
+		visible = { has_country_flag = ITA_Empire_GUI_policy_change_open_flag }
+
+		effects = {
+			EmpireManagement_PolicyChange_CloseBtn_click = {
+				clr_country_flag = ITA_Empire_GUI_policy_change_open_flag
+				ITA_EmpireManagement_ClearPolicyArrays = yes
+			}
+			EmpireManagement_Policies_Entry_click = {
+				ITA_EmpireManagement_PolicySwitch = yes
+				clr_country_flag = ITA_Empire_GUI_policy_change_open_flag
+				ITA_EmpireManagement_ClearPolicyArrays = yes
+			}
+		}
+
+		dynamic_lists = {
+			# Policy list
+			EmpireManagement_Policies = {
+				array = ITA_EM_PolicyList
+				index = Policy_i
+				value = Policy_v
+				change_scope = no
+				entry_container = EmpireManagement_Policies_Container
+			}
+		}
+	}
+
+	TNO_EmpireManagement_DebugDisplayContainer = {
+		context_type = player_context
+		parent_window_name = "TNO_EmpireManagement_Main"
+		window_name = "TNO_EmpireManagement_Debug_Container"
+
+		visible = { has_country_flag = ITA_Empire_GUI_debug_flag }
+
+		effects = {
+			### Explanations for this crap is on the debug section of the loc file
+			## Map debug
+			EmpireManagement_Debug_Reset_click = {
+				ITA_EmpireManagement_Disable = yes
+				ITA_EmpireManagement_Setup = yes
+				set_country_flag = ITA_Empire_GUI_open_flag
+				set_country_flag = ITA_Empire_GUI_debug_flag
+			}
+			EmpireManagement_Debug_Morocco_click = {
+				ITA_EmpireManagement_AddMorocco = yes
+			}
+			EmpireManagement_Debug_Morocco_right_click = {
+				resize_array = { ITA_EM_Regions =   27 }
+				resize_array = { ITA_EM_Regions_X = 27 }
+				resize_array = { ITA_EM_Regions_Y = 27 }
+				resize_array = { ITA_EM_Alerts_X =  27 }
+				resize_array = { ITA_EM_Alerts_Y =  27 }
+
+				resize_array = { ITA_EM_Regions_Status = 27 }
+				resize_array = { ITA_EM_Regions_MaxEnvoys = 27 }
+				resize_array = { ITA_EM_Regions_Envoys = 27 }
+				resize_array = { ITA_EM_Regions_DiploValue = 27 }
+				resize_array = { ITA_EM_Regions_EconValue = 27 }
+				resize_array = { ITA_EM_HasOil = 27 }
+				resize_array = { ITA_EM_OilExploitation = 27 }
+				resize_array = { ITA_EM_OilExploitationCooldown = 27 }
+
+				resize_array = { ITA_EM_Policy_Region = 27 }
+				resize_array = { ITA_EM_Policy_DiploEffect = 27 }
+				resize_array = { ITA_EM_Policy_EconEffect = 27 }
+				resize_array = { ITA_EM_PolicySwitch_Cooldown = 27 }
+				resize_array = { ITA_EM_SpecialAction_DiploEffect = 27 }
+				resize_array = { ITA_EM_SpecialAction_EconEffect = 27 }
+				resize_array = { ITA_EM_ImperialPolicy_DiploEffect = 27 }
+				resize_array = { ITA_EM_ImperialPolicy_EconEffect = 27 }
+				resize_array = { ITA_EM_SpecialAction_Cooldown = 27 }
+
+				clear_array = 28.ITA_EM_Policy_ID
+				clear_array = 28.ITA_EM_Policy_DiploEffect
+				clear_array = 28.ITA_EM_Policy_EconEffect
+
+				if = {
+					limit = { check_variable = { EM_SelectedEntry_i = 27 } }
+					set_variable = { EM_SelectedEntry_i = 0 }
+				}
+			}
+
+			## Sidebar debug
+			EmpireManagement_Debug_CycleAlerts_click = {
+				add_to_variable = { ITA_EM_Alerts^EM_SelectedEntry_i = 1 }
+				if = {
+					limit = { check_variable = { ITA_EM_Alerts^EM_SelectedEntry_i = 5 } }
+					set_variable = { ITA_EM_Alerts^EM_SelectedEntry_i = 1 }
+				}
+				add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+			}
+			EmpireManagement_Debug_CycleAlerts_right_click = {
+				set_variable = { ITA_EM_Alerts^EM_SelectedEntry_i = 0 }
+				add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+			}
+			EmpireManagement_Debug_CycleStatus_click = {
+				add_to_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i = 1 }
+				if = {
+					limit = { check_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i = 5 } }
+					set_variable = { ITA_EM_Regions_Status^EM_SelectedEntry_i = 0 }
+				}
+				add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+			}
+			EmpireManagement_Debug_ModifyDiplo_click = {
+				set_temp_variable = { Region_i = EM_SelectedEntry_i }
+				set_temp_variable = { DiploValueChange_v = 10 }
+				ITA_EmpireManagement_DiploValueChange = yes
+			}
+			EmpireManagement_Debug_ModifyDiplo_right_click = {
+				set_temp_variable = { Region_i = EM_SelectedEntry_i }
+				set_temp_variable = { DiploValueChange_v = -10 }
+				ITA_EmpireManagement_DiploValueChange = yes
+			}
+			EmpireManagement_Debug_ModifyEcon_click = {
+				set_temp_variable = { Region_i = EM_SelectedEntry_i }
+				set_temp_variable = { EconValueChange_v = 10 }
+				ITA_EmpireManagement_EconValueChange = yes
+			}
+			EmpireManagement_Debug_ModifyEcon_right_click = {
+				set_temp_variable = { Region_i = EM_SelectedEntry_i }
+				set_temp_variable = { EconValueChange_v = -10 }
+				ITA_EmpireManagement_EconValueChange = yes
+			}
+			EmpireManagement_Debug_ModifyEnvoyCap_click = {
+				set_temp_variable = { Region_i = EM_SelectedEntry_i }
+				set_temp_variable = { EnvoyCapChange_v = 1 }
+				ITA_EmpireManagement_ModifyEnvoyCap = yes
+			}
+			EmpireManagement_Debug_ModifyEnvoyCap_right_click = {
+				set_temp_variable = { Region_i = EM_SelectedEntry_i }
+				set_temp_variable = { EnvoyCapChange_v = -1 }
+				ITA_EmpireManagement_ModifyEnvoyCap = yes
+			}
+			EmpireManagement_Debug_ModifyOil_click = {
+				set_temp_variable = { Region_i = EM_SelectedEntry_i }
+				set_temp_variable = { OilExploitationChange_v = 0.1 }
+				ITA_EmpireManagement_OilExploitationChange = yes
+			}
+			EmpireManagement_Debug_ModifyOil_right_click = {
+				set_temp_variable = { Region_i = EM_SelectedEntry_i }
+				set_temp_variable = { OilExploitationChange_v = -0.1 }
+				ITA_EmpireManagement_OilExploitationChange = yes
+			}
+			EmpireManagement_Debug_ModifyOil_control_click = {
+				set_variable = { ITA_EM_HasOil^EM_SelectedEntry_i = 1 }
+				add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+			}
+			EmpireManagement_Debug_ModifyOil_control_right_click = {
+				set_variable = { ITA_EM_HasOil^EM_SelectedEntry_i = 0 }
+				set_variable = { ITA_EM_OilExploitation^EM_SelectedEntry_i = 0 }
+				add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+			}
+			EmpireManagement_Debug_ResetPolicySwitchCooldown_click = {
+				set_variable = { ITA_EM_PolicySwitch_Cooldown^EM_SelectedEntry_i = 0 }
+			}
+			EmpireManagement_Debug_ResetPolicySwitchCooldown_right_click = {
+				set_variable = { ITA_EM_SpecialAction_Cooldown^EM_SelectedEntry_i = 0 }
+			}
+
+			## Bottom debug
+			EmpireManagement_Debug_ModifyImperialPolicy_click = {
+				add_to_variable = { ITA_EM_ImperialPolicy = 1 }
+				if = {
+					limit = { check_variable = { ITA_EM_ImperialPolicy = 8 } }
+					set_variable = { ITA_EM_ImperialPolicy = 0 }
+				}
+				ITA_EmpireManagement_UpdateImperialPolicyEffects = yes
+				add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+			}
+			EmpireManagement_Debug_ModifyImperialPolicy_right_click = {
+				add_to_variable = { ITA_EM_ImperialPolicy = -1 }
+				if = {
+					limit = { check_variable = { ITA_EM_ImperialPolicy = -1 } }
+					set_variable = { ITA_EM_ImperialPolicy = 7 }
+				}
+				ITA_EmpireManagement_UpdateImperialPolicyEffects = yes
+				add_to_variable = { TNO_EmpireManagement_dirty = 1 }
+			}
+			EmpireManagement_Debug_ModifyDiplomats_click = {
+				ITA_EmpireManagement_DiplomatChange = yes
+			}
+			EmpireManagement_Debug_ModifyDiplomats_right_click = {
+				set_temp_variable = { DiplomatChange = -1 }
+				ITA_EmpireManagement_DiplomatChange = yes
+			}
+			EmpireManagement_Debug_ModifyGarrisons_click = {
+				ITA_EmpireManagement_GarrisonChange = yes
+			}
+			EmpireManagement_Debug_ModifyGarrisons_right_click = {
+				set_temp_variable = { GarrisonChange = -1 }
+				ITA_EmpireManagement_GarrisonChange = yes
+			}
+		}
+	}
+}

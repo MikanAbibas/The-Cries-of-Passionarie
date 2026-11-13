@@ -1,0 +1,3848 @@
+#Ioseliani's Wild Ride
+shared_focus = {
+	id = YGR_the_land_of_crime
+	icon = criminal_state
+	cost = 4
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_land_of_crime"
+		add_political_power = 25
+		country_event = {
+			id = YGR_initial.0
+		}		#starting event, daily life prospective of a thief
+		hidden_effect = {
+			country_event = {
+				id = YGR_initial.1
+				days = 3
+			}
+			country_event = {
+				id = YGR_initial.18
+				days = 7
+			}
+			country_event = {
+				id = YGR_flavour.8
+				days = 10
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_ioselianis_ambition
+	icon = GFX_ioselianis_ambition
+	cost = 4
+	prerequisite = {
+		focus = YGR_the_land_of_crime
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_ioselianis_ambition"
+		add_war_support = 0.03
+		country_event = {
+			id = YGR_initial.2
+		}		#Rafael Bagdasarian persuades Ioseliani in taking action
+		custom_effect_tooltip = YGR_ioselianis_ambition_ct
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.4
+				days = 7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_convene_the_shadow_council
+	icon = convene_shadow_council
+	cost = 5
+	prerequisite = {
+		focus = YGR_ioselianis_ambition
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_convene_the_shadow_council"
+		add_stability = 0.03
+		country_event = {
+			id = YGR_initial.3
+		}		#The circle summoned
+		custom_effect_tooltip = YGR_convene_the_shadow_council_cs
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.2
+				days = 7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_industrial_buildup
+	icon = focus_generic_industry_1
+	cost = 3.75
+	prerequisite = {
+		focus = YGR_convene_the_shadow_council
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 2
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_industrial_buildup"
+		TNO_improve_industrial_equipment_med = yes
+		TNO_improve_industrial_expertise_high = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_review_the_criminal_code
+	icon = review_the_criminal_code
+	cost = 3.75
+	prerequisite = {
+		focus = YGR_convene_the_shadow_council
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 8
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_review_the_criminal_code"
+		add_political_power = -20
+		add_ideas = YGR_reviewing_the_code
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.3
+				days = 7
+			}
+		}
+		country_event = {
+			id = YGR_flavour.30
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_maintain_the_thieves_responsibilities
+	icon = thieves_responsibilities
+	cost = 3.75
+	prerequisite = {
+		focus = YGR_review_the_criminal_code
+	}
+	mutually_exclusive = {
+		focus = YGR_reform_the_thieves_bond
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 7
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_maintain_the_thieves_responsibilities"
+		add_stability = 0.05
+		add_popularity = {
+			ideology = despotism
+			popularity = 0.1
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_reform_the_thieves_bond
+	icon = thieves_bond
+	cost = 3.75
+	prerequisite = {
+		focus = YGR_review_the_criminal_code
+	}
+	mutually_exclusive = {
+		focus = YGR_maintain_the_thieves_responsibilities
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 9
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_reform_the_thieves_bond"
+		add_stability = -0.1
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.1
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_make_them_pay_the_lace
+	icon = pay_the_lace
+	cost = 3.75
+	prerequisite = {
+		focus = YGR_maintain_the_thieves_responsibilities
+		focus = YGR_reform_the_thieves_bond
+	}
+	mutually_exclusive = {
+		focus = YGR_spare_their_savings
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 7
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_make_them_pay_the_lace"
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1000
+			producer = UDM
+		}
+		add_stability = 0.1
+		add_war_support = -0.05
+		add_to_variable = {
+			money_reserves = 1000
+		}
+		custom_effect_tooltip = econ_increase_money_reserves_small
+	}
+}
+
+shared_focus = {
+	id = YGR_spare_their_savings
+	icon = spare_savings
+	cost = 3.75
+	prerequisite = {
+		focus = YGR_maintain_the_thieves_responsibilities
+		focus = YGR_reform_the_thieves_bond
+	}
+	mutually_exclusive = {
+		focus = YGR_make_them_pay_the_lace
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 9
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_spare_their_savings"
+		add_ideas = YGR_the_renewed_lace
+	}
+}
+
+shared_focus = {
+	id = YGR_time_for_formalization
+	icon = council_formalization
+	cost = 3.75
+	prerequisite = {
+		focus = YGR_spare_their_savings
+		focus = YGR_make_them_pay_the_lace
+	}
+	mutually_exclusive = {
+		focus = YGR_maintain_the_councils_secrecy
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 9
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_time_for_formalization"
+		add_ideas = YGR_formalized_circle
+		custom_effect_tooltip = YGR_time_for_formalization_ct
+	}
+}
+
+shared_focus = {
+	id = YGR_maintain_the_councils_secrecy
+	icon = council_secrecy
+	cost = 3.75
+	prerequisite = {
+		focus = YGR_spare_their_savings
+		focus = YGR_make_them_pay_the_lace
+	}
+	mutually_exclusive = {
+		focus = YGR_time_for_formalization
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 7
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_maintain_the_councils_secrecy"
+		add_ideas = YGR_secret_circle
+	}
+}
+
+shared_focus = {
+	id = YGR_the_finishing_touches
+	icon = finishing_touches
+	cost = 4
+	prerequisite = {
+		focus = YGR_maintain_the_councils_secrecy
+		focus = YGR_time_for_formalization
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 8
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_finishing_touches"
+		swap_ideas = {
+			remove_idea = YGR_reviewing_the_code
+			add_idea = YGR_the_new_vory_code
+		}
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.6
+				days = 7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_renovate_the_yugorsk_arms_factory
+	icon = arms_factory
+	cost = 3.75
+	prerequisite = {
+		focus = YGR_industrial_buildup
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 1
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_renovate_the_yugorsk_arms_factory"
+		845 = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		add_to_variable = {
+			money_reserves = -700
+		}
+		custom_effect_tooltip = econ_decrease_money_reserves_small
+		TNO_improve_industrial_expertise_low = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_expand_the_civilian_sector
+	icon = civilian_sector
+	cost = 3.75
+	prerequisite = {
+		focus = YGR_industrial_buildup
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 3
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_expand_the_civilian_sector"
+		845 = {
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.12
+				days = 7
+			}
+		}
+		add_to_variable = {
+			money_reserves = -700
+		}
+		custom_effect_tooltip = econ_decrease_money_reserves_small
+	}
+}
+
+shared_focus = {
+	id = YGR_repurpose_the_gulags
+	icon = repurpose_the_gulags
+	cost = 3.75
+	prerequisite = {
+		focus = YGR_expand_the_civilian_sector
+	}
+	prerequisite = {
+		focus = YGR_renovate_the_yugorsk_arms_factory
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 2
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_repurpose_the_gulags"
+		country_event = {
+			id = YGR_initial.4
+		}		#former inmate of vorkuta tells of his imprisonment and the escape
+		845 = {
+			add_building_construction = {
+				type = bunker
+				province = 10720
+				level = 2
+			}
+		}
+		845 = {
+			add_building_construction = {
+				type = bunker
+				province = 4846
+				level = 2
+			}
+		}
+		756 = {
+			add_building_construction = {
+				type = bunker
+				province = 13348
+				level = 2
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_adjust_the_supply_lines
+	icon = supply_lines
+	cost = 4
+	prerequisite = {
+		focus = YGR_repurpose_the_gulags
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 1
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_adjust_the_supply_lines"
+		845 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		756 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		581 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_rehabilitate_the_saranpaul_airport
+	icon = magical_airport
+	cost = 4
+	prerequisite = {
+		focus = YGR_repurpose_the_gulags
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 3
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_rehabilitate_the_saranpaul_airport"
+		581 = {
+			add_building_construction = {
+				type = air_base
+				level = 2
+			}
+		}
+		country_event = {
+			id = YGR_initial.6
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_redraw_the_gangs_territories
+	icon = gang_territories
+	cost = 4
+	prerequisite = {
+		focus = YGR_rehabilitate_the_saranpaul_airport
+	}
+	prerequisite = {
+		focus = YGR_adjust_the_supply_lines
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 2
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_redraw_the_gangs_territories"
+		add_ideas = YGR_redrawn_gang_territories
+		hidden_effect = {
+			country_event = {
+				id = YGR_initial.21
+				days = 7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_conclude_the_council
+	icon = finish_council
+	cost = 3
+	prerequisite = {
+		focus = YGR_redraw_the_gangs_territories
+	}
+	prerequisite = {
+		focus = YGR_the_finishing_touches
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_conclude_the_council"
+		custom_effect_tooltip = YGR_conclude_the_council_ct
+	}
+}
+
+shared_focus = {
+	id = YGR_ioselianis_final_speech
+	icon = GFX_ioseliani_speech
+	cost = 4
+	prerequisite = {
+		focus = YGR_conclude_the_council
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_ioselianis_final_speech"
+		country_event = {
+			id = YGR_initial.5
+		}		#Ioseliani's final speech of the meeting, talks about the thieves freedom and that they will fight to their deaths to preserve it
+	}
+}
+
+shared_focus = {
+	id = YGR_may_the_subjugation_begin
+	icon = begin_conquest
+	cost = 5
+	prerequisite = {
+		focus = YGR_ioselianis_final_speech
+	}
+	available = {
+		NOT = {
+			has_idea = SIB_terror_bombing
+		}
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 10
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_may_the_subjugation_begin"
+		add_war_support = 0.05
+		hidden_effect = {
+			load_focus_tree = YGR_warlord_war_yugra_tree
+		}
+	}
+}
+
+##################################War Focuses##############################################
+shared_focus = {
+	id = YGR_move_with_haste
+	icon = YGR_Move_with_Haste_TCE
+	cost = 2
+	x = 8
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_move_with_haste"
+		add_war_support = 0.05
+		country_event = {
+			id = YGR_initial.10
+		}
+		set_country_flag = YGR_Weapon_smuggling_enabled
+		custom_effect_tooltip = YGR_weapon_smuggling_tt
+		set_country_flag = KOM_warloard_expansion
+		custom_effect_tooltip = KOM_expansion_enabled
+	}
+}
+
+shared_focus = {
+	id = YGR_arm_the_bandits
+	icon = YGR_Arm_the_Bandits_TCE
+	cost = 2
+	x = 5
+	y = 1
+	prerequisite = {
+		focus = YGR_move_with_haste
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_arm_the_bandits"
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1200
+			producer = UDM
+		}
+		hidden_effect = {
+			load_oob = KOM_militia
+		}
+		add_manpower = 10000
+		TNO_improve_industrial_equipment_high = yes
+		TNO_improve_industrial_expertise_high = yes
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.19
+				days = 1
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.9
+				days = 17
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_revising_our_strategies
+	icon = YGR_Revising_our_Strategies_TCE
+	cost = 2
+	x = 11
+	y = 1
+	prerequisite = {
+		focus = YGR_move_with_haste
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_revising_our_strategies"
+		army_experience = 35
+		country_event = {
+			id = YGR_initial.11
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_sabotage_our_enemies
+	icon = YGR_Sabotage_our_Enemies_TCE
+	cost = 2
+	x = 4
+	y = 2
+	prerequisite = {
+		focus = YGR_arm_the_bandits
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_sabotage_our_enemies"
+		add_equipment_to_stockpile = {
+			type = fighter_equipment_0
+			amount = 20
+			producer = FAV
+		}
+		add_equipment_to_stockpile = {
+			type = support_equipment
+			amount = 200
+			producer = OMS
+		}
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.9
+				days = 1
+			}
+		}
+		set_country_flag = YGR_sabotaging_enabled
+		custom_effect_tooltip = YGR_sabotage_tt
+	}
+}
+
+shared_focus = {
+	id = YGR_some_lucky_investments
+	icon = YGR_Some_Lucky_Investments_TCE
+	cost = 2
+	x = 6
+	y = 2
+	prerequisite = {
+		focus = YGR_arm_the_bandits
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_some_lucky_investments"
+		set_temp_variable = {
+			gdp_growth_temp = 0.01
+		}
+		econ_gdp_growth_change = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_let_them_see_our_guns
+	icon = YGR_Let_them_See_our_Guns_TCE
+	cost = 2
+	x = 5
+	y = 3
+	prerequisite = {
+		focus = YGR_some_lucky_investments
+	}
+	prerequisite = {
+		focus = YGR_sabotage_our_enemies
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_let_them_see_our_guns"
+		add_war_support = 0.1
+		hidden_effect = {
+			country_event = {
+				id = YGR_initial.16
+				days = 2
+			}
+		}
+		diplomatic_relation = {
+			country = UDM
+			relation = non_aggression_pact
+			active = no
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_the_great_pakhan_never_misses
+	icon = YGR_The_Great_Pakhan_Never_Misses_TCE
+	cost = 2
+	x = 10
+	y = 2
+	prerequisite = {
+		focus = YGR_revising_our_strategies
+	}
+	mutually_exclusive = {
+		focus = YGR_uncle_hasans_magic
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_great_pakhan_never_misses"
+		hidden_effect = {
+			if = {
+				limit = {
+					has_army_experience > 99.99
+				}
+				set_temp_variable = {
+					pp = 80
+				}
+			}
+			else_if = {
+				limit = {
+					has_army_experience > 49.99
+				}
+				set_temp_variable = {
+					pp = 40
+				}
+			}
+			else = {
+				set_temp_variable = {
+					pp = 20
+				}
+			}
+			if = {
+				limit = {
+					has_war = yes
+				}
+				multiply_temp_variable = {
+					pp = 1.2
+				}
+			}
+			add_political_power = var:pp
+		}
+		custom_effect_tooltip = YGR_prepare_the_troops_tt
+		TNO_improve_army_professionalism_high = yes
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_uncle_hasans_magic
+	icon = YGR_Uncle_Hasans_Magic_TCE
+	cost = 2
+	x = 12
+	y = 2
+	prerequisite = {
+		focus = YGR_revising_our_strategies
+	}
+	mutually_exclusive = {
+		focus = YGR_the_great_pakhan_never_misses
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_uncle_hasans_magic"
+		set_temp_variable = {
+			gdp_growth_temp = 0.015
+		}
+		econ_gdp_growth_change = yes
+		hidden_effect = {
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		custom_effect_tooltip = YGR_hasans_magic_tt
+		add_popularity = {
+			ideology = despotism
+			popularity = 0.1
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_improvised_but_effective
+	icon = YGR_Improvised_and_Effective_TCE
+	cost = 2
+	x = 11
+	y = 3
+	prerequisite = {
+		focus = YGR_uncle_hasans_magic
+		focus = YGR_the_great_pakhan_never_misses
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_improvised_but_effective"
+		add_ideas = YGR_conscript_everyone
+		swap_ideas = {
+			remove_idea = YGR_disorganized_admininstration
+			add_idea = YGR_reforming_the_admininstration
+		}
+		TNO_improve_army_professionalism_med = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_destroy_the_gulags
+	icon = YGR_Destroy_the_Gulags_TCE
+	cost = 2
+	x = 3
+	y = 4
+	prerequisite = {
+		focus = YGR_let_them_see_our_guns
+	}
+	available = {
+		owns_state = 863
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_destroy_the_gulags"
+		country_event = {
+			id = YGR_initial.13
+			days = 1
+		}
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.7
+				days = 7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_the_aviators_shot_down
+	icon = YGR_The_Aviators_Shot_Down_TCE
+	cost = 2
+	x = 5
+	y = 4
+	prerequisite = {
+		focus = YGR_let_them_see_our_guns
+	}
+	available = {
+		owns_state = 579
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_aviators_shot_down"
+		country_event = {
+			id = YGR_flavour.10
+			days = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_all_the_weapons_a_man_could_desire
+	icon = YGR_All_the_Weapons_a_Man_Could_Desire_TCE
+	cost = 2
+	x = 7
+	y = 4
+	prerequisite = {
+		focus = YGR_let_them_see_our_guns
+	}
+	available = {
+		owns_state = 871
+		owns_state = 573
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_all_the_weapons_a_man_could_desire"
+		add_ideas = YGR_Zlatoust_businessmen
+		country_event = {
+			id = YGR_flavour.22
+			days = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_parading_sverdlovsk
+	icon = YGR_Parading_Sverdlovsk_TCE
+	cost = 2
+	x = 9
+	y = 4
+	prerequisite = {
+		focus = YGR_improvised_but_effective
+	}
+	available = {
+		owns_state = 653
+		owns_state = 580
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_parading_sverdlovsk"
+		country_event = {
+			id = YGR_initial.20
+		}
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.13
+				days = 5
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_the_trial_of_the_stalinists
+	icon = YGR_Trial_of_the_Stalinists_TCE
+	cost = 2
+	x = 11
+	y = 4
+	prerequisite = {
+		focus = YGR_improvised_but_effective
+	}
+	available = {
+		owns_state = 403
+		owns_state = 572
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_trial_of_the_stalinists"
+		country_event = {
+			id = YGR_initial.14
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_in_the_dark_alleys_of_omsk
+	icon = YGR_In_the_Dark_Alleys_of_Omsk_TCE
+	cost = 2
+	x = 13
+	y = 4
+	prerequisite = {
+		focus = YGR_improvised_but_effective
+	}
+	available = {
+		owns_state = 571
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_trial_of_the_stalinists"
+		country_event = {
+			id = YGR_initial.15
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_our_greatest_victory
+	icon = YGR_Our_Greatest_Victory_TCE
+	cost = 2
+	x = 8
+	y = 5
+	prerequisite = {
+		focus = YGR_destroy_the_gulags
+	}
+	prerequisite = {
+		focus = YGR_the_aviators_shot_down
+	}
+	prerequisite = {
+		focus = YGR_all_the_weapons_a_man_could_desire
+	}
+	prerequisite = {
+		focus = YGR_parading_sverdlovsk
+	}
+	prerequisite = {
+		focus = YGR_the_trial_of_the_stalinists
+	}
+	prerequisite = {
+		focus = YGR_in_the_dark_alleys_of_omsk
+	}
+	available = {
+		has_cosmetic_tag = KOM_regional_unifier
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_trial_of_the_stalinists"
+		country_event = {
+			id = YGR_initial.17
+		}
+		hidden_effect = {
+			load_focus_tree = YGR_regional_tree
+		}
+		set_country_flag = RUS_regional_stage
+		clr_country_flag = YGR_Weapon_smuggling_enabled
+		clr_country_flag = YGR_sabotaging_enabled
+		clr_country_flag = YGR_Smuggling_enabled
+		clr_country_flag = KOM_warloard_expansion
+		remove_ideas = YGR_conscript_everyone
+	}
+}
+
+##############Regional Tree###################
+shared_focus = {
+	id = YGR_the_unlikely_victory
+	icon = GFX_triumph_of_the_thieves
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_our_immediate_course_of_action"
+		add_timed_idea = {
+			idea = YGR_the_victory_of_the_bandits
+			days = 180
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_the_victory_feast
+	icon = GFX_victory_feast
+	cost = 3
+	prerequisite = {
+		focus = YGR_the_unlikely_victory
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_victory_feast"
+		country_event = {
+			id = YGR_regional.2
+		}		#Victory Feast
+	}
+}
+
+shared_focus = {
+	id = YGR_unforseen_developments
+	icon = GFX_unforseen_developments
+	cost = 3
+	prerequisite = {
+		focus = YGR_the_victory_feast
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_unforseen_developments"
+		country_event = {
+			id = YGR_regional.3
+		}		#Start of the power struggle
+		country_event = {
+			id = YGR_powerstruggle.0
+			days = 7
+		}
+		custom_effect_tooltip = YGR_unforseen_developments_ct
+	}
+}
+
+shared_focus = {
+	id = YGR_our_future
+	icon = GFX_our_future
+	cost = 3
+	prerequisite = {
+		focus = YGR_unforseen_developments
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_our_future"		#Thinking about tomorrow
+		country_event = {
+			id = YGR_regional.4
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_our_duty_to_the_people
+	icon = GFX_our_duty_to_the_people
+	cost = 3
+	prerequisite = {
+		focus = YGR_our_future
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 1
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_our_duty_to_the_people"
+		add_stability = 0.05
+	}
+}
+
+shared_focus = {
+	id = YGR_our_duty_to_the_thieves
+	icon = GFX_Our_Duty_to_the_Thieves
+	cost = 3
+	prerequisite = {
+		focus = YGR_our_future
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_our_duty_to_the_thieves"
+		add_war_support = 0.05
+		RUS_decrease_administrative_strain = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_our_duty_to_russia
+	icon = GFX_Our_Duty_to_Russia
+	cost = 3
+	prerequisite = {
+		focus = YGR_our_future
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 9
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_our_duty_to_russia"
+		add_ideas = YGR_to_protect_russia
+		RUS_decrease_administrative_strain = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_aid_those_we_protect
+	icon = GFX_aid_those_we_protect
+	cost = 3
+	prerequisite = {
+		focus = YGR_our_duty_to_the_people
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	mutually_exclusive = {
+		focus = YGR_squeeze_them_dry
+	}
+	x = 0
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_aid_those_we_protect"
+		TNO_improve_poverty_med = yes
+		tno_max_workhours_improve = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_squeeze_them_dry
+	icon = GFX_squeeze_them_dry
+	cost = 3
+	prerequisite = {
+		focus = YGR_our_duty_to_the_people
+	}
+	mutually_exclusive = {
+		focus = YGR_aid_those_we_protect
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 2
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_squeeze_them_dry"
+		set_temp_variable = {
+			gdp_growth_temp = 0.03
+		}
+		econ_gdp_growth_change = yes
+		TNO_worsen_poverty_med = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_thieves_for_charity
+	icon = GFX_thieves_for_charity
+	cost = 3
+	prerequisite = {
+		focus = YGR_aid_those_we_protect
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 0
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_thieves_for_charity"
+		tno_pensions_improve = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_your_loyalty_for_survival
+	icon = GFX_loyalty_for_service
+	cost = 3
+	prerequisite = {
+		focus = YGR_squeeze_them_dry
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 2
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_your_loyalty_for_survival"
+		add_popularity = {
+			ideology = despotism
+			popularity = 0.025
+		}
+		tno_safety_improve = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_estabilish_our_legitimacy
+	icon = GFX_establish_legitmacy
+	cost = 3
+	prerequisite = {
+		focus = YGR_your_loyalty_for_survival
+		focus = YGR_thieves_for_charity
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 1
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_estabilish_our_legitimacy"
+		RUS_decrease_administrative_strain = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_favour_ioselianis_loyalists
+	icon = GFX_Favour_Loselianis_Loyalists
+	cost = 3
+	prerequisite = {
+		focus = YGR_our_duty_to_the_thieves
+	}
+	mutually_exclusive = {
+		focus = YGR_favour_usoyans_cliche
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 4
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_favour_ioselianis_loyalists"
+		YGR_raise_ioseliani_influence_mid = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_favour_usoyans_cliche
+	icon = GFX_Favor_Usoyans_Clique
+	cost = 3
+	prerequisite = {
+		focus = YGR_our_duty_to_the_thieves
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	mutually_exclusive = {
+		focus = YGR_favour_ioselianis_loyalists
+	}
+	x = 6
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_favour_usoyans_cliche"
+		YGR_raise_usoyan_influence_mid = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_redraw_the_provinces
+	icon = GFX_redraw_the_provinces
+	cost = 3
+	prerequisite = {
+		focus = YGR_favour_ioselianis_loyalists
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 4
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_redraw_the_provinces"
+		RUS_decrease_administrative_strain = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_dreams_of_centralization
+	icon = GFX_Dreams_of_centralisation
+	cost = 3
+	prerequisite = {
+		focus = YGR_favour_usoyans_cliche
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 6
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_dreams_of_centralization"
+		tno_political_parties_worsen = yes
+		RUS_decrease_administrative_strain = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_a_home_for_the_thief
+	icon = GFX_A_Home_for_the_Thief
+	cost = 3
+	prerequisite = {
+		focus = YGR_dreams_of_centralization
+		focus = YGR_redraw_the_provinces
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_a_home_for_the_thief"
+		tno_public_meetings_improve = yes
+		RUS_decrease_administrative_strain = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_maintain_our_current_organization
+	icon = GFX_maintain_current_organisation
+	cost = 3
+	prerequisite = {
+		focus = YGR_our_duty_to_russia
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	mutually_exclusive = {
+		focus = YGR_calls_for_a_thieves_dictatorship
+	}
+	x = 8
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_maintain_our_current_organization"
+		add_stability = 0.1
+		YGR_raise_ioseliani_influence_low = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_calls_for_a_thieves_dictatorship
+	icon = GFX_Calls_for_Thieves_dictatorship
+	cost = 3
+	prerequisite = {
+		focus = YGR_our_duty_to_russia
+	}
+	mutually_exclusive = {
+		focus = YGR_maintain_our_current_organization
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 10
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_calls_for_a_thieves_dictatorship"
+		YGR_raise_usoyan_influence_low = yes
+		add_popularity = {
+			ideology = despotism
+			popularity = 0.025
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_of_the_criminal_by_the_criminal_for_the_criminal
+	icon = GFX_Of_the_Criminal_By_theCriminal_For_the_Criminal
+	cost = 3
+	prerequisite = {
+		focus = YGR_maintain_our_current_organization
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 8
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_of_the_criminal_by_the_criminal_for_the_criminal"
+		add_political_power = 75
+		set_temp_variable = {
+			gdp_growth_temp = 0.01
+		}
+		econ_gdp_growth_change = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_time_for_change
+	icon = GFX_Time_for_Change
+	cost = 3
+	prerequisite = {
+		focus = YGR_calls_for_a_thieves_dictatorship
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 10
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_time_for_change"
+		add_war_support = 0.1
+	}
+}
+
+shared_focus = {
+	id = YGR_a_nation_of_our_own
+	icon = GFX_A_Nation_of_Our_Own_2
+	cost = 3
+	prerequisite = {
+		focus = YGR_time_for_change
+		focus = YGR_of_the_criminal_by_the_criminal_for_the_criminal
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 9
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_a_nation_of_our_own"
+		add_stability = 0.1
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.20
+				days = 7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_prisoners_no_more
+	icon = GFX_prisoners_no_more
+	cost = 3
+	prerequisite = {
+		focus = YGR_a_nation_of_our_own
+	}
+	prerequisite = {
+		focus = YGR_a_home_for_the_thief
+	}
+	prerequisite = {
+		focus = YGR_estabilish_our_legitimacy
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_prisoners_no_more"
+		add_political_power = 100
+		hidden_effect = {
+			set_country_flag = RUS_REGIONAL_POLITICAL_TREE_DONE
+			custom_effect_tooltip = RUS_unlock_race_to_urals_tt
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_the_economic_issue
+	icon = GFX_the_economic_issue
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	available = {
+		has_completed_focus = YGR_prisoners_no_more
+	}
+	x = 16
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_economic_issue"
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = YGR_mafia_run_businesses
+	icon = GFX_mafia_run_businessmen
+	cost = 3
+	prerequisite = {
+		focus = YGR_the_economic_issue
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 14
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_mafia_run_businesses"		#event here
+		country_event = {
+			id = YGR_regional.16
+		}
+		set_temp_variable = {
+			gdp_growth_temp = 0.01
+		}
+		econ_gdp_growth_change = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_raking_in_the_riches
+	icon = GFX_raking_in_riches
+	cost = 3
+	prerequisite = {
+		focus = YGR_the_economic_issue
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 18
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_raking_in_the_riches"
+		set_temp_variable = {
+			gdp_growth_temp = 0.01
+		}
+		econ_gdp_growth_change = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_support_legitimate_businessmen
+	icon = GFX_support_legitimate_businessmen
+	cost = 3
+	prerequisite = {
+		focus = YGR_mafia_run_businesses
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	mutually_exclusive = {
+		focus = YGR_found_criminal_corporations
+	}
+	x = 13
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_support_legitimate_businessmen"
+		remove_ideas = YGR_Zlatoust_businessmen
+		add_ideas = YGR_criminal_businessmen
+	}
+}
+
+shared_focus = {
+	id = YGR_found_criminal_corporations
+	icon = GFX_found_corporations
+	cost = 3
+	prerequisite = {
+		focus = YGR_mafia_run_businesses
+	}
+	mutually_exclusive = {
+		focus = YGR_support_legitimate_businessmen
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 15
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_found_criminal_corporations"
+		remove_ideas = YGR_Zlatoust_businessmen
+		add_ideas = YGR_criminal_corporations
+	}
+}
+
+shared_focus = {
+	id = YGR_end_the_vestiges_of_bolshevism
+	icon = GFX_End_the_Vestiges_of_Bolshevism
+	cost = 3
+	prerequisite = {
+		focus = YGR_found_criminal_corporations
+		focus = YGR_support_legitimate_businessmen
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 14
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_end_the_vestiges_of_bolshevism"
+		add_stability = 0.1
+	}
+}
+
+shared_focus = {
+	id = YGR_distribute_mining_contracts
+	icon = GFX_mining_contracts
+	cost = 3
+	prerequisite = {
+		focus = YGR_raking_in_the_riches
+	}
+	mutually_exclusive = {
+		focus = YGR_the_all_russian_oil_consortium
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 17
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_distribute_mining_contracts"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 1
+			category = excavation_tech
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_the_all_russian_oil_consortium
+	icon = GFX_all_russian_consortium
+	cost = 3
+	prerequisite = {
+		focus = YGR_raking_in_the_riches
+	}
+	mutually_exclusive = {
+		focus = YGR_distribute_mining_contracts
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 19
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_all_russian_oil_consortium"
+		756 = {
+			add_resource = {
+				type = oil
+				amount = 12
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_steal_every_resource
+	icon = GFX_steal_every_resource
+	cost = 3
+	prerequisite = {
+		focus = YGR_the_all_russian_oil_consortium
+		focus = YGR_distribute_mining_contracts
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 18
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_steal_every_resource"
+		add_political_power = 25
+	}
+}
+
+shared_focus = {
+	id = YGR_the_next_step
+	icon = GFX_the_next_step
+	cost = 3
+	prerequisite = {
+		focus = YGR_end_the_vestiges_of_bolshevism
+	}
+	prerequisite = {
+		focus = YGR_steal_every_resource
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 16
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_next_step"		#event here
+		country_event = {
+			id = YGR_regional.15
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_getting_our_hands_in_the_dirt
+	icon = GFX_getting_our_hads_in_the_dirt
+	cost = 3
+	prerequisite = {
+		focus = YGR_the_next_step
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 14
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_getting_our_hands_in_the_dirt"
+		add_stability = 0.03
+		random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_keeping_our_minds_bright
+	icon = GFX_keeping_our_minds_bright
+	cost = 3
+	prerequisite = {
+		focus = YGR_the_next_step
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 18
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_keeping_our_minds_bright"
+		add_stability = 0.03
+	}
+}
+
+shared_focus = {
+	id = YGR_give_a_cut_to_the_farmers
+	icon = GFX_give_a_cut_to_the_farmers
+	cost = 3
+	prerequisite = {
+		focus = YGR_getting_our_hands_in_the_dirt
+	}
+	mutually_exclusive = {
+		focus = YGR_price_controls
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 13
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_give_a_cut_to_the_farmers"
+		add_political_power = -25
+		TNO_improve_agriculture_med = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_price_controls
+	icon = GFX_Price_Controls
+	cost = 3
+	prerequisite = {
+		focus = YGR_getting_our_hands_in_the_dirt
+	}
+	mutually_exclusive = {
+		focus = YGR_give_a_cut_to_the_farmers
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 15
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_price_controls"
+		TNO_improve_poverty_med = yes
+		set_temp_variable = {
+			gdp_growth_temp = -0.0075
+		}
+		econ_gdp_growth_change = yes
+		add_stability = 0.05
+	}
+}
+
+shared_focus = {
+	id = YGR_rekulakisation
+	icon = GFX_rekulakisation
+	cost = 3
+	prerequisite = {
+		focus = YGR_give_a_cut_to_the_farmers
+		focus = YGR_price_controls
+	}
+	mutually_exclusive = {
+		focus = YGR_consolidate_smaller_farms
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 13
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_rekulakisation"		#event about the retourn of Kulaks
+		country_event = {
+			id = YGR_regional.14
+		}
+		TNO_improve_agriculture_med = yes
+		random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_consolidate_smaller_farms
+	icon = GFX_prioritize_smaller_farms
+	cost = 3
+	prerequisite = {
+		focus = YGR_give_a_cut_to_the_farmers
+		focus = YGR_price_controls
+	}
+	mutually_exclusive = {
+		focus = YGR_rekulakisation
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 15
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_consolidate_smaller_farms"		#event about smaller farms blooming
+		country_event = {
+			id = YGR_regional.13
+		}
+		TNO_improve_agriculture_med = yes
+		set_temp_variable = {
+			gdp_growth_temp = 0.015
+		}
+		econ_gdp_growth_change = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_your_taxes_for_development
+	icon = GFX_your_taxes_for_development
+	cost = 3
+	prerequisite = {
+		focus = YGR_consolidate_smaller_farms
+		focus = YGR_rekulakisation
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 14
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_your_taxes_for_development"
+		set_temp_variable = {
+			gdp_growth_temp = 0.01
+		}
+		econ_gdp_growth_change = yes
+		random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.23
+				days = 3
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_a_school_in_every_village
+	icon = GFX_a_school_in_every_village
+	cost = 3
+	prerequisite = {
+		focus = YGR_keeping_our_minds_bright
+	}
+	mutually_exclusive = {
+		focus = YGR_an_education_for_crime
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 17
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_a_school_in_every_village"
+		TNO_improve_academic_base_high = yes
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.5
+				days = 7
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = YGR_regional.18
+				days = 2
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_an_education_for_crime
+	icon = GFX_education_for_crime
+	cost = 3
+	prerequisite = {
+		focus = YGR_keeping_our_minds_bright
+	}
+	mutually_exclusive = {
+		focus = YGR_a_school_in_every_village
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 19
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_an_education_for_crime"
+		add_ideas = YGR_criminal_education
+		TNO_improve_academic_base_low = yes
+		hidden_effect = {
+			country_event = {
+				id = YGR_regional.18
+				days = 5
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.5
+				days = 7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_an_university_in_every_city
+	icon = GFX_an_university_in_every_city
+	cost = 3
+	prerequisite = {
+		focus = YGR_an_education_for_crime
+		focus = YGR_a_school_in_every_village
+	}
+	mutually_exclusive = {
+		focus = YGR_knowledge_isnt_free
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 17
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_an_university_in_every_city"
+		TNO_improve_research_facilities_med = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_knowledge_isnt_free
+	icon = GFX_knowledge_isnt_free
+	cost = 3
+	prerequisite = {
+		focus = YGR_an_education_for_crime
+		focus = YGR_a_school_in_every_village
+	}
+	mutually_exclusive = {
+		focus = YGR_an_university_in_every_city
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 19
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_knowledge_isnt_free"
+		set_temp_variable = {
+			gdp_growth_temp = 0.01
+		}
+		econ_gdp_growth_change = yes
+		TNO_improve_research_facilities_low = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_urbanize_our_holdings
+	icon = GFX_urbanize_our_cities
+	cost = 3
+	prerequisite = {
+		focus = YGR_knowledge_isnt_free
+		focus = YGR_an_university_in_every_city
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 18
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_urbanize_our_holdings"
+		set_temp_variable = {
+			gdp_growth_temp = 0.01
+		}
+		econ_gdp_growth_change = yes
+		random_owned_controlled_state = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_let_the_money_flow
+	icon = GFX_let_the_money_flow
+	cost = 3
+	prerequisite = {
+		focus = YGR_urbanize_our_holdings
+	}
+	prerequisite = {
+		focus = YGR_your_taxes_for_development
+	}
+	ai_will_do = {
+		factor = 1
+	}
+	x = 16
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_let_the_money_flow"
+		add_stability = 0.05
+	}
+}
+
+shared_focus = {
+	id = YGR_army_of_the_thieves
+	icon = GFX_army_of_the_thieves
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	available = {
+		has_completed_focus = YGR_prisoners_no_more
+	}
+	x = 27
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_army_of_the_thieves"		#assessing our forces event
+		country_event = {
+			id = YGR_regional.12
+		}
+		TNO_improve_army_professionalism_med = yes
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.19
+				days = 7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_disband_the_militias
+	icon = GFX_disband_militias
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_army_of_the_thieves
+	}
+	x = 24
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_disband_the_militias"
+		army_experience = 10
+	}
+}
+
+shared_focus = {
+	id = YGR_modernize_the_forces
+	icon = GFX_modernize_the_forces
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_army_of_the_thieves
+	}
+	x = 31
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_modernize_the_forces"
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1569
+			producer = KOM
+		}
+		add_equipment_to_stockpile = {
+			type = support_equipment
+			amount = 148
+			producer = KOM
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_expand_territorial_recruitment
+	icon = GFX_General_Recruitment
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_disband_the_militias
+	}
+	mutually_exclusive = {
+		focus = YGR_national_conscription
+	}
+	x = 23
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_expand_territorial_recruitment"
+		add_manpower = 40000
+	}
+}
+
+shared_focus = {
+	id = YGR_national_conscription
+	icon = GFX_YGR_conscription_reform
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_disband_the_militias
+	}
+	mutually_exclusive = {
+		focus = YGR_expand_territorial_recruitment
+	}
+	x = 25
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_national_conscription"
+		tno_conscription_improve = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_advanced_training_methods
+	icon = GFX_Advanced_Training_Methods
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_national_conscription
+		focus = YGR_expand_territorial_recruitment
+	}
+	x = 24
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_advanced_training_methods"
+		TNO_improve_army_professionalism_med = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_teach_them_strength
+	icon = GFX_Teach_them_Strength
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_advanced_training_methods
+	}
+	mutually_exclusive = {
+		focus = YGR_teach_them_shrewdness
+	}
+	x = 23
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_teach_them_strength"
+		add_ideas = YGR_brute_strength
+	}
+}
+
+shared_focus = {
+	id = YGR_teach_them_shrewdness
+	icon = GFX_Teach_them_Cunning
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_advanced_training_methods
+	}
+	mutually_exclusive = {
+		focus = YGR_teach_them_strength
+	}
+	x = 25
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_teach_them_shrewdnessYGR_teach_them_shrewdness"
+		add_ideas = YGR_cunning_maneuvers
+	}
+}
+
+shared_focus = {
+	id = YGR_form_the_spetsnaz
+	icon = GFX_Form_the_Spetsnaz
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_teach_them_shrewdness
+		focus = YGR_teach_them_strength
+	}
+	mutually_exclusive = {
+		focus = YGR_the_finest_artillery
+	}
+	x = 25
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_form_the_spetsnaz"
+		add_tech_bonus = {
+			bonus = 0.33
+			uses = 3
+			category = special_forces_tech
+		}
+		TNO_improve_army_professionalism_low = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_the_finest_artillery
+	icon = GFX_The_Finest_Artillery
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_teach_them_shrewdness
+		focus = YGR_teach_them_strength
+	}
+	mutually_exclusive = {
+		focus = YGR_form_the_spetsnaz
+	}
+	x = 23
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_finest_artillery"
+		add_equipment_to_stockpile = {
+			type = artillery_equipment
+			amount = 500
+			producer = KOM
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_ready_for_war
+	icon = GFX_Ready_For_War
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_the_finest_artillery
+		focus = YGR_form_the_spetsnaz
+	}
+	x = 24
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_ready_for_war"
+		TNO_improve_army_professionalism_high = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_aid_from_general_batov
+	icon = GFX_Aid_From_General_Batov
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_modernize_the_forces
+	}
+	x = 28
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_aid_from_general_batov"
+		TNO_improve_army_professionalism_med = yes
+		random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.17
+				days = 7
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_tanks_of_our_own
+	icon = GFX_Tanks_of_Our_Own
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_aid_from_general_batov
+	}
+	x = 27
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_tanks_of_our_own"
+		add_equipment_to_stockpile = {
+			type = MBT_equipment
+			amount = 300
+			producer = KOM
+		}
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.29
+				days = 3
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_stealing_the_skies
+	icon = GFX_Stealing_the_Skies
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_aid_from_general_batov
+	}
+	x = 29
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_stealing_the_skies"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = air_equipment
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_investment_to_helicopters
+	icon = GFX_Investment_into_Helicopters
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_stealing_the_skies
+	}
+	x = 29
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_investment_to_helicopters"
+		add_tech_bonus = {
+			bonus = 0.3
+			uses = 1
+			category = helicopter
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_a_mechanized_army
+	icon = GFX_A_Mechanized_Army
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_tanks_of_our_own
+	}
+	x = 27
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_a_mechanized_army"
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 1
+			category = APC
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_nothing_but_the_best
+	icon = GFX_nothing_but_the_best
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_a_mechanized_army
+	}
+	prerequisite = {
+		focus = YGR_investment_to_helicopters
+	}
+	x = 28
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_nothing_but_the_best"
+		army_experience = 20
+		hidden_effect = {
+			country_event = {
+				id = YGR_regional.17
+				days = 7
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.24
+				days = 2
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_the_tyumen_military_accademy
+	icon = GFX_the_tyumen_military_academy
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_modernize_the_forces
+	}
+	x = 34
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_tyumen_military_accademy"
+		add_ideas = YGR_tyumen_military_accademy
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.21
+				days = 3
+			}
+		}
+		random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+		add_tech_bonus = {
+			bonus = 0.5
+			uses = 2
+			category = land_doctrine
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_studying_strategy
+	icon = GFX_teaching_strategy
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_the_tyumen_military_accademy
+	}
+	x = 33
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_studying_strategy"
+		add_tech_bonus = {
+			category = land_doctrine
+			bonus = 0.25
+			uses = 2
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_send_the_scientists_to_work
+	icon = GFX_send_the_scientists_to_work
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_the_tyumen_military_accademy
+	}
+	x = 35
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_send_the_scientists_to_work"
+		TNO_improve_research_facilities_med = yes
+		add_political_power = -35
+	}
+}
+
+shared_focus = {
+	id = YGR_theorize_new_industrial_methods
+	icon = GFX_theorize_industrial_methods
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_send_the_scientists_to_work
+	}
+	prerequisite = {
+		focus = YGR_studying_strategy
+	}
+	x = 34
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_theorize_new_industrial_methods"
+		TNO_improve_industrial_expertise_high = yes
+		random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		set_temp_variable = {
+			gdp_growth_temp = 0.01
+		}
+		econ_gdp_growth_change = yes
+
+	}
+}
+
+shared_focus = {
+	id = YGR_adapting_to_survival
+	icon = GFX_adapting_to_survival
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_theorize_new_industrial_methods
+	}
+	x = 34
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_adapting_to_survival"
+		TNO_improve_industrial_equipment_high = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_entering_the_global_theater
+	icon = GFX_Entering_The_Global_Game
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	available = {
+		has_completed_focus = YGR_prisoners_no_more
+	}
+	x = 41
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_entering_the_global_theater"
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = YGR_neutral_as_the_swiss
+	icon = GFX_Neutral_As_the_Swiss
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_entering_the_global_theater
+	}
+	mutually_exclusive = {
+		focus = YGR_the_great_pakhans_friends_in_america
+	}
+	x = 39
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_neutral_as_the_swiss"		#event about neutrality
+		country_event = {
+			id = YGR_regional.5
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_a_meeting_in_madrid
+	icon = GFX_A_Meeting_in_Madrid
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_neutral_as_the_swiss
+	}
+	x = 38
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_a_meeting_in_madrid"		#event about encounter in madrid
+		country_event = {
+			id = YGR_regional.6
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_contacts_with_cosa_nostra
+	icon = GFX_Contacts_with_la_Cosa_Nostra
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_neutral_as_the_swiss
+	}
+	x = 40
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_contacts_with_cosa_nostra"		#cosa nostra event
+		country_event = {
+			id = YGR_regional.7
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_shady_dealings_in_switzerland	#the bandits open foreign bank accounts in switzerland 
+	icon = GFX_Shaddy_Dealings_in_Switezerland
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_a_meeting_in_madrid
+	}
+	x = 38
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_shady_dealings_in_switzerland"
+		country_event = {
+			id = YGR_regional.8
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_boats_to_britanny	#Opening diplomacy with britanny
+	icon = GFX_Boats_to_Brittany
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_contacts_with_cosa_nostra
+	}
+	x = 40
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_boats_to_britanny"
+		country_event = {
+			id = YGR_regional.9
+		}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 2500
+			producer = BRT
+		}
+		add_equipment_to_stockpile = {
+			type = support_equipment
+			amount = 500
+			producer = BRT
+		}
+		add_equipment_to_stockpile = {
+			type = MBT_equipment
+			amount = 300
+			producer = BRT
+		}
+		863 = {
+			add_building_construction = {
+				type = naval_base
+				level = 2
+				instant_build = yes
+				province = 9205
+			}
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = dockyard
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_diplomacy_by_gold
+	icon = GFX_Diplomacy_by_Gold
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_shady_dealings_in_switzerland
+	}
+	prerequisite = {
+		focus = YGR_boats_to_britanny
+	}
+	x = 39
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_diplomacy_by_gold"
+		set_temp_variable = {
+			gdp_growth_temp = 0.02
+		}
+		econ_gdp_growth_change = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_the_great_pakhans_friends_in_america
+	icon = GFX_american_friends
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_entering_the_global_theater
+	}
+	mutually_exclusive = {
+		focus = YGR_neutral_as_the_swiss
+	}
+	x = 43
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_great_pakhans_friends_in_america"		#event about Ioseliani taking a trip to america
+		country_event = {
+			id = YGR_regional.10
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_promises_of_freedom
+	icon = GFX_Illusions_of_Freedom
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_the_great_pakhans_friends_in_america
+	}
+	x = 43
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_promises_of_freedom"
+		every_country = {
+			limit = {
+				is_warlord = no
+				is_russian_nation = no
+				NOT = {
+					tag = ZZZ
+				}
+				capital_scope = {
+					is_on_continent = north_america
+				}
+			}
+			add_opinion_modifier = {
+				target = KOM
+				modifier = RUS_recognition
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_invite_american_corporations
+	icon = GFX_Invite_American_Corporations
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_promises_of_freedom
+	}
+	x = 42
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_invite_american_corporations"
+		add_ideas = YGR_american_corporations
+		TNO_improve_industrial_equipment_med = yes
+		add_to_variable = {
+			money_reserves = 1000
+		}
+		custom_effect_tooltip = econ_increase_money_reserves_small
+	}
+}
+
+shared_focus = {
+	id = YGR_invite_the_CIA_to_the_war_room
+	icon = GFX_Invite_the_CIA_to_the_War_Room
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_promises_of_freedom
+	}
+	x = 44
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_invite_the_CIA_to_the_war_room"
+		TNO_improve_army_professionalism_med = yes
+		country_event = {
+			id = YGR_regional.11
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_a_profitable_partnership
+	icon = GFX_a_profitable_partership
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_invite_the_CIA_to_the_war_room
+	}
+	prerequisite = {
+		focus = YGR_invite_american_corporations
+	}
+	x = 43
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_invite_the_CIA_to_the_war_room"
+		set_temp_variable = {
+			gdp_growth_temp = 0.01
+		}
+		econ_gdp_growth_change = yes
+		custom_effect_tooltip = econ_misc_income_add_small_increase
+		add_to_variable = {
+			misc_income = 700
+		}
+	}
+}
+
+###################Ioseliani Superregional ###########################
+shared_focus = {
+	id = YGR_all_the_pakhans_men
+	icon = UnitePakhans
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	x = 6
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_all_the_pakhans_men"
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = YGR_reward_the_loyal
+	icon = RewardTheLoyal
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_all_the_pakhans_men
+	}
+	x = 5
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_reward_the_loyal"
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.1
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_integrating_our_new_lands
+	icon = IntegratingOurNewLands
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_all_the_pakhans_men
+	}
+	x = 7
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_integrating_our_new_lands"
+		RUS_integration_cost_days_decrease = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_once_a_bandit
+	icon = GFX_from_once_a_bandits
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_integrating_our_new_lands
+	}
+	prerequisite = {
+		focus = YGR_reward_the_loyal
+	}
+	x = 6
+	y = 2
+	completion_reward = {
+		#event here
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_once_a_bandit"
+		country_event = {
+			id = YGR_superregional_ioseliani.2
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_always_a_bandit
+	icon = AlwaysABandit
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_once_a_bandit
+	}
+	x = 6
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_always_a_bandit"
+		add_war_support = 0.05
+	}
+}
+
+shared_focus = {
+	id = YGR_a_codified_division_of_power
+	icon = VoryCodeRewriting
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_always_a_bandit
+	}
+	x = 4
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_a_codified_division_of_power"
+		add_stability = 0.05
+		RUS_integration_cost_days_decrease = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_decentralized_development
+	icon = ImproveAdministration
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_a_codified_division_of_power
+	}
+	x = 4
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_decentralized_development"
+		swap_ideas = {
+			add_idea = YGR_decentralized_development
+			remove_idea = YGR_redrawn_gang_territories
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_opportunities_for_profit
+	icon = OpportunitiesForProfit
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_a_codified_division_of_power
+	}
+	x = 2
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_opportunities_for_profit"
+		set_temp_variable = {
+			gdp_growth_temp = 0.02
+		}
+		econ_gdp_growth_change = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_the_law_of_the_thieves
+	icon = VoryCodeRewritingSlightly
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_a_codified_division_of_power
+	}
+	x = 0
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_law_of_the_thieves"		#event here
+		country_event = {
+			id = YGR_superregional_ioseliani.3
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_the_saviours_of_russia
+	icon = GFX_the_saviours_of_russia
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_the_law_of_the_thieves
+	}
+	prerequisite = {
+		focus = YGR_opportunities_for_profit
+	}
+	prerequisite = {
+		focus = YGR_decentralized_development
+	}
+	x = 4
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_saviours_of_russia"
+		add_war_support = 0.1
+	}
+}
+
+shared_focus = {
+	id = YGR_moderating_our_image
+	icon = ModerateOurImage
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_always_a_bandit
+	}
+	x = 8
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_moderating_our_image"		#Bandit Propaganda event
+		country_event = {
+			id = YGR_superregional_ioseliani.4
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_corruption_not_coercion
+	icon = Corruptionnotcoercion
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_moderating_our_image
+	}
+	x = 7
+	y = 5
+	completion_reward = {
+		#idea friendly corruption
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_corruption_not_coercion"
+		country_event = {
+			id = YGR_superregional_ioseliani.5
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_rewarding_the_people_of_russia
+	icon = RewardingPeople
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_moderating_our_image
+	}
+	x = 9
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_rewarding_the_people_of_russia"
+		tno_safety_improve = yes
+		tno_pensions_improve = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_russia_in_good_hands
+	icon = RussiaInGoodHands
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_corruption_not_coercion
+	}
+	prerequisite = {
+		focus = YGR_rewarding_the_people_of_russia
+	}
+	x = 8
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_russia_in_good_hands"		#Event about a citizen living well, but angry about corruption
+		country_event = {
+			id = YGR_superregional_ioseliani.6
+		}
+		add_to_variable = {
+			money_reserves = 1000
+		}
+		custom_effect_tooltip = econ_increase_money_reserves_small
+	}
+}
+
+shared_focus = {
+	id = YGR_stealing_heaven_and_earth
+	icon = GFX_heavenandearth
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_russia_in_good_hands
+	}
+	prerequisite = {
+		focus = YGR_the_saviours_of_russia
+	}
+	x = 6
+	y = 8
+	completion_reward = {
+		#Event about Ioseliani preparing the invasion of siberia
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_stealing_heaven_and_earth"
+		add_stability = 0.05
+		add_political_power = 40
+		country_event = {
+			id = YGR_superregional_ioseliani.7
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_an_offer_they_cant_refuse
+	icon = AnOfferCantRefuse
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	x = 13
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_an_offer_they_cant_refuse"
+		custom_effect_tooltip = RUS_RWS_nukes_into_the_atomic_age_tt
+		add_to_variable = {
+			misc_costs = 100
+		}
+		RUS_init_nuke_system = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_a_pay_rise_for_our_geniuses
+	icon = aPayRiseForGeniuses
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_an_offer_they_cant_refuse
+	}
+	x = 12
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_a_pay_rise_for_our_geniuses"
+		add_to_variable = {
+			national_debt = 150
+		}
+		custom_effect_tooltip = RUS_RWS_nukes_a_foundation_for_research_tt
+		TNO_improve_research_facilities_med = yes
+		if = {
+			limit = {
+				has_country_flag = RUS_nuclear_program_phase_1
+			}
+			add_to_variable = {
+				RUSNukesTheoryProgress = 15
+			}
+		}
+		add_to_variable = {
+			RUSNukesMonthlyProgress = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_stealing_blueprints_from_japan
+	icon = BlueprintsJapan
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_an_offer_they_cant_refuse
+	}
+	x = 14
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_stealing_blueprints_from_japan"
+		custom_effect_tooltip = YGR_steal_blueprints
+		add_stability = -0.03
+		add_political_power = -25
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = RUS_nuclear_program_phase_2
+					has_country_flag = RUS_nuclear_program_phase_1
+				}
+			}
+			add_to_variable = {
+				RUSNukesMatsProgress = 10
+			}
+		}
+		add_to_variable = {
+			national_debt = 150
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_the_russian_uranium_mining_consortium
+	icon = GFX_uranium_consortium
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_stealing_blueprints_from_japan
+	}
+	x = 14
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_russian_uranium_mining_consortium"
+		572 = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = infrastructure
+				level = 2
+				instant_build = yes
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = RUS_nuclear_program_phase_2
+					has_country_flag = RUS_nuclear_program_phase_1
+				}
+			}
+			add_to_variable = {
+				RUSNukesMatsProgress = 10
+			}
+		}
+		add_to_variable = {
+			RUSNukesMonthlyProgress = 1
+		}
+		add_to_variable = {
+			national_debt = 150
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_and_a_bribe_for_theirs
+	icon = BribeScientist
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_a_pay_rise_for_our_geniuses
+	}
+	x = 12
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_and_a_bribe_for_theirs"
+		add_to_variable = {
+			national_debt = 150
+		}
+		custom_effect_tooltip = RUS_RWS_nukes_a_foundation_for_research_tt
+		TNO_improve_research_facilities_med = yes
+		if = {
+			limit = {
+				has_country_flag = RUS_nuclear_program_phase_1
+			}
+			add_to_variable = {
+				RUSNukesTheoryProgress = 15
+			}
+		}
+		add_to_variable = {
+			RUSNukesMonthlyProgress = 3
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_braving_the_black_sun
+	icon = StealNukes
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_and_a_bribe_for_theirs
+	}
+	prerequisite = {
+		focus = YGR_the_russian_uranium_mining_consortium
+	}
+	x = 13
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_braving_the_black_sun"
+		custom_effect_tooltip = YGR_braving_black_sun_tt
+		add_to_variable = {
+			RUSNukesMonthlyProgress = 3
+		}
+		TNO_improve_industrial_expertise_low = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_the_greatest_heist_in_history
+	icon = GreatestHeist
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_braving_the_black_sun
+	}
+	x = 13
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_greatest_heist_in_history"
+		custom_effect_tooltip = YGR_greatest_heist_tt
+		hidden_effect = {
+			country_event = {
+				id = YGR_superregional_ioseliani.9
+				days = 3
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_prestige_gain
+			PRESTIGE_VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+2"
+			}
+		}
+		add_to_variable = {
+			var = prestige
+			value = 2
+		}
+	}
+}
+
+###################Usoyan Superregional###################
+shared_focus = {
+	id = YGR_russias_new_chief
+	icon = GFX_russia_new_chief
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	x = 6
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_russias_new_chief"
+		add_stability = 0.1
+	}
+}
+
+shared_focus = {
+	id = YGR_destroy_our_enemies
+	icon = GFX_destroy_the_enemies
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_russias_new_chief
+	}
+	x = 5
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_destroy_our_enemies"
+		add_popularity = {
+			ideology = despotism
+			popularity = 0.15
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_reinforce_the_chain_of_command
+	icon = GFX_Reinforce_the_Chain_of_Commands
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_russias_new_chief
+	}
+	x = 7
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_reinforce_the_chain_of_command"
+		add_command_power = 20
+		tno_military_supervision_improve = yes
+		add_to_variable = {
+			national_debt = 150
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_from_bandits
+	icon = GFX_from_once_a_bandits
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_reinforce_the_chain_of_command
+	}
+	prerequisite = {
+		focus = YGR_destroy_our_enemies
+	}
+	x = 6
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_from_bandits"
+		add_war_support = 0.05
+	}
+}
+
+shared_focus = {
+	id = YGR_to_businessmen
+	icon = GFX_To_Businessman
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_from_bandits
+	}
+	x = 6
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_to_businessmen"		#Long Way From Home
+		TNO_improve_industrial_expertise_med = yes
+		country_event = {
+			id = YGR_superregional_usoyan.1
+		}
+		hidden_effect = {
+			country_event = {
+				id = YGR_flavour.28
+				days = 3
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_from_gang_to_corporation
+	icon = GFX_Birth_of_Corporation
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_to_businessmen
+	}
+	x = 3
+	y = 4
+	completion_reward = {
+		#Creeping Roots
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_from_gang_to_corporation"
+		country_event = {
+			id = YGR_superregional_usoyan.2
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_our_new_ventures
+	icon = GFX_Our_New_Ventures
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_to_businessmen
+	}
+	x = 9
+	y = 4
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_our_new_ventures"
+		add_stability = 0.05
+	}
+}
+
+shared_focus = {
+	id = YGR_centralized_admininstration
+	icon = GFX_Centralization
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_from_gang_to_corporation
+	}
+	x = 1
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_centralized_admininstration"		#centralized admin idea
+		add_stability = 0.1
+		add_to_variable = {
+			national_debt = 150
+		}
+		custom_effect_tooltip = econ_debt_rate_generic_increase
+	}
+}
+
+shared_focus = {
+	id = YGR_enforcers_on_every_street
+	icon = GFX_Enforcer_on_Every_Stree
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_from_gang_to_corporation
+	}
+	x = 3
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_enforcers_on_every_street"
+		tno_political_parties_worsen = yes
+		tno_security_clear = yes
+		add_ideas = tno_security_preemptive_security
+	}
+}
+
+shared_focus = {
+	id = YGR_tax_everything_that_moves
+	icon = GFX_Tax_Everything_that_Moves
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_from_gang_to_corporation
+	}
+	x = 5
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_tax_everything_that_moves"
+		tno_tax_rate_clear = yes
+		add_ideas = tno_tax_rate_exploitative_taxation
+		set_temp_variable = {
+			gdp_growth_temp = 0.02
+		}
+		econ_gdp_growth_change = yes
+	}
+}
+
+shared_focus = {
+	id = YGR_set_up_the_facade
+	icon = GFX_Facade_Government
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_centralized_admininstration
+	}
+	prerequisite = {
+		focus = YGR_enforcers_on_every_street
+	}
+	prerequisite = {
+		focus = YGR_tax_everything_that_moves
+	}
+	x = 3
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_set_up_the_facade"
+		tno_press_rights_clear = yes
+		add_ideas = tno_press_rights_state_press_only
+	}
+}
+
+shared_focus = {
+	id = YGR_supplying_the_kurds
+	icon = GFX_supplying_the_kurds
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_our_new_ventures
+	}
+	x = 8
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_supplying_the_kurds"		#event about sending supply to kurds
+		country_event = {
+			id = YGR_superregional_usoyan.3
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_the_worlds_miners
+	icon = GFX_world_miners
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_our_new_ventures
+	}
+	x = 10
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_the_worlds_miners"		#event about foreign contracts with mining companies
+		country_event = {
+			id = YGR_superregional_usoyan.4
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_anything_for_the_right_price
+	icon = GFX_The_Thieves_Republic
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_the_worlds_miners
+	}
+	prerequisite = {
+		focus = YGR_supplying_the_kurds
+	}
+	x = 9
+	y = 7
+	completion_reward = {
+		#Just Business
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_anything_for_the_right_price"
+		country_event = {
+			id = YGR_superregional_usoyan.5
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_profit_in_the_wind
+	icon = GFX_profit_in_the_wind
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_set_up_the_facade
+	}
+	prerequisite = {
+		focus = YGR_anything_for_the_right_price
+	}
+	x = 6
+	y = 8
+	completion_reward = {
+		#time for rebrand event
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_profit_in_the_wind"
+		country_event = {
+			id = YGR_superregional_usoyan.6
+		}
+	}
+}
+
+shared_focus = {
+	id = YGR_all_hail_the_custodian
+	icon = GFX_Hail_to_the_Chief
+	cost = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = YGR_profit_in_the_wind
+	}
+	x = 6
+	y = 10
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus YGR_all_hail_the_custodian"
+		add_political_power = 150
+		country_event = {
+			id = YGR_superregional_usoyan.7
+		}
+	}
+}

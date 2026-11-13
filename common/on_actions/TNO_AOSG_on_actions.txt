@@ -1,0 +1,27 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			GAY = {
+				GAY_militarization_setup = yes
+			}
+		}
+	}
+	on_monthly_GAY = {
+		effect = {
+			#updates every month but also update every time there's an estate effect
+			GAY_estate_calcs = yes
+			#ditto 
+			#GAY_militarization_apply_modifiers = yes
+			if = {
+				limit = {
+					check_variable = {
+						national_pct < 25
+					}
+					
+				}
+				#this is seperate from GAY_estate_calcs to make sure militarization only lowers once a month if national pct < 25
+				GAY_lower_Militarization_mid = yes
+			}
+		}
+	}
+}

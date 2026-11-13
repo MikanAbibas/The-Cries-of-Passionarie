@@ -1,0 +1,151 @@
+# Balkan backing — choosing a proxy.
+#
+# Only shown to a superpower that won BOTH halves of a rival pair in the Great Game. Picking
+# one hands the other to the rival power, so both belligerents end up sponsored. The mission
+# is the deadline: let it run out and the choice is made at random.
+
+BALKAN_backing_category = {
+
+	# ---- Transylvania: Hungary or Romania ----
+	BALKAN_ITA_favour_HUN = {
+		allowed = { original_tag = ITA }
+		visible = { BALKAN_ITA_must_choose_transylvania = yes }
+		available = { BALKAN_ITA_must_choose_transylvania = yes }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_ITA_favour_HUN"
+			BALKAN_favour_HUN_for_ITA = yes
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	BALKAN_ITA_favour_ROM = {
+		allowed = { original_tag = ITA }
+		visible = { BALKAN_ITA_must_choose_transylvania = yes }
+		available = { BALKAN_ITA_must_choose_transylvania = yes }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_ITA_favour_ROM"
+			BALKAN_favour_ROM_for_ITA = yes
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	BALKAN_GER_favour_HUN = {
+		allowed = { original_tag = GER }
+		visible = { BALKAN_GER_must_choose_transylvania = yes }
+		available = { BALKAN_GER_must_choose_transylvania = yes }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_GER_favour_HUN"
+			BALKAN_favour_HUN_for_GER = yes
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	BALKAN_GER_favour_ROM = {
+		allowed = { original_tag = GER }
+		visible = { BALKAN_GER_must_choose_transylvania = yes }
+		available = { BALKAN_GER_must_choose_transylvania = yes }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_GER_favour_ROM"
+			BALKAN_favour_ROM_for_GER = yes
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	# ---- Macedonia: Bulgaria or Greece ----
+	BALKAN_ITA_favour_BUL = {
+		allowed = { original_tag = ITA }
+		visible = { BALKAN_ITA_must_choose_macedonia = yes }
+		available = { BALKAN_ITA_must_choose_macedonia = yes }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_ITA_favour_BUL"
+			BALKAN_favour_BUL_for_ITA = yes
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	BALKAN_ITA_favour_GRE = {
+		allowed = { original_tag = ITA }
+		visible = { BALKAN_ITA_must_choose_macedonia = yes }
+		available = { BALKAN_ITA_must_choose_macedonia = yes }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_ITA_favour_GRE"
+			BALKAN_favour_GRE_for_ITA = yes
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	BALKAN_GER_favour_BUL = {
+		allowed = { original_tag = GER }
+		visible = { BALKAN_GER_must_choose_macedonia = yes }
+		available = { BALKAN_GER_must_choose_macedonia = yes }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_GER_favour_BUL"
+			BALKAN_favour_BUL_for_GER = yes
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	BALKAN_GER_favour_GRE = {
+		allowed = { original_tag = GER }
+		visible = { BALKAN_GER_must_choose_macedonia = yes }
+		available = { BALKAN_GER_must_choose_macedonia = yes }
+		cost = 25
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision BALKAN_GER_favour_GRE"
+			BALKAN_favour_GRE_for_GER = yes
+		}
+		ai_will_do = { factor = 10 }
+	}
+
+	# ---- the deadlines ----
+	BALKAN_choose_transylvania_proxy = {
+		allowed = { OR = { original_tag = ITA  original_tag = GER } }
+		activation = { always = no }
+		available = { always = no }
+		is_good = no
+		fire_only_once = yes
+		days_mission_timeout = 120
+		cancel_trigger = { has_global_flag = BALKAN_transylvania_resolved }
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mission timeout BALKAN_choose_transylvania_proxy"
+			if = {
+				limit = { NOT = { has_global_flag = BALKAN_transylvania_resolved } }
+				BALKAN_random_transylvania_for = yes
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	BALKAN_choose_macedonia_proxy = {
+		allowed = { OR = { original_tag = ITA  original_tag = GER } }
+		activation = { always = no }
+		available = { always = no }
+		is_good = no
+		fire_only_once = yes
+		days_mission_timeout = 120
+		cancel_trigger = { has_global_flag = BALKAN_macedonia_resolved }
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mission timeout BALKAN_choose_macedonia_proxy"
+			if = {
+				limit = { NOT = { has_global_flag = BALKAN_macedonia_resolved } }
+				BALKAN_random_macedonia_for = yes
+			}
+		}
+		ai_will_do = { factor = 0 }
+	}
+}

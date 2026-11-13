@@ -1,0 +1,6735 @@
+GER_g4_cant_rush_art_decisions = {
+	GER_market_open = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_open_the_markets
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 50
+		days_remove = 10
+		
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_market_open"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_market_open"
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.05
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+5.00%"
+				}
+			}
+		}
+	}
+
+	GER_lower_tariffs = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_open_the_markets
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 50
+		days_remove = 10
+		
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_lower_tariffs"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_lower_tariffs"
+			add_to_variable = {
+				GER_g4_the_social_economy_gdp_growth_modifier = 0.01
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_gdp_growth
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+1.00%"
+				}
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.05
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+5.00%"
+				}
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_consumer_goods_factor = 0.03
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_consumer_goods
+				VALUE = {
+					localization_key = TNO_COLOR_RED
+					VALUE_CHANGE = "+3.00%"
+				}
+			}
+		}
+	}
+
+	GER_capital_yields = {
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+			
+		}
+		days_mission_timeout = GER_capital_yields_speed
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_capital_yields"
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_capital_yields"
+			add_offsite_building = {
+				type = industrial_complex
+				level = GER_capital_yields_factories
+			}
+			activate_mission = GER_capital_yields
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_max_efficiency_factor = GER_capital_yields_eff_cap
+			}
+			add_to_variable = {
+				GDP = GER_capital_yields_eff_gdp
+			}
+			if = {
+				limit = {
+					has_country_flag = GER_yields_infra
+				}
+				random_owned_state = {
+					limit = {
+						infrastructure < 10
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_capital_yields_eff_cap_tt
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_capital_yields_eff_gdp_tt
+			}
+		}
+	}
+
+	GER_invite_european_nation_to_reichzone = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_european_market
+		}
+		target_trigger = {
+			FROM = {
+				is_european_nation = yes
+				NOT = { tag = ROOT }
+				NOT = { has_idea = GER_reichzone }
+				NOT = { tag = ITA }
+				NOT = { is_ally_with = ITA }
+			}
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 5
+		days_remove = 10
+		
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_invite_european_nation_to_reichzone"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_invite_european_nation_to_reichzone"
+			set_temp_variable = { temp_misc_income = 25 }
+			econ_misc_income_change = yes
+			add_to_variable = {
+				GER_capital_yields_speed = -1
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_capital_yields_speed_increase_tt
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+1"
+				}
+			}
+			GER_capital_yields_speed_clamp = yes
+			FROM = {
+				add_ideas = GER_reichzone
+			}
+		}
+	}
+
+	GER_invite_south_american_nation_to_reichzone = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_look_westward
+		}
+		target_trigger = {
+			FROM = {
+				capital_scope = {
+					is_on_continent = south_america
+				}
+				NOT = { has_idea = GER_reichzone }
+			}
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 5
+		days_remove = 10
+		
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_invite_south_american_nation_to_reichzone"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_invite_south_american_nation_to_reichzone"
+			set_temp_variable = { temp_misc_income = 25 }
+			econ_misc_income_change = yes
+			add_to_variable = {
+				GER_capital_yields_speed = -1
+			}
+			GER_capital_yields_speed_clamp = yes
+			custom_effect_tooltip = {
+				localization_key = GER_capital_yields_speed_increase_tt
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+1"
+				}
+			}
+			FROM = {
+				add_ideas = GER_reichzone
+			}
+		}
+	}
+
+	GER_invite_asian_nation_to_reichzone = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_look_eastward
+		}
+		targets = {
+			RAJ INF PER CYL UAR AFG
+		}
+		target_trigger = {
+			FROM = {
+				NOT = {
+					OR = {
+						has_idea = GER_reichzone
+						is_subject = yes
+						AND = {
+							tag = INS
+							is_ally_with = JAP
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 5
+		days_remove = 10
+		
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_invite_asian_nation_to_reichzone"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_invite_asian_nation_to_reichzone"
+			set_temp_variable = { temp_misc_income = 25 }
+			econ_misc_income_change = yes
+			add_to_variable = {
+				GER_capital_yields_speed = -1
+			}
+			GER_capital_yields_speed_clamp = yes
+			custom_effect_tooltip = {
+				localization_key = GER_capital_yields_speed_increase_tt
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+1"
+				}
+			}
+			FROM = {
+				add_ideas = GER_reichzone
+			}
+		}
+	}
+
+	GER_new_marts = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_consumer_boom
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 50
+		days_remove = 100
+		
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_new_marts"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_new_marts"
+			add_to_variable = {
+				GER_g4_the_social_economy_consumer_goods_factor = -0.1
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_consumer_goods
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "-10.00%"
+				}
+			}
+		}
+	}
+
+	GER_houses_for_everyone = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_housing_question
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 50
+		days_remove = 100
+		
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_houses_for_everyone"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_houses_for_everyone"
+			add_to_variable = {
+				GER_g4_the_social_economy_global_building_slots_factor = 0.1
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_global_building_slots
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+10.00%"
+				}
+			}
+		}
+	}
+
+	GER_leave_the_revolt_behind = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_housing_question
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 40
+		
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_leave_the_revolt_behind"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_leave_the_revolt_behind"
+			add_to_variable = {
+				GER_g4_the_social_economy_gdp_growth_modifier = 0.01
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_gdp_growth
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+1.00%"
+				}
+			}
+			add_political_power = 100
+		}
+	}
+
+	GER_renovate_the_frankfurt_exchange = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_borse_reborn
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 50
+		
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_renovate_the_frankfurt_exchange"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_renovate_the_frankfurt_exchange"
+			add_to_variable = {
+				GER_g4_the_social_economy_consumer_goods_factor = -0.05
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_consumer_goods
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "-5.00%"
+				}
+			}
+			set_temp_variable = { temp_misc_income = 400 }
+			econ_misc_income_change = yes
+		}
+	}
+
+	GER_encourage_consumer_spending = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_consumer_society
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 50
+		
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_encourage_consumer_spending"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_encourage_consumer_spending"
+			add_to_variable = {
+				GER_g4_the_social_economy_consumer_goods_factor = -0.05
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_consumer_goods
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "-5.00%"
+				}
+			}
+			set_temp_variable = { temp_misc_income = 400 }
+			econ_misc_income_change = yes
+		}
+	}
+
+	GER_the_vision_of_enterprise = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_wirtschaftswunder
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 100
+		days_remove = 200
+		
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_the_vision_of_enterprise"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_the_vision_of_enterprise"
+			add_to_variable = {
+				GER_g4_the_social_economy_line_change_production_efficiency_factor = 0.1
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_line_change_efficiency
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+10.00%"
+				}
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_max_efficiency_factor = 0.15
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_max
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+15.00%"
+				}
+			}
+		}
+	}
+
+	GER_synthesis_of_economic_movers = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_labor_and_the_market
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 30
+		
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_synthesis_of_economic_movers"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_synthesis_of_economic_movers"
+			add_to_variable = {
+				GER_g4_the_social_economy_line_change_production_efficiency_factor = -0.1
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_line_change_efficiency
+				VALUE = {
+					localization_key = TNO_COLOR_RED
+					VALUE_CHANGE = "-10.00%"
+				}
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_max_efficiency_factor = 0.1
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_max
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+10.00%"
+				}
+			}
+		}
+	}
+
+	GER_the_market_referee = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_a_fair_playing_field
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 30
+		
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_the_market_referee"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_the_market_referee"
+			add_to_variable = {
+				GER_g4_the_social_economy_line_change_production_efficiency_factor = 0.1
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_line_change_efficiency
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+10.00%"
+				}
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_max_efficiency_factor = -0.1
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_max
+				VALUE = {
+					localization_key = TNO_COLOR_RED
+					VALUE_CHANGE = "-10.00%"
+				}
+			}
+		}
+	}
+
+	GER_culture_of_labor = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_peoples_prosperity
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 125
+		days_remove = 100
+		
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_culture_of_labor"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_culture_of_labor"
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.12
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+12.00%"
+				}
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_speed_buildings_factor = 0.12
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_construction_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+12.00%"
+				}
+			}
+		}
+	}
+
+	GER_leverage_our_power = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_a_nation_transformed
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 75
+		days_remove = 100
+		
+		modifier = {
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_leverage_our_power"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_leverage_our_power"
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.07
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+7.00%"
+				}
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_line_change_production_efficiency_factor = 0.06
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_line_change_efficiency
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+		}
+	}
+}
+
+GER_g4_full_speed_ahead_decisions = {
+	GER_construct_the_belchental_coal_plant = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_a_lust_for_power
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 200
+		
+		modifier = {
+			civilian_factory_use = 15
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_construct_the_belchental_coal_plant"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_construct_the_belchental_coal_plant"
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.17
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 15
+			}
+			87 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+17.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_construct_the_janschwalde_lignite_plant = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_a_lust_for_power
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 200
+		
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_construct_the_janschwalde_lignite_plant"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_construct_the_janschwalde_lignite_plant"
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.11
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 10
+			}
+			776 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+11.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_azeri_gas_exploit = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_a_lust_for_power
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 200
+		
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_azeri_gas_exploit"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_azeri_gas_exploit"
+			add_to_variable = {
+				GER_g4_the_social_economy_production_lack_of_resource_penalty_factor = -0.11
+			}
+			229 = {
+				add_resource = {
+					type = oil
+					amount = 34
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_resource_penalty
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "-11.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_dagestani_gas_exploit = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_exploit_caspian_natural_gas
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 200
+		
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_dagestani_gas_exploit"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_dagestani_gas_exploit"
+			add_to_variable = {
+				GER_g4_the_social_economy_production_lack_of_resource_penalty_factor = -0.09
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 8
+			}
+			232 = {
+				add_resource = {
+					type = oil
+					amount = 22
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_resource_penalty
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "-9.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_goebbelsstad_coal_mine = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_coal_for_germany
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 15
+		days_remove = 200
+		
+		modifier = {
+			civilian_factory_use = 12
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_goebbelsstad_coal_mine"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_goebbelsstad_coal_mine"
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.16
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 12
+			}
+			67 = {
+				add_resource = {
+					type = steel
+					amount = 5
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+16.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+
+	GER_reichwalde_coal_mine = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_coal_for_germany
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 15
+		days_remove = 210
+		
+		modifier = {
+			civilian_factory_use = 13
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_reichwalde_coal_mine"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_reichwalde_coal_mine"
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.16
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 13
+			}
+			65 = {
+				add_resource = {
+					type = steel
+					amount = 8
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+16.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_north_sea_deposits = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_black_gold
+			is_ally_with = NOR
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 15
+		days_remove = 180
+		
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_north_sea_deposits"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_north_sea_deposits"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 10
+			}
+			142 = {
+				add_resource = {
+					type = oil
+					amount = 57
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_caucasian_deposits = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_black_gold
+			is_ally_with = CAU
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 15
+		days_remove = 180
+		
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_caucasian_deposits"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_caucasian_deposits"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 10
+			}
+			229 = {
+				add_resource = {
+					type = oil
+					amount = 54
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_ukranian_deposits = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_black_gold
+			is_ally_with = UKR
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 15
+		days_remove = 180
+		
+		modifier = {
+			civilian_factory_use = 7
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_ukranian_deposits"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_ukranian_deposits"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 7
+			}
+			193 = {
+				add_resource = {
+					type = oil
+					amount = 39
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_renovate_sylvenstein_dam = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_oh_dam
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 180
+
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_renovate_sylvenstein_dam"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_renovate_sylvenstein_dam"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 8
+			}
+			52 = {
+				add_extra_state_shared_building_slots = 7
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_renovate_eibenstock_dam = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_oh_dam
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 180
+
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_renovate_eibenstock_dam"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_renovate_eibenstock_dam"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 8
+			}
+			65 = {
+				add_extra_state_shared_building_slots = 7
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_biblis_reactor = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_oh_dam
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 180
+
+		modifier = {
+			civilian_factory_use = 18
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_biblis_reactor"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_biblis_reactor"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 18
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_start_efficiency_factor = 0.12
+			}
+			55 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = nuclear_reactor
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_start_efficiency
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+12.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_griefswald_reactor = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_oh_dam
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 180
+
+		modifier = {
+			civilian_factory_use = 18
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_griefswald_reactor"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_griefswald_reactor"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 18
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_start_efficiency_factor = 0.15
+			}
+			62 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = nuclear_reactor
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_start_efficiency
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+15.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_build_energy_reserve = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_energy_security
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 250
+
+		modifier = {
+			civilian_factory_use = 15
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_build_energy_reserve"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_build_energy_reserve"
+			add_to_variable = {
+				GER_g4_the_social_economy_production_lack_of_resource_penalty_factor = -0.15
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_resource_penalty
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "-15.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_manufacturing_growth_fund = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_manufactured_victory
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 120
+
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_manufacturing_growth_fund"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_manufacturing_growth_fund"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 6
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.11
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+11.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_expand_mauser_oberndorf_plant = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_manufactured_victory
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 120
+
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_expand_mauser_oberndorf_plant"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_expand_mauser_oberndorf_plant"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 4
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.07
+			}
+			50 = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+7.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_expand_krupp_essen_plant = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_reignite_the_industry
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 100
+
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_expand_krupp_essen_plant"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_expand_krupp_essen_plant"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 4
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.06
+			}
+			51 = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_expand_brabag_schwarzheide_synthetic_fuel_plant = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_chemistry_and_autarky
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 200
+
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_expand_brabag_schwarzheide_synthetic_fuel_plant"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_expand_brabag_schwarzheide_synthetic_fuel_plant"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 6
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_base_fuel_gain_factor = 0.09
+			}
+			776 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_fuel_gain_factor
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+9.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#mining decisions - GER_to_the_mines
+	GER_expand_salzgitter_iron_mine = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_to_the_mines
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 15
+		days_remove = 180
+
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_expand_salzgitter_iron_mine"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_expand_salzgitter_iron_mine"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 8
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.08
+			}
+			59 = {
+				add_extra_state_shared_building_slots = 2
+				add_resource = {
+					type = steel
+					amount = 10
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+8.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_reopen_rammelsberg_mine = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_to_the_mines
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 240
+
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_reopen_rammelsberg_mine"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_reopen_rammelsberg_mine"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 10
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.10
+			}
+			59 = {
+				add_extra_state_shared_building_slots = 2
+				add_resource = {
+					type = tungsten
+					amount = 6
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+10.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_expand_siegerland_iron_mines = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_to_the_mines
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 15
+		days_remove = 160
+
+		modifier = {
+			civilian_factory_use = 7
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_expand_siegerland_iron_mines"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_expand_siegerland_iron_mines"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 7
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.07
+			}
+			57 = {
+				add_extra_state_shared_building_slots = 2
+				add_resource = {
+					type = steel
+					amount = 8
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+7.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_erzgebirge_uranium_mine = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_to_the_mines
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 300
+
+		modifier = {
+			civilian_factory_use = 14
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_erzgebirge_uranium_mine"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_erzgebirge_uranium_mine"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 14
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.12
+			}
+			65 = {
+				add_extra_state_shared_building_slots = 3
+				add_resource = {
+					type = chromium
+					amount = 8
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+12.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_expand_meggen_mine = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_to_the_mines
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 140
+
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_expand_meggen_mine"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_expand_meggen_mine"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 6
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.06
+			}
+			57 = {
+				add_extra_state_shared_building_slots = 1
+				add_resource = {
+					type = steel
+					amount = 5
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#electronics decisions - GER_vacuum_tubes_and_digital_readouts
+	GER_siemens_munich_semiconductor_fab = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_vacuum_tubes_and_digital_readouts
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 240
+
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_siemens_munich_semiconductor_fab"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_siemens_munich_semiconductor_fab"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 10
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_start_efficiency_factor = 0.10
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_max_efficiency_factor = 0.05
+			}
+			52 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_start_efficiency
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+10.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_max
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+5.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_telefunken_ulm_electronics_plant = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_vacuum_tubes_and_digital_readouts
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 180
+
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_telefunken_ulm_electronics_plant"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_telefunken_ulm_electronics_plant"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 8
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_start_efficiency_factor = 0.08
+			}
+			50 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_start_efficiency
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+8.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_nixdorf_computer_paderborn_expansion = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_vacuum_tubes_and_digital_readouts
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 200
+
+		modifier = {
+			civilian_factory_use = 9
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_nixdorf_computer_paderborn_expansion"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_nixdorf_computer_paderborn_expansion"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 9
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_max_efficiency_factor = 0.08
+			}
+			57 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_max
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+8.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_rohde_und_schwarz_nuremberg_plant = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_vacuum_tubes_and_digital_readouts
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 15
+		days_remove = 160
+
+		modifier = {
+			civilian_factory_use = 7
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_rohde_und_schwarz_nuremberg_plant"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_rohde_und_schwarz_nuremberg_plant"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 7
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_start_efficiency_factor = 0.07
+			}
+			54 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_start_efficiency
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+7.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#weapons decisions - GER_weapons_of_war
+	GER_heckler_und_koch_oberndorf_expansion = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_weapons_of_war
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 150
+
+		modifier = {
+			civilian_factory_use = 6
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_heckler_und_koch_oberndorf_expansion"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_heckler_und_koch_oberndorf_expansion"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 6
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.06
+			}
+			50 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_rheinmetall_unterluss_proving_grounds = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_weapons_of_war
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 200
+
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_rheinmetall_unterluss_proving_grounds"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_rheinmetall_unterluss_proving_grounds"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 8
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.08
+			}
+			59 = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+8.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_krauss_maffei_munich_panzer_works = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_weapons_of_war
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 220
+
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_krauss_maffei_munich_panzer_works"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_krauss_maffei_munich_panzer_works"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 10
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.10
+			}
+			52 = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+10.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_blohm_und_voss_hamburg_naval_yards = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_weapons_of_war
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 180
+
+		modifier = {
+			civilian_factory_use = 7
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_blohm_und_voss_hamburg_naval_yards"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_blohm_und_voss_hamburg_naval_yards"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 7
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_dockyard = 0.08
+			}
+			58 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+8.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#advanced manufacturing decisions - GER_machines_of_today_and_tomorow
+	GER_kuka_augsburg_robotics_plant = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_machines_of_today_and_tomorow
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 220
+
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kuka_augsburg_robotics_plant"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kuka_augsburg_robotics_plant"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 10
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_max_efficiency_factor = 0.08
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.06
+			}
+			52 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_max
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+8.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_trumpf_ditzingen_machine_tool_works = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_machines_of_today_and_tomorow
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 180
+
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_trumpf_ditzingen_machine_tool_works"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_trumpf_ditzingen_machine_tool_works"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 8
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.08
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_start_efficiency_factor = 0.06
+			}
+			50 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+8.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_start_efficiency
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_dmg_mori_bielefeld_cnc_facility = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_machines_of_today_and_tomorow
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 200
+
+		modifier = {
+			civilian_factory_use = 9
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_dmg_mori_bielefeld_cnc_facility"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_dmg_mori_bielefeld_cnc_facility"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 9
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_max_efficiency_factor = 0.06
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.06
+			}
+			57 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_max
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_future_manufacturing_initiative = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_bleeding_edge_of_tech
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 150
+
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_future_manufacturing_initiative"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_future_manufacturing_initiative"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 8
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.04
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#semiconductor decisions - GER_the_silicon_revolution
+	GER_wacker_burghausen_silicon_wafer_plant = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_silicon_revolution
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 250
+
+		modifier = {
+			civilian_factory_use = 14
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_wacker_burghausen_silicon_wafer_plant"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_wacker_burghausen_silicon_wafer_plant"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 14
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.04
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_max_efficiency_factor = 0.06
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_max
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_infineon_dresden_microchip_fab = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_silicon_revolution
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 30
+		days_remove = 280
+
+		modifier = {
+			civilian_factory_use = 14
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_infineon_dresden_microchip_fab"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_infineon_dresden_microchip_fab"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 14
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.02
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_max_efficiency_factor = 0.09
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+2.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_max
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+9.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_zeiss_jena_optoelectronics_center = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_silicon_revolution
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 280
+
+		modifier = {
+			civilian_factory_use = 16
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_zeiss_jena_optoelectronics_center"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_zeiss_jena_optoelectronics_center"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 16
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.04
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_start_efficiency_factor = 0.12
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_start_efficiency
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+12.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#automation decisions - GER_automated_industry
+	GER_mannesmann_demag_duisburg_automated_steelworks = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_automated_industry
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 240
+
+		modifier = {
+			civilian_factory_use = 12
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_mannesmann_demag_duisburg_automated_steelworks"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_mannesmann_demag_duisburg_automated_steelworks"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 12
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.08
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_gdp_growth_modifier = 0.02
+			}
+			51 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+8.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_gdp_growth
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+2.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_thyssen_oberhausen_continuous_casting_line = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_automated_industry
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 200
+
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_thyssen_oberhausen_continuous_casting_line"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_thyssen_oberhausen_continuous_casting_line"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 10
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.06
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_gdp_growth_modifier = 0.02
+			}
+			51 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_gdp_growth
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+2.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_volkswagen_wolfsburg_automated_assembly = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_automated_industry
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 250
+
+		modifier = {
+			civilian_factory_use = 11
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_volkswagen_wolfsburg_automated_assembly"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_volkswagen_wolfsburg_automated_assembly"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 11
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_gdp_growth_modifier = 0.01
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.09
+			}
+			59 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_gdp_growth
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+1.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+9.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#networking decisions - GER_the_datennetz
+	GER_bundespost_fernmeldenetz_backbone = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_datennetz
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 30
+		days_remove = 300
+
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_bundespost_fernmeldenetz_backbone"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_bundespost_fernmeldenetz_backbone"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 8
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.12
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+12.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_sap_walldorf_data_processing_center = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_datennetz
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 365
+
+		modifier = {
+			civilian_factory_use = 11
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_sap_walldorf_data_processing_center"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_sap_walldorf_data_processing_center"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 11
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.03
+			}
+			TNO_improve_research_facilities_high = yes
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+3.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_aeg_berlin_datenfernverarbeitung_hub = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_datennetz
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 200
+
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_aeg_berlin_datenfernverarbeitung_hub"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_aeg_berlin_datenfernverarbeitung_hub"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 10
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.02
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_start_efficiency_factor = 0.12
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+2.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_start_efficiency
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+12.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_build_bayer_brunsbuttel_methylene_diphenyl_diisocyanate_plant = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_chemistry_and_autarky
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 200
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_build_bayer_brunsbuttel_methylene_diphenyl_diisocyanate_plant"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_build_bayer_brunsbuttel_methylene_diphenyl_diisocyanate_plant"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 5
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_start_efficiency_factor = 0.08
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_start_efficiency
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+8.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#rocket and aerospace decisions - GER_new_rocket_components
+	GER_ottobrunn_liquid_propulsion_test_facility = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_new_rocket_components
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 30
+		days_remove = 280
+
+		modifier = {
+			civilian_factory_use = 14
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_ottobrunn_liquid_propulsion_test_facility"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_ottobrunn_liquid_propulsion_test_facility"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 14
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.05
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.04
+			}
+			52 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+5.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_messerschmitt_bolkow_blohm_augsburg_aerospace_works = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_new_rocket_components
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 250
+
+		modifier = {
+			civilian_factory_use = 12
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_messerschmitt_bolkow_blohm_augsburg_aerospace_works"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_messerschmitt_bolkow_blohm_augsburg_aerospace_works"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 12
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.06
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_gdp_growth_modifier = 0.04
+			}
+			52 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_gdp_growth
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_dornier_friedrichshafen_guided_missile_plant = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_new_rocket_components
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 200
+
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_dornier_friedrichshafen_guided_missile_plant"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_dornier_friedrichshafen_guided_missile_plant"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 10
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.04
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.03
+			}
+			50 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+3.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#software decisions - GER_software_macht_frei
+	GER_sap_walldorf_enterprise_software_division = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_software_macht_frei
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 200
+
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_sap_walldorf_enterprise_software_division"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_sap_walldorf_enterprise_software_division"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 8
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.02
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_gdp_growth_modifier = 0.02
+			}
+			72 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+2.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_gdp_growth
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+2.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_siemens_nixdorf_operating_system_project = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_software_macht_frei
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 220
+
+		modifier = {
+			civilian_factory_use = 12
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_siemens_nixdorf_operating_system_project"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_siemens_nixdorf_operating_system_project"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 12
+			}
+			TNO_improve_research_facilities_high = yes
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_max_efficiency_factor = 0.1
+			}
+			59 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_max
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+10.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#satellite decisions - GER_eyes_in_the_sky
+	GER_launch_felde_reconnaissance_satellite = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_eyes_in_the_sky
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 30
+		days_remove = 300
+
+		modifier = {
+			civilian_factory_use = 12
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_launch_felde_reconnaissance_satellite"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_launch_felde_reconnaissance_satellite"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 12
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_decryption_factor = 0.3
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.01
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_decryption_factor
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+30.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+1.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_peenemuende_signals_intelligence_station = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_eyes_in_the_sky
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 250
+
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_peenemuende_signals_intelligence_station"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_peenemuende_signals_intelligence_station"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 10
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_decryption_factor = 0.2
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_decryption_factor
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+20.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_total_datum_control = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_information_age
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 150
+
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_total_datum_control"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_total_datum_control"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 4
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.04
+			}
+			TNO_improve_research_facilities_high = yes
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#nuclear reactor decisions - GER_atoms_for_peace
+	GER_stade_nuclear_power_station = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_atoms_for_peace
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 240
+
+		modifier = {
+			civilian_factory_use = 7
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_stade_nuclear_power_station"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_stade_nuclear_power_station"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 7
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.06
+			}
+			56 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = nuclear_reactor
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_wuergassen_nuclear_power_station = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_atoms_for_peace
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 240
+
+		modifier = {
+			civilian_factory_use = 7
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_wuergassen_nuclear_power_station"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_wuergassen_nuclear_power_station"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 7
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.06
+			}
+			57 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = nuclear_reactor
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#breeder reactor decisions - GER_the_reactor_program
+	GER_kalkar_fast_breeder_reactor = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_reactor_program
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 15
+		days_remove = 300
+
+		modifier = {
+			civilian_factory_use = 22
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kalkar_fast_breeder_reactor"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kalkar_fast_breeder_reactor"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 22
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.18
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_base_fuel_gain_factor = 0.05
+			}
+			51 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = nuclear_reactor
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+18.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_fuel_gain_factor
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+5.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_gundremmingen_reactor_expansion = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_reactor_program
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 12
+		days_remove = 280
+
+		modifier = {
+			civilian_factory_use = 23
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_gundremmingen_reactor_expansion"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_gundremmingen_reactor_expansion"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 23
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.19
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_base_fuel_gain_factor = 0.04
+			}
+			52 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = nuclear_reactor
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+19.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_fuel_gain_factor
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#solar and wind decisions - GER_the_solar_question
+	GER_pellworm_solar_power_installation = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_solar_question
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 180
+
+		modifier = {
+			civilian_factory_use = 3
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_pellworm_solar_power_installation"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_pellworm_solar_power_installation"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 3
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_base_fuel_gain_factor = 0.08
+			}
+			58 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_fuel_gain_factor
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+8.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#fusion decision - GER_fusion_dreams
+	GER_garching_tokamak_project = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_fusion_dreams
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 30
+		days_remove = 500
+
+		modifier = {
+			civilian_factory_use = 25
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_garching_tokamak_project"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_garching_tokamak_project"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 25
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_max_efficiency_factor = 0.20
+			}
+			52 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = nuclear_reactor
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_max
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+20.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#green chemistry decisions - GER_green_chemistry
+	GER_hoechst_clean_synthesis_plant = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_green_chemistry
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 200
+
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_hoechst_clean_synthesis_plant"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_hoechst_clean_synthesis_plant"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 10
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_speed_buildings_factor = 0.05
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_start_efficiency_factor = 0.04
+			}
+			55 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_construction_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+5.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_start_efficiency
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_basf_ludwigshafen_catalysis_center = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_green_chemistry
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 220
+
+		modifier = {
+			civilian_factory_use = 11
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_basf_ludwigshafen_catalysis_center"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_basf_ludwigshafen_catalysis_center"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 11
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_speed_buildings_factor = 0.06
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_base_fuel_gain_factor = 0.05
+			}
+			55 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_construction_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_fuel_gain_factor
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+5.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#additional reactor path decisions
+	GER_obrigheim_pressurized_water_reactor = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_reactor_program
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 14
+		days_remove = 260
+
+		modifier = {
+			civilian_factory_use = 20
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_obrigheim_pressurized_water_reactor"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_obrigheim_pressurized_water_reactor"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 20
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.15
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_base_fuel_gain_factor = 0.04
+			}
+			72 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = nuclear_reactor
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+15.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_fuel_gain_factor
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_greifswald_nuclear_complex = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_reactor_program
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 16
+		days_remove = 290
+
+		modifier = {
+			civilian_factory_use = 24
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_greifswald_nuclear_complex"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_greifswald_nuclear_complex"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 24
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.16
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_base_fuel_gain_factor = 0.06
+			}
+			62 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = nuclear_reactor
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+16.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_fuel_gain_factor
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_wendelstein_stellarator_project = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_fusion_dreams
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 400
+
+		modifier = {
+			civilian_factory_use = 22
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_wendelstein_stellarator_project"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_wendelstein_stellarator_project"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 22
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_max_efficiency_factor = 0.15
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.03
+			}
+			52 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = nuclear_reactor
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_max
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+15.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+3.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_juelich_plasma_research_center = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_fusion_dreams
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 350
+
+		modifier = {
+			civilian_factory_use = 18
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_juelich_plasma_research_center"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_juelich_plasma_research_center"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 18
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.12
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.02
+			}
+			51 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = nuclear_reactor
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+12.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+2.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#additional solar path decisions
+	GER_freiburg_solar_research_center = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_solar_question
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 12
+		days_remove = 200
+
+		modifier = {
+			civilian_factory_use = 8
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_freiburg_solar_research_center"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_freiburg_solar_research_center"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 8
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_base_fuel_gain_factor = 0.06
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.02
+			}
+			72 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_fuel_gain_factor
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+2.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_bayer_leverkusen_green_process = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_green_chemistry
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 18
+		days_remove = 210
+
+		modifier = {
+			civilian_factory_use = 12
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_bayer_leverkusen_green_process"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_bayer_leverkusen_green_process"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 12
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_speed_buildings_factor = 0.04
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_start_efficiency_factor = 0.05
+			}
+			51 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_construction_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_start_efficiency
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+5.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_degussa_hanau_catalyst_works = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_green_chemistry
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 15
+		days_remove = 190
+
+		modifier = {
+			civilian_factory_use = 9
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_degussa_hanau_catalyst_works"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_degussa_hanau_catalyst_works"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 9
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_speed_buildings_factor = 0.05
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_base_fuel_gain_factor = 0.04
+			}
+			55 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_construction_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+5.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_fuel_gain_factor
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#grid modernization decisions - GER_the_grid_of_tomorrow
+	GER_rhineland_high_voltage_interconnect = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_grid_of_tomorrow
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 280
+
+		modifier = {
+			civilian_factory_use = 14
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_rhineland_high_voltage_interconnect"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_rhineland_high_voltage_interconnect"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 14
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_speed_buildings_factor = 0.08
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.05
+			}
+			51 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_construction_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+8.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+5.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_north_german_transmission_corridor = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_grid_of_tomorrow
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 240
+
+		modifier = {
+			civilian_factory_use = 12
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_north_german_transmission_corridor"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_north_german_transmission_corridor"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 12
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_speed_buildings_factor = 0.06
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_global_building_slots_factor = 0.04
+			}
+			58 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_construction_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_global_building_slots
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_bavarian_distribution_network_upgrade = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_grid_of_tomorrow
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 220
+
+		modifier = {
+			civilian_factory_use = 11
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_bavarian_distribution_network_upgrade"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_bavarian_distribution_network_upgrade"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 11
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_speed_buildings_factor = 0.05
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_efficiency_gain_factor = 0.04
+			}
+			52 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_construction_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+5.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_efficiency_gain
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#energy independence decisions - GER_energy_independence
+	GER_strategic_fuel_reserve_expansion = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_energy_independence
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 260
+
+		modifier = {
+			civilian_factory_use = 14
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_strategic_fuel_reserve_expansion"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_strategic_fuel_reserve_expansion"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 14
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_speed_buildings_factor = 0.06
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_base_fuel_gain_factor = 0.08
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_lack_of_resource_penalty_factor = -0.05
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_construction_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_fuel_gain_factor
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+8.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_resource_penalty
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "-5.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_national_autarky_initiative = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_energy_independence
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 30
+		days_remove = 300
+
+		modifier = {
+			civilian_factory_use = 16
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_national_autarky_initiative"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_national_autarky_initiative"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 16
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_speed_buildings_factor = 0.08
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.06
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_lack_of_resource_penalty_factor = -0.06
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_construction_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+8.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_resource_penalty
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "-6.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_domestic_supply_chain_consolidation = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_energy_independence
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 240
+
+		modifier = {
+			civilian_factory_use = 12
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_domestic_supply_chain_consolidation"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_domestic_supply_chain_consolidation"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 12
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_speed_buildings_factor = 0.06
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_gdp_growth_modifier = 0.04
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_global_building_slots_factor = 0.03
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_construction_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_gdp_growth
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_global_building_slots
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+3.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_north_sea_wind_farm_pilot = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_solar_question
+			NOR = {
+				is_ally_with = GER
+			}
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 200
+
+		modifier = {
+			civilian_factory_use = 10
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_north_sea_wind_farm_pilot"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_north_sea_wind_farm_pilot"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 10
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_base_fuel_gain_factor = 0.10
+			}
+			56 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_fuel_gain_factor
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+10.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#smart munitions decision - GER_smart_munitions
+	GER_diehl_bgt_guided_munitions_program = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_smart_munitions
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 240
+
+		modifier = {
+			civilian_factory_use = 15
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_diehl_bgt_guided_munitions_program"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_diehl_bgt_guided_munitions_program"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 15
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_army_attack_factor = 0.05
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_breakthrough_factor = 0.06
+			}
+			52 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#next-gen panzer decision - GER_the_panzer_of_tomorrow
+	GER_krauss_maffei_composite_armor_trials = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_panzer_of_tomorrow
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 30
+		days_remove = 280
+
+		modifier = {
+			civilian_factory_use = 18
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_krauss_maffei_composite_armor_trials"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_krauss_maffei_composite_armor_trials"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 18
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_modifier_army_sub_unit_MBT_defence_factor = 0.10
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_modifier_army_sub_unit_MBT_attack_factor = 0.06
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_modifier_army_armor_speed_factor = 0.05
+			}
+			52 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#supersonic aircraft decision - GER_supersonic_ambitions
+	GER_messerschmitt_augsburg_supersonic_fighter = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_supersonic_ambitions
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 30
+		days_remove = 300
+
+		modifier = {
+			civilian_factory_use = 20
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_messerschmitt_augsburg_supersonic_fighter"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_messerschmitt_augsburg_supersonic_fighter"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 20
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_modifier_air_cas_efficiency = 0.10
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_modifier_army_sub_unit_air_assault_attack_factor = 0.06
+			}
+			52 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#electronic warfare decision - GER_electronic_warfare
+	GER_rohde_schwarz_ecm_suite = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_electronic_warfare
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 260
+
+		modifier = {
+			civilian_factory_use = 16
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_rohde_schwarz_ecm_suite"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_rohde_schwarz_ecm_suite"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 16
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_recon_factor = 0.10
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_initiative_factor = 0.08
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_decryption_factor = 0.06
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_decryption_factor
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+6.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#space military decision - GER_beyond_the_atmosphere
+	GER_peenemuende_icbm_program = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_beyond_the_atmosphere
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 35
+		days_remove = 360
+
+		modifier = {
+			civilian_factory_use = 22
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_peenemuende_icbm_program"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_peenemuende_icbm_program"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 22
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_army_attack_factor = 0.06
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_breakthrough_factor = 0.08
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_research_speed_factor = 0.03
+			}
+			62 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_research_speed
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+3.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#soldier modernization decision - GER_the_soldaten_of_tomorrow
+	GER_IdZ_infanterist_der_zukunft_program = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_soldaten_of_tomorrow
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 25
+		days_remove = 280
+
+		modifier = {
+			civilian_factory_use = 16
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_IdZ_infanterist_der_zukunft_program"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_IdZ_infanterist_der_zukunft_program"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 16
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_modifier_infantry_attack_factor = 0.08
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_modifier_infantry_defence_factor = 0.08
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_modifier_army_sub_unit_elite_infantry_attack_factor = 0.06
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_modifier_army_sub_unit_elite_infantry_defence_factor = 0.06
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#wunderwaffen decision - GER_wunderwaffen_reborn
+	GER_mbb_cruise_missile_program = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_wunderwaffen_reborn
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 30
+		days_remove = 300
+
+		modifier = {
+			civilian_factory_use = 20
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_mbb_cruise_missile_program"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_mbb_cruise_missile_program"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 20
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_army_attack_factor = 0.08
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_breakthrough_factor = 0.08
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_modifier_air_cas_efficiency = 0.05
+			}
+			52 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#full spectrum dominance decision - GER_full_spectrum_dominance
+	GER_bundeswehr_combined_arms_doctrine = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_full_spectrum_dominance
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 35
+		days_remove = 360
+
+		modifier = {
+			civilian_factory_use = 22
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_bundeswehr_combined_arms_doctrine"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_bundeswehr_combined_arms_doctrine"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 22
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_army_attack_factor = 0.06
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_army_defence_factor = 0.06
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_army_org_factor = 0.05
+			}
+			add_to_variable = {
+				GER_g4_heer_reform_army_morale_factor = 0.05
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#agricultural biotech decisions - GER_the_green_revolution
+	GER_hohenheim_agricultural_research_center = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_green_revolution
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 180
+
+		modifier = {
+			civilian_factory_use = 5
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_hohenheim_agricultural_research_center"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_hohenheim_agricultural_research_center"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 5
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_monthly_population = 0.25
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_agriculture_monthly_rate = 0.15
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_monthly_population
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+25.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_agriculture_monthly_rate
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+15.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	#synthetic materials decisions - GER_synthetic_materials
+	GER_bayer_leverkusen_advanced_polymers_lab = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_synthetic_materials
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 240
+
+		modifier = {
+			civilian_factory_use = 12
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_bayer_leverkusen_advanced_polymers_lab"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_bayer_leverkusen_advanced_polymers_lab"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 12
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_lack_of_resource_penalty_factor = -0.08
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_industrial_capacity_factory = 0.05
+			}
+			51 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_resource_penalty
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "-8.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_factory_output
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+5.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_schott_mainz_advanced_ceramics_facility = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_synthetic_materials
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 20
+		days_remove = 220
+
+		modifier = {
+			civilian_factory_use = 11
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_schott_mainz_advanced_ceramics_facility"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_schott_mainz_advanced_ceramics_facility"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 11
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_lack_of_resource_penalty_factor = -0.06
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_production_factory_max_efficiency_factor = 0.04
+			}
+			55 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_resource_penalty
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "-6.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_production_max
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+4.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+	GER_magdeburg_borde_mechanized_farming_initiative = {
+		icon = GFX_decision_generic_industry
+		visible = {
+			has_completed_focus = GER_the_green_revolution
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 10
+		days_remove = 160
+
+		modifier = {
+			civilian_factory_use = 4
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_magdeburg_borde_mechanized_farming_initiative"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_magdeburg_borde_mechanized_farming_initiative"
+			add_to_variable = {
+				GER_g4_the_social_economy_civilian_factory_use = 4
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_monthly_population = 0.2
+			}
+			add_to_variable = {
+				GER_g4_the_social_economy_agriculture_monthly_rate = 0.10
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_g4_the_social_economy_effect
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_monthly_population
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+20.00%"
+				}
+			}
+			custom_effect_tooltip = {
+				localization_key = TNO_agriculture_monthly_rate
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+10.00%"
+				}
+			}
+			GER_full_speed_dev_add_point = yes
+		}
+	}
+
+}
+
+GER_kn_decisions = {
+	GER_kn_diplomatic_outreach = {
+		icon = GFX_decision_generic_form_nation
+		visible = {
+			has_completed_focus = GER_our_last_best_hope_for_peace
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 140
+		days_re_enable = 100
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_diplomatic_outreach"
+			add_to_variable = {
+				global.GER_kn_trust = 1
+			}
+			GER_kn_normalization = yes
+			custom_effect_tooltip = {
+				localization_key = GER_g4_kn_trust
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+1"
+				}
+			}
+		}
+	}
+
+	GER_kn_institutional_reform = {
+		icon = GFX_decision_generic_form_nation
+		visible = {
+			has_completed_focus = GER_our_last_best_hope_for_peace
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 140
+		days_re_enable = 100
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_institutional_reform"
+			add_to_variable = {
+				global.GER_kn_coherence = 1
+			}
+			GER_kn_normalization = yes
+			custom_effect_tooltip = {
+				localization_key = GER_g4_kn_coherence
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+1"
+				}
+			}
+		}
+	}
+
+	GER_kn_public_relations_campaign = {
+		icon = GFX_decision_generic_form_nation
+		visible = {
+			has_completed_focus = GER_our_last_best_hope_for_peace
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 140
+		days_re_enable = 100
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_public_relations_campaign"
+			add_to_variable = {
+				global.GER_kn_popularity = 1
+			}
+			GER_kn_normalization = yes
+			custom_effect_tooltip = {
+				localization_key = GER_g4_kn_popularity
+				VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+1"
+				}
+			}
+		}
+	}
+
+	##### KN Invitation Decisions #####
+
+	GER_kn_invite_mediterranean = {
+		icon = GFX_decision_generic_form_nation
+		visible = {
+			tag = GER
+			has_completed_focus = GER_down_to_the_med
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					original_tag = IBR
+					original_tag = ITA
+					original_tag = GRE
+					original_tag = TUR
+					original_tag = CRO
+					original_tag = SER
+					original_tag = BUL
+					original_tag = ROM
+				}
+				NOT = {
+					has_country_flag = GER_kn_member_flag
+				}
+				NOT = {
+					is_ally_with = GER
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 5
+		days_remove = 10
+
+		modifier = {
+		}
+		days_re_enable = 60
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_invite_mediterranean"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_invite_mediterranean"
+			FROM = {
+				if = {
+					limit = { is_ai = no }
+					country_event = {
+						id = GER_kn.14
+						days = 2
+					}
+				}
+				else = {
+					set_country_flag = GER_kn_member_flag
+					add_dynamic_modifier = {
+						modifier = GER_kn_detente
+					}
+				}
+			}
+		}
+	}
+
+	GER_kn_invite_pakt_member = {
+		icon = GFX_decision_generic_form_nation
+		visible = {
+			tag = GER
+			has_completed_focus = GER_the_pakt_members
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					original_tag = OST
+					original_tag = UKR
+					original_tag = HOL
+					original_tag = BRG
+					original_tag = FRA
+					original_tag = HUN
+					original_tag = BRT
+					original_tag = FEN
+				}
+				NOT = {
+					has_country_flag = GER_kn_member_flag
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 5
+		days_remove = 10
+
+		modifier = {
+		}
+		days_re_enable = 60
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_invite_pakt_member"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_invite_pakt_member"
+			FROM = {
+				if = {
+					limit = { is_ai = no }
+					country_event = {
+						id = GER_kn.14
+						days = 2
+					}
+				}
+				else = {
+					set_country_flag = GER_kn_member_flag
+					add_dynamic_modifier = {
+						modifier = GER_kn_detente
+					}
+				}
+			}
+		}
+	}
+
+	GER_kn_invite_northern_nation = {
+		icon = GFX_decision_generic_form_nation
+		visible = {
+			tag = GER
+			has_completed_focus = GER_the_northern_approach
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					original_tag = SWE
+					original_tag = NOR
+					original_tag = FIN
+					original_tag = SWI
+					original_tag = IRE
+					original_tag = SCO
+					original_tag = ENG
+					original_tag = WAL
+				}
+				NOT = {
+					has_country_flag = GER_kn_member_flag
+				}
+				NOT = {
+					is_ally_with = GER
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 5
+		days_remove = 10
+
+		modifier = {
+		}
+		days_re_enable = 60
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_invite_northern_nation"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_invite_northern_nation"
+			FROM = {
+				if = {
+					limit = { is_ai = no }
+					country_event = {
+						id = GER_kn.14
+						days = 2
+					}
+				}
+				else = {
+					set_country_flag = GER_kn_member_flag
+					add_dynamic_modifier = {
+						modifier = GER_kn_detente
+					}
+				}
+			}
+		}
+	}
+
+	GER_kn_invite_south_american_nation = {
+		icon = GFX_decision_generic_form_nation
+		visible = {
+			tag = GER
+			has_completed_focus = GER_reach_across_the_atlantic
+		}
+		target_trigger = {
+			FROM = {
+				capital_scope = {
+					is_on_continent = south_america
+				}
+				NOT = {
+					has_country_flag = GER_kn_member_flag
+				}
+				NOT = {
+					is_ally_with = GER
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 5
+		days_remove = 10
+
+		modifier = {
+		}
+		days_re_enable = 60
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_invite_south_american_nation"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_invite_south_american_nation"
+			FROM = {
+				if = {
+					limit = { is_ai = no }
+					country_event = {
+						id = GER_kn.14
+						days = 2
+					}
+				}
+				else = {
+					set_country_flag = GER_kn_member_flag
+					add_dynamic_modifier = {
+						modifier = GER_kn_detente
+					}
+				}
+			}
+		}
+	}
+
+	GER_kn_invite_america = {
+		icon = GFX_decision_generic_form_nation
+		visible = {
+			tag = GER
+			has_completed_focus = GER_invite_america
+		}
+		targets = {
+			USA
+		}
+		target_trigger = {
+			FROM = {
+				NOT = { has_country_flag = GER_kn_member_flag }
+				NOT = { has_dynamic_modifier = { modifier = GER_kn_detente } }
+			}
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 5
+		days_remove = 10
+
+		days_re_enable = 60
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_invite_america"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_invite_america"
+			FROM = {
+				country_event = {
+					id = GER_kn.10
+					days = 2
+				}
+			}
+		}
+	}
+
+	GER_kn_invite_japan = {
+		icon = GFX_decision_generic_form_nation
+		visible = {
+			tag = GER
+			has_completed_focus = GER_invite_japan
+		}
+		targets = {
+			JAP
+		}
+		target_trigger = {
+			FROM = {
+				NOT = { has_country_flag = GER_kn_member_flag }
+				NOT = { has_dynamic_modifier = { modifier = GER_kn_detente } }
+			}
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 5
+		days_remove = 10
+
+		days_re_enable = 60
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_invite_japan"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_invite_japan"
+			FROM = {
+				country_event = {
+					id = GER_kn.11
+					days = 2
+				}
+			}
+		}
+	}
+
+	GER_kn_invite_distant_nation = {
+		icon = GFX_decision_generic_form_nation
+		visible = {
+			tag = GER
+			has_completed_focus = GER_on_distant_shores
+		}
+		target_trigger = {
+			FROM = {
+				OR = {
+					capital_scope = {
+						is_on_continent = africa
+					}
+					original_tag = RAJ
+					original_tag = INF
+					original_tag = RUS
+				}
+				NOT = {
+					has_country_flag = GER_kn_member_flag
+				}
+				NOT = {
+					is_ally_with = GER
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		cost = 5
+		days_remove = 10
+
+		modifier = {
+		}
+		days_re_enable = 60
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_invite_distant_nation"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_invite_distant_nation"
+			FROM = {
+				if = {
+					limit = { is_ai = no }
+					country_event = {
+						id = GER_kn.14
+						days = 2
+					}
+				}
+				else = {
+					set_country_flag = GER_kn_member_flag
+					add_dynamic_modifier = {
+						modifier = GER_kn_detente
+					}
+				}
+			}
+		}
+	}
+
+	#guardian council - improve a member's opinion of the player
+	GER_kn_improve_member_opinion = {
+		icon = GFX_decision_generic_form_nation
+
+		target_array = global.GER_kn_voting_members
+		target_root_trigger = {
+			tag = GER
+			has_global_flag = ZZZ_kn_security_council
+		}
+		target_trigger = {
+			FROM = {
+				is_ai = yes
+				has_country_flag = ZZZ_kn_voting_member
+				NOT = { original_tag = GER }
+			}
+		}
+
+		cost = 100
+		days_re_enable = 120
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_improve_member_opinion"
+			FROM = {
+				add_to_variable = { GER_kn_player_opinion = 10 }
+				custom_effect_tooltip = GER_kn_improve_opinion_tt
+			}
+		}
+	}
+
+	#resolution voting
+
+	GER_kn_yes_vote = {
+		icon = GFX_decision_generic_form_nation
+		visible = {
+			has_global_flag = ZZZ_kn_resolution_vote_in_progress
+			has_country_flag = ZZZ_kn_voting_member
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ZZZ_kn_has_voted
+			}
+		}
+
+		ai_will_do = {
+			factor = 30
+			# === Equal Voting: scale by global KN stats ===
+			modifier = {
+				has_global_flag = ZZZ_kn_equal_voting
+				check_variable = { var = global.GER_kn_coherence value = 5 compare = greater_than_or_equals }
+				factor = 1.5
+			}
+			modifier = {
+				has_global_flag = ZZZ_kn_equal_voting
+				check_variable = { var = global.GER_kn_trust value = 5 compare = greater_than_or_equals }
+				factor = 1.5
+			}
+			modifier = {
+				has_global_flag = ZZZ_kn_equal_voting
+				check_variable = { var = global.GER_kn_popularity value = 5 compare = greater_than_or_equals }
+				factor = 1.5
+			}
+			modifier = {
+				has_global_flag = ZZZ_kn_equal_voting
+				check_variable = { var = global.GER_kn_coherence value = 0 compare = less_than }
+				factor = 0.3
+			}
+			modifier = {
+				has_global_flag = ZZZ_kn_equal_voting
+				check_variable = { var = global.GER_kn_trust value = 0 compare = less_than }
+				factor = 0.3
+			}
+			modifier = {
+				has_global_flag = ZZZ_kn_equal_voting
+				check_variable = { var = global.GER_kn_popularity value = 0 compare = less_than }
+				factor = 0.3
+			}
+			# === Guardian Council: scale by AI's opinion of player ===
+			modifier = {
+				has_global_flag = ZZZ_kn_security_council
+				check_variable = { var = GER_kn_player_opinion value = 25 compare = greater_than_or_equals }
+				factor = 2
+			}
+			modifier = {
+				has_global_flag = ZZZ_kn_security_council
+				check_variable = { var = GER_kn_player_opinion value = 0 compare = less_than }
+				factor = 0.3
+			}
+			# === Per-resolution manual overrides go here (e.g. "TAG always votes no") ===
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_yes_vote"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_yes_vote"
+			add_to_variable = {
+				global.ZZZ_kn_yes_votes = 1
+			}
+			set_country_flag = ZZZ_kn_has_voted
+		}
+	}
+
+	GER_kn_no_vote = {
+		icon = GFX_decision_generic_form_nation
+		visible = {
+			has_global_flag = ZZZ_kn_resolution_vote_in_progress
+			has_country_flag = ZZZ_kn_voting_member
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ZZZ_kn_has_voted
+			}
+		}
+
+		ai_will_do = {
+			factor = 30
+			# === Equal Voting: low KN stats favor no ===
+			modifier = {
+				has_global_flag = ZZZ_kn_equal_voting
+				check_variable = { var = global.GER_kn_coherence value = 0 compare = less_than }
+				factor = 2
+			}
+			modifier = {
+				has_global_flag = ZZZ_kn_equal_voting
+				check_variable = { var = global.GER_kn_trust value = 0 compare = less_than }
+				factor = 2
+			}
+			modifier = {
+				has_global_flag = ZZZ_kn_equal_voting
+				check_variable = { var = global.GER_kn_popularity value = 0 compare = less_than }
+				factor = 2
+			}
+			modifier = {
+				has_global_flag = ZZZ_kn_equal_voting
+				check_variable = { var = global.GER_kn_coherence value = 5 compare = greater_than_or_equals }
+				factor = 0.5
+			}
+			modifier = {
+				has_global_flag = ZZZ_kn_equal_voting
+				check_variable = { var = global.GER_kn_trust value = 5 compare = greater_than_or_equals }
+				factor = 0.5
+			}
+			modifier = {
+				has_global_flag = ZZZ_kn_equal_voting
+				check_variable = { var = global.GER_kn_popularity value = 5 compare = greater_than_or_equals }
+				factor = 0.5
+			}
+			# === Guardian Council: low opinion favors no (hard vetoes handled separately) ===
+			modifier = {
+				has_global_flag = ZZZ_kn_security_council
+				check_variable = { var = GER_kn_player_opinion value = 0 compare = less_than }
+				factor = 2
+			}
+			modifier = {
+				has_global_flag = ZZZ_kn_security_council
+				check_variable = { var = GER_kn_player_opinion value = 25 compare = greater_than_or_equals }
+				factor = 0.4
+			}
+			# === Per-resolution manual overrides go here ===
+		}
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_no_vote"
+			set_country_flag = ZZZ_kn_has_voted
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_no_vote"
+			add_to_variable = {
+				global.ZZZ_kn_no_votes = 1
+			}
+		}
+	}
+
+	GER_kn_abstain_vote = {
+		icon = GFX_decision_generic_form_nation
+		visible = {
+			has_global_flag = ZZZ_kn_resolution_vote_in_progress
+			has_country_flag = ZZZ_kn_voting_member
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ZZZ_kn_has_voted
+			}
+		}
+
+		ai_will_do = {
+			factor = 10
+			# Slight bump toward abstain when the AI is on the fence
+			modifier = {
+				has_global_flag = ZZZ_kn_equal_voting
+				check_variable = { var = global.GER_kn_trust value = 0 compare = greater_than_or_equals }
+				check_variable = { var = global.GER_kn_trust value = 5 compare = less_than }
+				factor = 1.5
+			}
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_abstain_vote"
+			add_political_power = 35
+			set_country_flag = ZZZ_kn_has_voted
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_abstain_vote"
+			add_to_variable = {
+				global.ZZZ_kn_abstain_votes = 1
+			}	
+		}
+	}
+
+	GER_kn_veto_vote = {
+		icon = GFX_decision_generic_form_nation
+		visible = {
+			has_global_flag = ZZZ_kn_resolution_vote_in_progress
+			has_global_flag = ZZZ_kn_security_council
+			has_country_flag = ZZZ_kn_voting_member
+		}
+
+		available = {
+			NOT = {
+				has_country_flag = ZZZ_kn_has_voted
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+			# Veto only when AI deeply hates the player
+			modifier = {
+				check_variable = { var = GER_kn_player_opinion value = -50 compare = less_than_or_equals }
+				add = 100
+			}
+			modifier = {
+				check_variable = { var = GER_kn_player_opinion value = -25 compare = less_than_or_equals }
+				check_variable = { var = GER_kn_player_opinion value = -50 compare = greater_than }
+				add = 25
+			}
+			# === Per-resolution manual overrides go here (e.g. "TAG always vetoes resolution X") ===
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_veto_vote"
+			set_country_flag = ZZZ_kn_has_voted
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_veto_vote"
+			add_to_variable = {
+				global.ZZZ_kn_veto_votes = 1
+			}
+		}
+	}
+
+	GER_kn_berlin_accords = {
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+			
+		}
+		days_mission_timeout = 70
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_berlin_accords"
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_berlin_accords"
+			#if more people voted yes than no add idea ortherwise damage kn coherence
+			if = {
+				limit = { 
+					check_variable = {
+						global.ZZZ_kn_yes_votes > global.ZZZ_kn_no_votes
+					}
+					check_variable = {
+						global.ZZZ_kn_veto_votes < 1
+					}
+				}
+				#add idea giving 7 stab and -3 war support
+				add_stability = 0.07
+				add_war_support = -0.03
+				add_to_variable = {
+					global.GER_kn_trust = 2
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_trust
+					VALUE = {
+						localization_key = TNO_COLOR_GREEN
+						VALUE_CHANGE = "+2"
+					}
+				}
+				add_to_variable = {
+					global.GER_kn_coherence = 2
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_coherence
+					VALUE = {
+						localization_key = TNO_COLOR_GREEN
+						VALUE_CHANGE = "+2"
+					}
+				}
+			}
+			else = {
+				add_to_variable = {
+					global.GER_kn_trust = -1
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_trust
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-1"
+					}
+				}
+				add_to_variable = {
+					global.GER_kn_coherence = -1
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_coherence
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-1"
+					}
+				}
+			}
+			every_country = {
+				limit = { has_country_flag = ZZZ_kn_has_voted }
+				clr_country_flag = ZZZ_kn_has_voted
+			}
+			clr_global_flag = ZZZ_kn_resolution_vote_in_progress
+		}
+	}
+
+	GER_kn_development_aid_initiative = {
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+
+		}
+		days_mission_timeout = 70
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_development_aid_initiative"
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_development_aid_initiative"
+			if = {
+				limit = {
+					check_variable = {
+						global.ZZZ_kn_yes_votes > global.ZZZ_kn_no_votes
+					}
+					check_variable = {
+						global.ZZZ_kn_veto_votes < 1
+					}
+				}
+				#construction speed idea
+				add_ideas = GER_kn_development_aid_idea
+				set_temp_variable = { misc_costs_temp = 25 }
+				econ_misc_costs_change = yes
+			}
+			else = {
+				add_to_variable = {
+					global.GER_kn_trust = -1
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_trust
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-1"
+					}
+				}
+				add_to_variable = {
+					global.GER_kn_coherence = -1
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_coherence
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-1"
+					}
+				}
+			}
+			every_country = {
+				limit = { has_country_flag = ZZZ_kn_has_voted }
+				clr_country_flag = ZZZ_kn_has_voted
+			}
+			clr_global_flag = ZZZ_kn_resolution_vote_in_progress
+		}
+	}
+
+	GER_kn_arms_limitation_talks = {
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+
+		}
+		days_mission_timeout = 70
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_arms_limitation_talks"
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_arms_limitation_talks"
+			if = {
+				limit = {
+					check_variable = {
+						global.ZZZ_kn_yes_votes > global.ZZZ_kn_no_votes
+					}
+					check_variable = {
+						global.ZZZ_kn_veto_votes < 1
+					}
+				}
+				TNO_worsen_nuclear_stockpile_high = yes
+				#army org idea
+				add_ideas = GER_kn_arms_limitation_idea
+			}
+			else = {
+				add_to_variable = {
+					global.GER_kn_trust = -1
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_trust
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-1"
+					}
+				}
+				add_to_variable = {
+					global.GER_kn_coherence = -1
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_coherence
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-1"
+					}
+				}
+			}
+			every_country = {
+				limit = { has_country_flag = ZZZ_kn_has_voted }
+				clr_country_flag = ZZZ_kn_has_voted
+			}
+			clr_global_flag = ZZZ_kn_resolution_vote_in_progress
+		}
+	}
+
+	GER_kn_shared_scientific_research = {
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+
+		}
+		days_mission_timeout = 70
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_shared_scientific_research"
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_shared_scientific_research"
+			if = {
+				limit = {
+					check_variable = {
+						global.ZZZ_kn_yes_votes > global.ZZZ_kn_no_votes
+					}
+					check_variable = {
+						global.ZZZ_kn_veto_votes < 1
+					}
+				}
+				add_tech_bonus = {
+					bonus = 1
+					uses = 2
+					category = electronics
+				}
+				add_tech_bonus = {
+					ahead_reduction = 2
+					uses = 1
+					category = electronics
+				}
+				add_political_power = -50
+			}
+			else = {
+				add_to_variable = {
+					global.GER_kn_trust = -1
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_trust
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-1"
+					}
+				}
+				add_to_variable = {
+					global.GER_kn_coherence = -1
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_coherence
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-1"
+					}
+				}
+			}
+			every_country = {
+				limit = { has_country_flag = ZZZ_kn_has_voted }
+				clr_country_flag = ZZZ_kn_has_voted
+			}
+			clr_global_flag = ZZZ_kn_resolution_vote_in_progress
+		}
+	}
+
+	GER_kn_environmental_cooperation = {
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+
+		}
+		days_mission_timeout = 70
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_environmental_cooperation"
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_environmental_cooperation"
+			if = {
+				limit = {
+					check_variable = {
+						global.ZZZ_kn_yes_votes > global.ZZZ_kn_no_votes
+					}
+					check_variable = {
+						global.ZZZ_kn_veto_votes < 1
+					}
+				}
+				tno_pollution_improve = yes
+				TNO_improve_agriculture_high = yes
+			}
+			else = {
+				add_to_variable = {
+					global.GER_kn_trust = -1
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_trust
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-1"
+					}
+				}
+				add_to_variable = {
+					global.GER_kn_coherence = -1
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_coherence
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-1"
+					}
+				}
+			}
+			every_country = {
+				limit = { has_country_flag = ZZZ_kn_has_voted }
+				clr_country_flag = ZZZ_kn_has_voted
+			}
+			clr_global_flag = ZZZ_kn_resolution_vote_in_progress
+		}
+	}
+
+	GER_kn_crisis_hotline = {
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+
+		}
+		days_mission_timeout = 70
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_crisis_hotline"
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_crisis_hotline"
+			if = {
+				limit = {
+					check_variable = {
+						global.ZZZ_kn_yes_votes > global.ZZZ_kn_no_votes
+					}
+					check_variable = {
+						global.ZZZ_kn_veto_votes < 1
+					}
+				}
+				#resolution passed - add idea / effect placeholder
+				add_to_variable = {
+					global.GER_kn_trust = 2
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_trust
+					VALUE = {
+						localization_key = TNO_COLOR_GREEN
+						VALUE_CHANGE = "+2"
+					}
+				}
+				add_to_variable = {
+					global.GER_kn_coherence = 2
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_coherence
+					VALUE = {
+						localization_key = TNO_COLOR_GREEN
+						VALUE_CHANGE = "+2"
+					}
+				}
+			}
+			else = {
+				add_to_variable = {
+					global.GER_kn_trust = -2
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_trust
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-2"
+					}
+				}
+				add_to_variable = {
+					global.GER_kn_coherence = -2
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_coherence
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-2"
+					}
+				}
+			}
+			every_country = {
+				limit = { has_country_flag = ZZZ_kn_has_voted }
+				clr_country_flag = ZZZ_kn_has_voted
+			}
+			clr_global_flag = ZZZ_kn_resolution_vote_in_progress
+		}
+	}
+
+	GER_kn_free_trade_zone = {
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+
+		}
+		days_mission_timeout = 70
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_free_trade_zone"
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_free_trade_zone"
+			if = {
+				limit = {
+					check_variable = {
+						global.ZZZ_kn_yes_votes > global.ZZZ_kn_no_votes
+					}
+					check_variable = {
+						global.ZZZ_kn_veto_votes < 1
+					}
+				}
+				set_temp_variable = { national_debt_temp = 1000 }
+				econ_flat_national_debt_change = yes
+				set_temp_variable = { gdp_growth_temp = 0.005 }
+				econ_gdp_growth_change = yes
+			}
+			else = {
+				add_to_variable = {
+					global.GER_kn_trust = -1
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_trust
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-1"
+					}
+				}
+				add_to_variable = {
+					global.GER_kn_coherence = -1
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_coherence
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-1"
+					}
+				}
+			}
+			every_country = {
+				limit = { has_country_flag = ZZZ_kn_has_voted }
+				clr_country_flag = ZZZ_kn_has_voted
+			}
+			clr_global_flag = ZZZ_kn_resolution_vote_in_progress
+		}
+	}
+
+	GER_kn_student_exchange_network = {
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+
+		}
+		days_mission_timeout = 70
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_kn_student_exchange_network"
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_kn_student_exchange_network"
+			if = {
+				limit = {
+					check_variable = {
+						global.ZZZ_kn_yes_votes > global.ZZZ_kn_no_votes
+					}
+					check_variable = {
+						global.ZZZ_kn_veto_votes < 1
+					}
+				}
+				#research speed + reduced encryption idea
+				add_ideas = GER_kn_student_exchange_idea
+			}
+			else = {
+				add_to_variable = {
+					global.GER_kn_trust = -1
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_trust
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-1"
+					}
+				}
+				add_to_variable = {
+					global.GER_kn_coherence = -1
+				}
+				custom_effect_tooltip = {
+					localization_key = GER_g4_kn_coherence
+					VALUE = {
+						localization_key = TNO_COLOR_RED
+						VALUE_CHANGE = "-1"
+					}
+				}
+			}
+			every_country = {
+				limit = { has_country_flag = ZZZ_kn_has_voted }
+				clr_country_flag = ZZZ_kn_has_voted
+			}
+			clr_global_flag = ZZZ_kn_resolution_vote_in_progress
+		}
+	}
+
+}
+
+GER_g4_bombers_spring_decisions = {
+	GER_terrorist_incident = {
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+			has_country_flag = GER_bombers_spring_resolved
+		}
+		days_mission_timeout = GER_terrorist_incident_speed
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_terrorist_incident"
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_terrorist_incident"
+			if = {
+				limit = { 
+					NOT = {
+						has_country_flag = GER_bombers_spring_resolved	
+					}
+				}
+				activate_mission = GER_terrorist_incident
+			}		
+			random_owned_state = {
+				limit = {
+					has_state_flag = GER_reichstag_state
+				}
+				damage_building = {
+					type = infrastructure
+					damage = 2
+				}
+				damage_building = {
+					type = industrial_complex
+					damage = 3
+				}
+				damage_building = {
+					type = arms_factory
+					damage = 3
+				}
+			}
+		}
+	}
+
+	GER_ler_rally = {
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+			has_country_flag = GER_bombers_spring_resolved
+		}
+		days_mission_timeout = GER_ler_rally_speed
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_ler_rally"
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_ler_rally"
+			if = {
+				limit = { 
+					NOT = {
+						has_country_flag = GER_bombers_spring_resolved	
+					}
+				}
+				activate_mission = GER_ler_rally
+			}
+			random_owned_state = {
+				limit = {
+					has_state_flag = GER_reichstag_state
+				}
+				GER_increase_ler_support_large = yes
+			}
+		}
+	}
+
+	GER_dap_rally = {
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+			has_country_flag = GER_bombers_spring_resolved
+		}
+		days_mission_timeout = GER_dap_rally_speed
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_dap_rally"
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_dap_rally"
+			if = {
+				limit = { 
+					NOT = {
+						has_country_flag = GER_bombers_spring_resolved	
+					}
+				}
+				activate_mission = GER_dap_rally
+			}
+			random_owned_state = {
+				limit = {
+					has_state_flag = GER_reichstag_state
+				}
+				GER_increase_dap_support_large = yes
+			}
+		}
+	}
+
+	GER_desperate_measures = {
+		available = {
+			has_country_flag = GER_bombers_spring_resolved
+		}
+		activation = {
+			always = no
+		}
+		days_mission_timeout = 80
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_desperate_measures"
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_desperate_measures"
+			#forced to take extreme measures
+			country_event = GER_gfour_bombers_spring.24
+		}
+	}
+}
+
+GER_g4_ler_uprising = {
+	GER_g4_stalemate = {
+		available = {
+			has_war = no
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+			has_war = no
+		}
+		days_mission_timeout = 250
+		selectable_mission = no
+		is_good = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_stalemate"
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GER_g4_stalemate"
+			#white peace
+			LER = {
+				white_peace = GER
+				GER_g4_ler_victory_resolution = yes
+			}
+		}
+	}
+}
+
+####################################
+#     G4 / Reichstag Debug         #
+####################################
+GER_g4_debug_category = {
+
+	### Setup ###
+	GER_g4_debug_setup = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_setup"
+			annex_country = {
+				target = CZE
+			}
+			GER = {
+				add_state_core = 137
+				add_state_core = 9
+				add_state_core = 75
+			}
+			137 = {
+				add_core_of = GER
+			}
+			9 = {
+				add_core_of = GER
+			}
+			75 = {
+				add_core_of = GER
+			}
+			set_cosmetic_tag = GER_gfour
+			set_country_flag = GER_g4_plans_change
+			set_country_flag = GER_Fuhrerdemokratie
+			load_focus_tree = GER_g_four
+			GER_g4_debug_set_party_names = yes
+			GER_g4_debug_create_party_leaders = yes
+			GER_reichstag_setup = yes
+			GER_reichstag_calculate_state_seats = yes
+			set_country_flag = GER_reichstag_law_active
+			custom_effect_tooltip = GER_reichstag_law_active_tt
+		}
+	}
+
+	GER_g4_debug_party_names = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_party_names"
+			GER_g4_debug_set_party_names = yes
+		}
+	}
+
+	GER_g4_debug_party_leaders = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_party_leaders"
+			GER_g4_debug_create_party_leaders = yes
+		}
+	}
+
+	### Reichstag ###
+	GER_g4_debug_reichstag_setup = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_reichstag_setup"
+			GER_reichstag_setup = yes
+			GER_reichstag_calculate_state_seats = yes
+			GER_calculate_total_seats = yes
+		}
+	}
+
+	GER_g4_debug_reichstag_recalculate_seats = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_reichstag_recalculate_seats"
+			GER_reichstag_calculate_state_seats = yes
+			GER_calculate_total_seats = yes
+		}
+	}
+
+	GER_g4_debug_reichstag_activate_laws = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_reichstag_activate_laws"
+			set_country_flag = GER_reichstag_law_active
+			custom_effect_tooltip = GER_reichstag_law_active_tt
+		}
+	}
+
+	GER_g4_debug_reichstag_clear_law_flags = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_reichstag_clear_law_flags"
+			GER_reichstag_law_clear_flags = yes
+			GER_reichstag_law_clear_vote_flags = yes
+		}
+	}
+
+	### Elections ###
+	GER_g4_debug_election_one_party_events = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_election_one_party_events"
+			country_event = { id = GER_gfour_election_one.1 }
+			country_event = { id = GER_gfour_election_one.2 }
+			country_event = { id = GER_gfour_election_one.3 }
+			country_event = { id = GER_gfour_election_one.4 }
+			country_event = { id = GER_gfour_election_one.5 }
+			country_event = { id = GER_gfour_election_one.6 }
+			country_event = { id = GER_gfour_election_one.7 }
+			country_event = { id = GER_gfour_election_one.8 }
+			country_event = { id = GER_gfour_election_one.9 }
+			country_event = { id = GER_gfour_election_one.10 }
+		}
+	}
+
+	GER_g4_debug_election_one_determine_winner = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_election_one_determine_winner"
+			GER_determine_election_winner_1 = yes
+		}
+	}
+
+	GER_g4_debug_election_two_determine_winner = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_election_two_determine_winner"
+			GER_determine_election_winner_2 = yes
+		}
+	}
+
+	GER_g4_debug_election_two_dg = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_election_two_dg"
+			country_event = { id = GER_gfour_election_two.7 }
+		}
+	}
+
+	### Focus trees ###
+	GER_g4_debug_load_loser_tree = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_load_loser_tree"
+			load_focus_tree = GER_gfour_loser_tree
+		}
+	}
+
+	GER_g4_debug_load_military_junta_tree = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_load_military_junta_tree"
+			load_focus_tree = GER_gfour_military_junta_tree
+		}
+	}
+
+	GER_g4_debug_load_nsdap_majority_tree = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_load_nsdap_majority_tree"
+			load_focus_tree = GER_gfour_nsdap_majority_tree
+		}
+	}
+
+	GER_g4_debug_load_nsdap_unity_tree = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_load_nsdap_unity_tree"
+			load_focus_tree = GER_gfour_nsdap_unity_tree
+		}
+	}
+
+	GER_g4_debug_load_vup_imperial_tree = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_load_vup_imperial_tree"
+			load_focus_tree = GER_gfour_vup_imperial_tree
+		}
+	}
+
+	GER_g4_debug_load_vup_republican_tree = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_load_vup_republican_tree"
+			load_focus_tree = GER_gfour_vup_republican_tree
+		}
+	}
+
+	GER_g4_debug_load_rsp_tree = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_load_rsp_tree"
+			load_focus_tree = GER_gfour_rsp_tree
+		}
+	}
+
+	GER_g4_debug_load_vaaf_tree = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_load_vaaf_tree"
+			load_focus_tree = GER_gfour_vaaf_tree
+		}
+	}
+
+	GER_g4_debug_load_vaaf_radical_tree = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_load_vaaf_radical_tree"
+			load_focus_tree = GER_gfour_vaaf_radical_tree
+		}
+	}
+
+	GER_g4_debug_load_dg_tree = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_load_dg_tree"
+			load_focus_tree = GER_gfour_dg_tree
+		}
+	}
+
+	GER_g4_debug_load_civil_war_dap_tree = {
+		cost = 0
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_g4_debug_load_civil_war_dap_tree"
+			load_focus_tree = GER_gfour_civil_war_dap_tree
+		}
+	}
+}

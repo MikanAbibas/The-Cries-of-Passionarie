@@ -1,0 +1,1401 @@
+#Some of these effects are also used for dengist speer but I want to maintain naming conventions
+#files with g4 in the title may include shared content with dengist speer
+GER_g4_army_reform_final_effect = {
+	if = {
+		limit = {
+			check_variable = {
+				var = GER_army_balance
+				value = -30
+				compare = less_than_or_equals
+			}
+		}
+		#extreme horst idea
+		#favors tanks and trucks at the cost of everything else
+		add_ideas = GER_horst_heer_extreme
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = GER_army_balance
+				value = -30
+				compare = greater_than
+			}
+			check_variable = {
+				var = GER_army_balance
+				value = -20
+				compare = less_than_or_equals
+			}
+		}
+		#heavy horst idea
+		add_ideas = GER_horst_heer_heavy
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = GER_army_balance
+				value = -20
+				compare = greater_than
+			}
+			check_variable = {
+				var = GER_army_balance
+				value = -10
+				compare = less_than_or_equals
+			}
+		}
+		#leans horst idea
+		add_ideas = GER_horst_heer_lean
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = GER_army_balance
+				value = -10
+				compare = greater_than
+			}
+			check_variable = {
+				var = GER_army_balance
+				value = -5
+				compare = less_than_or_equals
+			}
+		}
+		#slight horst idea
+		add_ideas = GER_horst_heer_slight
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = GER_army_balance
+				value = -5
+				compare = greater_than
+			}
+			check_variable = {
+				var = GER_army_balance
+				value = 5
+				compare = less_than_or_equals
+			}
+		}
+		#balanced idea
+		add_ideas = GER_balance_heer
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = GER_army_balance
+				value = 5
+				compare = greater_than
+			}
+			check_variable = {
+				var = GER_army_balance
+				value = 10
+				compare = less_than_or_equals
+			}
+		}
+		#slight wolfgang idea 
+		add_ideas = GER_wolfgang_heer_slight
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = GER_army_balance
+				value = 10
+				compare = greater_than
+			}
+			check_variable = {
+				var = GER_army_balance
+				value = 20
+				compare = less_than_or_equals
+			}
+		}
+		#leans wolfgang idea 
+		add_ideas = GER_wolfgang_heer_lean
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = GER_army_balance
+				value = 20
+				compare = greater_than
+			}
+			check_variable = {
+				var = GER_army_balance
+				value = 29
+				compare = less_than_or_equals
+			}
+		}
+		#heavy wolfgang idea 
+		add_ideas = GER_wolfgang_heer_heavy
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = GER_army_balance
+				value = 29
+				compare = greater_than
+			}
+		}
+		#extreme wolfgang idea 
+		#favors infantry spec ops and helis at the cost of everything else
+		add_ideas = GER_wolfgang_heer_extreme
+	}
+}
+
+GER_g4_army_reform_normilization = {
+	set_variable = {
+		GER_army_balance_display = GER_army_balance
+	}
+	multiply_variable = {
+		GER_army_balance_display = 50
+	}
+	divide_variable = {
+		GER_army_balance_display = 31
+	}
+	add_to_variable = {
+		GER_army_balance_display = 50
+	}
+	clamp_variable = {
+		var = GER_army_balance_display
+		min = 0
+		max = 100
+	}
+}
+
+GER_g4_econ_dev_normalization = {
+	set_variable = {
+		GER_economic_dev_display = GER_economic_dev_progress
+	}
+	multiply_variable = {
+		GER_economic_dev_display = 100
+	}
+	divide_variable = {
+		GER_economic_dev_display = 80
+	}
+	clamp_variable = {
+		var = GER_economic_dev_display
+		min = 0
+		max = 100
+	}
+}
+
+GER_full_speed_dev_add_point = {
+	add_to_variable = {
+		GER_economic_dev_progress = 1
+	}
+	custom_effect_tooltip = GER_g4_econ_dev_increase_tt
+	if = {
+		limit = {
+			check_variable = {
+				GER_economic_dev_progress = 20
+			}
+		}
+		add_to_variable = {
+			GER_g4_the_social_economy_production_speed_industrial_complex_factor = 0.1
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_g4_the_social_economy_effect
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_civilian_factory_construction_speed
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.00%"
+			}
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				GER_economic_dev_progress = 40
+			}
+		}
+		add_to_variable = {
+			GER_g4_the_social_economy_production_speed_industrial_complex_factor = 0.1
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_g4_the_social_economy_effect
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_civilian_factory_construction_speed
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.00%"
+			}
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				GER_economic_dev_progress = 60
+			}
+		}
+		add_to_variable = {
+			GER_g4_the_social_economy_production_speed_industrial_complex_factor = 0.1
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_g4_the_social_economy_effect
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_civilian_factory_construction_speed
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+10.00%"
+			}
+		}
+	}
+	if = {
+		limit = {
+			check_variable = {
+				GER_economic_dev_progress = 80
+			}
+		}
+		add_to_variable = {
+			GER_g4_the_social_economy_production_speed_industrial_complex_factor = 0.35
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_g4_the_social_economy_effect
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_civilian_factory_construction_speed
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+15.00%"
+			}
+		}
+	}
+	GER_g4_econ_dev_normalization = yes
+}
+
+GER_capital_yields_speed_clamp = {
+	clamp_variable = {
+		var = GER_capital_yields_speed
+		min = 1
+	}
+}
+
+GER_kn_normalization = {
+	# Normalize KN variables to 0-100 display range (0-15 maps to 0-100)
+	# Coherence
+	set_variable = {
+		global.GER_kn_coherence_display = global.GER_kn_coherence
+	}
+	clamp_variable = {
+		var = global.GER_kn_coherence_display
+		min = 0
+		max = 15
+	}
+	multiply_variable = {
+		global.GER_kn_coherence_display = 6.667
+	}
+	# Popularity
+	set_variable = {
+		global.GER_kn_popularity_display = global.GER_kn_popularity
+	}
+	clamp_variable = {
+		var = global.GER_kn_popularity_display
+		min = 0
+		max = 15
+	}
+	multiply_variable = {
+		global.GER_kn_popularity_display = 6.667
+	}
+	# Trust
+	set_variable = {
+		global.GER_kn_trust_display = global.GER_kn_trust
+	}
+	clamp_variable = {
+		var = global.GER_kn_trust_display
+		min = 0
+		max = 15
+	}
+	multiply_variable = {
+		global.GER_kn_trust_display = 6.667
+	}
+	GER_kn_apply_modifier = yes
+}
+
+GER_kn_apply_modifier = {
+	# Coherence → poverty rate and consumer goods
+	if = {
+		limit = {
+			check_variable = {
+				var = global.GER_kn_coherence
+				value = 10
+				compare = greater_than_or_equals
+			}
+		}
+		set_variable = {
+			GER_kn_detente_poverty_monthly_rate = 1
+		}
+		set_variable = {
+			GER_kn_detente_consumer_goods_factor = -0.08
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = global.GER_kn_coherence
+				value = 1
+				compare = greater_than
+			}
+		}
+		set_variable = {
+			GER_kn_detente_poverty_monthly_rate = 0.25
+		}
+		set_variable = {
+			GER_kn_detente_consumer_goods_factor = -0.03
+		}
+	}
+	else = {
+		set_variable = {
+			GER_kn_detente_poverty_monthly_rate = -0.8
+		}
+		set_variable = {
+			GER_kn_detente_consumer_goods_factor = 0.05
+		}
+	}
+	# Popularity → political power
+	if = {
+		limit = {
+			check_variable = {
+				var = global.GER_kn_popularity
+				value = 10
+				compare = greater_than_or_equals
+			}
+		}
+		set_variable = {
+			GER_kn_detente_political_power_gain = 0.3
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = global.GER_kn_popularity
+				value = 1
+				compare = greater_than
+			}
+		}
+		set_variable = {
+			GER_kn_detente_political_power_gain = 0.1
+		}
+	}
+	else = {
+		set_variable = {
+			GER_kn_detente_political_power_gain = -0.2
+		}
+	}
+	# Trust → weekly stability
+	if = {
+		limit = {
+			check_variable = {
+				var = global.GER_kn_trust
+				value = 10
+				compare = greater_than_or_equals
+			}
+		}
+		set_variable = {
+			GER_kn_detente_stability_weekly = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				var = global.GER_kn_trust
+				value = 1
+				compare = greater_than
+			}
+		}
+		set_variable = {
+			GER_kn_detente_stability_weekly = 0.01
+		}
+	}
+	else = {
+		set_variable = {
+			GER_kn_detente_stability_weekly = -0.002
+		}
+	}
+}
+
+GER_kn_start_resolution = {
+	set_variable = {
+		global.ZZZ_kn_yes_votes = 0
+	}
+	set_variable = {
+		global.ZZZ_kn_no_votes = 0
+	}
+	set_variable = {
+		global.ZZZ_kn_abstain_votes = 0
+	}
+	set_variable = {
+		global.ZZZ_kn_veto_votes = 0
+	}
+	clr_global_flag = ZZZ_kn_resolution_failed
+	set_global_flag = ZZZ_kn_resolution_vote_in_progress
+}
+
+#rebuilds the array of AI KN voting members for the guardian-council opinion display
+GER_kn_rebuild_voting_member_array = {
+	clear_array = global.GER_kn_voting_members
+	every_country = {
+		limit = {
+			exists = yes
+			is_ai = yes
+			has_country_flag = ZZZ_kn_voting_member
+			NOT = { original_tag = GER }
+		}
+		add_to_array = { global.GER_kn_voting_members = THIS }
+	}
+}
+
+GER_g4_vaaf_rad_power_increase = {
+	add_to_variable = {
+		GER_g4_vaaf_rad_power = 1
+	}
+	if = {
+		limit = {
+			check_variable = {
+				GER_g4_vaaf_rad_power = 4
+			}
+			#the radical coup can only happen during the first VAAF term
+			check_variable = {
+				GER_vaaf_terms_won = 1
+			}
+		}
+		country_event = {
+			id = GER_gfour_vaaf_rad.1
+			days = 30
+			random_days = 10
+		}
+	}
+}
+
+GER_g4_rsp_liberal_defection_check = {
+	add_to_variable = {
+		GER_g4_rsp_anti_liberal_laws_passed = 1
+	}
+	if = {
+		limit = {
+			check_variable = {
+				GER_g4_rsp_anti_liberal_laws_passed = 2
+			}
+			NOT = { has_country_flag = GER_g4_rsp_liberals_defected }
+		}
+		country_event = {
+			id = GER_gfour_dg_true.2
+			days = 7
+		}
+	}
+}
+
+GER_g4_improve_bombers_spring = {
+	if = {
+		limit = { 
+			has_idea = GER_bomber_spring0
+		}
+		swap_ideas = {
+			remove_idea = GER_bomber_spring0
+			add_idea = GER_bomber_spring1
+		}
+		set_variable = {
+			GER_terrorist_incident_speed = 50
+		}
+	}
+	else_if = {
+		limit = { 
+			has_idea = GER_bomber_spring1
+		}
+		swap_ideas = {
+			remove_idea = GER_bomber_spring1
+			add_idea = GER_bomber_spring2
+		}
+		set_variable = {
+			GER_ler_rally_speed = 45
+		}
+		set_variable = {
+			GER_dap_rally_speed = 45
+		}
+	}
+	else_if = {
+		limit = { 
+			has_idea = GER_bomber_spring2
+		}
+		swap_ideas = {
+			remove_idea = GER_bomber_spring2
+			add_idea = GER_bomber_spring3
+		}
+		set_variable = {
+			GER_terrorist_incident_speed = 70
+		}
+	}
+	else_if = {
+		limit = { 
+			has_idea = GER_bomber_spring3
+		}
+		swap_ideas = {
+			remove_idea = GER_bomber_spring3
+			add_idea = GER_bomber_spring4
+		}
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.19
+				days = 5
+				random_days = 10
+			}
+		}
+	}
+	else = {
+		remove_ideas = GER_bomber_spring4
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.20
+				days = 5
+				random_days = 10
+			}
+		}
+	}
+}
+
+#removes every G4 cabinet minister idea - call before installing a new cabinet (election handover, coup)
+GER_g4_remove_all_ministers = {
+	remove_ideas = {
+		#NSDAP
+		GER_g4_Adolf_von_Thadden_hog
+		GER_g4_Siegfried_Zoglmann_for
+		GER_g4_Otto_Ernst_Remer_sec
+		GER_g4_Hermann_Oberth_eco
+		#VUP
+		GER_g4_Karl_Arnold_hog
+		GER_g4_Alois_Mertes_for
+		GER_g4_Rainer_Barzel_sec
+		GER_g4_Norbert_Blum_eco
+		GER_g4_Hans_Jochen_Vogel_hog
+		GER_g4_Georg_Leber_sec
+		GER_g4_Heinrich_Krone_hog
+		#RSP
+		GER_g4_Axel_Springer_hog
+		GER_g4_Erich_Mende_for
+		GER_g4_Hans_Dietrich_Genscher_sec
+		GER_g4_Walter_Scheel_eco
+		GER_g4_Ernst_Achenbach_eco
+		#VAAF moderate
+		GER_g4_Herbert_Wehner_hog
+		GER_g4_Egon_Bahr_for
+		GER_g4_Markus_Wolf_sec
+		GER_g4_Karl_Schiller_eco
+		#VAAF radical
+		GER_g4_Wolfgang_Harich_hog
+		GER_g4_Jurgen_Kuczynski_for
+		GER_g4_Erich_Mielke_sec
+		GER_g4_Gunter_Mittag_eco
+		#DG both faces
+		GER_g4_Alfred_Mechtersheimer_hog
+		GER_g4_Herbert_Gruhl_for
+		GER_g4_Werner_Georg_Haverbeck_sec
+		GER_g4_Werner_Vogel_eco
+		GER_g4_Alfred_Mechtersheimer_true_hog
+		GER_g4_Herbert_Gruhl_true_for
+		GER_g4_Werner_Georg_Haverbeck_true_sec
+		GER_g4_Werner_Vogel_true_eco
+		#DAP
+		GER_g4_Friedhelm_Busse_hog
+		GER_g4_Karl_Heinz_Hoffmann_for
+		GER_g4_Alois_Brunner_sec
+		GER_g4_Wilhelm_Landig_eco
+		#Heer junta
+		GER_g4_Heinz_Karst_hog
+		GER_g4_Manfred_Worner_for
+		GER_g4_Gunther_Nollau_sec
+		GER_g4_Franz_Joseph_Schulze_eco
+	}
+}
+
+#### G4 ENDGAME ####
+
+#shared helper: install Wolfgang Altenburg or Horst Stechbarth based on army balance
+GER_g4_install_military_junta = {
+	kill_country_leader = yes
+	set_politics = { ruling_party = despotism }
+	if = {
+		limit = {
+			check_variable = {
+				var = GER_army_balance
+				value = 0
+				compare = greater_than_or_equals
+			}
+		}
+		create_country_leader = {
+			name = "Wolfgang Altenburg"
+			desc = "POLITICS_WOLFGANG_ALTENBURG_DESC"
+			picture = "Portrait_GER_Wolfgang_Altenburg.dds"
+			expire = "1999.1.1"
+			ideology = despotism_subtype
+		}
+	}
+	else = {
+		create_country_leader = {
+			name = "Horst Stechbarth"
+			desc = "POLITICS_HORST_STECHBARTH_DESC"
+			picture = "Portrait_GER_Horst_Stechbarth.dds"
+			expire = "1999.1.1"
+			ideology = despotism_subtype
+		}
+	}
+	#junta cabinet
+	hidden_effect = {
+		GER_g4_remove_all_ministers = yes
+	}
+	add_ideas = {
+		GER_g4_Heinz_Karst_hog
+		GER_g4_Manfred_Worner_for
+		GER_g4_Gunther_Nollau_sec
+		GER_g4_Franz_Joseph_Schulze_eco
+	}
+	set_variable = { GER_g4_wehrmacht_coup_aftermath_stability_factor = -0.5 }
+	set_variable = { GER_g4_wehrmacht_coup_aftermath_war_support_factor = -0.7 }
+	set_variable = { GER_g4_wehrmacht_coup_aftermath_army_org_regain = -0.5 }
+	set_variable = { GER_g4_wehrmacht_coup_aftermath_army_org_factor = -0.6 }
+	set_variable = { GER_g4_wehrmacht_coup_aftermath_consumer_goods_factor = 0.5 }
+	set_variable = { GER_g4_wehrmacht_coup_aftermath_army_attack_factor = -0.5 }
+	set_variable = { GER_g4_wehrmacht_coup_aftermath_army_defence_factor = -0.3 }
+	set_variable = { GER_g4_wehrmacht_coup_aftermath_mobilization_speed = -1 }
+	set_variable = { GER_g4_wehrmacht_coup_aftermath_industrial_capacity_factory = -0.8 }
+	set_variable = { GER_g4_wehrmacht_coup_aftermath_conscription_factor = -0.9 }
+	add_dynamic_modifier = {
+		modifier = GER_g4_wehrmacht_coup_aftermath
+	}
+	custom_effect_tooltip = {
+		localization_key = GER_g4_wehrmacht_coup_aftermath_effect
+	}
+	GER_reichstag_suspend = yes
+	load_focus_tree = GER_gfour_military_junta_tree
+	mark_focus_tree_layout_dirty = yes
+}
+
+#partial loss: NSDAP speerites are installed
+GER_g4_endgame_partial_loss = {
+	country_event = {
+		id = GER_gfour_endgame.3
+		days = 1
+	}
+	set_country_flag = GER_g4_endgame_resolved
+}
+
+#total loss: military junta installs Wolfgang or Horst based on GER_army_balance
+GER_g4_endgame_total_loss = {
+	country_event = {
+		id = GER_gfour_endgame.2
+		days = 1
+	}
+	set_country_flag = GER_g4_endgame_resolved
+}
+
+#victory: branch by ruling party
+GER_g4_endgame_victory = {
+	#radical VAAF, territory intact - load radical tree
+	if = {
+		limit = {
+			OR = {
+				has_country_flag = GER_g4_radicals_takeover_vaaf
+				has_country_flag = ger_vaaf_radical_coup
+			}
+		}
+		load_focus_tree = GER_gfour_vaaf_radical_tree
+		mark_focus_tree_layout_dirty = yes
+		set_country_flag = GER_g4_endgame_resolved
+		hidden_effect = {
+			country_event = { id = GER_gfour_vaaf_rad.3 days = 2 }
+		}
+	}
+	#Die Grunen victory
+	else_if = {
+		limit = { has_country_flag = GER_g4_dg_takeover }
+		load_focus_tree = GER_gfour_dg_tree
+		mark_focus_tree_layout_dirty = yes
+		set_country_flag = GER_g4_endgame_resolved
+		hidden_effect = {
+			country_event = { id = GER_gfour_dg_true.4 days = 2 }
+		}
+	}
+	#NSDAP with a two-term mandate that already passed law_national_unity_front - its tree loads now
+	else_if = {
+		limit = {
+			GER_nsdap_government = yes
+			check_variable = { GER_nsdap_terms_won = 2 }
+			has_country_flag = GER_reichstag_law_national_unity_front_passed
+		}
+		load_focus_tree = GER_gfour_nsdap_unity_tree
+		mark_focus_tree_layout_dirty = yes
+		set_country_flag = GER_g4_endgame_resolved
+		hidden_effect = {
+			country_event = { id = GER_gfour_nsdap.1 days = 2 }
+		}
+	}
+	#NSDAP with a two-term mandate that already passed majority_law - its tree loads now
+	else_if = {
+		limit = {
+			GER_nsdap_government = yes
+			check_variable = { GER_nsdap_terms_won = 2 }
+			has_country_flag = GER_reichstag_majority_law_passed
+		}
+		load_focus_tree = GER_gfour_nsdap_majority_tree
+		mark_focus_tree_layout_dirty = yes
+		set_country_flag = GER_g4_endgame_resolved
+		hidden_effect = {
+			country_event = { id = GER_gfour_nsdap.1 days = 2 }
+		}
+	}
+	#NSDAP with a two-term mandate - wait for majority_law or law_national_unity_front (tree loads when law passes)
+	else_if = {
+		limit = {
+			GER_nsdap_government = yes
+			check_variable = { GER_nsdap_terms_won = 2 }
+		}
+		set_country_flag = GER_g4_endgame_awaiting_nsdap_law
+		custom_effect_tooltip = GER_g4_endgame_nsdap_law_reminder_tt
+	}
+	#NSDAP without two terms - can't pass the consolidation law, fall back to the unity tree
+	else_if = {
+		limit = { GER_nsdap_government = yes }
+		load_focus_tree = GER_gfour_nsdap_unity_tree
+		mark_focus_tree_layout_dirty = yes
+		set_country_flag = GER_g4_endgame_resolved
+		hidden_effect = {
+			country_event = { id = GER_gfour_nsdap.1 days = 2 }
+		}
+	}
+	#VUP that already passed imperial_restoration_law before the endgame fired - its tree loads now
+	else_if = {
+		limit = {
+			GER_vup_government = yes
+			has_country_flag = GER_hapsburg_active
+			has_country_flag = GER_reichstag_imperial_restoration_law_passed
+			check_variable = { GER_vup_terms_won = 2 }
+		}
+		load_focus_tree = GER_gfour_vup_imperial_tree
+		mark_focus_tree_layout_dirty = yes
+		set_country_flag = GER_g4_endgame_resolved
+		hidden_effect = {
+			#coronation of Otto von Habsburg
+			country_event = { id = GER_gfour_vup.2 }
+		}
+	}
+	#VUP with Habsburg active, a two-term mandate, and restoration prereqs met - wait for imperial_restoration_law
+	else_if = {
+		limit = {
+			GER_vup_government = yes
+			has_country_flag = GER_hapsburg_active
+			has_country_flag = GER_reichstag_general_rights_act_passed
+			check_variable = { GER_vup_terms_won = 2 }
+		}
+		set_country_flag = GER_g4_endgame_awaiting_vup_law
+		custom_effect_tooltip = GER_g4_endgame_vup_law_reminder_tt
+	}
+	#VUP without Habsburg, without restoration prereqs, or without two terms - load republican tree immediately
+	else_if = {
+		limit = { GER_vup_government = yes }
+		load_focus_tree = GER_gfour_vup_republican_tree
+		mark_focus_tree_layout_dirty = yes
+		set_country_flag = GER_g4_endgame_resolved
+		hidden_effect = {
+			country_event = { id = GER_gfour_vup.3 days = 2 }
+		}
+	}
+	#RSP victory
+	else_if = {
+		limit = { has_government = authoritarian_democrat }
+		load_focus_tree = GER_gfour_rsp_tree
+		mark_focus_tree_layout_dirty = yes
+		set_country_flag = GER_g4_endgame_resolved
+		hidden_effect = {
+			country_event = { id = GER_gfour_rsp.1 days = 2 }
+		}
+	}
+	#VAAF moderate
+	else_if = {
+		limit = { has_government = socialist }
+		load_focus_tree = GER_gfour_vaaf_tree
+		mark_focus_tree_layout_dirty = yes
+		set_country_flag = GER_g4_endgame_resolved
+		hidden_effect = {
+			country_event = { id = GER_gfour_vaaf.1 days = 2 }
+		}
+	}
+}
+
+#fires if LER survives/wins. Assumes white peace has already taken place
+GER_g4_ler_victory_resolution = {
+	#some of these checks will be redundant if LER won completely through a capitulation or some other scenario
+	GER = {
+		set_country_flag = GER_g4_dap_loser
+		#check if moravia is controlled by GER. If so, transfer to GER
+		if = {
+			limit = { 
+				controls_state = 75
+			}
+			transfer_state = 75
+		}
+		# #check posen
+		# if = {
+		# 	limit = { 
+		# 		controls_state = 86
+		# 	}
+		# 	transfer_state = 86
+		# }
+		# #check wartheland
+		# if = {
+		# 	limit = { 
+		# 		controls_state = 87
+		# 	}
+		# 	transfer_state = 87
+		# }
+		# #check new prussia
+		# if = {
+		# 	limit = { 
+		# 		controls_state = 98
+		# 	}
+		# 	transfer_state = 98
+		# }
+		# #check new east prussia
+		# if = {
+		# 	limit = { 
+		# 		controls_state = 97
+		# 	}
+		# 	transfer_state = 97
+		# }
+		#check luxembourg
+		if = {
+			limit = { 
+				controls_state = 8
+			}
+			transfer_state = 8
+		}
+	}
+	LER = {
+		#check crimea is fully controlled 
+		if = {
+			limit = { 
+				controls_state = 137
+			}
+			transfer_state = 137
+			137 = {
+				set_state_flag = GER_ler_cri_state
+			}
+		}
+		#check bohemia
+		if = {
+			limit = { 
+				controls_state = 9
+			}
+			transfer_state = 9
+			9 = {
+				set_state_flag = GER_ler_cze_state
+			}
+		}
+		#check sudetenland
+		if = {
+			limit = { 
+				controls_state = 69
+			}
+			transfer_state = 69
+			69 = {
+				set_state_flag = GER_ler_cze_state
+			}
+		}
+		#check east sudetenland
+		if = {
+			limit = { 
+				controls_state = 74
+			}
+			transfer_state = 74
+			74 = {
+				set_state_flag = GER_ler_cze_state
+			}
+		}
+		#check north schleswig
+		if = {
+			limit = { 
+				controls_state = 774
+			}
+			transfer_state = 774
+			774 = {
+				set_state_flag = GER_ler_den_state
+			}
+		}
+		#check danish island I forgot
+		if = {
+			limit = { 
+				controls_state = 744
+			}
+			transfer_state = 744
+			744 = {
+				set_state_flag = GER_ler_den_state
+			}
+		}
+		#check ostpreussen
+		if = {
+			limit = { 
+				controls_state = 5
+			}
+			transfer_state = 5
+			5 = {
+				set_state_flag = GER_ler_pol_state
+			}
+		}
+		#check danzig-westpreussen
+		if = {
+			limit = { 
+				controls_state = 85
+			}
+			transfer_state = 85
+			85 = {
+				set_state_flag = GER_ler_pol_state
+			}
+		}
+	}
+	GER_g4_ler_uprising_cleanup = yes
+	country_event = {
+		id = GER_gfour_ler_uprising.2
+		days = 1
+	}
+}
+
+#if LER wins divide states among newly independent nations
+GER_g4_ler_epilogue_freedom = {
+	LER = {
+		# Trying to future proof this for content for CZE and others
+		# I doubt luxembourg will ever receive content but you never know
+		if = {
+			limit = {
+				CZE = {
+					exists = no
+				}
+			}
+			every_owned_state = {
+				limit = {
+					has_state_flag = GER_ler_cze_state
+				}
+				transfer_state_to = CZE
+				add_core_of = CZE
+			}
+			CZE = {
+				remove_faction_status = yes
+				load_focus_tree = OST_empty
+				set_cosmetic_tag = CZE_ler_free
+				set_popularities = {
+					social_conservative = 45
+					communist = 15
+					authoritarian_democrat = 10
+					social_liberal = 10
+					national_socialism = 18
+					ultranational_socialism = 2
+				}
+				set_party_name = { ideology = social_conservative long_name = CZE_ler_free_social_conservative_party_long name = CZE_ler_free_social_conservative_party }
+				set_politics = {
+					ruling_party = social_conservative
+				}
+				create_country_leader = {
+					name = "Václav Havel"
+					desc = ""
+					picture = "Portrait_CZE_Vaclav_Havel.dds"
+					expire = "1999.1.1"
+					ideology = social_conservative_subtype
+					traits = {
+					}
+				}
+				inherit_technology = LER
+			}
+		}
+		else = {
+			every_owned_state = {
+				limit = {
+					has_state_flag = GER_ler_cze_state
+				}
+				transfer_state_to = CZE
+				add_core_of = CZE
+			}
+		}
+		if = {
+			limit = {
+				LUX = {
+					exists = no
+				}
+				LER = {
+					owns_state = 8
+				}
+			}
+			LUX = {
+				transfer_state = 8
+				remove_faction_status = yes
+				load_focus_tree = OST_empty
+				set_popularities = {
+					social_conservative = 15
+					authoritarian_democrat = 5
+					social_liberal = 11
+					social_democrat = 12
+					market_liberal = 50
+					national_socialism = 3
+					burgundian_system = 4
+				}
+				set_party_name = { ideology = market_liberal long_name = LUX_ler_free_market_liberal_party_long name = LUX_ler_free_market_liberal_party }
+				set_politics = {
+					ruling_party = market_liberal
+				}
+				create_country_leader = {
+					name = "Pierre Werner"
+					desc = ""
+					picture = "Portrait_LUX_Pierre_Werner.dds"
+					expire = "1999.1.1"
+					ideology = market_liberal_subtype
+					traits = {
+					}
+				}
+				inherit_technology = LER
+				add_state_core = 8
+			}
+		}
+		if = {
+			limit = {
+				CRI = {
+					exists = no
+				}
+				LER = {
+					owns_state = 137
+				}
+			}
+			CRI = {
+				transfer_state = 137
+				remove_faction_status = yes
+				load_focus_tree = OST_empty
+				set_popularities = {
+					authoritarian_democrat = 40
+					despotism = 30
+					national_socialism = 30
+				}
+				set_party_name = { ideology = authoritarian_democrat long_name = CRI_ler_free_authoritarian_democrat_party_long name = CRI_ler_free_authoritarian_democrat_party }
+				set_politics = {
+					ruling_party = authoritarian_democrat
+				}
+				set_cosmetic_tag = CRI_ler_free
+				create_country_leader = {
+					name = "Mustafa Dzhemilev"
+					desc = ""
+					picture = "Portrait_CRI_Mustafa_Dzhemilev.dds"
+					expire = "1999.1.1"
+					ideology = authoritarian_democrat_subtype
+					traits = {
+					}
+				}
+				inherit_technology = LER
+				add_state_core = 137
+			}
+			every_owned_state = {
+				limit = {
+					has_state_flag = GER_ler_den_state
+				}
+				transfer_state_to = DEN
+				add_core_of = DEN
+			}
+		}
+		POL = {
+			set_party_name = { ideology = despotism long_name = POL_ler_free_despotism_party_long name = POL_ler_free_despotism_party }
+			#Poland may not exist yet: hand it a state before the player is moved onto it (LER keeps its capital until the annexation)
+			if = {
+				limit = { exists = no }
+				LER = {
+					if = {
+						limit = {
+							any_owned_state = {
+								has_state_flag = GER_ler_pol_state
+								NOT = { is_capital = yes }
+							}
+						}
+						random_owned_state = {
+							limit = {
+								has_state_flag = GER_ler_pol_state
+								NOT = { is_capital = yes }
+							}
+							POL = { transfer_state = PREV }
+						}
+					}
+					else = {
+						random_owned_state = {
+							limit = { NOT = { is_capital = yes } }
+							POL = { transfer_state = PREV }
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					POL = {
+						is_ai = yes
+					}
+				}
+				change_tag_from = LER
+				remove_faction_status = yes
+				leave_faction = yes
+				load_focus_tree = OST_empty
+				set_cosmetic_tag = POL_ler_free
+				add_popularity = {
+					ideology = despotism
+					popularity = 0.5
+				}
+				set_politics = {
+					ruling_party = despotism
+				}
+				create_country_leader = {
+					name = "Wojciech Jaruzelski"
+					desc = ""
+					picture = "Portrait_LER_Wojciech_Jaruzelski.dds"
+					expire = "1999.1.1"
+					ideology = despotism_subtype
+					traits = {
+					}
+				}
+				hidden_effect = {
+					country_event = {
+						id = GER_gfour_ler_uprising.3
+						days = 1
+					}
+					GER = {
+						country_event = {
+							id = GER_gfour_ler_uprising.4
+							days = 1
+						}
+					}
+				}
+				annex_country = {
+					target = LER
+					transfer_troops = yes
+				}
+			}
+			else = {
+				change_tag_from = LER
+				hidden_effect = {
+					country_event = {
+						id = GER_gfour_ler_uprising.3
+						days = 1
+					}
+					GER = {
+						country_event = {
+							id = GER_gfour_ler_uprising.4
+							days = 1
+						}
+					}
+				}
+				annex_country = {
+					target = LER
+					transfer_troops = yes
+				}
+			}
+		}
+	}
+}
+
+GER_g4_ler_uprising_cleanup = {
+	every_country = {
+		limit = {
+			OR = {
+				has_idea = Pakt_Autonomous_Reichskommissariat
+				has_idea = Pakt_Bundnispartner
+				has_idea = Pakt_Marionettenstaat
+				has_idea = Pakt_Integrated_Reichskommissariat
+				has_idea = Pakt_Military_Authority
+				has_idea = Pakt_Mitstreiter
+				has_idea = Pakt_Protektorat
+				has_idea = Pakt_Reichsland
+			}
+		}
+		GER = {
+			add_to_faction = PREV
+		}
+	}
+	LER = {
+		every_owned_state = {
+			remove_core_of = LER
+		}
+	}
+}
+
+### G4 DEBUG HELPERS ###
+# Mirrors the party names set by the GER_gfour_election_one party-formation events
+# plus the LER/DAP/DG names set by their own foundation events.
+GER_g4_debug_set_party_names = {
+	set_party_name = {
+		ideology = national_socialism
+		long_name = "Nationalsozialistische Deutsche Arbeiterpartei - Goebbelite"
+		name = "NSDAP (Goebbelite)"
+	}
+	set_party_name = {
+		ideology = fascism
+		long_name = "Nationalsozialistische Deutsche Arbeiterpartei - Speerite"
+		name = "NSDAP (Speerite)"
+	}
+	set_party_name = {
+		ideology = social_conservative
+		long_name = "Volksunionspartei - Centre Faction"
+		name = "VUP (Centre)"
+	}
+	set_party_name = {
+		ideology = social_democrat
+		long_name = "Volksunionspartei - Labour Faction"
+		name = "VUP (Labour)"
+	}
+	set_party_name = {
+		ideology = authoritarian_democrat
+		long_name = "Reichsstaatspartei - Nationalist Faction"
+		name = "RSP (Nationalist)"
+	}
+	set_party_name = {
+		ideology = market_liberal
+		long_name = "Reichsstaatspartei - Freedom Faction"
+		name = "RSP (Freedom)"
+	}
+	set_party_name = {
+		ideology = socialist
+		long_name = "Vereinigte Allianz für Arbeit und Freiheit - Moderates"
+		name = "VAAF (Moderate)"
+	}
+	set_party_name = {
+		ideology = communist
+		long_name = "Vereinigte Allianz für Arbeit und Freiheit - Radicals"
+		name = "VAAF (Radical)"
+	}
+	set_party_name = {
+		ideology = social_liberal
+		long_name = "Die Grünen"
+		name = "Die Grünen"
+	}
+	set_party_name = {
+		ideology = ultranational_socialism
+		long_name = "Die Grünen"
+		name = "Die Grünen"
+	}
+	set_party_name = {
+		ideology = despotism
+		long_name = "Liga der Entzogenen Rechte"
+		name = "LER"
+	}
+	set_party_name = {
+		ideology = burgundian_system
+		long_name = "Deutsche Arierpartei"
+		name = "DAP"
+	}
+}
+
+# Mirrors the party leaders created by GER_gfour_intro.10 plus the LER/DAP/DG-takeover leaders.
+GER_g4_debug_create_party_leaders = {
+	#NSDAP - Speerite technocratic and Goebbelite populist wings
+	create_country_leader = {
+		name = "Helmut Goebbels"
+		desc = ""
+		picture = "Portrait_GER_Helmut_Goebbels.dds"
+		expire = "1999.1.1"
+		ideology = national_socialism_subtype
+		traits = {
+		}
+	}
+	create_country_leader = {
+		name = "Helmut Goebbels"
+		desc = ""
+		picture = "Portrait_GER_Helmut_Goebbels.dds"
+		expire = "1999.1.1"
+		ideology = fascism_subtype
+		traits = {
+		}
+	}
+	#VUP - traditionalist and labour wings
+	create_country_leader = {
+		name = "Joseph Alois Ratzinger"
+		desc = ""
+		picture = "Portrait_GER_Joseph_Ratzinger.dds"
+		expire = "1999.1.1"
+		ideology = social_conservative_subtype
+		traits = {
+		}
+	}
+	create_country_leader = {
+		name = "Joseph Alois Ratzinger"
+		desc = ""
+		picture = "Portrait_GER_Joseph_Ratzinger.dds"
+		expire = "1999.1.1"
+		ideology = social_democrat_subtype
+		traits = {
+		}
+	}
+	#RSP - nationalist corpocratic and liberal wings
+	create_country_leader = {
+		name = "Alfred Dregger"
+		desc = ""
+		picture = "Portrait_GER_Alfred_Dregger.dds"
+		expire = "1999.1.1"
+		ideology = authoritarian_democrat_subtype
+		traits = {
+		}
+	}
+	create_country_leader = {
+		name = "Alfred Dregger"
+		desc = ""
+		picture = "Portrait_GER_Alfred_Dregger.dds"
+		expire = "1999.1.1"
+		ideology = market_liberal_subtype
+		traits = {
+		}
+	}
+	#VAAF - libertarian and authoritarian socialist wings
+	create_country_leader = {
+		name = "Günter Grass"
+		desc = ""
+		picture = "Portrait_GER_Gunter_Grass.dds"
+		expire = "1999.1.1"
+		ideology = socialist_subtype
+		traits = {
+		}
+	}
+	create_country_leader = {
+		name = "Günter Grass"
+		desc = ""
+		picture = "Portrait_GER_Gunter_Grass.dds"
+		expire = "1999.1.1"
+		ideology = communist_subtype
+		traits = {
+		}
+	}
+	#Die Grünen - public face and true face
+	create_country_leader = {
+		name = "Baldur Springmann"
+		desc = ""
+		picture = "Portrait_GER_Baldur_Springmann.dds"
+		expire = "1999.1.1"
+		ideology = social_liberal_subtype
+		traits = {
+		}
+	}
+	create_country_leader = {
+		name = "Baldur Springmann"
+		desc = ""
+		picture = "Portrait_GER_Baldur_Springmann.dds"
+		expire = "1999.1.1"
+		ideology = ultranational_socialism_subtype
+		traits = {
+		}
+	}
+	#LER
+	create_country_leader = {
+		name = "Wojciech Jaruzelski"
+		desc = ""
+		picture = "Portrait_LER_Wojciech_Jaruzelski.dds"
+		expire = "1999.1.1"
+		ideology = despotism_subtype
+		traits = {
+		}
+	}
+	#DAP
+	create_country_leader = {
+		name = "Manfred Roeder"
+		desc = ""
+		picture = "Portrait_GER_Manfred_Roeder.dds"
+		expire = "1999.1.1"
+		ideology = burgundian_system_subtype
+		traits = {
+		}
+	}
+}

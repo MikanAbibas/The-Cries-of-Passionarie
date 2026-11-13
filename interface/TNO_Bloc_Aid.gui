@@ -1,0 +1,377 @@
+guiTypes = {
+
+	# ---------------------------------------------------------------------------------
+	# The toggle, in the right-click country view. Sits beside the header, left of
+	# opinion_info (x311) and the stability / war support boxes (x400 and x444).
+	# The window is exactly the button's native size, so the label centres itself.
+	# ---------------------------------------------------------------------------------
+	containerWindowType = {
+		name = "TNO_bloc_aid_button_window"
+		position = { x = 180 y = 2 }
+		size = { width = 123 height = 34 }
+
+		buttonType = {
+			name = "bloc_aid_toggle"
+			spriteType = "GFX_tno_button_123x34"
+			position = { x = -160 y = -13 }
+			buttonText = "BLOC_AID_BUTTON"
+			buttonFont = "aldrich_16_outline"
+			pdx_tooltip = "BLOC_AID_BUTTON_TT"
+			clicksound = click_default
+			orientation = LEFT
+		}
+	}
+
+	# ---------------------------------------------------------------------------------
+	# The panel, inside the diplomacy tab. It CANNOT hang outside countrydiplomacyview:
+	# that window clips its children, so any negative x renders nothing at all. (Compare
+	# countrytechnologyview.gui, which carries an explicit "clipping = no" precisely so
+	# TNO_research_focus_window can hang off its right edge.)
+	# Furniture from TNO_research_focus_window: background at the TOP LEVEL of the window
+	# (nested, it does not draw), close button on ESCAPE.
+	# Column budget per row: icon 16-38, name 46-196, cost 200-380 (right), button 392-515.
+	# ---------------------------------------------------------------------------------
+	containerWindowType = {
+		name = "TNO_bloc_aid_panel_window"
+		position = { x = 10 y = 206 }
+		size = { width = 530 height = 432 }
+		show_sound = open_sub_window
+		moveable = no
+		click_to_front = yes
+
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_bg"
+		}
+
+		iconType = {
+			name = "bloc_aid_header_strip"
+			spriteType = "GFX_tiled_header"
+			position = { x = 0 y = 0 }
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "bloc_aid_title"
+			position = { x = 16 y = 10 }
+			font = "aldrich_20_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "BLOC_AID_TITLE"
+			maxWidth = 380
+			maxHeight = 24
+			format = left
+		}
+
+		buttonType = {
+			name = "bloc_aid_close"
+			position = { x = -30 y = 8 }
+			quadTextureSprite = "GFX_crt_closebutton"
+			orientation = "UPPER_RIGHT"
+			shortcut = "ESCAPE"
+			pdx_tooltip = "BLOC_AID_CLOSE_TT"
+			clicksound = click_close
+		}
+
+		instantTextBoxType = {
+			name = "bloc_aid_note"
+			position = { x = 16 y = 46 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "BLOC_AID_NOTE"
+			maxWidth = 500
+			maxHeight = 22
+			format = left
+		}
+
+		iconType = {
+			name = "bloc_aid_rule_top"
+			spriteType = "GFX_horizontal_divider"
+			position = { x = 14 y = 72 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "bloc_aid_arms_icon"
+			spriteType = "GFX_equipment_icon"
+			position = { x = 16 y = 88 }
+			alwaystransparent = yes
+		}
+		instantTextBoxType = {
+			name = "bloc_aid_arms_name"
+			position = { x = 46 y = 82 }
+			font = "aldrich_18_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "BLOC_AID_ARMS"
+			maxWidth = 150
+			maxHeight = 22
+			format = left
+		}
+		instantTextBoxType = {
+			name = "bloc_aid_arms_cost"
+			position = { x = 200 y = 82 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "BLOC_AID_ARMS_COST"
+			maxWidth = 180
+			maxHeight = 54
+			format = right
+		}
+		instantTextBoxType = {
+			name = "bloc_aid_arms_status"
+			position = { x = 46 y = 102 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "[BLOC_AID_GetArmsStatus]"
+			maxWidth = 150
+			maxHeight = 22
+			format = left
+		}
+		buttonType = {
+			name = "bloc_aid_arms"
+			spriteType = "GFX_tno_button_123x34"
+			position = { x = 392 y = 86 }
+			buttonText = "BLOC_AID_SEND"
+			buttonFont = "aldrich_16_outline"
+			clicksound = click_default
+		}
+
+		iconType = {
+			name = "bloc_aid_rule_manpower"
+			spriteType = "GFX_horizontal_divider"
+			position = { x = 14 y = 130 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "bloc_aid_manpower_icon"
+			spriteType = "GFX_manpower_icon"
+			position = { x = 16 y = 146 }
+			alwaystransparent = yes
+		}
+		instantTextBoxType = {
+			name = "bloc_aid_manpower_name"
+			position = { x = 46 y = 140 }
+			font = "aldrich_18_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "BLOC_AID_MANPOWER"
+			maxWidth = 150
+			maxHeight = 22
+			format = left
+		}
+		instantTextBoxType = {
+			name = "bloc_aid_manpower_cost"
+			position = { x = 200 y = 140 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "BLOC_AID_MANPOWER_COST"
+			maxWidth = 180
+			maxHeight = 54
+			format = right
+		}
+		instantTextBoxType = {
+			name = "bloc_aid_manpower_status"
+			position = { x = 46 y = 160 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "[BLOC_AID_GetManpowerStatus]"
+			maxWidth = 150
+			maxHeight = 22
+			format = left
+		}
+		buttonType = {
+			name = "bloc_aid_manpower"
+			spriteType = "GFX_tno_button_123x34"
+			position = { x = 392 y = 144 }
+			buttonText = "BLOC_AID_SEND"
+			buttonFont = "aldrich_16_outline"
+			clicksound = click_default
+		}
+
+		iconType = {
+			name = "bloc_aid_rule_armour"
+			spriteType = "GFX_horizontal_divider"
+			position = { x = 14 y = 188 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "bloc_aid_armour_icon"
+			spriteType = "GFX_equipment_icon"
+			position = { x = 16 y = 204 }
+			alwaystransparent = yes
+		}
+		instantTextBoxType = {
+			name = "bloc_aid_armour_name"
+			position = { x = 46 y = 198 }
+			font = "aldrich_18_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "BLOC_AID_ARMOUR"
+			maxWidth = 150
+			maxHeight = 22
+			format = left
+		}
+		instantTextBoxType = {
+			name = "bloc_aid_armour_cost"
+			position = { x = 200 y = 198 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "BLOC_AID_ARMOUR_COST"
+			maxWidth = 180
+			maxHeight = 54
+			format = right
+		}
+		instantTextBoxType = {
+			name = "bloc_aid_armour_status"
+			position = { x = 46 y = 218 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "[BLOC_AID_GetArmourStatus]"
+			maxWidth = 150
+			maxHeight = 22
+			format = left
+		}
+		buttonType = {
+			name = "bloc_aid_armour"
+			spriteType = "GFX_tno_button_123x34"
+			position = { x = 392 y = 202 }
+			buttonText = "BLOC_AID_SEND"
+			buttonFont = "aldrich_16_outline"
+			clicksound = click_default
+		}
+
+		iconType = {
+			name = "bloc_aid_rule_aircraft"
+			spriteType = "GFX_horizontal_divider"
+			position = { x = 14 y = 246 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "bloc_aid_aircraft_icon"
+			spriteType = "GFX_equipment_icon"
+			position = { x = 16 y = 262 }
+			alwaystransparent = yes
+		}
+		instantTextBoxType = {
+			name = "bloc_aid_aircraft_name"
+			position = { x = 46 y = 256 }
+			font = "aldrich_18_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "BLOC_AID_AIRCRAFT"
+			maxWidth = 150
+			maxHeight = 22
+			format = left
+		}
+		instantTextBoxType = {
+			name = "bloc_aid_aircraft_cost"
+			position = { x = 200 y = 256 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "BLOC_AID_AIRCRAFT_COST"
+			maxWidth = 180
+			maxHeight = 54
+			format = right
+		}
+		instantTextBoxType = {
+			name = "bloc_aid_aircraft_status"
+			position = { x = 46 y = 276 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "[BLOC_AID_GetAircraftStatus]"
+			maxWidth = 150
+			maxHeight = 22
+			format = left
+		}
+		buttonType = {
+			name = "bloc_aid_aircraft"
+			spriteType = "GFX_tno_button_123x34"
+			position = { x = 392 y = 260 }
+			buttonText = "BLOC_AID_SEND"
+			buttonFont = "aldrich_16_outline"
+			clicksound = click_default
+		}
+
+		iconType = {
+			name = "bloc_aid_rule_expedition"
+			spriteType = "GFX_horizontal_divider"
+			position = { x = 14 y = 304 }
+			alwaystransparent = yes
+		}
+
+		containerWindowType = {
+			name = "bloc_aid_expedition_row"
+			position = { x = 0 y = 312 }
+			size = { width = 530 height = 80 }
+
+			iconType = {
+				name = "bloc_aid_expedition_icon"
+				spriteType = "GFX_division_icon"
+				position = { x = 16 y = 8 }
+				alwaystransparent = yes
+			}
+			# 16pt and a wider column: "Organize Local Divisions" wraps at 18pt/150px, and the
+			# wrapped second line is what the red warning below was landing on top of.
+			instantTextBoxType = {
+				name = "bloc_aid_expedition_name"
+				position = { x = 46 y = 2 }
+				font = "aldrich_16_outline"
+				borderSize = { x = 0 y = 0 }
+				text = "BLOC_AID_EXPEDITION"
+				maxWidth = 180
+				maxHeight = 22
+				format = left
+			}
+			# Its own line under the name: green when divisions can be raised, red when not.
+			instantTextBoxType = {
+				name = "bloc_aid_expedition_desc"
+				position = { x = 46 y = 24 }
+				font = "aldrich_16_outline"
+				borderSize = { x = 0 y = 0 }
+				text = "[BLOC_AID_GetExpeditionDesc]"
+				maxWidth = 180
+				maxHeight = 40
+				format = left
+			}
+			instantTextBoxType = {
+				name = "bloc_aid_expedition_cost"
+				position = { x = 234 y = 2 }
+				font = "aldrich_16_outline"
+				borderSize = { x = 0 y = 0 }
+				text = "BLOC_AID_EXPEDITION_COST"
+				maxWidth = 146
+				maxHeight = 54
+				format = right
+			}
+			instantTextBoxType = {
+				name = "bloc_aid_expedition_status"
+				position = { x = 234 y = 58 }
+				font = "aldrich_16_outline"
+				borderSize = { x = 0 y = 0 }
+				text = "[BLOC_AID_GetExpeditionStatus]"
+				maxWidth = 146
+				maxHeight = 22
+				format = right
+			}
+			buttonType = {
+				name = "bloc_aid_expedition"
+				spriteType = "GFX_tno_button_123x34"
+				position = { x = 392 y = 16 }
+				buttonText = "BLOC_AID_SEND"
+				buttonFont = "aldrich_16_outline"
+				clicksound = click_default
+			}
+		}
+
+
+		instantTextBoxType = {
+			name = "bloc_aid_footer"
+			position = { x = 16 y = 400 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "BLOC_AID_FOOTER"
+			maxWidth = 500
+			maxHeight = 22
+			format = left
+		}
+	}
+}

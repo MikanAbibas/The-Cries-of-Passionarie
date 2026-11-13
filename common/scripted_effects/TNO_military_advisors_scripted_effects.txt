@@ -1,0 +1,167 @@
+### Military Advisors: a paid, temporary rise in the volunteer cap, bought in the deployment tab.
+#
+# GUI: common/scripted_guis/TNO_military_advisors.txt, interface/TNO_military_advisors.gui.
+# Bonus: the TNO_military_advisors dynamic modifier, send_volunteer_size = TNO_military_advisors_level.
+#
+# Rules:
+# - Levels 0-5, +1 volunteer division each.
+# - Raising to level n costs n x 0.1% of GDP once, from money_reserves; any shortfall goes to national_debt.
+# - The first raise starts a 30-day term. Later raises do not extend it; when it ends every level resets
+#   to 0 (tno_military_advisors.1 counts it down).
+# - Decisions, focuses and events grant levels for free (TNO_military_advisors_grant, which the old
+#   proxy_war_increase_advisors now calls) and restart the term at 30 days. At level 5 a grant does nothing.
+#   Content that withdraws advisors calls TNO_military_advisors_lower (one level down).
+# - Volunteers already sent stay after the reset (the engine never recalls them when the cap drops);
+#   new volunteers and replacements count against the cap at the time.
+#
+# Variables and flags, all on the country:
+#   TNO_military_advisors_level        0-5
+#   TNO_military_advisors_days_left    days left in the term, 0 when none runs
+#   TNO_military_advisors_ticking      flag: a tno_military_advisors.1 tick is pending, so a term that
+#                                      starts again before it fires reuses the same countdown
+#   the rest is display only, kept current by TNO_military_advisors_refresh
+
+# Display values for the window. Called from calculate_display_variables and initiate_display_vars
+# (so the price follows GDP every month and is right from game start), and on every raise, tick and reset.
+TNO_military_advisors_refresh = {
+	set_variable = { TNO_military_advisors_next_level = TNO_military_advisors_level }
+	add_to_variable = { TNO_military_advisors_next_level = 1 }
+
+	# price of the next level, in millions: next level x 0.1% of GDP
+	set_variable = { TNO_military_advisors_price = GDP }
+	multiply_variable = { var = TNO_military_advisors_price value = 0.001 }
+	multiply_variable = { var = TNO_military_advisors_price value = TNO_military_advisors_next_level }
+	set_variable = { TNO_military_advisors_price_billion = TNO_military_advisors_price }
+	multiply_variable = { var = TNO_military_advisors_price_billion value = 0.001 }
+	set_variable = { TNO_military_advisors_price_pct = TNO_military_advisors_next_level }
+	multiply_variable = { var = TNO_military_advisors_price_pct value = 0.1 }
+
+	# sprite frames are 1-based
+	set_variable = { TNO_military_advisors_frame = TNO_military_advisors_level }
+	add_to_variable = { TNO_military_advisors_frame = 1 }
+	set_variable = { TNO_military_advisors_bar_frame = TNO_military_advisors_days_left }
+	add_to_variable = { TNO_military_advisors_bar_frame = 1 }
+
+	# the volunteer bonus breakdown. The rank bonuses mirror ZZZ_superpower_rank_1-3
+	# (send_volunteer_size 3/2/1, common/ideas/TNO_generic_ideas.txt).
+	set_variable = { TNO_military_advisors_total_bonus = modifier@send_volunteer_size }
+	set_variable = { TNO_military_advisors_other_bonus = TNO_military_advisors_total_bonus }
+	subtract_from_variable = { TNO_military_advisors_other_bonus = TNO_military_advisors_level }
+	if = {
+		limit = { has_idea = ZZZ_superpower_rank_1 }
+		subtract_from_variable = { TNO_military_advisors_other_bonus = 3 }
+	}
+	else_if = {
+		limit = { has_idea = ZZZ_superpower_rank_2 }
+		subtract_from_variable = { TNO_military_advisors_other_bonus = 2 }
+	}
+	else_if = {
+		limit = { has_idea = ZZZ_superpower_rank_3 }
+		subtract_from_variable = { TNO_military_advisors_other_bonus = 1 }
+	}
+}
+
+# The Raise button.
+TNO_military_advisors_raise = {
+	hidden_effect = {
+		TNO_military_advisors_refresh = yes		# price from the current GDP
+
+		subtract_from_variable = { money_reserves = TNO_military_advisors_price }
+		if = {
+			limit = { check_variable = { money_reserves < 0 } }
+			set_temp_variable = { TNO_military_advisors_shortfall = money_reserves }
+			multiply_temp_variable = { TNO_military_advisors_shortfall = -1 }
+			add_to_variable = { national_debt = TNO_military_advisors_shortfall }
+			set_variable = { money_reserves = 0 }
+		}
+
+		if = {
+			limit = { check_variable = { TNO_military_advisors_level = 0 } }
+			TNO_military_advisors_start_term = yes
+		}
+		add_to_variable = { TNO_military_advisors_level = 1 }
+		if = {
+			limit = { NOT = { has_dynamic_modifier = { modifier = TNO_military_advisors } } }
+			add_dynamic_modifier = { modifier = TNO_military_advisors }
+		}
+		force_update_dynamic_modifier = yes
+		log = "[GetDateText]: [Root.GetName]: Military Advisors raised to level [?TNO_military_advisors_level|0] for [?TNO_military_advisors_price|0] M"
+
+		calculate_display_variables = yes		# the economy tab's figures, and TNO_military_advisors_refresh
+	}
+}
+
+# A term of 30 days from now. Only one countdown runs per country: if a tick is still pending (the
+# term was cut short and starts again before it fires), that tick carries on counting.
+TNO_military_advisors_start_term = {
+	set_variable = { TNO_military_advisors_days_left = 30 }
+	if = {
+		limit = { NOT = { has_country_flag = TNO_military_advisors_ticking } }
+		set_country_flag = TNO_military_advisors_ticking
+		country_event = { id = tno_military_advisors.1 days = 1 }
+	}
+}
+
+# Free levels from decisions, focuses and events. Raises the level by TNO_military_advisors_grant_levels
+# (a temp variable, 1 when unset) up to 5 and restarts the term at 30 days; at level 5 it does nothing.
+#	set_temp_variable = { TNO_military_advisors_grant_levels = 3 }
+#	TNO_military_advisors_grant = yes
+TNO_military_advisors_grant = {
+	if = {
+		limit = { NOT = { check_variable = { TNO_military_advisors_grant_levels > 0 } } }
+		set_temp_variable = { TNO_military_advisors_grant_levels = 1 }
+	}
+	if = {
+		limit = { check_variable = { TNO_military_advisors_level < 5 } }
+		set_temp_variable = { TNO_military_advisors_grant_to = TNO_military_advisors_level }
+		add_to_temp_variable = { TNO_military_advisors_grant_to = TNO_military_advisors_grant_levels }
+		clamp_temp_variable = { var = TNO_military_advisors_grant_to max = 5 }
+		custom_effect_tooltip = TNO_MILITARY_ADVISORS_GRANT_TT
+		hidden_effect = {
+			set_variable = { TNO_military_advisors_level = TNO_military_advisors_grant_to }
+			TNO_military_advisors_start_term = yes
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = TNO_military_advisors } } }
+				add_dynamic_modifier = { modifier = TNO_military_advisors }
+			}
+			force_update_dynamic_modifier = yes
+			TNO_military_advisors_refresh = yes
+			log = "[GetDateText]: [Root.GetName]: Military Advisors granted, now level [?TNO_military_advisors_level|0]"
+		}
+	}
+	else = {
+		custom_effect_tooltip = TNO_MILITARY_ADVISORS_GRANT_MAX_TT
+	}
+	set_temp_variable = { TNO_military_advisors_grant_levels = 0 }		# consume the argument
+}
+
+# Content that withdraws advisors: one level down, the term unchanged. At level 0 it does nothing.
+TNO_military_advisors_lower = {
+	if = {
+		limit = { check_variable = { TNO_military_advisors_level > 0 } }
+		custom_effect_tooltip = TNO_MILITARY_ADVISORS_LOWER_TT
+		hidden_effect = {
+			subtract_from_variable = { TNO_military_advisors_level = 1 }
+			if = {
+				limit = { check_variable = { TNO_military_advisors_level = 0 } }
+				TNO_military_advisors_reset = yes
+			}
+			else = {
+				force_update_dynamic_modifier = yes
+				TNO_military_advisors_refresh = yes
+			}
+		}
+	}
+}
+
+# End of the term: every level goes.
+TNO_military_advisors_reset = {
+	set_variable = { TNO_military_advisors_level = 0 }
+	set_variable = { TNO_military_advisors_days_left = 0 }
+	if = {
+		limit = { has_dynamic_modifier = { modifier = TNO_military_advisors } }
+		remove_dynamic_modifier = { modifier = TNO_military_advisors }
+	}
+	force_update_dynamic_modifier = yes
+	TNO_military_advisors_refresh = yes
+}

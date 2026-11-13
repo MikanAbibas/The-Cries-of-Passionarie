@@ -1,0 +1,988 @@
+############################################################################
+## ██╗████████╗ █████╗ ██╗         ██╗███╗   ███╗██████╗ ███████╗██████╗  ##
+## ██║╚══██╔══╝██╔══██╗██║         ██║████╗ ████║██╔══██╗██╔════╝██╔══██╗ ##
+## ██║   ██║   ███████║██║         ██║██╔████╔██║██████╔╝█████╗  ██████╔╝ ##
+## ██║   ██║   ██╔══██║██║         ██║██║╚██╔╝██║██╔═══╝ ██╔══╝  ██╔══██╗ ##
+## ██║   ██║   ██║  ██║███████╗    ██║██║ ╚═╝ ██║██║     ███████╗██║  ██║ ##
+## ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝ ##
+############################################################################
+#Decisions
+ 
+#Index; Search for these names using CTRL+F and you'll find the section they entitle.
+#	a) Giani Conversion Mechanic Decisions
+
+
+
+##########################################################
+###=====| a) Giani Conversion Mechanic Decisions |=====###
+##########################################################
+
+ITA_conversion_mech = {
+	ITA_dispatch_more_preachers = {  
+
+		icon = GFX_ITA_ITA_Facses_standard
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		available = {
+			always = yes
+		}
+
+		cost = 10
+
+		visible = {
+			OR = {
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 1}
+					NOT = {
+						has_country_flag = ITA_giani_done_preachers_n_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 2}
+					NOT = {
+						has_country_flag = ITA_giani_done_preachers_c_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 3}
+					NOT = {
+						has_country_flag = ITA_giani_done_preachers_s_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 4}
+					NOT = {
+						has_country_flag = ITA_giani_done_preachers_sicily
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 5}
+					NOT = {
+						has_country_flag = ITA_giani_done_preachers_islands
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 6}
+					NOT = {
+						has_country_flag = ITA_giani_done_preachers_libya
+					}
+				}
+			}
+		}
+
+		complete_effect = { 
+			custom_effect_tooltip = ITA_giani_gui_preachers_decision_tt
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 1}
+				}
+				set_country_flag = ITA_giani_done_preachers_n_italy
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 2}
+				}
+				set_country_flag = ITA_giani_done_preachers_c_italy
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 3}
+				}
+				set_country_flag = ITA_giani_done_preachers_s_italy
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 4}
+				}
+				set_country_flag = ITA_giani_done_preachers_sicily
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 5}
+				}
+				set_country_flag = ITA_giani_done_preachers_islands
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 6}
+				}
+				set_country_flag = ITA_giani_done_preachers_libya
+			}
+			add_to_variable = {ITA_GUI_giani_fervour = 2}
+			ITA_giani_calculate_fervour_effects = yes
+		}  
+	}
+	ITA_increase_proselytising_funds = {  
+
+		icon = GFX_ITA_Giani_Money_Icon
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		available = {
+			always = yes
+		}
+
+		visible = {
+			OR = {
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 1}
+					NOT = {
+						has_country_flag = ITA_giani_done_proselytise_n_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 2}
+					NOT = {
+						has_country_flag = ITA_giani_done_proselytise_c_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 3}
+					NOT = {
+						has_country_flag = ITA_giani_done_proselytise_s_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 4}
+					NOT = {
+						has_country_flag = ITA_giani_done_proselytise_sicily
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 5}
+					NOT = {
+						has_country_flag = ITA_giani_done_proselytise_islands
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 6}
+					NOT = {
+						has_country_flag = ITA_giani_done_proselytise_libya
+					}
+				}
+			}
+		}
+
+		complete_effect = { 
+			custom_effect_tooltip = ITA_giani_gui_proselytise_decision_tt
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 1}
+				}
+				set_country_flag = ITA_giani_done_proselytise_n_italy
+				add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate = 0.1}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 2}
+				}
+				set_country_flag = ITA_giani_done_proselytise_c_italy
+				add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate = 0.1}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 3}
+				}
+				set_country_flag = ITA_giani_done_proselytise_s_italy
+				add_to_variable = {ITA_GUI_giani_s_italy_conversion_rate = 0.1}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 4}
+				}
+				set_country_flag = ITA_giani_done_proselytise_sicily
+				add_to_variable = {ITA_GUI_giani_sicily_conversion_rate = 0.1}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 5}
+				}
+				set_country_flag = ITA_giani_done_proselytise_islands
+				add_to_variable = {ITA_GUI_giani_s_a_c_conversion_rate = 0.1}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 6}
+				}
+				set_country_flag = ITA_giani_done_proselytise_libya
+				add_to_variable = {ITA_GUI_giani_libya_conversion_rate = 0.1}
+			}
+			ITA_giani_calculate_fervour_effects = yes
+		}  
+	}
+	ITA_expose_church_corruption = {  
+
+		icon = GFX_ITA_Giani_No_Money
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		available = {
+			always = yes
+		}
+
+		visible = {
+			always = yes
+		}
+
+		cost = 10
+
+		complete_effect = { 
+			custom_effect_tooltip = ITA_giani_gui_corruption_decision_tt
+			add_to_variable = {ITA_GUI_giani_fervour = 4}
+			ITA_giani_calculate_fervour_effects = yes
+			add_stability = -0.01
+		}  
+	}
+	ITA_hold_a_fiery_speech = {  
+
+		icon = GFX_ITA_ITA_Facses_standard
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		available = {
+			always = yes
+		}
+
+		visible = {
+			always = yes
+		}
+
+		cost = 10
+
+		complete_effect = { 
+			custom_effect_tooltip = ITA_giani_gui_speech_decision_tt
+			add_to_variable = {ITA_GUI_giani_fervour = 3}
+			ITA_giani_calculate_fervour_effects = yes
+			add_timed_idea = { idea = ITA_rallied_population  days = 60 }
+		}  
+	}
+	ITA_extol_local_heros_of_fascism = {  
+
+		icon = GFX_ITA_ITA_Facses_standard
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_giani_gui_heroes_decision		
+				OR = {
+					check_variable = {ITA_GUI_giani_fervour = 40}
+					check_variable = {ITA_GUI_giani_fervour > 40}
+				}
+			}
+		}
+
+		cost = 20
+
+		visible = {
+			has_completed_focus = ITA_saints_and_martyrs
+			OR = {
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 1}
+					NOT = {
+						has_country_flag = ITA_giani_done_heroes_n_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 2}
+					NOT = {
+						has_country_flag = ITA_giani_done_heroes_c_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 3}
+					NOT = {
+						has_country_flag = ITA_giani_done_heroes_s_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 4}
+					NOT = {
+						has_country_flag = ITA_giani_done_heroes_sicily
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 5}
+					NOT = {
+						has_country_flag = ITA_giani_done_heroes_islands
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 6}
+					NOT = {
+						has_country_flag = ITA_giani_done_heroes_libya
+					}
+				}
+			}
+		}
+
+		complete_effect = { 
+			custom_effect_tooltip = ITA_giani_gui_heroes_decision_tt
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 1}
+				}
+				set_country_flag = ITA_giani_done_heroes_n_italy
+				add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate = 0.1}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 2}
+				}
+				set_country_flag = ITA_giani_done_heroes_c_italy
+				add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate = 0.1}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 3}
+				}
+				set_country_flag = ITA_giani_done_heroes_s_italy
+				add_to_variable = {ITA_GUI_giani_s_italy_conversion_rate = 0.1}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 4}
+				}
+				set_country_flag = ITA_giani_done_heroes_sicily
+				add_to_variable = {ITA_GUI_giani_sicily_conversion_rate = 0.1}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 5}
+				}
+				set_country_flag = ITA_giani_done_heroes_islands
+				add_to_variable = {ITA_GUI_giani_s_a_c_conversion_rate = 0.1}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 6}
+				}
+				set_country_flag = ITA_giani_done_heroes_libya
+				add_to_variable = {ITA_GUI_giani_libya_conversion_rate = 0.1}
+			}
+			add_to_variable = {ITA_GUI_giani_fervour = 4}
+			ITA_giani_calculate_fervour_effects = yes
+		}  
+	}
+	ITA_build_places_of_worship = {  
+
+		icon = GFX_ITA_Giani_ITA_Collumn
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_giani_gui_worship_decision		
+				OR = {
+					check_variable = {ITA_GUI_giani_fervour = 50}
+					check_variable = {ITA_GUI_giani_fervour > 50}
+				}
+			}
+		}
+
+		visible = {
+			has_completed_focus = ITA_relics_and_shrines
+			OR = {
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 1}
+					NOT = {
+						has_country_flag = ITA_giani_done_worship_n_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 2}
+					NOT = {
+						has_country_flag = ITA_giani_done_worship_c_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 3}
+					NOT = {
+						has_country_flag = ITA_giani_done_worship_s_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 4}
+					NOT = {
+						has_country_flag = ITA_giani_done_worship_sicily
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 5}
+					NOT = {
+						has_country_flag = ITA_giani_done_worship_islands
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 6}
+					NOT = {
+						has_country_flag = ITA_giani_done_worship_libya
+					}
+				}
+			}
+		}
+
+		complete_effect = { 
+			custom_effect_tooltip = ITA_giani_gui_worship_decision_tt
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 1}
+				}
+				set_country_flag = ITA_giani_done_worship_n_italy
+				add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate = 0.2}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 2}
+				}
+				set_country_flag = ITA_giani_done_worship_c_italy
+				add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate = 0.2}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 3}
+				}
+				set_country_flag = ITA_giani_done_worship_s_italy
+				add_to_variable = {ITA_GUI_giani_s_italy_conversion_rate = 0.2}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 4}
+				}
+				set_country_flag = ITA_giani_done_worship_sicily
+				add_to_variable = {ITA_GUI_giani_sicily_conversion_rate = 0.2}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 5}
+				}
+				set_country_flag = ITA_giani_done_worship_islands
+				add_to_variable = {ITA_GUI_giani_s_a_c_conversion_rate = 0.2}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 6}
+				}
+				set_country_flag = ITA_giani_done_worship_libya
+				add_to_variable = {ITA_GUI_giani_libya_conversion_rate = 0.2}
+			}
+			add_to_variable = {ITA_GUI_giani_fervour = 5}
+			ITA_giani_calculate_fervour_effects = yes
+		}  
+	}
+	ITA_publicly_display_relics = {  
+
+		icon = GFX_ITA_ITA_Facses_standard
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_giani_gui_worship_decision		
+				OR = {
+					check_variable = {ITA_GUI_giani_fervour = 50}
+					check_variable = {ITA_GUI_giani_fervour > 50}
+				}
+			}
+		}
+
+		visible = {
+			has_completed_focus = ITA_relics_and_shrines
+			OR = {
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 1}
+					NOT = {
+						has_country_flag = ITA_giani_done_relics_n_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 2}
+					NOT = {
+						has_country_flag = ITA_giani_done_relics_c_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 3}
+					NOT = {
+						has_country_flag = ITA_giani_done_relics_s_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 4}
+					NOT = {
+						has_country_flag = ITA_giani_done_relics_sicily
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 5}
+					NOT = {
+						has_country_flag = ITA_giani_done_relics_islands
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 6}
+					NOT = {
+						has_country_flag = ITA_giani_done_relics_libya
+					}
+				}
+			}
+		}
+
+		complete_effect = { 
+			custom_effect_tooltip = ITA_giani_gui_relics_decision_tt
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 1}
+				}
+				set_country_flag = ITA_giani_done_relics_n_italy
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 2}
+				}
+				set_country_flag = ITA_giani_done_relics_c_italy
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 3}
+				}
+				set_country_flag = ITA_giani_done_relics_s_italy
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 4}
+				}
+				set_country_flag = ITA_giani_done_relics_sicily
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 5}
+				}
+				set_country_flag = ITA_giani_done_relics_islands
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 6}
+				}
+				set_country_flag = ITA_giani_done_relics_libya
+			}
+			add_to_variable = {ITA_GUI_giani_fervour = 5}
+			ITA_giani_calculate_fervour_effects = yes
+		}  
+	}
+	ITA_hold_a_great_precession = {  
+
+		icon = GFX_ITA_Giani_ITA_Fasces
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_giani_gui_precession_decision		
+				OR = {
+					check_variable = {ITA_GUI_giani_fervour = 60}
+					check_variable = {ITA_GUI_giani_fervour > 60}
+				}
+			}
+		}
+
+		cost = 25
+
+		visible = {
+			has_completed_focus = ITA_mass_liturgies
+			OR = {
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 1}
+					NOT = {
+						has_country_flag = ITA_giani_done_precession_n_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 2}
+					NOT = {
+						has_country_flag = ITA_giani_done_precession_c_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 3}
+					NOT = {
+						has_country_flag = ITA_giani_done_precession_s_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 4}
+					NOT = {
+						has_country_flag = ITA_giani_done_precession_sicily
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 5}
+					NOT = {
+						has_country_flag = ITA_giani_done_precession_islands
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 6}
+					NOT = {
+						has_country_flag = ITA_giani_done_precession_libya
+					}
+				}
+			}
+		}
+
+		complete_effect = { 
+			custom_effect_tooltip = ITA_giani_gui_precession_decision_tt
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 1}
+				}
+				set_country_flag = ITA_giani_done_precession_n_italy
+				add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate = 0.2}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 2}
+				}
+				set_country_flag = ITA_giani_done_precession_c_italy
+				add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate = 0.2}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 3}
+				}
+				set_country_flag = ITA_giani_done_precession_s_italy
+				add_to_variable = {ITA_GUI_giani_s_italy_conversion_rate = 0.2}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 4}
+				}
+				set_country_flag = ITA_giani_done_precession_sicily
+				add_to_variable = {ITA_GUI_giani_sicily_conversion_rate = 0.2}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 5}
+				}
+				set_country_flag = ITA_giani_done_precession_islands
+				add_to_variable = {ITA_GUI_giani_s_a_c_conversion_rate = 0.2}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 6}
+				}
+				set_country_flag = ITA_giani_done_precession_libya
+				add_to_variable = {ITA_GUI_giani_libya_conversion_rate = 0.2}
+			}
+			ITA_giani_calculate_fervour_effects = yes
+		}  
+	}
+	ITA_build_a_monument_to_mussolini = {  
+
+		icon = GFX_ITA_Giani_ITA_Collumn
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_giani_gui_monument_decision		
+				OR = {
+					check_variable = {ITA_GUI_giani_fervour = 70}
+					check_variable = {ITA_GUI_giani_fervour > 70}
+				}
+			}
+		}
+
+		visible = {
+			has_completed_focus = ITA_benito_mussolini_profeta_del_fascismo
+			OR = {
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 1}
+					NOT = {
+						has_country_flag = ITA_giani_done_monument_n_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 2}
+					NOT = {
+						has_country_flag = ITA_giani_done_monument_c_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 3}
+					NOT = {
+						has_country_flag = ITA_giani_done_monument_s_italy
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 4}
+					NOT = {
+						has_country_flag = ITA_giani_done_monument_sicily
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 5}
+					NOT = {
+						has_country_flag = ITA_giani_done_monument_islands
+					}
+				}
+				AND = {
+					check_variable = {ITA_GUI_giani_selected_state = 6}
+					NOT = {
+						has_country_flag = ITA_giani_done_monument_libya
+					}
+				}
+			}
+		}
+
+		complete_effect = { 
+			custom_effect_tooltip = ITA_giani_gui_monument_decision_tt
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 1}
+				}
+				set_country_flag = ITA_giani_done_monument_n_italy
+				add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate = 0.3}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 2}
+				}
+				set_country_flag = ITA_giani_done_monument_c_italy
+				add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate = 0.3}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 3}
+				}
+				set_country_flag = ITA_giani_done_monument_s_italy
+				add_to_variable = {ITA_GUI_giani_s_italy_conversion_rate = 0.3}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 4}
+				}
+				set_country_flag = ITA_giani_done_monument_sicily
+				add_to_variable = {ITA_GUI_giani_sicily_conversion_rate = 0.3}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 5}
+				}
+				set_country_flag = ITA_giani_done_monument_islands
+				add_to_variable = {ITA_GUI_giani_s_a_c_conversion_rate = 0.3}
+			}
+			if = {
+				limit = {
+					check_variable = {ITA_GUI_giani_selected_state = 6}
+				}
+				set_country_flag = ITA_giani_done_monument_libya
+				add_to_variable = {ITA_GUI_giani_libya_conversion_rate = 0.3}
+			}
+			ITA_giani_calculate_fervour_effects = yes
+		}  
+	}
+	ITA_convert_tripoli = {  
+
+		icon = GFX_ITA_Giani_ITA_Broken_Cross
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_giani_gui_convert_tripoli_decision		
+				OR = {
+					check_variable = {ITA_GUI_giani_libya_conversion = 30}
+					check_variable = {ITA_GUI_giani_libya_conversion > 30}
+				}
+			}
+		}
+
+		visible = {
+			AND = {
+				check_variable = {ITA_GUI_giani_selected_state = 6}
+				NOT = {
+					has_country_flag = ITA_giani_done_tripoli_libya
+				}
+			}
+		}
+
+		complete_effect = { 
+			custom_effect_tooltip = ITA_giani_gui_tripoli_decision_tt
+			set_country_flag = ITA_giani_done_tripoli_libya
+			set_country_flag = ITA_giani_gui_done_tripoli_decision
+			add_to_variable = {ITA_GUI_giani_fervour = 8}
+			ITA_giani_calculate_fervour_effects = yes
+		}  
+	}
+	ITA_convert_milan = {  
+
+		icon = GFX_ITA_Giani_ITA_Broken_Cross
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_giani_gui_convert_milan_decision		
+				OR = {
+					check_variable = {ITA_GUI_giani_n_italy_conversion = 50}
+					check_variable = {ITA_GUI_giani_n_italy_conversion > 50}
+				}
+			}
+		}
+
+		visible = {
+			AND = {
+				check_variable = {ITA_GUI_giani_selected_state = 1}
+				NOT = {
+					has_country_flag = ITA_giani_done_milan_n_italy
+				}
+			}
+		}
+
+		complete_effect = { 
+			custom_effect_tooltip = ITA_giani_gui_tripoli_decision_tt
+			set_country_flag = ITA_giani_done_milan_n_italy
+			set_country_flag = ITA_giani_gui_done_milan_decision
+			add_to_variable = {ITA_GUI_giani_fervour = 10}
+			ITA_giani_calculate_fervour_effects = yes
+			add_political_power = 50
+		}  
+	}
+	ITA_convert_naples = {  
+
+		icon = GFX_ITA_Giani_ITA_Broken_Cross
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_giani_gui_convert_naples_decision		
+				OR = {
+					check_variable = {ITA_GUI_giani_s_italy_conversion = 60}
+					check_variable = {ITA_GUI_giani_s_italy_conversion > 60}
+				}
+			}
+		}
+
+		visible = {
+			AND = {
+				check_variable = {ITA_GUI_giani_selected_state = 3}
+				NOT = {
+					has_country_flag = ITA_giani_done_naples_s_italy
+				}
+			}
+		}
+
+		complete_effect = { 
+			custom_effect_tooltip = ITA_giani_gui_milan_decision_tt
+			set_country_flag = ITA_giani_done_naples_s_italy
+			set_country_flag = ITA_giani_gui_done_naples_decision
+			add_to_variable = {ITA_GUI_giani_fervour = 10}
+			ITA_giani_calculate_fervour_effects = yes
+			add_political_power = 50
+		}  
+	}
+	ITA_convert_rome = {  
+
+		icon = GFX_ITA_Giani_ITA_Broken_Cross
+	 
+		allowed = { 
+			tag = ITA
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_giani_gui_convert_rome_decision		
+				OR = {
+					check_variable = {ITA_GUI_giani_c_italy_conversion = 60}
+					check_variable = {ITA_GUI_giani_c_italy_conversion > 60}
+				}
+			}
+		}
+
+		visible = {
+			AND = {
+				check_variable = {ITA_GUI_giani_selected_state = 2}
+				NOT = {
+					has_country_flag = ITA_giani_done_rome_c_italy
+				}
+			}
+		}
+
+		complete_effect = { 
+			custom_effect_tooltip = ITA_giani_gui_rome_decision_tt
+			set_country_flag = ITA_giani_done_rome_c_italy
+			set_country_flag = ITA_giani_gui_done_rome_decision
+			add_to_variable = {ITA_GUI_giani_fervour = 15}
+			add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate_shown = 0.5}
+			add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate_shown = 0.5}
+			add_to_variable = {ITA_GUI_giani_s_italy_conversion_rate_shown = 0.5}
+			add_to_variable = {ITA_GUI_giani_s_a_c_conversion_rate_shown = 0.5}
+			add_to_variable = {ITA_GUI_giani_sicily_conversion_rate_shown = 0.5}
+			add_to_variable = {ITA_GUI_giani_libya_conversion_rate_shown = 0.5}
+			ITA_giani_calculate_fervour_effects = yes
+			add_political_power = 100
+			add_ideas = ITA_rome_converted
+		}  
+	}
+
+	ITA_rebuild_regia_marina = {
+		allowed = {
+			tag = ITA
+		}
+		activation = {
+			always = no
+		}
+		available = {
+			has_navy_size = {
+				size > 2
+				archetype = ship_hull_heavy
+			}
+			has_navy_size = {
+				size > 3
+				type = carrier
+			}
+		}
+		is_good = no
+		days_mission_timeout = 1000
+		complete_effect = {
+			add_political_power = 50
+			add_war_support = 0.05
+			navy_experience = 50
+			set_temp_variable = { fervour_change = 5 }
+			ITA_Giani_change_fervour = yes
+		}
+		timeout_effect = {
+			add_political_power = -50
+			add_war_support = -0.05
+			set_temp_variable = { fervour_change = -8 }
+			ITA_Giani_change_fervour = yes
+		}
+	}
+}

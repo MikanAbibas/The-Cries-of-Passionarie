@@ -1,0 +1,1380 @@
+############################################################################
+## ██╗████████╗ █████╗ ██╗         ██╗███╗   ███╗██████╗ ███████╗██████╗  ##
+## ██║╚══██╔══╝██╔══██╗██║         ██║████╗ ████║██╔══██╗██╔════╝██╔══██╗ ##
+## ██║   ██║   ███████║██║         ██║██╔████╔██║██████╔╝█████╗  ██████╔╝ ##
+## ██║   ██║   ██╔══██║██║         ██║██║╚██╔╝██║██╔═══╝ ██╔══╝  ██╔══██╗ ##
+## ██║   ██║   ██║  ██║███████╗    ██║██║ ╚═╝ ██║██║     ███████╗██║  ██║ ##
+## ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝ ##
+############################################################################ (not)
+#Decisions
+ITA_RED_a_bird_and_its_cage = {
+	ITA_RED_feltrinelli_cooldown = {
+		priority = 1000
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		is_good = yes
+		visible = {
+			has_country_flag = ITA_RED_feltrinelli_cooldown
+		}
+		cancel_if_not_visible = yes
+		days_mission_timeout = 30
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_RED_feltrinelli_cooldown_tt
+			clr_country_flag = ITA_RED_feltrinelli_cooldown
+		}
+	}
+	ITA_RED_feltrinelli_abroad_tick = {
+		priority = 600
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		is_good = yes
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+		}
+		cancel_if_not_visible = yes
+		days_mission_timeout = 14
+
+		timeout_effect = {
+			set_temp_variable = {ITA_RED_feltrinelli_domestic_temp = 5}
+			ITA_RED_feltrinelli_domestic_decrease = yes
+			hidden_effect = {
+				activate_mission = ITA_RED_feltrinelli_abroad_tick
+			}
+		}
+	}
+	ITA_RED_feltrinelli_domestic_tick = {
+		priority = 600
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		is_good = yes
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+		}
+		cancel_if_not_visible = yes
+		days_mission_timeout = 14
+
+		timeout_effect = {
+			set_temp_variable = {ITA_RED_feltrinelli_abroad_temp = 5}
+			ITA_RED_feltrinelli_international_decrease = yes
+			hidden_effect = {
+				activate_mission = ITA_RED_feltrinelli_domestic_tick
+			}
+		}
+	}
+	ITA_RED_feltrinelli_travel_abroad = {
+		priority = 500
+		icon = GFX_decision_shipyard
+
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		cancel_if_not_visible = yes
+		days_mission_timeout = 14
+
+		timeout_effect = {
+			set_variable = { ITA_RED_feltrinelli_zone = 3 }
+			set_country_flag = ITA_RED_feltrinelli_cooldown
+			activate_mission = ITA_RED_feltrinelli_cooldown
+			hidden_effect = {
+				activate_mission = ITA_RED_feltrinelli_abroad_tick
+			}
+		}
+	}
+	ITA_RED_feltrinelli_travel_domestic = {
+		priority = 500
+		icon = GFX_decision_shipyard
+
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		cancel_if_not_visible = yes
+		days_mission_timeout = 14
+
+		timeout_effect = {
+			set_variable = { ITA_RED_feltrinelli_zone = 1 }
+			set_country_flag = ITA_RED_feltrinelli_cooldown
+			activate_mission = ITA_RED_feltrinelli_cooldown
+			hidden_effect = {
+				activate_mission = ITA_RED_feltrinelli_domestic_tick
+			}
+		}
+	}
+	ITA_RED_feltrinelli_travel_abroad_click = {
+		priority = 500
+		icon = GFX_decision_shipyard
+		available = {
+			NOT = { has_country_flag = ITA_RED_feltrinelli_cooldown}
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+			NOT = { has_country_flag = ITA_RED_feltrinelli_stuck_in_his_room}
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+		}
+		complete_effect = {
+			ITA_RED_feltrinelli_travel = yes
+		}
+
+		cost = 15
+	}
+	ITA_RED_feltrinelli_travel_domestic_click = {
+		priority = 500
+		icon = GFX_decision_shipyard
+		available = {
+			NOT = { has_country_flag = ITA_RED_feltrinelli_cooldown}
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+			NOT = { has_country_flag = ITA_RED_feltrinelli_doesnt_want_to_go_home}
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+		}
+		complete_effect = {
+			ITA_RED_feltrinelli_travel = yes
+		}
+
+		cost = 30
+	}
+
+	# Domestic decisions
+
+	ITA_RED_feltrinelli_draft_education_programs = {
+		priority = 100
+		icon = GFX_decision_generic_education
+		available = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+		}
+		cancel_if_not_visible = yes
+
+		custom_cost_trigger = {
+			has_political_power > 39.99
+		}
+		custom_cost_text = decision_cost_40_pp_150_m
+
+		complete_effect = {
+			set_temp_variable = { temp_econ_spending_amount = 0.15 }
+			econ_spend_money_once_effect_raw_money = yes
+			hidden_effect = {
+				add_political_power = -40
+			}
+		}
+		remove_effect = {
+			set_temp_variable = { ITA_RED_pillar_change_academia_temp = 5 }
+			ITA_RED_cultrev_progress_academia = yes
+			TNO_improve_academic_base_low = yes
+			set_temp_variable = {ITA_RED_militant_approval_temp = 5}
+			ITA_RED_cultrev_militant_approval_change = yes
+		}
+
+		days_remove = 35
+		days_re_enable = 21
+	}
+	ITA_RED_feltrinelli_speak_to_the_party = {
+		priority = 100
+		icon = GFX_decision_document_socialism
+		available = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+		}
+		cancel_if_not_visible = yes
+		custom_cost_trigger = {
+			set_temp_variable = { t_pp_check = 25 }
+
+			set_temp_variable = { t_ita_fervor_check = 5 }
+
+			has_political_power > 24.99
+			check_variable = { ITA_RED_revolutionary_fervor > 4.99 }
+		}
+		custom_cost_text = decision_cost_pp_ita_fervor_dynamic
+
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -35
+			}
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = -5 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes
+		}
+		remove_effect = {
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 10 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes
+			set_temp_variable = {ITA_RED_feltrinelli_domestic_temp = 10}
+			ITA_RED_feltrinelli_domestic_increase = yes
+		}
+		days_remove = 14
+		days_re_enable = 21
+	}
+	ITA_RED_feltrinelli_crackdown_on_counterrevolution = {
+		priority = 100
+		icon = GFX_decision_generic_use_force
+		available = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+		}
+		cancel_if_not_visible = yes
+		custom_cost_trigger = {
+			set_temp_variable = { t_cp_check = 50 }
+
+			set_temp_variable = { t_ita_red_terror_check = 5 }
+
+			command_power > 49.99
+			check_variable = { ITA_RED_red_terror > 4.99 }
+		}
+		custom_cost_text = decision_cost_cp_ita_red_terror_dynamic
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
+			set_temp_variable = {ITA_RED_red_terror_temp = 5}
+			ITA_RED_cultrev_red_terror_change = yes
+		}
+		remove_effect = {
+			add_political_power = 30
+			set_temp_variable = {ITA_RED_reaction_temp = -10}
+			ITA_RED_cultrev_reaction_change = yes
+			set_temp_variable = {ITA_RED_feltrinelli_domestic_temp = 7.5}
+			ITA_RED_feltrinelli_domestic_increase = yes
+		}
+
+		cost = 25
+		days_remove = 21
+		days_re_enable = 21
+	}
+	ITA_RED_feltrinelli_expand_guerilla_militias = {
+		priority = 100
+		icon = GFX_decision_generic_military_hat_alternate
+		available = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+		}
+		cancel_if_not_visible = yes
+		custom_cost_trigger = {
+			command_power > 24.99
+			check_variable = { army_experience > 49.99 }
+		}
+		custom_cost_text = decision_cost_50_army_xp_25_cp
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -25
+				army_experience = -50
+			}
+		}
+		remove_effect = {
+			add_political_power = 25
+			set_temp_variable = { ITA_RED_pillar_change_soldiers_police_temp = 5 }
+			ITA_RED_cultrev_progress_soldiers_police = yes
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 5 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes
+			TNO_worsen_army_professionalism_low = yes
+			set_temp_variable = {ITA_RED_feltrinelli_abroad_temp = 5}
+			ITA_RED_feltrinelli_international_increase = yes
+		}
+		days_remove = 21
+		days_re_enable = 21
+	}
+	ITA_RED_feltrinelli_radicalize_the_peasants = {
+		priority = 100
+		icon = GFX_decision_mega_farm
+		available = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+		}
+		cancel_if_not_visible = yes
+		complete_effect = {
+		}
+		remove_effect = {
+			set_temp_variable = { ITA_RED_pillar_change_farmers_temp = 5 }
+			ITA_RED_cultrev_progress_farmers = yes
+			set_temp_variable = {ITA_RED_feltrinelli_domestic_temp = 5}
+			ITA_RED_feltrinelli_domestic_increase = yes
+			TNO_improve_agriculture_low = yes
+		}
+
+		cost = 30
+		days_remove = 21
+		days_re_enable = 21
+	}
+	ITA_RED_feltrinelli_cover_feltrinelli = {
+		priority = 100
+		icon = GFX_decision_document_socialism
+		available = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+			has_country_flag = feltrinelli_decision_flag_1
+		}
+		custom_cost_trigger = {
+			set_temp_variable = { t_ita_feltrinelli_abroad_check = 10 }
+
+			set_temp_variable = { t_ita_fervor_check = 5 }
+
+			check_variable = { t_ita_feltrinelli_abroad_check > 9.99 }
+			check_variable = { ITA_RED_revolutionary_fervor > 4.99 }
+			has_political_power > 24.99
+		}
+		custom_cost_text = decision_cost_pp_ita_fervor_dynamic
+
+		complete_effect = {
+			set_temp_variable = {ITA_RED_feltrinelli_abroad_temp = 7.5}
+			ITA_RED_feltrinelli_international_decrease = yes
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = -5 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes
+			hidden_effect = {
+				add_political_power = -25
+			}
+		}
+		remove_effect = {
+		set_temp_variable = { gdp_growth_temp = 0.004 }
+		econ_gdp_growth_change = yes
+		}
+		days_remove = 14
+		days_re_enable = 21
+	}
+	ITA_RED_ask_vidali_help = {
+		priority = 100
+		icon = GFX_decision_document_socialism
+		available = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 1 }
+			has_country_flag = feltrinelli_decision_flag_2
+		}
+		custom_cost_trigger = {
+			set_temp_variable = { t_ita_militant_arroval_check = 5 }
+
+			set_temp_variable = { t_ita_red_terror_check = 5 }
+
+			check_variable = { ITA_RED_militant_approval > 4.99 }
+			check_variable = { ITA_RED_red_terror > 4.99 }
+		}
+		custom_cost_text = decision_cost_militant_approval_ita_terror_dynamic
+
+		complete_effect = {
+			set_temp_variable = { ITA_RED_militant_approval_temp = -5 }
+			ITA_RED_cultrev_militant_approval_change = yes
+			set_temp_variable = { ITA_RED_red_terror_temp = -5 }
+			ITA_RED_cultrev_red_terror_change = yes
+		}
+		remove_effect = {
+			set_temp_variable = {ITA_RED_feltrinelli_domestic_temp = 5}
+			ITA_RED_feltrinelli_domestic_increase = yes
+			set_temp_variable = { ITA_RED_reaction_temp = -5 }
+			ITA_RED_cultrev_reaction_change = yes
+		}
+		days_remove = 14
+		days_re_enable = 21
+	}
+
+	# Abroad decisions
+
+	ITA_RED_feltrinelli_interview_the_revolutionaries = {
+		priority = 100
+		icon = GFX_decision_generic_political_discourse
+		available = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+		}
+		cancel_if_not_visible = yes
+		complete_effect = {
+		}
+		remove_effect = {
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 5 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes
+			set_temp_variable = {ITA_RED_feltrinelli_abroad_temp = 5}
+			ITA_RED_feltrinelli_international_increase = yes
+		}
+
+		cost = 25
+		days_remove = 14
+		days_re_enable = 21
+	}
+	ITA_RED_feltrinelli_distribute_arms_to_socialist_movements = {
+		priority = 100
+		icon = GFX_decision_generic_prepare_civil_war
+		available = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+		}
+		cancel_if_not_visible = yes
+		custom_cost_trigger = {
+			set_temp_variable = { N = 5000 }
+			set_temp_variable = { M = 500 }
+			has_equipment = { infantry_equipment > 4999 }
+			has_equipment = { support_equipment > 499 }
+		}
+		custom_cost_text = decision_cost_N_inf_sup
+
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -5000
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = -500
+			}
+		}
+		remove_effect = {
+			set_temp_variable = {ITA_RED_feltrinelli_abroad_temp = 10}
+			ITA_RED_feltrinelli_international_increase = yes
+			set_temp_variable = { ITA_RED_militant_approval_temp = 5 }
+			ITA_RED_cultrev_militant_approval_change = yes
+		}
+
+
+		days_remove = 14
+		days_re_enable = 21
+	}
+	ITA_RED_feltrinelli_jot_down_policy_notes = {
+		priority = 100
+		icon = GFX_decision_generic_political_action
+		available = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+		}
+		cancel_if_not_visible = yes
+		complete_effect = {
+		}
+		remove_effect = {
+			set_temp_variable = {ITA_RED_feltrinelli_domestic_temp = 10}
+			ITA_RED_feltrinelli_domestic_increase = yes
+		}
+
+		cost = 50
+		days_remove = 28
+		days_re_enable = 21
+	}
+	ITA_RED_feltrinelli_note_their_strategies = {
+		priority = 100
+		icon = GFX_decision_generic_assault
+		available = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+		}
+		cancel_if_not_visible = yes
+		custom_cost_trigger = {
+			has_political_power > 14.99
+			check_variable = { army_experience > 24.99 }
+		}
+		custom_cost_text = decision_cost_25_army_xp_15_pp
+
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -15
+				army_experience = -25
+			}
+		}
+		remove_effect = {
+			set_temp_variable = { ITA_RED_pillar_change_soldiers_police_temp = 5 }
+			ITA_RED_cultrev_progress_soldiers_police = yes
+			TNO_improve_army_professionalism_low = yes
+		}
+
+
+		days_remove = 21
+		days_re_enable = 21
+	}
+	ITA_RED_feltrinelli_fund_their_revolutions = {
+		priority = 100
+		icon = GFX_decision_generic_nationalism
+		available = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+		}
+		cancel_if_not_visible = yes
+		custom_cost_trigger = {
+			set_temp_variable = { N = 500 }
+		}
+		custom_cost_text = decision_cost_N_money
+
+		complete_effect = {
+			set_temp_variable = { temp_econ_spending_amount = 0.5 }
+			econ_spend_money_once_effect_raw_money = yes
+		}
+		remove_effect = {
+			set_temp_variable = {ITA_RED_feltrinelli_abroad_temp = 10}
+			ITA_RED_feltrinelli_international_increase = yes
+		}
+
+		days_remove = 14
+		days_re_enable = 21
+	}
+	ITA_RED_feltrinelli_delegate_more = {
+		priority = 100
+		icon = GFX_decision_generic_nationalism
+		available = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+			has_country_flag = feltrinelli_decision_flag_3
+		}
+		custom_cost_trigger = {
+			set_temp_variable = { t_ita_red_feltrinelli_domestic_check = 15 }
+
+			set_temp_variable = { t_ita_revolutionary_fervor_check = 5 }
+
+			check_variable = { ITA_RED_feltrinelli_domestic > 9.99 }
+			check_variable = { ITA_RED_revolutionary_fervor > 4.99 }
+			has_political_power > 24.99
+		}
+		custom_cost_text = decision_cost_pp_ita_fervor_dynamic
+
+		complete_effect = {
+			set_temp_variable = {ITA_RED_feltrinelli_domestic_temp = 10}
+			ITA_RED_feltrinelli_domestic_decrease = yes
+			set_temp_variable = {ITA_RED_revolutionary_fervor_temp = 5}
+			ITA_RED_cultrev_revolutionary_fervour_change = yes
+			hidden_effect = {
+				add_political_power = -25
+			}
+		}
+		remove_effect = {
+			TNO_improve_academic_base_low = yes
+			set_temp_variable = { gdp_growth_temp = 0.003 }
+			econ_gdp_growth_change = yes
+		}
+
+		days_remove = 14
+		days_re_enable = 21
+	}
+	ITA_RED_feltrinelli_collaborate_with_del_bo = {
+		priority = 100
+		icon = GFX_decision_generic_nationalism
+		available = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+		}
+		visible = {
+			check_variable = { ITA_RED_feltrinelli_zone = 3 }
+			has_country_flag = feltrinelli_decision_flag_4
+		}
+		custom_cost_trigger = {
+			has_political_power > 39.99
+		}
+		custom_cost_text = decision_cost_40_pp_150_m
+
+		complete_effect = {
+			set_temp_variable = { temp_econ_spending_amount = 0.15 }
+			econ_spend_money_once_effect_raw_money = yes
+			hidden_effect = {
+				add_political_power = -40
+			}
+		}
+		remove_effect = {
+			set_temp_variable = { ITA_Deimp_balkans_supplypercent_temp = 2.5 }
+		ITA_deimperialism_balkans_supply_boost_allies = yes
+		set_temp_variable = { ITA_Deimp_balkans_revoltpercent_temp = 2.5 }
+		ITA_deimperialism_balkans_revolt_boost_allies = yes
+		set_temp_variable = { ITA_Deimp_MENA_supplypercent_temp = 2.5 }
+		ITA_deimperialism_MENA_supply_boost_allies = yes
+		set_temp_variable = { ITA_Deimp_MENA_revoltpercent_temp = 2.5 }
+		ITA_deimperialism_MENA_revolt_boost_allies = yes
+		}
+
+		days_remove = 14
+		days_re_enable = 21
+	}
+}
+
+##Negri
+ITA_RED_Negri_mechanic = {
+	ITA_RED_Negri_Monthly_decrease = {
+		priority = 100
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		is_good = yes
+		cancel_if_not_visible = no
+		days_mission_timeout = 30
+
+		timeout_effect = {
+			custom_effect_tooltip = ITA_RED_Negri_Decresing_status_tt
+			activate_mission = ITA_RED_Negri_Monthly_decrease
+			hidden_effect = {
+			set_temp_variable = {ITA_RED_Negri_Workers_Opinion_temp = 5}
+			ITA_RED_Negri_Workers_change = yes
+			set_temp_variable = {ITA_RED_Negri_Students_Opinion_temp = 5}
+			ITA_RED_Negri_Students_change = yes
+			set_temp_variable = {ITA_RED_Negri_Square_Opinion_temp = 5}
+			ITA_RED_Negri_Square_change = yes
+			}
+		}
+	}
+	ITA_RED_Negri_Strengthen_Workers_Councils = {
+		available = {
+			NOT = { has_country_flag = ITA_RED_NEGRI_event_ongoing }
+		}
+		visible = {
+			NOT = { has_country_flag = ITA_RED_NEGRI_event_ongoing }
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		cost = 50
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_generic_workers
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Strengthen_Workers_Councils"
+			set_temp_variable = {ITA_RED_Negri_Workers_Opinion_temp = 10}
+			ITA_RED_Negri_Workers_change = yes
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 5 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes
+			set_temp_variable = { ITA_RED_workers_velocity_temp = 2.5 }
+			ITA_RED_cultrev_progress_workers_weekly = yes
+		}
+	}
+	ITA_RED_Negri_Decentralize_Decisional_Bodies = {
+		available = {
+			NOT = { has_country_flag = ITA_RED_NEGRI_event_ongoing }
+		}
+		visible = {
+			NOT = { has_country_flag = ITA_RED_NEGRI_event_ongoing }
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		cost = 50
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_generic_judge
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Decentralize_Decisional_Bodies"
+			set_temp_variable = {ITA_RED_Negri_Workers_Opinion_temp = 5}
+			ITA_RED_Negri_Workers_change = yes
+			set_temp_variable = { ITA_RED_severity_temp = -5 }
+			ITA_RED_cultrev_severity_change = yes
+			set_temp_variable = { ITA_RED_reaction_temp = -5 }
+			ITA_RED_cultrev_reaction_change = yes
+		}
+	}
+	ITA_RED_Negri_Coordinate_Industrial_Expansion = {
+		available = {
+			check_variable = { ITA_RED_Negri_Square_Status > 10 }
+			check_variable = { ITA_RED_Negri_Students_Status > 10 }
+		}
+		visible = {
+			NOT = { has_country_flag = ITA_RED_NEGRI_event_ongoing }
+			check_variable = { ITA_RED_Negri_Square_Status > 10 }
+			check_variable = { ITA_RED_Negri_Students_Status > 10 }
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		cost = 125
+		days_re_enable = 90
+
+		fire_only_once = no
+		icon = GFX_decision_category_generic_factory
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Coordinate_Industrial_Expansion"
+			set_temp_variable = {ITA_RED_Negri_Workers_Opinion_temp = 15}
+			ITA_RED_Negri_Workers_change = yes
+			set_temp_variable = {ITA_RED_Negri_Square_Opinion_temp = -10}
+			ITA_RED_Negri_Square_change = yes
+			set_temp_variable = {ITA_RED_Negri_Students_Opinion_temp = -10}
+			ITA_RED_Negri_Students_change = yes
+			}
+		}
+	ITA_RED_Negri_Hold_Political_Conferences = {
+		available = {
+			NOT = { has_country_flag = ITA_RED_NEGRI_event_ongoing }
+		}
+		visible = {
+			NOT = { has_country_flag = ITA_RED_NEGRI_event_ongoing }
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		cost = 50
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_generic_political_discourse
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Hold_Political_Conferences"
+			set_temp_variable = {ITA_RED_Negri_Square_Opinion_temp = 10}
+			ITA_RED_Negri_Square_change = yes
+			set_temp_variable = { ITA_RED_reaction_temp = -5 }
+			ITA_RED_cultrev_reaction_change = yes
+			set_temp_variable = { ITA_RED_red_terror_temp = -5 }
+			ITA_RED_cultrev_red_terror_change = yes
+		}
+	}
+	ITA_RED_Negri_Releases_Workerist_Publications = {
+		available = {
+			NOT = { has_country_flag = ITA_RED_NEGRI_event_ongoing }
+		}
+		visible = {
+			NOT = { has_country_flag = ITA_RED_NEGRI_event_ongoing }
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		cost = 50
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_document_socialism
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Releases_Workerist_Publications"
+			set_temp_variable = {ITA_RED_Negri_Square_Opinion_temp = 5}
+			ITA_RED_Negri_Square_change = yes
+			set_temp_variable = { ITA_RED_reaction_temp = -10 }
+			ITA_RED_cultrev_reaction_change = yes
+			set_temp_variable = { ITA_RED_militant_approval_temp = 10 }
+			ITA_RED_cultrev_militant_approval_change = yes
+			set_temp_variable = { ITA_RED_middle_class_velocity_temp = 5 }
+			ITA_RED_cultrev_progress_middle_class_weekly = yes
+		}
+	}
+	ITA_RED_Negri_Collaborate_With_Orthodox_Groups = {
+		available = {
+			check_variable = { ITA_RED_Negri_Workers_Status > 10 }
+			check_variable = { ITA_RED_Negri_Students_Status > 10 }
+		}
+		visible = {
+			NOT = { has_country_flag = ITA_RED_NEGRI_event_ongoing }
+			check_variable = { ITA_RED_Negri_Workers_Status > 10 }
+			check_variable = { ITA_RED_Negri_Students_Status > 10 }
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		cost = 125
+		days_re_enable = 90
+
+		fire_only_once = no
+		icon = GFX_decision_generic_supply
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Collaborate_With_Orthodox_Groups"
+			set_temp_variable = {ITA_RED_Negri_Square_Opinion_temp = 15}
+			ITA_RED_Negri_Square_change = yes
+			set_temp_variable = {ITA_RED_Negri_Workers_Opinion_temp = -10}
+			ITA_RED_Negri_Workers_change = yes
+			set_temp_variable = {ITA_RED_Negri_Students_Opinion_temp = -10}
+			ITA_RED_Negri_Students_change = yes
+		}
+	}
+	ITA_RED_Negri_Bolster_Students_Manifestations = {
+		available = {
+			NOT = { has_country_flag = ITA_RED_NEGRI_event_ongoing }
+		}
+		visible = {
+			NOT = { has_country_flag = ITA_RED_NEGRI_event_ongoing }
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		cost = 50
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_generic_protest
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Bolster_Students_Manifestations"
+			set_temp_variable = {ITA_RED_Negri_Students_Opinion_temp = 10}
+			ITA_RED_Negri_Students_change = yes
+			set_temp_variable = { ITA_RED_militant_approval_temp = 10 }
+			ITA_RED_cultrev_militant_approval_change = yes
+			set_temp_variable = { ITA_RED_reaction_temp = -5 }
+			ITA_RED_cultrev_reaction_change = yes
+		}
+	}
+	ITA_RED_Negri_Increase_University_Protections = {
+		available = {
+			NOT = { has_country_flag = ITA_RED_NEGRI_event_ongoing }
+		}
+		visible = {
+			NOT = { has_country_flag = ITA_RED_NEGRI_event_ongoing }
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		cost = 50
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_generic_civil_support
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Increase_University_Protections"
+			set_temp_variable = {ITA_RED_Negri_Students_Opinion_temp = 5}
+			ITA_RED_Negri_Students_change = yes
+			set_temp_variable = {ITA_RED_academia_velocity_temp = 2.5}
+			ITA_RED_cultrev_progress_academia_weekly = yes
+		}
+	}
+	ITA_RED_Negri_Resign_Bothersome_Professors = {
+		available = {
+			check_variable = { ITA_RED_Negri_Square_Status > 10 }
+			check_variable = { ITA_RED_Negri_Students_Status > 10 }
+		}
+		visible = {
+			NOT = { has_country_flag = ITA_RED_NEGRI_event_ongoing }
+			check_variable = { ITA_RED_Negri_Square_Status > 10 }
+			check_variable = { ITA_RED_Negri_Students_Status > 10 }
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		cost = 125
+		days_re_enable = 90
+
+		fire_only_once = no
+		icon = GFX_decision_generic_supply
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Resign_Bothersome_Professors"
+			set_temp_variable = {ITA_RED_Negri_Students_Opinion_temp = 10}
+			ITA_RED_Negri_Students_change = yes
+			set_temp_variable = {ITA_RED_Negri_Workers_Opinion_temp = -5}
+			ITA_RED_Negri_Workers_change = yes
+			set_temp_variable = {ITA_RED_Negri_Square_Opinion_temp = -5}
+			ITA_RED_Negri_Square_change = yes
+			set_temp_variable = {ITA_RED_red_terror_temp = 5}
+			ITA_RED_cultrev_red_terror_change = yes
+		}
+	}
+	ITA_RED_Negri_Approach_The_Old_Guard = { #death of Panzieri, struggle for the HoS
+		available = {
+			check_variable = {ITA_RED_Negri_Events^i = 1}
+		}
+		visible = {
+			check_variable = {ITA_RED_Negri_Events^i = 1}
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		custom_cost_trigger = {
+			set_temp_variable = { t_pp_check = 35 }
+
+			set_temp_variable = { t_ita_workers_support_check = 10 }
+
+			has_political_power > 34.99
+			check_variable = { ITA_RED_Negri_Workers_Status > 9.99 }
+		}
+		custom_cost_text = decision_cost_pp_ita_workers_support
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_generic_supply
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Approach_The_Old_Guard"
+			set_temp_variable = {ITA_RED_Negri_Students_Opinion_temp = 5}
+			ITA_RED_Negri_Students_change = yes
+			set_temp_variable = {ITA_RED_severity_temp = -5}
+			ITA_RED_cultrev_severity_change = yes
+		}
+	}
+	ITA_RED_Negri_Incentive_Popular_Support = {
+		available = {
+			check_variable = {ITA_RED_Negri_Events^i = 1}
+		}
+		visible = {
+			check_variable = {ITA_RED_Negri_Events^i = 1}
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		cost = 75
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_generic_propaganda
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Incentive_Popular_Support"
+			set_temp_variable = {ITA_RED_Negri_Students_Opinion_temp = 5}
+			ITA_RED_Negri_Students_change = yes
+			add_to_variable = {ITA_RED_Negri_Support = 1}
+			add_stability = 0.5
+			set_temp_variable = {ITA_RED_militant_approval_temp = 5}
+			ITA_RED_cultrev_militant_approval_change = yes
+		}
+	}
+	ITA_RED_Negri_Discredit_The_Revisionists = {
+		available = {
+			check_variable = {ITA_RED_Negri_Events^i = 1}
+		}
+		visible = {
+			check_variable = {ITA_RED_Negri_Events^i = 1}
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		cost = 50
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_category_power_struggle
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Discredit_The_Revisionists"
+			set_temp_variable = {ITA_RED_Negri_Students_Opinion_temp = 5}
+			ITA_RED_Negri_Students_change = yes
+			add_to_variable = {ITA_RED_Negri_Support = 1}
+			set_temp_variable = {ITA_RED_revolutionary_fervor_temp = 2}
+			ITA_RED_cultrev_revolutionary_fervour_change = yes
+		}
+	}
+	ITA_RED_Negri_Invite_The_Most_Conciliatory = {
+		available = {
+			check_variable = {ITA_RED_Negri_Events^i = 1}
+			check_variable = { ITA_RED_Negri_Workers_Status > 9.99 }
+		}
+		visible = {
+			check_variable = {ITA_RED_Negri_Events^i = 1}
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		custom_cost_trigger = {
+			set_temp_variable = { t_pp_check = 35 }
+
+			set_temp_variable = { t_ita_students_support_check = 10 }
+
+			has_political_power > 34.99
+			check_variable = { ITA_RED_Negri_Workers_Status > 9.99 }
+		}
+		custom_cost_text = decision_cost_pp_ita_students_support
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_handshake
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Invite_The_Most_Conciliatory"
+			set_temp_variable = {ITA_RED_Negri_Students_Opinion_temp = 5}
+			ITA_RED_Negri_Students_change = yes
+			add_to_variable = {ITA_RED_Negri_Support = 1}
+			set_temp_variable = {ITA_RED_militant_approval_temp = -10}
+			ITA_RED_cultrev_militant_approval_change = yes
+			hidden_effect = {
+				add_political_power = -35
+				subtract_from_variable = {ITA_RED_Negri_Workers_Status = -10}
+			}
+		}
+	}
+	ITA_RED_Negri_First_Crisis_Misson = {
+		priority = 600
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = "ITA_RED_Negri_First_Crisis_tt"
+				check_variable = {ITA_RED_Negri_Square_Status > 45}
+				check_variable = {ITA_RED_Negri_Support > 5}
+			}
+		}
+
+		is_good = no
+		visible = {
+			check_variable = {ITA_RED_Negri_Events^i = 1}
+		}
+		cancel_if_not_visible = yes
+		days_mission_timeout = 80
+
+		complete_effect = {
+			clr_country_flag = ITA_RED_NEGRI_event_ongoing
+			# Defined in neither branch - this call did nothing.
+			#country_event = ITA_RED_Negri.80
+		}
+
+		timeout_effect = {
+			add_stability = -0.1
+			set_country_flag = ITA_RED_Negri_First_Fail
+		}
+	}
+	ITA_RED_Negri_Ask_to_Stop_Reprisals = { #armed groups start to strike suspect reactionaries
+		available = {
+			check_variable = {ITA_RED_Negri_Events^i = 2}
+		}
+		visible = {
+			check_variable = {ITA_RED_Negri_Events^i = 2}
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		custom_cost_trigger = {
+			set_temp_variable = { t_pp_check = 35 }
+
+			set_temp_variable = { t_ita_workers_support_check = 10 }
+
+			has_political_power > 34.99
+			check_variable = { ITA_RED_Negri_Workers_Status > 9.99 }
+		}
+		custom_cost_text = decision_cost_pp_ita_workers_support
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_revolt
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Ask_to_Stop_Reprisals"
+			add_stability = 0.05
+			add_to_variable = {ITA_RED_Negri_Support = 1}
+			set_temp_variable = {ITA_RED_Negri_Square_Opinion_temp = 5}
+			ITA_RED_Negri_Square_change = yes
+			set_temp_variable = {ITA_RED_red_terror_temp = -5}
+			ITA_RED_cultrev_red_terror_change = yes
+		}
+	}
+	ITA_RED_Negri_Disarm_Irregular_Groups = {
+		available = {
+			check_variable = {ITA_RED_Negri_Events^i = 2}
+		}
+		visible = {
+			check_variable = {ITA_RED_Negri_Events^i = 2}
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		custom_cost_trigger = {
+			command_power > 19.99
+			has_political_power > 24.99
+		}
+		custom_cost_text = decision_cost_20_cp_25_pp
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_generic_assault
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Disarm_Irregular_Groups"
+			hidden_effect = {
+				add_command_power = -20
+				add_political_power = -25
+			}
+			add_war_support = -0.05
+			add_to_variable = {ITA_RED_Negri_Support = 1}
+			set_temp_variable = {ITA_RED_Negri_Square_Opinion_temp = 5}
+			ITA_RED_Negri_Square_change = yes
+			set_temp_variable = {ITA_RED_militant_approval_temp = -10}
+			ITA_RED_cultrev_militant_approval_change = yes
+			set_temp_variable = {ITA_RED_severity_temp = -5}
+			ITA_RED_cultrev_severity_change = yes
+			TNO_improve_army_professionalism_low = yes
+		}
+	}
+	ITA_RED_Negri_Put_An_End_To_The_Feuds = {
+		available = {
+			check_variable = {ITA_RED_Negri_Events^i = 2}
+		}
+		visible = {
+			check_variable = {ITA_RED_Negri_Events^i = 2}
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		custom_cost_trigger = {
+			has_political_power > 29.99
+			command_power > 29.99
+		}
+		custom_cost_text = decision_cost_30_cp_30_pp
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_generic_political_discourse
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Put_An_End_To_The_Feuds"
+			hidden_effect = {
+				add_command_power = -30
+				add_political_power = -30
+			}
+			add_stability = 0.075
+			add_to_variable = {ITA_RED_Negri_Support = 1}
+			set_temp_variable = {ITA_RED_Negri_Square_Opinion_temp = 5}
+			ITA_RED_Negri_Square_change = yes
+			set_temp_variable = {ITA_RED_reaction_weekly_temp = -0.1}
+			ITA_RED_cultrev_reaction_change_weekly = yes
+			set_temp_variable = {ITA_RED_reaction_temp = -5}
+			ITA_RED_cultrev_reaction_change = yes
+		}
+	}
+	ITA_RED_Negri_Forgive_Some_Perpetuators = {
+		available = {
+			check_variable = {ITA_RED_Negri_Events^i = 2}
+		}
+		visible = {
+			check_variable = {ITA_RED_Negri_Events^i = 2}
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		cost = 100
+		days_re_enable = 50
+
+		fire_only_once = yes
+		icon = GFX_decision_category_generic_independence
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Forgive_Some_Perpetuators"
+			add_stability = 0.05
+			add_to_variable = {ITA_RED_Negri_Support = 1}
+			set_temp_variable = {ITA_RED_Negri_Square_Opinion_temp = 5}
+			ITA_RED_Negri_Square_change = yes
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 3 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes
+			tno_penal_system_improve = yes
+		}
+	}
+	ITA_RED_Negri_Second_Crisis_Misson = {
+		priority = 600
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = "ITA_RED_Negri_Second_Crisis_tt"
+				check_variable = { ITA_RED_Negri_Students_Status > 60 }
+				check_variable = { ITA_RED_Negri_Support > 8 }
+			}
+		}
+
+		is_good = yes
+		visible = {
+			check_variable = {ITA_RED_Negri_Events^i = 2}
+		}
+		cancel_if_not_visible = yes
+		days_mission_timeout = 100
+		days_re_enable = 50
+
+		complete_effect = {
+			clr_country_flag = ITA_RED_NEGRI_event_ongoing
+			# Defined in neither branch - this call did nothing.
+			#country_event = ITA_RED_Negri.81
+		}
+
+		timeout_effect = {
+			add_stability = -0.1
+			set_country_flag = ITA_RED_Negri_Second_Fail
+		}
+	}
+	ITA_RED_Negri_Rally_the_Crowd = { #Party Splits
+		available = {
+			check_variable = {ITA_RED_Negri_Events^i = 3}
+		}
+		visible = {
+			check_variable = {ITA_RED_Negri_Events^i = 3}
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		cost = 50
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_generic_propaganda
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Rally_the_Crowd"
+			add_stability = -0.05
+			set_temp_variable = {ITA_RED_Negri_Workers_Opinion_temp = 5}
+			ITA_RED_Negri_Workers_change = yes
+			add_to_variable = {ITA_RED_Negri_Support = 1}
+			set_temp_variable = { ITA_RED_revolutionary_fervor_temp = 4 }
+			ITA_RED_cultrev_revolutionary_fervour_change = yes
+		}
+	}
+	ITA_RED_Negri_Attack_the_Opposition = {
+		available = {
+			check_variable = {ITA_RED_Negri_Events^i = 3}
+		}
+		visible = {
+			check_variable = {ITA_RED_Negri_Events^i = 3}
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		cost = 75
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_generic_supply
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Attack_the_Opposition"
+			set_temp_variable = {ITA_RED_Negri_Workers_Opinion_temp = 5}
+			ITA_RED_Negri_Workers_change = yes
+			add_to_variable = {ITA_RED_Negri_Support = 1}
+			set_temp_variable = {ITA_RED_militant_approval_temp = -5}
+			ITA_RED_cultrev_militant_approval_change = yes
+		}
+	}
+	ITA_RED_Negri_Solicits_the_Undecided = {
+		available = {
+			check_variable = {ITA_RED_Negri_Events^i = 3}
+		}
+		visible = {
+			check_variable = {ITA_RED_Negri_Events^i = 3}
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		custom_cost_trigger = {
+			set_temp_variable = { t_pp_check = 50 }
+
+			set_temp_variable = { t_ita_square_support_check = 20 }
+
+			has_political_power > 49.99
+			check_variable = { ITA_RED_Negri_Square_Status > 19.99 }
+		}
+		custom_cost_text = decision_cost_pp_ita_square_support
+		days_re_enable = 50
+
+		fire_only_once = no
+		icon = GFX_decision_generic_supply
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Solicits_the_Undecided"
+			set_temp_variable = {ITA_RED_Negri_Workers_Opinion_temp = 5}
+			ITA_RED_Negri_Workers_change = yes
+			add_to_variable = {ITA_RED_Negri_Support = 1}
+			set_temp_variable = {ITA_RED_red_terror_temp = 5}
+			ITA_RED_cultrev_red_terror_change = yes
+			TNO_worsen_army_professionalism_low = yes
+		}
+	}
+	ITA_RED_Negri_Organizes_Demonstrations_in_Favor_of_the_Government = {
+		available = {
+			check_variable = {ITA_RED_Negri_Events^i = 3}
+		}
+		visible = {
+			check_variable = {ITA_RED_Negri_Events^i = 3}
+		}
+		ai_will_do = {
+			factor = 3
+		}
+		custom_cost_trigger = { command_power > 49.99 }
+		custom_cost_text = decision_cost_50_cp
+
+		fire_only_once = yes
+		icon = GFX_decision_category_generic_formable_nations
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove ITA_RED_Negri_Organizes_Demonstrations_in_Favor_of_the_Government"
+			hidden_effect = {
+				add_command_power = -50
+			}
+			set_temp_variable = {ITA_RED_Negri_Workers_Opinion_temp = 15}
+			ITA_RED_Negri_Workers_change = yes
+			set_temp_variable = {ITA_RED_Negri_Square_Opinion_temp = -5}
+			ITA_RED_Negri_Square_change = yes
+			set_temp_variable = {ITA_RED_Negri_Students_Opinion_temp = -5}
+			ITA_RED_Negri_Students_change = yes
+			add_to_variable = {ITA_RED_Negri_Support = 3}
+			set_temp_variable = { ITA_RED_severity_temp = 15 }
+			ITA_RED_cultrev_severity_change = yes
+		}
+	}
+	ITA_RED_Negri_Third_Crisis_Misson = {
+		priority = 600
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = "ITA_RED_Negri_Third_Crisis_tt"
+				check_variable = { ITA_RED_Negri_Workers_Status > 75 }
+				check_variable = { ITA_RED_Negri_Support > 12 }
+			}
+		}
+
+		is_good = yes
+		visible = {
+			check_variable = {ITA_RED_Negri_Events^i = 3}
+		}
+		cancel_if_not_visible = yes
+		days_mission_timeout = 120
+
+		complete_effect = {
+			clr_country_flag = ITA_RED_NEGRI_event_ongoing
+			# Defined in neither branch - this call did nothing.
+			#country_event = ITA_RED_Negri.82
+		}
+
+		timeout_effect = {
+			add_stability = -0.1
+			set_country_flag = ITA_RED_Negri_Third_Fail
+		}
+	}
+}

@@ -1,0 +1,286 @@
+### Giani GUI ###
+ITA_giani_calculate_total_conversion_percentage = {
+	set_variable = {ITA_GUI_giani_total_conversion = ITA_GUI_giani_c_italy_conversion}
+	add_to_variable = {ITA_GUI_giani_total_conversion = ITA_GUI_giani_n_italy_conversion}
+	add_to_variable = {ITA_GUI_giani_total_conversion = ITA_GUI_giani_s_italy_conversion}
+	add_to_variable = {ITA_GUI_giani_total_conversion = ITA_GUI_giani_libya_conversion}
+	add_to_variable = {ITA_GUI_giani_total_conversion = ITA_GUI_giani_s_a_c_conversion}
+	add_to_variable = {ITA_GUI_giani_total_conversion = ITA_GUI_giani_sicily_conversion}
+	divide_variable = {ITA_GUI_giani_total_conversion = 6}
+	ITA_GUI_giani_calculate_stability_from_conversion_rate = yes
+}
+ITA_giani_calculate_fervour_effects = {
+	#######Central Italy#####
+	set_temp_variable = {ITA_GUI_giani_c_italy = ITA_GUI_giani_fervour}
+	multiply_temp_variable = {ITA_GUI_giani_c_italy = ITA_GUI_giani_c_italy_conversion_rate}
+	set_variable = {ITA_GUI_fervour_effects = ITA_GUI_giani_c_italy}
+	set_variable = {ITA_GUI_fervour_modifier_c_italy = ITA_GUI_fervour_effects}
+	add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate_shown = ITA_GUI_fervour_effects}
+	#######Northern Italy#####
+	set_temp_variable = {ITA_GUI_giani_n_italy = ITA_GUI_giani_fervour}
+	multiply_temp_variable = {ITA_GUI_giani_n_italy = ITA_GUI_giani_n_italy_conversion_rate}
+	set_variable = {ITA_GUI_fervour_effects = ITA_GUI_giani_n_italy}
+	set_variable = {ITA_GUI_fervour_modifier_n_italy = ITA_GUI_fervour_effects}
+	add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate_shown = ITA_GUI_fervour_effects}
+	#######Libya#####
+	set_temp_variable = {ITA_GUI_giani_libya = ITA_GUI_giani_fervour}
+	multiply_temp_variable = {ITA_GUI_giani_libya = ITA_GUI_giani_libya_conversion_rate}
+	set_variable = {ITA_GUI_fervour_effects = ITA_GUI_giani_libya}
+	set_variable = {ITA_GUI_fervour_modifier_libya = ITA_GUI_fervour_effects}
+	add_to_variable = {ITA_GUI_giani_libya_conversion_rate_shown = ITA_GUI_fervour_effects}
+	#######Southern Italy#####
+	set_temp_variable = {ITA_GUI_giani_s_italy = ITA_GUI_giani_fervour}
+	multiply_temp_variable = {ITA_GUI_giani_s_italy = ITA_GUI_giani_s_italy_conversion_rate}
+	set_variable = {ITA_GUI_fervour_effects = ITA_GUI_giani_s_italy}
+	set_variable = {ITA_GUI_fervour_modifier_s_italy = ITA_GUI_fervour_effects}
+	add_to_variable = {ITA_GUI_giani_s_italy_conversion_rate_shown = ITA_GUI_fervour_effects}
+	#######Sardinia And Corsica#####
+	set_temp_variable = {ITA_GUI_giani_s_a_c = ITA_GUI_giani_fervour}
+	multiply_temp_variable = {ITA_GUI_giani_s_a_c = ITA_GUI_giani_s_a_c_conversion_rate}
+	set_variable = {ITA_GUI_fervour_effects = ITA_GUI_giani_s_a_c}
+	set_variable = {ITA_GUI_fervour_modifier_s_a_c = ITA_GUI_fervour_effects}
+	add_to_variable = {ITA_GUI_giani_s_a_c_conversion_rate_shown = ITA_GUI_fervour_effects}
+	#######Sicily#####
+	set_temp_variable = {ITA_GUI_giani_sicily = ITA_GUI_giani_fervour}
+	multiply_temp_variable = {ITA_GUI_giani_sicily = ITA_GUI_giani_sicily_conversion_rate}
+	set_variable = {ITA_GUI_fervour_effects = ITA_GUI_giani_sicily}
+	set_variable = {ITA_GUI_fervour_modifier_sicily = ITA_GUI_fervour_effects}
+	add_to_variable = {ITA_GUI_giani_sicily_conversion_rate_shown = ITA_GUI_fervour_effects}
+}
+ITA_giani_monthly_conversion_increase = {
+	ITA_giani_calculate_fervour_effects = yes
+
+	add_to_variable = {ITA_GUI_giani_c_italy_conversion = ITA_GUI_giani_c_italy_conversion_rate_shown}
+	clamp_variable = {var = ITA_GUI_giani_c_italy_conversion min = 0 max = 100}
+
+	add_to_variable = {ITA_GUI_giani_s_italy_conversion = ITA_GUI_giani_s_italy_conversion_rate_shown}
+	clamp_variable = {var = ITA_GUI_giani_s_italy_conversion min = 0 max = 100}
+
+	add_to_variable = {ITA_GUI_giani_n_italy_conversion = ITA_GUI_giani_n_italy_conversion_rate_shown}
+	clamp_variable = {var = ITA_GUI_giani_n_italy_conversion min = 0 max = 100}
+
+	add_to_variable = {ITA_GUI_giani_libya_conversion = ITA_GUI_giani_libya_conversion_rate_shown}
+	clamp_variable = {var = ITA_GUI_giani_libya_conversion min = 0 max = 100}
+
+	add_to_variable = {ITA_GUI_giani_s_a_c_conversion = ITA_GUI_giani_s_a_c_conversion_rate_shown}
+	clamp_variable = {var = ITA_GUI_giani_s_a_c_conversion min = 0 max = 100}
+
+	add_to_variable = {ITA_GUI_giani_sicily_conversion = ITA_GUI_giani_sicily_conversion_rate_shown}
+	clamp_variable = {var = ITA_GUI_giani_sicily_conversion min = 0 max = 100}
+
+	ITA_giani_calculate_total_conversion_percentage = yes
+
+	add_to_variable = {ITA_GUI_giani_fervour = -1}
+	ITA_giani_calculate_fervour_effects = yes
+}
+ITA_GUI_giani_setup = {
+	set_variable = {ITA_GUI_giani_fervour = 50}
+
+	set_variable = {ITA_GUI_giani_n_italy_conversion_rate_shown = 0.5}
+	set_variable = {ITA_GUI_giani_c_italy_conversion_rate_shown = 0.5}
+	set_variable = {ITA_GUI_giani_s_italy_conversion_rate_shown = 0.5}
+	set_variable = {ITA_GUI_giani_sicily_conversion_rate_shown = 0.5}
+	set_variable = {ITA_GUI_giani_s_a_c_conversion_rate_shown = 0.5}
+	set_variable = {ITA_GUI_giani_libya_conversion_rate_shown = 0.5}
+
+	set_variable = {ITA_GUI_giani_n_italy_conversion_rate = 0.5}
+	set_variable = {ITA_GUI_giani_c_italy_conversion_rate = 0.5}
+	set_variable = {ITA_GUI_giani_s_italy_conversion_rate = 0.5}
+	set_variable = {ITA_GUI_giani_sicily_conversion_rate = 0.5}
+	set_variable = {ITA_GUI_giani_s_a_c_conversion_rate = 0.5}
+	set_variable = {ITA_GUI_giani_libya_conversion_rate = 0.5}
+
+	ITA_giani_calculate_total_conversion_percentage = yes
+
+	ITA_GUI_giani_calculate_stability_vars = yes
+	add_dynamic_modifier = {
+		modifier = ITA_giani_conversion_mech_stability_modifier
+	}
+
+	set_variable = {ITA_GUI_giani_selected_state = 1}
+}
+ITA_GUI_giani_calculate_stability_vars = {
+	set_variable = { ITA_giani_stability_pp = stability }
+	add_to_variable = { ITA_giani_stability_pp = -0.5 }
+	multiply_variable = { ITA_giani_stability_pp = 0.5 }
+
+	set_variable = { ITA_giani_stability_pop_growth = stability }
+	add_to_variable = { ITA_giani_stability_pop_growth = -0.5 }
+	multiply_variable = { ITA_giani_stability_pop_growth = 0.1 }
+
+	set_variable = { ITA_giani_stability_factory_output = stability }
+	add_to_variable = { ITA_giani_stability_factory_output = -0.5 }
+	multiply_variable = { ITA_giani_stability_factory_output = 0.2 }
+
+	set_variable = { ITA_giani_stability_construction_speed = stability }
+	add_to_variable = { ITA_giani_stability_construction_speed = -0.5 }
+	multiply_variable = { ITA_giani_stability_construction_speed = 0.2 }
+
+	set_variable = { ITA_giani_stability_gdp_growth = stability }
+	add_to_variable = { ITA_giani_stability_gdp_growth = -0.5 }
+	multiply_variable = { ITA_giani_stability_gdp_growth = 100 } #gdp_growth_modifier is in literal procentages (1 = 1%)
+	multiply_variable = { ITA_giani_stability_gdp_growth = 0.06 }
+}
+ITA_GUI_giani_calculate_stability_from_conversion_rate = {
+	set_temp_variable = { result = ITA_GUI_giani_total_conversion }
+	divide_temp_variable = { result = 100 }
+
+	if = { #when conversion rate is really low, there's not much chaos
+		limit = {
+			check_variable = { result < 0.5 }
+		}
+		multiply_temp_variable = { result = -0.5 }
+		add_to_temp_variable = { result = 0.1}
+	}
+	else = { #stability is the worst when conversion rate reaches 50%
+		multiply_temp_variable = { result = 0.6 }
+		add_to_temp_variable = { result = -0.45 }
+	}
+
+	set_variable = { ITA_giani_stability_from_conversion_rate = result }
+}
+ITA_GUI_giani_idea_check = {
+	if = {
+		limit = {
+			OR = {
+				check_variable = {ITA_GUI_giani_fervour < 30}
+				check_variable = {ITA_GUI_giani_fervour > 80}
+			}
+			NOT = {
+				has_idea = ITA_Giani_Angry_fanatics
+			}
+		}
+		add_timed_idea = {
+    		idea = ITA_Giani_Angry_fanatics
+    		days = 60
+		}
+	}
+}
+ITA_Giani_change_fervour = {
+	#fervour_change must be set as a temp_var when this is called
+
+	add_to_variable = { ITA_GUI_giani_fervour = fervour_change }
+	
+	#ITA_Ciano_POP_amount_to_add is used here since I'm reusing old scripted loc
+	if = {
+		limit = {
+			check_variable = { fervour_change < 0 }
+		}
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = -1 }
+		multiply_temp_variable = { fervour_change = -1 }
+	}
+	else = {
+		set_temp_variable = { ITA_Ciano_POP_amount_to_add = 1 }
+	}
+
+	custom_effect_tooltip = ITA_giani_gui_change_fervor_tt
+
+}
+
+ITA_army_funding_shift_up_1_percent = {
+	custom_effect_tooltip = ITA_army_funding_shift_up_1_percent_tt
+	add_to_variable = { econ_army_expenditures_maximal_pct = 1 }
+	add_to_variable = { econ_army_expenditures_minimal_pct = 1 }
+	update_economy_tab = yes
+}
+
+ITA_army_funding_shift_up_2_percent = {
+	custom_effect_tooltip = ITA_army_funding_shift_up_2_percent_tt
+	add_to_variable = { econ_army_expenditures_maximal_pct = 2 }
+	add_to_variable = { econ_army_expenditures_minimal_pct = 2 }
+	update_economy_tab = yes
+}
+
+ITA_army_funding_shift_up_3_percent = {
+	custom_effect_tooltip = ITA_army_funding_shift_up_3_percent_tt
+	add_to_variable = { econ_army_expenditures_maximal_pct = 3 }
+	add_to_variable = { econ_army_expenditures_minimal_pct = 3 }
+	update_economy_tab = yes
+}
+
+ITA_research_funding_shift_up_1_percent = {
+	custom_effect_tooltip = ITA_research_funding_shift_up_1_percent_tt
+	add_to_variable = { econ_research_expenditures_maximal_pct = 1 }
+	add_to_variable = { econ_research_expenditures_minimal_pct = 1 }
+	update_economy_tab = yes
+}
+
+ITA_research_funding_shift_up_2_percent = {
+	custom_effect_tooltip = ITA_research_funding_shift_up_2_percent_tt
+	add_to_variable = { econ_research_expenditures_maximal_pct = 2 }
+	add_to_variable = { econ_research_expenditures_minimal_pct = 2 }
+	update_economy_tab = yes
+}
+
+ITA_research_funding_shift_up_3_percent = {
+	custom_effect_tooltip = ITA_research_funding_shift_up_3_percent_tt
+	add_to_variable = { econ_research_expenditures_maximal_pct = 3 }
+	add_to_variable = { econ_research_expenditures_minimal_pct = 3 }
+	update_economy_tab = yes
+}
+
+ITA_social_funding_shift_up_1_percent = {
+	custom_effect_tooltip = ITA_social_funding_shift_up_1_percent_tt
+	add_to_variable = { econ_social_expenditures_maximal_pct = 1 }
+	add_to_variable = { econ_social_expenditures_minimal_pct = 1 }
+	update_economy_tab = yes
+}
+
+ITA_social_funding_shift_up_2_percent = {
+	custom_effect_tooltip = ITA_social_funding_shift_up_2_percent_tt
+	add_to_variable = { econ_social_expenditures_maximal_pct = 2 }
+	add_to_variable = { econ_social_expenditures_minimal_pct = 2 }
+	update_economy_tab = yes
+}
+
+ITA_social_funding_shift_up_3_percent = {
+	custom_effect_tooltip = ITA_social_funding_shift_up_3_percent_tt
+	add_to_variable = { econ_social_expenditures_maximal_pct = 3 }
+	add_to_variable = { econ_social_expenditures_minimal_pct = 3 }
+	update_economy_tab = yes
+}
+
+ITA_admin_funding_shift_up_1_percent = {
+	custom_effect_tooltip = ITA_admin_funding_shift_up_1_percent_tt
+	add_to_variable = { econ_admin_expenditures_maximal_pct = 1 }
+	add_to_variable = { econ_admin_expenditures_minimal_pct = 1 }
+	update_economy_tab = yes
+}
+
+ITA_admin_funding_shift_up_2_percent = {
+	custom_effect_tooltip = ITA_admin_funding_shift_up_2_percent_tt
+	add_to_variable = { econ_admin_expenditures_maximal_pct = 2 }
+	add_to_variable = { econ_admin_expenditures_minimal_pct = 2 }
+	update_economy_tab = yes
+}
+
+ITA_admin_funding_shift_up_3_percent = {
+	custom_effect_tooltip = ITA_admin_funding_shift_up_3_percent_tt
+	add_to_variable = { econ_admin_expenditures_maximal_pct = 3 }
+	add_to_variable = { econ_admin_expenditures_minimal_pct = 3 }
+	update_economy_tab = yes
+}
+
+ITA_naval_funding_shift_up_1_percent = {
+	custom_effect_tooltip = ITA_naval_funding_shift_up_1_percent_tt
+	add_to_variable = { econ_naval_expenditures_maximal_pct = 1 }
+	add_to_variable = { econ_naval_expenditures_minimal_pct = 1 }
+	update_economy_tab = yes
+}
+
+ITA_naval_funding_shift_up_2_percent = {
+	custom_effect_tooltip = ITA_naval_funding_shift_up_2_percent_tt
+	add_to_variable = { econ_naval_expenditures_maximal_pct = 2 }
+	add_to_variable = { econ_naval_expenditures_minimal_pct = 2 }
+	update_economy_tab = yes
+}
+
+ITA_naval_funding_shift_up_3_percent = {
+	custom_effect_tooltip = ITA_naval_funding_shift_up_3_percent_tt
+	add_to_variable = { econ_naval_expenditures_maximal_pct = 3 }
+	add_to_variable = { econ_naval_expenditures_minimal_pct = 3 }
+	update_economy_tab = yes
+}
+
+#TODO: add this for
+#navy

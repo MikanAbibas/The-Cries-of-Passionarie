@@ -1,0 +1,672 @@
+# ############################
+# ## India Electrification Program Events
+# ## Fired by the RAJ_Electrification focus tree (TNO_india_shared.txt)
+# ## Variable engine: common/scripted_effects/TNO_electrification_effects.txt
+# ############################
+add_namespace = india_electrification
+
+# The Electrification Program (intro, fired by RAJ_Electrification_start)
+country_event = {
+	id = india_electrification.1
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.1"
+	}
+	title = india_electrification.1.t
+	desc = india_electrification.1.desc
+	picture = GFX_report_event_india_power_lines
+	is_triggered_only = yes
+	option = {
+		name = india_electrification.1.a
+	}
+}
+
+# Planning the Expansion (RAJ_Electrification_means)
+country_event = {
+	id = india_electrification.2
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.2"
+	}
+	title = india_electrification.2.t
+	desc = india_electrification.2.desc
+	picture = GFX_report_event_india_five_year_plan
+	is_triggered_only = yes
+	option = {
+		name = india_electrification.2.a
+	}
+}
+
+# Methods Of Power Generation (RAJ_Electrification_Methods)
+country_event = {
+	id = india_electrification.3
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.3"
+	}
+	title = india_electrification.3.t
+	desc = india_electrification.3.desc
+	picture = GFX_report_event_india_factory_colour
+	is_triggered_only = yes
+	option = {
+		name = india_electrification.3.a
+	}
+}
+
+# The Initial Infrastructure Program (RAJ_Electrification_Upgrade_Infrastructure)
+country_event = {
+	id = india_electrification.4
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.4"
+	}
+	title = india_electrification.4.t
+	desc = india_electrification.4.desc
+	picture = GFX_report_event_india_industrial_neighbourhood
+	is_triggered_only = yes
+	option = { # Approve the full package, save the plants for later
+		name = india_electrification.4.a
+		ai_chance = { factor = 40 }
+		add_political_power = -50
+		TNO_RAJ_upgrade_boost = yes
+		TNO_RAJ_upgrade_output_minor = yes
+	}
+	option = { # Approve the package for the plants and surrounding infrastructure
+		name = india_electrification.4.b
+		ai_chance = { factor = 40 }
+		add_political_power = -35
+		TNO_RAJ_upgrade_output = yes
+		TNO_RAJ_upgrade_boost_minor = yes
+	}
+	option = { # Just approve the upgrades to the plants
+		name = india_electrification.4.c
+		ai_chance = { factor = 20 }
+		add_political_power = -15
+		TNO_RAJ_upgrade_output_minor = yes
+	}
+}
+
+# Parallel Line Structures (RAJ_Electrification_Parallel_Lines)
+country_event = {
+	id = india_electrification.5
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.5"
+	}
+	title = india_electrification.5.t
+	desc = india_electrification.5.desc
+	picture = GFX_report_event_india_power_lines
+	is_triggered_only = yes
+	option = { # Too expensive, just do it where it's needed
+		name = india_electrification.5.a
+		ai_chance = { factor = 25 }
+		TNO_RAJ_upgrade_boost_minor = yes
+	}
+	option = { # Extend this to urban areas
+		name = india_electrification.5.b
+		ai_chance = { factor = 45 }
+		add_political_power = -25
+		TNO_RAJ_upgrade_boost = yes
+		TNO_RAJ_increase_urban_minor = yes
+	}
+	option = { # We can use this throughout the country
+		name = india_electrification.5.c
+		ai_chance = { factor = 30 }
+		add_political_power = -50
+		TNO_RAJ_upgrade_boost_major = yes
+		TNO_RAJ_upgrade_consumption_minor = yes
+	}
+}
+
+# Modernizing the Transformer Farms (RAJ_Electrification_Modernize_Transformers)
+country_event = {
+	id = india_electrification.6
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.6"
+	}
+	title = india_electrification.6.t
+	desc = india_electrification.6.desc
+	picture = GFX_report_event_india_factory_2
+	is_triggered_only = yes
+	option = { # Approve the full program
+		name = india_electrification.6.a
+		ai_chance = { factor = 40 }
+		add_political_power = -50
+		TNO_RAJ_upgrade_boost_major = yes
+	}
+	option = { # Only the highest capacity plants need it
+		name = india_electrification.6.b
+		ai_chance = { factor = 45 }
+		add_political_power = -25
+		TNO_RAJ_upgrade_boost = yes
+	}
+	option = { # This is far too expensive
+		name = india_electrification.6.c
+		ai_chance = { factor = 15 }
+	}
+}
+
+# Building Support For the Program (RAJ_Electrification_Build_Up_Support)
+country_event = {
+	id = india_electrification.7
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.7"
+	}
+	title = india_electrification.7.t
+	desc = india_electrification.7.desc
+	picture = GFX_report_event_india_crowds_1980s
+	is_triggered_only = yes
+	option = {
+		name = india_electrification.7.a
+		add_political_power = 25
+	}
+}
+
+# The Electrical Census (RAJ_Electrification_Electrical_Census)
+country_event = {
+	id = india_electrification.8
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.8"
+	}
+	title = india_electrification.8.t
+	desc = india_electrification.8.desc
+	picture = GFX_report_event_india_managers
+	is_triggered_only = yes
+	option = { # Do what is needed, no more
+		name = india_electrification.8.a
+		ai_chance = { factor = 40 }
+		TNO_RAJ_upgrade_planning_minor = yes
+	}
+	option = { # Approve the full program
+		name = india_electrification.8.b
+		ai_chance = { factor = 60 }
+		add_political_power = -25
+		TNO_RAJ_upgrade_planning = yes
+	}
+}
+
+# Identifying the Worst Areas (RAJ_Electrification_Problem_Areas)
+country_event = {
+	id = india_electrification.9
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.9"
+	}
+	title = india_electrification.9.t
+	desc = india_electrification.9.desc
+	picture = GFX_report_event_india_abandoned_neighbourhood
+	is_triggered_only = yes
+	option = {
+		name = india_electrification.9.a
+		TNO_RAJ_upgrade_planning_minor = yes
+		TNO_RAJ_increase_rural_minor = yes
+	}
+}
+
+# Assessing Power Consumption (RAJ_Electrification_Assess_Consumption)
+country_event = {
+	id = india_electrification.10
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.10"
+	}
+	title = india_electrification.10.t
+	desc = india_electrification.10.desc
+	picture = GFX_report_event_india_fan
+	is_triggered_only = yes
+	option = {
+		name = india_electrification.10.a
+		TNO_RAJ_upgrade_planning_minor = yes
+	}
+}
+
+# Assessing Our Available Resources (RAJ_Electrification_Available_Resources)
+country_event = {
+	id = india_electrification.11
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.11"
+	}
+	title = india_electrification.11.t
+	desc = india_electrification.11.desc
+	picture = GFX_report_event_dam_generic
+	is_triggered_only = yes
+	option = {
+		name = india_electrification.11.a
+		TNO_RAJ_upgrade_planning_minor = yes
+	}
+}
+
+# Eliminating Waste (RAJ_Electrification_Every_Watt)
+country_event = {
+	id = india_electrification.12
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.12"
+	}
+	title = india_electrification.12.t
+	desc = india_electrification.12.desc
+	picture = GFX_report_event_india_factory_colour_2
+	is_triggered_only = yes
+	option = {
+		name = india_electrification.12.a
+		TNO_RAJ_upgrade_boost = yes
+	}
+}
+
+# The Optimal Power Distribution (RAJ_Electrification_Optimal_Distribution)
+country_event = {
+	id = india_electrification.13
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.13"
+	}
+	title = india_electrification.13.t
+	desc = india_electrification.13.desc
+	picture = GFX_report_event_india_lok_sabha_interior
+	is_triggered_only = yes
+	option = { # Prioritize urban development
+		name = india_electrification.13.a
+		ai_chance = { factor = 35 }
+		TNO_RAJ_increase_urban = yes
+	}
+	option = { # Merge the plans to keep it balanced
+		name = india_electrification.13.b
+		ai_chance = { factor = 35 }
+		TNO_RAJ_upgrade_boost_minor = yes
+	}
+	option = { # Prioritize rural development
+		name = india_electrification.13.c
+		ai_chance = { factor = 30 }
+		TNO_RAJ_increase_rural = yes
+	}
+}
+
+# Power Generation Strategies (RAJ_Electrification_Power_Generation)
+country_event = {
+	id = india_electrification.14
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.14"
+	}
+	title = india_electrification.14.t
+	desc = india_electrification.14.desc
+	picture = GFX_report_event_dam_generic
+	is_triggered_only = yes
+	option = { # Focus on renewable power
+		name = india_electrification.14.a
+		ai_chance = { factor = 30 }
+		TNO_RAJ_increase_sustainable = yes
+	}
+	option = { # Focus on traditional coal and oil
+		name = india_electrification.14.b
+		ai_chance = { factor = 40 }
+		TNO_RAJ_increase_fossil_fuels = yes
+	}
+	option = { # Invest in both, the cost is worth it
+		name = india_electrification.14.c
+		ai_chance = { factor = 30 }
+		add_political_power = -35
+		TNO_RAJ_increase_fossil_fuels_minor = yes
+		TNO_RAJ_increase_sustainable_minor = yes
+		TNO_RAJ_upgrade_output_minor = yes
+	}
+}
+
+# Invest In Coal? (RAJ_Electrification_Invest_In_Coal)
+country_event = {
+	id = india_electrification.15
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.15"
+	}
+	title = india_electrification.15.t
+	desc = india_electrification.15.desc
+	picture = GFX_report_event_india_factory_2
+	is_triggered_only = yes
+	option = { # Do the minimum, we should plan to phase it out
+		name = india_electrification.15.a
+		ai_chance = { factor = 25 }
+		TNO_RAJ_increase_sustainable_minor = yes
+	}
+	option = { # Give it a reasonable amount of money
+		name = india_electrification.15.b
+		ai_chance = { factor = 45 }
+		add_political_power = -20
+		TNO_RAJ_increase_fossil_fuels_minor = yes
+		TNO_RAJ_upgrade_output_minor = yes
+	}
+	option = { # This should stay the core of our program
+		name = india_electrification.15.c
+		ai_chance = { factor = 30 }
+		add_political_power = -40
+		TNO_RAJ_increase_fossil_fuels_major = yes
+		TNO_RAJ_upgrade_output = yes
+	}
+}
+
+# Invest In Hydroelectric? (RAJ_Electrification_Invest_In_Hydroelectric)
+country_event = {
+	id = india_electrification.16
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.16"
+	}
+	title = india_electrification.16.t
+	desc = india_electrification.16.desc
+	picture = GFX_report_event_dam_generic
+	is_triggered_only = yes
+	option = { # This is too expensive
+		name = india_electrification.16.a
+		ai_chance = { factor = 20 }
+	}
+	option = { # Investing in this could be useful
+		name = india_electrification.16.b
+		ai_chance = { factor = 50 }
+		add_political_power = -20
+		TNO_RAJ_increase_sustainable_minor = yes
+		TNO_RAJ_upgrade_output_minor = yes
+	}
+	option = { # We could install dams across the country!
+		name = india_electrification.16.c
+		ai_chance = { factor = 30 }
+		add_political_power = -40
+		TNO_RAJ_increase_sustainable = yes
+		TNO_RAJ_upgrade_output = yes
+	}
+}
+
+# Invest In Nuclear? (RAJ_Electrification_Invest_In_Nuclear)
+country_event = {
+	id = india_electrification.17
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.17"
+	}
+	title = india_electrification.17.t
+	desc = india_electrification.17.desc
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = { # Sounds dangerous
+		name = india_electrification.17.a
+		ai_chance = { factor = 25 }
+	}
+	option = { # This is a viable field, invest in it
+		name = india_electrification.17.b
+		ai_chance = { factor = 45 }
+		add_political_power = -25
+		TNO_RAJ_upgrade_output = yes
+		TNO_RAJ_increase_sustainable_minor = yes
+	}
+	option = { # Focus on this heavily, it could be the best option available
+		name = india_electrification.17.c
+		ai_chance = { factor = 30 }
+		add_political_power = -50
+		TNO_RAJ_upgrade_output_major = yes
+		TNO_RAJ_increase_sustainable = yes
+	}
+}
+
+# Regional Development Plans (RAJ_Electrification_Generous_Development_Plans)
+country_event = {
+	id = india_electrification.18
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.18"
+	}
+	title = india_electrification.18.t
+	desc = india_electrification.18.desc
+	picture = GFX_report_event_india_migration
+	is_triggered_only = yes
+	option = { # Encourage urban development
+		name = india_electrification.18.a
+		ai_chance = { factor = 35 }
+		TNO_RAJ_increase_urban = yes
+	}
+	option = { # Encourage rural development
+		name = india_electrification.18.b
+		ai_chance = { factor = 30 }
+		TNO_RAJ_increase_rural = yes
+	}
+	option = { # Why focus on just one?
+		name = india_electrification.18.c
+		ai_chance = { factor = 35 }
+		add_political_power = -30
+		TNO_RAJ_upgrade_consumption_minor = yes
+		TNO_RAJ_upgrade_boost_minor = yes
+	}
+}
+
+# The Goals Of the Program (RAJ_Electrification_Ends)
+country_event = {
+	id = india_electrification.19
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.19"
+	}
+	title = india_electrification.19.t
+	desc = india_electrification.19.desc
+	picture = GFX_report_event_india_sunset
+	is_triggered_only = yes
+	option = {
+		name = india_electrification.19.a
+	}
+}
+
+# The Status Of Household Electrification (RAJ_Electrification_Residential_Electrification)
+country_event = {
+	id = india_electrification.20
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.20"
+	}
+	title = india_electrification.20.t
+	desc = india_electrification.20.desc
+	picture = GFX_report_event_india_fan
+	is_triggered_only = yes
+	option = { # Residential units can wait
+		name = india_electrification.20.a
+		ai_chance = { factor = 20 }
+	}
+	option = { # We should compromise between residential and industrial needs
+		name = india_electrification.20.b
+		ai_chance = { factor = 45 }
+		TNO_RAJ_increase_households_minor = yes
+	}
+	option = { # Why bother, if the people can't benefit?
+		name = india_electrification.20.c
+		ai_chance = { factor = 35 }
+		add_political_power = -20
+		TNO_RAJ_increase_households = yes
+	}
+}
+
+# Rural Electrification Programs (RAJ_Electrification_Rural_Areas)
+country_event = {
+	id = india_electrification.21
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.21"
+	}
+	title = india_electrification.21.t
+	desc = india_electrification.21.desc
+	picture = GFX_report_event_india_rice_farmers
+	is_triggered_only = yes
+	option = { # Let's do what we can
+		name = india_electrification.21.a
+		ai_chance = { factor = 55 }
+		TNO_RAJ_increase_rural_minor = yes
+		TNO_RAJ_increase_households_minor = yes
+	}
+	option = { # Divert the extra funds to supplement this
+		name = india_electrification.21.b
+		ai_chance = { factor = 45 }
+		add_political_power = -30
+		TNO_RAJ_increase_rural = yes
+		TNO_RAJ_increase_households = yes
+	}
+}
+
+# Expanding Agricultural Mechanization (RAJ_Electrification_Agriculture_Mechanization)
+country_event = {
+	id = india_electrification.22
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.22"
+	}
+	title = india_electrification.22.t
+	desc = india_electrification.22.desc
+	picture = GFX_report_event_india_tractor
+	is_triggered_only = yes
+	option = { # We cannot focus on this
+		name = india_electrification.22.a
+		ai_chance = { factor = 20 }
+	}
+	option = { # Do what we can, but don't exceed our limits
+		name = india_electrification.22.b
+		ai_chance = { factor = 50 }
+		add_political_power = -15
+		TNO_RAJ_increase_rural_minor = yes
+		TNO_RAJ_upgrade_output_minor = yes
+	}
+	option = { # We must elevate our agriculture to an advanced level
+		name = india_electrification.22.c
+		ai_chance = { factor = 30 }
+		add_political_power = -35
+		TNO_RAJ_increase_rural_major = yes
+		TNO_RAJ_upgrade_consumption_minor = yes
+	}
+}
+
+# Urban Electrification Programs (RAJ_Electrification_Urban_Areas)
+country_event = {
+	id = india_electrification.23
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.23"
+	}
+	title = india_electrification.23.t
+	desc = india_electrification.23.desc
+	picture = GFX_report_event_india_industrial_neighbourhood
+	is_triggered_only = yes
+	option = { # Some money needs to be spared
+		name = india_electrification.23.a
+		ai_chance = { factor = 55 }
+		TNO_RAJ_increase_urban_minor = yes
+		TNO_RAJ_increase_households_minor = yes
+	}
+	option = { # Go in as hard as we can
+		name = india_electrification.23.b
+		ai_chance = { factor = 45 }
+		add_political_power = -25
+		TNO_RAJ_increase_urban = yes
+		TNO_RAJ_increase_households = yes
+	}
+}
+
+# Electrical Lighting (RAJ_Electrification_Lights_In_Every_Home)
+country_event = {
+	id = india_electrification.24
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.24"
+	}
+	title = india_electrification.24.t
+	desc = india_electrification.24.desc
+	picture = GFX_report_event_india_victoria_terminal
+	is_triggered_only = yes
+	option = { # There are more important things to do
+		name = india_electrification.24.a
+		ai_chance = { factor = 20 }
+	}
+	option = { # A noble goal
+		name = india_electrification.24.b
+		ai_chance = { factor = 50 }
+		add_political_power = -10
+		TNO_RAJ_increase_households_minor = yes
+	}
+	option = { # I have a dream of shining cities...
+		name = india_electrification.24.c
+		ai_chance = { factor = 30 }
+		add_political_power = -30
+		TNO_RAJ_increase_households = yes
+		TNO_RAJ_increase_urban_minor = yes
+		TNO_RAJ_upgrade_consumption_minor = yes
+	}
+}
+
+# Modern Domestic Amenities (RAJ_Electrification_Modern_Amenities)
+country_event = {
+	id = india_electrification.25
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.25"
+	}
+	title = india_electrification.25.t
+	desc = india_electrification.25.desc
+	picture = GFX_report_event_india_fan
+	is_triggered_only = yes
+	option = { # Traditional methods will do for now
+		name = india_electrification.25.a
+		ai_chance = { factor = 35 }
+	}
+	option = { # We should support this wholeheartedly
+		name = india_electrification.25.b
+		ai_chance = { factor = 65 }
+		add_political_power = -20
+		TNO_RAJ_increase_households = yes
+		TNO_RAJ_upgrade_consumption_minor = yes
+	}
+}
+
+# Improving Quality Of Life (RAJ_Electrification_QOL_Improvements)
+country_event = {
+	id = india_electrification.26
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.26"
+	}
+	title = india_electrification.26.t
+	desc = india_electrification.26.desc
+	picture = GFX_report_event_india_women
+	is_triggered_only = yes
+	option = { # Other fields are more important
+		name = india_electrification.26.a
+		ai_chance = { factor = 20 }
+	}
+	option = { # Give it some token funding
+		name = india_electrification.26.b
+		ai_chance = { factor = 40 }
+		add_political_power = -10
+		TNO_RAJ_increase_households_minor = yes
+	}
+	option = { # Full investment will suit the people best
+		name = india_electrification.26.c
+		ai_chance = { factor = 40 }
+		add_political_power = -30
+		TNO_RAJ_increase_households_major = yes
+		TNO_RAJ_upgrade_consumption_minor = yes
+	}
+}
+
+# Error fallback — should never be visible
+country_event = {
+	id = india_electrification.100
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.100 (ERROR: this should never fire)"
+	}
+	title = india_electrification.100.t
+	desc = india_electrification.100.desc
+	picture = GFX_report_event_india_taj_mahal
+	is_triggered_only = yes
+	option = {
+		name = india_electrification.100.a
+	}
+}
+
+# The Failure Of the Program (fired by TNO_RAJ_electrification_evaluate)
+country_event = {
+	id = india_electrification.101
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.101"
+	}
+	title = india_electrification.101.t
+	desc = india_electrification.101.desc
+	picture = GFX_report_event_india_abandoned_neighbourhood
+	is_triggered_only = yes
+	option = {
+		name = india_electrification.101.a
+	}
+}
+
+# The Success Of the Program (fired by TNO_RAJ_electrification_evaluate)
+country_event = {
+	id = india_electrification.102
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event india_electrification.102"
+	}
+	title = india_electrification.102.t
+	desc = india_electrification.102.desc
+	picture = GFX_report_event_india_power_lines
+	is_triggered_only = yes
+	option = {
+		name = india_electrification.102.a
+	}
+}

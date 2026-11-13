@@ -1,0 +1,41 @@
+# Stopgap content for after the Oil Crisis civil war, until proper Oman content is
+# written. Gated on Omman_CW (set when the civil war begins) so the decision only
+# appears after the war, not at game start when OMB/OMI also do not exist yet.
+# The AI is made to always take the decision.
+OMA_postwar_decisions = {
+
+	# Submit to Rome as a dependent client now that the Sultanate has reunited Oman.
+	OMA_join_rome_pakt = {
+
+		icon = generic_form_nation
+
+		available = {
+			has_global_flag = Omman_CW
+			NOT = { country_exists = OMB }
+			NOT = { country_exists = OMI }
+			has_war = no
+			ITA = {
+				exists = yes
+				is_faction_leader = yes
+			}
+		}
+
+		visible = {
+			tag = OMA
+		}
+
+		cost = 0
+
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision OMA_join_rome_pakt"
+			if = { limit = { NOT = { has_idea = Rome_client } } add_ideas = Rome_client }
+			ITA = { add_to_faction = OMA }
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+}

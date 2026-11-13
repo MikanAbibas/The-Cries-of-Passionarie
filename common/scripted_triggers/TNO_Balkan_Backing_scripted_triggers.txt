@@ -1,0 +1,94 @@
+# Balkan backing — who sponsors whom in the Balkan crisis.
+#
+# Replaces the old hardcoding (Italy always Romania, Germany always Hungary) with the actual
+# result of the Great Game. The Game records its winners as durable global flags:
+#
+#   game 1 = Bulgaria   game 2 = Hungary   game 3 = Romania   game 5 = Serbia
+#   GreatGame_game_<N>_ITA_victory / GreatGame_game_<N>_GER_victory
+#
+# Greece never enters the Great Game; it starts TRI_Member, so Italy sponsors it by default.
+# Serbia is a deliberate wildcard and is excluded entirely (see BALKAN_SER_is_wildcard).
+#
+# The two rival pairs are Hungary/Romania (Transylvania) and Bulgaria/Greece (Macedonia).
+# When one superpower has won BOTH halves of a pair it must pick a proxy; the other half then
+# falls to its rival, so both belligerents always have a sponsor.
+
+# ---- raw Great Game results -------------------------------------------------------------
+BALKAN_HUN_won_by_ITA = { has_global_flag = GreatGame_game_2_ITA_victory }
+BALKAN_HUN_won_by_GER = { has_global_flag = GreatGame_game_2_GER_victory }
+BALKAN_ROM_won_by_ITA = { has_global_flag = GreatGame_game_3_ITA_victory }
+BALKAN_ROM_won_by_GER = { has_global_flag = GreatGame_game_3_GER_victory }
+BALKAN_BUL_won_by_ITA = { has_global_flag = GreatGame_game_1_ITA_victory }
+BALKAN_BUL_won_by_GER = { has_global_flag = GreatGame_game_1_GER_victory }
+
+# Greece is Italian unless something has pulled it into the Pakt since.
+BALKAN_GRE_won_by_ITA = {
+	GRE = {
+		OR = {
+			has_idea = TRI_Member
+			has_idea = TRI_Member_Client
+			has_idea = Rome_member
+			has_idea = Rome_client
+		}
+	}
+}
+BALKAN_GRE_won_by_GER = {
+	GRE = {
+		OR = {
+			has_idea = Pakt_Bundnispartner
+			has_idea = Pakt_Mitstreiter
+			has_idea = Pakt_Marionettenstaat
+			has_idea = Pakt_Protektorat
+		}
+	}
+}
+
+# Serbia answers to nobody. Kept as a named trigger so the exclusion is greppable.
+BALKAN_SER_is_wildcard = { always = yes }
+
+# ---- does one superpower hold both halves of a pair? -------------------------------------
+BALKAN_ITA_holds_transylvania_pair = {
+	BALKAN_HUN_won_by_ITA = yes
+	BALKAN_ROM_won_by_ITA = yes
+}
+BALKAN_GER_holds_transylvania_pair = {
+	BALKAN_HUN_won_by_GER = yes
+	BALKAN_ROM_won_by_GER = yes
+}
+BALKAN_ITA_holds_macedonia_pair = {
+	BALKAN_BUL_won_by_ITA = yes
+	BALKAN_GRE_won_by_ITA = yes
+}
+BALKAN_GER_holds_macedonia_pair = {
+	BALKAN_BUL_won_by_GER = yes
+	BALKAN_GRE_won_by_GER = yes
+}
+
+# ---- a choice is outstanding -------------------------------------------------------------
+BALKAN_ITA_must_choose_transylvania = {
+	BALKAN_ITA_holds_transylvania_pair = yes
+	NOT = { has_global_flag = BALKAN_transylvania_resolved }
+}
+BALKAN_GER_must_choose_transylvania = {
+	BALKAN_GER_holds_transylvania_pair = yes
+	NOT = { has_global_flag = BALKAN_transylvania_resolved }
+}
+BALKAN_ITA_must_choose_macedonia = {
+	BALKAN_ITA_holds_macedonia_pair = yes
+	NOT = { has_global_flag = BALKAN_macedonia_resolved }
+}
+BALKAN_GER_must_choose_macedonia = {
+	BALKAN_GER_holds_macedonia_pair = yes
+	NOT = { has_global_flag = BALKAN_macedonia_resolved }
+}
+
+# ---- final sponsorship, after resolution --------------------------------------------------
+# These are what everything downstream reads: volunteers, peace outcomes, the crisis map.
+BALKAN_ITA_sponsors_HUN = { has_global_flag = BALKAN_ITA_proxy_HUN }
+BALKAN_ITA_sponsors_ROM = { has_global_flag = BALKAN_ITA_proxy_ROM }
+BALKAN_GER_sponsors_HUN = { has_global_flag = BALKAN_GER_proxy_HUN }
+BALKAN_GER_sponsors_ROM = { has_global_flag = BALKAN_GER_proxy_ROM }
+BALKAN_ITA_sponsors_BUL = { has_global_flag = BALKAN_ITA_proxy_BUL }
+BALKAN_ITA_sponsors_GRE = { has_global_flag = BALKAN_ITA_proxy_GRE }
+BALKAN_GER_sponsors_BUL = { has_global_flag = BALKAN_GER_proxy_BUL }
+BALKAN_GER_sponsors_GRE = { has_global_flag = BALKAN_GER_proxy_GRE }

@@ -1,0 +1,4191 @@
+ITA_RED_setup = {
+	country_event = { # King Coup Event
+		id = provisional_government.1
+		days = 2
+	}
+	country_event = { # King Assassination Event
+		id = dead_provisional_government.1
+		days = 280
+	}
+}
+
+ITA_RED_revolution_setup = {
+	set_politics = { ruling_party = socialist }
+	2 = {set_demilitarized_zone = yes}
+	add_war_support = -0.7
+	TNO_worsen_industrial_expertise_high = yes
+	set_temp_variable = { TNO_economy_subtype_temp = token:Econ_Subtype_Worker_Directed }
+	econ_subtype_change = yes
+	set_temp_variable = { national_debt_temp = 0 }
+	subtract_from_temp_variable = { national_debt_temp = national_debt }
+	econ_flat_national_debt_change = yes
+	set_country_flag = ITA_RED_show_army_management
+	custom_effect_tooltip = ITA_add_ministers_tt
+	custom_effect_tooltip = ITA_RED_economy_worsen_tt
+	hidden_effect = {
+		set_capital = {state = 161}
+		set_cosmetic_tag = ITA_red_italy_provisional
+		161 = { set_state_flag = ITA_RED_revolutionary_base }
+		1323 = { set_state_flag = ITA_RED_revolutionary_base }
+		162 = { set_state_flag = ITA_RED_revolutionary_base } #this is just what states the revolutionary govt has its supposed to be more its just not important rn
+		# Character-system transfer, inert without a character roster.
+		# ITA_Collapsed_Rule = { set_nationality = RKI }
+		# Character-system transfer, inert without a character roster.
+		# ITA_Generic_Vacant = { set_nationality = RKI }
+		# Character-system transfer, inert without a character roster.
+		# ITA_Giovanni_De_Lorenzo = { set_nationality = RKI }
+		every_owned_state = { #remove the RKI cores when the revolution its over
+			limit = { is_core_of = ITA }
+			add_core_of = RKI
+		}
+		every_owned_state = {
+			limit = {
+				NOT = { has_state_flag = ITA_RED_revolutionary_base }
+			}
+			transfer_state_to = RKI
+		}
+		if = { # If Algerian War is ongoing
+			limit = { has_global_flag = Sand_Wars }
+			# TNO_fopo_* registered a tab in the upstream foreign-policy panel, which
+			# is not imported. The call resolved to nothing.
+			ITA = {
+				#STRIP(volunteers) set_temp_variable = { target = ILG }
+				#STRIP(volunteers) TNO_clear_num_volunteers = yes
+			}
+			ALG = {
+				annex_country = {
+					target = ILG
+					transfer_troops = no
+				}
+			}
+		}
+		if = { # If EAM War is ongoing
+			limit = { has_global_flag = EAM_Liberation_War }
+			# Defined in neither branch - this call did nothing.
+			#country_event = { id = greEAMWar.200 days = 2 }
+			GRE = {
+				# Defined in neither branch - this call did nothing.
+				#country_event = { id = greEAMWar.201 days = 2}
+			}
+		}
+		country_event = {
+			id = revolutionary_provisional_government.26
+			days = 301
+		}
+		clr_country_flag = ITA_EM_Active
+		clr_global_flag = ITA_kings_gov
+		set_global_flag = red_italy
+		set_country_flag = ITA_RED_is_red_italy
+		load_focus_tree = { tree = ITA_RED_revolutionary_government keep_completed = no }
+		unlock_national_focus = ITA_RED_out_of_the_void
+		#STRIP(vatican) VAC = {
+			#STRIP(vatican) swap_ideas = {
+				#STRIP(vatican) remove_idea = VAC_lateran_pacts
+				#STRIP(vatican) add_idea = VAC_non_expedit
+			#STRIP(vatican) }
+		#STRIP(vatican) }
+		remove_all_ministers = yes
+		add_ideas = {
+			ITA_RED_ashes_of_revolution
+			ITA_RED_ruins_of_empire
+			ITA_RED_GDP_PU_debuff
+			ITA_Generic_Vacant_hog
+			ITA_Generic_Vacant_eco
+			ITA_Generic_Vacant_for
+			ITA_Generic_Vacant_sec
+		}
+		remove_ideas = {
+			ITA_veronas_consequence
+			ITA_stagnating_empire
+			ITA_patrizi_e_plebei
+		}
+		add_dynamic_modifier = { modifier = ITA_RED_the_music_of_revolution }
+		add_dynamic_modifier = { modifier = ITA_RED_coming_storm }
+		add_dynamic_modifier = { modifier = ITA_RED_a_revolutionary_army }
+		remove_dynamic_modifier = { modifier = ITA_EmpireManagement_dynamic_modifier }
+		#STRIP(vatican) remove_opinion_modifier = { target = VAC modifier = ITA_closer_ties_to_vatican }
+		set_variable = { ITA_RED_music_communist = .1 }
+		set_variable = { ITA_RED_music_socialist = .1 }
+		set_variable = { ITA_RED_coming_storm_fascism = .05 }
+		set_variable = { ITA_RED_coming_storm_nazism = .05 }
+		add_to_variable = { ITA_RED_inflation_dynmod_variable = 2.0 }
+		add_to_variable = { ITA_RED_prod_fact_dynmod_variable = -0.15 }
+		add_to_variable = { ITA_RED_gdp_growth_dynmod_variable = -0.15 }
+		add_to_variable = { ITA_RED_industrial_capacity_dynmod_variable = -0.05 }
+		add_to_variable = { ITA_RED_consumers_dynmod_variable = 0.02 }
+		add_to_variable = { ITA_RED_poverty_rate_variable = -0.2 }
+		ITA_army_management_setup = yes
+
+		every_other_country = {
+			limit = {
+				NOT = {
+					OR = {
+						has_government = communist
+						has_government = socialist
+					}
+				}
+			}
+			set_embargo_PREV = yes
+			set_country_flag = ITA_RED_embargo
+		}
+		# add event to repeatedly update embargo
+
+		every_country = {
+			limit = {
+				check_variable = { ECON_SPHERE_LEADER = ITA }
+				#NOT = { tag = ITA }
+			}
+			econ_leave_sphere = yes
+		}
+		ALB = {
+			# Defined in neither branch - this call did nothing.
+			#country_event = { id = ALB_event.2 days = 21 }
+		}
+		RKI = {
+			set_capital = {state = 2}
+
+			set_cosmetic_tag = ITA_white_italy
+			set_politics = { ruling_party = despotism }
+			ITA_med_promote_Collapsed_Rule = yes
+			set_popularities = {
+				despotism = 60
+				fascism = 40
+			}
+			set_party_name = {
+				ideology = despotism
+				long_name = "Corte di Re Umberto"
+				name = ITA_despotism_party_fallen_government
+			}
+			set_party_name = {
+				ideology = fascism
+				long_name = "Partito Nazional Fascista"
+				name = ITA_fascism_party_fallen_government
+			}
+			set_temp_variable = { TNO_economy_subtype_temp = token:Econ_Subtype_Dirigisme }
+			econ_subtype_change = yes
+			remove_all_ministers = yes
+			add_ideas = {
+				ITA_Generic_Vacant_hog
+				ITA_Generic_Vacant_eco
+				ITA_Generic_Vacant_for
+				ITA_Giovanni_De_Lorenzo_sec
+				ITA_veronas_consequence
+				ITA_stagnating_empire
+				ITA_patrizi_e_plebei
+			}
+			add_dynamic_modifier = {modifier = ITA_RED_economic_stagnation_RKI}
+			set_variable = { ITA_RED_RKI_inflation_dynmod_variable = ITA_RED_inflation_dynmod_variable }
+			set_variable = { ITA_RED_RKI_prod_fact_dynmod_variable = ITA_RED_building_speed_variable }
+			set_variable = { ITA_RED_RKI_gdp_growth_dynmod_variable = ITA_RED_prod_fact_dynmod_variable }
+			set_variable = { ITA_RED_RKI_industrial_capacity_dynmod_variable = ITA_RED_gdp_growth_dynmod_variable }
+			set_variable = { ITA_RED_RKI_dockyard_capacity_variable = ITA_RED_industrial_capacity_dynmod_variable }
+			set_variable = { ITA_RED_RKI_dockyard_capacity_variable = ITA_RED_dockyard_capacity_variable }
+			set_variable = { ITA_RED_RKI_building_speed_variable = production_speed_buildings_factor }
+			set_variable = { ITA_RED_RKI_consumers_dynmod_variable = ITA_RED_consumers_dynmod_variable }
+			set_variable = { ITA_RED_RKI_poverty_rate_variable = ITA_RED_poverty_rate_variable }
+		}
+
+		end_puppet = CRO
+		end_puppet = MNT
+		end_puppet = ALB
+		end_puppet = TUN
+		end_puppet = EGY
+		end_puppet = IEA
+		end_puppet = LEB
+		end_puppet = IME
+		end_puppet = JOR
+		end_puppet = GUL
+		end_puppet = YEM
+		end_puppet = ALG
+		end_puppet = GRE
+		end_puppet = HNS
+		# Freed clients leave the Rome Security Protocols with their subjecthood (Red Italy is a
+		# _WIP path); one still in Italy's faction keeps its place
+		every_country = {
+			limit = {
+				has_idea = Rome_client
+				NOT = { is_in_faction_with = ITA }
+			}
+			remove_ideas = Rome_client
+		}
+
+		add_popularity = {
+			ideology = communist
+			popularity = 0.10
+		}
+		add_popularity = {
+			ideology = socialist
+			popularity = 0.10
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = national_socialism
+			popularity = 0.05
+		}
+		#ITA_RED_collapse_IEA = yes
+		tno_vote_franchise_improve = yes
+		tno_military_supervision_worsen = yes
+		tno_women_improve = yes
+		tno_women_improve = yes
+		tno_training_worsen = yes
+		set_variable = { TNO_training_effectiveness = 10 }
+		tno_racial_integration_improve = yes
+		set_variable = { TNO_racial_integration_effectiveness = 50 }
+		tno_minorities_improve = yes
+		set_variable = { TNO_minorities_effectiveness = 0 }
+		tno_security_worsen = yes
+		set_variable = { TNO_security_effectiveness = 30 }
+		tno_conscription_worsen = yes
+		set_variable = { TNO_conscription_effectiveness = 20 }
+		TNO_worsen_army_professionalism_med = yes
+		TNO_worsen_academic_base_med = yes
+		subtract_from_variable = { tno_income_taxation_effectiveness = 50 }
+
+		#tno_income_taxation_improve = yes
+		#tno_income_taxation_improve = yes
+		#tno_trade_laws_improve = yes
+
+		add_manpower = -500000
+
+		transfer_units_fraction = {
+			target = RKI
+			size = 1
+			stockpile_ratio = 0.5
+			navy_ratio = 0.5
+			air_ratio = 0.7
+			keep_unit_leaders_trigger = { always = no }
+		}
+		create_corps_commander = {
+			name = "Arrigo Boldrini"
+			traits = {
+				old_guard
+				politically_connected
+				career_officer
+				brilliant_strategist
+			}
+			skill = 4
+			attack_skill = 3
+			defense_skill = 3
+			planning_skill = 4
+			logistics_skill = 2
+		}
+		create_corps_commander = {
+			name = "Vittorio Bardini"
+			traits = {
+				politically_connected
+				war_hero
+			}
+			skill = 3
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 3
+		}
+		create_corps_commander = {
+			name = "Eraldo Gastone"
+			traits = {
+				career_officer
+				bearer_of_artillery
+			}
+			skill = 2
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 1
+		}
+		create_corps_commander = {
+			name = "Pompeo Colajanni"
+			traits = {
+				politically_connected
+				war_hero
+				cavalry_officer
+				organizer
+			}
+			skill = 3
+			attack_skill = 1
+			defense_skill = 1
+			planning_skill = 3
+			logistics_skill = 2
+		}
+		create_corps_commander = {
+			name = "Giovanni Pesce"
+			traits = {
+				politically_connected
+				war_hero
+				infantry_leader
+				trickster
+				guerrilla_fighter
+			}
+			skill = 3
+			attack_skill = 2
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+		}
+		create_corps_commander = {
+			name = "Mario Ricci"
+			traits = {
+				politically_connected
+				war_hero
+				organizer
+			}
+			skill = 3
+			attack_skill = 1
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 3
+		}
+		create_corps_commander = {
+			name = "Silvano Fedi"
+			traits = {
+				trickster
+				guerrilla_fighter
+			}
+			skill = 1
+			attack_skill = 2
+			defense_skill = 1
+			planning_skill = 1
+			logistics_skill = 1
+		}
+		create_corps_commander = {
+			name = "Giorgio Braccialarghe"
+			traits = {
+				politically_connected
+				war_hero
+				commando
+			}
+			skill = 2
+			attack_skill = 2
+			defense_skill = 1
+			planning_skill = 2
+			logistics_skill = 2
+		}
+		add_naval_commander_role = {
+			name = "Walter Tabacchi"
+			traits = {
+				fleet_protector
+			}
+			skill = 2
+			attack_skill = 2
+			defense_skill = 1
+			maneuvering_skill = 2
+			coordination_skill = 1
+		}
+
+		delete_unit_template_and_units = {
+			division_template = "MVSN"
+			disband = no
+		}
+		delete_unit_template_and_units = {
+			division_template = "Battaglione M"
+			disband = no
+		}
+		delete_unit = {
+			disband = yes
+		}
+		country_lock_all_division_template = yes
+		set_variable = { ITA_red_brigata_garibaldi_cap = 6 }
+		set_variable = { ITA_red_workers_militia_cap = 4 }
+		set_variable = { ITA_red_alpine_militia_cap = 4 }
+		set_variable = { ITA_red_partisan_cap = 6 }
+		set_variable = { ITA_red_student_brigade_cap = 4 }
+		load_oob = "ITA_RED_Starting"
+		set_division_template_cap = {
+			division_template = "Brigata d'assalto Garibaldi"
+			division_cap = ITA_red_brigata_garibaldi_cap
+		}
+		set_division_template_cap = {
+			division_template = "Battaglione Operaio"
+			division_cap = ITA_red_workers_militia_cap
+		}
+		set_division_template_cap = {
+			division_template = "Milizia Alpina"
+			division_cap = ITA_red_alpine_militia_cap
+		}
+	}
+}
+
+ITA_RED_collapse_IEA = {
+	###Spawning the tags###
+
+	#Sultanate of Aussa (AFR)
+
+	IEA_spawn_fashcollapse_aussa = yes
+
+	#State of Tigray (TGR)
+
+	IEA_spawn_fashcollapse_tigray = yes
+
+	##Somalia##
+
+	#Libera Milizia di Mogadiscio (MOG) - NEW TAG!
+
+	IEA_spawn_fashcollapse_mogadisco = yes
+
+	#tag should be green
+
+	#Somali Republic (SML)
+
+	IEA_spawn_fashcollapse_somali_rep = yes
+
+	#Republic of Somalia (ESM)
+
+	IEA_spawn_fashcollapse_rep_of_somalia = yes
+
+	#Collapsed Authority "somaliland" (WSM)
+
+	IEA_spawn_fashcollapse_noauth_3 = yes
+
+	#Ethiopia (ETH)
+
+	ETH = {
+		add_state_core = 1105
+		add_state_core = 1106
+		add_state_core = 271
+		add_state_core = 1112
+		add_state_core = 1102
+		transfer_state = 1105
+		transfer_state = 1106
+		inherit_technology = IEA
+		every_owned_state = {
+			remove_core_of = IEA
+		}
+
+		set_cosmetic_tag = ETH_authoritarian_democrat
+
+		set_politics = {
+			ruling_party = authoritarian_democrat
+			elections_allowed = no
+		}
+		set_popularities = {
+			communist = 0
+			ultranationalism = 0
+			socialist = 0
+			social_democrat = 0
+			social_liberal = 0
+			social_conservative = 0
+			authoritarian_democrat = 100
+			despotism = 0
+			fascism = 0
+			esoteric_nazism = 0
+		}
+
+		create_country_leader = {
+			name = "Abebe Aregai"
+			desc = "POLITICS_OJUKWU_DESC"
+			picture = "gfx/leaders/ETH/Abebe_Aregai.dds"
+			expire = "1985.1.1"
+			ideology = authoritarian_democrat_subtype
+			traits = {
+
+			}
+		}
+
+		load_oob = "ETH_fashcollapse"
+
+		#The war stuff
+		declare_war_on = {
+			target = ORM
+			type = civil_war
+		}
+		declare_war_on = {
+			target = ETB
+			type = civil_war
+		}
+		declare_war_on = {
+			target = GAM
+			type = civil_war
+		}
+	}
+
+	#Republic of Ethiopia (ORM)
+
+	ORM = {
+		add_state_core = 1101
+		add_state_core = 1099
+		add_state_core = 1100
+		add_state_core = 1104
+		transfer_state = 1101
+		transfer_state = 1099
+		transfer_state = 1100
+		inherit_technology = IEA
+		every_owned_state = {
+			remove_core_of = IEA
+		}
+
+		set_cosmetic_tag = ORM_republic
+
+		set_politics = {
+			ruling_party = social_liberal
+			elections_allowed = yes
+		}
+		set_popularities = {
+			communist = 0
+			ultranationalism = 0
+			socialist = 27
+			social_democrat = 0
+			social_liberal = 73
+			social_conservative = 0
+			authoritarian_democrat = 0
+			despotism = 0
+			fascism = 0
+			esoteric_nazism = 0
+		}
+
+		create_country_leader = {
+			name = "Girma Wolde-Giorgis"
+			desc = "POLITICS_OJUKWU_DESC"
+			picture = "gfx/leaders/ORM/Portrait_Oromo_Girma_Wolde_Giorgis.dds"
+			expire = "1985.1.1"
+			ideology = social_liberal_subtype
+			traits = {
+
+			}
+		}
+
+		add_ideas = {
+			ORM_Limited_Control
+			ORM_Towards_a_New_Ethiopia
+		}
+
+		load_oob = "ORM_fashcollapse"
+
+		#The war stuff
+		declare_war_on = {
+			target = ETH
+			type = civil_war
+		}
+		declare_war_on = {
+			target = ETB
+			type = civil_war
+		}
+		declare_war_on = {
+			target = GAM
+			type = civil_war
+		}
+	}
+
+	#Collapsed authority "east ethiopia" (ETB)
+
+	ETB = {
+		add_state_core = 271
+		add_state_core = 1112
+		add_state_core = 1104
+		add_state_core = 1102
+		transfer_state = 271
+		transfer_state = 1112
+		transfer_state = 1104
+		transfer_state = 1102
+		inherit_technology = IEA
+		every_owned_state = {
+			remove_core_of = IEA
+		}
+
+		set_cosmetic_tag = ETB_collapse
+
+		set_party_name = {
+			ideology = despotism
+			long_name = WSM_collapse_despotism_party
+			name = WSM_collapse_despotism_party_long
+		}
+
+		IEA_fash_collapsed_politics = yes
+
+		load_oob = "ETB_fashcollapse"
+
+		#The war stuff
+		declare_war_on = {
+			target = ETH
+			type = civil_war
+		}
+		declare_war_on = {
+			target = ORM
+			type = civil_war
+		}
+		declare_war_on = {
+			target = GAM
+			type = civil_war
+		}
+	}
+
+	#Collapsed authority "west ethiopia" (GAM)
+
+	GAM = {
+		add_state_core = 1117
+		add_state_core = 1703
+		add_state_core = 1104
+		transfer_state = 1117
+		transfer_state = 1703
+		transfer_state = 1098
+		inherit_technology = IEA
+		every_owned_state = {
+			remove_core_of = IEA
+		}
+
+		set_cosmetic_tag = GAM_collapse
+
+		set_party_name = {
+			ideology = despotism
+			long_name = WSM_collapse_despotism_party
+			name = WSM_collapse_despotism_party_long
+		}
+
+		IEA_fash_collapsed_politics = yes
+
+		load_oob = "GAM_fashcollapse"
+
+		#The war stuff
+		declare_war_on = {
+			target = ETH
+			type = civil_war
+		}
+		declare_war_on = {
+			target = ORM
+			type = civil_war
+		}
+		declare_war_on = {
+			target = ETB
+			type = civil_war
+		}
+	}
+
+	##Kenya##
+
+	#Republic of Kenya (KEN)
+
+	IEA_spawn_fashcollapse_rep_of_kenya = yes
+
+	#Democratic Republic of Kenya (MOM)
+
+	IEA_spawn_fashcollapse_dem_rep_kenya = yes
+
+	#Kenya Land and Freedom Army (KNN)
+
+	IEA_spawn_fashcollapse_kenya_LFA = yes
+}
+ITA_RED_setup_gallo = {
+	set_country_flag = ITA_RED_is_cathcom
+	set_party_name = {
+		ideology = socialist
+		long_name = "Partito Comunista d'Italia - Cattocomunista"
+		name = "PCdI - Cattocomunista"
+	}
+	set_party_name = {
+		ideology = communist
+		long_name = "Partito Comunista d'Italia - Ortodossa"
+		name = "PCdI - Ortodossa"
+	}
+	set_variable = { ITA_RED_gallo_party_cooperation = 30 }
+	set_variable = { ITA_RED_gallo_vatican_opinion = 10 }
+}
+ITA_RED_setup_rodano = {
+	set_party_name = {
+		ideology = socialist
+		long_name = "Partito Comunista d'Italia - Cattocomunista"
+		name = "PCdI - Cattocomunista"
+	}
+	set_party_name = {
+		ideology = communist
+		long_name = "Partito Comunista d'Italia - Ortodossa"
+		name = "PCdI - Ortodossa"
+	}
+	set_country_flag = ITA_RED_is_cathcom
+}
+ITA_RED_setup_secchia = {
+	set_country_flag = ITA_RED_is_old_guard
+}
+ITA_RED_setup_damen = {
+	set_country_flag = ITA_RED_is_old_guard
+}
+ITA_RED_setup_conti = {
+	set_country_flag = ITA_RED_is_old_guard
+}
+ITA_RED_setup_feltrinelli = {
+	set_country_flag = ITA_RED_is_new_left
+}
+ITA_RED_setup_negri = {
+	set_country_flag = ITA_RED_is_new_left
+}
+ITA_RED_setup_cervetto = {
+	set_country_flag = ITA_RED_is_new_left
+}
+ITA_RED_setup_scuderi = {
+}
+
+##Army Management##
+
+ITA_army_management_setup = {
+	hidden_effect = {
+		clear_array = ITA_RED_statecontrol_Regions
+		set_variable = { ITA_RED_statecontrol_SelectedEntry_i = 0 }
+		resize_array = { ITA_RED_statecontrol_Regions = 8 }
+		resize_array = { ITA_RED_statecontrol_mil = 8 }
+		resize_array = { ITA_RED_statecontrol_civ = 8 }
+
+		# Islands
+		set_variable = { ITA_RED_statecontrol_Regions^0 = 115.id }
+		set_variable = { ITA_RED_statecontrol_Regions_X^0 = 74 }
+		set_variable = { ITA_RED_statecontrol_Regions_Y^0 = 104 }
+		set_variable = { ITA_RED_statecontrol_mil^0 = 30 }
+		set_variable = { ITA_RED_statecontrol_civ^0 = 20 }
+		set_variable = { ITA_RED_statecontrol_mil_stage^0 = 0 }
+		set_variable = { ITA_RED_statecontrol_civ_stage^0 = 0 }
+
+		# Center
+		set_variable = { ITA_RED_statecontrol_Regions^1 = 2.id }
+		set_variable = { ITA_RED_statecontrol_Regions_X^1 = 140 }
+		set_variable = { ITA_RED_statecontrol_Regions_Y^1 = 75  }
+		set_variable = { ITA_RED_statecontrol_mil^1 = 20 }
+		set_variable = { ITA_RED_statecontrol_civ^1 = 10 }
+		set_variable = { ITA_RED_statecontrol_mil_stage^1 = 0 }
+		set_variable = { ITA_RED_statecontrol_civ_stage^1 = 0 }
+
+		# North-East
+		set_variable = { ITA_RED_statecontrol_Regions^2 = 160.id }
+		set_variable = { ITA_RED_statecontrol_Regions_X^2 = 121 }
+		set_variable = { ITA_RED_statecontrol_Regions_Y^2 = 5  }
+		set_variable = { ITA_RED_statecontrol_mil^2 = 20 }
+		set_variable = { ITA_RED_statecontrol_civ^2 = 15 }
+		set_variable = { ITA_RED_statecontrol_mil_stage^2 = 0 }
+		set_variable = { ITA_RED_statecontrol_civ_stage^2 = 0 }
+
+		# Emilia-Tuscany
+		set_variable = { ITA_RED_statecontrol_Regions^3 = 161.id }
+		set_variable = { ITA_RED_statecontrol_Regions_X^3 = 98 }
+		set_variable = { ITA_RED_statecontrol_Regions_Y^3 = 47  }
+		set_variable = { ITA_RED_statecontrol_mil^3 = 70 }
+		set_variable = { ITA_RED_statecontrol_civ^3 = 40 }
+		set_variable = { ITA_RED_statecontrol_mil_stage^3 = 0 }
+		set_variable = { ITA_RED_statecontrol_civ_stage^3 = 0 }
+
+		# South
+		set_variable = { ITA_RED_statecontrol_Regions^4 = 1325.id }
+		set_variable = { ITA_RED_statecontrol_Regions_X^4 = 213 }
+		set_variable = { ITA_RED_statecontrol_Regions_Y^4 = 128 }
+		set_variable = { ITA_RED_statecontrol_mil^4 = 20 }
+		set_variable = { ITA_RED_statecontrol_civ^4 = 0 }
+		set_variable = { ITA_RED_statecontrol_mil_stage^4 = 0 }
+		set_variable = { ITA_RED_statecontrol_civ_stage^4 = 0 }
+
+		# Campania
+		set_variable = { ITA_RED_statecontrol_Regions^5 = 117.id }
+		set_variable = { ITA_RED_statecontrol_Regions_X^5 = 191 }
+		set_variable = { ITA_RED_statecontrol_Regions_Y^5 = 139  }
+		set_variable = { ITA_RED_statecontrol_mil^5 = 20 }
+		set_variable = { ITA_RED_statecontrol_civ^5 = 5 }
+		set_variable = { ITA_RED_statecontrol_mil_stage^5 = 0 }
+		set_variable = { ITA_RED_statecontrol_civ_stage^5 = 0 }
+
+		# Nort-West
+		set_variable = { ITA_RED_statecontrol_Regions^6 = 158.id }
+		set_variable = { ITA_RED_statecontrol_Regions_X^6 = 32 }
+		set_variable = { ITA_RED_statecontrol_Regions_Y^6 = 20 }
+		set_variable = { ITA_RED_statecontrol_mil^6 = 30 }
+		set_variable = { ITA_RED_statecontrol_civ^6 = 20 }
+		set_variable = { ITA_RED_statecontrol_mil_stage^6 = 0 }
+		set_variable = { ITA_RED_statecontrol_civ_stage^6 = 0 }
+
+		# Lombardy (Sizzi MGL)
+		set_variable = { ITA_RED_statecontrol_Regions^7 = 159.id }
+		set_variable = { ITA_RED_statecontrol_Regions_X^7 = 92 }
+		set_variable = { ITA_RED_statecontrol_Regions_Y^7 = 17 }
+		set_variable = { ITA_RED_statecontrol_mil^7 = 20 }
+		set_variable = { ITA_RED_statecontrol_civ^7 = 35 }
+		set_variable = { ITA_RED_statecontrol_mil_stage^7 = 0 }
+		set_variable = { ITA_RED_statecontrol_civ_stage^7 = 0 }
+
+		set_temp_variable = { ITA_RED_statecontrol_SelectedEntry_i_boost = 3 }
+		ITA_RED_statecontrol_mil_check_perk = yes
+		ITA_RED_statecontrol_civ_check_perk = yes
+
+		ITA_RED_army_management_update = yes
+	}
+	custom_effect_tooltip = ITA_armymanagement_tt
+}
+
+ITA_RED_statecontrol_mil_boost = {
+
+	add_to_variable = { ITA_RED_statecontrol_mil^ITA_RED_statecontrol_SelectedEntry_i_temp = ITA_RED_statecontrol_mil_boost_temp }
+	
+	set_variable = { ITA_RED_statecontrol_SelectedEntry_i_boost = ITA_RED_statecontrol_SelectedEntry_i_temp }
+	if = {
+		limit = {
+			var:ITA_RED_statecontrol_Regions^ITA_RED_statecontrol_SelectedEntry_i_boost = {
+				OR = {
+					has_state_flag = ITA_RED_statecontrol_operations_enabled
+					is_controlled_by = ITA
+				}
+			}
+		}
+		clamp_variable = { var = ITA_RED_statecontrol_mil^ITA_RED_statecontrol_SelectedEntry_i_temp min = 0 max = 100 }
+	}
+	else = {
+		clamp_variable = { var = ITA_RED_statecontrol_mil^ITA_RED_statecontrol_SelectedEntry_i_temp min = 0 max = 70 }
+	}
+	custom_effect_tooltip = ITA_RED_statecontrol_mil_boost_tt
+	hidden_effect = {
+		ITA_RED_statecontrol_mil_check_perk = yes
+	}
+}
+
+ITA_RED_statecontrol_civ_boost = {
+
+	add_to_variable = { ITA_RED_statecontrol_civ^ITA_RED_statecontrol_SelectedEntry_i_temp = ITA_RED_statecontrol_civ_boost_temp }
+
+	set_variable = { ITA_RED_statecontrol_SelectedEntry_i_boost = ITA_RED_statecontrol_SelectedEntry_i_temp }
+	if = {
+		limit = {
+			var:ITA_RED_statecontrol_Regions^ITA_RED_statecontrol_SelectedEntry_i_boost = {
+				is_controlled_by = ITA
+			}
+		}
+		clamp_variable = { var = ITA_RED_statecontrol_civ^ITA_RED_statecontrol_SelectedEntry_i_temp min = 0 max = 100 }
+	}
+	else = {
+		clamp_variable = { var = ITA_RED_statecontrol_civ^ITA_RED_statecontrol_SelectedEntry_i_temp min = 0 max = 60 }
+	}
+	custom_effect_tooltip = ITA_RED_statecontrol_civ_boost_tt
+	hidden_effect = {
+		ITA_RED_statecontrol_civ_check_perk = yes
+	}
+}
+
+ITA_RED_statecontrol_initiate_uprising = {
+	
+	#insert stuff transferring states and adding divisions, if applicable
+
+	var:ITA_RED_statecontrol_Regions^ITA_RED_statecontrol_uprising_state = {
+		set_state_flag = ITA_RED_statecontrol_has_launched_uprising
+	}
+
+	set_temp_variable = { ITA_RED_statecontrol_SelectedEntry_i_temp = ITA_RED_statecontrol_uprising_state }
+	set_temp_variable = { ITA_RED_statecontrol_mil_boost_temp = 5 }
+	ITA_RED_statecontrol_mil_boost = yes
+}
+
+## Robin's mini perk section ##
+# shared between regions, all region-specific interactions will be through decisions or events
+
+ITA_RED_statecontrol_mil_check_perk = {
+	if = {
+		limit = {
+			check_variable = { ITA_RED_statecontrol_mil^ITA_RED_statecontrol_SelectedEntry_i_boost > 33.33 }
+			check_variable = { ITA_RED_statecontrol_mil_stage^ITA_RED_statecontrol_SelectedEntry_i_boost < 1 }
+		}
+		set_variable = { ITA_RED_statecontrol_mil_stage^ITA_RED_statecontrol_SelectedEntry_i_boost = 1 }
+
+		# insert perk effects
+	}
+	if = {
+		limit = {
+			check_variable = { ITA_RED_statecontrol_mil^ITA_RED_statecontrol_SelectedEntry_i_boost > 66.66 }
+			check_variable = { ITA_RED_statecontrol_mil_stage^ITA_RED_statecontrol_SelectedEntry_i_boost < 2 }
+		}
+		set_variable = { ITA_RED_statecontrol_mil_stage^ITA_RED_statecontrol_SelectedEntry_i_boost = 2 }
+		# insert perk effects
+	}
+	if = {
+		limit = {
+			check_variable = { ITA_RED_statecontrol_mil^ITA_RED_statecontrol_SelectedEntry_i_boost > 99 }
+			check_variable = { ITA_RED_statecontrol_mil_stage^ITA_RED_statecontrol_SelectedEntry_i_boost < 3 }
+		}
+		set_variable = { ITA_RED_statecontrol_mil_stage^ITA_RED_statecontrol_SelectedEntry_i_boost = 3 }
+		# insert perk effects
+	}
+}
+
+ITA_RED_statecontrol_civ_check_perk = {
+	if = {
+		limit = {
+			check_variable = { ITA_RED_statecontrol_civ^ITA_RED_statecontrol_SelectedEntry_i_temp > 33.33 }
+			check_variable = { ITA_RED_statecontrol_civ_stage^ITA_RED_statecontrol_SelectedEntry_i_temp < 1 }
+		}
+		set_variable = { ITA_RED_statecontrol_civ_stage^ITA_RED_statecontrol_SelectedEntry_i_temp = 1 }
+		# insert perk effects
+	}
+	if = {
+		limit = {
+			check_variable = { ITA_RED_statecontrol_civ^ITA_RED_statecontrol_SelectedEntry_i_temp > 66.66 }
+			check_variable = { ITA_RED_statecontrol_civ_stage^ITA_RED_statecontrol_SelectedEntry_i_temp < 2 }
+		}
+		set_variable = { ITA_RED_statecontrol_civ_stage^ITA_RED_statecontrol_SelectedEntry_i_temp = 2 }
+		# insert perk effects
+	}
+	if = {
+		limit = {
+			check_variable = { ITA_RED_statecontrol_civ^ITA_RED_statecontrol_SelectedEntry_i_temp > 99 }
+			check_variable = { ITA_RED_statecontrol_civ_stage^ITA_RED_statecontrol_SelectedEntry_i_temp < 3 }
+		}
+		set_variable = { ITA_RED_statecontrol_civ_stage^ITA_RED_statecontrol_SelectedEntry_i_temp = 3 }
+		# insert perk effects
+	}
+}
+
+ITA_RED_statecontrol_civ_boost_controlled = {
+	hidden_effect = {
+		if = {
+			limit = {
+				controls_state = 115
+			}
+			set_temp_variable = { ITA_RED_statecontrol_SelectedEntry_i_temp = 0 }
+			ITA_RED_statecontrol_civ_boost = yes
+		}
+		if = {
+			limit = {
+				controls_state = 2
+			}
+			set_temp_variable = { ITA_RED_statecontrol_SelectedEntry_i_temp = 1 }
+			ITA_RED_statecontrol_civ_boost = yes
+		}
+		if = {
+			limit = {
+				controls_state = 160
+			}
+			set_temp_variable = { ITA_RED_statecontrol_SelectedEntry_i_temp = 2 }
+			ITA_RED_statecontrol_civ_boost = yes
+		}
+		if = {
+			limit = {
+				controls_state = 161
+			}
+			set_temp_variable = { ITA_RED_statecontrol_SelectedEntry_i_temp = 3 }
+			ITA_RED_statecontrol_civ_boost = yes
+		}
+		if = {
+			limit = {
+				controls_state = 1325
+			}
+			set_temp_variable = { ITA_RED_statecontrol_SelectedEntry_i_temp = 4 }
+			ITA_RED_statecontrol_civ_boost = yes
+		}
+		if = {
+			limit = {
+				controls_state = 117
+			}
+			set_temp_variable = { ITA_RED_statecontrol_SelectedEntry_i_temp = 5 }
+			ITA_RED_statecontrol_civ_boost = yes
+		}
+		if = {
+			limit = {
+				controls_state = 158
+			}
+			set_temp_variable = { ITA_RED_statecontrol_SelectedEntry_i_temp = 6 }
+			ITA_RED_statecontrol_civ_boost = yes
+		}
+		if = {
+			limit = {
+				controls_state = 159
+			}
+			set_temp_variable = { ITA_RED_statecontrol_SelectedEntry_i_temp = 7 }
+			ITA_RED_statecontrol_civ_boost = yes
+		}
+	}
+	custom_effect_tooltip = ITA_RED_statecontrol_civ_boost_controlled_tt
+}
+
+## Revolutionary Assembly + Election mechanics ##
+# number_type = delegates candidate has
+# type_number = % delegates they get
+
+ITA_RED_assembly_setup = {
+	set_variable = { ITA_RED_election_orthodox = 12}
+	set_variable = { ITA_RED_election_underclass = 10}
+	set_variable = { ITA_RED_election_firebrand = 8}
+
+	set_temp_variable = { ITA_RED_delegates_calc_temp = ITA_RED_Old_Left_Power }
+	multiply_temp_variable = { ITA_RED_delegates_calc_temp = 0.3 }
+	round_temp_variable = ITA_RED_delegates_calc_temp
+	add_to_variable = { ITA_RED_election_orthodox = ITA_RED_delegates_calc_temp }
+
+	set_temp_variable = { ITA_RED_delegates_calc_temp = ITA_RED_CathCom_Power }
+	multiply_temp_variable = { ITA_RED_delegates_calc_temp = 0.3 }
+	round_temp_variable = ITA_RED_delegates_calc_temp
+	add_to_variable = { ITA_RED_election_underclass = ITA_RED_delegates_calc_temp }
+
+	set_temp_variable = { ITA_RED_delegates_calc_temp = ITA_RED_New_Left_Power }
+	multiply_temp_variable = { ITA_RED_delegates_calc_temp = 0.3 }
+	round_temp_variable = ITA_RED_delegates_calc_temp
+	add_to_variable = { ITA_RED_election_firebrand = ITA_RED_delegates_calc_temp }
+
+	set_variable = { ITA_red_orthodox_approval = 80 }
+	if = {
+		limit = { has_country_flag = ITA_RED_coalition_united }
+		set_variable = { ITA_red_firebrand_approval = 40 }
+		set_variable = { ITA_red_moderate_approval = 40 }
+	}
+	else = {
+		set_variable = { ITA_red_firebrand_approval = 50 }
+		set_variable = { ITA_red_moderate_approval = 30 }
+	}
+	
+	set_variable = { ITA_RED_orthodox_momentum = 0 }
+	set_variable = { ITA_RED_moderate_momentum = 0 }
+	set_variable = { ITA_RED_firebrand_momentum = 0 }
+	ITA_RED_election_recount_delegates = yes
+	ITA_RED_assembly_update_unity = yes
+}
+
+ITA_RED_assembly_update_unity = {
+	set_variable = { ITA_RED_assembly_unity = 0 }
+
+	set_temp_variable = { assembly_unity_temp = ITA_red_orthodox_approval }
+	divide_variable  = { assembly_unity_temp = 100 }
+	multiply_temp_variable = { assembly_unity_temp = ITA_RED_election_orthodox }
+	add_to_variable = { ITA_RED_assembly_unity = assembly_unity_temp }
+
+	set_temp_variable = { assembly_unity_temp = ITA_red_firebrand_approval }
+	divide_variable  = { assembly_unity_temp = 100 }
+	multiply_temp_variable = { assembly_unity_temp = ITA_RED_election_firebrand }
+	add_to_variable = { ITA_RED_assembly_unity = assembly_unity_temp }
+
+	set_temp_variable = { assembly_unity_temp = ITA_red_firebrand_approval }
+	divide_variable  = { assembly_unity_temp = 100 }
+	multiply_temp_variable = { assembly_unity_temp = ITA_RED_election_firebrand }
+	add_to_variable = { ITA_RED_assembly_unity = assembly_unity_temp }
+	divide_variable  = { ITA_RED_assembly_unity = ITA_RED_election_seat_total }
+}
+
+ITA_RED_assembly_add_orthodox_approval = {
+	add_to_variable = { ITA_red_orthodox_approval = ITA_red_orthodox_approval_temp }
+	clamp_variable = { var = ITA_red_orthodox_approval min = 0 max = 100 }
+	custom_effect_tooltip = ITA_RED_assembly_add_orthodox_approval_tt
+	
+	ITA_RED_assembly_update_unity = yes
+}
+ITA_RED_assembly_add_firebrand_approval = {
+	add_to_variable = { ITA_red_firebrand_approval = ITA_red_firebrand_approval_temp }
+	clamp_variable = { var = ITA_red_firebrand_approval min = 0 max = 100 }
+	custom_effect_tooltip = ITA_RED_assembly_add_firebrand_approval_tt
+	
+	ITA_RED_assembly_update_unity = yes
+}
+ITA_RED_assembly_add_moderate_approval = {
+	add_to_variable = { ITA_red_moderate_approval = ITA_red_moderate_approval_temp }
+	clamp_variable = { var = ITA_red_moderate_approval min = 0 max = 100 }
+	custom_effect_tooltip = ITA_RED_assembly_add_moderate_approval_tt
+	
+	ITA_RED_assembly_update_unity = yes
+}
+
+ITA_RED_election_setup = {
+	set_country_flag = red_italy_elections
+	hidden_effect = {
+		if = {
+			limit = { has_country_flag = red_italy_elections }
+			activate_mission = ITA_RED_election_random_changes
+			random_list = {
+				33 = {
+					set_variable = { ITA_RED_random_leader = 1 }
+				}
+				33 = {
+					set_variable = { ITA_RED_random_leader = 2 }
+				}
+				33 = {
+					set_variable = { ITA_RED_random_leader = 3 }
+				}
+			}
+		}
+		if = { # need to rework all this eventually
+			limit = { has_country_flag = ITA_RED_is_new_left }
+			set_variable = { ITA_RED_election_orthodox_first = 0.65}
+			set_variable = { ITA_RED_election_orthodox_second = 0.35}
+			set_variable = { ITA_RED_election_firebrand_first = 0.45}
+			set_variable = { ITA_RED_election_firebrand_second = 0.55}
+			set_variable = { ITA_RED_election_underclass_first = 0.6}
+			set_variable = { ITA_RED_election_underclass_second = 0.4}
+		}
+		else_if = {
+			limit = { has_country_flag = ITA_RED_is_cathcom }
+			set_variable = { ITA_RED_election_orthodox_first = 0.75}
+			set_variable = { ITA_RED_election_orthodox_second = 0.25}
+			set_variable = { ITA_RED_election_firebrand_first = 0.2}
+			set_variable = { ITA_RED_election_firebrand_second = 0.8}
+			set_variable = { ITA_RED_election_underclass_first = 0.65}
+			set_variable = { ITA_RED_election_underclass_second = 0.35}
+		}
+		else = {
+			set_variable = { ITA_RED_election_orthodox_first = 0.5}
+			set_variable = { ITA_RED_election_orthodox_second = 0.5}
+			set_variable = { ITA_RED_election_firebrand_first = 0.5}
+			set_variable = { ITA_RED_election_firebrand_second = 0.5}
+			set_variable = { ITA_RED_election_underclass_first = 0.5}
+			set_variable = { ITA_RED_election_underclass_second = 0.5}
+		}
+	}
+	activate_mission = ITA_RED_election_random_changes
+	activate_mission = ITA_RED_election_timer
+}
+
+ITA_RED_election_recount_delegates = {
+	clear_array = ITA_RED_election_seats
+	clear_array = ITA_RED_election_seats_border
+	set_variable = { ITA_RED_election_first_orthodox = 0 }
+	set_variable = { ITA_RED_election_second_orthodox = 0 }
+	set_variable = { ITA_RED_election_first_firebrand = 0 }
+	set_variable = { ITA_RED_election_second_firebrand = 0 }
+	set_variable = { ITA_RED_election_first_underclass = 0 }
+	set_variable = { ITA_RED_election_second_underclass = 0 }
+	set_variable = { ITA_RED_election_first_total = 0 }
+	set_variable = { ITA_RED_election_second_total = 0 }
+	ITA_RED_election_setup_orthodox = yes
+	ITA_RED_election_setup_firebrand = yes
+	ITA_RED_election_setup_underclass = yes
+	ITA_RED_election_count_seats = yes
+}
+
+ITA_RED_election_add_orthodox_seats = {
+	add_to_variable = { ITA_RED_election_orthodox = ITA_RED_election_orthodox_temp}
+	ITA_RED_election_recount_delegates = yes
+	custom_effect_tooltip = ITA_RED_election_add_orthodox_seats_tt
+}
+
+ITA_RED_election_add_orthodox_popularity = {
+	if = {
+		limit = {check_variable = { Y = 2 }}
+		add_to_variable = { ITA_RED_election_orthodox_second = ITA_RED_election_orthodox_pop_temp}
+		subtract_from_variable = { ITA_RED_election_orthodox_first = ITA_RED_election_orthodox_pop_temp  }
+		clamp_variable = { var = ITA_RED_election_orthodox_first min = 0 max = 1 }
+		clamp_variable = { var = ITA_RED_election_orthodox_second min = 0 max = 1 }
+		custom_effect_tooltip = ITA_RED_election_add_orthodox_pop_2_tt
+	}
+	else = {
+		add_to_variable = { ITA_RED_election_orthodox_first = ITA_RED_election_orthodox_pop_temp}
+		subtract_from_variable = { ITA_RED_election_orthodox_second = ITA_RED_election_orthodox_pop_temp  }
+		clamp_variable = { var = ITA_RED_election_orthodox_first min = 0 max = 1 }
+		clamp_variable = { var = ITA_RED_election_orthodox_second min = 0 max = 1 }
+		custom_effect_tooltip = ITA_RED_election_add_orthodox_pop_1_tt
+	}
+	ITA_RED_election_recount_delegates = yes
+}
+
+ITA_RED_election_add_firebrand_seats = {
+	add_to_variable = { ITA_RED_election_firebrand = ITA_RED_election_firebrand_temp}
+	ITA_RED_election_recount_delegates = yes
+	custom_effect_tooltip = ITA_RED_election_add_firebrand_seats_tt
+}
+
+ITA_RED_election_add_firebrand_popularity = {
+	if = {
+		limit = {check_variable = { Y = 2 }}
+		add_to_variable = { ITA_RED_election_firebrand_second = ITA_RED_election_firebrand_pop_temp}
+		subtract_from_variable = { ITA_RED_election_firebrand_first = ITA_RED_election_firebrand_pop_temp  }
+		clamp_variable = { var = ITA_RED_election_firebrand_first min = 0 max = 1 }
+		clamp_variable = { var = ITA_RED_election_firebrand_second min = 0 max = 1 }
+		custom_effect_tooltip = ITA_RED_election_add_firebrand_pop_2_tt
+	}
+	else = {
+		add_to_variable = { ITA_RED_election_firebrand_first = ITA_RED_election_firebrand_pop_temp}
+		subtract_from_variable = { ITA_RED_election_firebrand_second = ITA_RED_election_firebrand_pop_temp  }
+		clamp_variable = { var = ITA_RED_election_firebrand_first min = 0 max = 1 }
+		clamp_variable = { var = ITA_RED_election_firebrand_second min = 0 max = 1 }
+		custom_effect_tooltip = ITA_RED_election_add_firebrand_pop_1_tt
+	}
+	ITA_RED_election_recount_delegates = yes
+}
+
+ITA_RED_election_add_underclass_seats = {
+	add_to_variable = { ITA_RED_election_underclass = ITA_RED_election_underclass_temp}
+	ITA_RED_election_recount_delegates = yes
+	custom_effect_tooltip = ITA_RED_election_add_underclass_seats_tt
+}
+
+ITA_RED_election_add_underclass_popularity = {
+	if = {
+		limit = {check_variable = { Y = 2 }}
+		add_to_variable = { ITA_RED_election_underclass_second = ITA_RED_election_underclass_pop_temp}
+		subtract_from_variable = { ITA_RED_election_underclass_first = ITA_RED_election_underclass_pop_temp  }
+		clamp_variable = { var = ITA_RED_election_underclass_first min = 0 max = 1 }
+		clamp_variable = { var = ITA_RED_election_underclass_second min = 0 max = 1 }
+		custom_effect_tooltip = ITA_RED_election_add_underclass_pop_2_tt
+	}
+	else = {
+		add_to_variable = { ITA_RED_election_underclass_first = ITA_RED_election_underclass_pop_temp}
+		subtract_from_variable = { ITA_RED_election_underclass_second = ITA_RED_election_underclass_pop_temp  }
+		clamp_variable = { var = ITA_RED_election_underclass_first min = 0 max = 1 }
+		clamp_variable = { var = ITA_RED_election_underclass_second min = 0 max = 1 }
+		custom_effect_tooltip = ITA_RED_election_add_underclass_pop_1_tt
+	}
+}
+
+ITA_RED_election_setup_orthodox = {
+	set_temp_variable = { ITA_RED_election_first_temp = ITA_RED_election_orthodox_first }
+	multiply_temp_variable = { ITA_RED_election_first_temp = ITA_RED_election_orthodox }
+	round_temp_variable = ITA_RED_election_first_temp
+	set_temp_variable = { ITA_RED_election_second_temp = ITA_RED_election_orthodox_second }
+	multiply_temp_variable = { ITA_RED_election_second_temp = ITA_RED_election_orthodox }
+	round_temp_variable = ITA_RED_election_second_temp
+	set_temp_variable = { ITA_RED_election_unaligned_temp = ITA_RED_election_orthodox }
+	subtract_from_temp_variable = { ITA_RED_election_unaligned_temp = ITA_RED_election_first_temp }
+	subtract_from_temp_variable = { ITA_RED_election_unaligned_temp = ITA_RED_election_second_temp }
+	round_temp_variable = ITA_RED_election_unaligned_temp
+
+	while_loop_effect = {
+		limit = { check_variable = { ITA_RED_election_iteration_temp < ITA_RED_election_first_temp }}
+		add_to_array = { ITA_RED_election_seats = 6 }
+		add_to_array = { ITA_RED_election_seats_border = 2 }
+		add_to_variable = { ITA_RED_election_first_orthodox = 1 }
+		add_to_variable = { ITA_RED_election_first_total = 1 }
+		add_to_temp_variable = { ITA_RED_election_iteration_temp = 1 }
+	}
+	set_temp_variable = { ITA_RED_election_iteration_temp = 0 }
+	while_loop_effect = {
+		limit = { check_variable = { ITA_RED_election_iteration_temp < ITA_RED_election_second_temp }}
+		add_to_array = { ITA_RED_election_seats = 6 }
+		add_to_array = { ITA_RED_election_seats_border = 3 }
+		add_to_variable = { ITA_RED_election_second_orthodox = 1 }
+		add_to_variable = { ITA_RED_election_second_total = 1 }
+		add_to_temp_variable = { ITA_RED_election_iteration_temp = 1 }
+	}
+	set_temp_variable = { ITA_RED_election_iteration_temp = 0 }
+	while_loop_effect = {
+		limit = { check_variable = { ITA_RED_election_iteration_temp < ITA_RED_election_unaligned_temp }}
+		add_to_array = { ITA_RED_election_seats = 6 }
+		add_to_array = { ITA_RED_election_seats_border = 1 }
+		add_to_temp_variable = { ITA_RED_election_iteration_temp = 1 }
+	}
+	set_temp_variable = { ITA_RED_election_iteration_temp = 0 }
+}
+
+ITA_RED_election_setup_firebrand = {
+	set_temp_variable = { ITA_RED_election_first_temp = ITA_RED_election_firebrand_first }
+	multiply_temp_variable = { ITA_RED_election_first_temp = ITA_RED_election_firebrand }
+	round_temp_variable = ITA_RED_election_first_temp
+	set_temp_variable = { ITA_RED_election_second_temp = ITA_RED_election_firebrand_second }
+	multiply_temp_variable = { ITA_RED_election_second_temp = ITA_RED_election_firebrand }
+	round_temp_variable = ITA_RED_election_second_temp
+	set_temp_variable = { ITA_RED_election_unaligned_temp = ITA_RED_election_firebrand }
+	subtract_from_temp_variable = { ITA_RED_election_unaligned_temp = ITA_RED_election_first_temp }
+	subtract_from_temp_variable = { ITA_RED_election_unaligned_temp = ITA_RED_election_second_temp }
+	round_temp_variable = ITA_RED_election_unaligned_temp
+
+	while_loop_effect = {
+		limit = { check_variable = { ITA_RED_election_iteration_temp < ITA_RED_election_first_temp }}
+		add_to_array = { ITA_RED_election_seats = 1 }
+		add_to_array = { ITA_RED_election_seats_border = 2 }
+		add_to_variable = { ITA_RED_election_first_firebrand = 1 }
+		add_to_variable = { ITA_RED_election_first_total = 1 }
+		add_to_temp_variable = { ITA_RED_election_iteration_temp = 1 }
+	}
+	set_temp_variable = { ITA_RED_election_iteration_temp = 0 }
+	while_loop_effect = {
+		limit = { check_variable = { ITA_RED_election_iteration_temp < ITA_RED_election_second_temp }}
+		add_to_array = { ITA_RED_election_seats = 1 }
+		add_to_array = { ITA_RED_election_seats_border = 3 }
+		add_to_variable = { ITA_RED_election_second_firebrand = 1 }
+		add_to_variable = { ITA_RED_election_second_total = 1 }
+		add_to_temp_variable = { ITA_RED_election_iteration_temp = 1 }
+	}
+	set_temp_variable = { ITA_RED_election_iteration_temp = 0 }
+	while_loop_effect = {
+		limit = { check_variable = { ITA_RED_election_iteration_temp < ITA_RED_election_unaligned_temp }}
+		add_to_array = { ITA_RED_election_seats = 1 }
+		add_to_array = { ITA_RED_election_seats_border = 1 }
+		add_to_temp_variable = { ITA_RED_election_iteration_temp = 1 }
+	}
+	set_temp_variable = { ITA_RED_election_iteration_temp = 0 }
+}
+
+ITA_RED_election_setup_underclass = {
+	set_temp_variable = { ITA_RED_election_first_temp = ITA_RED_election_underclass_first }
+	multiply_temp_variable = { ITA_RED_election_first_temp = ITA_RED_election_underclass }
+	round_temp_variable = ITA_RED_election_first_temp
+	set_temp_variable = { ITA_RED_election_second_temp = ITA_RED_election_underclass_second }
+	multiply_temp_variable = { ITA_RED_election_second_temp = ITA_RED_election_underclass }
+	round_temp_variable = ITA_RED_election_second_temp
+	set_temp_variable = { ITA_RED_election_unaligned_temp = ITA_RED_election_underclass }
+	subtract_from_temp_variable = { ITA_RED_election_unaligned_temp = ITA_RED_election_first_temp }
+	subtract_from_temp_variable = { ITA_RED_election_unaligned_temp = ITA_RED_election_second_temp }
+	round_temp_variable = ITA_RED_election_unaligned_temp
+
+	while_loop_effect = {
+		limit = { check_variable = { ITA_RED_election_iteration_temp < ITA_RED_election_first_temp }}
+		add_to_array = { ITA_RED_election_seats = 4 }
+		add_to_array = { ITA_RED_election_seats_border = 2 }
+		add_to_variable = { ITA_RED_election_first_underclass = 1 }
+		add_to_variable = { ITA_RED_election_first_total = 1 }
+		add_to_temp_variable = { ITA_RED_election_iteration_temp = 1 }
+	}
+	set_temp_variable = { ITA_RED_election_iteration_temp = 0 }
+	while_loop_effect = {
+		limit = { check_variable = { ITA_RED_election_iteration_temp < ITA_RED_election_second_temp }}
+		add_to_array = { ITA_RED_election_seats = 4 }
+		add_to_array = { ITA_RED_election_seats_border = 3 }
+		add_to_variable = { ITA_RED_election_second_underclass = 1 }
+		add_to_variable = { ITA_RED_election_second_total = 1 }
+		add_to_temp_variable = { ITA_RED_election_iteration_temp = 1 }
+	}
+	set_temp_variable = { ITA_RED_election_iteration_temp = 0 }
+	while_loop_effect = {
+		limit = { check_variable = { ITA_RED_election_iteration_temp < ITA_RED_election_unaligned_temp }}
+		add_to_array = { ITA_RED_election_seats = 4 }
+		add_to_array = { ITA_RED_election_seats_border = 1 }
+		add_to_temp_variable = { ITA_RED_election_iteration_temp = 1 }
+	}
+	set_temp_variable = { ITA_RED_election_iteration_temp = 0 }
+}
+
+ITA_RED_election_count_seats = {
+	set_variable = { ITA_RED_election_seat_total = 0 }
+	for_each_loop = {
+		array = ITA_RED_election_seats
+		value = ITA_RED_election_seats_temp
+		add_to_variable = { ITA_RED_election_seat_total = 1 }
+	}
+	if = {
+		limit = {check_variable = { ITA_RED_election_seat_total > 120 }}
+		resize_array = {
+			array = ITA_RED_election_seats
+			size = 120
+		}
+		resize_array = {
+			array = ITA_RED_election_seats_border
+			size = 120
+		}
+		set_variable = { ITA_RED_election_seat_total = 120 }
+	}
+}
+
+## Italo-German War ## (Krone's wacky card game)
+
+## 1-99: Old Guard Cards
+## 100-199: New Left Cards
+## 200-299: Catholic Communist Cards
+## 300-399: Non-Left Cards
+
+ITA_RED_setup_IGW = {
+	RKI = {
+		declare_war_on = {
+			target = ITA
+			type = annex_everything
+		}
+	}
+	set_global_flag = italo_german_war
+	hidden_effect = {
+		ITA = {
+			add_dynamic_modifier = { modifier = ITA_IGW_dynamic_modifier }
+			# TNO_fopo_* registered a tab in the upstream foreign-policy panel, which
+			# is not imported. The call resolved to nothing.
+			load_focus_tree = { tree = ITA_RED_ig_war keep_completed = no }
+			IGW_create_starting_deck = yes
+			IGW_count_cards = yes
+			clamp_variable = { var = IGW_card_count min = 0 }
+			set_variable = { ITA_IGW_army_attack = -0.1 }
+			set_variable = { ITA_IGW_army_defense = -0.1 }
+			activate_mission = ITA_IGW_weekly_card_mission
+			set_variable = { IGW_ITA_intelligence = 5 } #placeholder
+			add_ideas = {
+				ITA_RED_no_war_today
+				IGW_ITA_hidden_buffs
+			}
+			set_temp_variable = { alert_id = token:Alert_ITA_UnplayedCards }
+			add_TNO_alert_unless_exists = yes
+		}
+		RKI = {
+			add_dynamic_modifier = { modifier = GER_IGW_dynamic_modifier }
+			set_variable = { GER_IGW_PU = 10 }
+			set_variable = { GER_IGW_army_attack = 0.5 }
+			set_variable = { GER_IGW_army_defense = 0.5 }
+			set_variable = { GER_IGW_army_speed = -0.25 }
+			add_ideas = {
+				ITA_RED_no_war_today
+				IGW_RKI_hidden_buffs
+			}
+		}
+		GER = {
+			# TNO_fopo_* registered a tab in the upstream foreign-policy panel, which
+			# is not imported. The call resolved to nothing.
+			set_variable = { IGW_GER_clock = 21 }
+			set_variable = { IGW_GER_attack_date = global.date }
+			add_to_variable = { IGW_GER_attack_date = 0.504 }
+			activate_mission = GER_IGW_germans_preparing
+			set_variable = { IGW_GER_intelligence = 10 } #placeholder
+			#STRIP(volunteers) set_temp_variable = { target = RKI }
+			#STRIP(volunteers) set_temp_variable = { number = 10 }
+			#STRIP(volunteers) TNO_set_num_volunteers = yes
+			if = {
+				limit = { is_ai = yes }
+				add_political_power = 200
+			}
+		}
+	}
+}
+
+IGW_create_starting_deck = {
+	if = {
+		limit = {has_country_flag = ITA_RED_is_old_guard}
+		if = {
+			limit = {
+				has_country_leader = {
+					name = "Pietro Secchia"
+					ruling_only = yes
+				}
+			}
+			add_to_array = { IGW_card = 1}
+			else_if = {
+				limit = {
+					has_country_leader = {
+						name = "Onorato Damen"
+						ruling_only = yes
+					}
+				}
+				add_to_array = { IGW_card = 3}
+			}
+		}
+		add_to_array = { IGW_card = 2 }
+		add_to_array = { IGW_card = 4 }
+		add_to_array = { IGW_card = 9 }
+		add_to_array = { IGW_card = 5 }
+		add_to_array = { IGW_card = 8 }
+		add_to_array = { IGW_card = 7 }
+	}
+	else_if = {
+		limit = {has_country_flag = ITA_RED_is_new_left}
+		if = {
+			limit = {
+				has_country_leader = {
+					name = "Giangiacomo Feltrinelli"
+					ruling_only = yes
+				}
+			}
+			add_to_array = { IGW_card = 100}
+			else_if = {
+				limit = {
+					has_country_leader = {
+						name = "Antonio Negri"
+						ruling_only = yes
+					}
+				}
+				add_to_array = { IGW_card = 101}
+			}
+		}
+		add_to_array = { IGW_card = 102 }
+		add_to_array = { IGW_card = 103 }
+		add_to_array = { IGW_card = 105 }
+		add_to_array = { IGW_card = 104 }
+		add_to_array = { IGW_card = 110 }
+		add_to_array = { IGW_card = 109 }
+	}
+	else = {
+		if = {
+			limit = {
+				has_country_leader = {
+					name = "Andrea Gallo"
+					ruling_only = yes
+				}
+			}
+			add_to_array = { IGW_card = 200}
+			else_if = {
+				limit = {
+					has_country_leader = {
+						name = "Franco Rodano"
+						ruling_only = yes
+					}
+				}
+				add_to_array = { IGW_card = 201}
+			}
+		}
+		add_to_array = { IGW_card = 202 }
+		add_to_array = { IGW_card = 203 }
+		add_to_array = { IGW_card = 205 }
+		add_to_array = { IGW_card = 209 }
+		add_to_array = { IGW_card = 208 }
+		add_to_array = { IGW_card = 204 }
+	}
+}
+
+IGW_play_card = {
+	set_country_flag = IGW_picked_card
+	set_variable = { IGW_selected_card = IGW_card^i }
+	IGW_play_card_effect = yes
+	add_to_array = { IGW_played = IGW_selected_card }
+	remove_from_array = { IGW_card = IGW_selected_card }
+
+	set_variable = {IGW_count = 0}
+	if = {
+		limit = { NOT = { has_country_flag = IGW_purge_cards }}
+		for_each_loop = {
+			array = IGW_card
+			value = IGW_card_temp
+			break = break
+
+			add_to_variable = {IGW_count = 1}
+			add_to_array = { IGW_discard = IGW_card^var:IGW_card_temp }
+			remove_from_array = { IGW_card = IGW_card^var:IGW_card_temp }
+
+			if = {
+				limit = { check_variable = { IGW_count > 1 } }
+				set_temp_variable = { break = 1 }
+			}
+		}
+		else = {
+			for_each_loop = {
+				array = IGW_card
+				value = IGW_card_temp
+				break = break
+
+				add_to_variable = {IGW_count = 1}
+				if = {
+					limit = {
+						OR = {
+							check_variable = { IGW_card_temp = 303 }
+							check_variable = { IGW_card_temp = 306 }
+							check_variable = { IGW_card_temp = 311 }
+						}
+					}
+					RKI = {
+						add_equipment_to_stockpile = {
+							type = infantry_equipment
+							amount = 5000
+							producer = ITA
+						}
+					}
+				}
+				remove_from_array = { IGW_card = IGW_card^var:IGW_card_temp }
+
+				if = {
+					limit = { check_variable = { IGW_count > 1 } }
+					set_temp_variable = { break = 1 }
+				}
+			}
+			clr_country_flag = IGW_purge_cards
+		}
+	}
+	IGW_count_cards = yes
+	clamp_variable = { var = IGW_card_count min = 0 }
+}
+
+IGW_count_cards = {
+	set_variable = { IGW_card_count = 0 }
+	for_each_loop = {
+		array = IGW_card
+		value = IGW_card_temp
+		add_to_variable = { IGW_card_count = 1 }
+	}
+	subtract_from_variable = { IGW_card_count = 3 }
+}
+
+IGW_shuffle_cards = {
+	for_each_loop = {
+		array = IGW_discard
+		value = IGW_discard_temp
+
+		random_list = {
+			50 = {
+				add_to_array = { IGW_shuffle_1 = IGW_discard^var:IGW_discard_temp }
+				remove_from_array = { IGW_discard = IGW_discard^var:IGW_discard_temp }
+			}
+			50 = {
+				add_to_array = { IGW_shuffle_2 = IGW_discard^var:IGW_discard_temp }
+				remove_from_array = { IGW_discard = IGW_discard^var:IGW_discard_temp }
+			}
+		}
+	}
+	for_each_loop = {
+		array = IGW_played
+		value = IGW_played_temp
+
+		random_list = {
+			50 = {
+				add_to_array = { IGW_shuffle_1 = IGW_played^var:IGW_played_temp }
+				remove_from_array = { IGW_played = IGW_played^var:IGW_played_temp }
+			}
+			50 = {
+				add_to_array = { IGW_shuffle_2 = IGW_played^var:IGW_played_temp }
+				remove_from_array = { IGW_played = IGW_played^var:IGW_played_temp }
+			}
+		}
+	}
+	for_each_loop = {
+		array = IGW_shuffle_1
+		value = IGW_shuffle_1_temp
+
+		random_list = {
+			50 = {
+				find_lowest_in_array = {
+					array = IGW_shuffle_1
+					value = IGW_shuffle_1_temp
+				}
+				add_to_array = { IGW_card = IGW_shuffle_1^var:IGW_shuffle_1_temp }
+				remove_from_array = { IGW_shuffle_1 = IGW_shuffle_1^var:IGW_shuffle_1_temp }
+			}
+			50 = {
+				find_highest_in_array = {
+					array = IGW_shuffle_1
+					value = IGW_shuffle_1_temp
+				}
+				add_to_array = { IGW_card = IGW_shuffle_1^var:IGW_shuffle_1_temp }
+				remove_from_array = { IGW_shuffle_1 = IGW_shuffle_1^var:IGW_shuffle_1_temp }
+			}
+		}
+	}
+	for_each_loop = {
+		array = IGW_shuffle_2
+		value = IGW_shuffle_2_temp
+
+		random_list = {
+			50 = {
+				find_lowest_in_array = {
+					array = IGW_shuffle_2
+					value = IGW_shuffle_2_temp
+				}
+				add_to_array = { IGW_card = IGW_shuffle_2^var:IGW_shuffle_2_temp }
+				remove_from_array = { IGW_shuffle_2 = IGW_shuffle_2^var:IGW_shuffle_2_temp }
+			}
+			50 = {
+				find_highest_in_array = {
+					array = IGW_shuffle_2
+					value = IGW_shuffle_2_temp
+				}
+				add_to_array = { IGW_card = IGW_shuffle_2^var:IGW_shuffle_2_temp }
+				remove_from_array = { IGW_shuffle_2 = IGW_shuffle_2^var:IGW_shuffle_2_temp }
+			}
+		}
+	}
+	IGW_count_cards = yes
+	clamp_variable = { var = IGW_card_count min = 0 }
+}
+
+## THIS IS THE BIG EFFECTS PILE
+IGW_play_card_effect = {
+	if = {
+		limit = { IGW_Old_Guard_card_hand = yes }
+		IGW_play_card_effect_OG = yes
+		else_if = {
+			limit = { IGW_New_Left_card_hand = yes }
+			IGW_play_card_effect_NL = yes
+		}
+		else_if = {
+			limit = { IGW_CathCom_card_hand = yes }
+			IGW_play_card_effect_CC = yes
+		}
+		else_if = {
+			limit = { IGW_NonAligned_card_hand = yes }
+			IGW_play_card_effect_NA = yes
+		}
+	}
+}
+
+IGW_play_card_effect_OG = {
+	if = {
+		limit = {check_variable = { IGW_card^i = 1 }}
+		add_political_power = 50
+		add_stability = .1
+		set_country_flag = IGW_purge_cards
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 2 }}
+		subtract_from_variable = { RKI.GER_IGW_PU = 2 }
+		subtract_from_variable = { RKI.GER_IGW_army_attack = 0.05 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 3 }}
+		add_to_variable = { ITA_red_alpine_militia_cap = 5 }
+		set_division_template_cap = { division_template = "Milizia Alpina" division_cap = ITA_red_alpine_militia_cap }
+		159 = {
+			create_unit = {
+				division = "division_template = \"Milizia Alpina\" start_experience_factor = 0.1 start_equipment_factor = 0.4 start_manpower_factor = 0.6"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+		159 = {
+			create_unit = {
+				division = "division_template = \"Milizia Alpina\" start_experience_factor = 0.1 start_equipment_factor = 0.4 start_manpower_factor = 0.6"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+		158 = {
+			create_unit = {
+				division = "division_template = \"Milizia Alpina\" start_experience_factor = 0.1 start_equipment_factor = 0.2 start_manpower_factor = 0.6"
+				owner = ITA
+			}
+		}
+		161 = {
+			create_unit = {
+				division = "division_template = \"Milizia Alpina\" start_experience_factor = 0.1 start_equipment_factor = 0.4 start_manpower_factor = 0.6"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+		161 = {
+			create_unit = {
+				division = "division_template = \"Milizia Alpina\" start_experience_factor = 0.1 start_equipment_factor = 0.4 start_manpower_factor = 0.6"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+		set_country_flag = IGW_purge_cards
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 4 }}
+		add_to_variable = { ITA_red_partisan_cap  = 2 }
+		set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+		162 = {
+			create_unit = {
+				division = "division_template = \"Brigata Partigiana\" start_experience_factor = 0.1 start_equipment_factor = 0.2 start_manpower_factor = 0.7"
+				owner = ITA
+			}
+		}
+		162 = {
+			create_unit = {
+				division = "division_template = \"Brigata Partigiana\" start_experience_factor = 0.1 start_equipment_factor = 0.2 start_manpower_factor = 0.7"
+				owner = ITA
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 5 }}
+		add_to_variable = { ITA_IGW_army_defense = 0.10 }
+		subtract_from_variable = { ITA_IGW_army_attack = 0.05 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 6 }}
+		add_to_variable = { IGW_ITA_intelligence = 10 }
+		subtract_from_variable = { GER.GER_IGW_army_defense = 0.05 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 7 }}
+		army_experience = 30
+		set_country_flag = IGW_purge_cards
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 8 }}
+		subtract_from_variable = { GER.GER_IGW_army_attack = 0.1 }
+		add_political_power = 15
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 9 }}
+		add_to_variable = { ITA_IGW_army_attack = 0.05 }
+		add_to_variable = { ITA_IGW_army_defense = 0.05 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 10 }}
+		random_list = {
+			25 = { add_to_variable = { ITA_IGW_army_attack = 0.15 } }
+			75 = { subtract_from_variable = { ITA_IGW_army_defense = 0.05 } }
+		}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 11 }}
+		add_to_variable = { ITA_IGW_army_defense = 0.1 }
+		set_country_flag = IGW_purge_cards
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 12 }}
+		add_to_variable = { ITA_IGW_army_attack = 0.05 }
+		clr_country_flag = IGW_picked_card
+		set_temp_variable = { alert_id = token:Alert_ITA_UnplayedCards }
+		add_TNO_alert_unless_exists = yes
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 13 }}
+		subtract_from_variable = { RKI.GER_IGW_PU = 1 }
+		subtract_from_variable = { RKI.GER_IGW_army_defense = 0.1 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 14 }}
+		add_to_variable = { IGW_ITA_intelligence = 10 }
+		army_experience = 15
+		set_country_flag = IGW_purge_cards
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 15 }}
+		add_to_variable = { ITA_IGW_army_attack = 0.05 }
+		add_to_variable = { ITA_red_brigata_garibaldi_cap = 5 }
+		set_division_template_cap = { division_template = "Brigata d'assalto Garibaldi" division_cap = ITA_red_brigata_garibaldi_cap }
+		159 = { #lombardy
+			create_unit = {
+				division = "division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.2 start_equipment_factor = 0.4 start_manpower_factor = 0.5"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+		158 = { #torino
+			create_unit = {
+				division = "division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.2 start_equipment_factor = 0.3 start_manpower_factor = 0.4"
+				owner = ITA
+			}
+		}
+		1323 = { #liguria
+			create_unit = {
+				division = "division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.2 start_equipment_factor = 0.3 start_manpower_factor = 0.4"
+				owner = ITA
+			}
+		}
+		161 = { #emilia
+			create_unit = {
+				division = "division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.2 start_equipment_factor = 0.4 start_manpower_factor = 0.5"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+		160 = { #veneto
+			create_unit = {
+				division = "division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.2 start_equipment_factor = 0.4 start_manpower_factor = 0.5"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 16 }}
+		subtract_from_variable = { RKI.GER_IGW_army_attack = 0.1 }
+		subtract_from_variable = { RKI.GER_IGW_army_defense = 0.1 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 17 }}
+		add_political_power = 30
+		add_to_variable = { ITA_IGW_army_attack = 0.1 }
+		add_to_variable = { ITA_IGW_army_defense = 0.1 }
+	}
+}
+
+IGW_play_card_effect_NL = {
+	if = {
+		limit = {check_variable = { IGW_card^i = 100 }}
+		add_to_variable = { IGW_Tactic_Just_Like_Che = 1 }
+		add_war_support = .1
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 101 }}
+		add_to_variable = { IGW_Tactic_Break_the_Machine = 1 }
+		add_to_variable = { ITA_IGW_army_attack = 0.05 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 102 }}
+		add_to_variable = { IGW_Tactic_Bridge_the_GAAP = 1 }
+		add_political_power = 15
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 103 }}
+		add_political_power = 10
+		add_to_variable = { ITA_red_student_brigade_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata Studentesca" division_cap = ITA_red_student_brigade_cap }
+		161 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.12 start_equipment_factor = 0.5 start_manpower_factor = 0.7"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 104 }}
+		army_experience = 15
+		add_political_power = 15
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 105 }}
+		add_political_power = 15
+		add_to_variable = { ITA_IGW_army_attack = 0.05 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 106 }}
+		add_to_variable = { IGW_Tactic_Hit_and_Run = 1 }
+		add_to_variable = { IGW_ITA_intelligence = 5 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 107 }}
+		add_to_variable = { IGW_Tactic_This_Just_May_Work = 1 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 108 }}
+		add_political_power = 15
+		add_to_variable = { ITA_red_student_brigade_cap = 3 }
+		set_division_template_cap = { division_template = "Brigata Studentesca" division_cap = ITA_red_student_brigade_cap }
+		159 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.12 start_equipment_factor = 0.2 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		161 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.12 start_equipment_factor = 0.2 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		2 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.12 start_equipment_factor = 0.1 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 109 }}
+		add_to_variable = { ITA_IGW_army_attack = 0.025 }
+		add_to_variable = { ITA_IGW_army_defense = 0.075 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 110 }}
+		add_political_power = 15
+		add_to_variable = { ITA_IGW_army_attack = 0.05 }
+		add_war_support = .5
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 111 }}
+		add_political_power = 25
+		add_to_variable = { ITA_IGW_army_defense = 0.1 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 112 }}
+		add_political_power = 30
+		add_to_variable = { IGW_Tactic_A_Little_Bit_of_Everything = 1 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 113 }}
+		add_political_power = 100
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 114 }}
+		add_to_variable = { ITA_IGW_army_attack = 0.1 }
+		add_to_variable = { ITA_red_student_brigade_cap = 10 }
+		set_division_template_cap = { division_template = "Brigata Studentesca" division_cap = ITA_red_student_brigade_cap }
+		159 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.4 start_manpower_factor = 0.5"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+		158 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.3 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		1323 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.3 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		161 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.4 start_manpower_factor = 0.5"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+		2 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.3 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		159 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.4 start_manpower_factor = 0.5"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+		2 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.3 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		162 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.3 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		1324 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.3 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		160 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.4 start_manpower_factor = 0.5"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 115 }}
+		add_stability = .15
+		add_war_support = .15
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 116 }}
+		add_political_power = 25
+		add_to_variable = { IGW_Tactic_The_Romantic_Revolution = 1 }
+	}
+}
+
+IGW_play_card_effect_CC = {
+	if = {
+		limit = {check_variable = { IGW_card^i = 200 }}
+		add_to_array = { IGW_discard = 316 }
+		add_stability = .1
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 201 }}
+		set_temp_variable = { ITA_IGW_army_attack_temp = IGW_card_count }
+		add_to_temp_variable = { ITA_IGW_army_attack_temp = 3 }
+		multiply_temp_variable = { ITA_IGW_army_attack_temp = 0.005 }
+		add_to_variable = { ITA_IGW_army_attack = ITA_IGW_army_attack_temp }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 202 }}
+		IGW_CC_recruit = yes
+		IGW_CC_recruit = yes
+		add_political_power = 15
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 203 }}
+		add_to_variable = { ITA_red_workers_militia_cap = 3 }
+		set_division_template_cap = { division_template = "Battaglione Operaio" division_cap = ITA_red_workers_militia_cap }
+		159 = {
+			create_unit = {
+				division = "division_template = \"Battaglione Operaio\" start_experience_factor = 0.1 start_equipment_factor = 0.5 start_manpower_factor = 0.8"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+		158 = {
+			create_unit = {
+				division = "division_template = \"Battaglione Operaio\" start_experience_factor = 0.1 start_equipment_factor = 0.3 start_manpower_factor = 0.8"
+				owner = ITA
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 204 }}
+		set_temp_variable = { IGW_PP_add_temp = IGW_card_count }
+		add_to_temp_variable = { IGW_PP_add_temp = 3 }
+		add_political_power = IGW_PP_add_temp
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 205 }}
+		IGW_CC_recruit = yes
+		add_to_variable = { ITA_IGW_army_attack = 0.025 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 206 }}
+		add_to_variable = { IGW_ITA_intelligence = 5 }
+		IGW_shuffle_cards = yes
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 207 }}
+		IGW_CC_recruit = yes
+		add_stability = .05
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 208 }}
+		for_each_loop = {
+			array = IGW_discard
+			add_to_variable = { ITA_IGW_army_attack = 0.004 }
+			add_to_variable = { ITA_IGW_army_defense = 0.004 }
+		}
+		for_each_loop = {
+			array = IGW_played
+			add_to_variable = { ITA_IGW_army_attack = 0.004 }
+			add_to_variable = { ITA_IGW_army_defense = 0.004 }
+		}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 209 }}
+		army_experience = 15
+		IGW_CC_recruit = yes
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 210 }}
+		add_to_variable = { ITA_IGW_army_attack = 0.01 }
+		IGW_shuffle_cards = yes
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 211 }}
+		IGW_CC_recruit = yes
+		add_political_power = 20
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 212 }}
+		for_each_loop = {
+			array = IGW_card
+			add_to_variable = { ITA_red_workers_militia_cap = 1 }
+			set_division_template_cap = { division_template = "Battaglione Operaio" division_cap = ITA_red_workers_militia_cap }
+			161 = {
+				create_unit = {
+					division = "division_template = \"Battaglione Operaio\" start_experience_factor = 0.1 start_equipment_factor = 0.4 start_manpower_factor = 0.8"
+					owner = ITA
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 213 }}
+		set_temp_variable = { IGW_army_exp_add_temp = IGW_card_count }
+		add_to_temp_variable = { IGW_army_exp_add_temp = 3 }
+		multiply_temp_variable = { IGW_army_exp_add_temp = 2 }
+		army_experience = IGW_army_exp_add_temp
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 214 }}
+		add_to_variable = { ITA_IGW_army_defense = .05 }
+		add_war_support = .1
+		add_stability = .1
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 215 }}
+		IGW_CC_recruit = yes
+		IGW_CC_recruit = yes
+		IGW_CC_recruit = yes
+		IGW_shuffle_cards = yes
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 216 }}
+		for_each_loop = {
+			array = IGW_card
+			add_to_variable = { ITA_IGW_army_attack = 0.005 }
+		}
+		for_each_loop = {
+			array = IGW_card
+			add_to_variable = { ITA_IGW_army_attack = 0.005 }
+		}
+		for_each_loop = {
+			array = IGW_card
+			add_to_variable = { ITA_IGW_army_attack = 0.005 }
+		}
+	}
+}
+IGW_play_card_effect_NA = {
+	if = {
+		limit = {check_variable = { IGW_card^i = 300 }}
+		add_to_variable = { ITA_red_student_brigade_cap = 5 }
+		set_division_template_cap = { division_template = "Brigata Studentesca" division_cap = ITA_red_student_brigade_cap }
+		159 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.5 start_manpower_factor = 0.7"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+		1323 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.3 start_manpower_factor = 0.7"
+				owner = ITA
+			}
+		}
+		162 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.3 start_manpower_factor = 0.7"
+				owner = ITA
+			}
+		}
+		743 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.3 start_manpower_factor = 0.7"
+				owner = ITA
+			}
+		}
+		161 = {
+			create_unit = {
+				division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.5 start_manpower_factor = 0.7"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 303 }}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 304 }}
+		add_political_power = 20
+		add_to_variable = { ITA_IGW_army_attack = 0.05 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 305 }}
+		add_to_variable = { ITA_IGW_army_defense = 0.05 }
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 500
+			producer = ITA
+		}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 306 }}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 307 }}
+		add_to_variable = { ITA_red_partisan_cap = 5 }
+		set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+		117 = {
+			create_unit = {
+				division = "division_template = \"Brigata Partigiana\" start_experience_factor = 0.1 start_equipment_factor = 0.2 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		161 = {
+			create_unit = {
+				division = "division_template = \"Brigata Partigiana\" start_experience_factor = 0.1 start_equipment_factor = 0.5 start_manpower_factor = 0.7"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+		1324 = {
+			create_unit = {
+				division = "division_template = \"Brigata Partigiana\" start_experience_factor = 0.1 start_equipment_factor = 0.2 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		162 = {
+			create_unit = {
+				division = "division_template = \"Brigata Partigiana\" start_experience_factor = 0.1 start_equipment_factor = 0.2 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		160 = {
+			create_unit = {
+				division = "division_template = \"Brigata Partigiana\" start_experience_factor = 0.1 start_equipment_factor = 0.5 start_manpower_factor = 0.7"
+				owner = ITA
+				allow_spawning_on_enemy_provs = yes
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 308 }}
+		set_temp_variable = { temp_econ_GDP_boost_percentage = 0.05 }
+		econ_GDP_boost_once_percentage = yes
+		add_to_variable = {ITA_RED_reaction = 5}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 309 }}
+		add_political_power = 10
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1000
+			producer = ITA
+		}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 30 }}
+		add_to_variable = { ITA_IGW_army_attack = 0.05 }
+		add_to_variable = { ITA_IGW_army_defense = 0.05 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 311 }}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 312 }}
+		set_temp_variable = { temp_econ_GDP_boost_percentage = 0.075 }
+		econ_GDP_boost_once_percentage = yes
+		add_to_variable = {ITA_RED_reaction = 7.5}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 313 }}
+		set_temp_variable = { temp_econ_GDP_boost_percentage = 0.1 }
+		econ_GDP_boost_once_percentage = yes
+		add_to_variable = {ITA_RED_reaction = 10}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 314 }}
+		add_to_variable = { ITA_IGW_army_defense = 0.1 }
+		subtract_from_variable = { ITA_IGW_army_defense = 0.025 }
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 315 }}
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 2000
+			producer = ITA
+		}
+		add_equipment_to_stockpile = {
+			type = support_equipment
+			amount = 200
+			producer = ITA
+		}
+	}
+	else_if = {
+		limit = {check_variable = { IGW_card^i = 316 }}
+		random_list = {
+			50 = {
+				add_political_power = 150
+			}
+			50 = {
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = -2500
+					producer = ITA
+				}
+			}
+		}
+	}
+}
+
+IGW_CC_recruit = {
+	random_list = {
+		30 = {
+			add_to_array = { IGW_discard = 304 }
+		}
+		20 = {
+			add_to_array = { IGW_discard = 305 }
+		}
+		25 = {
+			add_to_array = { IGW_discard = 307 }
+		}
+		15 = {
+			add_to_array = { IGW_discard = 309 }
+		}
+		15 = {
+			add_to_array = { IGW_discard = 310 }
+		}
+		15 = {
+			add_to_array = { IGW_discard = 314 }
+		}
+		10 = {
+			add_to_array = { IGW_discard = 315 }
+		}
+		10 = {
+			add_to_array = { IGW_discard = 316 }
+		}
+	}
+}
+
+IGW_War_Stage_Tick = {
+	add_to_variable = {global.IGW_stage = 1}
+	if = {
+		limit = { ITA = { surrender_progress > 0.3 } }
+		subtract_from_variable = { ITA.ITA_IGW_army_attack = 0.05 }
+		subtract_from_variable = { ITA.ITA_IGW_army_defense = 0.05 }
+	}
+	else_if = {
+		limit = { ITA = { surrender_progress > 0.15 } }
+		subtract_from_variable = { ITA.ITA_IGW_army_attack = 0.1 }
+		subtract_from_variable = { ITA.ITA_IGW_army_defense = 0.1 }
+	}
+	else_if = {
+		limit = { RKI = { surrender_progress > 0.2 } }
+		subtract_from_variable = { ITA.ITA_IGW_army_attack = 0.2 }
+		subtract_from_variable = { ITA.ITA_IGW_army_defense = 0.2 }
+	}
+	else = {
+		subtract_from_variable = { ITA.ITA_IGW_army_attack = 0.15 }
+		subtract_from_variable = { ITA.ITA_IGW_army_defense = 0.15 }
+	}
+	if = {
+		limit = {check_variable = {global.IGW_stage = 1}}
+		IGW_resupply_germans = yes
+		hidden_effect = {
+			ITA = {
+				if = {
+					limit = {has_country_flag = ITA_RED_is_old_guard}
+						country_event = ig_war.10
+					}
+				else_if = {
+					limit = {has_country_flag = ITA_RED_is_new_left}
+					country_event = ig_war.20
+				}
+				else = {
+					country_event = ig_war.30
+				}
+				set_country_flag = IGW_enable_intelligence
+			}
+		}
+		GER = {
+			#STRIP(volunteers) set_temp_variable = { target = RKI }
+			#STRIP(volunteers) set_temp_variable = { to_add = 2}
+			#STRIP(volunteers) TNO_add_num_volunteers = yes
+		}
+	}
+	else_if = {
+		limit = {check_variable = {global.IGW_stage = 2}}
+		GER = {
+			#STRIP(volunteers) set_temp_variable = { target = RKI }
+			#STRIP(volunteers) set_temp_variable = { to_add = 1}
+			#STRIP(volunteers) TNO_add_num_volunteers = yes
+		}
+		ITA = {
+			hidden_effect = {
+				country_event = ig_war_flavor.18
+			}
+		}
+		IGW_resupply_germans = yes
+	}
+	else_if = {
+		limit = {check_variable = {global.IGW_stage = 3}}
+		GER = {
+			#STRIP(volunteers) set_temp_variable = { target = RKI }
+			#STRIP(volunteers) set_temp_variable = { to_add = 1}
+			#STRIP(volunteers) TNO_add_num_volunteers = yes
+		}
+		IGW_resupply_germans = yes
+	}
+	else_if = {
+		limit = {check_variable = {global.IGW_stage = 4}}
+		GER = {
+			#STRIP(volunteers) set_temp_variable = { target = RKI }
+			#STRIP(volunteers) set_temp_variable = { to_add = 1}
+			#STRIP(volunteers) TNO_add_num_volunteers = yes
+		}
+		IGW_resupply_germans = yes
+	}
+	else_if = {
+		limit = {check_variable = {global.IGW_stage = 5}}
+		GER = {
+			#STRIP(volunteers) set_temp_variable = { target = RKI }
+			#STRIP(volunteers) set_temp_variable = { to_add = 2}
+			#STRIP(volunteers) TNO_add_num_volunteers = yes
+		}
+		IGW_resupply_germans = yes
+	}
+	else_if = {
+		limit = {check_variable = {global.IGW_stage = 6}}
+		GER = {
+			#STRIP(volunteers) set_temp_variable = { target = RKI }
+			#STRIP(volunteers) set_temp_variable = { to_add = 4}
+			#STRIP(volunteers) TNO_add_num_volunteers = yes
+		}
+		IGW_resupply_germans = yes
+	}
+	else_if = {
+		limit = {check_variable = {global.IGW_stage = 7}}
+		GER = {
+			#STRIP(volunteers) set_temp_variable = { target = RKI }
+			#STRIP(volunteers) set_temp_variable = { to_add = 50}
+			#STRIP(volunteers) TNO_add_num_volunteers = yes
+		}
+		IGW_resupply_germans = yes
+	}
+	else_if = { #force end the war
+		limit = {check_variable = {global.IGW_stage = 8}}
+		if = {
+			limit = {
+				ITA = {surrender_progress < 0.2}
+			}
+			ITA = {
+				country_event = ig_war_endings.3
+			}
+		}
+		else_if = {
+			limit = {
+				AND = {
+					ITA = {surrender_progress > 0.2}
+					ITA = {surrender_progress < 0.25}
+				}
+			}
+			ITA = {
+				country_event = ig_war_endings.2
+			}
+		}
+		else = {
+			ITA = {
+				country_event = ig_war_endings.3
+			}
+		}
+	}
+}
+
+IGW_resupply_germans = {
+	if = {
+		limit = { ITA = { surrender_progress > 0.5 } }
+		RKI = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+					amount = -500
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = -50
+				producer = GER
+			}
+			add_manpower = -1500
+		}
+	}
+	else_if = {
+		limit = { ITA = { surrender_progress > 0.25 } }
+		RKI = {
+			add_manpower = 2000
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 500
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 200
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = anti_tank_equipment
+				amount = 200
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = anti_air_shoulder_equipment
+				amount = 200
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 100
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 100
+				producer = GER
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "No Step Back"
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = MBT_equipment_2
+					amount = 10
+					producer = "GER"
+				}
+			}
+			else_if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				add_equipment_to_stockpile = {
+					type = MBT_chassis_2
+					amount = 10
+					producer = "GER"
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { ITA = { surrender_progress > 0.1 } }
+		RKI = {
+			add_manpower = 5000
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 500
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 150
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = anti_tank_equipment
+				amount = 100
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = anti_air_shoulder_equipment
+				amount = 100
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 50
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 100
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = jet_fighter_equipment
+				amount = 5
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = jet_CAS_equipment
+				amount = 5
+				producer = GER
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "No Step Back"
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = MBT_equipment_2
+					amount = 20
+					producer = "GER"
+				}
+			}
+			else_if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				add_equipment_to_stockpile = {
+					type = MBT_chassis_2
+					amount = 20
+					producer = "GER"
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { RKI = { surrender_progress > 0.01 } }
+		RKI = {
+			add_manpower = 25000
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 2000
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 600
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = anti_tank_equipment
+				amount = 400
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = anti_air_shoulder_equipment
+				amount = 300
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 200
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 500
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = jet_fighter_equipment
+				amount = 20
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = jet_CAS_equipment
+				amount = 20
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = attack_helicopter_equipment
+				amount = 10
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = transport_helicopter_equipment
+				amount = 10
+				producer = GER
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "No Step Back"
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = MBT_equipment_2
+					amount = 45
+					producer = "GER"
+				}
+			}
+			else_if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				add_equipment_to_stockpile = {
+					type = MBT_chassis_2
+					amount = 45
+					producer = "GER"
+				}
+			}
+		}
+	}
+	else = {
+		RKI = {
+			add_manpower = 15000
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 1200
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 400
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = anti_tank_equipment
+				amount = 300
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = anti_air_shoulder_equipment
+				amount = 200
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 100
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = 300
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = jet_fighter_equipment
+				amount = 10
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = jet_CAS_equipment
+				amount = 10
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = attack_helicopter_equipment
+				amount = 10
+				producer = GER
+			}
+			add_equipment_to_stockpile = {
+				type = transport_helicopter_equipment
+				amount = 10
+				producer = GER
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_dlc = "No Step Back"
+					}
+				}
+				add_equipment_to_stockpile = {
+					type = MBT_equipment_2
+					amount = 30
+					producer = "GER"
+				}
+			}
+			else_if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				add_equipment_to_stockpile = {
+					type = MBT_chassis_2
+					amount = 30
+					producer = "GER"
+				}
+			}
+		}
+	}
+}
+
+IGW_ITA_add_attack = {
+	add_to_variable = { ITA.ITA_IGW_army_attack = IGW_attack_change_temp }
+	custom_effect_tooltip = ITA_IGW_add_attack_tt
+}
+IGW_ITA_add_defense = {
+	add_to_variable = { ITA.ITA_IGW_army_defense = IGW_defense_change_temp }
+	custom_effect_tooltip = ITA_IGW_add_defense_tt
+}
+IGW_GER_add_attack = {
+	add_to_variable = { RKI.GER_IGW_army_attack = IGW_attack_change_temp }
+	custom_effect_tooltip = GER_IGW_add_attack_tt
+}
+IGW_GER_add_defense = {
+	add_to_variable = { RKI.GER_IGW_army_defense = IGW_defense_change_temp }
+	custom_effect_tooltip = GER_IGW_add_defense_tt
+}
+
+### DEIMPERIALISM: BALKANS + MIDDLE EAST IMPERIALISM ###
+
+ITA_RED_join_sphere = {
+	set_temp_variable = { target = ITA.ECON_SPHERE_LEADER }
+	econ_join_sphere_target = yes
+	THIS = { ITA = { clear_embargo_PREV = yes }}
+	ITA = { ITA_deimperialism_balkans_supply_check_perk_retroactive_adding = yes }
+}
+
+# Setup effects
+
+ITA_deimperialism_map_balkans_setup = {
+	hidden_effect = {
+		create_faction = Sezione_Mediterranea_dell_Internazionale_Socialista
+		# TNO_fopo_* registered a tab in the upstream foreign-policy panel, which
+		# is not imported. The call resolved to nothing.
+		clear_array = ITA_Deimp_Balkans_Regions
+		set_variable = { Deimp_SelectedEntryBalkans_i = 0 }
+		resize_array = { ITA_Deimp_balkans_revoltpercent = 7 }
+		resize_array = { ITA_Deimp_Balkans_Regions = 7 }
+		resize_array = { ITA_Deimp_balkans_distance = 7 }
+		resize_array = { ITA_Deimp_balkans_supplyvalue = 7 }
+		resize_array = { ITA_Deimp_balkans_revoltvalue = 7 }
+		set_variable = { ITA_Deimp_balkans_access = 1 }
+
+		# Croatia
+		set_variable = { ITA_Deimp_Balkans_Regions^0 = CRO }
+		set_variable = { ITA_Deimp_Balkans_Regions_X^0 = 25 }
+		set_variable = { ITA_Deimp_Balkans_Regions_Y^0 = 10 }
+		set_variable = { ITA_Deimp_balkans_distance^0 =  1 }
+		set_variable = { ITA_Deimp_balkans_supplypercent^0 = CRO.num_of_supply_nodes }
+		multiply_variable = { ITA_Deimp_balkans_supplypercent^0 = 5 }
+		set_variable = { ITA_Deimp_balkans_revoltpercent^0 = CRO.party_popularity@communist }
+		add_to_variable = { ITA_Deimp_balkans_revoltpercent^0 = CRO.party_popularity@socialist }
+		multiply_variable = { ITA_Deimp_balkans_revoltpercent^0 = 100 }
+
+
+		# Serbia
+		set_variable = { ITA_Deimp_Balkans_Regions^1 = SER }
+		set_variable = { ITA_Deimp_Balkans_Regions_X^1 = 105 }
+		set_variable = { ITA_Deimp_Balkans_Regions_Y^1 = 10 }
+		set_variable = { ITA_Deimp_balkans_distance^1 =  2 }
+		set_variable = { ITA_Deimp_balkans_supplypercent^1 = SER.num_of_supply_nodes }
+		multiply_variable = { ITA_Deimp_balkans_supplypercent^1 = 5 }
+		set_variable = { ITA_Deimp_balkans_revoltpercent^1 = SER.party_popularity@communist }
+		add_to_variable = { ITA_Deimp_balkans_revoltpercent^1 = SER.party_popularity@socialist }
+		multiply_variable = { ITA_Deimp_balkans_revoltpercent^1 = 100 }
+
+		# Montenegro
+		set_variable = { ITA_Deimp_Balkans_Regions^2 = MNT }
+		set_variable = { ITA_Deimp_Balkans_Regions_X^2 = 93 }
+		set_variable = { ITA_Deimp_Balkans_Regions_Y^2 = 72  }
+		set_variable = { ITA_Deimp_balkans_distance^2 =  1 }
+		set_variable = { ITA_Deimp_balkans_supplypercent^2 = MNT.num_of_supply_nodes }
+		multiply_variable = { ITA_Deimp_balkans_supplypercent^2 = 5 }
+		set_variable = { ITA_Deimp_balkans_revoltpercent^2 = MNT.party_popularity@communist }
+		add_to_variable = { ITA_Deimp_balkans_revoltpercent^2 = MNT.party_popularity@socialist }
+		multiply_variable = { ITA_Deimp_balkans_revoltpercent^2 = 100 }
+
+		# Albania
+		set_variable = { ITA_Deimp_Balkans_Regions^3 = ALB }
+		set_variable = { ITA_Deimp_Balkans_Regions_X^3 = 107 }
+		set_variable = { ITA_Deimp_Balkans_Regions_Y^3 = 88  }
+		set_variable = { ITA_Deimp_balkans_distance^3 =  1 }
+		set_variable = { ITA_Deimp_balkans_supplypercent^3 = ALB.num_of_supply_nodes }
+		multiply_variable = { ITA_Deimp_balkans_supplypercent^3 = 5 }
+		set_variable = { ITA_Deimp_balkans_revoltpercent^3 = ALB.party_popularity@communist }
+		add_to_variable = { ITA_Deimp_balkans_revoltpercent^3 = ALB.party_popularity@socialist }
+		multiply_variable = { ITA_Deimp_balkans_revoltpercent^3 = 100 }
+
+		# Macedonia
+		set_variable = { ITA_Deimp_Balkans_Regions^4 = MAC }
+		set_variable = { ITA_Deimp_Balkans_Regions_X^4 = 141 }
+		set_variable = { ITA_Deimp_Balkans_Regions_Y^4 = 96  }
+		set_variable = { ITA_Deimp_balkans_distance^4 =  2 }
+		set_variable = { ITA_Deimp_balkans_supplypercent^4 = MAC.num_of_supply_nodes }
+		multiply_variable = { ITA_Deimp_balkans_supplypercent^4 = 5 }
+		set_variable = { ITA_Deimp_balkans_revoltpercent^4 = MAC.party_popularity@communist }
+		add_to_variable = { ITA_Deimp_balkans_revoltpercent^4 = MAC.party_popularity@socialist }
+		multiply_variable = { ITA_Deimp_balkans_revoltpercent^4 = 50 }
+
+		# Bulgaria
+		set_variable = { ITA_Deimp_Balkans_Regions^5 = BUL }
+		set_variable = { ITA_Deimp_Balkans_Regions_X^5 = 147 }
+		set_variable = { ITA_Deimp_Balkans_Regions_Y^5 = 60  }
+		set_variable = { ITA_Deimp_balkans_distance^5 =  2 }
+		set_variable = { ITA_Deimp_balkans_supplypercent^5 = BUL.num_of_supply_nodes }
+		multiply_variable = { ITA_Deimp_balkans_supplypercent^5 = 5 }
+		set_variable = { ITA_Deimp_balkans_revoltpercent^5 = BUL.party_popularity@communist }
+		add_to_variable = { ITA_Deimp_balkans_revoltpercent^5 = BUL.party_popularity@socialist }
+		multiply_variable = { ITA_Deimp_balkans_revoltpercent^5 = 100 }
+
+		# Greece
+		set_variable = { ITA_Deimp_Balkans_Regions^6 = GRE }
+		set_variable = { ITA_Deimp_Balkans_Regions_X^6 = 127 }
+		set_variable = { ITA_Deimp_Balkans_Regions_Y^6 = 127 }
+		set_variable = { ITA_Deimp_balkans_distance^6 =  2 }
+		set_variable = { ITA_Deimp_balkans_supplypercent^6 = GRE.num_of_supply_nodes }
+		multiply_variable = { ITA_Deimp_balkans_supplypercent^6 = 5 }
+		set_variable = { ITA_Deimp_balkans_revoltpercent^6 = GRE.party_popularity@communist }
+		add_to_variable = { ITA_Deimp_balkans_revoltpercent^6 = GRE.party_popularity@socialist }
+		multiply_variable = { ITA_Deimp_balkans_revoltpercent^6 = 100 }
+	}
+	custom_effect_tooltip = ITA_deimperialism_map_balkans_setup_tt
+}
+
+ITA_deimperialism_map_MENA_setup = { # fix supply and revolt stuff, TBD for when BGRS skeletons are done
+	# TNO_fopo_* registered a tab in the upstream foreign-policy panel, which
+	# is not imported. The call resolved to nothing.
+	clear_array = ITA_Deimp_MENA_Regions
+	resize_array = { ITA_Deimp_MENA_Regions = 8 }
+	resize_array = { ITA_Deimp_MENA_distance = 8 }
+	resize_array = { ITA_Deimp_MENA_supplypercent = 8 }
+	resize_array = { ITA_Deimp_MENA_revoltpercent = 8 }
+	resize_array = { ITA_Deimp_MENA_supplyvalue = 7 }
+	resize_array = { ITA_Deimp_MENA_revoltvalue = 7 }
+	set_variable = { ITA_Deimp_access = 5 }
+
+	# IME
+	set_variable = { ITA_Deimp_MENA_Regions^0 =   IME }
+	set_variable = { ITA_Deimp_MENA_Regions_X^0 = 370.5 }
+	set_variable = { ITA_Deimp_MENA_Regions_Y^0 = 135 }
+	set_variable = { ITA_Deimp_MENA_Alerts_X^0 =  377.25 }
+	set_variable = { ITA_Deimp_MENA_Alerts_Y^0 =  153 }
+	set_variable = { ITA_Deimp_MENA_distance^0 =  1 }
+	set_variable = { ITA_Deimp_MENA_supplypercent^0 = IME.num_of_supply_nodes }
+	multiply_variable = { ITA_Deimp_MENA_supplypercent^0 = 5 }
+	set_variable = { ITA_Deimp_MENA_revoltpercent^0 = IME.party_popularity@communist }
+	add_to_variable = { ITA_Deimp_MENA_revoltpercent^0 = IME.party_popularity@socialist }
+	multiply_variable = { ITA_Deimp_MENA_revoltpercent^0 = 100 }
+
+	# Iraq
+	set_variable = { ITA_Deimp_MENA_Regions^1 =   IRQ }
+	set_variable = { ITA_Deimp_MENA_Regions_X^1 = 401.25 }
+	set_variable = { ITA_Deimp_MENA_Regions_Y^1 = 126 }
+	set_variable = { ITA_Deimp_MENA_Alerts_X^1 =  435 }
+	set_variable = { ITA_Deimp_MENA_Alerts_Y^1 =  190.75 }
+	set_variable = { ITA_Deimp_MENA_distance^1 =  2 }
+	set_variable = { ITA_Deimp_MENA_supplypercent^1 = IRQ.num_of_supply_nodes }
+	multiply_variable = { ITA_Deimp_MENA_supplypercent^1 = 4 }
+	set_variable = { ITA_Deimp_MENA_revoltpercent^1 = IRQ.party_popularity@communist }
+	add_to_variable = { ITA_Deimp_MENA_revoltpercent^1 = IRQ.party_popularity@socialist }
+	multiply_variable = { ITA_Deimp_MENA_revoltpercent^1 = 100 }
+
+	# Saudi Arabia
+	set_variable = { ITA_Deimp_MENA_Regions^2 =   SAU }
+	set_variable = { ITA_Deimp_MENA_Regions_X^2 = 375 }
+	set_variable = { ITA_Deimp_MENA_Regions_Y^2 = 155.25 }
+	set_variable = { ITA_Deimp_MENA_Alerts_X^2 =  442.5 }
+	set_variable = { ITA_Deimp_MENA_Alerts_Y^2 =  210 }
+	set_variable = { ITA_Deimp_MENA_distance^2 =  2 }
+	set_variable = { ITA_Deimp_MENA_supplypercent^2 = SAU.num_of_supply_nodes }
+	multiply_variable = { ITA_Deimp_MENA_supplypercent^2 = 5 }
+	set_variable = { ITA_Deimp_MENA_revoltpercent^2 = SAU.party_popularity@communist }
+	add_to_variable = { ITA_Deimp_MENA_revoltpercent^2 = SAU.party_popularity@socialist }
+	multiply_variable = { ITA_Deimp_MENA_revoltpercent^2 = 100 }
+
+	# Gulf
+	set_variable = { ITA_Deimp_MENA_Regions^3 =   GUL }
+	set_variable = { ITA_Deimp_MENA_Regions_X^3 = 489.75 }
+	set_variable = { ITA_Deimp_MENA_Regions_Y^3 = 204 }
+	set_variable = { ITA_Deimp_MENA_Alerts_X^3 =  510 }
+	set_variable = { ITA_Deimp_MENA_Alerts_Y^3 =  213 }
+	set_variable = { ITA_Deimp_MENA_distance^3 =  3 }
+	set_variable = { ITA_Deimp_MENA_supplypercent^3 = GUL.num_of_supply_nodes }
+	multiply_variable = { ITA_Deimp_MENA_supplypercent^3 = 5 }
+	set_variable = { ITA_Deimp_MENA_revoltpercent^3 = GUL.party_popularity@communist }
+	add_to_variable = { ITA_Deimp_MENA_revoltpercent^3 = GUL.party_popularity@socialist }
+	multiply_variable = { ITA_Deimp_MENA_revoltpercent^3 = 100 }
+
+	# Egypt
+	set_variable = { ITA_Deimp_MENA_Regions^4 =   EGY }
+	set_variable = { ITA_Deimp_MENA_Regions_X^4 = 301.5 }
+	set_variable = { ITA_Deimp_MENA_Regions_Y^4 = 161.25 }
+	set_variable = { ITA_Deimp_MENA_Alerts_X^4 =  330 }
+	set_variable = { ITA_Deimp_MENA_Alerts_Y^4 =  187.5 }
+	set_variable = { ITA_Deimp_MENA_distance^4 =  1 }
+	set_variable = { ITA_Deimp_MENA_supplypercent^4 = EGY.num_of_supply_nodes }
+	multiply_variable = { ITA_Deimp_MENA_supplypercent^4 = 4 }
+	set_variable = { ITA_Deimp_MENA_revoltpercent^4 = EGY.party_popularity@communist }
+	add_to_variable = { ITA_Deimp_MENA_revoltpercent^4 = EGY.party_popularity@socialist }
+	multiply_variable = { ITA_Deimp_MENA_revoltpercent^4 = 100 }
+
+	# Yemen
+	set_variable = { ITA_Deimp_MENA_Regions^5 =   YEM }
+	set_variable = { ITA_Deimp_MENA_Regions_X^5 = 432 }
+	set_variable = { ITA_Deimp_MENA_Regions_Y^5 = 261.75 }
+	set_variable = { ITA_Deimp_MENA_Alerts_X^5 =  450 }
+	set_variable = { ITA_Deimp_MENA_Alerts_Y^5 =  277.5 }
+	set_variable = { ITA_Deimp_MENA_distance^5 =  3 }
+	set_variable = { ITA_Deimp_MENA_supplypercent^5 = YEM.num_of_supply_nodes }
+	multiply_variable = { ITA_Deimp_MENA_supplypercent^5 = 5 }
+	set_variable = { ITA_Deimp_MENA_revoltpercent^5 = YEM.party_popularity@communist }
+	add_to_variable = { ITA_Deimp_MENA_revoltpercent^5 = YEM.party_popularity@socialist }
+	multiply_variable = { ITA_Deimp_MENA_revoltpercent^5 = 100 }
+
+	# Oman
+	set_variable = { ITA_Deimp_MENA_Regions^6 =   OMA }
+	set_variable = { ITA_Deimp_MENA_Regions_X^6 = 501 }
+	set_variable = { ITA_Deimp_MENA_Regions_Y^6 = 216 }
+	set_variable = { ITA_Deimp_MENA_Alerts_X^6 =  532.5 }
+	set_variable = { ITA_Deimp_MENA_Alerts_Y^6 =  225 }
+	set_variable = { ITA_Deimp_MENA_distance^6 =  3 }
+	set_variable = { ITA_Deimp_MENA_supplypercent^6 = OMA.num_of_supply_nodes }
+	multiply_variable = { ITA_Deimp_MENA_supplypercent^6 = 5 }
+	set_variable = { ITA_Deimp_MENA_revoltpercent^6 = OMA.party_popularity@communist }
+	add_to_variable = { ITA_Deimp_MENA_revoltpercent^6 = OMA.party_popularity@socialist }
+	multiply_variable = { ITA_Deimp_MENA_revoltpercent^6 = 100 }
+
+	# Sudan
+	set_variable = { ITA_Deimp_MENA_Regions^7 =   SUD   }
+	set_variable = { ITA_Deimp_MENA_Regions_X^7 = 279.75 }
+	set_variable = { ITA_Deimp_MENA_Regions_Y^7 = 225 }
+	set_variable = { ITA_Deimp_MENA_Alerts_X^7 =  330 }
+	set_variable = { ITA_Deimp_MENA_Alerts_Y^7 =  292.5 }
+	set_variable = { ITA_Deimp_MENA_distance^7 =  2 }
+	set_variable = { ITA_Deimp_MENA_supplypercent^7 = EGY.num_of_supply_nodes }
+	multiply_variable = { ITA_Deimp_MENA_supplypercent^7 = 3 }
+	set_variable = { ITA_Deimp_MENA_revoltpercent^7 = EGY.party_popularity@communist }
+	add_to_variable = { ITA_Deimp_MENA_revoltpercent^7 = EGY.party_popularity@socialist }
+	multiply_variable = { ITA_Deimp_MENA_revoltpercent^7 = 100 }
+}
+
+# Deimperialism Boosts #
+
+ITA_deimperialism_balkans_supply_boost = {
+	set_temp_variable = { ITA_Deimp_balkans_supplypercent_modifier_temp = ITA_Deimp_balkans_supplypercent_temp }
+	multiply_temp_variable = { ITA_Deimp_balkans_supplypercent_modifier_temp = modifier@ITA_RED_deimp_supply_efficiency }
+
+	add_to_temp_variable = { ITA_Deimp_balkans_supplypercent_temp = ITA_Deimp_balkans_supplypercent_modifier_temp }
+	add_to_variable = { ITA_Deimp_balkans_supplypercent^Deimp_SelectedEntry_balkans_i_temp = ITA_Deimp_balkans_supplypercent_temp }
+
+	set_variable = { Deimp_SelectedEntry_balkans_i_boost = Deimp_SelectedEntry_balkans_i_temp }
+	if = {
+		limit = {
+			check_variable = { var:ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = MAC.id }
+		}
+		clamp_variable = { var = ITA_Deimp_balkans_supplypercent^Deimp_SelectedEntry_balkans_i_temp min = 0 max = 50 }
+	}
+	else_if = {
+		limit = {
+			var:ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = {
+				OR = {
+					is_in_faction_with = ITA
+					is_subject_of = ITA
+				}
+			}
+		}
+		clamp_variable = { var = ITA_Deimp_balkans_supplypercent^Deimp_SelectedEntry_balkans_i_temp min = 0 max = 100 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { var:ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+		}
+		clamp_variable = { var = ITA_Deimp_balkans_supplypercent^Deimp_SelectedEntry_balkans_i_temp min = 0 max = 67 }
+	}
+	else = {
+		clamp_variable = { var = ITA_Deimp_balkans_supplypercent^Deimp_SelectedEntry_balkans_i_temp min = 0 max = 34 }
+	}
+	custom_effect_tooltip = ITA_deimperialism_balkans_supply_boost_tt
+	hidden_effect = {
+		ITA_deimperialism_balkans_supply_check_perk = yes
+	}
+}
+
+ITA_deimperialism_balkans_revolt_boost = {
+	set_temp_variable = { ITA_Deimp_balkans_revoltpercent_modifier_temp = ITA_Deimp_balkans_revoltpercent_temp }
+	multiply_temp_variable = { ITA_Deimp_balkans_revoltpercent_modifier_temp = modifier@ITA_RED_deimp_revolution_efficiency }
+
+	add_to_temp_variable = { ITA_Deimp_balkans_revoltpercent_temp = ITA_Deimp_balkans_revoltpercent_modifier_temp }
+	add_to_variable = { ITA_Deimp_balkans_revoltpercent^Deimp_SelectedEntry_balkans_i_temp = ITA_Deimp_balkans_revoltpercent_temp }
+
+	set_variable = { Deimp_SelectedEntry_balkans_i_boost = Deimp_SelectedEntry_balkans_i_temp }
+	if = {
+		limit = {
+			check_variable = { var:ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = MAC.id }
+		}
+		clamp_variable = { var = ITA_Deimp_MENA_revoltpercent^Deimp_SelectedEntry_balkans_i_temp min = 0 max = 50 }
+	}
+	else_if = {
+		limit = {
+			var:ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = {
+				OR = {
+					is_in_faction_with = ITA
+					is_subject_of = ITA
+				}
+			}
+		}
+		clamp_variable = { var = ITA_Deimp_MENA_revoltpercent^Deimp_SelectedEntry_balkans_i_temp min = 0 max = 100 }
+	}
+	else = {
+		clamp_variable = { var = ITA_Deimp_MENA_revoltpercent^Deimp_SelectedEntry_balkans_i_temp min = 0 max = 67 }
+	}
+	custom_effect_tooltip = ITA_deimperialism_balkans_revolt_boost_tt
+	hidden_effect = {
+		ITA_deimperialism_balkans_revolt_check_perk = yes
+	}
+}
+
+ITA_deimperialism_MENA_supply_boost = {
+	set_temp_variable = { ITA_Deimp_MENA_supplypercent_modifier_temp = ITA_Deimp_MENA_supplypercent_temp }
+	multiply_temp_variable = { ITA_Deimp_MENA_supplypercent_modifier_temp = modifier@ITA_RED_deimp_supply_efficiency }
+
+	add_to_temp_variable = { ITA_Deimp_MENA_supplypercent_temp = ITA_Deimp_MENA_supplypercent_modifier_temp }
+	add_to_variable = { ITA_Deimp_MENA_supplypercent^Deimp_SelectedEntryMENA_i_temp = ITA_Deimp_MENA_supplypercent_temp }
+
+	clamp_variable = { var = ITA_Deimp_MENA_supplypercent^Deimp_SelectedEntryMENA_i_temp min = 0 max = 100 }
+	custom_effect_tooltip = ITA_deimperialism_MENA_supply_boost_tt
+}
+
+ITA_deimperialism_MENA_revolt_boost = {
+	set_temp_variable = { ITA_Deimp_MENA_revoltpercent_modifier_temp = ITA_Deimp_MENA_revoltpercent_temp }
+	multiply_temp_variable = { ITA_Deimp_MENA_revoltpercent_modifier_temp = modifier@ITA_RED_deimp_revolution_efficiency }
+
+	add_to_temp_variable = { ITA_Deimp_MENA_revoltpercent_temp = ITA_Deimp_MENA_revoltpercent_modifier_temp }
+	add_to_variable = { ITA_Deimp_MENA_revoltpercent^Deimp_SelectedEntryMENA_i_temp = ITA_Deimp_MENA_revoltpercent_temp }
+
+	clamp_variable = { var = ITA_Deimp_MENA_revoltpercent^Deimp_SelectedEntryMENA_i_temp min = 0 max = 100 }
+	custom_effect_tooltip = ITA_deimperialism_MENA_revolt_boost_tt
+}
+
+ITA_deimperialism_balkans_supply_boost_allies = {
+	hidden_effect = {
+		if = {
+			limit = {
+				check_variable = { CRO.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntry_balkans_i_temp = 0 }
+			ITA_deimperialism_balkans_supply_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { SER.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntry_balkans_i_temp = 1 }
+			ITA_deimperialism_balkans_supply_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { MNT.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntry_balkans_i_temp = 2 }
+			ITA_deimperialism_balkans_supply_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { ALB.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntry_balkans_i_temp = 3 }
+			ITA_deimperialism_balkans_supply_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { BUL.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntry_balkans_i_temp = 4 }
+			ITA_deimperialism_balkans_supply_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { MAC.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntry_balkans_i_temp = 5 }
+			ITA_deimperialism_balkans_supply_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { GRE.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntry_balkans_i_temp = 6 }
+			ITA_deimperialism_balkans_supply_boost = yes
+		}
+	}
+	custom_effect_tooltip = ITA_deimperialism_balkans_supply_boost_allies_tt
+}
+
+ITA_deimperialism_balkans_revolt_boost_allies = {
+	hidden_effect = {
+		if = {
+			limit = {
+				check_variable = { CRO.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntry_balkans_i_temp = 0 }
+			ITA_deimperialism_balkans_revolt_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { SER.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntry_balkans_i_temp = 1 }
+			ITA_deimperialism_balkans_revolt_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { MNT.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntry_balkans_i_temp = 2 }
+			ITA_deimperialism_balkans_revolt_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { ALB.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntry_balkans_i_temp = 3 }
+			ITA_deimperialism_balkans_revolt_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { BUL.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntry_balkans_i_temp = 4 }
+			ITA_deimperialism_balkans_revolt_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { MAC.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntry_balkans_i_temp = 5 }
+			ITA_deimperialism_balkans_revolt_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { GRE.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntry_balkans_i_temp = 6 }
+			ITA_deimperialism_balkans_revolt_boost = yes
+		}
+	}
+	custom_effect_tooltip = ITA_deimperialism_balkans_revolt_boost_allies_tt
+}
+
+ITA_deimperialism_MENA_supply_boost_allies = {
+	hidden_effect = {
+		if = {
+			limit = {
+				check_variable = { IME.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 0 }
+			ITA_deimperialism_MENA_supply_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { IRQ.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 1 }
+			ITA_deimperialism_MENA_supply_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { SAU.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 2 }
+			ITA_deimperialism_MENA_supply_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { GUL.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 3 }
+			ITA_deimperialism_MENA_supply_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { EGY.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 4 }
+			ITA_deimperialism_MENA_supply_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { YEM.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 5 }
+			ITA_deimperialism_MENA_supply_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { OMA.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 6 }
+			ITA_deimperialism_MENA_supply_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { SUD.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 7 }
+			ITA_deimperialism_MENA_supply_boost = yes
+		}
+	}
+	custom_effect_tooltip = ITA_deimperialism_MENA_supply_boost_allies_tt
+}
+
+ITA_deimperialism_MENA_revolt_boost_allies = {
+	hidden_effect = {
+		if = {
+			limit = {
+				check_variable = { IME.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 0 }
+			ITA_deimperialism_MENA_revolt_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { IRQ.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 1 }
+			ITA_deimperialism_MENA_revolt_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { SAU.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 2 }
+			ITA_deimperialism_MENA_revolt_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { GUL.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 3 }
+			ITA_deimperialism_MENA_revolt_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { EGY.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 4 }
+			ITA_deimperialism_MENA_revolt_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { YEM.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 5 }
+			ITA_deimperialism_MENA_revolt_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { OMA.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 6 }
+			ITA_deimperialism_MENA_revolt_boost = yes
+		}
+		if = {
+			limit = {
+				check_variable = { SUD.ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_temp_variable = { Deimp_SelectedEntryMENA_i_temp = 7 }
+			ITA_deimperialism_MENA_revolt_boost = yes
+		}
+	}
+	custom_effect_tooltip = ITA_deimperialism_MENA_revolt_boost_allies_tt
+}
+
+# KRONE'S MEGA PERK SECTION AHHHHHHHHHHHHHHHHHHHH #
+# AKA DESIGN HELL #
+# We have 9 perks to deal with per country, so 126 entries. I may have fucked up. However a lot of the revolutionary power stuff can be reused. Scope keeps increasing and no one has stopped me!
+# Dare not venture beyond this point, for the if's and else_if's will devour you whole
+
+ITA_deimperialism_balkans_supply_check_perk = {
+		if = {
+			limit = {
+				check_variable = { ITA_Deimp_balkans_supplypercent^Deimp_SelectedEntry_balkans_i_boost > 16.66 }
+				check_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost < 1 }
+			}
+			if = {
+				limit = {
+					var:ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = {
+						OR = {
+							is_in_faction_with = ITA
+							is_subject_of = ITA
+							check_variable = { ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+						}
+					}
+				}
+				set_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost = 1 }
+				ITA_deimperialism_balkans_supply_check_perk_1 = yes
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_Deimp_balkans_supplypercent^Deimp_SelectedEntry_balkans_i_boost > 33.33 }
+				check_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost < 2 }
+			}
+			if = {
+				limit = {
+					var:ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = {
+						OR = {
+							is_in_faction_with = ITA
+							is_subject_of = ITA
+							check_variable = { ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+						}
+					}
+				}
+				set_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost = 2 }
+				ITA_deimperialism_balkans_supply_check_perk_2 = yes
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_Deimp_balkans_supplypercent^Deimp_SelectedEntry_balkans_i_boost > 50 }
+				check_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost < 3 }
+			}
+			if = {
+				limit = {
+					var:ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = {
+						OR = {
+							is_in_faction_with = ITA
+							is_subject_of = ITA
+							check_variable = { ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+						}
+					}
+				}
+				set_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost = 3 }
+				ITA_deimperialism_balkans_supply_check_perk_3 = yes
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_Deimp_balkans_supplypercent^Deimp_SelectedEntry_balkans_i_boost > 66.66 }
+				check_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost < 4 }
+			}
+			if = {
+				limit = {
+					var:ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = {
+						OR = {
+							is_in_faction_with = ITA
+							is_subject_of = ITA
+							check_variable = { ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+						}
+					}
+				}
+				set_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost = 4 }
+				ITA_deimperialism_balkans_supply_check_perk_4 = yes
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_Deimp_balkans_supplypercent^Deimp_SelectedEntry_balkans_i_boost > 83.33 }
+				check_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost < 5 }
+			}
+			if = {
+				limit = {
+					var:ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = {
+						OR = {
+							is_in_faction_with = ITA
+							is_subject_of = ITA
+						}
+					}
+				}
+				set_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost = 5 }
+				ITA_deimperialism_balkans_supply_check_perk_5 = yes
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_Deimp_balkans_supplypercent^Deimp_SelectedEntry_balkans_i_boost = 100 }
+				check_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost < 6 }
+			}
+			if = {
+				limit = {
+					var:ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = {
+						OR = {
+							is_in_faction_with = ITA
+							is_subject_of = ITA
+						}
+					}
+				}
+				set_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost = 6 }
+				ITA_deimperialism_balkans_supply_check_perk_6 = yes
+			}
+		}
+}
+
+ITA_deimperialism_balkans_supply_check_perk_retroactive_adding = {
+	set_variable = { Deimp_SelectedEntry_balkans_i_boost = Deimp_SelectedEntry_balkans_i_retroactive_temp }
+	if = {
+		limit = {
+			check_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost > 0 }
+			check_variable = { ITA_Deimp_balkans_supplyperk^Deimp_SelectedEntry_balkans_i_boost < 1 }
+		}
+		ITA_deimperialism_balkans_supply_check_perk_1 = yes
+	}
+	if = {
+		limit = {
+			check_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost > 1 }
+			check_variable = { ITA_Deimp_balkans_supplyperk^Deimp_SelectedEntry_balkans_i_boost < 2 }
+		}
+		ITA_deimperialism_balkans_supply_check_perk_2 = yes
+	}
+	if = {
+		limit = {
+			check_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost > 2 }
+			check_variable = { ITA_Deimp_balkans_supplyperk^Deimp_SelectedEntry_balkans_i_boost < 3 }
+		}
+		ITA_deimperialism_balkans_supply_check_perk_3 = yes
+	}
+	if = {
+		limit = {
+			check_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost > 3 }
+			check_variable = { ITA_Deimp_balkans_supplyperk^Deimp_SelectedEntry_balkans_i_boost < 4 }
+		}
+		ITA_deimperialism_balkans_supply_check_perk_4 = yes
+	}
+	if = {
+		limit = {
+			check_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost > 4 }
+			check_variable = { ITA_Deimp_balkans_supplyperk^Deimp_SelectedEntry_balkans_i_boost < 5 }
+		}
+		ITA_deimperialism_balkans_supply_check_perk_5 = yes
+	}
+	if = {
+		limit = {
+			check_variable = { ITA_Deimp_balkans_supplyvalue^Deimp_SelectedEntry_balkans_i_boost > 5 }
+			check_variable = { ITA_Deimp_balkans_supplyperk^Deimp_SelectedEntry_balkans_i_boost < 6 }
+		}
+		ITA_deimperialism_balkans_supply_check_perk_6 = yes
+	}
+}
+
+ITA_deimperialism_balkans_supply_check_perk_1 = {
+	set_variable = { ITA_Deimp_balkans_supplyperk^Deimp_SelectedEntry_balkans_i_boost = 1 }
+	if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = CRO.id } }
+
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = SER.id } }
+
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = ALB.id } }
+		ALB = {
+			remove_ideas = ALB_Tribesmen_counterrevolution
+		}
+		add_to_variable = { ITA_Deimp_balkans_access = 1 }
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = BUL.id } }
+		BUL = {
+			remove_ideas = BUL_Simeons_Remnants
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = MAC.id } }
+		MAC = {
+			remove_ideas = MAC_Underfunded_Understaffed
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = GRE.id } }
+		GRE = {
+			#STRIP(dead_idea) swap_ideas = {
+			#STRIP(dead_idea) remove_idea = GRE_EAM_the_specter_of_reaction_1
+			#STRIP(dead_idea) add_idea = GRE_EAM_the_specter_of_reaction_2
+			#STRIP(dead_idea) }
+		}
+	}
+}
+
+ITA_deimperialism_balkans_supply_check_perk_2 = {
+	set_variable = { ITA_Deimp_balkans_supplyperk^Deimp_SelectedEntry_balkans_i_boost = 2 }
+	if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = CRO.id } }
+
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = SER.id } }
+
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = ALB.id } }
+		ALB = {
+			add_ideas = ALB_italian_machinery_albanian_proletariat
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = BUL.id } }
+		BUL = {
+			add_ideas = BUL_Pipeline_to_Italy
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = MAC.id } }
+		MAC = {
+			add_ideas = MAC_Albanian_Supply_Routes
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = GRE.id } }
+		GRE = {
+			#STRIP(dead_idea) add_ideas = GRE_The_Naval_Revolution
+		}
+	}
+}
+
+ITA_deimperialism_balkans_supply_check_perk_3 = {
+	set_variable = { ITA_Deimp_balkans_supplyperk^Deimp_SelectedEntry_balkans_i_boost = 3 }
+	if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = CRO.id } }
+
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = SER.id } }
+
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = ALB.id } }
+		ALB = {
+			remove_ideas = ALB_BK_counterrevolution
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = BUL.id } }
+		BUL = {
+			remove_ideas = BUL_rusting_sword_of_damocles
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = MAC.id } }
+		MAC = {
+			add_ideas = MAC_the_Underdogs_Triumph
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = GRE.id } }
+		GRE = {
+			#STRIP(dead_idea) swap_ideas = {
+			#STRIP(dead_idea) remove_idea = GRE_EAM_the_specter_of_reaction_2
+			#STRIP(dead_idea) add_idea = GRE_EAM_the_specter_of_reaction_3
+			#STRIP(dead_idea) }
+		}
+	}
+}
+
+ITA_deimperialism_balkans_supply_check_perk_4 = {
+	set_variable = { ITA_Deimp_balkans_supplyperk^Deimp_SelectedEntry_balkans_i_boost = 4 }
+	if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = CRO.id } }
+
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = SER.id } }
+
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = ALB.id } }
+		ALB = {
+			add_ideas = ALB_supply_center_of_the_revolution
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = BUL.id } }
+		BUL = {
+			remove_ideas = BUL_the_Revolving_Door_of_Sofia
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = MAC.id } }
+
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = GRE.id } }
+		GRE = {
+			#STRIP(dead_idea) add_ideas = GRE_The_Mediterranean_Revolution
+		}
+	}
+}
+
+ITA_deimperialism_balkans_supply_check_perk_5 = {
+	set_variable = { ITA_Deimp_balkans_supplyperk^Deimp_SelectedEntry_balkans_i_boost = 5 }
+	if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = CRO.id } }
+
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = SER.id } }
+
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = ALB.id } }
+		ALB = {
+			remove_ideas = ALB_KDS_counterrevolution
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = BUL.id } }
+		BUL = {
+			add_ideas = BUL_Trained_in_Italy
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = MAC.id } }
+
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = GRE.id } }
+		GRE = {
+			#STRIP(dead_idea) remove_ideas = GRE_EAM_the_specter_of_reaction_3
+		}
+	}
+}
+
+ITA_deimperialism_balkans_supply_check_perk_6 = {
+	set_variable = { ITA_Deimp_balkans_supplyperk^Deimp_SelectedEntry_balkans_i_boost = 6 }
+	if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = CRO.id } }
+
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = SER.id } }
+
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = ALB.id } }
+		ALB = {
+			swap_ideas = {
+				remove_idea = ALB_the_economic_divide
+				add_idea = ALB_end_of_the_economic_divide
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = BUL.id } }
+		BUL = {
+			add_ideas = BUL_Black_Sea_Red_Flag
+		}
+		# add Europe Comintern Boost
+		# add Middle East Comintern Boost
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = MAC.id } }
+
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = GRE.id } }
+		GRE = {
+			#STRIP(dead_idea) add_ideas = GRE_From_Colony_to_Partner
+		}
+	}
+}
+
+ITA_deimperialism_balkans_revolt_check_perk = {
+		if = {
+			limit = {
+				check_variable = { ITA_Deimp_MENA_revoltpercent^Deimp_SelectedEntry_balkans_i_temp > 33.33 }
+				check_variable = { ITA_Deimp_MENA_revoltvalue^Deimp_SelectedEntry_balkans_i_temp < 1 }
+				check_variable = { ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_variable = { ITA_Deimp_MENA_revoltvalue^Deimp_SelectedEntry_balkans_i_temp = 1 }
+			ITA_deimperialism_balkans_revolt_check_perk_1 = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_Deimp_MENA_revoltpercent^Deimp_SelectedEntry_balkans_i_temp > 66.66 }
+				check_variable = { ITA_Deimp_MENA_revoltvalue^Deimp_SelectedEntry_balkans_i_temp < 2 }
+				check_variable = { ECON_SPHERE_LEADER = ITA.ECON_SPHERE_LEADER }
+			}
+			set_variable = { ITA_Deimp_MENA_revoltvalue^Deimp_SelectedEntry_balkans_i_temp = 2 }
+			ITA_deimperialism_balkans_revolt_check_perk_2 = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { ITA_Deimp_MENA_revoltpercent^Deimp_SelectedEntry_balkans_i_temp = 100 }
+				check_variable = { ITA_Deimp_MENA_revoltvalue^Deimp_SelectedEntry_balkans_i_temp < 3 }
+			}
+			set_variable = { ITA_Deimp_MENA_revoltvalue^Deimp_SelectedEntry_balkans_i_temp = 3 }
+			ITA_deimperialism_balkans_revolt_check_perk_3 = yes
+		}
+}
+
+ITA_deimperialism_balkans_revolt_check_perk_1 = {
+	if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = CRO.id } }
+		CRO = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				# Comecon. TNORA has no CME_ framework, so this call did nothing.
+				#set_temp_variable = { CME_delegates_temp = 1 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 1 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = SER.id } }
+		SER = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 1 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 1 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = MNT.id } }
+		MNT = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 1 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 1 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = ALB.id } }
+		ALB = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 1 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 1 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = BUL.id } }
+		BUL = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 1 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 1 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = MAC.id } }
+		MAC = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 1 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 1 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = GRE.id } }
+		GRE = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 1 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 1 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+}
+
+ITA_deimperialism_balkans_revolt_check_perk_2 = {
+	if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = CRO.id } }
+		CRO = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 1 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 1 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = SER.id } }
+		SER = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 1 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 1 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = MNT.id } }
+		MNT = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 1 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 1 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = ALB.id } }
+		ALB = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 1 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 1 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = BUL.id } }
+		BUL = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 1 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 1 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = MAC.id } }
+		MAC = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 1 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 1 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = GRE.id } }
+		GRE = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 1 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 1 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+}
+
+ITA_deimperialism_balkans_revolt_check_perk_3 = {
+	if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = CRO.id } }
+		CRO = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 2 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 2 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = SER.id } }
+		SER = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 2 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 2 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = MNT.id } }
+		MNT = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 2 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 2 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = ALB.id } }
+		ALB = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 2 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 2 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = BUL.id } }
+		BUL = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 2 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 2 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = MAC.id } }
+		MAC = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 2 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 2 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {check_variable = { ITA_Deimp_Balkans_Regions^Deimp_SelectedEntry_balkans_i_boost = GRE.id } }
+		GRE = {
+			if = {
+				limit = { has_country_flag = is_comintern_member }
+				#set_temp_variable = { CME_delegates_temp = 2 }
+				#set_temp_variable = { CME_faction_temp = ITA.CME_leading_faction }
+				#CME_add_faction_delegates_with_power = yes
+
+				else = {
+					#set_temp_variable = { CME_delegates_temp = 2 }
+					#set_temp_variable = { CME_faction_tag_temp = ITA }
+					#CME_add_aligned_future_delegates = yes
+				}
+			}
+		}
+	}
+}
+
+ITA_RED_army_management_update = {
+	set_temp_variable = { ITA_RED_army_officer_fulfillment_temp = ITA_RED_army_officer_fulfillment }
+	multiply_temp_variable = { ITA_RED_army_officer_fulfillment_temp = 0.01 }
+	set_temp_variable = { ITA_RED_army_professionalism_lean_temp = ITA_RED_army_professionalism_lean }
+	multiply_temp_variable = { ITA_RED_army_professionalism_lean_temp = 0.01 }
+	add_to_temp_variable = { ITA_RED_army_professionalism_lean_temp = -0.5 }
+
+	set_variable = { ITA_red_army_training = ITA_RED_army_officer_fulfillment_temp }
+	multiply_variable = { ITA_red_army_training = -0.5 }
+
+	set_temp_variable = { ITA_RED_army_morale_temp = ITA_RED_army_officer_fulfillment_temp }
+	add_to_temp_variable = { ITA_RED_army_morale_temp = -1 }
+	multiply_temp_variable = { ITA_RED_army_morale_temp = 0.25 }
+
+	set_variable = { ITA_red_army_command_gain = ITA_RED_army_officer_fulfillment_temp }
+	add_to_variable = { ITA_red_army_command_gain = -0.5 }
+	multiply_variable = { ITA_red_army_command_gain = 0.5 }
+
+	set_variable = { ITA_RED_army_stats_buff = ITA_RED_army_professionalism_lean_temp }
+	multiply_variable = { ITA_RED_army_stats_buff = 0.1 }
+
+	set_variable = { ITA_RED_army_policy_buff = ITA_RED_army_officer_fulfillment_temp }
+	multiply_variable = { ITA_RED_army_policy_buff = 0.05 }
+
+	set_variable = { ITA_RED_army_xp_buff = ITA_RED_army_officer_fulfillment_temp }
+	add_to_variable = { ITA_RED_army_xp_buff = -1 }
+	multiply_variable = { ITA_RED_army_xp_buff = 0.5 }
+
+	if = {
+		limit = {
+			check_variable = { ITA_RED_army_professionalism_lean > 50 }
+		}
+		set_variable = { ITA_RED_army_professionalism_buff = ITA_RED_army_professionalism_lean_temp }
+		multiply_variable = { ITA_RED_army_professionalism_buff = 0.2 }
+
+	}
+	else = {
+		set_variable = { ITA_RED_guerilla_buff = ITA_RED_army_professionalism_lean_temp }
+		multiply_variable = { ITA_RED_guerilla_buff = -2 }
+		set_variable = { ITA_RED_guerilla_training_buff = ITA_RED_army_professionalism_lean_temp }
+		multiply_variable = { ITA_RED_guerilla_training_buff = 1.5 }
+	}
+	set_variable = { ITA_red_army_recovery = ITA_RED_army_morale_temp }
+	set_variable = { ITA_red_army_org = ITA_RED_army_morale_temp }
+}

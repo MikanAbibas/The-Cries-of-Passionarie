@@ -1,0 +1,183 @@
+SFA_war_category = {
+	# New Scramble for Africa (plan 4.4, user 2026-10-16): wars by decision, for players and the AI alike.
+	# Warlords fight warlords and regional states fight regional states. A warlord war ends in annexation; a regional one
+	# in up to three bordering states, at capitulation or when the loser surrenders (user, 2026-10-19).
+	# Nations of one patron never fight each other, a nation fights one war at a time, and every war ends in a cooldown
+	# (SFA_war_ready).
+	# The AI declares only while a monthly window is open (SFA_roll_ai_war_windows), so wars do not all start at once.
+	# AI warlords expand aggressively and go for their own region first (user, 2026-10-16). Warlords fight only over their
+	# home region: the target must hold land there (user, 2026-10-18).
+
+	SFA_declare_warlord_war = {
+		icon = GFX_decision_border_war
+		target_array = global.SFA_nations
+		target_root_trigger = {
+			NOT = { has_country_flag = SFA_regional_state }
+			SFA_war_ready = yes
+		}
+		target_trigger = {
+			FROM = {
+				NOT = { has_country_flag = SFA_regional_state }
+				SFA_war_ready = yes
+				is_neighbor_of = ROOT
+			}
+			NOT = { SFA_same_bloc = yes }
+			# a warlord fights only over its own region until the region consolidates (user, 2026-10-18)
+			SFA_holds_land_in_root_region = yes
+		}
+		visible = {
+			# the target lists above refresh once a day: without this, a nation that has just declared could pick a
+			# second target the same day (user's test, 2026-10-18)
+			SFA_war_ready = yes
+			FROM = { SFA_war_ready = yes }
+		}
+		available = {
+			OR = {
+				is_ai = no
+				has_country_flag = SFA_ai_war_window
+			}
+		}
+		fire_only_once = no
+		cost = 25
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_declare_warlord_war on [From.GetName]"
+			SFA_declare_scramble_war = yes
+		}
+		ai_will_do = {
+			# warlords expand aggressively and try to unify their region (user, 2026-10-16)
+			base = 1
+			modifier = {
+				# its patron ordered it to take a state this neighbour holds (plan 4.7)
+				factor = 20
+				has_country_flag = SFA_order_pending
+				FROM = {
+					any_owned_state = {
+						has_state_flag = SFA_order_target
+						any_neighbor_state = { is_owned_by = ROOT }
+					}
+				}
+			}
+			modifier = {
+				# a rival based in its own region rather than an outsider holding land there
+				factor = 4
+				FROM = { check_variable = { SFA_home_region = ROOT.SFA_home_region } }
+			}
+			modifier = {
+				factor = 0
+				strength_ratio = {
+					tag = FROM
+					ratio < 0.5
+				}
+			}
+			modifier = {
+				factor = 0.3
+				strength_ratio = {
+					tag = FROM
+					ratio < 0.8
+				}
+			}
+			modifier = {
+				factor = 3
+				strength_ratio = {
+					tag = FROM
+					ratio > 1.5
+				}
+			}
+		}
+	}
+
+	SFA_declare_regional_war = {
+		icon = GFX_decision_border_war
+		target_array = global.SFA_nations
+		target_root_trigger = {
+			has_country_flag = SFA_regional_state
+			SFA_war_ready = yes
+		}
+		target_trigger = {
+			FROM = {
+				has_country_flag = SFA_regional_state
+				SFA_war_ready = yes
+				is_neighbor_of = ROOT
+			}
+			NOT = { SFA_same_bloc = yes }
+		}
+		visible = {
+			# as for warlords: the target list refreshes once a day
+			SFA_war_ready = yes
+			FROM = { SFA_war_ready = yes }
+		}
+		available = {
+			OR = {
+				is_ai = no
+				has_country_flag = SFA_ai_war_window
+			}
+		}
+		fire_only_once = no
+		cost = 50
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_declare_regional_war on [From.GetName]"
+			SFA_declare_scramble_war = yes
+		}
+		ai_will_do = {
+			base = 1
+			modifier = {
+				# its patron ordered it to take a state this neighbour holds (plan 4.7)
+				factor = 20
+				has_country_flag = SFA_order_pending
+				FROM = {
+					any_owned_state = {
+						has_state_flag = SFA_order_target
+						any_neighbor_state = { is_owned_by = ROOT }
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				strength_ratio = {
+					tag = FROM
+					ratio < 0.8
+				}
+			}
+			modifier = {
+				factor = 3
+				strength_ratio = {
+					tag = FROM
+					ratio > 1.5
+				}
+			}
+		}
+	}
+
+	SFA_regional_surrender = {
+		# user, 2026-10-19: a regional state losing a regional war may concede at 50% surrender progress, so a war over
+		# border land need not be fought to capitulation. The war ends at once on the regional terms (up to three
+		# bordering states, SFA_regional_peace_terms), never in annexation, and counts as a lost regional war.
+		icon = GFX_decision_generic_break_treaty
+		visible = {
+			has_country_flag = SFA_in_scramble_war
+			has_country_flag = SFA_regional_war
+		}
+		available = {
+			surrender_progress > 0.5
+			var:SFA_war_enemy = {
+				exists = yes
+				has_war_with = ROOT
+			}
+		}
+		fire_only_once = no
+		cost = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision SFA_regional_surrender"
+			custom_effect_tooltip = SFA_regional_surrender_tt
+			hidden_effect = { SFA_surrender_regional_war = yes }
+		}
+		ai_will_do = {
+			# the AI concedes once the war is clearly lost, rather than as soon as it may
+			base = 1
+			modifier = {
+				factor = 0.1
+				surrender_progress < 0.65
+			}
+		}
+	}
+}

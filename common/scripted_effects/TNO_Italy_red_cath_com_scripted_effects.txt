@@ -1,0 +1,187 @@
+ITA_RED_setup_CC_provisional_cabinet = {
+	add_ideas = {
+		#ITA_Franco_Rodano_hog
+		ITA_Lelio_Basso_for
+		ITA_Riccardio_Lombardi_eco
+		#ITA_Giorgio_Amendola_sec
+	}
+}
+
+ITA_RED_setup_post_IGW_CC = {
+	hidden_effect = {
+		if = {
+			limit = { 
+				has_country_leader = {
+					name = "Franco Rodano"
+					ruling_only = yes 
+				}
+			}
+			load_focus_tree = { tree = ITA_RED_rodano keep_completed = yes }
+		}
+		else_if = {
+			limit = { 
+				has_country_leader = {
+					name = "Andrea Gallo"
+					ruling_only = yes 
+				}
+			}
+			load_focus_tree = { tree = ITA_RED_gallo keep_completed = yes }
+		}
+	}
+}
+
+ITA_RED_rodano_mech_setup = {
+	set_country_flag = ITA_RED_cathcom_mechanic_active
+	set_variable = { ITA_RED_rodano_opinions = 65 }
+	set_variable = { ITA_RED_rodano_pcdi_opinion_shift = 5 }
+	set_variable = { ITA_RED_rodano_vatican_opinion_shift = 5 }
+	ITA_RED_rodano_math = yes 
+	activate_mission = ITA_Rodano_scale_shift
+	add_dynamic_modifier = {modifier = ITA_RED_Rodano_CulRev_modifier}
+}
+
+ITA_RED_rodano_change_pcdi_shift = {
+	set_temp_variable = { ITA_RED_rodano_opinion_shift_before = ITA_RED_rodano_pcdi_opinion_shift }
+	set_temp_variable = { ITA_RED_rodano_opinion_shift_after = ITA_RED_rodano_opinion_shift_before }
+	add_to_temp_variable = { ITA_RED_rodano_opinion_shift_after = ITA_RED_rodano_opinion_shift_temp }
+	set_variable = { ITA_RED_rodano_pcdi_opinion_shift = ITA_RED_rodano_opinion_shift_after }
+	custom_effect_tooltip = ITA_RED_rodano_pcdi_shift_tt
+}
+
+ITA_RED_rodano_change_vatican_shift = {
+	set_temp_variable = { ITA_RED_rodano_opinion_shift_before = ITA_RED_rodano_pcdi_opinion_shift }
+	set_temp_variable = { ITA_RED_rodano_opinion_shift_after = ITA_RED_rodano_opinion_shift_before }
+	add_to_temp_variable = { ITA_RED_rodano_opinion_shift_after = ITA_RED_rodano_opinion_shift_temp }
+	set_variable = { ITA_RED_rodano_vatican_opinion_shift = ITA_RED_rodano_opinion_shift_after }
+	custom_effect_tooltip = ITA_RED_rodano_vatican_shift_tt
+}
+
+ITA_RED_rodano_increase_pcdi_opinion = {
+	set_temp_variable = { ITA_RED_rodano_opinions_before = ITA_RED_rodano_opinions }
+	add_to_variable = { ITA_RED_rodano_opinions = ITA_RED_rodano_opinions_temp }
+	set_temp_variable = { ITA_RED_rodano_opinions_tt = ITA_RED_rodano_opinions_temp }
+	ITA_RED_rodano_math = yes
+	ITA_RED_rodano_tooltip = yes  
+	custom_effect_tooltip = ITA_RED_rodano_increase_pcdi_opinion_tt 
+}
+
+ITA_RED_rodano_increase_vatican_opinion = {
+	set_temp_variable = { ITA_RED_rodano_opinions_before = ITA_RED_rodano_opinions }
+	subtract_from_variable = { ITA_RED_rodano_opinions = ITA_RED_rodano_opinions_temp }
+	set_temp_variable = { ITA_RED_rodano_opinions_tt = ITA_RED_rodano_opinions_temp }
+	multiply_temp_variable = { ITA_RED_rodano_opinions_tt = -1 }
+	ITA_RED_rodano_math = yes
+	ITA_RED_rodano_tooltip = yes 
+	custom_effect_tooltip = ITA_RED_rodano_increase_vatican_opinion_tt 
+}
+
+ITA_RED_rodano_increase_middle_opinion = {
+	set_temp_variable = { ITA_RED_rodano_opinions_before = ITA_RED_rodano_opinions }
+	subtract_from_temp_variable = { ITA_RED_rodano_opinions_before = 50 }
+	hidden_effect = {
+		if = {
+			limit = { check_variable = { ITA_RED_rodano_opinions < 50 } }
+			add_to_temp_variable = { ITA_RED_rodano_opinions_before = ITA_RED_rodano_opinions_temp }
+			if = {
+				limit = { check_variable = { ITA_RED_rodano_opinions_before > 0 } }
+				subtract_from_temp_variable = { ITA_RED_rodano_opinions_temp = ITA_RED_rodano_opinions_before }
+			}
+			ITA_RED_rodano_increase_pcdi_opinion = yes
+		}
+		else = {
+			subtract_from_temp_variable = { ITA_RED_rodano_opinions_before = ITA_RED_rodano_opinions_temp }
+			if = {
+				limit = { check_variable = { ITA_RED_rodano_opinions_before < 0 } }
+				subtract_from_temp_variable = { ITA_RED_rodano_opinions_temp = ITA_RED_rodano_opinions_before }
+			}
+			ITA_RED_rodano_increase_vatican_opinion = yes
+		}
+	}
+	custom_effect_tooltip = ITA_RED_rodano_increase_middle_opinion_tt 
+}
+
+ITA_RED_rodano_math = {
+	clamp_variable = { var = ITA_RED_rodano_opinions min = 0 max = 100 }
+	set_variable = { ITA_RED_rodano_opinions_dynmod = ITA_RED_rodano_opinions }
+	subtract_from_variable = { ITA_RED_rodano_opinions_dynmod = 50 }
+	set_variable = { ITA_RED_rodano_opinions_absolute_value = ITA_RED_rodano_opinions_dynmod }
+	if = {
+		limit = { check_variable = { ITA_RED_rodano_opinions_absolute_value < 0 } }
+		multiply_variable = { ITA_RED_rodano_opinions_absolute_value = -1 }
+	}
+	
+	# Centrist Math
+
+	set_variable = { ITA_RED_rodano_opinions_dynmod_center = 25 }
+	if = {
+		limit = { check_variable = { ITA_RED_rodano_opinions_dynmod > 0 } } #pcdi leaning
+		subtract_from_variable = { ITA_RED_rodano_opinions_dynmod_center = ITA_RED_rodano_opinions_dynmod }
+		else = { # vatican leaning
+			add_to_variable = { ITA_RED_rodano_opinions_dynmod_center = ITA_RED_rodano_opinions_dynmod }
+		}	
+	}
+	
+	set_variable = { ITA_RED_rodano_opinions_dynmod_center_culrev_negative = ITA_RED_rodano_opinions_dynmod_center }
+	multiply_variable = { ITA_RED_rodano_opinions_dynmod_center_culrev_negative = -0.1 }
+	
+	divide_variable = { ITA_RED_rodano_opinions_dynmod_center = 100 }
+	
+	# CultRev shifts
+
+	divide_variable = { ITA_RED_rodano_opinions_dynmod = 10 }
+	set_variable = { ITA_RED_rodano_opinions_dynmod_percent = ITA_RED_rodano_opinions_dynmod }
+	
+	# For stability and percentage effects
+	
+	divide_variable = { ITA_RED_rodano_opinions_dynmod_percent = -12.5 }
+	set_variable = { ITA_RED_rodano_opinions_dynmod_percent_negative = ITA_RED_rodano_opinions_dynmod_percent }
+	multiply_variable = { ITA_RED_rodano_opinions_dynmod_percent_negative = -1 }
+	set_variable = { ITA_RED_rodano_opinions_dynmod_percent_gdp = ITA_RED_rodano_opinions_dynmod_percent }
+	multiply_variable = { ITA_RED_rodano_opinions_dynmod_percent_gdp = 20 } 
+}
+
+ITA_RED_rodano_tooltip = {
+	# Centrist shit 
+	subtract_from_temp_variable = { ITA_RED_rodano_opinions_before = 50 }
+	set_temp_variable = { ITA_RED_rodano_opinions_distance_1_temp = ITA_RED_rodano_opinions_before }
+	add_to_temp_variable = { ITA_RED_rodano_opinions_before = ITA_RED_rodano_opinions_tt }
+	set_temp_variable = { ITA_RED_rodano_opinions_distance_2_temp = ITA_RED_rodano_opinions_before }
+	
+	if = {
+		limit = { check_variable = { ITA_RED_rodano_opinions_distance_1_temp < 0 } } 
+		multiply_temp_variable = { ITA_RED_rodano_opinions_distance_1_temp = -1 }
+	}
+	if = {
+		limit = { check_variable = { ITA_RED_rodano_opinions_distance_2_temp < 0 } } 
+		multiply_temp_variable = { ITA_RED_rodano_opinions_distance_2_temp = -1 }
+	}
+	
+	subtract_from_temp_variable = { ITA_RED_rodano_opinions_distance_1_temp = ITA_RED_rodano_opinions_distance_2_temp }
+	
+	divide_temp_variable = { ITA_RED_rodano_opinions_distance_1_temp = 100 }
+	
+	set_temp_variable = { ITA_RED_rodano_opinions_dynmod_center_culrev_negative_tt = ITA_RED_rodano_opinions_distance_1_temp }
+	multiply_temp_variable = { ITA_RED_rodano_opinions_dynmod_center_culrev_negative_tt = -0.1 }
+	
+	# CulRev
+	set_temp_variable = { ITA_RED_rodano_opinions_dynmod_tt = ITA_RED_rodano_opinions_tt }
+	set_temp_variable = { ITA_RED_rodano_opinions_dynmod_percent_tt = ITA_RED_rodano_opinions_dynmod_tt }
+	divide_temp_variable = { ITA_RED_rodano_opinions_dynmod_tt = 1000 }
+	
+	# For stability and percentage effects
+	
+	divide_temp_variable = { ITA_RED_rodano_opinions_dynmod_percent_tt = -125 }
+	set_temp_variable = { ITA_RED_rodano_opinions_dynmod_percent_negative_tt = ITA_RED_rodano_opinions_dynmod_percent_tt }
+	multiply_temp_variable = { ITA_RED_rodano_opinions_dynmod_percent_negative_tt = -1 }
+	set_temp_variable = { ITA_RED_rodano_opinions_dynmod_percent_gdp_tt = ITA_RED_rodano_opinions_dynmod_percent_tt }
+	multiply_temp_variable = { ITA_RED_rodano_opinions_dynmod_percent_gdp_tt = 0.2 } 
+}
+
+## Gallo ##
+
+ITA_RED_setup_gallo_mechanic = {
+	set_country_flag = ITA_RED_gallo_mechanic_active
+	activate_mission = ITA_RED_gallo_party_tick
+	activate_mission = ITA_RED_gallo_clergy_tick
+	activate_mission = ITA_RED_gallo_vatican_tick
+}

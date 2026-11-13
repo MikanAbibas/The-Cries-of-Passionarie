@@ -1,0 +1,1050 @@
+##############################
+####OPENING POLITICAL TREE####
+##############################
+shared_focus = {
+	id = gre_look_to_the_cities
+	icon = GFX_The_Model_City
+	cost = 1
+	x = 10
+	y = 0
+	ai_will_do = {
+		factor = 2
+	}
+	completion_reward = {
+		country_event = {
+			id = gre.20
+		}
+		add_to_variable = {
+			var = gre_dem_influence
+			value = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_suppress_the_press
+	icon = GFX_SLO_Limited_State_Newspaper
+	cost = 1
+	x = 10
+	y = 1
+	ai_will_do = {
+		factor = 2
+	}
+	prerequisite = {
+		focus = gre_look_to_the_cities
+	}
+	completion_reward = {
+		add_political_power = 50
+		add_to_variable = {
+			var = gre_dem_influence
+			value = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_there_are_no_rebels
+	icon = GFX_cau_occultic_adventures
+	cost = 1
+	x = 10
+	y = 2
+	ai_will_do = {
+		factor = 2
+	}
+	prerequisite = {
+		focus = gre_suppress_the_press
+	}
+	completion_reward = {
+		add_stability = 0.05
+		add_to_variable = {
+			var = gre_dem_influence
+			value = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_italians_help_us
+	icon = GFX_TNO_generic_military_contacts
+	cost = 1
+	x = 8
+	y = 3
+	ai_will_do = {
+		factor = 2
+	}
+	prerequisite = {
+		focus = gre_there_are_no_rebels
+	}
+	completion_reward = {
+		add_manpower = 1000
+		add_to_variable = {
+			var = gre_dem_influence
+			value = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_italians_arm_us
+	icon = GFX_end_arms_ban
+	cost = 1
+	x = 10
+	y = 3
+	ai_will_do = {
+		factor = 2
+	}
+	prerequisite = {
+		focus = gre_there_are_no_rebels
+	}
+	completion_reward = {
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 300
+			producer = ITA
+		}
+		add_to_variable = {
+			var = gre_dem_influence
+			value = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_italians_train_us
+	icon = GFX_EGY_Let_the_Italians_Handle_It
+	cost = 1
+	x = 12
+	y = 3
+	ai_will_do = {
+		factor = 2
+	}
+	prerequisite = {
+		focus = gre_there_are_no_rebels
+	}
+	completion_reward = {
+		army_experience = 10
+		add_to_variable = {
+			var = gre_dem_influence
+			value = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_prepare_security_battalions
+	icon = GFX_TNO_generic_riot_police
+	cost = 2
+	x = 10
+	y = 4
+	ai_will_do = {
+		factor = 2
+	}
+	prerequisite = {
+		focus = gre_italians_arm_us
+	}
+	prerequisite = {
+		focus = gre_italians_train_us
+	}
+	prerequisite = {
+		focus = gre_italians_help_us
+	}
+	completion_reward = {
+		add_war_support = 0.1
+		custom_effect_tooltip = gre_prepare_security_battalions_tt
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_dem_influence
+				value = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_crackdown
+	icon = GFX_SLO_Hold_the_police_Accountable
+	cost = 1
+	x = 10
+	y = 5
+	ai_will_do = {
+		factor = 2
+	}
+	prerequisite = {
+		focus = gre_prepare_security_battalions
+	}
+	completion_reward = {
+		country_event = {
+			id = gre.21
+		}
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_dem_influence
+				value = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_continued_dissent
+	icon = GFX_SAM_Dealing_with_Dissent
+	cost = 1
+	x = 10
+	y = 6
+	ai_will_do = {
+		factor = 2
+	}
+	prerequisite = {
+		focus = gre_crackdown
+	}
+	completion_reward = {
+		country_event = {
+			id = gre.22
+		}
+		add_to_variable = {
+			var = gre_dem_influence
+			value = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_garrisons_intervene
+	icon = GFX_ITA_propose_joint_interventions
+	cost = 1
+	x = 10
+	y = 7
+	available = {
+		has_idea = GRE_triumvirate_garrisons
+	}
+	ai_will_do = {
+		factor = 2
+	}
+	prerequisite = {
+		focus = gre_continued_dissent
+	}
+	completion_reward = {
+		add_stability = 0.1
+		add_to_variable = {
+			var = gre_dem_influence
+			value = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_damage_control
+	icon = GFX_TNO_generic_propaganda
+	cost = 2
+	x = 10
+	y = 8
+	ai_will_do = {
+		factor = 2
+	}
+	prerequisite = {
+		focus = gre_garrisons_intervene
+	}
+	completion_reward = {
+		add_political_power = 30
+		country_event = {
+			id = gre.23
+		}
+		add_to_variable = {
+			var = gre_dem_influence
+			value = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_just_a_minor_incident
+	icon = GFX_generic_political_chaos
+	cost = 1
+	x = 9
+	y = 9
+	ai_will_do = {
+		factor = 2
+	}
+	prerequisite = {
+		focus = gre_damage_control
+	}
+	completion_reward = {
+		add_political_power = 50
+		add_to_variable = {
+			var = gre_dem_influence
+			value = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_theyre_here_to_help
+	icon = GFX_EGY_Let_the_Italians_Handle_It
+	cost = 1
+	x = 11
+	y = 9
+	ai_will_do = {
+		factor = 2
+	}
+	prerequisite = {
+		focus = gre_damage_control
+	}
+	completion_reward = {
+		add_war_support = 0.1
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_dem_influence
+				value = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_its_not_occupation
+	icon = GFX_GGR_Prolonged_Occupation
+	cost = 2
+	x = 10
+	y = 10
+	ai_will_do = {
+		factor = 2
+	}
+	prerequisite = {
+		focus = gre_theyre_here_to_help
+	}
+	prerequisite = {
+		focus = gre_just_a_minor_incident
+	}
+	completion_reward = {
+		add_political_power = 120
+		add_to_variable = {
+			var = gre_dem_influence
+			value = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_just_peacekeeping
+	icon = GFX_dove_of_peace
+	cost = 2
+	x = 10
+	y = 11
+	ai_will_do = {
+		factor = 2
+	}
+	prerequisite = {
+		focus = gre_its_not_occupation
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+		add_to_variable = {
+			var = gre_dem_influence
+			value = 1
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_trouble_on_the_horizon
+	icon = GFX_ITA_The_Malta_Conference
+	cost = 3
+	x = 10
+	y = 12
+	ai_will_do = {
+		factor = 2
+	}
+	prerequisite = {
+		focus = gre_just_peacekeeping
+	}
+	completion_reward = {
+		country_event = {
+			id = gre.31
+		}
+		add_to_variable = {
+			var = gre_dem_influence
+			value = 1
+		}
+	}
+}
+
+##################################
+##### Opening Economic Tree ######
+##################################
+shared_focus = {
+	id = gre_aftermath_of_atlantropa
+	icon = GFX_IBR_Debate_DamFunding
+	cost = 1
+	x = 30
+	y = 0
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+		country_event = {
+			id = gre.25
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_address_the_economy
+	icon = GFX_USA_The_Economic_Opportunity_Act
+	cost = 1
+	x = 30
+	y = 1
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = gre_aftermath_of_atlantropa
+	}
+	completion_reward = {
+		country_event = {
+			id = gre.26
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_no_money
+	icon = GFX_cau_occultic_adventures
+	cost = 2
+	x = 30
+	y = 2
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = gre_address_the_economy
+	}
+	completion_reward = {
+		country_event = {
+			id = gre.27
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_no_ports
+	icon = GFX_RAJ_Start_The_Government
+	cost = 2
+	x = 28
+	y = 2
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = gre_address_the_economy
+	}
+	completion_reward = {
+		country_event = {
+			id = gre.28
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_no_autonomy
+	icon = GFX_cau_occultic_adventures
+	cost = 2
+	x = 32
+	y = 2
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = gre_address_the_economy
+	}
+	completion_reward = {
+		country_event = {
+			id = gre.29
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_as_always
+	icon = GFX_cau_occultic_adventures
+	cost = 2
+	x = 30
+	y = 3
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = gre_no_ports
+	}
+	prerequisite = {
+		focus = gre_no_money
+	}
+	prerequisite = {
+		focus = gre_no_autonomy
+	}
+	completion_reward = {
+		country_event = {
+			id = gre.30
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_turn_to_italy
+	icon = GFX_ITA_the_fourth_economic_power
+	cost = 2
+	x = 30
+	y = 4
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = gre_as_always
+	}
+	completion_reward = {
+		country_event = {
+			id = gre.31
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_attract_investors
+	icon = GFX_ITA_Managing_the_Empire
+	cost = 4
+	x = 29
+	y = 5
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = gre_turn_to_italy
+	}
+	completion_reward = {
+		custom_effect_tooltip = gre_attract_investors_tt
+		hidden_effect = {
+			add_to_variable = {
+				money_reserves = 30
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_buy_materials
+	icon = GFX_CHI_Modern_Construction_Equipment
+	cost = 4
+	x = 31
+	y = 5
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = gre_turn_to_italy
+	}
+	completion_reward = {
+		custom_effect_tooltip = gre_buy_materials_tt
+		hidden_effect = {
+			add_to_variable = {
+				national_debt = 50
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_new_ports
+	icon = GFX_USA_Finance_the_Ports
+	cost = 4
+	x = 30
+	y = 6
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = gre_attract_investors
+	}
+	prerequisite = {
+		focus = gre_buy_materials
+	}
+	completion_reward = {
+		186 = {
+			add_building_construction = {
+				type = naval_base
+				level = 2
+				instant_build = yes
+				province = 11965
+			}
+		}
+		185 = {
+			add_building_construction = {
+				type = naval_base
+				level = 1
+				instant_build = yes
+				province = 9805
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_reignite_the_fishing_industry
+	icon = GFX_Generic_Industry
+	cost = 4
+	x = 30
+	y = 7
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = gre_new_ports
+	}
+	completion_reward = {
+		custom_effect_tooltip = gre_reignite_the_fishing_industry_tt
+		hidden_effect = {
+			add_to_variable = {
+				GDP = 300
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_move_on_to_heavy_industry
+	icon = GFX_cau_occultic_adventures
+	cost = 2
+	x = 30
+	y = 8
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = gre_reignite_the_fishing_industry
+		
+	}
+	completion_reward = {
+		47 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_exploit_natural_resources
+	icon = GFX_WRS_re_open_mines
+	cost = 4
+	x = 29
+	y = 9
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = gre_move_on_to_heavy_industry
+	}
+	completion_reward = {
+		add_resource = {
+			type = steel
+			amount = 8
+			state = 185
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_government_grants
+	icon = GFX_ORE_common_finance
+	cost = 4
+	x = 31
+	y = 9
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = gre_move_on_to_heavy_industry
+	}
+	completion_reward = {
+		186 = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_start_economic_rejuvenation
+	icon = GFX_Generic_Good_Economy
+	cost = 4
+	x = 30
+	y = 10
+	ai_will_do = {
+		factor = 1
+	}
+	prerequisite = {
+		focus = gre_government_grants
+	}
+	prerequisite = {
+		focus = gre_exploit_natural_resources
+	}
+	completion_reward = {
+		custom_effect_tooltip = gre_start_economic_rejuvenation_tt
+		hidden_effect = {
+			add_to_variable = {
+				GDP_growth = 0.002
+			}
+		}
+	}
+}
+
+################################
+##### Papadopolous Origins #####
+################################
+shared_focus = {
+	id = gre_the_most_important_man_in_the_hellas
+	icon = GFX_CHI_Silence_the_hawks
+	cost = 2
+	x = 20
+	y = 0
+	completion_reward = {
+		add_stability = 0.1
+		custom_effect_tooltip = gre_the_most_important_man_in_the_hellas_tt
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_papa_influence
+				value = 2
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_insurgencies_end_here
+	icon = GFX_TNO_generic_riot_police
+	cost = 2
+	x = 18
+	y = 1
+	prerequisite = {
+		focus = gre_the_most_important_man_in_the_hellas
+	}
+	completion_reward = {
+		add_war_support = 0.1
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_papa_influence
+				value = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_rally_the_security_battalions
+	icon = GFX_TNO_generic_military_contacts
+	cost = 2
+	x = 18
+	y = 2
+	prerequisite = {
+		focus = gre_insurgencies_end_here
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GRE_security_battalions
+			add_idea = GRE_security_battalions2
+		}
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_papa_influence
+				value = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_contain_the_EAM
+	icon = GFX_Ensure_Officers_Loyalty
+	cost = 2
+	x = 20
+	y = 1
+	prerequisite = {
+		focus = gre_the_most_important_man_in_the_hellas
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = communist
+			popularity = -0.1
+		}
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_papa_influence
+				value = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_ramp_up_the_rhetoric
+	icon = GFX_TNO_generic_global_anti_communism
+	cost = 2
+	x = 20
+	y = 2
+	prerequisite = {
+		focus = gre_contain_the_EAM
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GRE_elusive_resistance
+			add_idea = GRE_elusive_resistance2
+		}
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_papa_influence
+				value = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_tighten_the_government
+	icon = GFX_Generic_Political_Crisis
+	cost = 2
+	x = 22
+	y = 1
+	prerequisite = {
+		focus = gre_the_most_important_man_in_the_hellas
+	}
+	completion_reward = {
+		add_political_power = 100
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_papa_influence
+				value = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_doctor_the_situation
+	icon = GFX_generic_diplomacy_political
+	cost = 2
+	x = 22
+	y = 2
+	prerequisite = {
+		focus = gre_tighten_the_government
+	}
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = GRE_dysfunctional_government
+			add_idea = GRE_dysfunctional_government2
+		}
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_papa_influence
+				value = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_faith_in_our_country
+	icon = GFX_generic_constitution
+	cost = 2
+	x = 20
+	y = 3
+	prerequisite = {
+		focus = gre_ramp_up_the_rhetoric
+	}
+	prerequisite = {
+		focus = gre_rally_the_security_battalions
+	}
+	prerequisite = {
+		focus = gre_doctor_the_situation
+	}
+	completion_reward = {
+		country_event = {
+			id = gre.11
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.1
+		}
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_papa_influence
+				value = 2
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_exile_suspects
+	icon = GFX_ARC_chains_factories
+	cost = 2
+	x = 16
+	y = 4
+	prerequisite = {
+		focus = gre_faith_in_our_country
+	}
+	completion_reward = {
+		add_stability = 0.1
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_papa_influence
+				value = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_the_italian_connection
+	icon = GFX_our_mandate_secured
+	cost = 2
+	x = 18
+	y = 4
+	prerequisite = {
+		focus = gre_faith_in_our_country
+	}
+	completion_reward = {
+		add_opinion_modifier = {
+			target = ITA
+			modifier = fascism_leanings_good
+		}
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_papa_influence
+				value = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_talk_to_the_garrison
+	icon = GFX_OST_Friends_in_the_Garrison
+	cost = 2
+	x = 20
+	y = 4
+	prerequisite = {
+		focus = gre_faith_in_our_country
+	}
+	completion_reward = {
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1000
+			producer = ITA
+		}
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_papa_influence
+				value = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_unleash_the_police
+	icon = GFX_BAS_redoubt_preperations
+	cost = 2
+	x = 22
+	y = 4
+	prerequisite = {
+		focus = gre_faith_in_our_country
+	}
+	completion_reward = {
+		army_experience = 20
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_papa_influence
+				value = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_re_engineer_the_political_landscape
+	icon = GFX_ORE_reordering_politics
+	cost = 2
+	x = 24
+	y = 4
+	prerequisite = {
+		focus = gre_faith_in_our_country
+	}
+	completion_reward = {
+		add_manpower = 4000
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_papa_influence
+				value = 1
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = gre_the_man_behind_the_mask
+	icon = GFX_SPA_Yesmen_Government
+	cost = 2
+	x = 20
+	y = 5
+	prerequisite = {
+		focus = gre_exile_suspects
+	}
+	prerequisite = {
+		focus = gre_the_italian_connection
+	}
+	prerequisite = {
+		focus = gre_talk_to_the_garrison
+	}
+	prerequisite = {
+		focus = gre_unleash_the_police
+	}
+	prerequisite = {
+		focus = gre_re_engineer_the_political_landscape
+	}
+	completion_reward = {
+		# country_event = {
+		# 	id = gre.12
+		# 	days = 1
+		# }
+		hidden_effect = {
+			add_to_variable = {
+				var = gre_papa_influence
+				value = 2
+			}
+		}
+	}
+}
+
+###############################
+####Provisional Government#####
+###############################
+shared_focus = {
+	id = gre_a_new_beginning
+	icon = GFX_Social_Liberalization
+	cost = 1
+	x = 10
+	y = 0
+	ai_will_do = {
+		factor = 1
+	}
+	completion_reward = {
+	}
+}

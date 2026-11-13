@@ -1,0 +1,126 @@
+#ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK ATTACK
+#force the different german factions to constantly attack each other and bleed each other out
+GER_GCW_los_los_los = {
+	allowed = {
+		OR = {
+			tag = HGR
+			tag = SGR
+			tag = BGR
+			tag = GGR
+		}
+	}
+	enable = {
+		OR = {
+			tag = HGR
+			tag = SGR
+			tag = BGR
+			tag = GGR
+		}
+		has_global_flag = german_civil_war
+		has_idea = GCW_hidden_holy_shit_win_already
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		priority = 80
+		tag = GGR
+		tag = HGR
+		tag = SGR
+		tag = BGR
+		execution_type = rush
+		execute_order = yes
+		manual_attack = no
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = GGR
+		value = 1000
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = HGR
+		value = 1000
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = SGR
+		value = 1000
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = BGR
+		value = 1000
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = GGR
+		value = 1000
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = HGR
+		value = 1000
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = SGR
+		value = 1000
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = BGR
+		value = 1000
+	}
+}
+
+#Armor goes to the fronts against the other factions for the whole war, not to garrisons
+GER_GCW_armor_to_the_front = {
+	allowed = {
+		OR = {
+			tag = HGR
+			tag = SGR
+			tag = BGR
+			tag = GGR
+		}
+	}
+	enable = {
+		has_global_flag = german_civil_war
+		has_war = yes
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_armor_score
+		id = GGR
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_armor_score
+		id = HGR
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_armor_score
+		id = SGR
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_armor_score
+		id = BGR
+		value = 100
+	}
+}

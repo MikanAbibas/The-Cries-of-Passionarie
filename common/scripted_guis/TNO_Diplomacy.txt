@@ -1,0 +1,64 @@
+scripted_gui = {
+	TNO_SG_Diplomacy = {
+		context_type = selected_country_context
+		parent_window_token = selected_country_view
+		window_name = "TNO_SG_Diplomacy_Faction"
+		
+		#visible = { always = yes }
+
+		triggers = {
+			current_faction_status_visible = {
+				OR = {
+					# Membership is an IDEA in TNORA, not a faction relation, so the status icon
+					# follows the idea. That keeps it up for a client that has been pushed out of
+					# the faction for gameplay reasons but is still somebody's client.
+					is_in_faction = yes
+					has_idea = Pakt_Leader
+					has_idea = OFN_Leader_of_The_Free_World
+					has_idea = Sphere_Leader
+					has_idea = TRI_Founder_IT
+					has_idea = TRI_Founder_IB
+					has_idea = TRI_Founder_TR
+					has_idea = Rome_leader
+					has_idea = Pakt_Bundnispartner
+					has_idea = Pakt_Mitstreiter
+					has_idea = Pakt_Observer
+					has_idea = Pakt_Marionettenstaat
+					has_idea = Pakt_Protektorat
+					has_idea = Pakt_Ordensstaat
+					has_idea = Pakt_Reichsland
+					has_idea = Pakt_Autonomous_Reichskommissariat
+					has_idea = Pakt_Integrated_Reichskommissariat
+					has_idea = Pakt_Military_Authority
+					has_idea = OFN_Independent_Member
+					has_idea = OFN_Dependent_Member
+					has_idea = OFN_Mandate
+					has_idea = OFN_Military_Government
+					has_idea = Sphere_Coequal
+					has_idea = Sphere_Imp_Protectorate
+					has_idea = Sphere_Economic_Dependent
+					has_idea = Sphere_Fully_Dependent
+					has_idea = Sphere_Special_Econ_Zone
+					has_idea = TRI_Member
+					has_idea = TRI_Member_Client
+					has_idea = Rome_member
+					has_idea = Rome_client
+				}
+			}
+		}
+
+		properties = {
+			current_faction_status = {
+				image = "[This.GetFactionStatus_icon]"
+			}
+		}
+	}
+	
+	TNO_No_LaR_Flag_Frame_Diplomacy = {
+		context_type = selected_country_context
+		parent_window_token = selected_country_view
+		window_name = "TNO_No_LaR_Flag_Frame_Diplomacy"
+		
+		visible = { NOT = { has_dlc = "La Resistance" } }
+	}
+}

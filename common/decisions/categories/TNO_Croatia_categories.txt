@@ -1,0 +1,171 @@
+CRO_government_control = {
+	icon = GFX_decision_category_generic_crisis
+	allowed = {
+		OR = { tag = CRO  tag = ITA  tag = GER }
+	}
+	visible = {
+		OR = { tag = CRO  tag = ITA  tag = GER }
+		CRO = {
+			NOT = { has_country_flag = CRO_couped }
+			NOT = { has_country_flag = CRO_path_resolved }
+		}
+	}
+	visible_when_empty = yes
+	scripted_gui = CRO_gov_control_display_gui
+	priority = 20
+}
+
+# The state endures — rebel-side intermission clock (government wins if it runs out).
+CRO_state_endures_category = {
+	icon = GFX_decision_category_generic_crisis
+	allowed = {
+		tag = CRO
+	}
+	visible = {
+		has_country_flag = CRO_intermission_active
+		OR = {
+			has_country_flag = CRO_sympathy_ustase
+			has_country_flag = CRO_sympathy_tito
+		}
+	}
+	priority = 21
+}
+
+# Titotangle — the communist leadership struggle (shown once the revolution has won, until resolved).
+CRO_titotangle = {
+	icon = GFX_decision_category_generic_communism
+	allowed = {
+		original_tag = CRO
+	}
+	visible = {
+		has_country_flag = CRO_revolution_active
+	}
+	priority = 22
+	scripted_gui = CRO_titotangle_gui
+}
+
+# Civil war missions (the 180-day survival window). Visible to the rebels and Italy alike.
+CRO_civil_war = {
+	icon = GFX_decision_category_generic_crisis
+	allowed = {
+		OR = { tag = CRO  tag = BOS  tag = ITA  tag = GER }
+	}
+	visible = {
+		has_global_flag = CRO_civil_war_active
+		NOT = { has_global_flag = CRO_civil_war_resolved }
+	}
+	priority = 21
+}
+
+# Shaking off Rome — Zvonimir path: work Italian Power down before the elections.
+CRO_italian_power_category = {
+	icon = GFX_decision_category_generic_political_actions
+	allowed = {
+		original_tag = CRO
+	}
+	visible = {
+		has_completed_focus = CRO_the_prince
+	}
+	priority = 20
+}
+
+# Partisan activity — suppression campaign while any activity tier is active.
+CRO_partisan_activity_category = {
+	icon = GFX_decision_category_generic_crisis
+	allowed = {
+		original_tag = CRO
+	}
+	visible = {
+		OR = {
+			has_idea = CRO_PARTISAN_ACTIVITY
+			has_idea = CRO_PARTISAN_ACTIVITY1
+			has_idea = CRO_PARTISAN_ACTIVITY2
+			has_idea = CRO_PARTISAN_ACTIVITY3
+			has_idea = CRO_PARTISAN_ACTIVITY4
+			has_idea = CRO_PARTISAN_ACTIVITY5
+			has_idea = CRO_PARTISAN_ACTIVITY6
+		}
+	}
+	priority = 19
+}
+
+# The Yugoslav Question — unification/invasion decisions, unlocked once the leadership struggle is settled.
+CRO_reunification_category = {
+	icon = GFX_decision_category_generic_formable_nations
+	allowed = {
+		original_tag = CRO
+	}
+	visible = {
+		OR = {
+			has_country_flag = CRO_tito_leader
+			has_country_flag = CRO_hebrang_leader
+			has_country_flag = CRO_bakaric_leader
+		}
+	}
+	priority = 22
+}
+
+# Ustase main tree — the steady building of the New Order state.
+CRO_new_order_category = {
+	icon = GFX_decision_category_generic_industry
+	allowed = {
+		original_tag = CRO
+	}
+	visible = {
+		has_country_flag = CRO_steady_growth_active
+	}
+	priority = 20
+}
+
+# Ustase foreign ventures — join the Pakt's wars.
+CRO_ustase_foreign_category = {
+	icon = GFX_decision_category_generic_foreign_policy
+	allowed = {
+		original_tag = CRO
+	}
+	visible = {
+		has_country_flag = CRO_steady_growth_active
+		has_government = national_socialism
+	}
+	priority = 19
+}
+
+# Surrendering Croatia's claims — Hungary/Romania can cede the claimed land to end the war.
+CRO_claims_surrender_category = {
+	icon = GFX_decision_category_generic_political_actions
+	allowed = {
+		OR = { tag = HUN  tag = ROM }
+	}
+	visible = {
+		has_war_with = CRO
+	}
+	priority = 22
+}
+
+# Integrating conquered territory — targeted coring once compliance is established.
+CRO_integration_category = {
+	icon = GFX_decision_category_generic_formable_nations
+	allowed = {
+		OR = { tag = CRO  tag = SER }
+	}
+	visible = {
+		any_owned_state = {
+			has_state_flag = CRO_war_coreable
+			NOT = { is_core_of = ROOT }
+		}
+	}
+	priority = 21
+}
+
+# The Poglavnik's Twilight — the Ustase succession struggle (1970s leadership crisis).
+CRO_leadership_race_category = {
+	icon = GFX_decision_category_generic_crisis
+	allowed = {
+		original_tag = CRO
+	}
+	visible = {
+		has_country_flag = CRO_leadership_crisis
+	}
+	priority = 22
+	scripted_gui = CRO_leadership_race_GUI
+}

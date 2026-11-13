@@ -1,0 +1,979 @@
+# New Scramble for Africa: the wars (plan 4.4).
+# Declared by decision (common/decisions/TNO_Scramble_war_decisions.txt), the same way for players and the AI.
+# Settled on the scramble's terms in master's capitulation handler (common/on_actions/TNO_peace_on_actions.txt).
+# Rules (user, 2026-10-16): warlords fight warlords, regional states fight regional states; nations of one patron
+# never fight each other; an African nation fights one war at a time; every war ends in a cooldown for both sides.
+
+SFA_build_nations = {
+	# every participant: the war decisions' target list. Once at the start, or on the first pulse of an older save.
+	set_global_flag = SFA_nations_built
+	clear_array = global.SFA_nations
+	every_country = {
+		limit = {
+			OR = {
+				has_country_flag = SFA_african_nation
+				has_country_flag = SFA_sovereign_ally
+			}
+		}
+		add_to_array = { global.SFA_nations = THIS }
+	}
+	SFA_update_home_regions = yes
+}
+
+SFA_update_home_regions = {
+	# plan 4.4, at the start and each pulse: every nation's home region, where its capital is. An AI warlord picks its
+	# wars inside its home region first, to unify it (user, 2026-10-16).
+	for_each_scope_loop = {
+		array = global.SFA_nations
+		if = {
+			limit = { exists = yes }
+			set_temp_variable = { sfa_r = 0 }
+			capital_scope = { set_temp_variable = { sfa_r = SFA_region } }
+			set_variable = { SFA_home_region = sfa_r }
+		}
+	}
+}
+
+SFA_declare_scramble_war = {
+	# from a war decision: ROOT declares on FROM. Both remember the war (its id, start and enemy) for its end.
+	add_to_variable = { global.SFA_war_counter = 1 }
+	set_country_flag = SFA_in_scramble_war
+	set_variable = { SFA_war_id = global.SFA_war_counter }
+	set_variable = { SFA_war_start = global.num_days }
+	set_variable = { SFA_war_enemy = FROM }
+	FROM = {
+		set_country_flag = SFA_in_scramble_war
+		set_variable = { SFA_war_id = global.SFA_war_counter }
+		set_variable = { SFA_war_start = global.num_days }
+		set_variable = { SFA_war_enemy = ROOT }
+	}
+	if = {
+		# a regional war: the longer cooldown when it ends
+		limit = { has_country_flag = SFA_regional_state }
+		set_country_flag = SFA_regional_war
+		FROM = { set_country_flag = SFA_regional_war }
+	}
+	clr_country_flag = SFA_ai_war_window
+	save_event_target_as = SFA_d_actor
+	FROM = {
+		save_event_target_as = SFA_d_target
+		capital_scope = { set_temp_variable = { sfa_d_region = SFA_region } }
+	}
+	set_temp_variable = { sfa_d_type = 1 }
+	SFA_push_dispatch = yes
+	log = "[GetDateText]: New Scramble for Africa: [Root.GetName] declares war on [From.GetName]"
+	declare_war_on = {
+		target = FROM
+		type = annex_everything
+	}
+	SFA_alert_patron = yes
+	FROM = { SFA_alert_patron = yes }
+	SFA_count_proxies_at_war = yes
+	SFA_board_recompute = yes
+	SFA_gui_refresh = yes
+}
+
+SFA_settle_capitulation = {
+	# plan 4.4, from master's capitulation handler: ROOT capitulated, FROM won. A warlord war ends in annexation (user,
+	# 2026-10-19). A regional war ends on the regional terms (SFA_regional_peace_terms), or in annexation when the loser
+	# holds two states or fewer, or would be left with one (user, 2026-10-24). Then the regions are checked: a war can
+	# complete a consolidation.
+	FROM = {
+		save_event_target_as = SFA_peace_winner
+		save_event_target_as = SFA_d_actor
+	}
+	ROOT = {
+		save_event_target_as = SFA_d_target
+		capital_scope = { set_temp_variable = { sfa_d_region = SFA_region } }
+	}
+	set_temp_variable = { sfa_regional = 0 }
+	if = {
+		limit = { FROM = { has_country_flag = SFA_regional_war } }
+		set_temp_variable = { sfa_regional = 1 }
+		# plan 4.6 (user, 2026-10-16): prestige and the losing patron's penalty, for regional wars only
+		SFA_regional_war_consequences = yes
+	}
+	FROM = { SFA_end_scramble_war = yes }
+	if = {
+		limit = {
+			OR = {
+				check_variable = { sfa_regional = 0 }
+				ROOT = { check_variable = { num_owned_states < 3 } }
+			}
+		}
+		SFA_annex_peace_loser = yes
+	}
+	else = {
+		SFA_regional_peace_terms = yes
+	}
+	SFA_after_scramble_peace = yes
+}
+
+SFA_surrender_regional_war = {
+	# user, 2026-10-19: from SFA_regional_surrender, in the losing regional state's scope (ROOT) at 50% surrender
+	# progress. It concedes rather than fight on to capitulation: the war ends at once on the regional terms, and counts
+	# as a lost regional war (prestige and the patron's penalty). It ends in annexation only when the terms would leave
+	# a single state (user, 2026-10-24).
+	var:SFA_war_enemy = {
+		save_event_target_as = SFA_peace_winner
+		save_event_target_as = SFA_d_actor
+	}
+	save_event_target_as = SFA_d_target
+	capital_scope = { set_temp_variable = { sfa_d_region = SFA_region } }
+	SFA_regional_war_consequences = yes
+	log = "[GetDateText]: New Scramble for Africa: [Root.GetName] surrenders to [SFA_peace_winner.GetName]"
+	SFA_end_scramble_war = yes
+	SFA_regional_peace_terms = yes
+	SFA_after_scramble_peace = yes
+}
+
+SFA_regional_peace_terms = {
+	# plan 4.4: ROOT lost to event target SFA_peace_winner. Up to three of ROOT's states that border the winner pass
+	# to it (a patron's order target first, then those it occupies), and the war ends in white peace. A regional state
+	# left with a single state is annexed outright instead (user, 2026-10-24). The count is taken before the transfers
+	# and the states taken subtracted, so it holds however the engine updates num_owned_states within the effect; it
+	# runs once per peace, never on a pulse. Sets the dispatch's kind.
+	set_temp_variable = { sfa_left = 0 }
+	ROOT = { set_temp_variable = { sfa_left = num_owned_states } }
+	set_temp_variable = { sfa_taken = 0 }
+	SFA_take_one_state = yes
+	SFA_take_one_state = yes
+	SFA_take_one_state = yes
+	SFA_hand_over_cut_off_states = yes
+	subtract_from_temp_variable = { sfa_left = sfa_taken }
+	if = {
+		limit = { check_variable = { sfa_left < 2 } }
+		SFA_annex_peace_loser = yes
+	}
+	else = {
+		SFA_partial_peace = yes
+	}
+}
+
+SFA_hand_over_cut_off_states = {
+	# user, 2026-10-24: a regional peace leaves no disconnected land. After the transfers, ROOT's states still joined to
+	# its capital are marked by a flood fill (state flag SFA_joined, cleared again at the end); any state of ROOT now
+	# cut off that borders the winner passes to it too (SFA_give_state_to_winner counts it in sfa_taken), repeated so a
+	# cut-off chain goes whole. Pieces that never touch the winner, an island or land beyond a third nation, stay. If
+	# the capital ended in the smaller piece nothing is handed over, so a peace never takes the bulk of a nation this
+	# way. The fill starts at the capital, or at any state ROOT still owns if the capital was just taken. Runs once per
+	# peace: every pass looks only at ROOT's own states, and each loop stops as soon as a pass changes nothing.
+	ROOT = {
+		if = {
+			limit = { capital_scope = { is_owned_by = ROOT } }
+			capital_scope = { set_state_flag = SFA_joined }
+		}
+		else = {
+			random_owned_state = { set_state_flag = SFA_joined }
+		}
+		set_temp_variable = { sfa_grew = 1 }
+		while_loop_effect = {
+			limit = { check_variable = { sfa_grew = 1 } }
+			set_temp_variable = { sfa_grew = 0 }
+			every_owned_state = {
+				limit = {
+					NOT = { has_state_flag = SFA_joined }
+					any_neighbor_state = {
+						has_state_flag = SFA_joined
+						is_owned_by = ROOT
+					}
+				}
+				set_state_flag = SFA_joined
+				set_temp_variable = { sfa_grew = 1 }
+			}
+		}
+		set_temp_variable = { sfa_joined_n = 0 }
+		set_temp_variable = { sfa_cut_n = 0 }
+		every_owned_state = {
+			if = {
+				limit = { has_state_flag = SFA_joined }
+				add_to_temp_variable = { sfa_joined_n = 1 }
+			}
+			else = {
+				add_to_temp_variable = { sfa_cut_n = 1 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable = { sfa_cut_n > 0 }
+				check_variable = { sfa_cut_n < sfa_joined_n }
+			}
+			set_temp_variable = { sfa_moved = 1 }
+			while_loop_effect = {
+				limit = { check_variable = { sfa_moved = 1 } }
+				set_temp_variable = { sfa_moved = 0 }
+				every_owned_state = {
+					limit = {
+						NOT = { has_state_flag = SFA_joined }
+						SFA_takeable_by_winner = yes
+					}
+					SFA_give_state_to_winner = yes
+					set_temp_variable = { sfa_moved = 1 }
+				}
+			}
+		}
+		every_owned_state = {
+			limit = { has_state_flag = SFA_joined }
+			clr_state_flag = SFA_joined
+		}
+	}
+}
+
+SFA_annex_peace_loser = {
+	# ROOT lost to event target SFA_peace_winner and is annexed whole; the regions it held as their regional state pass to
+	# the winner (SFA_transfer_region_nations). From a capitulation or from a regional peace that would leave one state.
+	SFA_transfer_region_nations = yes
+	set_temp_variable = { sfa_d_kind = 1 }
+	log = "[GetDateText]: New Scramble for Africa: [SFA_peace_winner.GetName] annexes [Root.GetName]"
+	event_target:SFA_peace_winner = {
+		annex_country = {
+			target = ROOT
+			transfer_troops = no
+		}
+	}
+}
+
+SFA_partial_peace = {
+	# SFA_regional_peace_terms after the transfers, when ROOT keeps two states or more: white peace, and the dispatch's
+	# kind
+	log = "[GetDateText]: New Scramble for Africa: [SFA_peace_winner.GetName] takes [?sfa_taken] states from [Root.GetName]"
+	event_target:SFA_peace_winner = { white_peace = ROOT }
+	# the dispatch: none, one, or the first and how many more (sfa_d_state is set by SFA_give_state_to_winner)
+	set_temp_variable = { sfa_d_kind = 0 }
+	if = {
+		limit = { check_variable = { sfa_taken = 1 } }
+		set_temp_variable = { sfa_d_kind = 2 }
+	}
+	else_if = {
+		limit = { check_variable = { sfa_taken > 1 } }
+		set_temp_variable = { sfa_d_kind = 3 }
+		set_temp_variable = { sfa_d_more = sfa_taken }
+		subtract_from_temp_variable = { sfa_d_more = 1 }
+	}
+}
+
+SFA_after_scramble_peace = {
+	# the dispatch, then the map as it now stands: a peace can complete a consolidation
+	set_temp_variable = { sfa_d_type = 3 }
+	SFA_push_dispatch = yes
+	SFA_check_regions = yes
+	SFA_update_land_strength = yes
+	SFA_count_proxies_at_war = yes
+	SFA_board_recompute = yes
+	SFA_gui_refresh = yes
+}
+
+SFA_take_one_state = {
+	# one state of the loser (ROOT) bordering the winner (event target SFA_peace_winner): a patron's order target first
+	# (plan 4.7), then an occupied one, then any
+	if = {
+		limit = { ROOT = { check_variable = { num_owned_states > 1 } } }
+		if = {
+			limit = {
+				ROOT = {
+					any_owned_state = {
+						SFA_takeable_by_winner = yes
+						has_state_flag = SFA_order_target
+					}
+				}
+			}
+			ROOT = {
+				random_owned_state = {
+					limit = {
+						SFA_takeable_by_winner = yes
+						has_state_flag = SFA_order_target
+					}
+					SFA_give_state_to_winner = yes
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				ROOT = {
+					any_owned_state = {
+						SFA_takeable_by_winner = yes
+						is_controlled_by = event_target:SFA_peace_winner
+					}
+				}
+			}
+			ROOT = {
+				random_owned_state = {
+					limit = {
+						SFA_takeable_by_winner = yes
+						is_controlled_by = event_target:SFA_peace_winner
+					}
+					SFA_give_state_to_winner = yes
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				ROOT = {
+					any_owned_state = { SFA_takeable_by_winner = yes }
+				}
+			}
+			ROOT = {
+				random_owned_state = {
+					limit = { SFA_takeable_by_winner = yes }
+					SFA_give_state_to_winner = yes
+				}
+			}
+		}
+	}
+}
+
+SFA_give_state_to_winner = {
+	# in a state's scope: it passes to the war's winner (event target SFA_peace_winner). The first one taken names the
+	# peace in the dispatches. Control follows at the white peace.
+	if = {
+		limit = { check_variable = { sfa_taken = 0 } }
+		set_temp_variable = { sfa_d_state = THIS }
+	}
+	event_target:SFA_peace_winner = { transfer_state = PREV }
+	clr_state_flag = SFA_order_target
+	add_to_temp_variable = { sfa_taken = 1 }
+}
+
+SFA_end_scramble_war = {
+	# in the scope of one side of a scramble war: both sides start their cooldown and forget the war
+	if = {
+		limit = {
+			var:SFA_war_enemy = {
+				exists = yes
+				has_country_flag = SFA_in_scramble_war
+			}
+		}
+		var:SFA_war_enemy = { SFA_close_war_record = yes }
+	}
+	SFA_close_war_record = yes
+}
+
+SFA_close_war_record = {
+	# the cooldown (user, 2026-10-16): no war declared by or on this nation until it ends. Short for warlords, who
+	# expand aggressively (user, 2026-10-16), long for regional states.
+	if = {
+		limit = { has_country_flag = SFA_regional_war }
+		set_country_flag = { flag = SFA_war_cooldown days = 365 value = 1 }
+	}
+	else = {
+		set_country_flag = { flag = SFA_war_cooldown days = 90 value = 1 }
+	}
+	clr_country_flag = SFA_in_scramble_war
+	clr_country_flag = SFA_regional_war
+	clear_variable = SFA_war_id
+	clear_variable = SFA_war_start
+	clear_variable = SFA_war_enemy
+}
+
+SFA_check_wars = {
+	# plan 4.4, monthly: a scramble war that ended some other way still gets its cooldowns, and one that has gone a
+	# year without a capitulation ends in white peace
+	every_country = {
+		limit = { has_country_flag = SFA_in_scramble_war }
+		if = {
+			# the other side of a war closed earlier in this loop
+			limit = { has_country_flag = SFA_in_scramble_war }
+			set_temp_variable = { sfa_elapsed = global.num_days }
+			subtract_from_temp_variable = { sfa_elapsed = SFA_war_start }
+			if = {
+				limit = {
+					OR = {
+						NOT = { var:SFA_war_enemy = { exists = yes } }
+						var:SFA_war_enemy = { NOT = { has_war_with = PREV } }
+					}
+				}
+				SFA_end_scramble_war = yes
+			}
+			else_if = {
+				limit = { check_variable = { sfa_elapsed > 364 } }
+				save_event_target_as = SFA_d_actor
+				var:SFA_war_enemy = {
+					save_event_target_as = SFA_d_target
+					capital_scope = { set_temp_variable = { sfa_d_region = SFA_region } }
+				}
+				set_temp_variable = { sfa_d_type = 4 }
+				SFA_push_dispatch = yes
+				log = "[GetDateText]: New Scramble for Africa: a year of war ends in white peace between [This.GetName] and [SFA_d_target.GetName]"
+				var:SFA_war_enemy = { white_peace = PREV }
+				SFA_end_scramble_war = yes
+			}
+		}
+	}
+}
+
+SFA_roll_ai_war_windows = {
+	# plan 4.4, monthly: the AI declares only while a window is open, so wars do not all start on the same day. Each
+	# AI nation free for war opens one for 30 days: 50% a month for a warlord, which expands aggressively (user,
+	# 2026-10-16), 6% for a regional state.
+	for_each_scope_loop = {
+		array = global.SFA_nations
+		if = {
+			limit = {
+				is_ai = yes
+				SFA_war_ready = yes
+			}
+			set_temp_variable = { sfa_roll = random }
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							has_country_flag = SFA_regional_state
+							check_variable = { sfa_roll < 0.06 }
+						}
+						AND = {
+							NOT = { has_country_flag = SFA_regional_state }
+							check_variable = { sfa_roll < 0.5 }
+						}
+					}
+				}
+				set_country_flag = { flag = SFA_ai_war_window days = 30 value = 1 }
+			}
+		}
+	}
+}
+
+SFA_alert_patron = {
+	# in a nation's scope: its patron's topbar box lights up (plan 7.3); opening the board clears it
+	if = {
+		limit = { has_country_flag = SFA_patron_USA }
+		USA = { set_country_flag = SFA_attention }
+	}
+	if = {
+		limit = { has_country_flag = SFA_patron_GER }
+		GER = { set_country_flag = SFA_attention }
+	}
+	if = {
+		limit = { has_country_flag = SFA_patron_ITA }
+		ITA = { set_country_flag = SFA_attention }
+	}
+	if = {
+		limit = { has_country_flag = SFA_patron_JAP }
+		JAP = { set_country_flag = SFA_attention }
+	}
+	if = {
+		limit = { has_country_flag = SFA_patron_BRG }
+		BRG = { set_country_flag = SFA_attention }
+	}
+	if = {
+		limit = { has_country_flag = SFA_patron_IBR }
+		IBR = { set_country_flag = SFA_attention }
+	}
+}
+
+SFA_count_proxies_at_war = {
+	# plan 7.3 (user, 2026-10-16), each pulse and whenever a war involving an African nation starts: per patron, its
+	# proxies (SFA_proxy_count) and how many of them are at war, in any war (SFA_proxies_at_war). The first four at war
+	# go in the arrays SFA_war_proxies and SFA_war_foes (one enemy each), the rest in SFA_war_more. The topbar box shows
+	# them instead of events.
+	every_country = {
+		limit = { has_country_flag = SFA_patron }
+		set_variable = { SFA_proxy_count = 0 }
+		set_variable = { SFA_proxies_at_war = 0 }
+		set_variable = { SFA_war_more = 0 }
+		clear_array = SFA_war_proxies
+		clear_array = SFA_war_foes
+	}
+	for_each_scope_loop = {
+		array = global.SFA_nations
+		if = {
+			limit = {
+				exists = yes
+				has_country_flag = SFA_african_nation
+			}
+			set_temp_variable = { sfa_at_war = 0 }
+			set_temp_variable = { sfa_foe_found = 0 }
+			if = {
+				limit = { has_war = yes }
+				set_temp_variable = { sfa_at_war = 1 }
+				# the enemy to name: the scramble war's, else any enemy
+				if = {
+					limit = { has_country_flag = SFA_in_scramble_war }
+					set_temp_variable = { sfa_foe = SFA_war_enemy }
+					set_temp_variable = { sfa_foe_found = 1 }
+				}
+				else = {
+					random_enemy_country = {
+						set_temp_variable = { sfa_foe = THIS }
+						set_temp_variable = { sfa_foe_found = 1 }
+					}
+				}
+			}
+			if = {
+				limit = { has_country_flag = SFA_patron_USA }
+				USA = { SFA_count_one_proxy = yes }
+			}
+			if = {
+				limit = { has_country_flag = SFA_patron_GER }
+				GER = { SFA_count_one_proxy = yes }
+			}
+			if = {
+				limit = { has_country_flag = SFA_patron_ITA }
+				ITA = { SFA_count_one_proxy = yes }
+			}
+			if = {
+				limit = { has_country_flag = SFA_patron_JAP }
+				JAP = { SFA_count_one_proxy = yes }
+			}
+			if = {
+				limit = { has_country_flag = SFA_patron_BRG }
+				BRG = { SFA_count_one_proxy = yes }
+			}
+			if = {
+				limit = { has_country_flag = SFA_patron_IBR }
+				IBR = { SFA_count_one_proxy = yes }
+			}
+		}
+	}
+}
+
+SFA_count_one_proxy = {
+	# SFA_count_proxies_at_war, in the patron's scope; PREV is its proxy, temp sfa_at_war, sfa_foe and sfa_foe_found
+	# describe it
+	add_to_variable = { SFA_proxy_count = 1 }
+	if = {
+		limit = { check_variable = { sfa_at_war = 1 } }
+		add_to_variable = { SFA_proxies_at_war = 1 }
+		if = {
+			limit = {
+				check_variable = { sfa_foe_found = 1 }
+				check_variable = { SFA_war_proxies^num < 4 }
+			}
+			add_to_array = { SFA_war_proxies = PREV }
+			add_to_array = { SFA_war_foes = sfa_foe }
+		}
+		else = {
+			add_to_variable = { SFA_war_more = 1 }
+		}
+	}
+}
+
+SFA_get_patron_code = {
+	# in a nation's scope: temp sfa_code, the region code of its patron (1 US, 2 Germany, 3 Italy, 4 Japan,
+	# 5 Burgundy, 6 Iberia, 9 none)
+	set_temp_variable = { sfa_code = 9 }
+	if = {
+		limit = { has_country_flag = SFA_patron_USA }
+		set_temp_variable = { sfa_code = 1 }
+	}
+	else_if = {
+		limit = { has_country_flag = SFA_patron_GER }
+		set_temp_variable = { sfa_code = 2 }
+	}
+	else_if = {
+		limit = { has_country_flag = SFA_patron_ITA }
+		set_temp_variable = { sfa_code = 3 }
+	}
+	else_if = {
+		limit = { has_country_flag = SFA_patron_JAP }
+		set_temp_variable = { sfa_code = 4 }
+	}
+	else_if = {
+		limit = { has_country_flag = SFA_patron_BRG }
+		set_temp_variable = { sfa_code = 5 }
+	}
+	else_if = {
+		limit = { has_country_flag = SFA_patron_IBR }
+		set_temp_variable = { sfa_code = 6 }
+	}
+}
+
+SFA_regional_war_consequences = {
+	# plan 4.6 (user, 2026-10-16: regional wars only), from a regional capitulation or surrender (ROOT lost, event target
+	# SFA_peace_winner won): the winner's patron gains 2 prestige; the loser's loses 2 and pays a penalty that depends
+	# on its government.
+	set_temp_variable = { sfa_prestige = 2 }
+	event_target:SFA_peace_winner = { SFA_patron_add_prestige = yes }
+	set_temp_variable = { sfa_prestige = -2 }
+	ROOT = {
+		SFA_patron_add_prestige = yes
+		SFA_patron_loss_malus = yes
+	}
+	log = "[GetDateText]: New Scramble for Africa: regional war won by [SFA_peace_winner.GetName] over [Root.GetName]; prestige and penalty applied"
+}
+
+SFA_patron_add_prestige = {
+	# in a nation's scope: its patron's prestige changes by temp sfa_prestige (plan 4.6)
+	if = {
+		limit = { has_country_flag = SFA_patron_USA }
+		USA = { add_to_variable = { var = prestige value = sfa_prestige } }
+	}
+	if = {
+		limit = { has_country_flag = SFA_patron_GER }
+		GER = { add_to_variable = { var = prestige value = sfa_prestige } }
+	}
+	if = {
+		limit = { has_country_flag = SFA_patron_ITA }
+		ITA = { add_to_variable = { var = prestige value = sfa_prestige } }
+	}
+	if = {
+		limit = { has_country_flag = SFA_patron_JAP }
+		JAP = { add_to_variable = { var = prestige value = sfa_prestige } }
+	}
+	if = {
+		limit = { has_country_flag = SFA_patron_BRG }
+		BRG = { add_to_variable = { var = prestige value = sfa_prestige } }
+	}
+	if = {
+		limit = { has_country_flag = SFA_patron_IBR }
+		IBR = { add_to_variable = { var = prestige value = sfa_prestige } }
+	}
+}
+
+SFA_patron_loss_malus = {
+	# plan 4.6, in the losing nation's scope: its patron's government pays. Burgundy and Italy before the rework take
+	# none yet (user, 2026-10-16), nor does Iberia (2026-10-18).
+	if = {
+		limit = { has_country_flag = SFA_patron_USA }
+		USA = { USA_decrease_ruling_party_popularity_2 = yes }
+	}
+	if = {
+		limit = { has_country_flag = SFA_patron_GER }
+		GER = { SFA_germany_loss_malus = yes }
+	}
+	if = {
+		limit = { has_country_flag = SFA_patron_JAP }
+		JAP = {
+			JAP_HoP_support_decrease_small = yes
+			add_stability = -0.02
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = SFA_patron_ITA
+			ITA = { has_country_flag = ITA_med_rework_active }
+		}
+		ITA = { SFA_italy_loss_malus = yes }
+	}
+}
+
+SFA_germany_loss_malus = {
+	# plan 4.6, in GER's scope. Speidel and the G4 come out of Speer's victory, so they are checked first. Göring's and
+	# Heydrich's Germanies take none yet.
+	if = {
+		# Speidel: readiness falls by 5, then the three derived globals follow, as his own decay mission does
+		limit = { has_country_flag = GER_speidel_fuhrer }
+		add_to_variable = { global.GER_readiness = -5 }
+		clamp_variable = {
+			var = global.GER_readiness
+			min = -50
+			max = 50
+		}
+		set_variable = {
+			var = global.GER_readiness_consciption_factor
+			value = global.GER_readiness
+		}
+		set_variable = {
+			var = global.GER_readiness_orginization
+			value = global.GER_readiness
+		}
+		set_variable = {
+			var = global.GER_readiness_defence
+			value = global.GER_readiness
+		}
+		divide_variable = {
+			var = global.GER_readiness_consciption_factor
+			value = 200
+		}
+		divide_variable = {
+			var = global.GER_readiness_orginization
+			value = 500
+		}
+		divide_variable = {
+			var = global.GER_readiness_defence
+			value = 500
+		}
+	}
+	else_if = {
+		# the G4: three Reichstag states turn on the governing party, the way G4's own focuses move support
+		limit = { has_country_flag = GER_Fuhrerdemokratie }
+		random_core_state = {
+			limit = { has_state_flag = GER_reichstag_state }
+			SFA_g4_governing_party_loses_support = yes
+		}
+		random_core_state = {
+			limit = { has_state_flag = GER_reichstag_state }
+			SFA_g4_governing_party_loses_support = yes
+		}
+		random_core_state = {
+			limit = { has_state_flag = GER_reichstag_state }
+			SFA_g4_governing_party_loses_support = yes
+		}
+	}
+	else_if = {
+		# Speer: regime stability, a 0-1 share, falls by 3 points
+		limit = { has_global_flag = german_civil_war_speervic }
+		subtract_from_variable = { SGRRegimeStability = 0.03 }
+		clamp_variable = {
+			var = SGRRegimeStability
+			min = 0
+			max = 1
+		}
+	}
+	else_if = {
+		# Bormann: one interest group, sometimes two, loses 3 loyalty to the State, his faction, as his rivals' moves do
+		# (BOR_SIG_AI_Run)
+		limit = { has_global_flag = german_civil_war_bormannvic }
+		SFA_bormann_sig_loses_loyalty = yes
+		random = {
+			chance = 50
+			SFA_bormann_sig_loses_loyalty = yes
+		}
+	}
+}
+
+SFA_g4_governing_party_loses_support = {
+	# in a Reichstag state's scope: Germany's governing party loses a little support here
+	if = {
+		limit = { GER = { GER_nsdap_government = yes } }
+		GER_decrease_nsdap_support_small = yes
+	}
+	else_if = {
+		limit = { GER = { GER_vup_government = yes } }
+		GER_decrease_vup_support_small = yes
+	}
+	else_if = {
+		limit = { GER = { GER_rsp_government = yes } }
+		GER_decrease_rsp_support_small = yes
+	}
+	else_if = {
+		limit = { GER = { GER_vaaf_government = yes } }
+		GER_decrease_vaaf_support_small = yes
+	}
+	else_if = {
+		limit = { GER = { GER_dg_government = yes } }
+		GER_decrease_dg_support_small = yes
+	}
+	else_if = {
+		limit = {
+			GER = {
+				OR = {
+					has_government = burgundian_system
+					AND = {
+						has_government = despotism
+						has_country_flag = GER_dap_active
+					}
+				}
+			}
+		}
+		GER_decrease_dap_support_small = yes
+	}
+	else_if = {
+		limit = {
+			GER = {
+				has_government = despotism
+				has_country_flag = GER_ler_active
+			}
+		}
+		GER_decrease_ler_support_small = yes
+	}
+}
+
+SFA_bormann_sig_loses_loyalty = {
+	# in GER's scope: a random interest group that still exists loses 3 loyalty to the State (faction 1)
+	set_variable = { BOR_SIG_AL_i = -1 }
+	random_list = {
+		1 = {
+			modifier = {
+				factor = 0
+				check_variable = { BOR_SIGType^0 = 0 }
+			}
+			set_variable = { BOR_SIG_AL_i = 0 }
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				check_variable = { BOR_SIGType^1 = 0 }
+			}
+			set_variable = { BOR_SIG_AL_i = 1 }
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				check_variable = { BOR_SIGType^2 = 0 }
+			}
+			set_variable = { BOR_SIG_AL_i = 2 }
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				check_variable = { BOR_SIGType^3 = 0 }
+			}
+			set_variable = { BOR_SIG_AL_i = 3 }
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				check_variable = { BOR_SIGType^4 = 0 }
+			}
+			set_variable = { BOR_SIG_AL_i = 4 }
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				check_variable = { BOR_SIGType^5 = 0 }
+			}
+			set_variable = { BOR_SIG_AL_i = 5 }
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				check_variable = { BOR_SIGType^6 = 0 }
+			}
+			set_variable = { BOR_SIG_AL_i = 6 }
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				check_variable = { BOR_SIGType^7 = 0 }
+			}
+			set_variable = { BOR_SIG_AL_i = 7 }
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				check_variable = { BOR_SIGType^8 = 0 }
+			}
+			set_variable = { BOR_SIG_AL_i = 8 }
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				check_variable = { BOR_SIGType^9 = 0 }
+			}
+			set_variable = { BOR_SIG_AL_i = 9 }
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				check_variable = { BOR_SIGType^10 = 0 }
+			}
+			set_variable = { BOR_SIG_AL_i = 10 }
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				check_variable = { BOR_SIGType^11 = 0 }
+			}
+			set_variable = { BOR_SIG_AL_i = 11 }
+		}
+	}
+	if = {
+		limit = { check_variable = { BOR_SIG_AL_i > -1 } }
+		set_variable = { BOR_SIG_AL_fi = 1 }
+		set_variable = { BOR_SIG_AL_v = -3 }
+		BOR_SIG_AddLoyalty = yes
+	}
+}
+
+SFA_italy_loss_malus = {
+	# plan 4.6, in ITA's scope, the rework only: one of the government's own supports turns away, sometimes two
+	if = {
+		# Red Italy: an assembly faction's approval of the government falls by 5
+		limit = { has_country_flag = ITA_RED_assembly_active }
+		SFA_italy_red_faction_loses = yes
+		random = {
+			chance = 50
+			SFA_italy_red_faction_loses = yes
+		}
+	}
+	else_if = {
+		# the democrats: the governing wing (ITA_winning_wing) loses support in one pillar
+		limit = {
+			has_country_flag = DemItaly_PoP_Active
+			has_variable = ITA_winning_wing
+		}
+		SFA_italy_dem_wing_loses = yes
+		random = {
+			chance = 50
+			SFA_italy_dem_wing_loses = yes
+		}
+	}
+	else_if = {
+		# Ciano: his own party loses loyalty in one pillar of power
+		limit = { has_country_flag = Ciano_PoP_Active }
+		SFA_italy_ciano_pillar_loses = yes
+		random = {
+			chance = 50
+			SFA_italy_ciano_pillar_loses = yes
+		}
+	}
+}
+
+SFA_italy_red_faction_loses = {
+	random_list = {
+		1 = {
+			set_temp_variable = { ITA_red_firebrand_approval_temp = -5 }
+			ITA_RED_assembly_add_firebrand_approval = yes
+		}
+		1 = {
+			set_temp_variable = { ITA_red_moderate_approval_temp = -5 }
+			ITA_RED_assembly_add_moderate_approval = yes
+		}
+		1 = {
+			set_temp_variable = { ITA_red_orthodox_approval_temp = -5 }
+			ITA_RED_assembly_add_orthodox_approval = yes
+		}
+	}
+}
+
+SFA_italy_dem_wing_loses = {
+	# a random pillar (changer 0-5) of the popolo or the stato; the smallest amount master's own calls use
+	random_list = {
+		1 = { set_variable = { changer = 0 } }
+		1 = { set_variable = { changer = 1 } }
+		1 = { set_variable = { changer = 2 } }
+		1 = { set_variable = { changer = 3 } }
+		1 = { set_variable = { changer = 4 } }
+		1 = { set_variable = { changer = 5 } }
+	}
+	set_temp_variable = { constant = 6 }
+	random_list = {
+		1 = {
+			if = {
+				limit = { check_variable = { ITA_winning_wing = 0 } }
+				ITA_decrease_left_Popolo = yes
+			}
+			else_if = {
+				limit = { check_variable = { ITA_winning_wing = 1 } }
+				ITA_decrease_center_Popolo = yes
+			}
+			else = {
+				ITA_decrease_right_Popolo = yes
+			}
+		}
+		1 = {
+			if = {
+				limit = { check_variable = { ITA_winning_wing = 0 } }
+				ITA_decrease_left_Stato = yes
+			}
+			else_if = {
+				limit = { check_variable = { ITA_winning_wing = 1 } }
+				ITA_decrease_center_Stato = yes
+			}
+			else = {
+				ITA_decrease_right_Stato = yes
+			}
+		}
+	}
+}
+
+SFA_italy_ciano_pillar_loses = {
+	# Ciano's own party (0) loses 5 loyalty in a random pillar of power (0-11); the effect rebalances the rest
+	set_temp_variable = { ITA_Ciano_POP_party_to_add = 0 }
+	set_temp_variable = { ITA_Ciano_POP_amount_to_add = -5 }
+	random_list = {
+		1 = { set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 0 } }
+		1 = { set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 1 } }
+		1 = { set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 2 } }
+		1 = { set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 3 } }
+		1 = { set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 4 } }
+		1 = { set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 5 } }
+		1 = { set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 6 } }
+		1 = { set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 7 } }
+		1 = { set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 8 } }
+		1 = { set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 9 } }
+		1 = { set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 10 } }
+		1 = { set_temp_variable = { ITA_Ciano_POP_pillar_to_add = 11 } }
+	}
+	ITA_Ciano_POP_add_loyalty = yes
+}

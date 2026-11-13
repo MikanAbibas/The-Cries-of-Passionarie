@@ -1,0 +1,144 @@
+### Italy - Mediterranean rework startup.
+###
+### Called once from common/on_actions/TNO_Italy_med_on_actions.txt, in ITA scope,
+### whenever the rework is the selected Italy content. The two unfinished paths
+### behind it - Red Italy and Pavolini - additionally need the rule on _WIP.
+###
+### history/countries/ITA - Italy.txt is deliberately NOT modified. It stays the
+### legacy baseline, and it is also where the Italosphere and Great Game systems
+### get their seed variables (ITA_empire_management_coins, ITA_IME_management,
+### ITA_IEA_management, ITA_EGY_management, ITA_nuclearprogress, ita_scorza_clout
+### and friends). The rework layers on top of that rather than replacing it, so
+### "rule off" is provably identical to the untouched branch.
+
+ITA_med_rework_startup = {
+	log = "[GetDateText]: [Root.GetName]: ITA_med_rework_startup"
+
+	### --- focus tree --------------------------------------------------------
+	load_focus_tree = ITA_starting_tree
+	mark_focus_tree_layout_dirty = yes
+
+	### --- startup idea swap -------------------------------------------------
+	# The rework opens on a different set of laws and national spirits. Only the
+	# ideas that actually differ are touched; the TNORA economy and societal
+	# development ideas that the upstream history file drops are KEPT, because
+	# the economy, SocDev and Italosphere systems all read them:
+	#   tno_poverty_rate_15, tno_nuclear_stockpile_none,
+	#   tno_economic_focus_civilian_economy, tno_military_spending_medium_spending,
+	#   tno_tax_rate_medium_taxation, development, construction_level_3
+	remove_ideas = {
+		# legacy national spirits
+		ITA_Carlo_Scorza_hog
+		ITA_declining_trade
+		ITA_fadingfascism
+		ITA_king_umberto
+		ITA_navy_strengthened
+		# laws the rework sets differently
+		tno_academic_base_secondary_schooling
+		tno_army_professionalism_political_interference
+		tno_child_labor_illegal
+		tno_conscription_one_year_draft
+		tno_draft_exemptions_educational_deferment
+		tno_immigration_quota_immigration
+		tno_lgbt_rights_lgbt_outlawed
+		tno_max_workhours_12_hour_work_day
+		tno_military_supervision_military_policing
+		tno_minorities_segregation
+		tno_pensions_low_pensions
+		tno_political_parties_controlled_opposition
+		tno_pollution_no_controls
+		tno_public_meetings_regulated
+		tno_refugees_open
+		tno_research_facilities_modern
+		tno_unemployment_no_subsidies
+		tno_vote_franchise_elite_voting
+		tno_women_banned
+	}
+	add_ideas = {
+		# rework national spirits
+		ITA_Alessandro_Pavolini_hog
+		ITA_fading_fascism
+		ITA_patrizi_e_plebei
+		ITA_second_quadrumvirate
+		ITA_spirit_of_fascism
+		ITA_stagnating_empire
+		# laws
+		tno_academic_base_primary_schooling
+		tno_army_professionalism_cronyism
+		tno_child_labor_restricted
+		tno_conscription_two_year_draft
+		tno_draft_exemptions_none
+		tno_immigration_open_immigration
+		tno_lgbt_rights_lgbt_allowed
+		tno_max_workhours_8_hour_work_day
+		tno_military_supervision_no_supervision
+		tno_minorities_oppression
+		tno_pensions_acceptable_pensions
+		tno_political_parties_one_party_state
+		tno_pollution_few_regulations
+		tno_public_meetings_outlawed
+		tno_refugees_vetted_entry
+		tno_research_facilities_politicized
+		tno_unemployment_low_subsidies
+		tno_vote_franchise_no_voting
+		tno_women_military_assistance
+	}
+	# Health care is deliberately left as master sets it. The upstream history
+	# file asks for tno_health_care_low_income_protections, which is defined in
+	# neither branch - both ship the same five-rung ladder (none, private,
+	# public, universal, free universal). Rather than guess which rung was
+	# meant, Italy keeps tno_health_care_public_health_care.
+
+	### --- politics ----------------------------------------------------------
+	# The rework opens on a different balance of opinion than the legacy start.
+	# Master has authoritarian_democrat 44 / fascism 51 / national_socialism 5;
+	# the Verona Congress and the Democratic branch both read these figures, so
+	# the rework's own spread is applied here rather than in the history file.
+	set_popularities = {
+		communist = 0
+		ultranational_socialism = 0
+		socialist = 0
+		social_democrat = 8
+		social_liberal = 10
+		market_liberal = 0
+		social_conservative = 13
+		authoritarian_democrat = 25
+		despotism = 4
+		fascism = 40
+		national_socialism = 0
+		burgundian_system = 0
+	}
+
+	### --- leaders -----------------------------------------------------------
+	# TNORA does not use the common/characters system, so there is no roster to
+	# recruit. The rework's leaders are declared with create_country_leader, in
+	# common/scripted_effects/TNO_Italy_med_leaders_scripted_effects.txt, and are
+	# called at the moment the content installs them.
+	#
+	# Only the two the rework's history file seats at startup are called here:
+	# Ciano for the fascist and authoritarian-democratic slots, Umberto II for
+	# the monarchy. Everyone else arrives through his own focus or event.
+	ITA_med_promote_Galeazzo_Ciano = yes
+	ITA_med_promote_Umberto_II = yes
+
+	### --- per-mechanic setup ------------------------------------------------
+	# Moved here from the imported common/on_actions/TNO_Italy_on_actions.txt,
+	# whose on_startup ran unconditionally and would have initialised the
+	# rework's GUIs on the legacy path too.
+	ITA_Muti_revolution_gui_setup = yes
+	ITA_nuclear_setup = yes
+	ITA_POP_Dem_setup_on_startup = yes
+	ITA_POP_Ciano_setup = yes
+	ITA_GUI_giani_setup = yes
+	TNO_Italy_dem_institutions_setup = yes
+	ITA_promises_on_startup_setup = yes
+	set_variable = { ITA_policy = 1 }
+	set_variable = { ITA_Public_Opposition_Percent = 15 }
+	set_variable = { ITA_Ciano_Percent = 55 }
+	set_variable = { ITA_Fascist_Opposition_Percent = 30 }
+	resize_array = { ITA_dem_completed_foci = 305 }
+
+	# Empire Management
+	ITA_EmpireManagement_Setup = yes
+	set_variable = { EM_SelectedEntry_i = 0 }
+}

@@ -1,0 +1,35 @@
+# Military Advisors (common/scripted_effects/TNO_military_advisors_scripted_effects.txt).
+
+# The Raise button is live. Warlords run no national economy, so they have nothing to pay with.
+TNO_military_advisors_can_raise = {
+	econ_can_use_economy_system = yes
+	check_variable = { GDP > 0 }
+	check_variable = { TNO_military_advisors_level < 5 }
+}
+
+# The AI buys advisors only during a proxy war: never while it fights a war of its own, and only
+# while its volunteers fight in someone else's, so the extra cap goes to sending and replacing them.
+# It keeps it modest: level 1 (2 for a superpower), counting levels that decisions and events already
+# gave it for free; not while its budget runs a deficit above 40%; and on about one weekly check in
+# two, so it does not renew every term the moment the last one lapses.
+TNO_military_advisors_ai_should_raise = {
+	TNO_military_advisors_can_raise = yes
+	has_war = no
+	if = {
+		limit = { has_country_flag = ZZZ_superpower }
+		check_variable = { TNO_military_advisors_level < 2 }
+	}
+	else = {
+		check_variable = { TNO_military_advisors_level < 1 }
+	}
+	check_variable = { deficit_ratio < 0.4 }
+	any_country = {
+		has_war = yes
+		has_volunteers_amount_from = {
+			tag = ROOT
+			count > 0
+		}
+	}
+	set_temp_variable_to_random = TNO_military_advisors_ai_roll
+	check_variable = { TNO_military_advisors_ai_roll < 0.5 }
+}

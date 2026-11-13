@@ -1,0 +1,154 @@
+##########################################################################################Starting Tree
+shared_focus = {
+	id = GIB_a_tale_of_two_sailors
+	icon = GFX_GIB_fernando_focus
+	cost = 2
+	x = 3
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GIB_a_tale_of_two_sailors"
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = GIB_some_nice_details
+	icon = GFX_GIB_better_idea
+	cost = 2
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GIB_some_nice_details"
+		add_stability = 0.1
+	}
+	relative_position_id = GIB_a_tale_of_two_sailors
+	prerequisite = { focus = GIB_a_tale_of_two_sailors }
+}
+
+shared_focus = {
+	id = GIB_open_the_municipal_chambers
+	icon = GFX_GIB_call_to_world
+	cost = 2
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GIB_open_the_municipal_chambers"
+		tno_vote_franchise_improve = yes
+	}
+	relative_position_id = GIB_some_nice_details
+	prerequisite = { focus = GIB_some_nice_details }
+}
+
+shared_focus = {
+	id = GIB_create_a_central_bank
+	icon = GFX_GIB_merchandise_secure
+	cost = 2
+	x = -3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GIB_create_a_central_bank"
+		tno_economic_focus_improve = yes
+		multiply_variable = {
+			GDP = 1.01
+		}
+		add_to_variable = {
+			GDP_growth = 0.001
+		}
+		custom_effect_tooltip = econ_increase_GDP_small
+	}
+	relative_position_id = GIB_a_tale_of_two_sailors
+	prerequisite = { focus = GIB_a_tale_of_two_sailors }
+}
+
+shared_focus = {
+	id = GIB_reassure_the_locals
+	icon = GFX_GIB_messages_of_hope
+	cost = 2
+	x = 3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GIB_reassure_the_locals"
+	}
+	relative_position_id = GIB_a_tale_of_two_sailors
+	prerequisite = { focus = GIB_a_tale_of_two_sailors }
+}
+
+shared_focus = {
+	id = GIB_take_in_refugees
+	icon = GFX_GIB_anyone_who_can_pay
+	cost = 2
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GIB_take_in_refugees"
+		tno_refugees_improve = yes
+		tno_immigration_improve = yes
+		add_manpower = 12000
+	}
+	relative_position_id = GIB_some_nice_details
+	prerequisite = { focus = GIB_some_nice_details }
+}
+
+shared_focus = {
+	id = GIB_the_social_security_act
+	icon = GFX_GIB_compete_for_airwaves
+	cost = 2
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GIB_the_social_security_act"
+		tno_pensions_improve = yes
+		tno_unemployment_improve = yes
+	}
+	relative_position_id = GIB_open_the_municipal_chambers
+	prerequisite = { focus = GIB_open_the_municipal_chambers }
+	prerequisite = { focus = GIB_take_in_refugees }
+}
+
+shared_focus = {
+	id = GIB_business_without_limits
+	icon = GFX_GIB_worlds_greatest_show
+	cost = 2
+	x = 0
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GIB_business_without_limits"
+		add_offsite_building = {
+			type = industrial_complex
+			level = 1
+		}
+	}
+	relative_position_id = GIB_create_a_central_bank
+	prerequisite = { focus = GIB_create_a_central_bank }
+}
+
+shared_focus = {
+	id = GIB_local_police_forces
+	icon = GFX_GIB_command_for_sale
+	cost = 2
+	x = 0
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GIB_local_police_forces"
+		tno_security_improve = yes
+		tno_training_improve = yes
+	}
+	relative_position_id = GIB_reassure_the_locals
+	prerequisite = { focus = GIB_reassure_the_locals }
+}
+
+shared_focus = {
+	id = GIB_the_council_meets
+	icon = GFX_GIB_call_to_world
+	cost = 2
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus GIB_the_council_meets"
+		add_political_power = 100
+	}
+	relative_position_id = GIB_the_social_security_act
+	prerequisite = { focus = GIB_the_social_security_act }
+	prerequisite = { focus = GIB_business_without_limits }
+	prerequisite = { focus = GIB_local_police_forces }
+}

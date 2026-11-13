@@ -1,0 +1,3347 @@
+####BALBO MECHANIC####
+
+###STARTING EFFECTS###
+
+ITA_balboimper_starting_effects = { #Triggered by debug, also appears to be hooked up in event for gaming purposes
+	
+	
+	#Efficiency
+	
+	set_variable = { ITA_balboimper_Efficiency = 0.4 }
+	
+	#Corruption
+	
+	ITA_balboimper_corruption_monthlygain_update = yes
+	
+	ZZZ = {
+		country_event = {
+			id = ITA_balbo.9008
+			days = 30
+		}
+	}
+	
+	set_variable = { ITA_balboimper_corruption_northern_italy = 0.2 }
+	set_variable = { ITA_balboimper_corruption_central_italy = 0.3 }
+	set_variable = { ITA_balboimper_corruption_southern_italy = 0.6 }
+	set_variable = { ITA_balboimper_corruption_libya = 0.7}
+	
+	#Project costs
+	
+	country_event = {
+		id = ITA_balbo.90081
+		days = 40
+	}
+	
+	set_variable = { ITA_balboimper_S1S2_costs = 0.048 }
+	set_variable = { ITA_balboimper_S1S2_costs_monthly = 4 }
+	set_variable = { ITA_balboimper_S3_costs = 0.096 }
+	set_variable = { ITA_balboimper_S3_costs_monthly = 8 }
+	
+	#GUI
+
+	set_variable = { ITA_balboimper_GUIEfficiencyBar = 40 }
+	
+	set_variable = { ITA_balboimper_GUIcolor_NI = 1 }
+	set_variable = { ITA_balboimper_GUIcolor_CI = 1 }
+	set_variable = { ITA_balboimper_GUIcolor_SI = 1 }
+	set_variable = { ITA_balboimper_GUIcolor_L = 1 }
+	
+	#Dynamic modifiers
+	
+	add_dynamic_modifier = { modifier = ITA_Balboimper_YearlyCost_modifier }
+
+	#Imperial Policy Change
+	set_variable = { ITA_EM_ImperialPolicy = 1 }
+	ITA_EmpireManagement_UpdateImperialPolicyEffects = yes
+
+}
+
+#Corruption monthly gain scripted effect
+
+ITA_balboimper_corruption_monthlygain_update = {
+	
+	if = {
+		limit = {
+			has_idea = tno_academic_base_golden_age
+		}
+		set_variable = { ITA_balboimper_corruption_gain = -0.02 }
+	}
+	else_if = {
+		limit = {
+			has_idea = tno_academic_base_tertiary_schooling
+		}
+		set_variable = { ITA_balboimper_corruption_gain = 0 }
+	}
+	else_if = {
+		limit = {
+			has_idea = tno_academic_base_secondary_schooling
+		}
+		set_variable = { ITA_balboimper_corruption_gain = 0.01 }
+	}
+	else_if = {
+		limit = {
+			has_idea = tno_academic_base_primary_schooling
+		}
+		set_variable = { ITA_balboimper_corruption_gain = 0.015 }
+	}
+	else_if = {
+		limit = {
+			has_idea = tno_academic_base_basic_literacy
+		}
+		set_variable = { ITA_balboimper_corruption_gain = 0.03 }
+	}
+	else_if = {
+		limit = {
+			has_idea = tno_academic_base_mass_illiteracy
+		}
+		set_variable = { ITA_balboimper_corruption_gain = 0.1 }
+	}
+}
+
+##General scripted effects for decisions etc.##
+
+#Calculate new monthly costs (After special "upgrade efficiency" decision)
+
+ITA_balboimper_increase_monthlycosts = { #ALSO GIVES EFFICIENCY, DONT DOUBLE DIP IN DECISION EFFECTS
+	
+	##ADDING EFFICIENCY##
+	
+	add_to_variable = { ITA_balboimper_Efficiency = 0.04 }
+	add_to_variable = { ITA_balboimper_GUIEfficiencyBar = 4 }
+	ITA_balboimper_clamp_efficiency = yes
+	
+	##THE MONTHLY COST VARIABLE CHANGE##
+	
+	#Subtracts all previous project costs 
+	
+	set_temp_variable = { ITA_balboimper_S1S2_totalcosts_temp = ITA_balboimper_S1S2_costs }
+	multiply_temp_variable = { ITA_balboimper_S1S2_totalcosts_temp = ITA_balboimper_ongoing_S1S2_projects }
+	
+	set_temp_variable = { ITA_balboimper_S3_totalcosts_temp = ITA_balboimper_S3_costs }
+	multiply_temp_variable = { ITA_balboimper_S3_totalcosts_temp = ITA_balboimper_ongoing_S3_projects }
+	
+	subtract_from_variable = { ITA_balboimper_misccosts = ITA_balboimper_S1S2_totalcosts_temp }
+	subtract_from_variable = { ITA_balboimper_misccosts = ITA_balboimper_S3_totalcosts_temp }
+	
+	#Calculates new project costs (IMPORTANT, WILL MAYBE BE CHANGED IN BALANCING)
+	
+	multiply_variable = { ITA_balboimper_S1S2_costs = 1.3 } #MODIFIER HERE
+	multiply_variable = { ITA_balboimper_S3_costs = 1.3 } #MODIFIER HERE
+	
+	#Adds new project costs (same as in decision scripted effects i guess?)
+	
+	set_temp_variable = { ITA_balboimper_S1S2_totalcosts2_temp = ITA_balboimper_S1S2_costs }
+	multiply_temp_variable = { ITA_balboimper_S1S2_totalcosts2_temp = ITA_balboimper_ongoing_S1S2_projects }
+	
+	set_temp_variable = { ITA_balboimper_S3_totalcosts2_temp = ITA_balboimper_S3_costs }
+	multiply_temp_variable = { ITA_balboimper_S3_totalcosts2_temp = ITA_balboimper_ongoing_S3_projects }
+	
+	add_to_variable = { ITA_balboimper_misccosts = ITA_balboimper_S1S2_totalcosts2_temp }
+	add_to_variable = { ITA_balboimper_misccosts = ITA_balboimper_S3_totalcosts2_temp }
+	
+	##AND THEN ALL OVER AGAIN FOR THE COSMETIC MONTHLY STUFF##
+	
+	#Subtracts cosmetic monthly costs
+	
+	set_temp_variable = { ITA_balboimper_S1S2_totalcosts_monthly_temp = ITA_balboimper_S1S2_costs_monthly }
+	multiply_temp_variable = { ITA_balboimper_S1S2_totalcosts_monthly_temp = ITA_balboimper_ongoing_S1S2_projects }
+	
+	set_temp_variable = { ITA_balboimper_S3_totalcosts_monthly_temp = ITA_balboimper_S3_costs_monthly }
+	multiply_temp_variable = { ITA_balboimper_S3_totalcosts_monthly_temp = ITA_balboimper_ongoing_S3_projects }
+	
+	subtract_from_variable = { ITA_balboimper_misccosts_monthly = ITA_balboimper_S1S2_totalcosts_monthly_temp }
+	subtract_from_variable = { ITA_balboimper_misccosts_monthly = ITA_balboimper_S3_totalcosts_monthly_temp }
+	
+	#Calculates cosmetic monthly costs (IF CHANGES IN BALANCING, THIS ALSO HAS TO BE CHANGED)
+	
+	multiply_variable = { ITA_balboimper_S1S2_costs_monthly = 1.3 }
+	multiply_variable = { ITA_balboimper_S3_costs_monthly = 1.3 }
+	
+	#Adds new cosmetic project costs
+	
+	set_temp_variable = { ITA_balboimper_S1S2_totalcosts2_monthly_temp = ITA_balboimper_S1S2_costs_monthly }
+	multiply_temp_variable = { ITA_balboimper_S1S2_totalcosts2_monthly_temp = ITA_balboimper_ongoing_S1S2_projects }
+	
+	set_temp_variable = { ITA_balboimper_S3_totalcosts2_monthly_temp = ITA_balboimper_S3_costs_monthly }
+	multiply_temp_variable = { ITA_balboimper_S3_totalcosts2_monthly_temp = ITA_balboimper_ongoing_S3_projects }
+	
+	add_to_variable = { ITA_balboimper_misccosts_monthly = ITA_balboimper_S1S2_totalcosts2_monthly_temp }
+	add_to_variable = { ITA_balboimper_misccosts_monthly = ITA_balboimper_S3_totalcosts2_monthly_temp }
+}
+
+#Add monthly costs (When adding project decisions)
+
+ITA_balboimper_projectcost_monthly_2m_add = {
+	add_to_variable = { ITA_balboimper_misccosts = ITA_balboimper_S1S2_costs } # yearly (B)
+	
+	add_to_variable = { ITA_balboimper_misccosts_monthly = ITA_balboimper_S1S2_costs_monthly } #monthly (million)
+	
+	custom_effect_tooltip = ita_balboimper_projectcost_2m_tt
+}
+
+ITA_balboimper_projectcost_monthly_4m_add = {
+	add_to_variable = { ITA_balboimper_misccosts = ITA_balboimper_S3_costs } # yearly (B)
+	
+	add_to_variable = { ITA_balboimper_misccosts_monthly = ITA_balboimper_S3_costs_monthly } #monthly (million)
+	
+	custom_effect_tooltip = ita_balboimper_projectcost_4m_tt
+}
+
+ITA_balboimper_projectcost_monthly_2m_sub = {
+	subtract_from_variable = { ITA_balboimper_misccosts = ITA_balboimper_S1S2_costs } # yearly (B)
+	
+	subtract_from_variable = { ITA_balboimper_misccosts_monthly = ITA_balboimper_S1S2_costs_monthly } #monthly (million)
+}
+
+ITA_balboimper_projectcost_monthly_4m_sub = {
+	subtract_from_variable = { ITA_balboimper_misccosts = ITA_balboimper_S3_costs } # yearly (B)
+	
+	subtract_from_variable = { ITA_balboimper_misccosts_monthly = ITA_balboimper_S3_costs_monthly } #monthly (million)
+}
+
+###MONTHLY TICK###
+
+ITA_balboimper_monthly_tick = {
+	
+	###First trigger all the scripted effects under to update for the month###
+	
+	ITA_balboimper_corruption_monthlygain_update = yes
+	
+	ITA_balboimper_monthly_corruption_calc = yes
+	
+	#ITA_balboimper_monthly_money_cost_calc = yes #(Probably archaic now, as a dynamic modifier with yearly costs is used)
+	
+	###Progress for all ongoing projects is done in separate pulses!###
+	
+}
+
+#just make sure to have effects to change the corruption gain in regions.. maybe for foci :)
+
+ITA_balboimper_monthly_corruption_calc = {
+	
+	add_to_variable = { ITA_balboimper_corruption_northern_italy = ITA_balboimper_corruption_gain }
+	
+	add_to_variable = { ITA_balboimper_corruption_central_italy = ITA_balboimper_corruption_gain }
+	
+	add_to_variable = { ITA_balboimper_corruption_southern_italy = ITA_balboimper_corruption_gain }
+	
+	add_to_variable = { ITA_balboimper_corruption_libya = ITA_balboimper_corruption_gain }
+	
+	#Efficiency malus from corruption calculated as temp variable in the scripted effects for each project
+	
+	
+	
+	ITA_balboimper_clamp_corruption = yes
+}
+
+ITA_balboimper_monthly_percentage_completion_calc = {
+	
+	#cost per month is increased by corruption
+	#higher cost for higher stage projects 
+}
+
+###MONTHLY PULSES FOR EACH PROJECT###
+
+###Northern Italy###
+
+
+##Stage 1##
+
+ITA_balboimper_monthly_gain_S1_1_NI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S1_1_NI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S1_1_NI = ITA_balboimper_corruption_northern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S1_1_NI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S1_1_NI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S1_1_NI = ITA_balboimper_progress_CORR_S1_1_NI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S1_1_NI = ITA_balboimper_local_efficiency_S1_1_NI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S1_1_NI = ITA_balboimper_progress_change_S1_1_NI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S1_1_NI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S1_1_NI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S1_1_NI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S1_1_NI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S1_1_NI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S1 = ITA_balboimper_progress_change_S1_1_NI } #Total progress S1
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = ITA_balboimper_TOTALprogress_S1 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S1 = ITA_balboimper_TOTALprogress_S1_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S1_2_NI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S1_2_NI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S1_2_NI = ITA_balboimper_corruption_northern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S1_2_NI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S1_2_NI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S1_2_NI = ITA_balboimper_progress_CORR_S1_2_NI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S1_2_NI = ITA_balboimper_local_efficiency_S1_2_NI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S1_2_NI = ITA_balboimper_progress_change_S1_2_NI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S1_2_NI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S1_2_NI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S1_2_NI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S1_2_NI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S1_2_NI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S1 = ITA_balboimper_progress_change_S1_2_NI } #Total progress S1
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = ITA_balboimper_TOTALprogress_S1 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S1 = ITA_balboimper_TOTALprogress_S1_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S1_3_NI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S1_3_NI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S1_3_NI = ITA_balboimper_corruption_northern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S1_3_NI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S1_3_NI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S1_3_NI = ITA_balboimper_progress_CORR_S1_3_NI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S1_3_NI = ITA_balboimper_local_efficiency_S1_3_NI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S1_3_NI = ITA_balboimper_progress_change_S1_3_NI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S1_3_NI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S1_3_NI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S1_3_NI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S1_3_NI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S1_3_NI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S1 = ITA_balboimper_progress_change_S1_3_NI } #Total progress S1
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = ITA_balboimper_TOTALprogress_S1 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S1 = ITA_balboimper_TOTALprogress_S1_TEMP }
+}
+
+ITA_balboimper_FinishedCheck_S1_NI = {
+	if = {
+		limit = {
+			check_variable = { ITA_balboimper_progress_S1_1_NI = 100 }
+			check_variable = { ITA_balboimper_progress_S1_2_NI = 100 } 
+			check_variable = { ITA_balboimper_progress_S1_3_NI = 100 }  
+		}
+		clear_variable = ITA_balboimper_progress_S1_1_NI
+		clear_variable = ITA_balboimper_progress_S1_2_NI
+		clear_variable = ITA_balboimper_progress_S1_3_NI
+		
+		set_country_flag = ITA_balboimper_S1_finished_NI
+		
+		#gui
+		set_variable = { ITA_balboimper_GUIcolor_NI = 2 }
+	}	
+}
+
+##Stage 2##
+
+ITA_balboimper_monthly_gain_S2_1_NI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S2_1_NI = 4 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S2_1_NI = ITA_balboimper_corruption_northern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S2_1_NI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S2_1_NI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S2_1_NI = ITA_balboimper_progress_CORR_S2_1_NI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S2_1_NI = ITA_balboimper_local_efficiency_S2_1_NI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S2_1_NI = ITA_balboimper_progress_change_S2_1_NI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S2_1_NI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S2_1_NI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S2_1_NI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S2_1_NI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S2_1_NI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S2 = ITA_balboimper_progress_change_S2_1_NI } #Total progress S2
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = ITA_balboimper_TOTALprogress_S2 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = 8 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S2 = ITA_balboimper_TOTALprogress_S2_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S2_2_NI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S2_2_NI = 4 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S2_2_NI = ITA_balboimper_corruption_northern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S2_2_NI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S2_2_NI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S2_2_NI = ITA_balboimper_progress_CORR_S2_2_NI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S2_2_NI = ITA_balboimper_local_efficiency_S2_2_NI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S2_2_NI = ITA_balboimper_progress_change_S2_2_NI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S2_2_NI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S2_2_NI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S2_2_NI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S2_2_NI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S2_2_NI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S2 = ITA_balboimper_progress_change_S2_2_NI } #Total progress S2
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = ITA_balboimper_TOTALprogress_S2 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = 8 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S2 = ITA_balboimper_TOTALprogress_S2_TEMP }
+}
+
+ITA_balboimper_FinishedCheck_S2_NI = {
+	if = {
+		limit = {
+			check_variable = { ITA_balboimper_progress_S2_1_NI = 100 }
+			check_variable = { ITA_balboimper_progress_S2_2_NI = 100 } 
+		}
+		clear_variable = ITA_balboimper_progress_S2_1_NI
+		clear_variable = ITA_balboimper_progress_S2_2_NI
+		
+		set_country_flag = ITA_balboimper_S2_finished_NI
+		
+		#gui
+		set_variable = { ITA_balboimper_GUIcolor_NI = 3 }
+	}	
+}
+
+##Stage 3##
+
+ITA_balboimper_monthly_gain_S3_1_NI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S3_1_NI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S3_1_NI = ITA_balboimper_corruption_northern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S3_1_NI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S3_1_NI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S3_1_NI = ITA_balboimper_progress_CORR_S3_1_NI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S3_1_NI = ITA_balboimper_local_efficiency_S3_1_NI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S3_1_NI = ITA_balboimper_progress_change_S3_1_NI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S3_1_NI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S3_1_NI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S3_1_NI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S3_1_NI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S3_1_NI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S3 = ITA_balboimper_progress_change_S3_1_NI } #Total progress S3
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = ITA_balboimper_TOTALprogress_S3 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S3 = ITA_balboimper_TOTALprogress_S3_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S3_2_NI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S3_2_NI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S3_2_NI = ITA_balboimper_corruption_northern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S3_2_NI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S3_2_NI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S3_2_NI = ITA_balboimper_progress_CORR_S3_2_NI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S3_2_NI = ITA_balboimper_local_efficiency_S3_2_NI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S3_2_NI = ITA_balboimper_progress_change_S3_2_NI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S3_2_NI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S3_2_NI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S3_2_NI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S3_2_NI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S3_2_NI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S3 = ITA_balboimper_progress_change_S3_2_NI } #Total progress S3
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = ITA_balboimper_TOTALprogress_S3 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S3 = ITA_balboimper_TOTALprogress_S3_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S3_3_NI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S3_3_NI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S3_3_NI = ITA_balboimper_corruption_northern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S3_3_NI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S3_3_NI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S3_3_NI = ITA_balboimper_progress_CORR_S3_3_NI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S3_3_NI = ITA_balboimper_local_efficiency_S3_3_NI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S3_3_NI = ITA_balboimper_progress_change_S3_3_NI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S3_3_NI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S3_3_NI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S3_3_NI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S3_3_NI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S3_3_NI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S3 = ITA_balboimper_progress_change_S3_3_NI } #Total progress S3
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = ITA_balboimper_TOTALprogress_S3 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S3 = ITA_balboimper_TOTALprogress_S3_TEMP }
+}
+
+ITA_balboimper_FinishedCheck_S3_NI = {
+	if = {
+		limit = {
+			check_variable = { ITA_balboimper_progress_S3_1_NI = 100 }
+			check_variable = { ITA_balboimper_progress_S3_2_NI = 100 } 
+			check_variable = { ITA_balboimper_progress_S3_3_NI = 100 }  
+		}
+		clear_variable = ITA_balboimper_progress_S3_1_NI
+		clear_variable = ITA_balboimper_progress_S3_2_NI
+		clear_variable = ITA_balboimper_progress_S3_3_NI
+		
+		set_country_flag = ITA_balboimper_S3_finished_NI
+		
+		#Bonus effect
+		
+		add_dynamic_modifier = { modifier = ITA_Balboimper_Bonus_NI_modifier }
+		
+		add_resource = {
+			type = power
+			amount = 15
+			state = 158
+		}
+		
+		#gui
+		set_variable = { ITA_balboimper_GUIcolor_NI = 4 }
+	}	
+}
+
+###Central Italy###
+
+
+##Stage 1##
+
+ITA_balboimper_monthly_gain_S1_1_CI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S1_1_CI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S1_1_CI = ITA_balboimper_corruption_central_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S1_1_CI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S1_1_CI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S1_1_CI = ITA_balboimper_progress_CORR_S1_1_CI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S1_1_CI = ITA_balboimper_local_efficiency_S1_1_CI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S1_1_CI = ITA_balboimper_progress_change_S1_1_CI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S1_1_CI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S1_1_CI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S1_1_CI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S1_1_CI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S1_1_CI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S1 = ITA_balboimper_progress_change_S1_1_CI } #Total progress S1
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = ITA_balboimper_TOTALprogress_S1 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S1 = ITA_balboimper_TOTALprogress_S1_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S1_2_CI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S1_2_CI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S1_2_CI = ITA_balboimper_corruption_central_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S1_2_CI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S1_2_CI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S1_2_CI = ITA_balboimper_progress_CORR_S1_2_CI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S1_2_CI = ITA_balboimper_local_efficiency_S1_2_CI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S1_2_CI = ITA_balboimper_progress_change_S1_2_CI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S1_2_CI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S1_2_CI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S1_2_CI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S1_2_CI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S1_2_CI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S1 = ITA_balboimper_progress_change_S1_2_CI } #Total progress S1
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = ITA_balboimper_TOTALprogress_S1 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S1 = ITA_balboimper_TOTALprogress_S1_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S1_3_CI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S1_3_CI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S1_3_CI = ITA_balboimper_corruption_central_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S1_3_CI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S1_3_CI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S1_3_CI = ITA_balboimper_progress_CORR_S1_3_CI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S1_3_CI = ITA_balboimper_local_efficiency_S1_3_CI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S1_3_CI = ITA_balboimper_progress_change_S1_3_CI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S1_3_CI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S1_3_CI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S1_3_CI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S1_3_CI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S1_3_CI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S1 = ITA_balboimper_progress_change_S1_3_CI } #Total progress S1
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = ITA_balboimper_TOTALprogress_S1 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S1 = ITA_balboimper_TOTALprogress_S1_TEMP }
+}
+
+ITA_balboimper_FinishedCheck_S1_CI = {
+	if = {
+		limit = {
+			check_variable = { ITA_balboimper_progress_S1_1_CI = 100 }
+			check_variable = { ITA_balboimper_progress_S1_2_CI = 100 } 
+			check_variable = { ITA_balboimper_progress_S1_3_CI = 100 }  
+		}
+		clear_variable = ITA_balboimper_progress_S1_1_CI
+		clear_variable = ITA_balboimper_progress_S1_2_CI
+		clear_variable = ITA_balboimper_progress_S1_3_CI
+		
+		set_country_flag = ITA_balboimper_S1_finished_CI
+		
+		#gui
+		set_variable = { ITA_balboimper_GUIcolor_CI = 2 }
+	}	
+}
+
+##Stage 2##
+
+ITA_balboimper_monthly_gain_S2_1_CI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S2_1_CI = 4 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S2_1_CI = ITA_balboimper_corruption_central_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S2_1_CI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S2_1_CI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S2_1_CI = ITA_balboimper_progress_CORR_S2_1_CI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S2_1_CI = ITA_balboimper_local_efficiency_S2_1_CI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S2_1_CI = ITA_balboimper_progress_change_S2_1_CI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S2_1_CI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S2_1_CI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S2_1_CI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S2_1_CI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S2_1_CI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S2 = ITA_balboimper_progress_change_S2_1_CI } #Total progress S2
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = ITA_balboimper_TOTALprogress_S2 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = 8 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S2 = ITA_balboimper_TOTALprogress_S2_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S2_2_CI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S2_2_CI = 4 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S2_2_CI = ITA_balboimper_corruption_central_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S2_2_CI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S2_2_CI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S2_2_CI = ITA_balboimper_progress_CORR_S2_2_CI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S2_2_CI = ITA_balboimper_local_efficiency_S2_2_CI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S2_2_CI = ITA_balboimper_progress_change_S2_2_CI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S2_2_CI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S2_2_CI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S2_2_CI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S2_2_CI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S2_2_CI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S2 = ITA_balboimper_progress_change_S2_2_CI } #Total progress S2
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = ITA_balboimper_TOTALprogress_S2 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = 8 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S2 = ITA_balboimper_TOTALprogress_S2_TEMP }
+}
+
+ITA_balboimper_FinishedCheck_S2_CI = {
+	if = {
+		limit = {
+			check_variable = { ITA_balboimper_progress_S2_1_CI = 100 }
+			check_variable = { ITA_balboimper_progress_S2_2_CI = 100 } 
+		}
+		clear_variable = ITA_balboimper_progress_S2_1_CI
+		clear_variable = ITA_balboimper_progress_S2_2_CI
+		
+		set_country_flag = ITA_balboimper_S2_finished_CI
+		
+		#gui
+		set_variable = { ITA_balboimper_GUIcolor_CI = 3 }
+	}	
+}
+
+##Stage 3##
+
+ITA_balboimper_monthly_gain_S3_1_CI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S3_1_CI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S3_1_CI = ITA_balboimper_corruption_central_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S3_1_CI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S3_1_CI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S3_1_CI = ITA_balboimper_progress_CORR_S3_1_CI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S3_1_CI = ITA_balboimper_local_efficiency_S3_1_CI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S3_1_CI = ITA_balboimper_progress_change_S3_1_CI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S3_1_CI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S3_1_CI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S3_1_CI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S3_1_CI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S3_1_CI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S3 = ITA_balboimper_progress_change_S3_1_CI } #Total progress S3
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = ITA_balboimper_TOTALprogress_S3 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S3 = ITA_balboimper_TOTALprogress_S3_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S3_2_CI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S3_2_CI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S3_2_CI = ITA_balboimper_corruption_central_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S3_2_CI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S3_2_CI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S3_2_CI = ITA_balboimper_progress_CORR_S3_2_CI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S3_2_CI = ITA_balboimper_local_efficiency_S3_2_CI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S3_2_CI = ITA_balboimper_progress_change_S3_2_CI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S3_2_CI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S3_2_CI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S3_2_CI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S3_2_CI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S3_2_CI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S3 = ITA_balboimper_progress_change_S3_2_CI } #Total progress S3
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = ITA_balboimper_TOTALprogress_S3 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S3 = ITA_balboimper_TOTALprogress_S3_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S3_3_CI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S3_3_CI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S3_3_CI = ITA_balboimper_corruption_central_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S3_3_CI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S3_3_CI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S3_3_CI = ITA_balboimper_progress_CORR_S3_3_CI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S3_3_CI = ITA_balboimper_local_efficiency_S3_3_CI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S3_3_CI = ITA_balboimper_progress_change_S3_3_CI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S3_3_CI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S3_3_CI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S3_3_CI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S3_3_CI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S3_3_CI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S3 = ITA_balboimper_progress_change_S3_3_CI } #Total progress S3
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = ITA_balboimper_TOTALprogress_S3 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S3 = ITA_balboimper_TOTALprogress_S3_TEMP }
+}
+
+ITA_balboimper_FinishedCheck_S3_CI = {
+	if = {
+		limit = {
+			check_variable = { ITA_balboimper_progress_S3_1_CI = 100 }
+			check_variable = { ITA_balboimper_progress_S3_2_CI = 100 } 
+			check_variable = { ITA_balboimper_progress_S3_3_CI = 100 }  
+		}
+		clear_variable = ITA_balboimper_progress_S3_1_CI
+		clear_variable = ITA_balboimper_progress_S3_2_CI
+		clear_variable = ITA_balboimper_progress_S3_3_CI
+		
+		set_country_flag = ITA_balboimper_S3_finished_CI
+		
+		#Bonus effect
+		
+		add_dynamic_modifier = { modifier = ITA_Balboimper_Bonus_CI_modifier }
+		
+		if = {
+			limit = { check_variable = { ITA_EM_Regions_Status^0 = 0 } }
+			
+			set_temp_variable = { Region_i = 0 } 
+			
+			set_temp_variable = { EconValueChange_v = 3 }
+			ITA_EmpireManagement_EconValueChange = yes
+			
+			set_temp_variable = { DiploValueChange_v = 3 }
+			ITA_EmpireManagement_DiploValueChange = yes
+		}
+		if = {
+			limit = { check_variable = { ITA_EM_Regions_Status^2 = 0 } }
+			
+			set_temp_variable = { Region_i = 2 } 
+			
+			set_temp_variable = { EconValueChange_v = 3 }
+			ITA_EmpireManagement_EconValueChange = yes
+			
+			set_temp_variable = { DiploValueChange_v = 3 }
+			ITA_EmpireManagement_DiploValueChange = yes
+		}
+		if = {
+			limit = { check_variable = { ITA_EM_Regions_Status^3 = 0 } }
+			
+			set_temp_variable = { Region_i = 3 } 
+			
+			set_temp_variable = { EconValueChange_v = 3 }
+			ITA_EmpireManagement_EconValueChange = yes
+			
+			set_temp_variable = { DiploValueChange_v = 3 }
+			ITA_EmpireManagement_DiploValueChange = yes
+		}
+		if = {
+			limit = { check_variable = { ITA_EM_Regions_Status^4 = 0 } }
+			
+			set_temp_variable = { Region_i = 4 } 
+			
+			set_temp_variable = { EconValueChange_v = 3 }
+			ITA_EmpireManagement_EconValueChange = yes
+			
+			set_temp_variable = { DiploValueChange_v = 3 }
+			ITA_EmpireManagement_DiploValueChange = yes
+		}
+		if = {
+			limit = { check_variable = { ITA_EM_Regions_Status^5 = 0 } }
+			
+			set_temp_variable = { Region_i = 5 } 
+			
+			set_temp_variable = { EconValueChange_v = 3 }
+			ITA_EmpireManagement_EconValueChange = yes
+			
+			set_temp_variable = { DiploValueChange_v = 3 }
+			ITA_EmpireManagement_DiploValueChange = yes
+		}
+		if = {
+			limit = { check_variable = { ITA_EM_Regions_Status^14 = 0 } }
+			
+			set_temp_variable = { Region_i = 14 } 
+			
+			set_temp_variable = { EconValueChange_v = 3 }
+			ITA_EmpireManagement_EconValueChange = yes
+			
+			set_temp_variable = { DiploValueChange_v = 3 }
+			ITA_EmpireManagement_DiploValueChange = yes
+		}
+		if = {
+			limit = { check_variable = { ITA_EM_Regions_Status^18 = 0 } }
+			
+			set_temp_variable = { Region_i = 18 } 
+			
+			set_temp_variable = { EconValueChange_v = 3 }
+			ITA_EmpireManagement_EconValueChange = yes
+			
+			set_temp_variable = { DiploValueChange_v = 3 }
+			ITA_EmpireManagement_DiploValueChange = yes
+		}
+		if = {
+			limit = { check_variable = { ITA_EM_Regions_Status^21 = 0 } }
+			
+			set_temp_variable = { Region_i = 21 } 
+			
+			set_temp_variable = { EconValueChange_v = 3 }
+			ITA_EmpireManagement_EconValueChange = yes
+			
+			set_temp_variable = { DiploValueChange_v = 3 }
+			ITA_EmpireManagement_DiploValueChange = yes
+		}
+		if = {
+			limit = { check_variable = { ITA_EM_Regions_Status^25 = 0 } }
+			
+			set_temp_variable = { Region_i = 25 } 
+			
+			set_temp_variable = { EconValueChange_v = 3 }
+			ITA_EmpireManagement_EconValueChange = yes
+			
+			set_temp_variable = { DiploValueChange_v = 3 }
+			ITA_EmpireManagement_DiploValueChange = yes
+		}
+		
+		#gui
+		set_variable = { ITA_balboimper_GUIcolor_CI = 4 }
+	}	
+}
+
+###Southern Italy###
+
+##Stage 1##
+
+ITA_balboimper_monthly_gain_S1_1_SI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S1_1_SI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S1_1_SI = ITA_balboimper_corruption_southern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S1_1_SI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S1_1_SI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S1_1_SI = ITA_balboimper_progress_CORR_S1_1_SI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S1_1_SI = ITA_balboimper_local_efficiency_S1_1_SI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S1_1_SI = ITA_balboimper_progress_change_S1_1_SI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S1_1_SI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S1_1_SI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S1_1_SI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S1_1_SI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S1_1_SI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S1 = ITA_balboimper_progress_change_S1_1_SI } #Total progress S1
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = ITA_balboimper_TOTALprogress_S1 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S1 = ITA_balboimper_TOTALprogress_S1_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S1_2_SI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S1_2_SI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S1_2_SI = ITA_balboimper_corruption_southern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S1_2_SI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S1_2_SI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S1_2_SI = ITA_balboimper_progress_CORR_S1_2_SI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S1_2_SI = ITA_balboimper_local_efficiency_S1_2_SI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S1_2_SI = ITA_balboimper_progress_change_S1_2_SI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S1_2_SI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S1_2_SI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S1_2_SI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S1_2_SI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S1_2_SI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S1 = ITA_balboimper_progress_change_S1_2_SI } #Total progress S1
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = ITA_balboimper_TOTALprogress_S1 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S1 = ITA_balboimper_TOTALprogress_S1_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S1_3_SI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S1_3_SI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S1_3_SI = ITA_balboimper_corruption_southern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S1_3_SI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S1_3_SI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S1_3_SI = ITA_balboimper_progress_CORR_S1_3_SI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S1_3_SI = ITA_balboimper_local_efficiency_S1_3_SI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S1_3_SI = ITA_balboimper_progress_change_S1_3_SI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S1_3_SI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S1_3_SI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S1_3_SI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S1_3_SI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S1_3_SI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S1 = ITA_balboimper_progress_change_S1_3_SI } #Total progress S1
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = ITA_balboimper_TOTALprogress_S1 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S1 = ITA_balboimper_TOTALprogress_S1_TEMP }
+}
+
+ITA_balboimper_FinishedCheck_S1_SI = {
+	if = {
+		limit = {
+			check_variable = { ITA_balboimper_progress_S1_1_SI = 100 }
+			check_variable = { ITA_balboimper_progress_S1_2_SI = 100 } 
+			check_variable = { ITA_balboimper_progress_S1_3_SI = 100 }  
+		}
+		clear_variable = ITA_balboimper_progress_S1_1_SI
+		clear_variable = ITA_balboimper_progress_S1_2_SI
+		clear_variable = ITA_balboimper_progress_S1_3_SI
+		
+		set_country_flag = ITA_balboimper_S1_finished_SI
+		
+		#gui
+		set_variable = { ITA_balboimper_GUIcolor_SI = 2 }
+	}	
+}
+
+##Stage 2##
+
+ITA_balboimper_monthly_gain_S2_1_SI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S2_1_SI = 4 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S2_1_SI = ITA_balboimper_corruption_southern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S2_1_SI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S2_1_SI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S2_1_SI = ITA_balboimper_progress_CORR_S2_1_SI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S2_1_SI = ITA_balboimper_local_efficiency_S2_1_SI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S2_1_SI = ITA_balboimper_progress_change_S2_1_SI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S2_1_SI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S2_1_SI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S2_1_SI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S2_1_SI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S2_1_SI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S2 = ITA_balboimper_progress_change_S2_1_SI } #Total progress S2
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = ITA_balboimper_TOTALprogress_S2 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = 8 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S2 = ITA_balboimper_TOTALprogress_S2_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S2_2_SI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S2_2_SI = 4 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S2_2_SI = ITA_balboimper_corruption_southern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S2_2_SI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S2_2_SI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S2_2_SI = ITA_balboimper_progress_CORR_S2_2_SI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S2_2_SI = ITA_balboimper_local_efficiency_S2_2_SI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S2_2_SI = ITA_balboimper_progress_change_S2_2_SI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S2_2_SI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S2_2_SI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S2_2_SI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S2_2_SI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S2_2_SI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S2 = ITA_balboimper_progress_change_S2_2_SI } #Total progress S2
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = ITA_balboimper_TOTALprogress_S2 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = 8 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S2 = ITA_balboimper_TOTALprogress_S2_TEMP }
+}
+
+ITA_balboimper_FinishedCheck_S2_SI = {
+	if = {
+		limit = {
+			check_variable = { ITA_balboimper_progress_S2_1_SI = 100 }
+			check_variable = { ITA_balboimper_progress_S2_2_SI = 100 } 
+		}
+		clear_variable = ITA_balboimper_progress_S2_1_SI
+		clear_variable = ITA_balboimper_progress_S2_2_SI
+		
+		set_country_flag = ITA_balboimper_S2_finished_SI
+		
+		#gui
+		set_variable = { ITA_balboimper_GUIcolor_SI = 3 }
+	}	
+}
+
+##Stage 3##
+
+ITA_balboimper_monthly_gain_S3_1_SI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S3_1_SI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S3_1_SI = ITA_balboimper_corruption_southern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S3_1_SI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S3_1_SI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S3_1_SI = ITA_balboimper_progress_CORR_S3_1_SI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S3_1_SI = ITA_balboimper_local_efficiency_S3_1_SI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S3_1_SI = ITA_balboimper_progress_change_S3_1_SI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S3_1_SI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S3_1_SI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S3_1_SI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S3_1_SI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S3_1_SI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S3 = ITA_balboimper_progress_change_S3_1_SI } #Total progress S3
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = ITA_balboimper_TOTALprogress_S3 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S3 = ITA_balboimper_TOTALprogress_S3_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S3_2_SI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S3_2_SI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S3_2_SI = ITA_balboimper_corruption_southern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S3_2_SI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S3_2_SI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S3_2_SI = ITA_balboimper_progress_CORR_S3_2_SI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S3_2_SI = ITA_balboimper_local_efficiency_S3_2_SI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S3_2_SI = ITA_balboimper_progress_change_S3_2_SI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S3_2_SI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S3_2_SI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S3_2_SI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S3_2_SI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S3_2_SI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S3 = ITA_balboimper_progress_change_S3_2_SI } #Total progress S3
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = ITA_balboimper_TOTALprogress_S3 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S3 = ITA_balboimper_TOTALprogress_S3_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S3_3_SI = {
+	
+	set_variable = { ITA_balboimper_progress_change_S3_3_SI = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S3_3_SI = ITA_balboimper_corruption_southern_italy }
+	divide_variable = { ITA_balboimper_progress_CORR_S3_3_SI = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S3_3_SI = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S3_3_SI = ITA_balboimper_progress_CORR_S3_3_SI }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S3_3_SI = ITA_balboimper_local_efficiency_S3_3_SI } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S3_3_SI = ITA_balboimper_progress_change_S3_3_SI } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S3_3_SI } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S3_3_SI
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S3_3_SI = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S3_3_SI = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S3_3_SI = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S3 = ITA_balboimper_progress_change_S3_3_SI } #Total progress S3
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = ITA_balboimper_TOTALprogress_S3 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S3 = ITA_balboimper_TOTALprogress_S3_TEMP }
+}
+
+ITA_balboimper_FinishedCheck_S3_SI = {
+	if = {
+		limit = {
+			check_variable = { ITA_balboimper_progress_S3_1_SI = 100 }
+			check_variable = { ITA_balboimper_progress_S3_2_SI = 100 } 
+			check_variable = { ITA_balboimper_progress_S3_3_SI = 100 }  
+		}
+		clear_variable = ITA_balboimper_progress_S3_1_SI
+		clear_variable = ITA_balboimper_progress_S3_2_SI
+		clear_variable = ITA_balboimper_progress_S3_3_SI
+		
+		set_country_flag = ITA_balboimper_S3_finished_SI
+		
+		#Bonus effect
+		
+		add_dynamic_modifier = { modifier = ITA_Balboimper_Bonus_SI_modifier }
+		
+		#gui
+		set_variable = { ITA_balboimper_GUIcolor_SI = 4 }
+	}	
+}
+
+###Libya###
+
+##Stage 1##
+
+ITA_balboimper_monthly_gain_S1_1_L = {
+	
+	set_variable = { ITA_balboimper_progress_change_S1_1_L = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S1_1_L = ITA_balboimper_corruption_libya }
+	divide_variable = { ITA_balboimper_progress_CORR_S1_1_L = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S1_1_L = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S1_1_L = ITA_balboimper_progress_CORR_S1_1_L }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S1_1_L = ITA_balboimper_local_efficiency_S1_1_L } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S1_1_L = ITA_balboimper_progress_change_S1_1_L } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S1_1_L } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S1_1_L
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S1_1_L = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S1_1_L = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S1_1_L = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S1 = ITA_balboimper_progress_change_S1_1_L } #Total progress S1
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = ITA_balboimper_TOTALprogress_S1 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S1 = ITA_balboimper_TOTALprogress_S1_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S1_2_L = {
+	
+	set_variable = { ITA_balboimper_progress_change_S1_2_L = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S1_2_L = ITA_balboimper_corruption_libya }
+	divide_variable = { ITA_balboimper_progress_CORR_S1_2_L = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S1_2_L = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S1_2_L = ITA_balboimper_progress_CORR_S1_2_L }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S1_2_L = ITA_balboimper_local_efficiency_S1_2_L } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S1_2_L = ITA_balboimper_progress_change_S1_2_L } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S1_2_L } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S1_2_L
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S1_2_L = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S1_2_L = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S1_2_L = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S1 = ITA_balboimper_progress_change_S1_2_L } #Total progress S1
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = ITA_balboimper_TOTALprogress_S1 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S1 = ITA_balboimper_TOTALprogress_S1_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S1_3_L = {
+	
+	set_variable = { ITA_balboimper_progress_change_S1_3_L = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S1_3_L = ITA_balboimper_corruption_libya }
+	divide_variable = { ITA_balboimper_progress_CORR_S1_3_L = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S1_3_L = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S1_3_L = ITA_balboimper_progress_CORR_S1_3_L }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S1_3_L = ITA_balboimper_local_efficiency_S1_3_L } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S1_3_L = ITA_balboimper_progress_change_S1_3_L } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S1_3_L } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S1_3_L
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S1_3_L = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S1_3_L = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S1_3_L = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S1 = ITA_balboimper_progress_change_S1_3_L } #Total progress S1
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = ITA_balboimper_TOTALprogress_S1 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S1_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S1 = ITA_balboimper_TOTALprogress_S1_TEMP }
+}
+
+ITA_balboimper_FinishedCheck_S1_L = {
+	if = {
+		limit = {
+			check_variable = { ITA_balboimper_progress_S1_1_L = 100 }
+			check_variable = { ITA_balboimper_progress_S1_2_L = 100 } 
+			check_variable = { ITA_balboimper_progress_S1_3_L = 100 }  
+		}
+		clear_variable = ITA_balboimper_progress_S1_1_L
+		clear_variable = ITA_balboimper_progress_S1_2_L
+		clear_variable = ITA_balboimper_progress_S1_3_L
+		
+		set_country_flag = ITA_balboimper_S1_finished_L
+		
+		#gui
+		set_variable = { ITA_balboimper_GUIcolor_L = 2 }
+	}	
+}
+
+##Stage 2##
+
+ITA_balboimper_monthly_gain_S2_1_L = {
+	
+	set_variable = { ITA_balboimper_progress_change_S2_1_L = 4 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S2_1_L = ITA_balboimper_corruption_libya }
+	divide_variable = { ITA_balboimper_progress_CORR_S2_1_L = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S2_1_L = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S2_1_L = ITA_balboimper_progress_CORR_S2_1_L }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S2_1_L = ITA_balboimper_local_efficiency_S2_1_L } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S2_1_L = ITA_balboimper_progress_change_S2_1_L } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S2_1_L } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S2_1_L
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S2_1_L = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S2_1_L = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S2_1_L = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S2 = ITA_balboimper_progress_change_S2_1_L } #Total progress S2
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = ITA_balboimper_TOTALprogress_S2 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = 8 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S2 = ITA_balboimper_TOTALprogress_S2_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S2_2_L = {
+	
+	set_variable = { ITA_balboimper_progress_change_S2_2_L = 4 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S2_2_L = ITA_balboimper_corruption_libya }
+	divide_variable = { ITA_balboimper_progress_CORR_S2_2_L = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S2_2_L = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S2_2_L = ITA_balboimper_progress_CORR_S2_2_L }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S2_2_L = ITA_balboimper_local_efficiency_S2_2_L } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S2_2_L = ITA_balboimper_progress_change_S2_2_L } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S2_2_L } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S2_2_L
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S2_2_L = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S2_2_L = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S2_2_L = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S2 = ITA_balboimper_progress_change_S2_2_L } #Total progress S2
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = ITA_balboimper_TOTALprogress_S2 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S2_TEMP = 8 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S2 = ITA_balboimper_TOTALprogress_S2_TEMP }
+}
+
+ITA_balboimper_FinishedCheck_S2_L = {
+	if = {
+		limit = {
+			check_variable = { ITA_balboimper_progress_S2_1_L = 100 }
+			check_variable = { ITA_balboimper_progress_S2_2_L = 100 } 
+		}
+		clear_variable = ITA_balboimper_progress_S2_1_L
+		clear_variable = ITA_balboimper_progress_S2_2_L
+		
+		set_country_flag = ITA_balboimper_S2_finished_L
+		
+		#gui
+		set_variable = { ITA_balboimper_GUIcolor_L = 3 }
+	}	
+}
+
+##Stage 3##
+
+ITA_balboimper_monthly_gain_S3_1_L = {
+	
+	set_variable = { ITA_balboimper_progress_change_S3_1_L = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S3_1_L = ITA_balboimper_corruption_libya }
+	divide_variable = { ITA_balboimper_progress_CORR_S3_1_L = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S3_1_L = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S3_1_L = ITA_balboimper_progress_CORR_S3_1_L }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S3_1_L = ITA_balboimper_local_efficiency_S3_1_L } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S3_1_L = ITA_balboimper_progress_change_S3_1_L } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S3_1_L } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S3_1_L
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S3_1_L = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S3_1_L = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S3_1_L = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S3 = ITA_balboimper_progress_change_S3_1_L } #Total progress S3
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = ITA_balboimper_TOTALprogress_S3 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S3 = ITA_balboimper_TOTALprogress_S3_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S3_2_L = {
+	
+	set_variable = { ITA_balboimper_progress_change_S3_2_L = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S3_2_L = ITA_balboimper_corruption_libya }
+	divide_variable = { ITA_balboimper_progress_CORR_S3_2_L = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S3_2_L = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S3_2_L = ITA_balboimper_progress_CORR_S3_2_L }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S3_2_L = ITA_balboimper_local_efficiency_S3_2_L } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S3_2_L = ITA_balboimper_progress_change_S3_2_L } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S3_2_L } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S3_2_L
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S3_2_L = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S3_2_L = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S3_2_L = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S3 = ITA_balboimper_progress_change_S3_2_L } #Total progress S3
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = ITA_balboimper_TOTALprogress_S3 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S3 = ITA_balboimper_TOTALprogress_S3_TEMP }
+}
+
+ITA_balboimper_monthly_gain_S3_3_L = {
+	
+	set_variable = { ITA_balboimper_progress_change_S3_3_L = 8 } #Progress change this tick
+	
+	#Efficiency malus from corruption: used in scripted loc for (X from local corruption)
+	set_variable = { ITA_balboimper_progress_CORR_S3_3_L = ITA_balboimper_corruption_libya }
+	divide_variable = { ITA_balboimper_progress_CORR_S3_3_L = 2 }
+	
+	set_variable = { ITA_balboimper_local_efficiency_S3_3_L = ITA_balboimper_Efficiency } #efficiency minus corruption malus
+	subtract_from_variable = { ITA_balboimper_local_efficiency_S3_3_L = ITA_balboimper_progress_CORR_S3_3_L }
+	
+	multiply_variable = { ITA_balboimper_progress_change_S3_3_L = ITA_balboimper_local_efficiency_S3_3_L } #Final progress change
+
+	add_to_variable = { ITA_balboimper_progress_S3_3_L = ITA_balboimper_progress_change_S3_3_L } #Total progress ticker
+	
+	set_temp_variable = { ITA_balboimper_realvalue_TEMP = ITA_balboimper_progress_S3_3_L } ##Temp variable for percentage calculation
+	
+	clamp_variable = {
+		var = ITA_balboimper_progress_S3_3_L
+		min = 0
+		max = 100
+	}
+	
+	add_to_variable = { ITA_balboimper_months_S3_3_L = 1 } #counts how many months the project has taken so far
+	
+	#The percentage calculation
+	
+	if = { #If the percentage would be over 100 fix
+		limit = { check_variable = { ITA_balboimper_progress_S3_3_L = 100 } }
+	
+		subtract_from_temp_variable = { ITA_balboimper_realvalue_TEMP = 100 }
+		
+		subtract_from_variable = { ITA_balboimper_progress_change_S3_3_L = ITA_balboimper_realvalue_TEMP }
+	}
+	
+	add_to_variable = { ITA_balboimper_TOTALprogress_S3 = ITA_balboimper_progress_change_S3_3_L } #Total progress S3
+	set_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = ITA_balboimper_TOTALprogress_S3 }
+	
+	divide_temp_variable = { ITA_balboimper_TOTALprogress_S3_TEMP = 12 } 
+	
+	set_variable = { ITA_balboimper_PERCENTAGE_S3 = ITA_balboimper_TOTALprogress_S3_TEMP }
+}
+
+ITA_balboimper_FinishedCheck_S3_L = {
+	if = {
+		limit = {
+			check_variable = { ITA_balboimper_progress_S3_1_L = 100 }
+			check_variable = { ITA_balboimper_progress_S3_2_L = 100 } 
+			check_variable = { ITA_balboimper_progress_S3_3_L = 100 }  
+		}
+		clear_variable = ITA_balboimper_progress_S3_1_L
+		clear_variable = ITA_balboimper_progress_S3_2_L
+		clear_variable = ITA_balboimper_progress_S3_3_L
+		
+		set_country_flag = ITA_balboimper_S3_finished_L
+		
+		#Bonus effect
+		
+		add_dynamic_modifier = { modifier = ITA_Balboimper_Bonus_L_modifier }
+		
+		#gui
+		set_variable = { ITA_balboimper_GUIcolor_L = 4 }
+	}	
+}
+
+#Le clamps have found me
+
+ITA_balboimper_clamp_corruption = {
+	hidden_effect = {
+		clamp_variable = {
+			var = ITA_balboimper_corruption_northern_italy
+			min = 0
+			max = 1
+		}
+		clamp_variable = {
+			var = ITA_balboimper_corruption_central_italy
+			min = 0
+			max = 1
+		}
+		clamp_variable = {
+			var = ITA_balboimper_corruption_southern_italy
+			min = 0
+			max = 1
+		}
+		clamp_variable = {
+			var = ITA_balboimper_corruption_libya
+			min = 0
+			max = 1
+		}
+	}
+}
+
+ITA_balboimper_clamp_efficiency = {
+	hidden_effect = {
+		clamp_variable = {
+			var = ITA_balboimper_Efficiency
+			min = 0
+			max = 1
+		}
+		clamp_variable = {
+			var = ITA_balboimper_GUIEfficiencyBar
+			min = 0
+			max = 100
+		}
+	}
+}
+
+#Stage 2 idea scripted effect
+
+ITA_balboimper_S2_ideaupdate = {
+	if = {
+		limit = { NOT = { has_country_flag = ITA_balboimper_started_S2_idea }}
+		
+		add_ideas = ITA_idea_balboimper_S2_1
+		
+		set_country_flag = ITA_balboimper_started_S2_idea
+	}
+	else_if = {
+		limit = { has_idea = ITA_idea_balboimper_S2_1 }
+		
+		swap_ideas = {
+			remove_idea = ITA_idea_balboimper_S2_1
+			add_idea = ITA_idea_balboimper_S2_2
+		}
+	}
+	else_if = {
+		limit = { has_idea = ITA_idea_balboimper_S2_2 }
+		
+		swap_ideas = {
+			remove_idea = ITA_idea_balboimper_S2_2
+			add_idea = ITA_idea_balboimper_S2_3
+		}
+	}
+	else_if = {
+		limit = { has_idea = ITA_idea_balboimper_S2_3 }
+		
+		swap_ideas = {
+			remove_idea = ITA_idea_balboimper_S2_3
+			add_idea = ITA_idea_balboimper_S2_4
+		}
+	}
+	else_if = {
+		limit = { has_idea = ITA_idea_balboimper_S2_4 }
+		
+		swap_ideas = {
+			remove_idea = ITA_idea_balboimper_S2_4
+			add_idea = ITA_idea_balboimper_S2_5
+		}
+	}
+	else_if = {
+		limit = { has_idea = ITA_idea_balboimper_S2_5 }
+		
+		swap_ideas = {
+			remove_idea = ITA_idea_balboimper_S2_5
+			add_idea = ITA_idea_balboimper_S2_6
+		}
+	}
+	else_if = {
+		limit = { has_idea = ITA_idea_balboimper_S2_6 }
+		
+		swap_ideas = {
+			remove_idea = ITA_idea_balboimper_S2_6
+			add_idea = ITA_idea_balboimper_S2_7
+		}
+	}
+	else_if = {
+		limit = { has_idea = ITA_idea_balboimper_S2_7 }
+		
+		swap_ideas = {
+			remove_idea = ITA_idea_balboimper_S2_7
+			add_idea = ITA_idea_balboimper_S2_8
+		}
+	}
+}
+
+#Stage 1 infrastructure scripted effects
+
+ITA_balboimper_S1_2_CI_infrastructure = { #Adriatic connections
+	157 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	163 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	103 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+}
+ITA_balboimper_S1_3_L_infrastructure = { #Libyan interior
+	661 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	662 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	1137 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+}
+
+#Stage 2 infrastructure scripted effects
+
+ITA_balboimper_S2_NI_infrastructure = { #Fired twice, once for road and once for rail
+	1323 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	158 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	159 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	161 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	160 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	116 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+}
+
+ITA_balboimper_S2_CI_infrastructure = { #Fired twice, once for road and once for rail
+	162 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	743 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	2 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	1324 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	157 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+}
+
+ITA_balboimper_S2_SI_infrastructure = { #Fired twice, once for road and once for rail
+	117 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	117 = { # was 1445, a state on neither branch - Basilicata by its neighbours; its land lies in Campania on this map
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	156 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	115 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	1325 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	1327 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+}
+
+ITA_balboimper_S2_L_infrastructure = { #Fired twice, once for road and once for rail
+	448 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	449 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	450 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+	451 = {
+		add_building_construction = {
+			type = infrastructure
+			level = 1
+			instant_build = yes
+		}
+	}
+}
+
+##Scripted effects for GDP bonus/GDP growth effects##
+#These are dynamic with tooltips based on temp variables
+
+##Percentage GDP change##
+
+#Northern Italy
+
+ITA_GDP_boost_once_percentage_NI = {
+	set_temp_variable = { temp_ITA_GDP_boost_percentage_real_NI = temp_ITA_GDP_boost_percentage_NI }
+	add_to_temp_variable = { temp_ITA_GDP_boost_percentage_real_NI = 1 }
+	
+	hidden_effect = {
+		735 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_NI }
+		}
+		158 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_NI }
+		}
+		1323 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_NI }
+		}
+		159 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_NI }
+		}
+		39 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_NI }
+		}
+		160 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_NI }
+		}
+		116 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_NI }
+		}
+		161 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_NI }
+		}
+		736 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_NI }
+		}
+	}
+	
+	if = {
+		limit = {
+			check_variable = { temp_ITA_GDP_boost_percentage_NI < 0 }
+		}
+		multiply_temp_variable = {
+			var = temp_ITA_GDP_boost_percentage_NI
+			value = -1
+		}
+		custom_effect_tooltip = ITA_GDP_decrease_percent_NI_tt
+	}
+	else = {
+		custom_effect_tooltip = ITA_GDP_increase_percent_NI_tt
+	}
+	recalculate_GDP_and_PUs_on_demand = yes
+}
+
+#Central Italy
+
+ITA_GDP_boost_once_percentage_CI = {
+	set_temp_variable = { temp_ITA_GDP_boost_percentage_real_CI = temp_ITA_GDP_boost_percentage_CI }
+	add_to_temp_variable = { temp_ITA_GDP_boost_percentage_real_CI = 1 }
+	
+	hidden_effect = {
+		162 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_CI }
+		}
+		2 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_CI }
+		}
+		743 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_CI }
+		}
+		1324 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_CI }
+		}
+		157 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_CI }
+		}
+		163 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_CI }
+		}
+		103 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_CI }
+		}
+	}
+	
+	if = {
+		limit = {
+			check_variable = { temp_ITA_GDP_boost_percentage_CI < 0 }
+		}
+		multiply_temp_variable = {
+			var = temp_ITA_GDP_boost_percentage_CI
+			value = -1
+		}
+		custom_effect_tooltip = ITA_GDP_decrease_percent_CI_tt
+	}
+	else = {
+		custom_effect_tooltip = ITA_GDP_increase_percent_CI_tt
+	}
+	recalculate_GDP_and_PUs_on_demand = yes
+}
+
+#Southern Italy
+
+ITA_GDP_boost_once_percentage_SI = {
+	set_temp_variable = { temp_ITA_GDP_boost_percentage_real_SI = temp_ITA_GDP_boost_percentage_SI }
+	add_to_temp_variable = { temp_ITA_GDP_boost_percentage_real_SI = 1 }
+	
+	hidden_effect = {
+		117 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_SI }
+		}
+		1325 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_SI }
+		}
+		117 = {  # was 1445, a state on neither branch - Basilicata by its neighbours; its land lies in Campania on this map
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_SI }
+		}
+		156 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_SI }
+		}
+		115 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_SI }
+		}
+		1327 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_SI }
+		}
+		1 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_SI }
+		}
+		114 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_SI }
+		}
+	}
+	
+	if = {
+		limit = {
+			check_variable = { temp_ITA_GDP_boost_percentage_SI < 0 }
+		}
+		multiply_temp_variable = {
+			var = temp_ITA_GDP_boost_percentage_SI
+			value = -1
+		}
+		custom_effect_tooltip = ITA_GDP_decrease_percent_SI_tt
+	}
+	else = {
+		custom_effect_tooltip = ITA_GDP_increase_percent_SI_tt
+	}
+	recalculate_GDP_and_PUs_on_demand = yes
+}
+
+#Libya
+
+ITA_GDP_boost_once_percentage_L = {
+	set_temp_variable = { temp_ITA_GDP_boost_percentage_real_L = temp_ITA_GDP_boost_percentage_L }
+	add_to_temp_variable = { temp_ITA_GDP_boost_percentage_real_L = 1 }
+	
+	hidden_effect = {
+		448 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_L }
+		}
+		449 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_L }
+		}
+		450 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_L }
+		}
+		451 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_L }
+		}
+		661 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_L }
+		}
+		662 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_L }
+		}
+		663 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_L }
+		}
+		1138 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_L }
+		}
+		1137 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_L }
+		}
+		1139 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_L }
+		}
+		1141 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_L }
+		}
+		1140 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_L }
+		}
+		273 = { 
+			multiply_variable = { state_value = OWNER.temp_ITA_GDP_boost_percentage_real_L }
+		}
+	}
+	
+	if = {
+		limit = {
+			check_variable = { temp_ITA_GDP_boost_percentage_L < 0 }
+		}
+		multiply_temp_variable = {
+			var = temp_ITA_GDP_boost_percentage_L
+			value = -1
+		}
+		custom_effect_tooltip = ITA_GDP_decrease_percent_L_tt
+	}
+	else = {
+		custom_effect_tooltip = ITA_GDP_increase_percent_L_tt
+	}
+	recalculate_GDP_and_PUs_on_demand = yes
+}
+
+##Percentage GDP growth change
+
+#GENERIC STAGE 2 EFFECTS#
+
+#Northern Italy
+
+ITA_gdp_growth_change_NI = { #THIS SCRIPTED EFFECT IS WIP
+	
+	hidden_effect = {
+		735 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.25 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		158 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.25 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1323 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.25 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		159 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.25 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		39 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.25 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		160 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.25 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		116 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.25 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		161 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.25 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		736 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.25 }
+			TNO_state_gdp_increase_flat = yes
+		}
+	}
+	
+	if = {
+		limit = {
+			check_variable = { temp_ITA_state_gdp_growth_NI < 0 }
+		}
+		multiply_temp_variable = {
+			var = temp_ITA_state_gdp_growth_NI
+			value = -1
+		}
+		custom_effect_tooltip = ITA_GDP_growth_decrease_percent_NI_tt
+	}
+	else = {
+		custom_effect_tooltip = ITA_GDP_growth_increase_percent_NI_tt
+	}
+	recalculate_GDP_and_PUs_on_demand = yes
+	
+}
+
+#Central Italy
+
+ITA_gdp_growth_change_CI = { #THIS SCRIPTED EFFECT IS WIP
+	
+	hidden_effect = {
+		162 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		2 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		743 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1324 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		157 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		163 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		103 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+	}
+	
+	if = {
+		limit = {
+			check_variable = { temp_ITA_state_gdp_growth_CI < 0 }
+		}
+		multiply_temp_variable = {
+			var = temp_ITA_state_gdp_growth_CI
+			value = -1
+		}
+		custom_effect_tooltip = ITA_GDP_growth_decrease_percent_CI_tt
+	}
+	else = {
+		custom_effect_tooltip = ITA_GDP_growth_increase_percent_CI_tt
+	}
+	recalculate_GDP_and_PUs_on_demand = yes
+	
+}
+
+#Southern Italy 
+
+ITA_gdp_growth_change_SI = { #THIS SCRIPTED EFFECT IS WIP
+	
+	hidden_effect = {
+		117 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1325 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		117 = {  # was 1445, a state on neither branch - Basilicata by its neighbours; its land lies in Campania on this map
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		156 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		115 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1327 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+	}
+	
+	if = {
+		limit = {
+			check_variable = { temp_ITA_state_gdp_growth_SI < 0 }
+		}
+		multiply_temp_variable = {
+			var = temp_ITA_state_gdp_growth_SI
+			value = -1
+		}
+		custom_effect_tooltip = ITA_GDP_growth_decrease_percent_SI_tt
+	}
+	else = {
+		custom_effect_tooltip = ITA_GDP_growth_increase_percent_SI_tt
+	}
+	recalculate_GDP_and_PUs_on_demand = yes
+	
+}
+
+#Libya
+
+ITA_gdp_growth_change_L = { #THIS SCRIPTED EFFECT IS WIP
+	
+	hidden_effect = {
+		448 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		449 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		450 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		451 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		661 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		662 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		663 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1138 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1137 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1139 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1141 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1140 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		273 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+	}
+	
+	if = {
+		limit = {
+			check_variable = { temp_ITA_state_gdp_growth_L < 0 }
+		}
+		multiply_temp_variable = {
+			var = temp_ITA_state_gdp_growth_L
+			value = -1
+		}
+		custom_effect_tooltip = ITA_GDP_growth_decrease_percent_L_tt
+	}
+	else = {
+		custom_effect_tooltip = ITA_GDP_growth_increase_percent_L_tt
+	}
+	recalculate_GDP_and_PUs_on_demand = yes
+	
+}
+
+#SPECIFIC STAGE 3 EFFECTS# (Just make several uniques of these lol)
+#(Reminder, maybe stage 3 infrastructure stuff isn't implemented yet eg. sardinia, not 100% sure)
+
+#Northern Italy#
+
+ITA_Balboimper_EFFECT_S3_1_NI = {
+
+	#General effects
+	#(currently gives 10 grid power)
+
+	hidden_effect = {
+		add_resource = {
+			type = power
+			amount = 10
+			state = 158
+		}
+	}
+
+	#GDP-related effects
+
+	hidden_effect = {
+		735 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		158 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1323 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		159 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		39 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		160 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		116 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		161 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		736 = { 
+			set_temp_variable = { state_gdp_flat_temp = 0.5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+	}
+
+}
+
+ITA_Balboimper_EFFECT_S3_2_NI = {
+
+	hidden_effect = {
+
+		#General effects
+
+		TNO_improve_poverty_low = yes
+
+		add_stability = 0.03
+
+
+		#GDP-related effects
+
+		159 = { 
+			set_temp_variable = { state_value_multiplier_temp = 1.05 }
+			econ_state_value_change_multiply_specified_state = yes
+		}
+
+		160 = { 
+			set_temp_variable = { state_value_multiplier_temp = 1.05 }
+			econ_state_value_change_multiply_specified_state = yes
+		}
+
+		161 = { 
+			set_temp_variable = { state_value_multiplier_temp = 1.05 }
+			econ_state_value_change_multiply_specified_state = yes
+		}
+
+	}
+
+}
+
+ITA_Balboimper_EFFECT_S3_3_NI = {
+
+	hidden_effect = {
+
+		#General effects
+
+		735 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 3
+				instant_build = yes
+			}
+		}
+
+		set_temp_variable = { Region_i = 6 } # France
+		set_temp_variable = { EconValueChange_v = 10 }
+		ITA_EmpireManagement_EconValueChange = yes
+
+		#GDP-related effects
+
+		set_temp_variable = { gdp_growth_temp = 0.005 } 
+		econ_gdp_growth_change = yes
+
+	}
+
+	FRA = {
+		set_temp_variable = { gdp_growth_temp = 0.0025 } 
+		econ_gdp_growth_change = yes
+	}
+
+}
+
+#Central Italy#
+
+ITA_Balboimper_EFFECT_S3_1_CI = {
+
+	#General effects
+
+	hidden_effect = {
+
+		air_experience = 75
+
+		add_tech_bonus = {
+			bonus = 1
+			category = jet_technology
+			uses = 2
+		}
+
+	}
+
+	#GDP-related effects
+
+	hidden_effect = {
+		162 = { 
+			set_temp_variable = { state_gdp_flat_temp = 1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		2 = { 
+			set_temp_variable = { state_gdp_flat_temp = 1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		743 = { 
+			set_temp_variable = { state_gdp_flat_temp = 1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1324 = { 
+			set_temp_variable = { state_gdp_flat_temp = 1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		157 = { 
+			set_temp_variable = { state_gdp_flat_temp = 1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		163 = { 
+			set_temp_variable = { state_gdp_flat_temp = 1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		103 = { 
+			set_temp_variable = { state_gdp_flat_temp = 1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+	}
+
+}
+
+ITA_Balboimper_EFFECT_S3_2_CI = {
+
+	#General effects
+
+	hidden_effect = {
+	add_dynamic_modifier = { modifier = ITA_Balboimper_S3_2_CI_modifier } #+0.04 monthly population and -2 consumer goods use modifier
+
+	recalculate_GDP_and_PUs_on_demand = yes
+
+	}
+
+	#GDP-related effects
+
+	hidden_effect = {
+		2 = { 
+			set_temp_variable = { state_value_multiplier_temp = 1.1 }
+			econ_state_value_change_multiply_specified_state = yes
+		}
+
+		2 = { 
+			set_temp_variable = { state_gdp_flat_temp = 3 }
+			TNO_state_gdp_increase_flat = yes
+		}
+	}
+
+}
+
+ITA_Balboimper_EFFECT_S3_3_CI = {
+
+	hidden_effect = {
+
+		#General effects
+
+		103 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 3
+				instant_build = yes
+			}
+		}
+
+		# Greece 
+		set_temp_variable = { Region_i = 16 }
+		set_temp_variable = { EconValueChange_v = 10 }
+		ITA_EmpireManagement_EconValueChange = yes
+
+		# Croatia
+		set_temp_variable = { Region_i = 9 }
+		set_temp_variable = { EconValueChange_v = 10 }
+		ITA_EmpireManagement_EconValueChange = yes
+
+		# Montenegro 
+		set_temp_variable = { Region_i = 13 }
+		set_temp_variable = { EconValueChange_v = 10 }
+		ITA_EmpireManagement_EconValueChange = yes
+
+		# Albania 
+		set_temp_variable = { Region_i = 14 }
+		set_temp_variable = { EconValueChange_v = 10 }
+		ITA_EmpireManagement_EconValueChange = yes
+
+		#GDP-related effects
+
+		103 = { 
+			set_temp_variable = { state_value_multiplier_temp = 1.2 }
+			econ_state_value_change_multiply_specified_state = yes
+		}
+
+		set_temp_variable = { gdp_growth_temp = 0.005 } 
+		econ_gdp_growth_change = yes
+
+	}
+
+	GRE = {
+		set_temp_variable = { gdp_growth_temp = 0.005 } 
+		econ_gdp_growth_change = yes
+	}
+
+	CRO = {
+		set_temp_variable = { gdp_growth_temp = 0.01 } 
+		econ_gdp_growth_change = yes
+	}
+
+	MNT = {
+		set_temp_variable = { gdp_growth_temp = 0.01 } 
+		econ_gdp_growth_change = yes
+	}
+
+	ALB = {
+		set_temp_variable = { gdp_growth_temp = 0.01 } 
+		econ_gdp_growth_change = yes
+	}
+
+}
+
+#Southern Italy# 
+
+ITA_Balboimper_EFFECT_S3_1_SI = {
+
+	#General effects
+
+	hidden_effect = {
+
+		TNO_improve_poverty_low = yes
+
+		add_stability = 0.03
+
+		1 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 2
+				instant_build = yes
+			}
+		}
+
+		114 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 2
+				instant_build = yes
+			}
+		}
+
+	}
+
+	#GDP-related effects
+
+	hidden_effect = {
+		1 = { 
+			set_temp_variable = { state_gdp_flat_temp = 3 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		114 = { 
+			set_temp_variable = { state_gdp_flat_temp = 3 }
+			TNO_state_gdp_increase_flat = yes
+		}
+	}
+
+}
+
+ITA_Balboimper_EFFECT_S3_2_SI = {
+
+	#General effects
+
+	hidden_effect = {
+		add_dynamic_modifier = { modifier = ITA_Balboimper_S3_2_CI_modifier } #+0.03 PU to GDP ratio 
+	}
+	recalculate_GDP_and_PUs_on_demand = yes 
+
+	#GDP-related effects
+
+	hidden_effect = {
+		117 = { 
+			set_temp_variable = { state_gdp_flat_temp = 1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1325 = { 
+			set_temp_variable = { state_gdp_flat_temp = 1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		117 = {  # was 1445, a state on neither branch - Basilicata by its neighbours; its land lies in Campania on this map
+			set_temp_variable = { state_gdp_flat_temp = 1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		156 = { 
+			set_temp_variable = { state_gdp_flat_temp = 1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		115 = { 
+			set_temp_variable = { state_gdp_flat_temp = 1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1327 = { 
+			set_temp_variable = { state_gdp_flat_temp = 1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1 = { 
+			set_temp_variable = { state_gdp_flat_temp = 1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		114 = { 
+			set_temp_variable = { state_gdp_flat_temp = 1 }
+			TNO_state_gdp_increase_flat = yes
+		}
+	}
+
+}
+
+ITA_Balboimper_EFFECT_S3_3_SI = {
+
+	hidden_effect = {
+
+		#General effects
+
+		1327 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 2
+				instant_build = yes
+			}
+		}
+
+		set_temp_variable = { Region_i = 7 } # Iberia
+		set_temp_variable = { EconValueChange_v = 10 }
+		ITA_EmpireManagement_EconValueChange = yes
+
+		#GDP-related effects
+
+		1327 = { 
+			set_temp_variable = { state_value_multiplier_temp = 1.2 }
+			econ_state_value_change_multiply_specified_state = yes
+		}
+
+		set_temp_variable = { gdp_growth_temp = 0.005 } 
+		econ_gdp_growth_change = yes
+
+	}
+
+	IBR = {
+		set_temp_variable = { gdp_growth_temp = 0.0025 } 
+		econ_gdp_growth_change = yes
+	}
+
+}
+
+#Libya#
+
+ITA_Balboimper_EFFECT_S3_1_L = {
+
+	hidden_effect = {
+
+		#General effects
+
+		air_experience = 50
+
+		add_tech_bonus = {
+			bonus = 1
+			category = jet_technology
+			uses = 1
+		}
+
+		#GDP-related effects
+
+		448 = { 
+			set_temp_variable = { state_value_multiplier_temp = 1.1 }
+			econ_state_value_change_multiply_specified_state = yes
+		}
+
+		448 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		449 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		450 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		451 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		661 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		662 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		663 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1138 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1137 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1139 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1141 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		1140 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+		273 = { 
+			set_temp_variable = { state_gdp_flat_temp = 5 }
+			TNO_state_gdp_increase_flat = yes
+		}
+	}
+
+}
+
+ITA_Balboimper_EFFECT_S3_2_L = {
+
+	#General effects
+
+	hidden_effect = {
+
+		add_resource = {
+			type = oil
+			amount = 5
+			state = 662
+		}
+		add_resource = {
+			type = oil
+			amount = 3
+			state = 661
+		}
+		add_resource = {
+			type = oil
+			amount = 2
+			state = 1137
+		}
+
+		# This is called EXPLOITATION!! not Dependence in TT
+		set_temp_variable = { Region_i = 0 } # Libya
+		set_temp_variable = { EconValueChange_v = 10 }
+		ITA_EmpireManagement_EconValueChange = yes
+
+		#GDP-related effects
+			
+		662 = { 
+			set_temp_variable = { state_value_multiplier_temp = 5 }
+			econ_state_value_change_multiply_specified_state = yes
+		}
+		661 = { 
+			set_temp_variable = { state_value_multiplier_temp = 5 }
+			econ_state_value_change_multiply_specified_state = yes
+		}
+		1137 = { 
+			set_temp_variable = { state_value_multiplier_temp = 5 }
+			econ_state_value_change_multiply_specified_state = yes
+		}
+
+	}
+
+}
+
+ITA_Balboimper_EFFECT_S3_3_L = {
+
+	hidden_effect = {
+
+		#General effects
+
+		EGY = {
+			452 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+
+		TUN = {
+			1142 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			458 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+
+		set_temp_variable = { Region_i = 25 } # Tunisia
+		set_temp_variable = { EconValueChange_v = 10 }
+		ITA_EmpireManagement_EconValueChange = yes
+
+		set_temp_variable = { Region_i = 26 } # Egypt
+		set_temp_variable = { EconValueChange_v = 10 }
+		ITA_EmpireManagement_EconValueChange = yes
+
+		#GDP-related effects
+
+		set_temp_variable = { gdp_growth_temp = 0.005 } 
+		econ_gdp_growth_change = yes
+
+	}
+
+	EGY = {
+		set_temp_variable = { gdp_growth_temp = 0.01 } 
+		econ_gdp_growth_change = yes
+	}
+
+	TUN = {
+		set_temp_variable = { gdp_growth_temp = 0.01 } 
+		econ_gdp_growth_change = yes
+	}
+
+}

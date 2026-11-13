@@ -1,0 +1,34 @@
+### State GDP changes.
+###
+### The Italian content was written against two modifiers that do not exist -
+### state_GDP_growth_modifier and state_GDP_growth_factor_modifier - so 164
+### add_state_modifier blocks threw "Unknown modifier" and changed nothing.
+###
+### TNORA's per-state economic quantity is state_value, which generate_state_gdps
+### builds from population, state category and the rest, and which the country's
+### GDP is summed from. These two effects move it directly.
+###
+### Both run in STATE scope and take their argument in a temp variable, so they
+### are reusable and the tooltip reports whatever was passed in:
+###
+###     set_temp_variable = { state_gdp_percent_temp = 0.02 }   # +2%
+###     TNO_state_gdp_increase_percent = yes
+###
+###     set_temp_variable = { state_gdp_flat_temp = 5 }         # +5 points
+###     TNO_state_gdp_increase_flat = yes
+###
+### Negative values are fine; the tooltip prints the sign either way.
+
+### Proportional change. state_gdp_percent_temp is a FRACTION: 0.05 is +5%.
+TNO_state_gdp_increase_percent = {
+	set_temp_variable = { state_gdp_mult_temp = state_gdp_percent_temp }
+	add_to_temp_variable = { state_gdp_mult_temp = 1 }
+	multiply_variable = { state_value = state_gdp_mult_temp }
+	custom_effect_tooltip = TNO_state_gdp_increase_percent_tt
+}
+
+### Flat change, in the same points that state_value is measured in.
+TNO_state_gdp_increase_flat = {
+	add_to_variable = { state_value = state_gdp_flat_temp }
+	custom_effect_tooltip = TNO_state_gdp_increase_flat_tt
+}

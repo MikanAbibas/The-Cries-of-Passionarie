@@ -1,0 +1,18 @@
+ITA_fash_resistance_investigation_fail = {
+	check_variable = { ITA_fash_resistance_repression < ITA_fash_resistance_meh_threshold }
+}
+ITA_fash_resistance_investigation_meh = {
+	AND = {
+		check_variable = { ITA_fash_resistance_repression < ITA_fash_resistance_success_threshold }
+		OR = {
+			check_variable = { ITA_fash_resistance_repression > ITA_fash_resistance_meh_threshold }
+			check_variable = { ITA_fash_resistance_repression = ITA_fash_resistance_meh_threshold }
+		}
+	}
+}
+ITA_fash_resistance_investigation_success = {
+	OR = {
+		check_variable = { ITA_fash_resistance_repression > ITA_fash_resistance_success_threshold }
+		check_variable = { ITA_fash_resistance_repression = ITA_fash_resistance_success_threshold }
+	}
+}

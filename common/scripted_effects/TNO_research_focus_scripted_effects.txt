@@ -1,0 +1,183 @@
+# Research priorities - swapping the tno_research_focus law from the research tab
+#
+# Every priority has a numeric ID. The ID is what the GUI, the arrays and the
+# scripted loc pass around; the two chains below are the only places that map an
+# ID back to an actual idea token, because add_ideas/remove_ideas need a literal.
+#
+#   0  balanced
+#   1  doctrine
+#   2  land_naval
+#   3  air
+#   4  industry
+#   10+ national academias - see "ADDING A NEW ACADEMIA" at the bottom of this file
+#
+# Country variables:
+#   TNO_research_focus_current   - ID of the active priority (0 if never switched)
+#   TNO_research_focus_target    - scratch, ID being switched to
+#   TNO_research_focus_id        - scratch, argument to the unlock/revoke effects
+#   TNO_research_focus_cd_date   - display-only cooldown expiry
+# Country array:
+#   TNO_research_focus_available - IDs of unlocked national academias (base 0-4 are
+#                                  always shown and are NOT in this array)
+
+######################
+# SWITCHING          #
+######################
+
+# Entry point. Set TNO_research_focus_target first, then call this.
+TNO_research_focus_switch = {
+	TNO_research_focus_clear = yes
+	TNO_research_focus_apply = yes
+	TNO_research_focus_pay_cost = yes
+	clear_variable = TNO_research_focus_target
+}
+
+# Strips whichever priority is currently held. One line per academia.
+# remove_ideas then add_ideas is deliberate: it lands on the right idea whether or not
+# adding to an occupied law slot would have replaced the old one on its own.
+TNO_research_focus_clear = {
+	if = { limit = { has_idea = tno_research_focus_balanced } remove_ideas = tno_research_focus_balanced }
+	if = { limit = { has_idea = tno_research_focus_doctrine } remove_ideas = tno_research_focus_doctrine }
+	if = { limit = { has_idea = tno_research_focus_land_naval } remove_ideas = tno_research_focus_land_naval }
+	if = { limit = { has_idea = tno_research_focus_air } remove_ideas = tno_research_focus_air }
+	if = { limit = { has_idea = tno_research_focus_industry } remove_ideas = tno_research_focus_industry }
+	# national academias: add one line each here
+	if = { limit = { has_idea = tno_research_focus_ger_motorized } remove_ideas = tno_research_focus_ger_motorized }
+	if = { limit = { has_idea = tno_research_focus_ger_ifv } remove_ideas = tno_research_focus_ger_ifv }
+}
+
+# Maps TNO_research_focus_target onto an idea. One branch per academia.
+TNO_research_focus_apply = {
+	if = {
+		limit = { check_variable = { TNO_research_focus_target = 0 } }
+		add_ideas = tno_research_focus_balanced
+	}
+	else_if = {
+		limit = { check_variable = { TNO_research_focus_target = 1 } }
+		add_ideas = tno_research_focus_doctrine
+	}
+	else_if = {
+		limit = { check_variable = { TNO_research_focus_target = 2 } }
+		add_ideas = tno_research_focus_land_naval
+	}
+	else_if = {
+		limit = { check_variable = { TNO_research_focus_target = 3 } }
+		add_ideas = tno_research_focus_air
+	}
+	else_if = {
+		limit = { check_variable = { TNO_research_focus_target = 4 } }
+		add_ideas = tno_research_focus_industry
+	}
+	# national academias: add one else_if each here
+	else_if = {
+		limit = { check_variable = { TNO_research_focus_target = 10 } }
+		add_ideas = tno_research_focus_ger_motorized
+	}
+	else_if = {
+		limit = { check_variable = { TNO_research_focus_target = 11 } }
+		add_ideas = tno_research_focus_ger_ifv
+	}
+	else = {
+		log = "[GetDateText]: [Root.GetName]: research focus ID [?TNO_research_focus_target] has no idea in TNO_research_focus_apply"
+	}
+	set_variable = { TNO_research_focus_current = TNO_research_focus_target }
+}
+
+# Pays for the switch and starts the cooldown.
+# tno_research_focus_cd_date is only used for display; the flag is what actually blocks switching.
+TNO_research_focus_pay_cost = {
+	add_political_power = -30
+	set_country_flag = {
+		flag = tno_research_focus_cooldown
+		value = 1
+		days = 365
+	}
+	set_variable = { tno_research_focus_cd_date = global.date }
+	# Date variables read as hours / 100000, so 365 days = 8760 hours = 0.0876.
+	# (0.00876 is 876 hours, i.e. ~36 days - the bug this replaces.)
+	add_to_variable = { tno_research_focus_cd_date = 0.0876 }
+}
+
+######################
+# UNLOCK / REVOKE    #
+######################
+
+# Grants a national academia. Set TNO_research_focus_id first.
+# Free - no political power, no cooldown; only the player's own switching is gated.
+TNO_unlock_research_focus = {
+	if = {
+		limit = {
+			NOT = {
+				is_in_array = {
+					array = TNO_research_focus_available
+					value = TNO_research_focus_id
+				}
+			}
+		}
+		add_to_array = { TNO_research_focus_available = TNO_research_focus_id }
+	}
+	clear_variable = TNO_research_focus_id
+}
+
+# Takes a national academia away. If it was the active one the country drops back to
+# balanced for free, so a lost political path cannot leave a country on a locked law.
+TNO_revoke_research_focus = {
+	remove_from_array = {
+		array = TNO_research_focus_available
+		value = TNO_research_focus_id
+	}
+	if = {
+		limit = { check_variable = { TNO_research_focus_current = TNO_research_focus_id } }
+		TNO_research_focus_clear = yes
+		add_ideas = tno_research_focus_balanced
+		set_variable = { TNO_research_focus_current = 0 }
+	}
+	clear_variable = TNO_research_focus_id
+}
+
+######################
+# ACADEMIA UNLOCKS   #
+######################
+
+# One wrapper per academia, called from the focus/event/decision that grants it.
+# The custom_effect_tooltip has to live here rather than inside TNO_unlock_research_focus:
+# when the game renders a focus's reward preview it does not execute set_variable, so a
+# tooltip that read the name back out of TNO_research_focus_id would show the wrong
+# academia (or none) while hovering an uncompleted focus.
+
+# GER_a_supercar_truck
+GER_unlock_research_focus_motorized = {
+	custom_effect_tooltip = TNO_RESEARCH_FOCUS_UNLOCK_GER_MOTORIZED_TT
+	hidden_effect = {
+		set_variable = { TNO_research_focus_id = 10 }
+		TNO_unlock_research_focus = yes
+	}
+}
+
+# GER_a_special_forces_vehicle
+GER_unlock_research_focus_ifv = {
+	custom_effect_tooltip = TNO_RESEARCH_FOCUS_UNLOCK_GER_IFV_TT
+	hidden_effect = {
+		set_variable = { TNO_research_focus_id = 11 }
+		TNO_unlock_research_focus = yes
+	}
+}
+
+######################################################################
+# ADDING A NEW ACADEMIA
+#
+# 1. common/ideas/TNO_research_focus_ideas.txt
+#       add tno_research_focus_<name> weighting the 15 categories
+# 2. this file
+#       TNO_research_focus_clear -> one more if/remove_ideas line
+#       TNO_research_focus_apply -> one more else_if/add_ideas branch
+# 3. common/scripted_localisation/TNO_research_focus_scripted_loc.txt
+#       GetResearchFocusName / GetResearchFocusEntryName / GetResearchFocusEntryEffect
+# 4. localisation - name, _desc, an _EFFECT key and an _UNLOCK_..._TT key
+# 5. this file, ACADEMIA UNLOCKS
+#       a wrapper effect carrying the custom_effect_tooltip
+# 6. wherever it is earned (focus completion_reward, event option, decision):
+#       <wrapper> = yes
+#
+# No interface/ work at any point - the picker grows on its own.
+######################################################################

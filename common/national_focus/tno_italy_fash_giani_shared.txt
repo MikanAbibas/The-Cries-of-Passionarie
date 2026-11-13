@@ -1,0 +1,4040 @@
+##################################################################################################
+## ███╗   ██╗██╗ ██████╗ ██████╗ ██████╗ ██╗      ██████╗      ██████╗ ██╗ █████╗ ███╗   ██╗██╗ ##
+## ████╗  ██║██║██╔════╝██╔════╝██╔═══██╗██║     ██╔═══██╗    ██╔════╝ ██║██╔══██╗████╗  ██║██║ ##
+## ██╔██╗ ██║██║██║     ██║     ██║   ██║██║     ██║   ██║    ██║  ███╗██║███████║██╔██╗ ██║██║ ##
+## ██║╚██╗██║██║██║     ██║     ██║   ██║██║     ██║   ██║    ██║   ██║██║██╔══██║██║╚██╗██║██║ ##
+## ██║ ╚████║██║╚██████╗╚██████╗╚██████╔╝███████╗╚██████╔╝    ╚██████╔╝██║██║  ██║██║ ╚████║██║ ##
+## ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝      ╚═════╝ ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝ ##
+##################################################################################################
+
+#Index; Search for these names using CTRL+F and you'll find the section they entitle.
+#	NICCOLO GIANI
+#		a) Inauguration Tree
+#		b) Main Trees
+#		c) Oil Crisis Tree
+#		d) Epilogue Tree
+
+###=====| a) Inauguration Tree |=====###
+shared_focus = {
+	id = ITA_gloria_al_duce_gloria_a_niccolo_giani
+	icon = GFX_Gloria_al_Duce_Gloria_a_Niccolo_Giani
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 17
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_gloria_al_duce_gloria_a_niccolo_giani"
+		add_political_power = 100
+		add_stability = -0.1
+		hidden_effect = {
+			country_event = { id = ITA_giani_cult_chain.1 days = 4 }
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_by_my_will
+	icon = GFX_IBR_Puppet_Legislature
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_gloria_al_duce_gloria_a_niccolo_giani
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_gloria_al_duce_gloria_a_niccolo_giani
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_by_my_will"
+		add_war_support = 0.1
+		set_temp_variable = { fervour_change = 2 }
+		ITA_Giani_change_fervour = yes
+
+		tno_political_parties_improve = yes
+		tno_press_rights_improve = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_by_our_might
+	icon = GFX_MZB_slave_munitions
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_gloria_al_duce_gloria_a_niccolo_giani
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_gloria_al_duce_gloria_a_niccolo_giani
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_by_our_might"
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+
+		tno_public_meetings_improve = yes
+		tno_vote_franchise_improve = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_punish_the_unworthy
+	icon = GFX_generic_execute
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_by_my_will
+	}
+	prerequisite = {
+		focus = ITA_by_our_might
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_by_my_will
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_punish_the_unworthy"
+		add_stability = 0.05
+		add_manpower = -582
+		tno_security_improve = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_no_office_higher_than_the_duce
+	icon = GFX_ITA_demand_full_powers
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_by_my_will
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_by_my_will
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_no_office_higher_than_the_duce"
+		add_political_power = 50
+		add_stability = 0.05
+	}
+}
+
+shared_focus = {
+	id = ITA_seed_the_ground
+	icon = GFX_INS_purge_bureaucracy
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_by_our_might
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_by_our_might
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_seed_the_ground"
+		add_to_variable = { ITA_GUI_giani_c_italy_conversion_rate = 0.5 }
+		custom_effect_tooltip = ITA_seed_the_ground_tt
+
+		TNO_worsen_academic_base_low = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_spread_the_word
+	icon = GFX_ITA_per_la_tua_salvezza_il_nostro_coraggio
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_seed_the_ground
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_seed_the_ground
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_spread_the_word"
+		set_temp_variable = { fervour_change = 3 }
+		ITA_Giani_change_fervour = yes
+
+		add_ideas = tno_religious_rights_state_religion
+	}
+}
+
+shared_focus = {
+	id = ITA_guided_by_the_eagle
+	icon = GFX_ITA_roman_glory
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_no_office_higher_than_the_duce
+	}
+	prerequisite = {
+		focus = ITA_spread_the_word
+	}
+	prerequisite = {
+		focus = ITA_punish_the_unworthy
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_no_office_higher_than_the_duce
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_guided_by_the_eagle"
+		add_stability = 0.1
+
+		add_ideas = tno_conscription_four_year_draft
+		tno_training_improve = yes
+		tno_training_improve = yes
+		hidden_effect = {
+			country_event = { id = ITA_giani_cult_chain.8 days = 4 }
+		}
+	}
+}
+
+###=====| b) Main Trees |=====###
+#Giani Economy Tree
+shared_focus = {
+	id = ITA_the_left_wing_to_sustain
+	icon = GFX_ITA_The_Left_Wing_To_Sustain
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_guided_by_the_eagle
+	}
+	x = -10
+	y = 1
+	relative_position_id = ITA_guided_by_the_eagle
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_left_wing_to_sustain"
+		set_temp_variable = { temp_econ_GDP_boost_percentage = 0.01 }
+		econ_GDP_boost_once_percentage = yes
+
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = industry
+		}
+
+		#Italy's credit ratings begin to drop because people are scared of Giani's reforms
+		hidden_effect = {
+			country_event = {
+				id = ITA_giani.1
+				days = 11
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_a_modern_autarky
+	icon = GFX_USA_tone_back_trade
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_left_wing_to_sustain
+	}
+	mutually_exclusive = {
+		focus = ITA_promote_corporatism
+	}
+	x = -4
+	y = 1
+	relative_position_id = ITA_the_left_wing_to_sustain
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_modern_autarky"
+		TNO_improve_agriculture_med = yes
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = excavation_tech
+		}
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = synth_resources
+		}
+
+		set_temp_variable = { gdp_growth_temp = -0.001 }
+		econ_gdp_growth_change = yes
+
+	}
+}
+
+shared_focus = {
+	id = ITA_divini_et_humani_iuris_communicatio
+	icon = GFX_TYM_family_building
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_modern_autarky
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_a_modern_autarky
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_divini_et_humani_iuris_communicatio"
+		add_ideas = ITA_fascist_family_planning_1
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 0.25 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_wives_and_mothers
+	icon = GFX_generic_traditional_roles
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_divini_et_humani_iuris_communicatio
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_divini_et_humani_iuris_communicatio
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_wives_and_mothers"
+		tno_gender_rights_worsen = yes
+		tno_gender_rights_worsen = yes
+		tno_gender_rights_worsen = yes
+		tno_gender_rights_worsen = yes
+		tno_gender_rights_worsen = yes
+		swap_ideas = {
+			add_idea = ITA_fascist_family_planning_2
+			remove_idea = ITA_fascist_family_planning_1
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_no_mouth_left_unfed
+	icon = GFX_GER_SGR_feed_the_soldiers
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_wives_and_mothers
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_wives_and_mothers
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_no_mouth_left_unfed"
+		TNO_improve_poverty_med = yes
+		tno_education_improve = yes
+		tno_education_worsen = yes
+		tno_education_worsen = yes
+		tno_education_improve = yes
+		tno_education_improve = yes
+		ITA_social_funding_shift_up_3_percent = yes
+		swap_ideas = {
+			add_idea = ITA_fascist_family_planning_3
+			remove_idea = ITA_fascist_family_planning_2
+		}
+
+		TNO_worsen_poverty_med = yes
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 1 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_the_iri_economic_beacon
+	icon = GFX_ITA_The_IRI_Economic_Beacon
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_modern_autarky
+		focus = ITA_promote_corporatism
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_a_modern_autarky
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_iri_economic_beacon"
+		add_political_power = -50
+		ITA_admin_funding_shift_up_1_percent = yes
+		TNO_improve_industrial_equipment_low = yes
+		add_tech_bonus = {
+			bonus = 1
+			uses = 2
+			category = industry
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_fan_the_flames
+	icon = GFX_ITA_the_fourth_economic_power
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_iri_economic_beacon
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_the_iri_economic_beacon
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_fan_the_flames"
+		ITA_admin_funding_shift_up_2_percent = yes
+		TNO_improve_industrial_equipment_low = yes
+		set_temp_variable = { gdp_growth_temp = 0.0025 }
+		econ_gdp_growth_change = yes
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 1 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_polish_the_mirrors
+	icon = GFX_ITA_Lo_Stato_del_Lavoro
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_iri_economic_beacon
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_the_iri_economic_beacon
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_polish_the_mirrors"
+		add_political_power = -50
+
+		TNO_worsen_poverty_med = yes
+
+		TNO_improve_academic_base_low = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_a_light_into_the_darkness
+	icon = GFX_ITA_A_Light_into_the_Darkness
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_fan_the_flames
+	}
+	prerequisite = {
+		focus = ITA_polish_the_mirrors
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_fan_the_flames
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_light_into_the_darkness"
+		add_ideas = ITA_the_shining_light_of_IRI
+		set_temp_variable = { gdp_growth_temp = 0.005 }
+		econ_gdp_growth_change = yes
+		set_temp_variable = { econ_centralization_temp = 4 }
+		econ_centralization_change = yes
+
+		#Credit ratings are starting to recover because reforms have been succesfull 
+		hidden_effect = {
+			country_event = {
+				id = ITA_giani.2
+				days = 8
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_promote_corporatism
+	icon = GFX_ITA_Talk_to_Confindustria
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_left_wing_to_sustain
+	}
+	mutually_exclusive = {
+		focus = ITA_a_modern_autarky
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_the_left_wing_to_sustain
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_promote_corporatism"
+		add_political_power = -50
+		TNO_improve_industrial_expertise_low = yes
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = industry
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_bringing_gospel_to_the_factories
+	icon = GFX_ITA_fascist_mysticism_propaganda
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_promote_corporatism
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_promote_corporatism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_bringing_gospel_to_the_factories"
+		add_popularity = {
+			popularity = 0.03
+			ideology = fascism
+		}
+		add_stability = -0.05
+		tno_security_improve = yes
+		set_temp_variable = { fervour_change = 3 }
+		ITA_Giani_change_fervour = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_from_syndicalism_to_proselytism
+	icon = GFX_ITA_Massacare_the_Reds
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_bringing_gospel_to_the_factories
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_bringing_gospel_to_the_factories
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_from_syndicalism_to_proselytism"
+		add_popularity = {
+			popularity = 0.02
+			ideology = fascism
+		}
+		tno_trade_unions_improve = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_purge_the_heathens
+	icon = GFX_ITA_Rage_Against_The_Machine
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_from_syndicalism_to_proselytism
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_from_syndicalism_to_proselytism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_purge_the_heathens"
+		add_stability = -0.05
+		add_manpower = -1392
+		add_ideas = ITA_work_and_obey
+	}
+}
+
+shared_focus = {
+	id = ITA_long_term_economic_planning
+	icon = GFX_ITA_Le_500_Lire_di_Moro
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_no_mouth_left_unfed
+		focus = ITA_purge_the_heathens
+	}
+	prerequisite = {
+		focus = ITA_a_light_into_the_darkness
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_no_mouth_left_unfed
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_long_term_economic_planning"
+		add_tech_bonus = {
+			bonus = 1
+			uses = 2
+			category = industry
+		}
+		set_temp_variable = { gdp_growth_temp = 0.006 }
+		econ_gdp_growth_change = yes
+
+		TNO_improve_agriculture_low = yes
+		TNO_improve_industrial_expertise_low = yes
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 1 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_reward_loyalty
+	icon = GFX_ITA_forza_rework
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_no_mouth_left_unfed
+		focus = ITA_purge_the_heathens
+	}
+	prerequisite = {
+		focus = ITA_a_light_into_the_darkness
+	}
+	x = 5
+	y = 1
+	relative_position_id = ITA_no_mouth_left_unfed
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_reward_loyalty"
+
+		tno_minimum_wage_improve = yes
+		tno_minimum_wage_worsen = yes
+		tno_minimum_wage_worsen = yes
+		tno_minimum_wage_improve = yes
+		tno_minimum_wage_improve = yes
+		tno_max_workhours_improve = yes
+		tno_max_workhours_worsen = yes
+		tno_max_workhours_worsen = yes
+		tno_max_workhours_improve = yes
+		tno_max_workhours_improve = yes
+		tno_unemployment_improve = yes
+		tno_unemployment_worsen = yes
+		tno_unemployment_worsen = yes
+		tno_unemployment_improve = yes
+		tno_unemployment_improve = yes
+		tno_safety_improve = yes
+		tno_safety_worsen = yes
+		tno_safety_worsen = yes
+		tno_safety_improve = yes
+		tno_safety_improve = yes
+		tno_health_care_improve = yes
+		tno_health_care_worsen = yes
+		tno_health_care_worsen = yes
+		tno_health_care_improve = yes
+		tno_health_care_improve = yes
+		ITA_social_funding_shift_up_3_percent = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_a_leap_of_faith
+	icon = GFX_ITA_leap_of_faith
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_long_term_economic_planning
+	}
+	prerequisite = {
+		focus = ITA_reward_loyalty
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_long_term_economic_planning
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_leap_of_faith"
+		set_temp_variable = { fervour_change = 2 }
+		ITA_Giani_change_fervour = yes
+
+		ITA_research_funding_shift_up_2_percent = yes
+
+		TNO_improve_academic_base_low = yes
+		TNO_improve_research_facilities_low = yes
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 0.5 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_natura_mater_omnium
+	icon = GFX_IND_India_Clean_Environmental_Action
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_leap_of_faith
+	}
+	prerequisite = {
+		focus = ITA_long_term_economic_planning
+	}
+	mutually_exclusive = {
+		focus = ITA_labor_omnia_vincit
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_a_leap_of_faith
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_natura_mater_omnium"
+		set_temp_variable = { fervour_change = 4 }
+		ITA_Giani_change_fervour = yes
+
+		set_temp_variable = { gdp_growth_temp = 0.001 }
+		econ_gdp_growth_change = yes
+
+		tno_pollution_improve = yes
+		tno_pollution_worsen = yes
+		tno_pollution_worsen = yes
+		tno_pollution_improve = yes
+		tno_pollution_improve = yes
+		ITA_admin_funding_shift_up_1_percent = yes
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 0.5 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_labor_omnia_vincit
+	icon = GFX_generic_change_law_labor
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_leap_of_faith
+	}
+	prerequisite = {
+		focus = ITA_reward_loyalty
+	}
+	mutually_exclusive = {
+		focus = ITA_natura_mater_omnium
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_a_leap_of_faith
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_labor_omnia_vincit"
+		set_temp_variable = { fervour_change = -2 }
+		ITA_Giani_change_fervour = yes
+
+		set_temp_variable = { gdp_growth_temp = 0.003 }
+		econ_gdp_growth_change = yes
+
+		tno_pollution_worsen = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_per_aspera_ad_astra
+	icon = GFX_ITA_eagle_clouds_stars
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_natura_mater_omnium
+		focus = ITA_labor_omnia_vincit
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_natura_mater_omnium
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_per_aspera_ad_astra"
+		custom_effect_tooltip = ITA_giani_increase_conversion_rate_all_states_05
+		add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_s_italy_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_s_a_c_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_sicily_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_libya_conversion_rate_shown = 0.5}
+
+		swap_ideas = {
+			add_idea = ITA_per_aspera_ad_astra_idea
+			remove_idea = ITA_the_shining_light_of_IRI
+		}
+
+		TNO_improve_poverty_med = yes
+		TNO_improve_academic_base_med = yes
+
+
+		#credit rating has normalized because reforms have been succesfull
+		hidden_effect = {
+			country_event = {
+				id = ITA_giani.3
+				days = 4
+			}
+		}
+	}
+}
+
+#Giani Political Tree
+shared_focus = {
+	id = ITA_heart_and_soul_to_ascend
+	icon = GFX_ITA_fascism_eagle
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_guided_by_the_eagle
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_guided_by_the_eagle
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_heart_and_soul_to_ascend"
+		add_stability = -0.05
+		add_political_power = 50
+
+
+		set_temp_variable = { fervour_change = 2 }
+		ITA_Giani_change_fervour = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_ending_the_lie
+	icon = GFX_generic_republican_movement
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_heart_and_soul_to_ascend
+	}
+	x = -4
+	y = 1
+	relative_position_id = ITA_heart_and_soul_to_ascend
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_ending_the_lie"
+		set_temp_variable = { fervour_change = 3 }
+		ITA_Giani_change_fervour = yes
+
+		custom_effect_tooltip = ITA_decrease_admin_socdev_50
+		TNO_worsen_academic_base_high = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_breach_the_barrier
+	icon = GFX_purge_opposition
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_ending_the_lie
+	}
+	x = -1
+	y = 2
+	relative_position_id = ITA_ending_the_lie
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_breach_the_barrier"
+		ITA_admin_funding_shift_up_1_percent = yes
+
+		custom_effect_tooltip = ITA_decrease_admin_socdev_25
+		TNO_worsen_academic_base_med = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_a_fascist_constitution
+	icon = GFX_generic_constitution
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_breach_the_barrier
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_breach_the_barrier
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_fascist_constitution"
+		#will have an event
+		tno_vote_franchise_worsen = yes
+		tno_political_parties_worsen = yes
+		tno_security_improve = yes
+		tno_public_meetings_worsen = yes
+		tno_minorities_worsen = yes
+		tno_gender_rights_worsen = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_in_fascio_veritas
+	icon = GFX_ITA_A_new_Manifesto_della_Razza
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_ending_the_lie
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_ending_the_lie
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_in_fascio_veritas"
+		add_political_power = 25
+		add_stability = 0.05
+
+		add_ideas = tno_press_rights_state_press_only
+		tno_press_rights_worsen = yes
+		tno_press_rights_worsen = yes
+		tno_press_rights_improve = yes
+		tno_press_rights_improve = yes
+		set_temp_variable = { fervour_change = 4 }
+		ITA_Giani_change_fervour = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_una_mens_una_voluntas
+	icon = GFX_ITA_fash
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_in_fascio_veritas
+	}
+	prerequisite = {
+		focus = ITA_dux_nostra_lux
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_in_fascio_veritas
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_una_mens_una_voluntas"
+		add_political_power = 25
+
+		set_temp_variable = { fervour_change = 4 }
+		ITA_Giani_change_fervour = yes
+
+		custom_effect_tooltip = ITA_decrease_admin_socdev_25
+		TNO_worsen_academic_base_med = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_a_fascist_administration
+	icon = GFX_IND_india_diplomatic_ita
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_fascist_constitution
+	}
+	prerequisite = {
+		focus = ITA_una_mens_una_voluntas
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_a_fascist_constitution
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_fascist_administration"
+		add_stability = -0.1
+
+		ITA_admin_funding_shift_up_2_percent = yes
+
+		set_temp_variable = { fervour_change = 4 }
+		ITA_Giani_change_fervour = yes
+
+		custom_effect_tooltip = ITA_decrease_admin_socdev_50
+		TNO_worsen_academic_base_high = yes
+
+		tno_public_meetings_improve = yes
+		tno_public_meetings_improve = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_he_is_the_truth
+	icon = GFX_ITA_Giani_March
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_fascist_constitution
+	}
+	prerequisite = {
+		focus = ITA_una_mens_una_voluntas
+	}
+	prerequisite = {
+		focus = ITA_a_fascist_constitution
+	}
+	prerequisite = {
+		focus = ITA_una_mens_una_voluntas
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_a_fascist_constitution
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_he_is_the_truth"
+		add_stability = 0.05
+
+		tno_security_improve = yes
+		tno_security_worsen = yes
+		tno_security_improve = yes
+		set_temp_variable = { fervour_change = 5 }
+		ITA_Giani_change_fervour = yes
+
+		custom_effect_tooltip = ITA_decrease_admin_socdev_25
+		TNO_worsen_academic_base_med = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_fragantur_aut_flectatur
+	icon = GFX_ITA_Annihilate_the_Royalists
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_fascist_administration
+	}
+	prerequisite = {
+		focus = ITA_he_is_the_truth
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_a_fascist_administration
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_fragantur_aut_flectatur"
+		#will have an event
+		add_popularity = {
+			ideology = despotism
+			popularity = -0.5
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_our_mouths_his_voice
+	icon = GFX_ITA_fascist_cheer
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_he_is_the_truth
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_he_is_the_truth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_our_mouths_his_voice"
+		add_stability = 0.05
+		tno_press_rights_improve = yes
+		tno_public_meetings_improve = yes
+		tno_political_parties_improve = yes
+		tno_security_improve = yes
+		tno_security_improve = yes
+		tno_security_worsen = yes
+		tno_security_improve = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_victory_over_the_old_order
+	icon = GFX_ITA_demand_full_powers
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_fragantur_aut_flectatur
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_fragantur_aut_flectatur
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_victory_over_the_old_order"
+		add_political_power = 100
+		add_stability = -0.15
+
+		set_temp_variable = { fervour_change = 8 }
+		ITA_Giani_change_fervour = yes
+
+		tno_political_parties_improve = yes
+		ITA_admin_funding_shift_up_1_percent = yes
+
+		TNO_improve_academic_base_high = yes
+
+		add_ideas = ITA_giani_new_fascist_state
+	}
+}
+
+shared_focus = {
+	id = ITA_reshaping_society
+	icon = GFX_generic_change_law_immigration
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_heart_and_soul_to_ascend
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_heart_and_soul_to_ascend
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_reshaping_society"
+		add_stability = -0.1
+		ITA_social_funding_shift_up_1_percent = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_festina
+	icon = GFX_Tyranny_purple
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_reshaping_society
+	}
+	mutually_exclusive = {
+		focus = ITA_lente
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_reshaping_society
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_festina"
+		add_stability = -0.1
+		add_political_power = -50
+		add_manpower = -260
+
+		custom_effect_tooltip = ITA_decrease_admin_socdev_50
+		TNO_worsen_academic_base_high = yes
+
+		set_temp_variable = { fervour_change = 10 }
+		ITA_Giani_change_fervour = yes
+
+		custom_effect_tooltip = ITA_giani_increase_conversion_rate_all_states_05
+		add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_s_italy_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_s_a_c_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_sicily_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_libya_conversion_rate_shown = 0.5}
+	}
+}
+
+shared_focus = {
+	id = ITA_lente
+	icon = GFX_generic_welfare_general
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_reshaping_society
+	}
+	mutually_exclusive = {
+		focus = ITA_festina
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_reshaping_society
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_lente"
+		add_stability = 0.05
+		add_political_power = 50
+
+		set_temp_variable = { fervour_change = 2 }
+		ITA_Giani_change_fervour = yes
+
+		custom_effect_tooltip = ITA_la_fede_di_un_crociato_tt_1
+		add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate_shown = 0.5}
+	}
+}
+
+shared_focus = {
+	id = ITA_dux_nostra_lux
+	icon = GFX_ITA_dux_nostra_lux
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_festina
+		focus = ITA_lente
+	}
+	prerequisite = {
+		focus = ITA_in_fascio_veritas
+	}
+	prerequisite = {
+		focus = ITA_in_fascio_virtus
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_festina
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_dux_nostra_lux"
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+
+		add_stability = 0.1
+
+		ITA_social_funding_shift_up_1_percent = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_obsequium_amicos
+	icon = GFX_USA_helping_hand
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_dux_nostra_lux
+	}
+	mutually_exclusive = {
+		focus = ITA_veritas_odium_parit
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_dux_nostra_lux
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_obsequium_amicos"
+		add_stability = 0.05
+		
+		TNO_improve_academic_base_low = yes
+
+		set_temp_variable = { fervour_change = -2 }
+		ITA_Giani_change_fervour = yes
+
+		ITA_admin_funding_shift_up_1_percent = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_veritas_odium_parit
+	icon = GFX_CAU_purge_the_bureaucrats
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_dux_nostra_lux
+	}
+	mutually_exclusive = {
+		focus = ITA_obsequium_amicos
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_dux_nostra_lux
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_veritas_odium_parit"
+		add_stability = 0.05
+		add_manpower = -193
+
+		custom_effect_tooltip = ITA_decrease_admin_socdev_50
+		TNO_worsen_academic_base_high = yes
+
+		set_temp_variable = { fervour_change = 5 }
+		ITA_Giani_change_fervour = yes
+
+		TNO_improve_academic_base_low = yes
+
+		TNO_worsen_poverty_low = yes
+
+		ITA_admin_funding_shift_up_2_percent = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_a_superior_people
+	icon = GFX_ITA_Reel_In_Blackshirts
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_obsequium_amicos
+		focus = ITA_veritas_odium_parit
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_obsequium_amicos
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_superior_people"
+		add_stability = -0.05
+		add_war_support = 0.05
+
+		set_temp_variable = { fervour_change = 8 }
+		ITA_Giani_change_fervour = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_reinstate_racial_laws
+	icon = GFX_ITA_Reinstate_Racial_Laws
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_superior_people
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_a_superior_people
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_reinstate_racial_laws"
+		add_stability = -0.1
+		add_political_power = -50
+		tno_minorities_improve = yes
+		TNO_worsen_poverty_med = yes
+
+		ITA_admin_funding_shift_up_2_percent = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_establishing_the_fascist_cult
+	icon = GFX_ITA_establishing_the_fascist_cult
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_heart_and_soul_to_ascend
+	}
+	x = 4
+	y = 1
+	relative_position_id = ITA_heart_and_soul_to_ascend
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_establishing_the_fascist_cult"
+		add_stability = -0.05
+		add_war_support = 0.05
+
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+
+		custom_effect_tooltip = ITA_la_fede_di_un_crociato_tt_2
+		add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate_shown = 0.5}
+	}
+}
+
+shared_focus = {
+	id = ITA_in_fascio_virtus
+	icon = GFX_USA_Primary_Education_Act
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_establishing_the_fascist_cult
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_establishing_the_fascist_cult
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_in_fascio_virtus"
+		custom_effect_tooltip = ITA_dulce_et_decorum_est_pro_patria_mori_tt
+		add_to_variable = { ITA_GUI_giani_s_italy_conversion_rate = 0.5 }
+
+		ITA_social_funding_shift_up_2_percent = yes
+
+		tno_education_improve = yes
+		tno_education_worsen = yes
+		tno_education_worsen = yes
+		tno_education_improve = yes
+		tno_education_improve = yes
+		TNO_improve_academic_base_med = yes
+
+		add_stability = 0.05
+
+		add_popularity = {
+			ideology = socialist
+			popularity = -0.05
+		}
+		add_popularity = {
+			ideology = national_socialism
+			popularity = -0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_saints_and_martyrs
+	icon = GFX_ITA_Saints_and_Martyrs
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_establishing_the_fascist_cult
+	}
+	available = {
+		has_completed_focus = ITA_a_fascist_administration
+	}
+	x = 1
+	y = 2
+	relative_position_id = ITA_establishing_the_fascist_cult
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_saints_and_martyrs"
+		add_stability = -0.05
+		add_war_support = 0.05
+
+		custom_effect_tooltip = ITA_saints_and_martyrs_tt
+		add_to_variable = { ITA_GUI_giani_n_italy_conversion_rate = 0.5 }
+	}
+}
+
+shared_focus = {
+	id = ITA_vis_et_fortitudo
+	icon = GFX_SPA_Reform_the_Youth_Organization
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_dux_nostra_lux
+	}
+	prerequisite = {
+		focus = ITA_in_fascio_virtus
+	}
+	x = 3
+	y = 1
+	relative_position_id = ITA_dux_nostra_lux
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_vis_et_fortitudo"
+		custom_effect_tooltip = ITA_la_fede_di_un_crociato_tt_1
+		add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate_shown = 0.5}
+
+		ITA_social_funding_shift_up_1_percent = yes
+		ITA_admin_funding_shift_up_1_percent = yes
+
+		add_political_power = 50
+		add_stability = 0.05
+
+		add_popularity = {
+			ideology = social_democrat
+			popularity = -0.02
+		}
+		add_popularity = {
+			ideology = social_liberal
+			popularity = -0.02
+		}
+		add_popularity = {
+			ideology = social_conservative
+			popularity = -0.02
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = -0.02
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_relics_and_shrines
+	icon = GFX_ITA_Relic_And_Shrines
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_saints_and_martyrs
+	}
+	available = {
+		has_completed_focus = ITA_fragantur_aut_flectatur
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_saints_and_martyrs
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_relics_and_shrines"
+		TNO_worsen_poverty_low = yes
+
+		add_stability = -0.05
+
+		custom_effect_tooltip = ITA_relics_and_shrines_tt
+		add_to_variable = {ITA_GUI_giani_s_italy_conversion_rate_shown = 0.5}
+		custom_effect_tooltip = ITA_la_fede_di_un_crociato_tt_2
+		add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate_shown = 0.5}
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 0.25 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_extol_the_heroes_of_fascism
+	icon = GFX_URL_Study_History
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_vis_et_fortitudo
+	}
+	prerequisite = {
+		focus = ITA_relics_and_shrines
+	}
+	available = {
+		has_completed_focus = ITA_breach_the_barrier
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_vis_et_fortitudo
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_extol_the_heroes_of_fascism"
+		add_stability = 0.05
+		add_war_support = 0.05
+
+		custom_effect_tooltip = ITA_extol_the_heroes_of_fascism_tt
+		add_to_variable = {ITA_GUI_giani_libya_conversion_rate_shown = 1}
+	}
+}
+
+shared_focus = {
+	id = ITA_mass_liturgies
+	icon = GFX_ITA_fascist_family
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_relics_and_shrines
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_relics_and_shrines
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_mass_liturgies"
+		add_stability = 0.05
+
+		custom_effect_tooltip = ITA_giani_increase_conversion_rate_all_states_05
+		add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_s_italy_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_s_a_c_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_sicily_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_libya_conversion_rate_shown = 0.5}
+
+		set_temp_variable = { fervour_change = 5 }
+		ITA_Giani_change_fervour = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_our_bodies_his_will
+	icon = GFX_generic_elections_rigged
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_extol_the_heroes_of_fascism
+	}
+	prerequisite = {
+		focus = ITA_mass_liturgies
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_extol_the_heroes_of_fascism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_our_bodies_his_will"
+		tno_religious_rights_improve = yes
+		tno_religious_rights_improve = yes
+		TNO_improve_poverty_low = yes
+
+		set_temp_variable = { fervour_change = 6 }
+		ITA_Giani_change_fervour = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_benito_mussolini_profeta_del_fascismo
+	icon = GFX_ITA_benito_mussolini_shrine
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_mass_liturgies
+	}
+	available = {
+		has_completed_focus = ITA_victory_over_the_old_order
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_mass_liturgies
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_benito_mussolini_profeta_del_fascismo"
+		add_stability = 0.05
+		add_political_power = 50
+
+		custom_effect_tooltip = ITA_giani_increase_conversion_rate_all_states_05
+		add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_s_italy_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_s_a_c_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_sicily_conversion_rate_shown = 0.5}
+		add_to_variable = {ITA_GUI_giani_libya_conversion_rate_shown = 0.5}
+
+		set_temp_variable = { fervour_change = 6 }
+		ITA_Giani_change_fervour = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_niccolo_giani_voce_dell_impero
+	icon = GFX_ITA_giani_shrine
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_benito_mussolini_profeta_del_fascismo
+	}
+	available = {
+		has_completed_focus = ITA_the_renewed_doctrine_of_fascism
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_benito_mussolini_profeta_del_fascismo
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_niccolo_giani_voce_dell_impero"
+		add_stability = 0.05
+		add_political_power = 50
+
+		custom_effect_tooltip = ITA_giani_increase_conversion_rate_all_states_1
+		add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate_shown = 1}
+		add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate_shown = 1}
+		add_to_variable = {ITA_GUI_giani_s_italy_conversion_rate_shown = 1}
+		add_to_variable = {ITA_GUI_giani_s_a_c_conversion_rate_shown = 1}
+		add_to_variable = {ITA_GUI_giani_sicily_conversion_rate_shown = 1}
+		add_to_variable = {ITA_GUI_giani_libya_conversion_rate_shown = 1}
+
+		set_temp_variable = { fervour_change = 12 }
+		ITA_Giani_change_fervour = yes
+
+		add_ideas = ITA_giani_new_fascist_mind
+	}
+}
+
+shared_focus = {
+	id = ITA_the_renewed_doctrine_of_fascism
+	icon = GFX_ITA_united_in_their_faith
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_our_mouths_his_voice
+	}
+	prerequisite = {
+		focus = ITA_reinstate_racial_laws
+	}
+	prerequisite = {
+		focus = ITA_our_bodies_his_will
+	}
+	x = 3
+	y = 1
+	relative_position_id = ITA_our_mouths_his_voice
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_renewed_doctrine_of_fascism"
+		add_stability = 0.1
+		add_political_power = 50
+
+		tno_racial_integration_improve = yes
+		add_ideas = ITA_giani_new_fascist_doctrine
+	}
+}
+
+shared_focus = {
+	id = ITA_gloria_all_italia
+	icon = GFX_ITA_days_of_the_lion
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_victory_over_the_old_order
+	}
+	prerequisite = {
+		focus = ITA_the_renewed_doctrine_of_fascism
+	}
+	prerequisite = {
+		focus = ITA_niccolo_giani_voce_dell_impero
+	}
+	x = 3
+	y = 1
+	relative_position_id = ITA_victory_over_the_old_order
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_gloria_all_italia"
+		add_stability = 0.05
+		add_war_support = 0.05
+		add_political_power = 50
+
+		tno_political_parties_improve = yes
+		tno_press_rights_improve = yes
+		tno_public_meetings_improve = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_gloria_al_fascismo
+	icon = GFX_ITA_ordine_nuovo
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_victory_over_the_old_order
+	}
+	prerequisite = {
+		focus = ITA_the_renewed_doctrine_of_fascism
+	}
+	prerequisite = {
+		focus = ITA_niccolo_giani_voce_dell_impero
+	}
+	x = 9
+	y = 1
+	relative_position_id = ITA_victory_over_the_old_order
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_gloria_al_fascismo"
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+
+		tno_security_improve = yes
+		tno_racial_integration_improve = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_credo_in_un_solo_duce
+	icon = GFX_ITA_credo_in_un_solo_duce
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_gloria_all_italia
+	}
+	prerequisite = {
+		focus = ITA_gloria_al_fascismo
+	}
+	x = 3
+	y = 1
+	relative_position_id = ITA_gloria_all_italia
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_credo_in_un_solo_duce"
+		custom_effect_tooltip = ITA_giani_increase_conversion_rate_all_states_1
+		add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate_shown = 1}
+		add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate_shown = 1}
+		add_to_variable = {ITA_GUI_giani_s_italy_conversion_rate_shown = 1}
+		add_to_variable = {ITA_GUI_giani_s_a_c_conversion_rate_shown = 1}
+		add_to_variable = {ITA_GUI_giani_sicily_conversion_rate_shown = 1}
+		add_to_variable = {ITA_GUI_giani_libya_conversion_rate_shown = 1}
+
+		set_temp_variable = { fervour_change = 12 }
+		ITA_Giani_change_fervour = yes
+
+		add_political_power = 100
+
+		add_stability = 0.05
+
+		remove_ideas = {
+			ITA_giani_new_fascist_doctrine
+			ITA_giani_new_fascist_state
+			ITA_giani_new_fascist_mind
+		}
+
+		add_ideas = ITA_giani_new_fascism
+	}
+}
+
+#Giani Military Tree
+shared_focus = {
+	id = ITA_the_right_wing_to_protect
+	icon = GFX_ITA_The_Right_Wing_To_Protect
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_guided_by_the_eagle
+	}
+	x = 10
+	y = 1
+	relative_position_id = ITA_guided_by_the_eagle
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_right_wing_to_protect"
+		army_experience = 25
+		air_experience = 25
+		navy_experience = 25
+
+		TNO_improve_army_professionalism_med = yes
+		ITA_army_funding_shift_up_1_percent = yes
+
+		set_temp_variable = { fervour_change = 5 }
+		ITA_Giani_change_fervour = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_a_glorious_legacy
+	icon = GFX_ENG_Restoring_Naval_Titles_and_Medals
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_right_wing_to_protect
+	}
+	mutually_exclusive = {
+		focus = ITA_a_shining_future
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_the_right_wing_to_protect
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_glorious_legacy"
+		add_tech_bonus = {
+			bonus = 1
+			uses = 3
+			category = support_tech
+		}
+		add_doctrine_cost_reduction = {
+			name = land_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = land_doctrine
+		}
+		add_doctrine_cost_reduction = {
+			name = naval_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = naval_doctrine
+		}
+		add_doctrine_cost_reduction = {
+			name = air_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = air_doctrine
+		}
+
+		ITA_army_funding_shift_up_1_percent = yes
+
+		set_temp_variable = { fervour_change = 3 }
+		ITA_Giani_change_fervour = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_a_shining_future
+	icon = GFX_TNO_generic_beacon_light
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_right_wing_to_protect
+	}
+	mutually_exclusive = {
+		focus = ITA_a_glorious_legacy
+	}
+	x = 5
+	y = 1
+	relative_position_id = ITA_the_right_wing_to_protect
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_shining_future"
+		add_tech_bonus = {
+			bonus = 1
+			uses = 3
+			category = motorized_equipment
+		}
+		add_tech_bonus = {
+			bonus = 1
+			uses = 2
+			category = armor
+		}
+		add_doctrine_cost_reduction = {
+			name = land_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = land_doctrine
+		}
+		add_doctrine_cost_reduction = {
+			name = naval_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = naval_doctrine
+		}
+		add_doctrine_cost_reduction = {
+			name = air_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = air_doctrine
+		}
+
+		army_experience = 25
+		air_experience = 25
+		navy_experience = 25
+
+		ITA_research_funding_shift_up_3_percent = yes
+
+		set_temp_variable = { fervour_change = -2 }
+		ITA_Giani_change_fervour = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_a_new_regia_marina
+	icon = GFX_A_New_Regia_Marina
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_glorious_legacy
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_a_glorious_legacy
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_new_regia_marina"
+		ITA_army_funding_shift_up_1_percent = yes
+
+		TNO_improve_army_professionalism_low = yes
+
+		ITA_scrap_all_battleships_and_carriers = yes
+
+		add_tech_bonus = {
+			bonus = 1
+			uses = 5
+			category = naval_equipment
+		}
+
+		activate_mission = ITA_rebuild_regia_marina
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 0.5 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_expand_naval_industry
+	icon = GFX_COG_Shipping_Expansion
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_new_regia_marina
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_a_new_regia_marina
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_expand_naval_industry"
+		ITA_admin_funding_shift_up_1_percent = yes
+
+		every_owned_state = {
+			limit = {
+				OR = {
+					state = 1323
+					state = 162
+				}
+			}
+			add_building_construction = {
+				type = dockyard
+				level = 2
+				instant_build = yes
+			}
+		}
+
+		add_ideas = ITA_giani_expanded_naval_production
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 1 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_classis_oceanica
+	icon = GFX_ITA_fascism_indian_ocean
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_expand_naval_industry
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_expand_naval_industry
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_classis_oceanica"
+		ITA_army_funding_shift_up_2_percent = yes
+
+		709 = {
+			add_building_construction = {
+				type = naval_base
+				level = 2
+				instant_build = yes
+				province = 2188
+			}
+		}
+		1108 = {
+			add_building_construction = {
+				type = naval_base
+				level = 2
+				instant_build = yes
+				province = 5091
+			}
+		}
+
+		add_doctrine_cost_reduction = {
+			name = naval_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = naval_doctrine
+		}
+		add_tech_bonus = {
+			bonus = 1
+			uses = 2
+			category = naval_equipment
+		}
+
+		navy_experience = 25
+
+		tno_training_improve = yes
+		add_ideas = ITA_classis_oceanica_idea
+	}
+}
+
+shared_focus = {
+	id = ITA_il_milite_fascista_ha
+	icon = GFX_ITA_giani_fascist_military
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_glorious_legacy
+		focus = ITA_a_shining_future
+	}
+	x = 3
+	y = 1
+	relative_position_id = ITA_a_glorious_legacy
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_il_milite_fascista_ha"
+		ITA_army_funding_shift_up_1_percent = yes
+
+		add_tech_bonus = {
+			bonus = 1
+			uses = 3
+			category = infantry_weapons
+		}
+
+		add_doctrine_cost_reduction = {
+			name = land_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = land_doctrine
+		}
+
+		TNO_improve_army_professionalism_med = yes
+
+		tno_conscription_improve = yes
+		set_temp_variable = { fervour_change = 4 }
+		ITA_Giani_change_fervour = yes
+
+		add_manpower = -640
+	}
+}
+
+shared_focus = {
+	id = ITA_la_forza_di_un_legionario
+	icon = GFX_ITA_La_Forza_Di_Un_Legionario
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_il_milite_fascista_ha
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_il_milite_fascista_ha
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_la_forza_di_un_legionario"
+		tno_training_improve = yes
+		tno_training_worsen = yes
+		tno_training_worsen = yes
+		tno_training_improve = yes
+		tno_training_improve = yes
+		add_ideas = ITA_gruesome_training
+	}
+}
+
+shared_focus = {
+	id = ITA_la_fede_di_un_crociato
+	icon = GFX_CAU_purge_the_officers
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_il_milite_fascista_ha
+	}
+	available = {
+		has_completed_focus = ITA_la_forza_di_un_legionario
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_il_milite_fascista_ha
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_la_fede_di_un_crociato"
+		add_war_support = 0.03
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.03
+		}
+
+		set_temp_variable = { fervour_change = 3 }
+		ITA_Giani_change_fervour = yes
+
+		custom_effect_tooltip = ITA_la_fede_di_un_crociato_tt_1
+		add_to_variable = {ITA_GUI_giani_n_italy_conversion_rate_shown = 0.5}
+		custom_effect_tooltip = ITA_la_fede_di_un_crociato_tt_2
+		add_to_variable = {ITA_GUI_giani_c_italy_conversion_rate_shown = 0.5}
+
+		add_timed_idea = {
+			idea = ITA_recovering_from_officer_purge
+			days = 180
+		}
+		add_ideas = ITA_zelous_infantry
+
+		add_manpower = -135
+	}
+}
+
+shared_focus = {
+	id = ITA_vincere_e_vinceremo
+	icon = GFX_ITA_charging_soliders
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_la_forza_di_un_legionario
+	}
+	prerequisite = {
+		focus = ITA_la_fede_di_un_crociato
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_la_forza_di_un_legionario
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_vincere_e_vinceremo"
+		ITA_army_funding_shift_up_1_percent = yes
+
+		add_tech_bonus = {
+			bonus = 1
+			uses = 2
+			category = support_tech
+		}
+
+		add_tech_bonus = {
+			bonus = 1
+			uses = 3
+			category = artillery
+		}
+
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = armor
+		}
+
+		add_doctrine_cost_reduction = {
+			name = land_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = land_doctrine
+		}
+
+		remove_ideas = {
+			ITA_zelous_infantry
+			ITA_gruesome_training
+		}
+
+		add_ideas = ITA_an_army_worth_the_empire
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 0.5 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_expand_the_regia_aeronautica
+	icon = GFX_generic_jet_fighter_1
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_shining_future
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_a_shining_future
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_expand_the_regia_aeronautica"
+		ITA_army_funding_shift_up_1_percent = yes
+
+		add_doctrine_cost_reduction = {
+			name = air_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = air_doctrine
+		}
+		add_tech_bonus = {
+			bonus = 1
+			uses = 2
+			category = air_equipment
+		}
+
+		every_state = {
+			limit = {
+				OR = {
+					state = 160
+					state = 448
+					state = 271
+					state = 1336
+				}
+				
+			}
+			add_building_construction = {
+				type = air_base
+				level = 2
+				instant_build = yes
+			}
+		}
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 0.5 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_claws_of_the_eagle
+	icon = GFX_ITA_The_Eagle_Flies_Again
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_expand_the_regia_aeronautica
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_expand_the_regia_aeronautica
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_claws_of_the_eagle"
+		add_tech_bonus = {
+			bonus = 1
+			uses = 2
+			category = fighter
+		}
+		add_tech_bonus = {
+			bonus = 1
+			uses = 2
+			category = cas
+		}
+
+		add_ideas = ITA_the_eagles_talons
+	}
+}
+
+shared_focus = {
+	id = ITA_the_price_for_hubris
+	icon = GFX_ANG_bomber_buildup
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_claws_of_the_eagle
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_claws_of_the_eagle
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_price_for_hubris"
+		add_tech_bonus = {
+			bonus = 1
+			uses = 2
+			category = tactical_bomber
+		}
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = strategic_bomber
+		}
+		add_doctrine_cost_reduction = {
+			name = air_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = air_doctrine
+		}
+
+		swap_ideas = {
+			remove_idea = ITA_the_eagles_talons
+			add_idea = ITA_the_eagles_talons_2
+		}
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 0.5 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_a_new_school_of_thought
+	icon = GFX_IND_Question_The_Army
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_classis_oceanica
+		focus = ITA_the_price_for_hubris
+	}
+	prerequisite = {
+		focus = ITA_vincere_e_vinceremo
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_classis_oceanica
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_new_school_of_thought"
+		army_experience = 25
+		air_experience = 25
+		navy_experience = 25
+
+		add_doctrine_cost_reduction = {
+			name = land_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = land_doctrine
+		}
+		add_doctrine_cost_reduction = {
+			name = naval_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = naval_doctrine
+		}
+		add_doctrine_cost_reduction = {
+			name = air_doc_bonus
+			cost_reduction = 0.5
+			uses = 1
+			category = air_doctrine
+		}
+
+		add_timed_idea = {
+			idea = ITA_adapting_to_new_doctrine
+			days = 180
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_no_longer_lagging_behind
+	icon = GFX_generic_helicopter_2
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_classis_oceanica
+		focus = ITA_the_price_for_hubris
+	}
+	prerequisite = {
+		focus = ITA_vincere_e_vinceremo
+	}
+	x = 5
+	y = 1
+	relative_position_id = ITA_classis_oceanica
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_no_longer_lagging_behind"
+		ITA_research_funding_shift_up_2_percent = yes
+
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = electronics
+		}
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = helicopter
+		}
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 0.25 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_alpini_arditi_e_paracadutisti
+	icon = GFX_ITA_purple_skull_and_sword
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_new_school_of_thought
+	}
+	prerequisite = {
+		focus = ITA_no_longer_lagging_behind
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_a_new_school_of_thought
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_alpini_arditi_e_paracadutisti"
+		add_tech_bonus = {
+			bonus = 1
+			uses = 2
+			category = special_forces_tech
+		}
+
+		add_ideas = ITA_a_mans_skill_at_arms_never_fails
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 0.25 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_dulce_et_decorum_est_pro_patria_mori
+	icon = GFX_GGR_Prolonged_Occupation
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_new_school_of_thought
+	}
+	prerequisite = {
+		focus = ITA_alpini_arditi_e_paracadutisti
+	}
+	mutually_exclusive = {
+		focus = ITA_animos_accinge_futuris
+	}
+	x = 1
+	y = 2
+	relative_position_id = ITA_a_new_school_of_thought
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_dulce_et_decorum_est_pro_patria_mori"
+		add_tech_bonus = {
+			bonus = 1
+			uses = 2
+			category = infantry_weapons
+		}
+		add_tech_bonus = {
+			bonus = 1
+			uses = 3
+			category = artillery
+		}
+		add_tech_bonus = {
+			bonus = 1
+			uses = 2
+			category = support_tech
+		}
+
+		set_temp_variable = { fervour_change = 5 }
+		ITA_Giani_change_fervour = yes
+
+		add_to_variable = { ITA_GUI_giani_s_italy_conversion_rate = 0.5 }
+		custom_effect_tooltip = ITA_dulce_et_decorum_est_pro_patria_mori_tt
+	}
+}
+
+shared_focus = {
+	id = ITA_animos_accinge_futuris
+	icon = GFX_JAP_Mediate_a_Research_Agreement
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_no_longer_lagging_behind
+	}
+	prerequisite = {
+		focus = ITA_alpini_arditi_e_paracadutisti
+	}
+	mutually_exclusive = {
+		focus = ITA_dulce_et_decorum_est_pro_patria_mori
+	}
+	x = -1
+	y = 2
+	relative_position_id = ITA_no_longer_lagging_behind
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_animos_accinge_futuris"
+		ITA_research_funding_shift_up_1_percent = yes
+
+		add_tech_bonus = {
+			bonus = 1
+			uses = 2
+			category = electronics
+		}
+		add_tech_bonus = {
+			bonus = 1
+			uses = 2
+			category = armor
+		}
+		add_tech_bonus = {
+			bonus = 1
+			uses = 2
+			category = motorized_equipment
+		}
+		add_tech_bonus = {
+			bonus = 1
+			uses = 1
+			category = fighter
+		}
+
+		set_temp_variable = { fervour_change = -2 }
+		ITA_Giani_change_fervour = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_in_hoc_fascio_vinces
+	icon = GFX_ITA_In_Hoc_Fascio_Vinces
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_dulce_et_decorum_est_pro_patria_mori
+		focus = ITA_animos_accinge_futuris
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_dulce_et_decorum_est_pro_patria_mori
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_in_hoc_fascio_vinces"
+		remove_ideas = {
+			ITA_an_army_worth_the_empire
+			ITA_a_mans_skill_at_arms_never_fails
+		}
+		if = {
+			limit = {
+				has_idea = ITA_classis_oceanica_idea
+			}
+			remove_ideas = ITA_classis_oceanica_idea
+			add_ideas = ITA_serving_under_the_fasces_naval
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_idea = ITA_the_eagles_talons
+					has_idea = ITA_the_eagles_talons_2
+				}
+			}
+			remove_ideas = ITA_the_eagles_talons_2
+			add_ideas = ITA_serving_under_the_fasces_air
+		}
+		else = {
+			add_ideas = ITA_serving_under_the_fasces_dummy
+		}
+
+		set_temp_variable = { fervour_change = 6 }
+		ITA_Giani_change_fervour = yes
+
+		TNO_improve_army_professionalism_med = yes
+
+		tno_military_supervision_improve = yes
+		tno_military_supervision_worsen = yes
+		tno_military_supervision_worsen = yes
+		tno_military_supervision_improve = yes
+		tno_military_supervision_improve = yes
+		ITA_army_funding_shift_up_1_percent = yes
+	}
+}
+
+#Colonial trees
+shared_focus = {
+	id = ITA_preserving_the_empire
+	icon = GFX_ITA_generic_empire
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 12
+	y = 14
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_preserving_the_empire"
+		add_political_power = 50
+
+		set_temp_variable = { GarrisonChange = 2 }
+		ITA_EmpireManagement_GarrisonChange = yes
+
+		ITA_admin_funding_shift_up_1_percent = yes
+
+		TNO_worsen_academic_base_low = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_improving_imperial_infrastructure
+	icon = GFX_IME_infrastructure_in_transjordan
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_preserving_the_empire
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_preserving_the_empire
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_improving_imperial_infrastructure"
+		#split so every state is shown in the tooltip
+		every_state = {
+			limit = {
+				OR = {
+					state = 450
+					state = 1113
+					state = 1108
+				}
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+
+		every_state = {
+			limit = {
+				OR = {
+					state = 448
+					state = 271
+					state = 658
+				}
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = air_base
+				level = 1
+				instant_build = yes
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+
+		658 = {
+			add_building_construction = {
+				type = naval_base
+				level = 1
+				instant_build = yes
+				province = 7960
+			}
+		}
+		1108 = {
+			add_building_construction = {
+				type = naval_base
+				level = 1
+				instant_build = yes
+				province = 5091
+			}
+		}
+
+		custom_effect_tooltip = ITA_increase_control_2_all_colonial
+		set_temp_variable = { DiploValueChange_v = 2 }
+
+		set_temp_variable = { Region_i = 0 } # Libya
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 1 } # Sudan
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 2 } # Eritrea
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 3 } # Ethiopia
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 4 } # Somalia
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 5 } # Kenya
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 18 } # IME
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 21 } # Gulf
+		ITA_EmpireManagement_DiploValueChange = yes
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 0.25 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_a_dedicated_administration
+	icon = GFX_Generic_Admininistration
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_improving_imperial_infrastructure
+	}
+	mutually_exclusive = {
+		focus = ITA_a_productive_population
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_improving_imperial_infrastructure
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_dedicated_administration"
+		ITA_admin_funding_shift_up_1_percent = yes
+
+		set_temp_variable = { GarrisonChange = 1 }
+		ITA_EmpireManagement_GarrisonChange = yes
+
+		custom_effect_tooltip = ITA_increase_exploitation_3_all_colonial
+		set_temp_variable = { EconValueChange_v = 10 }
+
+		set_temp_variable = { Region_i = 0 } # Libya
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 1 } # Sudan
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 2 } # Eritrea
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 3 } # Ethiopia
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 4 } # Somalia
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 5 } # Kenya
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 18 } # IME
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 21 } # Gulf
+		ITA_EmpireManagement_EconValueChange = yes
+
+		TNO_improve_academic_base_low = yes
+
+		271 = {
+			add_extra_state_shared_building_slots = 1
+			#STRIP(building) add_building_construction = {
+				#STRIP(building) type = offices
+				#STRIP(building) level = 1
+				#STRIP(building) instant_build = yes
+			#STRIP(building) }
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_a_productive_population
+	icon = GFX_PRM_Work_For_Your_Life
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_improving_imperial_infrastructure
+	}
+	mutually_exclusive = {
+		focus = ITA_a_dedicated_administration
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_improving_imperial_infrastructure
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_productive_population"
+		set_temp_variable = { GarrisonChange = 1 }
+		ITA_EmpireManagement_GarrisonChange = yes
+
+		custom_effect_tooltip = ITA_increase_exploitation_5_all_colonial
+		set_temp_variable = { EconValueChange_v = 5 }
+
+		set_temp_variable = { Region_i = 0 } # Libya
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 1 } # Sudan
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 2 } # Eritrea
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 3 } # Ethiopia
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 4 } # Somalia
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 5 } # Kenya
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 18 } # IME
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 21 } # Gulf
+		ITA_EmpireManagement_EconValueChange = yes
+
+		custom_effect_tooltip = ITA_decrease_control_3_all_colonial
+		set_temp_variable = { DiploValueChange_v = -3 }
+
+		set_temp_variable = { Region_i = 0 } # Libya
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 1 } # Sudan
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 2 } # Eritrea
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 3 } # Ethiopia
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 4 } # Somalia
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 5 } # Kenya
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 18 } # IME
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 21 } # Gulf
+		ITA_EmpireManagement_DiploValueChange = yes
+
+		set_temp_variable = { temp_poverty_change = -0.6 }
+		TNO_worsen_poverty_med = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_prosperity_for_all_italians
+	icon = GFX_ITA_Empire_Renewal_rework
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_dedicated_administration
+		focus = ITA_a_productive_population
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_a_dedicated_administration
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_prosperity_for_all_italians"
+
+		TNO_worsen_poverty_low = yes
+
+		ITA_social_funding_shift_up_1_percent = yes
+
+		TNO_improve_poverty_med = yes
+
+		custom_effect_tooltip = ITA_increase_control_2_all_colonial
+		set_temp_variable = { DiploValueChange_v = 2 }
+
+		set_temp_variable = { Region_i = 0 } # Libya
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 1 } # Sudan
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 2 } # Eritrea
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 3 } # Ethiopia
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 4 } # Somalia
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 5 } # Kenya
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 18 } # IME
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 21 } # Gulf
+		ITA_EmpireManagement_DiploValueChange = yes
+
+		1108 = {
+			add_extra_state_shared_building_slots = 1
+			#STRIP(building) add_building_construction = {
+				#STRIP(building) type = hospitals
+				#STRIP(building) level = 1
+				#STRIP(building) instant_build = yes
+			#STRIP(building) }
+		}
+
+		271 = {
+			add_extra_state_shared_building_slots = 1
+			#STRIP(building) add_building_construction = {
+				#STRIP(building) type = schools
+				#STRIP(building) level = 1
+				#STRIP(building) instant_build = yes
+			#STRIP(building) }
+		}
+
+		set_temp_variable = { gdp_growth_temp = 0.0018 }
+		econ_gdp_growth_change = yes
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 0.25 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_resuming_our_mission
+	icon = GFX_ITA_sicurezza_rework
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 22
+	y = 14
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_resuming_our_mission"
+		add_stability = -0.05
+
+		add_timed_idea = {
+			idea = ITA_enforcing_segregation
+			days = 180
+		}
+
+		set_temp_variable = { GarrisonChange = 1 }
+		ITA_EmpireManagement_GarrisonChange = yes
+
+		tno_minorities_improve = yes
+		tno_minorities_worsen = yes
+		tno_minorities_worsen = yes
+		tno_minorities_improve = yes
+		tno_minorities_improve = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_romes_guiding_light
+	icon = GFX_GER_Roman_Soldier
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_resuming_our_mission
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_resuming_our_mission
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_romes_guiding_light"
+
+		TNO_improve_poverty_low = yes
+
+		custom_effect_tooltip = ITA_increase_control_2_all_colonial
+		set_temp_variable = { DiploValueChange_v = 2 }
+
+		set_temp_variable = { Region_i = 0 } # Libya
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 1 } # Sudan
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 2 } # Eritrea
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 3 } # Ethiopia
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 4 } # Somalia
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 5 } # Kenya
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 18 } # IME
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 21 } # Gulf
+		ITA_EmpireManagement_DiploValueChange = yes
+
+		custom_effect_tooltip = ITA_cost_effect_tt
+		set_temp_variable = { temp_econ_spending_amount = 0.25 }
+		econ_spend_money_once_effect_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_loyalty_begets_recognition
+	icon = GFX_generic_change_law_welfare
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_romes_guiding_light
+	}
+	mutually_exclusive = {
+		focus = ITA_treason_begets_punishment
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_romes_guiding_light
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_loyalty_begets_recognition"
+		tno_racial_integration_improve = yes
+		TNO_improve_poverty_low = yes
+
+		custom_effect_tooltip = ITA_increase_control_3_all_colonial
+		set_temp_variable = { DiploValueChange_v = 3 }
+
+		set_temp_variable = { Region_i = 0 } # Libya
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 1 } # Sudan
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 2 } # Eritrea
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 3 } # Ethiopia
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 4 } # Somalia
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 5 } # Kenya
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 18 } # IME
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 21 } # Gulf
+		ITA_EmpireManagement_DiploValueChange = yes
+
+		custom_effect_tooltip = ITA_decrease_exploitation_2_all_colonial
+		set_temp_variable = { EconValueChange_v = -2 }
+
+		set_temp_variable = { Region_i = 0 } # Libya
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 1 } # Sudan
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 2 } # Eritrea
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 3 } # Ethiopia
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 4 } # Somalia
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 5 } # Kenya
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 18 } # IME
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 21 } # Gulf
+		ITA_EmpireManagement_EconValueChange = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_treason_begets_punishment
+	icon = GFX_Tyranny_red
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_romes_guiding_light
+	}
+	mutually_exclusive = {
+		focus = ITA_loyalty_begets_recognition
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_romes_guiding_light
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_treason_begets_punishment"
+		add_manpower = -953
+
+		custom_effect_tooltip = ITA_increase_exploitation_3_all_colonial
+		set_temp_variable = { EconValueChange_v = 3 }
+
+		set_temp_variable = { Region_i = 0 } # Libya
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 1 } # Sudan
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 2 } # Eritrea
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 3 } # Ethiopia
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 4 } # Somalia
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 5 } # Kenya
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 18 } # IME
+		ITA_EmpireManagement_EconValueChange = yes
+		set_temp_variable = { Region_i = 21 } # Gulf
+		ITA_EmpireManagement_EconValueChange = yes
+
+		custom_effect_tooltip = ITA_decrease_control_2_all_colonial
+		set_temp_variable = { DiploValueChange_v = -2 }
+
+		set_temp_variable = { Region_i = 0 } # Libya
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 1 } # Sudan
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 2 } # Eritrea
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 3 } # Ethiopia
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 4 } # Somalia
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 5 } # Kenya
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 18 } # IME
+		ITA_EmpireManagement_DiploValueChange = yes
+		set_temp_variable = { Region_i = 21 } # Gulf
+		ITA_EmpireManagement_DiploValueChange = yes
+
+		1114 = {
+			add_extra_state_shared_building_slots = 1
+			#STRIP(building) add_building_construction = {
+				#STRIP(building) type = prisons
+				#STRIP(building) level = 1
+				#STRIP(building) instant_build = yes
+			#STRIP(building) }
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_the_sun_shines_over_the_empire
+	icon = GFX_ITA_Impero_rework
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_loyalty_begets_recognition
+		focus = ITA_treason_begets_punishment
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_loyalty_begets_recognition
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_sun_shines_over_the_empire"
+		set_temp_variable = { gdp_growth_temp = 0.0025 }
+		econ_gdp_growth_change = yes
+
+		add_stability = 0.05
+
+		TNO_improve_academic_base_med = yes
+	}
+}
+
+#Foreign Diplomacy Tree
+shared_focus = {
+	id = ITA_spreading_our_wings
+	icon = GFX_ITA_Spreading_Our_Wings
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 47
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_spreading_our_wings"
+		add_political_power = 30
+	}
+}
+
+shared_focus = {
+	id = ITA_the_west_where_the_sun_fades
+	icon = GFX_TNO_generic_globe_sun_shine_west
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_spreading_our_wings
+	}
+	x = -7
+	y = 1
+	relative_position_id = ITA_spreading_our_wings
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_west_where_the_sun_fades"
+		set_temp_variable = { gdp_growth_temp = 0.003 }
+		econ_gdp_growth_change = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_americas_only_master
+	icon = GFX_American_Funding
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_west_where_the_sun_fades
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_the_west_where_the_sun_fades
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_americas_only_master"
+		USA = { add_opinion_modifier = { target = ITA modifier = ITA_med_american_rapprochement } }
+		add_opinion_modifier = { target = USA modifier = ITA_med_american_rapprochement }
+	}
+}
+
+shared_focus = {
+	id = ITA_open_up_talks
+	icon = GFX_ITA_Meet_with_the_Secretary
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_americas_only_master
+	}
+	mutually_exclusive = {
+		focus = ITA_sanctions_for_the_african_war
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_americas_only_master
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_open_up_talks"
+		# Read later by ITA_the_slumbering_giant.
+		set_country_flag = ITA_med_usa_approached
+		USA = {
+			add_opinion_modifier = { target = ITA modifier = ITA_med_american_rapprochement }
+			set_temp_variable = { temp_misc_income = 0.15 }
+			econ_misc_income_change = yes
+		}
+		set_temp_variable = { temp_misc_income = 0.15 }
+		econ_misc_income_change = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_sanctions_for_the_african_war
+	icon = GFX_GER_Ease_the_Embargoes
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_americas_only_master
+	}
+	mutually_exclusive = {
+		focus = ITA_open_up_talks
+	}
+	x = 3
+	y = 1
+	relative_position_id = ITA_americas_only_master
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_sanctions_for_the_african_war"
+		# Read later by ITA_the_slumbering_giant.
+		set_country_flag = ITA_med_usa_insulted
+		USA = {
+			add_political_power = -35
+			add_opinion_modifier = { target = ITA modifier = ITA_med_sanctioned_rome }
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_albions_shadow
+	icon = GFX_ENG_A_Broken_But_Perfect_System
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_open_up_talks
+		focus = ITA_sanctions_for_the_african_war
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_open_up_talks
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_albions_shadow"
+		ENG = {
+			capital_scope = {
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			add_opinion_modifier = { target = ITA modifier = ITA_med_anglo_understanding }
+		}
+		TNO_improve_army_professionalism_med = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_the_slumbering_giant
+	icon = GFX_ITA_Meet_with_the_Chief_Hawk
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_albions_shadow
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_albions_shadow
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_slumbering_giant"
+		if = {
+			limit = { has_country_flag = ITA_med_usa_insulted }
+			add_war_support = 0.1
+		}
+		if = {
+			limit = { has_country_flag = ITA_med_usa_approached }
+			TNO_improve_army_professionalism_low = yes
+			army_experience = 30
+			USA = {
+				TNO_improve_army_professionalism_low = yes
+				army_experience = 30
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_the_riches_of_the_west
+	icon = GFX_BRG_Worth_Its_Weight_In_Gold
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_slumbering_giant
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_the_slumbering_giant
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_riches_of_the_west"
+		ARG = {
+			set_temp_variable = { gdp_growth_temp = 0.003 }
+			econ_gdp_growth_change = yes
+			every_country = {
+				limit = { is_in_faction_with = PREV }
+				set_temp_variable = { gdp_growth_temp = 0.003 }
+				econ_gdp_growth_change = yes
+			}
+		}
+		set_temp_variable = { temp_misc_income = 0.2 }
+		econ_misc_income_change = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_the_center_where_the_sun_shines
+	icon = GFX_TNO_generic_globe_sun_shine_center
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_spreading_our_wings
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_spreading_our_wings
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_center_where_the_sun_shines"
+		army_experience = 30
+	}
+}
+
+shared_focus = {
+	id = ITA_the_ruins_of_africa
+	icon = GFX_ITA_Greenlight_the_Libyans
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_west_where_the_sun_fades
+	}
+	prerequisite = {
+		focus = ITA_the_center_where_the_sun_shines
+	}
+	x = -3
+	y = 1
+	relative_position_id = ITA_the_center_where_the_sun_shines
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_ruins_of_africa"
+		IEA = {
+			add_manpower = 15000
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 3000 producer = ITA }
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_europes_old_master
+	icon = GFX_ITA_The_Germania_Exchange
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_center_where_the_sun_shines
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_the_center_where_the_sun_shines
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_europes_old_master"
+		GER = { add_opinion_modifier = { target = ITA modifier = ITA_med_german_understanding } }
+		add_opinion_modifier = { target = GER modifier = ITA_med_german_understanding }
+	}
+}
+
+shared_focus = {
+	id = ITA_their_empire_of_ash
+	icon = GFX_ITA_nazi_eagle_destroyed
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_europes_old_master
+	}
+	mutually_exclusive = {
+		focus = ITA_but_ash_can_bloom_again
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_europes_old_master
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_their_empire_of_ash"
+		# Read later by ITA_the_steppes_stir.
+		set_country_flag = ITA_med_ger_antagonized
+		GER = { add_opinion_modifier = { target = ITA modifier = ITA_med_speaking_nonsense } }
+		# The Alpine and north-eastern approaches.
+		every_owned_state = {
+			limit = { any_neighbor_state = { is_owned_by = GER } }
+			add_building_construction = {
+				type = bunker
+				level = 2
+				instant_build = yes
+				province = { all_provinces = yes limit_to_border = yes }
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_but_ash_can_bloom_again
+	icon = GFX_ITA_Appeal_to_the_Fuhrers
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_europes_old_master
+	}
+	mutually_exclusive = {
+		focus = ITA_their_empire_of_ash
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_europes_old_master
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_but_ash_can_bloom_again"
+		# Read later by ITA_the_steppes_stir.
+		set_country_flag = ITA_med_ger_friendly
+		GER = {
+			add_opinion_modifier = { target = ITA modifier = ITA_med_german_understanding }
+			set_temp_variable = { gdp_growth_temp = 0.003 }
+			econ_gdp_growth_change = yes
+		}
+		set_temp_variable = { gdp_growth_temp = 0.003 }
+		econ_gdp_growth_change = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_the_two_cains
+	icon = GFX_GER_betrayal_in_the_ostfront
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_their_empire_of_ash
+		focus = ITA_but_ash_can_bloom_again
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_their_empire_of_ash
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_two_cains"
+		add_war_support = 0.05
+		TUR = { add_opinion_modifier = { target = ITA modifier = ITA_med_mediterranean_rivalry } }
+		IBR = { add_opinion_modifier = { target = ITA modifier = ITA_med_mediterranean_rivalry } }
+	}
+}
+
+shared_focus = {
+	id = ITA_securing_mare_nostrum
+	icon = GFX_ITA_Always_Mare_Nostrum
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_their_empire_of_ash
+		focus = ITA_but_ash_can_bloom_again
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_their_empire_of_ash
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_securing_mare_nostrum"
+		add_timed_idea = { idea = ITA_med_mare_nostrum_yards days = 200 }
+	}
+}
+
+shared_focus = {
+	id = ITA_the_danubian_limes
+	icon = GFX_BRG_Expanded_Bunker_Design
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_their_empire_of_ash
+		focus = ITA_but_ash_can_bloom_again
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_but_ash_can_bloom_again
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_danubian_limes"
+		ROM = {
+			add_stability = 0.05
+			add_opinion_modifier = { target = ITA modifier = ITA_med_balkan_patronage }
+		}
+		HUN = {
+			add_stability = 0.05
+			add_opinion_modifier = { target = ITA modifier = ITA_med_balkan_patronage }
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_our_fallen_brothers
+	icon = GFX_GER_war_memorials
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_two_cains
+	}
+	prerequisite = {
+		focus = ITA_securing_mare_nostrum
+	}
+	prerequisite = {
+		focus = ITA_the_danubian_limes
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_securing_mare_nostrum
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_our_fallen_brothers"
+		FRA = {
+			add_manpower = 20000
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 4000 producer = ITA }
+			add_opinion_modifier = { target = ITA modifier = ITA_med_balkan_patronage }
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_and_the_cancer_eating_them
+	icon = GFX_BRG_A_Veil_Over_Every_Eye
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_two_cains
+	}
+	prerequisite = {
+		focus = ITA_securing_mare_nostrum
+	}
+	prerequisite = {
+		focus = ITA_the_danubian_limes
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_securing_mare_nostrum
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_and_the_cancer_eating_them"
+		BRG = {
+			add_ideas = ITA_med_burgundian_disruption
+			add_opinion_modifier = { target = ITA modifier = ITA_med_impudent_fools }
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_the_steppes_stir
+	icon = GFX_DER_remote_steppe
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_our_fallen_brothers
+	}
+	prerequisite = {
+		focus = ITA_and_the_cancer_eating_them
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_our_fallen_brothers
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_steppes_stir"
+		if = {
+			limit = { has_country_flag = ITA_med_ger_antagonized }
+			every_country = {
+				limit = { is_russian_nation = yes }
+				add_ideas = ITA_med_italian_intelligence
+			}
+		}
+		if = {
+			limit = { has_country_flag = ITA_med_ger_friendly }
+			MCW = { add_ideas = ITA_med_italian_defensive_advice }
+			MOS = { add_ideas = ITA_med_italian_defensive_advice }
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_a_modern_silk_road
+	icon = GFX_URL_Caravan_Experience
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_center_where_the_sun_shines
+	}
+	prerequisite = {
+		focus = ITA_the_east_where_the_sun_rises
+	}
+	x = 3
+	y = 1
+	relative_position_id = ITA_the_center_where_the_sun_shines
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_modern_silk_road"
+		IRQ = {
+			add_political_power = 50
+			add_manpower = 10000
+			add_opinion_modifier = { target = ITA modifier = ITA_med_eastern_outreach }
+		}
+		PER = {
+			add_political_power = 50
+			add_manpower = 10000
+			add_opinion_modifier = { target = ITA modifier = ITA_med_eastern_outreach }
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_the_east_where_the_sun_rises
+	icon = GFX_TNO_generic_globe_sun_shine_east
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_spreading_our_wings
+	}
+	x = 7
+	y = 1
+	relative_position_id = ITA_spreading_our_wings
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_east_where_the_sun_rises"
+		TNO_improve_research_facilities_low = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_asias_new_master
+	icon = GFX_CNT_Asia
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_east_where_the_sun_rises
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_the_east_where_the_sun_rises
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_asias_new_master"
+		JAP = { add_opinion_modifier = { target = ITA modifier = ITA_med_tokyo_understanding } }
+		add_opinion_modifier = { target = JAP modifier = ITA_med_tokyo_understanding }
+	}
+}
+
+shared_focus = {
+	id = ITA_rekindling_our_bond
+	icon = GFX_Generic_Italy_Japan_friendship
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_asias_new_master
+	}
+	mutually_exclusive = {
+		focus = ITA_forging_a_new_one
+	}
+	x = -3
+	y = 1
+	relative_position_id = ITA_asias_new_master
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_rekindling_our_bond"
+		# Read later by ITA_a_door_to_china and ITA_a_gateway_to_india.
+		set_country_flag = ITA_med_dealt_with_japan
+		JAP = {
+			add_opinion_modifier = { target = ITA modifier = ITA_med_tokyo_understanding }
+			set_temp_variable = { gdp_growth_temp = 0.003 }
+			econ_gdp_growth_change = yes
+			set_temp_variable = { money_reserves_temp = 0.15 }
+			econ_money_reserves_change_raw_money = yes
+		}
+		set_temp_variable = { gdp_growth_temp = 0.003 }
+		econ_gdp_growth_change = yes
+		set_temp_variable = { money_reserves_temp = 0.15 }
+		econ_money_reserves_change_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_forging_a_new_one
+	icon = GFX_CHI_A_Hardworking_People
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_asias_new_master
+	}
+	mutually_exclusive = {
+		focus = ITA_rekindling_our_bond
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_asias_new_master
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_forging_a_new_one"
+		# Read later by ITA_a_door_to_china and ITA_a_gateway_to_india.
+		set_country_flag = ITA_med_dealt_with_china
+		CHI = {
+			add_opinion_modifier = { target = ITA modifier = ITA_med_chinese_opening }
+			set_temp_variable = { gdp_growth_temp = 0.003 }
+			econ_gdp_growth_change = yes
+			set_temp_variable = { money_reserves_temp = 0.15 }
+			econ_money_reserves_change_raw_money = yes
+		}
+		JAP = { add_opinion_modifier = { target = ITA modifier = ITA_med_indian_entanglement } }
+		set_temp_variable = { gdp_growth_temp = 0.003 }
+		econ_gdp_growth_change = yes
+		set_temp_variable = { money_reserves_temp = 0.15 }
+		econ_money_reserves_change_raw_money = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_a_door_to_china
+	icon = GFX_JAP_open_door_policy
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_rekindling_our_bond
+		focus = ITA_forging_a_new_one
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_rekindling_our_bond
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_door_to_china"
+		if = {
+			limit = { has_country_flag = ITA_med_dealt_with_china }
+			CHI = {
+				capital_scope = {
+					add_building_construction = { type = arms_factory level = 2 instant_build = yes }
+				}
+			}
+		}
+		if = {
+			limit = { has_country_flag = ITA_med_dealt_with_japan }
+			CHI = {
+				capital_scope = {
+					add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+				}
+			}
+			JAP = {
+				set_temp_variable = { temp_misc_income = 0.15 }
+				econ_misc_income_change = yes
+			}
+		}
+		set_temp_variable = { gdp_growth_temp = 0.004 }
+		econ_gdp_growth_change = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_a_gateway_to_india
+	icon = GFX_GER_road_to_india
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_door_to_china
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_a_door_to_china
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_gateway_to_india"
+		if = {
+			limit = { has_country_flag = ITA_med_dealt_with_japan }
+			BEN = {
+				capital_scope = {
+					add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+				}
+			}
+		}
+		if = {
+			limit = { has_country_flag = ITA_med_dealt_with_china }
+			RAJ = {
+				capital_scope = {
+					add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+				}
+			}
+		}
+		TNO_improve_industrial_expertise_med = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_the_treasures_of_the_east
+	icon = GFX_JAP_The_Riches_Continue
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_gateway_to_india
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_a_gateway_to_india
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_treasures_of_the_east"
+		set_temp_variable = { temp_misc_income = 0.35 }
+		econ_misc_income_change = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_a_global_empire
+	icon = GFX_ITA_A_Global_Empire
+	cost = 3.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_riches_of_the_west
+	}
+	prerequisite = {
+		focus = ITA_the_steppes_stir
+	}
+	prerequisite = {
+		focus = ITA_the_treasures_of_the_east
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_the_steppes_stir
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_global_empire"
+		add_to_variable = { prestige = 3 }
+		custom_effect_tooltip = ITA_med_prestige_gain_3_tt
+	}
+}
+
+###=====| d) Epilogue Tree |=====###
+shared_focus = {
+	id = ITA_the_bulls_victory
+	icon = GFX_BRG_provoke_the_bull
+	cost = 2.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 6
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_bulls_victory"
+		hidden_effect = {
+			if = {
+				limit = { has_country_flag = ITA_giani_character_arc_good_end }
+				country_event = { id = ITA_giani_character_arc.10 days = 4 }
+			}
+			else_if = {
+				limit = { has_country_flag = ITA_giani_character_arc_bad_end }
+				country_event = { id = ITA_giani_character_arc.13 days = 4 }
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_superiority_of_race
+	icon = GFX_BRG_A_Pure_Race
+	cost = 2.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_bulls_victory
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_the_bulls_victory
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_superiority_of_race"
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = ITA_superiority_of_ideals
+	icon = GFX_GER_The_Ringhorn_Doctrine
+	cost = 2.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_bulls_victory
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_the_bulls_victory
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_superiority_of_ideals"
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = ITA_to_the_victor_the_spoils
+	icon = GFX_GER_Fate_Of_Our_Conquests
+	cost = 2.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_superiority_of_race
+	}
+	prerequisite = {
+		focus = ITA_superiority_of_ideals
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_superiority_of_race
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_to_the_victor_the_spoils"
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = ITA_a_hierarchy_set_in_stone
+	icon = GFX_GER_But_Maintaining_The_Hierarchy
+	cost = 2.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_to_the_victor_the_spoils
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_to_the_victor_the_spoils
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_hierarchy_set_in_stone"
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = ITA_tying_up_loose_ends
+	icon = GFX_ITA_tying_up_loose_ends
+	cost = 2.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_superiority_of_race
+	}
+	prerequisite = {
+		focus = ITA_superiority_of_ideals
+	}
+	prerequisite = {
+		focus = ITA_superiority_of_ideals
+	}
+	prerequisite = {
+		focus = ITA_superiority_of_ideals
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_superiority_of_race
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_tying_up_loose_ends"
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = ITA_gloria_al_duce
+	icon = GFX_ITA_The_Peoples_Duce
+	cost = 2.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_tying_up_loose_ends
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_tying_up_loose_ends
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_gloria_al_duce"
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = ITA_gloria_all_impero
+	icon = GFX_ITA_rebuilding_the_empire
+	cost = 2.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_tying_up_loose_ends
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_tying_up_loose_ends
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_gloria_all_impero"
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = ITA_gloria_al_nuovo_ordine
+	icon = GFX_ITA_giani_fascism_victory
+	cost = 2.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_gloria_al_duce
+	}
+	prerequisite = {
+		focus = ITA_gloria_all_impero
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_gloria_al_duce
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_gloria_al_nuovo_ordine"
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = ITA_an_empire_wide_procession
+	icon = GFX_generic_victory_parade
+	cost = 2.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_superiority_of_ideals
+	}
+	prerequisite = {
+		focus = ITA_superiority_of_race
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_superiority_of_ideals
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_an_empire_wide_procession"
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = ITA_a_prisoner_in_the_vatican
+	icon = GFX_ITA_chains_vatican
+	cost = 2.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_an_empire_wide_procession
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_an_empire_wide_procession
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_a_prisoner_in_the_vatican"
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = ITA_anno_i_sef
+	icon = GFX_ITA_mystic_mussolini_stained_glass
+	cost = 2.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_a_prisoner_in_the_vatican
+	}
+	prerequisite = {
+		focus = ITA_gloria_al_nuovo_ordine
+	}
+	prerequisite = {
+		focus = ITA_a_hierarchy_set_in_stone
+	}
+	select_effect = {
+		country_event = { id = ITA_giani_cult_chain.9 days = 1 }
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_gloria_al_nuovo_ordine
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_anno_i_sef"
+		add_political_power = 100
+	}
+}

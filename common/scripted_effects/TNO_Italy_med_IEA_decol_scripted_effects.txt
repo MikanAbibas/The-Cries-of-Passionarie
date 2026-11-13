@@ -1,0 +1,366 @@
+### East African decolonisation.
+###
+### The hundred and fifty-five decisions, the panel, the readouts, the twenty-two
+### events and the twenty-three focus hooks all shipped with the rework. The ten
+### effects behind them were never written, in either branch, so favour and
+### resistance never moved, negotiations never resolved and the date never
+### arrived. The contract below is not invented - it is what the rest of the
+### mechanic already reads:
+###
+###   decol_favor        0 hostile .. 5 very cooperative, on the region's own scope
+###   decol_resistance   0 nearly none .. 5 in revolt, likewise
+###   decol_negotiation_status  1 not started, 2 under way, 3 agreed, 4 failed
+###   decol_full_scale_revolt   country flag on the region
+###   target             temp variable holding the region's tag
+###   amount             temp variable holding the signed change
+###   favor_before / favor_after / resistance_before / resistance_after,
+###   decrease_in_tt     temps the two change tooltips read back
+###
+### The five regions are Somalia (SML), Eritrea (ERT), Amara (ETH), Harar (ORM)
+### and Kenya (KEN). Their territory is master's own breakaway map, taken from
+### IEA.100 - IEA.104 in events/TNO_Italian_East_Africa_events.txt, so a
+### negotiated withdrawal hands over exactly what a collapse would have.
+
+# Run in a region's scope.
+ITA_IEA_Decol_region_setup = {
+	set_variable = { decol_favor = 2 }
+	set_variable = { decol_resistance = 2 }
+	set_variable = { decol_negotiation_status = 1 }
+	clr_country_flag = decol_full_scale_revolt
+}
+
+ITA_IEA_Decol_GUI_setup = {
+	set_variable = { IEA_decol_date = 0 }
+	set_variable = { ITA_IEA_Decol_delays = 0 }
+	SML = { ITA_IEA_Decol_region_setup = yes }
+	ERT = { ITA_IEA_Decol_region_setup = yes }
+	ETH = { ITA_IEA_Decol_region_setup = yes }
+	ORM = { ITA_IEA_Decol_region_setup = yes }
+	KEN = { ITA_IEA_Decol_region_setup = yes }
+	# Nothing else starts the clock, and the panel never refreshes on its own.
+	activate_mission = ITA_IEA_Decol_countdown_mission
+	add_to_variable = { ITA_IEA_Decol_dirty = 1 }
+}
+
+ITA_IEA_Decol_change_favor = {
+	var:target = {
+		set_temp_variable = { favor_before = decol_favor }
+		add_to_variable = { decol_favor = amount }
+		clamp_variable = { var = decol_favor min = 0 max = 5 }
+		set_temp_variable = { favor_after = decol_favor }
+	}
+	set_temp_variable = { decrease_in_tt = 0 }
+	if = {
+		limit = { check_variable = { amount < 0 } }
+		set_temp_variable = { decrease_in_tt = 1 }
+	}
+	custom_effect_tooltip = ITA_IEA_Decol_change_favor_tt
+	add_to_variable = { ITA_IEA_Decol_dirty = 1 }
+}
+
+ITA_IEA_Decol_change_resistance = {
+	var:target = {
+		set_temp_variable = { resistance_before = decol_resistance }
+		add_to_variable = { decol_resistance = amount }
+		clamp_variable = { var = decol_resistance min = 0 max = 5 }
+		set_temp_variable = { resistance_after = decol_resistance }
+	}
+	set_temp_variable = { decrease_in_tt = 0 }
+	if = {
+		limit = { check_variable = { amount < 0 } }
+		set_temp_variable = { decrease_in_tt = 1 }
+	}
+	custom_effect_tooltip = ITA_IEA_Decol_change_resistance_tt
+	add_to_variable = { ITA_IEA_Decol_dirty = 1 }
+}
+
+# Opening talks with the region in target. The roll itself lives in the region's
+# own IEA_decol.x0 event, which reads decol_favor; this only moves the region on
+# to "under way" so the panel says so the moment the decision is taken.
+ITA_IEA_Decol_get_outlook = {
+	var:target = { ITA_IEA_Decol_set_negotiations_in_progress = yes }
+}
+
+ITA_IEA_Decol_set_negotiations_in_progress = {
+	set_variable = { decol_negotiation_status = 2 }
+	ITA = { add_to_variable = { ITA_IEA_Decol_dirty = 1 } }
+}
+
+ITA_IEA_Decol_set_negotiations_successful = {
+	set_variable = { decol_negotiation_status = 3 }
+	ITA = { add_to_variable = { ITA_IEA_Decol_dirty = 1 } }
+}
+
+ITA_IEA_Decol_set_negotiations_failed = {
+	set_variable = { decol_negotiation_status = 4 }
+	ITA = { add_to_variable = { ITA_IEA_Decol_dirty = 1 } }
+}
+
+# Resistance has run to the top. Talks are over whatever stage they had reached.
+ITA_IEA_Decol_set_full_scale_revolt = {
+	set_country_flag = decol_full_scale_revolt
+	set_variable = { decol_resistance = 5 }
+	set_variable = { decol_negotiation_status = 4 }
+	ITA = { add_to_variable = { ITA_IEA_Decol_dirty = 1 } }
+}
+
+# The periodic check behind IEA_decol.2: any region whose resistance has reached
+# the top rises, unless it already has.
+ITA_IEA_Decol_get_rebelion = {
+	if = {
+		limit = {
+			SML = {
+				check_variable = { var = decol_resistance value = 5 compare = greater_than_or_equals }
+				NOT = { has_country_flag = decol_full_scale_revolt }
+			}
+		}
+		country_event = { id = IEA_decol.13 }
+	}
+	if = {
+		limit = {
+			ERT = {
+				check_variable = { var = decol_resistance value = 5 compare = greater_than_or_equals }
+				NOT = { has_country_flag = decol_full_scale_revolt }
+			}
+		}
+		country_event = { id = IEA_decol.23 }
+	}
+	if = {
+		limit = {
+			ETH = {
+				check_variable = { var = decol_resistance value = 5 compare = greater_than_or_equals }
+				NOT = { has_country_flag = decol_full_scale_revolt }
+			}
+		}
+		country_event = { id = IEA_decol.33 }
+	}
+	if = {
+		limit = {
+			ORM = {
+				check_variable = { var = decol_resistance value = 5 compare = greater_than_or_equals }
+				NOT = { has_country_flag = decol_full_scale_revolt }
+			}
+		}
+		country_event = { id = IEA_decol.43 }
+	}
+	if = {
+		limit = {
+			KEN = {
+				check_variable = { var = decol_resistance value = 5 compare = greater_than_or_equals }
+				NOT = { has_country_flag = decol_full_scale_revolt }
+			}
+		}
+		country_event = { id = IEA_decol.53 }
+	}
+	add_to_variable = { ITA_IEA_Decol_dirty = 1 }
+}
+
+# Run in a released region's scope, once it holds its states. Makes it a Heavily
+# Associated State of Italy with the Rome_client idea. Puppeting resets the subject's
+# ruling party and party popularities, so both are saved first and restored after
+# (TNO_useful_scripted_effects.txt), keeping the government its own history gives it.
+# Also used by the Democratic Centre and Right decolonisation focuses.
+ITA_IEA_Decol_make_client = {
+	save_party_popularities = yes
+	get_current_government_type = yes
+	if = {
+		limit = {
+			OR = {
+				has_dlc = "Together for Victory"
+				has_dlc = "Man the Guns"
+			}
+		}
+		ITA = {
+			set_autonomy = {
+				target = PREV
+				autonomy_state = autonomy_italy_hefty_influence
+			}
+		}
+	}
+	else = {
+		ITA = { puppet = PREV }
+	}
+	apply_party_popularities = yes
+	restore_previous_government_type = yes
+	if = {
+		limit = { NOT = { has_idea = Rome_client } }
+		add_ideas = Rome_client
+	}
+}
+
+# SML. A settled withdrawal leaves the region a Heavily Associated State of Rome;
+# a failed one, or one that ended in revolt, leaves it on its own.
+ITA_IEA_Decol_release_somalia = {
+	if = {
+		limit = { country_exists = IEA }
+		SML = {
+			transfer_state = 1094
+			add_state_core = 1094
+			transfer_state = 1111
+			add_state_core = 1111
+			transfer_state = 1112
+			add_state_core = 1112
+			transfer_state = 1113
+			add_state_core = 1113
+			transfer_state = 1114
+			add_state_core = 1114
+			transfer_state = 1102
+			add_state_core = 1102
+			transfer_state = 1103
+			add_state_core = 1103
+			transfer_state = 559
+			add_state_core = 559
+			transfer_state = 268
+			add_state_core = 268
+			transfer_state = 1110
+			add_state_core = 1110
+			transfer_state = 269
+			add_state_core = 269
+			load_oob = "SML_breakaway"
+		}
+	}
+	if = {
+		limit = {
+			SML = {
+				check_variable = { decol_negotiation_status = 3 }
+				NOT = { has_country_flag = decol_full_scale_revolt }
+			}
+		}
+		SML = { ITA_IEA_Decol_make_client = yes }
+	}
+}
+
+# ERT. A settled withdrawal leaves the region a Heavily Associated State of Rome;
+# a failed one, or one that ended in revolt, leaves it on its own.
+ITA_IEA_Decol_release_eritrea = {
+	if = {
+		limit = { country_exists = IEA }
+		ERT = {
+			transfer_state = 1109
+			add_state_core = 1109
+			transfer_state = 1108
+			add_state_core = 1108
+			transfer_state = 1107
+			add_state_core = 1107
+			transfer_state = 550
+			add_state_core = 550
+			load_oob = "ERT_breakaway"
+		}
+	}
+	if = {
+		limit = {
+			ERT = {
+				check_variable = { decol_negotiation_status = 3 }
+				NOT = { has_country_flag = decol_full_scale_revolt }
+			}
+		}
+		ERT = { ITA_IEA_Decol_make_client = yes }
+	}
+}
+
+# ETH. A settled withdrawal leaves the region a Heavily Associated State of Rome;
+# a failed one, or one that ended in revolt, leaves it on its own.
+ITA_IEA_Decol_release_amara = {
+	if = {
+		limit = { country_exists = IEA }
+		ETH = {
+			transfer_state = 271
+			add_state_core = 271
+			transfer_state = 1105
+			add_state_core = 1105
+			transfer_state = 1106
+			add_state_core = 1106
+			load_oob = "ETH_breakaway"
+			set_cosmetic_tag = ETH_AMHARA
+		}
+	}
+	if = {
+		limit = {
+			ETH = {
+				check_variable = { decol_negotiation_status = 3 }
+				NOT = { has_country_flag = decol_full_scale_revolt }
+			}
+		}
+		ETH = { ITA_IEA_Decol_make_client = yes }
+	}
+}
+
+# ORM. A settled withdrawal leaves the region a Heavily Associated State of Rome;
+# a failed one, or one that ended in revolt, leaves it on its own.
+ITA_IEA_Decol_release_harar = {
+	if = {
+		limit = { country_exists = IEA }
+		ORM = {
+			transfer_state = 1099
+			add_state_core = 1099
+			transfer_state = 1098
+			add_state_core = 1098
+			transfer_state = 1117
+			add_state_core = 1117
+			transfer_state = 1100
+			add_state_core = 1100
+			transfer_state = 1101
+			add_state_core = 1101
+			transfer_state = 1104
+			add_state_core = 1104
+			load_oob = "ORM_breakaway"
+		}
+	}
+	if = {
+		limit = {
+			ORM = {
+				check_variable = { decol_negotiation_status = 3 }
+				NOT = { has_country_flag = decol_full_scale_revolt }
+			}
+		}
+		ORM = { ITA_IEA_Decol_make_client = yes }
+	}
+}
+
+# KEN. A settled withdrawal leaves the region a Heavily Associated State of Rome;
+# a failed one, or one that ended in revolt, leaves it on its own.
+ITA_IEA_Decol_release_kenia = {
+	if = {
+		limit = { country_exists = IEA }
+		KEN = {
+			transfer_state = 1097
+			add_state_core = 1097
+			transfer_state = 1096
+			add_state_core = 1096
+			transfer_state = 1095
+			add_state_core = 1095
+			transfer_state = 1093
+			add_state_core = 1093
+			transfer_state = 1092
+			add_state_core = 1092
+			transfer_state = 547
+			add_state_core = 547
+			load_oob = "KEN_breakaway"
+		}
+	}
+	if = {
+		limit = {
+			KEN = {
+				check_variable = { decol_negotiation_status = 3 }
+				NOT = { has_country_flag = decol_full_scale_revolt }
+			}
+		}
+		KEN = { ITA_IEA_Decol_make_client = yes }
+	}
+}
+
+# The decolonisation date, reached from the countdown mission or brought forward
+# by evacuating East Africa. Every region leaves; only the ones Italy actually
+# came to terms with stay in its orbit. IEA_decol.100 closes the mechanic down
+# and hands out what the two focus bonuses promised.
+ITA_IEA_Decol_final_effect = {
+	set_country_flag = ITA_IEA_decolonized # spares East Africa the 1968 collapse (IEA.200)
+	ITA_IEA_Decol_release_somalia = yes
+	ITA_IEA_Decol_release_eritrea = yes
+	ITA_IEA_Decol_release_amara = yes
+	ITA_IEA_Decol_release_harar = yes
+	ITA_IEA_Decol_release_kenia = yes
+	clr_country_flag = IEA.decol_show_decisions
+	add_to_variable = { ITA_IEA_Decol_dirty = 1 }
+	country_event = { id = IEA_decol.100 }
+}

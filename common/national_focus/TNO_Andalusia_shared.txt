@@ -1,0 +1,501 @@
+shared_focus = {
+	id = ADL_blankfocus
+	icon = GFX_generic_defence
+	x = 0
+	y = 7
+	cost = 5
+	allow_branch = {
+		has_country_flag = neversetthisflag
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_blankfocus"
+	}
+}
+
+####################
+### ADL War tree ###
+####################
+shared_focus = {
+	id = ADL_enough_already
+	icon = GFX_USA_Stop_the_Enforcement
+	cost = 2
+	x = 9
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_enough_already"
+		custom_effect_tooltip = ADL_enough_already_tt
+		# country_event = {
+		# 	id = ADL_wars.1 
+		# 	days = 1
+		# }
+	}
+}
+
+shared_focus = {
+	id = ADL_restart_the_country
+	icon = GFX_RAJ_India_Comprimise_Constitution
+	cost = 2
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_restart_the_country"
+		# set_temp_variable = {IBR_wars_legitimacy_temp = 2}
+		# IBR_wars_change_legitimacy = yes
+		# set_temp_variable = {IBR_wars_political_gain_temp = 0.1}
+		# IBR_wars_change_political_power_gain = yes
+		add_war_support = 0.1
+		add_political_power = 100
+	}
+	relative_position_id = ADL_enough_already
+	prerequisite = { focus = ADL_enough_already }
+}
+
+shared_focus = {
+	id = ADL_create_cama
+	icon = GFX_SAF_air_and_naval_support
+	cost = 2
+	x = -8
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_create_cama"
+		navy_experience = 10 
+		air_experience = 10
+		
+	}
+	relative_position_id = ADL_enough_already
+	prerequisite = { focus = ADL_enough_already }
+}
+
+shared_focus = {
+	id = ADL_defend_the_beaches
+	icon = GFX_ENG_A_Navy_to_Protect_The_Coasts
+	cost = 2
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_defend_the_beaches"
+		set_temp_variable = { temp_econ_spending_amount = 0.02 }
+		#econ_spend_money_once_effect_raw_money = yes
+		every_owned_state = {
+			add_building_construction = {
+				type = coastal_bunker
+				level = 2
+				instant_build = yes
+				province = {
+					limit_to_naval_base = yes
+				}
+			}
+		}
+	}
+	relative_position_id = ADL_create_cama
+	prerequisite = { focus = ADL_create_cama }
+}
+
+shared_focus = {
+	id = ADL_swat_those_pesky_planes
+	icon = GFX_Generic_Skull_Rifles
+	cost = 2
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_swat_those_pesky_planes"
+		set_temp_variable = { temp_econ_spending_amount = 0.04 }
+		#econ_spend_money_once_effect_raw_money = yes
+		every_owned_state = {
+			add_building_construction = {
+			type = anti_air_building
+			level = 1
+			instant_build = yes
+			}
+		}
+	}
+	relative_position_id = ADL_create_cama
+	prerequisite = { focus = ADL_create_cama }
+}
+
+shared_focus = {
+	id = ADL_expand_the_ports
+	icon = GFX_GER_open_the_ports
+	cost = 2
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_expand_the_ports"
+		every_owned_state = {
+			add_building_construction = {
+				type = naval_base
+				level = 1
+				instant_build = yes
+				province = {
+					limit_to_naval_base = yes
+				}
+			}
+		}
+		# set_temp_variable = {hc_production_base_temp = 0.03}
+		# IBR_wars_change_hc_production_base_modifier = yes
+	}
+	relative_position_id = ADL_defend_the_beaches
+	prerequisite = { focus = ADL_defend_the_beaches }
+	prerequisite = { focus = ADL_swat_those_pesky_planes }
+}
+
+shared_focus = {
+	id = ADL_pump_up_naval_production
+	icon = GFX_TNO_generic_navy_talk
+	cost = 2
+	x = 4
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_pump_up_naval_production"
+		add_equipment_to_stockpile = {
+			type = convoy
+			amount = 50
+			producer = ADL
+		}
+	}
+	relative_position_id = ADL_defend_the_beaches
+	prerequisite = { focus = ADL_defend_the_beaches }
+	prerequisite = { focus = ADL_swat_those_pesky_planes }
+}
+
+shared_focus = {
+	id = ADL_andalusians_in_the_sky
+	icon = GFX_ANG_thepilotquestion
+	cost = 2
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_andalusians_in_the_sky"
+		air_experience = 5
+		if = {
+			limit = {
+				has_tech = fighter_1970
+			}
+			add_equipment_to_stockpile = {
+				type = jet_fighter_equipment_3
+				amount = 10
+				producer = ADL
+			}
+		}
+		else_if = {
+			limit = {
+				has_tech = fighter_1960
+			}
+			add_equipment_to_stockpile = {
+				type = jet_fighter_equipment_2
+				amount = 10
+				producer = ADL
+			}
+		}
+		else_if = {
+			limit = {
+				has_tech = fighter_1950
+			}
+			add_equipment_to_stockpile = {
+				type = jet_fighter_equipment_1
+				amount = 10
+				producer = ADL
+			}
+		}
+		else_if = {
+			limit = {
+				has_tech = fighter_1945
+			}
+			add_equipment_to_stockpile = {
+				type = fighter_equipment_1
+				amount = 10
+				producer = ADL
+			}
+		}
+	}
+	relative_position_id = ADL_expand_the_ports
+	prerequisite = { focus = ADL_expand_the_ports }
+	prerequisite = { focus = ADL_pump_up_naval_production }
+}
+
+shared_focus = {
+	id = ADL_from_renfe_to_raf
+	icon = GFX_generic_suspend_constitution
+	cost = 2
+	x = 3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_from_renfe_to_raf"
+		# add_equipment_to_stockpile = {
+		# 	type = train_equipment
+		# 	amount = 10
+		# 	producer = ADL
+		# }
+		# build_railway = {
+		# 	level = 1
+		# 	start_province = 875
+		# 	target_province = 7183
+		# }
+		random_owned_state = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+			}
+		}
+		random_owned_state = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+			}
+		}
+		# country_event = {
+		# 	id = ADL_wars.2 
+		# 	days = 1
+		# }
+	}
+	relative_position_id = ADL_restart_the_country
+	prerequisite = { focus = ADL_restart_the_country }
+}
+
+shared_focus = {
+	id = ADL_create_the_andalusian_bank
+	icon = GFX_TNO_generic_gold_coins
+	cost = 2
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_create_the_andalusian_bank"
+		multiply_variable = {
+			GDP = 1.01
+		}
+		add_to_variable = {
+			GDP_growth = 0.001
+		}
+		custom_effect_tooltip = econ_increase_GDP_small
+	}
+	relative_position_id = ADL_restart_the_country
+	prerequisite = { focus = ADL_restart_the_country }
+}
+
+shared_focus = {
+	id = ADL_draft_a_constitution
+	icon = GFX_Generic_Constitution
+	cost = 2
+	x = -3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_draft_a_constitution"
+		set_temp_variable = {IBR_wars_legitimacy_temp = 4}
+		add_stability = 0.1
+		# country_event = {
+		# 	id = ADL_wars.3 
+		# 	days = 3 
+		# }
+	}
+	relative_position_id = ADL_from_renfe_to_raf
+	prerequisite = { focus = ADL_from_renfe_to_raf }
+	prerequisite = { focus = ADL_create_the_andalusian_bank }
+	prerequisite = { focus = ADL_provisional_town_halls }
+}
+
+shared_focus = {
+	id = ADL_provisional_town_halls
+	icon = GFX_generic_change_law_voting
+	cost = 2
+	x = -3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_provisional_town_halls"
+		add_stability = 0.02 
+		tno_public_meetings_improve = yes
+		# country_event = {
+		# 	id = ADL_wars.4 
+		# 	days = 1
+		# }
+	}
+	relative_position_id = ADL_restart_the_country
+	prerequisite = { focus = ADL_restart_the_country }
+}
+
+shared_focus = {
+	id = ADL_militant_democracy
+	icon = GFX_RAJ_Wartime_Democracy
+	cost = 2
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_militant_democracy"
+		set_temp_variable = {IBR_wars_opposition_temp= -5}
+		tno_political_parties_improve = yes
+	}
+	relative_position_id = ADL_draft_a_constitution
+	prerequisite = { focus = ADL_draft_a_constitution }
+}
+
+shared_focus = {
+	id = ADL_accomodate_everyone
+	icon = GFX_generic_concessions
+	cost = 2
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_accomodate_everyone"
+		add_stability = 0.03 
+		# set_temp_variable = {IBR_wars_legitimacy_temp = 2}
+		# IBR_wars_change_legitimacy = yes
+		# TNO_improve_gender_rights_policy_effectiveness_low = yes
+		# set_temp_variable = {IBR_wars_recuitable_population_temp = 0.002}
+		# IBR_wars_change_recuitable_population = yes
+		tno_minorities_improve = yes
+		tno_racial_integration_improve = yes
+		tno_trade_unions_improve = yes
+	}
+	relative_position_id = ADL_draft_a_constitution
+	prerequisite = { focus = ADL_draft_a_constitution }
+}
+
+shared_focus = {
+	id = ADL_this_is_not_our_war
+	icon = GFX_Generic_Bad_Expansionism
+	cost = 2
+	x = 8
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_this_is_not_our_war"
+		add_stability = 0.1
+		add_war_support = -0.05
+		# set_temp_variable = {IBR_wars_legitimacy_temp = 5}
+		# IBR_wars_change_legitimacy = yes
+	}
+	relative_position_id = ADL_andalusians_in_the_sky
+	prerequisite = { focus = ADL_andalusians_in_the_sky }
+	prerequisite = { focus = ADL_militant_democracy }
+	prerequisite = { focus = ADL_accomodate_everyone }
+	prerequisite = { focus = ADL_we_are_in_dispersive_ground }
+}
+
+shared_focus = {
+	id = ADL_create_faa
+	icon = GFX_Generic_Army_Officers
+	cost = 2
+	x = 8
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_create_faa"
+		add_command_power = 20
+		# army_funding_maximal_increase_med = yes
+		# set_temp_variable = {IBR_wars_army_organisation_temp = 0.02}
+		# IBR_wars_change_army_organisation = yes
+		tno_training_improve = yes
+	}
+	relative_position_id = ADL_enough_already
+	prerequisite = { focus = ADL_enough_already }
+}
+
+shared_focus = {
+	id = ADL_not_a_step_forwards
+	icon = GFX_generic_advanced_weapons
+	cost = 2
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_not_a_step_forwards"
+		# set_temp_variable = {IBR_wars_army_defense_temp = 0.04}
+		# IBR_wars_change_army_defense = yes
+		# set_temp_variable = {IBR_wars_supply_consumption_temp = -0.02}
+		# IBR_wars_change_supply_consumption = yes
+		add_equipment_to_stockpile = {
+			type = artillery_equipment
+			amount = 200
+			producer = ADL
+		}
+	}
+	relative_position_id = ADL_create_faa
+	prerequisite = { focus = ADL_create_faa }
+}
+
+shared_focus = {
+	id = ADL_nor_backwards
+	icon = GFX_Generic_Crossed_Rifles
+	cost = 2
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_nor_backwards"
+		# set_temp_variable = {IBR_wars_army_defense_temp = 0.04}
+		# IBR_wars_change_army_defense = yes
+		# set_temp_variable = {IBR_wars_army_speed_temp = 0.03}
+		# IBR_wars_change_army_speed = yes
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1200
+			producer = ADL
+		}
+	}
+	relative_position_id = ADL_create_faa
+	prerequisite = { focus = ADL_create_faa }
+}
+
+shared_focus = {
+	id = ADL_recruitment_propaganda
+	icon = GFX_Quantity_Recruitment
+	cost = 2
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_recruitment_propaganda"
+		# TNO_improve_conscription_policy_effectiveness_low = yes
+		# set_temp_variable = {IBR_wars_recuitable_population_temp = 0.01}
+		# IBR_wars_change_recuitable_population = yes
+		add_manpower = 24000
+	}
+	relative_position_id = ADL_not_a_step_forwards
+	prerequisite = { focus = ADL_not_a_step_forwards }
+	prerequisite = { focus = ADL_nor_backwards }
+}
+
+shared_focus = {
+	id = ADL_equipment_quality_checks
+	icon = GFX_TNO_generic_forbid_guns
+	cost = 2
+	x = 4
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_equipment_quality_checks"
+		# set_temp_variable = {IBR_wars_max_effiency_temp = 0.05}
+		# IBR_wars_change_max_efficiency = yes
+		TNO_improve_industrial_expertise_high = yes
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1000
+			producer = ADL
+		}
+	}
+	relative_position_id = ADL_not_a_step_forwards
+	prerequisite = { focus = ADL_not_a_step_forwards }
+	prerequisite = { focus = ADL_nor_backwards }
+}
+
+shared_focus = {
+	id = ADL_we_are_in_dispersive_ground
+	icon = GFX_generic_fortify_city
+	cost = 2
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ADL_we_are_in_dispersive_ground"
+		every_owned_state = {
+			add_building_construction = {
+				type = bunker
+				level = 1
+				instant_build = yes
+				province = {
+					limit_to_victory_point = yes
+				}
+			}
+		}
+		tno_conscription_worsen = yes
+		# set_temp_variable = {IBR_wars_command_gain_temp = 0.2}
+		# IBR_wars_change_command_power_gain = yes
+		# set_temp_variable = {IBR_wars_army_organisation_temp = 0.05}
+		# IBR_wars_change_army_organisation = yes
+	}
+	relative_position_id = ADL_recruitment_propaganda
+	prerequisite = { focus = ADL_recruitment_propaganda }
+	prerequisite = { focus = ADL_equipment_quality_checks }
+}

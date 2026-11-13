@@ -1,0 +1,233 @@
+# Bloc aid — eligibility.
+#
+# TWO SCOPES, because the two windows use different contexts:
+#
+#   The BUTTON is selected_country_context, so its triggers run in the SELECTED country's scope.
+#   selected_country_context does not expose the player, so the patron is found with is_ai = no.
+#
+#   The PANEL is player_context (the TNO_research_focus_picker pattern), so its triggers run in
+#   the PLAYER's scope and the recipient is event_target:BLOC_AID_target, saved when the button
+#   is clicked. That is also why the panel's own visibility is a plain country flag on the player.
+#
+# The 28 faction-status ideas match TNO_FactionStatus_scripted_localisation.txt and the clear-all
+# block in TNO_useful_scripted_effects.txt.
+
+# Run INSIDE any_country / every_country. THIS = candidate patron, PREV = recipient.
+BLOC_AID_leads_prevs_bloc = {
+	OR = {
+		AND = {
+			has_idea = Pakt_Leader
+			PREV = {
+				OR = {
+					has_idea = Pakt_Bundnispartner
+					has_idea = Pakt_Mitstreiter
+					has_idea = Pakt_Observer
+					has_idea = Pakt_Marionettenstaat
+					has_idea = Pakt_Protektorat
+					has_idea = Pakt_Ordensstaat
+					has_idea = Pakt_Reichsland
+					has_idea = Pakt_Autonomous_Reichskommissariat
+					has_idea = Pakt_Integrated_Reichskommissariat
+					has_idea = Pakt_Military_Authority
+				}
+			}
+		}
+		AND = {
+			has_idea = OFN_Leader_of_The_Free_World
+			PREV = {
+				OR = {
+					has_idea = OFN_Independent_Member
+					has_idea = OFN_Dependent_Member
+					has_idea = OFN_Mandate
+					has_idea = OFN_Military_Government
+				}
+			}
+		}
+		AND = {
+			has_idea = Sphere_Leader
+			PREV = {
+				OR = {
+					has_idea = Sphere_Coequal
+					has_idea = Sphere_Imp_Protectorate
+					has_idea = Sphere_Economic_Dependent
+					has_idea = Sphere_Fully_Dependent
+					has_idea = Sphere_Special_Econ_Zone
+				}
+			}
+		}
+		AND = {
+			OR = {
+				has_idea = TRI_Founder_IT
+				has_idea = TRI_Founder_IB
+				has_idea = TRI_Founder_TR
+			}
+			PREV = {
+				OR = {
+					has_idea = TRI_Member
+					has_idea = TRI_Member_Client
+				}
+			}
+		}
+		AND = {
+			has_idea = Rome_leader
+			PREV = {
+				OR = {
+					has_idea = Rome_member
+					has_idea = Rome_client
+				}
+			}
+		}
+	}
+}
+
+# Button gate — runs in the SELECTED country's scope.
+BLOC_AID_valid_pair = {
+	exists = yes
+	any_country = {
+		is_ai = no
+		NOT = { tag = PREV }
+		NOT = { has_war_with = PREV }
+		BLOC_AID_leads_prevs_bloc = yes
+	}
+}
+
+# Recipient-side check, used through event_target from the panel. Only these six have an aid
+# OOB written in history/units/.
+#
+# The five Balkan clients wait for the Balkan Crisis (ZZZ_balkan_troubles, set in ZZZ_balkan_war.2
+# and never cleared). Croatia runs on its own timeline instead: it opens once Zagreb has a
+# government that can absorb foreign divisions at all — the first focus of the collaborationist
+# tree, or the first focus of whichever victory tree it loads after surviving Italy.
+#   CRO_the_vanished_king    root of CRO_italian_tree      (collaborationist)
+#   CRO_death_to_fascism     root of partisan_victory_tree (Tito survived Italy)
+#   CRO_second_wind          root of CRO_ustase_tree       (Ustase survived Italy)
+BLOC_AID_recipient_has_oob = {
+	OR = {
+		AND = {
+			has_global_flag = ZZZ_balkan_troubles
+			OR = {
+				tag = HUN
+				tag = ROM
+				tag = BUL
+				tag = SER
+				tag = GRE
+			}
+		}
+		AND = {
+			tag = CRO
+			OR = {
+				has_completed_focus = CRO_the_vanished_king
+				has_completed_focus = CRO_death_to_fascism
+				has_completed_focus = CRO_second_wind
+			}
+		}
+	}
+}
+
+# Panel rows — run in the PLAYER's scope; the recipient is the saved event target.
+BLOC_AID_arms_ready = {
+	has_country_flag = BLOC_AID_panel_open
+	custom_trigger_tooltip = {
+		tooltip = BLOC_AID_cooldown_tt
+		OR = {
+			AND = { has_idea = Pakt_Leader  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_arms_pakt } } }
+			AND = { has_idea = OFN_Leader_of_The_Free_World  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_arms_ofn } } }
+			AND = { has_idea = Sphere_Leader  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_arms_sphere } } }
+			AND = { has_idea = TRI_Founder_IT  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_arms_tri_it } } }
+			AND = { has_idea = TRI_Founder_IB  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_arms_tri_ib } } }
+			AND = { has_idea = TRI_Founder_TR  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_arms_tri_tr } } }
+			AND = { has_idea = Rome_leader  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_arms_rome } } }
+		}
+	}
+	custom_trigger_tooltip = {
+		tooltip = BLOC_AID_stockpile_tt
+		has_equipment = { infantry_equipment > 4000 }
+		has_equipment = { support_equipment > 800 }
+	}
+}
+
+BLOC_AID_manpower_ready = {
+	has_country_flag = BLOC_AID_panel_open
+	custom_trigger_tooltip = {
+		tooltip = BLOC_AID_cooldown_tt
+		OR = {
+			AND = { has_idea = Pakt_Leader  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_manpower_pakt } } }
+			AND = { has_idea = OFN_Leader_of_The_Free_World  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_manpower_ofn } } }
+			AND = { has_idea = Sphere_Leader  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_manpower_sphere } } }
+			AND = { has_idea = TRI_Founder_IT  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_manpower_tri_it } } }
+			AND = { has_idea = TRI_Founder_IB  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_manpower_tri_ib } } }
+			AND = { has_idea = TRI_Founder_TR  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_manpower_tri_tr } } }
+			AND = { has_idea = Rome_leader  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_manpower_rome } } }
+		}
+	}
+	custom_trigger_tooltip = {
+		tooltip = BLOC_AID_stockpile_tt
+		has_manpower > 15000
+	}
+}
+
+BLOC_AID_armour_ready = {
+	has_country_flag = BLOC_AID_panel_open
+	custom_trigger_tooltip = {
+		tooltip = BLOC_AID_cooldown_tt
+		OR = {
+			AND = { has_idea = Pakt_Leader  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_armour_pakt } } }
+			AND = { has_idea = OFN_Leader_of_The_Free_World  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_armour_ofn } } }
+			AND = { has_idea = Sphere_Leader  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_armour_sphere } } }
+			AND = { has_idea = TRI_Founder_IT  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_armour_tri_it } } }
+			AND = { has_idea = TRI_Founder_IB  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_armour_tri_ib } } }
+			AND = { has_idea = TRI_Founder_TR  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_armour_tri_tr } } }
+			AND = { has_idea = Rome_leader  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_armour_rome } } }
+		}
+	}
+	custom_trigger_tooltip = {
+		tooltip = BLOC_AID_stockpile_tt
+		has_equipment = { MBT_equipment > 120 }
+		has_equipment = { IFV_equipment > 150 }
+		has_equipment = { APC_equipment > 200 }
+	}
+}
+
+BLOC_AID_aircraft_ready = {
+	has_country_flag = BLOC_AID_panel_open
+	custom_trigger_tooltip = {
+		tooltip = BLOC_AID_cooldown_tt
+		OR = {
+			AND = { has_idea = Pakt_Leader  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_aircraft_pakt } } }
+			AND = { has_idea = OFN_Leader_of_The_Free_World  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_aircraft_ofn } } }
+			AND = { has_idea = Sphere_Leader  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_aircraft_sphere } } }
+			AND = { has_idea = TRI_Founder_IT  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_aircraft_tri_it } } }
+			AND = { has_idea = TRI_Founder_IB  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_aircraft_tri_ib } } }
+			AND = { has_idea = TRI_Founder_TR  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_aircraft_tri_tr } } }
+			AND = { has_idea = Rome_leader  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_aircraft_rome } } }
+		}
+	}
+	custom_trigger_tooltip = {
+		tooltip = BLOC_AID_stockpile_tt
+		has_equipment = { small_plane_airframe > 90 }
+	}
+}
+
+BLOC_AID_expedition_ready = {
+	has_country_flag = BLOC_AID_panel_open
+	custom_trigger_tooltip = {
+		tooltip = BLOC_AID_cooldown_tt
+		OR = {
+			AND = { has_idea = Pakt_Leader  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_expedition_pakt } } }
+			AND = { has_idea = OFN_Leader_of_The_Free_World  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_expedition_ofn } } }
+			AND = { has_idea = Sphere_Leader  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_expedition_sphere } } }
+			AND = { has_idea = TRI_Founder_IT  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_expedition_tri_it } } }
+			AND = { has_idea = TRI_Founder_IB  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_expedition_tri_ib } } }
+			AND = { has_idea = TRI_Founder_TR  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_expedition_tri_tr } } }
+			AND = { has_idea = Rome_leader  event_target:BLOC_AID_target = { NOT = { has_country_flag = BLOC_AID_cd_expedition_rome } } }
+		}
+	}
+	custom_trigger_tooltip = {
+		tooltip = BLOC_AID_stockpile_tt
+		has_equipment = { infantry_equipment > 8000 }
+		has_equipment = { support_equipment > 2000 }
+		has_equipment = { artillery_equipment > 400 }
+	}
+	event_target:BLOC_AID_target = { BLOC_AID_recipient_has_oob = yes }
+}
+

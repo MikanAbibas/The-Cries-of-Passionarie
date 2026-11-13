@@ -1,0 +1,257 @@
+# Superseded by the Military Advisors window (common/scripted_effects/TNO_military_advisors_scripted_effects.txt):
+# every decision, focus and event that called this now grants one level there, restarting its 30-day term.
+proxy_war_increase_advisors = {
+	TNO_military_advisors_grant = yes
+	#STRIP(superseded) if = {
+	#STRIP(superseded) 	limit = {
+	#STRIP(superseded) 		NOT = {
+	#STRIP(superseded) 			has_idea = advisor_level_1
+	#STRIP(superseded) 			has_idea = advisor_level_2
+	#STRIP(superseded) 			has_idea = advisor_level_3
+	#STRIP(superseded) 			has_idea = advisor_level_4
+	#STRIP(superseded) 			has_idea = advisor_level_5
+	#STRIP(superseded) 		}
+	#STRIP(superseded) 	}
+	#STRIP(superseded) 	add_ideas = { advisor_level_1 } 
+	#STRIP(superseded) }
+	#STRIP(superseded) else_if = {
+	#STRIP(superseded) 	limit = {			
+	#STRIP(superseded) 		has_idea = advisor_level_1
+	#STRIP(superseded) 	}
+	#STRIP(superseded) 	swap_ideas = {
+	#STRIP(superseded) 		remove_idea = advisor_level_1
+	#STRIP(superseded) 		add_idea = advisor_level_2
+	#STRIP(superseded) 	}
+	#STRIP(superseded) }					 
+	#STRIP(superseded) else_if = {
+	#STRIP(superseded) 	limit = {			
+	#STRIP(superseded) 		has_idea = advisor_level_2
+	#STRIP(superseded) 	}
+	#STRIP(superseded) 	swap_ideas = {
+	#STRIP(superseded) 		remove_idea = advisor_level_2
+	#STRIP(superseded) 		add_idea = advisor_level_3
+	#STRIP(superseded) 	}
+	#STRIP(superseded) }
+	#STRIP(superseded) else_if = {
+	#STRIP(superseded) 	limit = {			
+	#STRIP(superseded) 		has_idea = advisor_level_3
+	#STRIP(superseded) 	}
+	#STRIP(superseded) 	swap_ideas = {
+	#STRIP(superseded) 		remove_idea = advisor_level_3
+	#STRIP(superseded) 		add_idea = advisor_level_4
+	#STRIP(superseded) 	}
+	#STRIP(superseded) }
+	#STRIP(superseded) else_if = {
+	#STRIP(superseded) 	limit = {			
+	#STRIP(superseded) 		has_idea = advisor_level_4
+	#STRIP(superseded) 	}
+	#STRIP(superseded) 	swap_ideas = {
+	#STRIP(superseded) 		remove_idea = advisor_level_4
+	#STRIP(superseded) 		add_idea = advisor_level_5
+	#STRIP(superseded) 	}
+	#STRIP(superseded) }
+}
+
+# Removes one of the old advisor_level ideas. Nothing grants those any more; the war-end events that
+# call this only clean up saves from before the Military Advisors window. Content that withdraws
+# advisors calls TNO_military_advisors_lower.
+proxy_war_decrease_advisors = {
+	if = {
+		limit = {			
+			has_idea = advisor_level_1
+		}
+			remove_ideas = advisor_level_1
+		}					 
+	else_if = {
+		limit = {			
+			has_idea = advisor_level_2
+		}
+		swap_ideas = {
+			remove_idea = advisor_level_2
+			add_idea = advisor_level_1
+		}
+	}
+	else_if = {
+		limit = {			
+			has_idea = advisor_level_3
+		}
+		swap_ideas = {
+			remove_idea = advisor_level_3
+			add_idea = advisor_level_2
+		}
+	}
+	else_if = {
+		limit = {			
+			has_idea = advisor_level_4
+		}
+		swap_ideas = {
+			remove_idea = advisor_level_4
+			add_idea = advisor_level_3
+		}
+	}
+	else_if = {
+		limit = {			
+			has_idea = advisor_level_5
+		}
+		swap_ideas = {
+			remove_idea = advisor_level_5
+			add_idea = advisor_level_4
+		}
+	}
+}
+
+# Policing levels are disabled (user, 2026-10-06): too strong, and redundant with Military Advisors.
+proxy_war_increase_policing = {
+	#STRIP(volunteers) if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		NOT = {
+	#STRIP(volunteers) 			has_idea = policing_level_1
+	#STRIP(volunteers) 			has_idea = policing_level_2
+	#STRIP(volunteers) 			has_idea = policing_level_3
+	#STRIP(volunteers) 			has_idea = policing_level_4
+	#STRIP(volunteers) 			has_idea = policing_level_5
+	#STRIP(volunteers) 			has_idea = policing_level_6
+	#STRIP(volunteers) 			has_idea = policing_level_7
+	#STRIP(volunteers) 			has_idea = policing_level_8
+	#STRIP(volunteers) 		}
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	add_ideas = { policing_level_1 } 
+	#STRIP(volunteers) }
+	#STRIP(volunteers) else_if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		has_idea = policing_level_1
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	swap_ideas = {
+	#STRIP(volunteers) 		remove_idea = policing_level_1
+	#STRIP(volunteers) 		add_idea = policing_level_2
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) }	
+	#STRIP(volunteers) else_if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		has_idea = policing_level_2
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	swap_ideas = {
+	#STRIP(volunteers) 		remove_idea = policing_level_2
+	#STRIP(volunteers) 		add_idea = policing_level_3
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) }
+	#STRIP(volunteers) else_if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		has_idea = policing_level_3
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	swap_ideas = {
+	#STRIP(volunteers) 		remove_idea = policing_level_3
+	#STRIP(volunteers) 		add_idea = policing_level_4
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) }
+	#STRIP(volunteers) else_if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		has_idea = policing_level_4
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	swap_ideas = {
+	#STRIP(volunteers) 		remove_idea = policing_level_4
+	#STRIP(volunteers) 		add_idea = policing_level_5
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) }
+	#STRIP(volunteers) else_if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		has_idea = policing_level_5
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	swap_ideas = {
+	#STRIP(volunteers) 		remove_idea = policing_level_5
+	#STRIP(volunteers) 		add_idea = policing_level_6
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) }
+	#STRIP(volunteers) else_if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		has_idea = policing_level_6
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	swap_ideas = {
+	#STRIP(volunteers) 		remove_idea = policing_level_6
+	#STRIP(volunteers) 		add_idea = policing_level_7
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) }
+	#STRIP(volunteers) else_if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		has_idea = policing_level_7
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	swap_ideas = {
+	#STRIP(volunteers) 		remove_idea = policing_level_7
+	#STRIP(volunteers) 		add_idea = policing_level_8
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) }		 
+}
+	
+# Policing levels are disabled (user, 2026-10-06): too strong, and redundant with Military Advisors.
+proxy_war_decrease_policing = {
+	#STRIP(volunteers) if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		has_idea = policing_level_1
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	remove_ideas = policing_level_1
+	#STRIP(volunteers) }	
+	#STRIP(volunteers) else_if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		has_idea = policing_level_2
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	swap_ideas = {
+	#STRIP(volunteers) 		remove_idea = policing_level_2
+	#STRIP(volunteers) 		add_idea = policing_level_1
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) }
+	#STRIP(volunteers) else_if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		has_idea = policing_level_3
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	swap_ideas = {
+	#STRIP(volunteers) 		remove_idea = policing_level_3
+	#STRIP(volunteers) 		add_idea = policing_level_2
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) }
+	#STRIP(volunteers) else_if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		has_idea = policing_level_4
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	swap_ideas = {
+	#STRIP(volunteers) 		remove_idea = policing_level_4
+	#STRIP(volunteers) 		add_idea = policing_level_3
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) }
+	#STRIP(volunteers) else_if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		has_idea = policing_level_5
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	swap_ideas = {
+	#STRIP(volunteers) 		remove_idea = policing_level_5
+	#STRIP(volunteers) 		add_idea = policing_level_4
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) }
+	#STRIP(volunteers) else_if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		has_idea = policing_level_6
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	swap_ideas = {
+	#STRIP(volunteers) 		remove_idea = policing_level_6
+	#STRIP(volunteers) 		add_idea = policing_level_5
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) }
+	#STRIP(volunteers) else_if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		has_idea = policing_level_7
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	swap_ideas = {
+	#STRIP(volunteers) 		remove_idea = policing_level_7
+	#STRIP(volunteers) 		add_idea = policing_level_6
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) }	
+	#STRIP(volunteers) else_if = {
+	#STRIP(volunteers) 	limit = {
+	#STRIP(volunteers) 		has_idea = policing_level_8
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) 	swap_ideas = {
+	#STRIP(volunteers) 		remove_idea = policing_level_7
+	#STRIP(volunteers) 		add_idea = policing_level_7
+	#STRIP(volunteers) 	}
+	#STRIP(volunteers) }	
+}
+	

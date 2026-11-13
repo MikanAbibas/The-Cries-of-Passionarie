@@ -1,0 +1,1434 @@
+######################################################################################################
+# Market Liberal Focus Trees
+######################################################################################################
+
+################################
+# MarLib Election Victory - 1962#
+################################
+shared_focus = {
+	id = RAJ_MarLib_victory
+	icon = GFX_Generic_Constitution02
+	ai_will_do = {
+		factor = 1
+	}
+	x = 8
+	y = 0
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_MarLib_victory"
+		country_event = {
+			id = india.10001
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_Pure_Market
+	icon = GFX_Generic_Market_Liberals
+	ai_will_do = {
+		factor = 1
+	}
+	x = 8
+	y = 1
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = marlib_pure_tooltip
+			OR = {
+				has_country_flag = marlib_pure
+			}
+		}
+	}
+	prerequisite = {
+		focus = RAJ_MarLib_victory
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Pure_Market"
+		add_political_power = 50
+		add_popularity = {
+			ideology = market_liberal
+			popularity = 0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_SocDem_Coalition
+	icon = GFX_Generic_Social_Democracy
+	ai_will_do = {
+		factor = 1
+	}
+	x = 2
+	y = 1
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = marlib_socdem_coaltion_tooltip
+			OR = {
+				has_country_flag = marlib_socdem_coaltion
+			}
+		}
+	}
+	prerequisite = {
+		focus = RAJ_MarLib_victory
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_SocDem_Coalition"
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.1
+		}
+		add_stability = 0.05
+	}
+}
+
+shared_focus = {
+	id = RAJ_SocCon_Coalition
+	icon = GFX_Generic_Social_Conservatives
+	ai_will_do = {
+		factor = 1
+	}
+	x = 14
+	y = 1
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = marlib_soccon_coaltion_tooltip
+			OR = {
+				has_country_flag = marlib_soccon_coaltion
+			}
+		}
+	}
+	prerequisite = {
+		focus = RAJ_MarLib_victory
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_SocCon_Coalition"
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.1
+		}
+		add_stability = 0.05
+	}
+}
+
+### Pure Market Branch ###
+
+shared_focus = {
+	id = RAJ_Encourage_Domestics
+	icon = GFX_Generic_Fiscal_Austerity
+	ai_will_do = {
+		factor = 1
+	}
+	x = 7
+	y = 2
+	prerequisite = {
+		focus = RAJ_Pure_Market
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Encourage_Domestics"
+		# Adds a straight buff to Build Speed via Idea
+		add_timed_idea = {
+			idea = RAJ_SocLib1_promoting_local_businesses
+			days = 1500
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_Tariffs
+	icon = GFX_Generic_Political_Power_Gain
+	ai_will_do = {
+		factor = 1
+	}
+	x = 9
+	y = 2
+	prerequisite = {
+		focus = RAJ_Pure_Market
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Tariffs"
+		# Adds production efficiency buff, damages relations with neighbors
+		add_political_power = 25
+		add_stability = -0.03
+	}
+}
+
+shared_focus = {
+	id = RAJ_Protectionist_Economics
+	icon = GFX_generic_consumer_goods
+	ai_will_do = {
+		factor = 1
+	}
+	x = 8
+	y = 3
+	prerequisite = {
+		focus = RAJ_Tariffs
+		focus = RAJ_Encourage_Domestics
+	}
+	cost = 10
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Protectionist_Economics"
+		# Damages relations with neighbors, buffs local resource gain
+		add_political_power = 30
+		add_stability = 0.03
+	}
+}
+
+shared_focus = {
+	id = RAJ_Abolish_Caste_Economics
+	icon = GFX_RAJ_Caste_Economics
+	ai_will_do = {
+		factor = 1
+	}
+	x = 6
+	y = 3
+	prerequisite = {
+		focus = RAJ_Tariffs
+		focus = RAJ_Encourage_Domestics
+	}
+	cost = 10
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Abolish_Caste_Economics"
+		# Major PP loss, reduced stability from conservative dissent
+		add_political_power = -100
+		add_stability = -0.1
+	}
+}
+
+shared_focus = {
+	id = RAJ_Indian_Economic_Bloc
+	icon = GFX_molotov_ribbentrop_pact
+	ai_will_do = {
+		factor = 1
+	}
+	x = 10
+	y = 3
+	prerequisite = {
+		focus = RAJ_Tariffs
+		focus = RAJ_Encourage_Domestics
+	}
+	cost = 10
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Indian_Economic_Bloc"
+		# Indian economic sphere - buffs build speed and production efficiency
+		add_political_power = 50
+		add_stability = 0.05
+	}
+}
+
+shared_focus = {
+	id = RAJ_Local_Industry_Subsidies
+	icon = GFX_RAJ_Economic_Bloc
+	ai_will_do = {
+		factor = 1
+	}
+	x = 7
+	y = 4
+	prerequisite = {
+		focus = RAJ_Protectionist_Economics
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Local_Industry_Subsidies"
+		# Adds civilian factories
+		random_owned_controlled_state = {
+			limit = { is_core_of = ROOT }
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_Increase_Taxation
+	icon = GFX_Generic_Good_Economy
+	ai_will_do = {
+		factor = 1
+	}
+	x = 9
+	y = 4
+	prerequisite = {
+		focus = RAJ_Protectionist_Economics
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Increase_Taxation"
+		# Stability buff but PP hit
+		add_political_power = -50
+		add_stability = 0.05
+	}
+}
+
+shared_focus = {
+	id = RAJ_New_Schools
+	icon = GFX_research2
+	ai_will_do = {
+		factor = 1
+	}
+	x = 8
+	y = 5
+	prerequisite = {
+		focus = RAJ_Local_Industry_Subsidies
+		focus = RAJ_Increase_Taxation
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_New_Schools"
+		# Adds a research slot
+		add_research_slot = 1
+	}
+}
+
+shared_focus = {
+	id = RAJ_Indian_Rail_Initiative
+	icon = GFX_generic_construct_infrastructure
+	ai_will_do = {
+		factor = 1
+	}
+	x = 6
+	y = 5
+	prerequisite = {
+		focus = RAJ_Local_Industry_Subsidies
+		focus = RAJ_Increase_Taxation
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Indian_Rail_Initiative"
+		# Adds infrastructure around major cities
+		431 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 2
+				instant_build = yes
+			}
+		}
+		432 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 2
+				instant_build = yes
+			}
+		}
+		430 = {
+			add_building_construction = {
+				type = infrastructure
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_Delhi_Trade_Market
+	icon = GFX_Generic_Global_Diplomacy
+	ai_will_do = {
+		factor = 1
+	}
+	x = 10
+	y = 5
+	prerequisite = {
+		focus = RAJ_Local_Industry_Subsidies
+		focus = RAJ_Increase_Taxation
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Delhi_Trade_Market"
+		# Improves relations with neighbors
+		add_political_power = 50
+		add_stability = 0.05
+	}
+}
+
+shared_focus = {
+	id = RAJ_Orient
+	icon = GFX_RAJ_Orient
+	ai_will_do = {
+		factor = 1
+	}
+	x = 8
+	y = 6
+	prerequisite = {
+		focus = RAJ_New_Schools
+		focus = RAJ_Indian_Rail_Initiative
+		focus = RAJ_Delhi_Trade_Market
+	}
+	cost = 10
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Orient"
+		add_ideas = RAJ_Pearl_Orient
+	}
+}
+
+### SocDem Coalition Branch ###
+
+shared_focus = {
+	id = RAJ_Social_Safety
+	icon = GFX_Generic_Agrarianism
+	ai_will_do = {
+		factor = 1
+	}
+	x = 1
+	y = 2
+	prerequisite = {
+		focus = RAJ_SocDem_Coalition
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Social_Safety"
+		add_stability = 0.05
+		add_political_power = 25
+	}
+}
+
+shared_focus = {
+	id = RAJ_Education_Initiatives
+	icon = GFX_research
+	ai_will_do = {
+		factor = 1
+	}
+	x = 3
+	y = 2
+	prerequisite = {
+		focus = RAJ_SocDem_Coalition
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Education_Initiatives"
+		add_tech_bonus = {
+			name = RAJ_Education_Initiatives
+			bonus = 1.0
+			uses = 1
+			category = electronics
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_National_Healthcare
+	icon = GFX_generic_treaty
+	ai_will_do = {
+		factor = 1
+	}
+	x = 2
+	y = 3
+	prerequisite = {
+		focus = RAJ_Social_Safety
+		focus = RAJ_Education_Initiatives
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_National_Healthcare"
+		add_stability = 0.05
+		add_political_power = 30
+	}
+}
+
+shared_focus = {
+	id = RAJ_Mixed_Market_Economy
+	icon = GFX_RAJ_Mixed_Market
+	ai_will_do = {
+		factor = 1
+	}
+	x = 1
+	y = 4
+	prerequisite = {
+		focus = RAJ_National_Healthcare
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Mixed_Market_Economy"
+		tno_improve_construction_laws = yes
+	}
+}
+
+shared_focus = {
+	id = RAJ_Limited_Protectionism
+	icon = GFX_generic_positive_trade_relations
+	ai_will_do = {
+		factor = 1
+	}
+	x = 3
+	y = 4
+	prerequisite = {
+		focus = RAJ_National_Healthcare
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Limited_Protectionism"
+		add_political_power = 40
+		add_stability = 0.03
+	}
+}
+
+shared_focus = {
+	id = RAJ_Reduce_Military_Expenditures
+	icon = GFX_generic_little_entente
+	ai_will_do = {
+		factor = 1
+	}
+	x = 2
+	y = 5
+	prerequisite = {
+		focus = RAJ_Mixed_Market_Economy
+		focus = RAJ_Limited_Protectionism
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Reduce_Military_Expenditures"
+		add_political_power = 50
+		add_war_support = -0.05
+	}
+}
+
+shared_focus = {
+	id = RAJ_SocDem_Economy
+	icon = GFX_RAJ_SocDem_Economy
+	ai_will_do = {
+		factor = 1
+	}
+	x = 2
+	y = 6
+	prerequisite = {
+		focus = RAJ_Reduce_Military_Expenditures
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_SocDem_Economy"
+		add_stability = 0.1
+		add_political_power = 75
+		add_research_slot = 1
+	}
+}
+
+### SocCon Coalition Branch ###
+
+shared_focus = {
+	id = RAJ_Limited_Caste_Reforms
+	icon = GFX_Generic_Agrarianism02
+	ai_will_do = {
+		factor = 1
+	}
+	x = 13
+	y = 2
+	prerequisite = {
+		focus = RAJ_SocCon_Coalition
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Limited_Caste_Reforms"
+		add_stability = 0.03
+		add_political_power = -30
+	}
+}
+
+shared_focus = {
+	id = RAJ_Bridging_Social_Gap
+	icon = GFX_generic_intelligence_exchange
+	ai_will_do = {
+		factor = 1
+	}
+	x = 15
+	y = 2
+	prerequisite = {
+		focus = RAJ_SocCon_Coalition
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Bridging_Social_Gap"
+		add_stability = 0.05
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_Market_Freedoms
+	icon = GFX_Generic_Constitution02
+	ai_will_do = {
+		factor = 1
+	}
+	x = 14
+	y = 3
+	prerequisite = {
+		focus = RAJ_Limited_Caste_Reforms
+		focus = RAJ_Bridging_Social_Gap
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Market_Freedoms"
+		add_political_power = 50
+		tno_improve_construction_laws = yes
+	}
+}
+
+shared_focus = {
+	id = RAJ_Hindu_Muslim_Relations
+	icon = GFX_generic_concessions
+	ai_will_do = {
+		factor = 1
+	}
+	x = 13
+	y = 4
+	prerequisite = {
+		focus = RAJ_Market_Freedoms
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Hindu_Muslim_Relations"
+		add_stability = 0.1
+	}
+}
+
+shared_focus = {
+	id = RAJ_Civil_Services
+	icon = GFX_generic_military_academy
+	ai_will_do = {
+		factor = 1
+	}
+	x = 15
+	y = 4
+	prerequisite = {
+		focus = RAJ_Market_Freedoms
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Civil_Services"
+		add_political_power = 75
+	}
+}
+
+shared_focus = {
+	id = RAJ_Reduce_Corruption
+	icon = GFX_AST_squander_bug
+	ai_will_do = {
+		factor = 1
+	}
+	x = 14
+	y = 5
+	prerequisite = {
+		focus = RAJ_Hindu_Muslim_Relations
+		focus = RAJ_Civil_Services
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Reduce_Corruption"
+		add_stability = 0.05
+		add_political_power = 50
+	}
+}
+
+shared_focus = {
+	id = RAJ_India_United
+	icon = GFX_RAJ_all_india_forward_bloc
+	ai_will_do = {
+		factor = 1
+	}
+	x = 14
+	y = 6
+	prerequisite = {
+		focus = RAJ_Reduce_Corruption
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_India_United"
+		add_stability = 0.1
+		add_political_power = 100
+		add_war_support = 0.1
+	}
+}
+
+################################
+# MarLib Election Victory - 1967#
+################################
+shared_focus = {
+	id = RAJ_MarLib_victory2
+	icon = GFX_Generic_Constitution02
+	ai_will_do = {
+		factor = 1
+	}
+	x = 12
+	y = 0
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_MarLib_victory2"
+		country_event = {
+			id = india.10006
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_Pure_Market02
+	icon = GFX_Generic_Market_Liberals
+	ai_will_do = {
+		factor = 1
+	}
+	x = 12
+	y = 1
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = marlib_pure_tooltip
+			OR = {
+				has_country_flag = marlib_pure2
+			}
+		}
+	}
+	prerequisite = {
+		focus = RAJ_MarLib_victory2
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Pure_Market02"
+		add_political_power = 50
+		add_popularity = {
+			ideology = market_liberal
+			popularity = 0.05
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_SocDem_Coalition02
+	icon = GFX_Generic_Social_Democracy
+	ai_will_do = {
+		factor = 1
+	}
+	x = 4
+	y = 1
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = marlib_socdem_coaltion_tooltip
+			OR = {
+				has_country_flag = marlib_socdem_coaltion2
+			}
+		}
+	}
+	prerequisite = {
+		focus = RAJ_MarLib_victory2
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_SocDem_Coalition02"
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.1
+		}
+		add_stability = 0.05
+	}
+}
+
+shared_focus = {
+	id = RAJ_SocCon_Coalition02
+	icon = GFX_Generic_Social_Conservatives
+	ai_will_do = {
+		factor = 1
+	}
+	x = 20
+	y = 1
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = marlib_soccon_coaltion_tooltip
+			OR = {
+				has_country_flag = marlib_soccon_coaltion2
+			}
+		}
+	}
+	prerequisite = {
+		focus = RAJ_MarLib_victory2
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_SocCon_Coalition02"
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.1
+		}
+		add_stability = 0.05
+	}
+}
+
+### Pure Market 02 Branch ###
+
+shared_focus = {
+	id = RAJ_Banking_Reform
+	icon = GFX_generic_national_unity
+	ai_will_do = {
+		factor = 1
+	}
+	x = 11
+	y = 2
+	prerequisite = {
+		focus = RAJ_Pure_Market02
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Banking_Reform"
+		add_political_power = 40
+		add_stability = 0.03
+	}
+}
+
+shared_focus = {
+	id = RAJ_Rail_Subsidies
+	icon = GFX_generic_construct_infrastructure
+	ai_will_do = {
+		factor = 1
+	}
+	x = 13
+	y = 2
+	prerequisite = {
+		focus = RAJ_Pure_Market02
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Rail_Subsidies"
+		random_owned_controlled_state = {
+			limit = { is_core_of = ROOT }
+			add_building_construction = {
+				type = infrastructure
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_Privatize_Airlines
+	icon = GFX_generic_air_bomber
+	ai_will_do = {
+		factor = 1
+	}
+	x = 11
+	y = 3
+	prerequisite = {
+		focus = RAJ_Banking_Reform
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Privatize_Airlines"
+		add_tech_bonus = {
+			name = RAJ_Privatize_Airlines
+			bonus = 1.0
+			uses = 2
+			category = light_air
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_Break_into_Southeast_Asia
+	icon = GFX_Generic_Naval_Treaty
+	ai_will_do = {
+		factor = 1
+	}
+	x = 13
+	y = 3
+	prerequisite = {
+		focus = RAJ_Rail_Subsidies
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Break_into_Southeast_Asia"
+		add_political_power = 50
+		add_stability = 0.05
+	}
+}
+
+shared_focus = {
+	id = RAJ_Heavy_Industry_Grants
+	icon = GFX_generic_steel
+	ai_will_do = {
+		factor = 1
+	}
+	x = 11
+	y = 4
+	prerequisite = {
+		focus = RAJ_Privatize_Airlines
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Heavy_Industry_Grants"
+		random_owned_controlled_state = {
+			limit = { is_core_of = ROOT }
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_Reduce_Work_Restrictions
+	icon = GFX_generic_the_giant_wakes
+	ai_will_do = {
+		factor = 1
+	}
+	x = 13
+	y = 4
+	prerequisite = {
+		focus = RAJ_Break_into_Southeast_Asia
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Reduce_Work_Restrictions"
+		add_political_power = 30
+		add_war_support = 0.03
+	}
+}
+
+shared_focus = {
+	id = RAJ_The_Great_Chain
+	icon = GFX_Generic_Revolution
+	ai_will_do = {
+		factor = 1
+	}
+	x = 12
+	y = 5
+	prerequisite = {
+		focus = RAJ_Heavy_Industry_Grants
+		focus = RAJ_Reduce_Work_Restrictions
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_The_Great_Chain"
+		add_stability = 0.1
+		add_political_power = 75
+		add_research_slot = 1
+	}
+}
+
+### SocDem Coalition 02 Branch ###
+
+shared_focus = {
+	id = RAJ_Market_Interventionism
+	icon = GFX_generic_positive_trade_relations
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 2
+	prerequisite = {
+		focus = RAJ_SocDem_Coalition02
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Market_Interventionism"
+		tno_improve_construction_laws = yes
+	}
+}
+
+shared_focus = {
+	id = RAJ_Socialized_Medicine
+	icon = GFX_Generic_Agrarianism02
+	ai_will_do = {
+		factor = 1
+	}
+	x = 3
+	y = 2
+	prerequisite = {
+		focus = RAJ_SocDem_Coalition02
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Socialized_Medicine"
+		add_stability = 0.05
+		add_political_power = 25
+	}
+}
+
+shared_focus = {
+	id = RAJ_Trade_Unionism
+	icon = GFX_support_communism
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 3
+	prerequisite = {
+		focus = RAJ_Market_Interventionism
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Trade_Unionism"
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.05
+		}
+		add_stability = 0.03
+	}
+}
+
+shared_focus = {
+	id = RAJ_Mass_Vaccinations
+	icon = GFX_generic_improve_relations
+	ai_will_do = {
+		factor = 1
+	}
+	x = 3
+	y = 3
+	prerequisite = {
+		focus = RAJ_Socialized_Medicine
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Mass_Vaccinations"
+		add_stability = 0.05
+		add_political_power = 30
+	}
+}
+
+shared_focus = {
+	id = RAJ_Open_Religious_Sites
+	icon = GFX_Generic_Constitution
+	ai_will_do = {
+		factor = 1
+	}
+	x = 5
+	y = 4
+	prerequisite = {
+		focus = RAJ_Trade_Unionism
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Open_Religious_Sites"
+		add_stability = 0.05
+	}
+}
+
+shared_focus = {
+	id = RAJ_Invest_in_Science
+	icon = GFX_Generic_Science
+	ai_will_do = {
+		factor = 1
+	}
+	x = 3
+	y = 4
+	prerequisite = {
+		focus = RAJ_Mass_Vaccinations
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Invest_in_Science"
+		add_tech_bonus = {
+			name = RAJ_Invest_in_Science
+			bonus = 1.0
+			uses = 2
+			category = electronics
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_Human_Socialism
+	icon = GFX_RAJ_Human_Socialism
+	ai_will_do = {
+		factor = 1
+	}
+	x = 4
+	y = 5
+	prerequisite = {
+		focus = RAJ_Open_Religious_Sites
+		focus = RAJ_Invest_in_Science
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Human_Socialism"
+		add_stability = 0.1
+		add_political_power = 100
+		add_research_slot = 1
+	}
+}
+
+### SocCon Coalition 02 Branch ###
+
+shared_focus = {
+	id = RAJ_Token_Reforms
+	icon = GFX_Generic_Political_Power_Gain
+	ai_will_do = {
+		factor = 1
+	}
+	x = 19
+	y = 2
+	prerequisite = {
+		focus = RAJ_SocCon_Coalition02
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Token_Reforms"
+		add_political_power = 30
+		add_stability = 0.03
+	}
+}
+
+shared_focus = {
+	id = RAJ_Military_Industrial_Complex
+	icon = GFX_generic_construct_military
+	ai_will_do = {
+		factor = 1
+	}
+	x = 21
+	y = 2
+	prerequisite = {
+		focus = RAJ_SocCon_Coalition02
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Military_Industrial_Complex"
+		random_owned_controlled_state = {
+			limit = { is_core_of = ROOT }
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_Expand_National_Police
+	icon = GFX_Generic_Roundup
+	ai_will_do = {
+		factor = 1
+	}
+	x = 19
+	y = 3
+	prerequisite = {
+		focus = RAJ_Token_Reforms
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Expand_National_Police"
+		add_stability = 0.05
+		add_war_support = 0.03
+	}
+}
+
+shared_focus = {
+	id = RAJ_Domestic_Arms_Industry
+	icon = GFX_generic_position_armies
+	ai_will_do = {
+		factor = 1
+	}
+	x = 21
+	y = 3
+	prerequisite = {
+		focus = RAJ_Military_Industrial_Complex
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Domestic_Arms_Industry"
+		random_owned_controlled_state = {
+			limit = { is_core_of = ROOT }
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_Patriotism
+	icon = GFX_Generic_Army_Focus_Red
+	ai_will_do = {
+		factor = 1
+	}
+	x = 19
+	y = 4
+	prerequisite = {
+		focus = RAJ_Expand_National_Police
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Patriotism"
+		add_war_support = 0.1
+		add_stability = 0.03
+	}
+}
+
+shared_focus = {
+	id = RAJ_Expand_Fleet
+	icon = GFX_Generic_Coastal_Focus_Navy
+	ai_will_do = {
+		factor = 1
+	}
+	x = 21
+	y = 4
+	prerequisite = {
+		focus = RAJ_Domestic_Arms_Industry
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Expand_Fleet"
+		add_tech_bonus = {
+			name = RAJ_Expand_Fleet
+			bonus = 1.0
+			uses = 2
+			category = naval_equipment
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_New_Nationalism
+	icon = GFX_RAJ_New_Nationalism
+	ai_will_do = {
+		factor = 1
+	}
+	x = 20
+	y = 5
+	prerequisite = {
+		focus = RAJ_Patriotism
+		focus = RAJ_Expand_Fleet
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_New_Nationalism"
+		add_stability = 0.1
+		add_war_support = 0.1
+		add_political_power = 100
+	}
+}
+
+### War on Poverty/Injustice (shared between Pure Market 02 and Coalitions) ###
+
+shared_focus = {
+	id = RAJ_War_on_Poverty
+	icon = GFX_Generic_Fiscal_Austerity
+	ai_will_do = {
+		factor = 1
+	}
+	x = 16
+	y = 2
+	prerequisite = {
+		focus = RAJ_Pure_Market02
+		focus = RAJ_SocCon_Coalition02
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_War_on_Poverty"
+		add_stability = 0.05
+		add_political_power = 30
+	}
+}
+
+shared_focus = {
+	id = RAJ_War_on_Injustice
+	icon = GFX_generic_military_academy
+	ai_will_do = {
+		factor = 1
+	}
+	x = 8
+	y = 2
+	prerequisite = {
+		focus = RAJ_Pure_Market02
+		focus = RAJ_SocDem_Coalition02
+	}
+	cost = 8
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_War_on_Injustice"
+		add_stability = 0.05
+		add_political_power = 30
+	}
+}
+
+shared_focus = {
+	id = RAJ_Youth_Programs
+	icon = GFX_RAJ_Youth_Programs
+	ai_will_do = {
+		factor = 1
+	}
+	x = 16
+	y = 3
+	prerequisite = {
+		focus = RAJ_War_on_Poverty
+	}
+	cost = 9
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Youth_Programs"
+		add_stability = 0.03
+		add_political_power = 25
+	}
+}
+
+shared_focus = {
+	id = RAJ_Low_Income_Housing
+	icon = GFX_Generic_Factories
+	ai_will_do = {
+		factor = 1
+	}
+	x = 16
+	y = 4
+	prerequisite = {
+		focus = RAJ_Youth_Programs
+	}
+	cost = 9
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Low_Income_Housing"
+		random_owned_controlled_state = {
+			limit = { is_core_of = ROOT }
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = RAJ_Family_Tax_Reductions
+	icon = GFX_Generic_Constitution02
+	ai_will_do = {
+		factor = 1
+	}
+	x = 16
+	y = 5
+	prerequisite = {
+		focus = RAJ_Low_Income_Housing
+	}
+	cost = 9
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Family_Tax_Reductions"
+		add_political_power = 50
+		add_stability = 0.05
+	}
+}
+
+shared_focus = {
+	id = RAJ_Muslim_Committee
+	icon = GFX_RAJ_Muslim_Committee
+	ai_will_do = {
+		factor = 1
+	}
+	x = 8
+	y = 3
+	prerequisite = {
+		focus = RAJ_War_on_Injustice
+	}
+	cost = 9
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Muslim_Committee"
+		add_stability = 0.05
+	}
+}
+
+shared_focus = {
+	id = RAJ_Unity
+	icon = GFX_generic_national_unity
+	ai_will_do = {
+		factor = 1
+	}
+	x = 8
+	y = 4
+	prerequisite = {
+		focus = RAJ_Muslim_Committee
+	}
+	cost = 9
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Unity"
+		add_stability = 0.05
+		add_political_power = 40
+	}
+}
+
+shared_focus = {
+	id = RAJ_Fight_Radicalism
+	icon = GFX_Generic_Political_Purge
+	ai_will_do = {
+		factor = 1
+	}
+	x = 8
+	y = 5
+	prerequisite = {
+		focus = RAJ_Unity
+	}
+	cost = 9
+	
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus RAJ_Fight_Radicalism"
+		add_stability = 0.1
+		add_war_support = 0.05
+		add_political_power = 50
+	}
+}

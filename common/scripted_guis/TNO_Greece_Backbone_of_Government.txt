@@ -1,0 +1,534 @@
+scripted_gui = {
+	TNO_Greece_BOG_OpenButtonContainer = {
+		window_name = "TNO_Greece_BOG_AccessButton"
+		context_type = player_context
+		parent_window_token = politics_tab
+
+		visible = { has_global_flag = ITA_MED_WIP_PATHS
+			tag = GRE
+		}
+
+		effects = {
+			TNO_Greece_BOG_OpenButton_click = {
+				if = {
+					limit = { NOT = { has_country_flag = GRE_BOG_GUI_Open } }
+					set_country_flag = GRE_BOG_GUI_Open
+				}
+				else_if = {
+					limit = { has_country_flag = GRE_BOG_GUI_Open }
+					clr_country_flag = GRE_BOG_GUI_Open
+				}
+				clr_country_flag = gui_alert_visible
+			}
+		}
+
+		triggers = {
+			TNO_Greece_BOG_OpenButton_visible = {
+				OR = {
+					has_completed_focus = GRE_An_Unstable_but_Free_Democracy
+					has_country_flag = GRE_BOG_mechanic_visible
+				}
+			}
+			BOG_bureaucrat_coup_alert_small_visible = {
+				OR = {
+					check_variable = {global.GRE_BOG_total_of_two_for_scales = -1.00}
+					check_variable = {global.GRE_BOG_total_of_two_for_scales < -1.00}
+				}
+			}
+			BOG_army_coup_alert_small_visible = {
+				OR = {
+					check_variable = {global.GRE_BOG_total_of_two_for_scales = 1.00}
+					check_variable = {global.GRE_BOG_total_of_two_for_scales > 1.00}
+				}
+			}
+			gui_alert_visible = {
+				has_country_flag = gui_alert_visible
+			}
+		}
+	}
+
+	TNO_Greece_BOG_DisplayContainer = {
+		context_type = player_context
+		parent_window_token = "TNO_Greece_BOG_OpenButtonContainer"
+		window_name = "TNO_Greece_BOG_Display"
+
+		visible = { has_global_flag = ITA_MED_WIP_PATHS 
+			has_country_flag = GRE_BOG_GUI_Open
+		}
+		
+		properties = {
+			BOG_influence_scales = {
+				image = [getGreeceScales]
+			}
+			BOG_working_class_disapproval_circle = {
+				frame = global.GRE_BOG_semicircles_working_class_bad
+			}
+			BOG_intellectuals_disapproval_circle = {
+				frame = global.GRE_BOG_semicircles_intellectuals_bad
+			}
+			BOG_elite_disapproval_circle = {
+				frame = global.GRE_BOG_semicircles_elites_bad
+			}
+			BOG_elite_approval_circle = {
+				frame = global.GRE_BOG_semicircles_elites_good
+			}
+			BOG_intellectuals_approval_circle = {
+				frame = global.GRE_BOG_semicircles_intellectuals_good
+			}
+			BOG_working_class_approval_circle = {
+				frame = global.GRE_BOG_Working_Class_Approval
+			}
+			BOG_Group_Approval_Bar_Good_Working_Class = {
+				frame = global.GRE_BOG_Approval_Working_Class
+			}
+			BOG_Group_Approval_Bar_Bad_Ok_Working_Class = {
+				frame = global.GRE_BOG_Approval_Apathatic_Working_Class
+			}
+			BOG_Group_Approval_Bar_Good_Intellectuals = {
+				frame = global.GRE_BOG_Approval_Intellectuals
+			}
+			BOG_Group_Approval_Bar_Bad_Ok_Intellectuals = {
+				frame = global.GRE_BOG_Approval_Apathatic_Intellectuals
+			}
+			BOG_Group_Approval_Bar_Good_Elites = {
+				frame = global.GRE_BOG_Approval_Elites
+			}
+			BOG_Group_Approval_Bar_Bad_Ok_Elites = {
+				frame = global.GRE_BOG_Approval_Apathatic_Elites
+			}
+			BOG_Group_Approval_Bar_Good_Church = {
+				frame = global.GRE_BOG_Approval_Church
+			}
+			BOG_Group_Approval_Bar_Bad_Ok_Church = {
+				frame = global.GRE_BOG_Approval_Apathatic_Church
+			}
+			BOG_Group_Approval_Bar_Good_Army = {
+				frame = global.GRE_BOG_Approval_Army
+			}
+			BOG_Group_Approval_Bar_Bad_Ok_Army = {
+				frame = global.GRE_BOG_Approval_Apathatic_Army
+			}
+			BOG_Group_Approval_Bar_Good_Bureaucrats = {
+				frame = global.GRE_BOG_Approval_Bureaucrats
+			}
+			BOG_Group_Approval_Bar_Bad_Ok_Bureaucrats = {
+				frame = global.GRE_BOG_Approval_Apathatic_Bureaucrats
+			}
+			BOG_Leader = {
+				image = "[GRE_BOG_Leader_Portrait]"
+			}
+		}
+
+		# Debug buttons
+		effects = {
+			Greece_BoG_close_button_click = {
+				clr_country_flag = GRE_BOG_GUI_Open
+			}
+			BOG_Reset_click = {
+				GRE_reset_BOG = yes
+			}
+			BOG_Debug_Add_Approve_Working_Class_click = {
+				add_to_variable = { global.GRE_BOG_Approval_Working_Class = 1 }
+				GRE_BoG_rebalance_others_Working_Class = yes
+				set_country_flag = GRE_bog_Working_Class_approval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+			BOG_Debug_Add_Apathetic_Working_Class_click = {
+				add_to_variable = { global.GRE_BOG_Apathetic_Working_Class = 1 }
+				GRE_BoG_rebalance_others_Working_Class = yes
+				set_country_flag = GRE_bog_Working_Class_apathetic_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+			BOG_Debug_Add_Disapprove_Working_Class_click = {
+				add_to_variable = { global.GRE_BOG_Disapprove_Working_Class = 1 }
+				GRE_BoG_rebalance_others_Working_Class = yes
+				set_country_flag = GRE_bog_Working_Class_dissaproval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+			BOG_Debug_Add_Approve_Working_Class_right_click = {
+				add_to_variable = { global.GRE_BOG_Approval_Working_Class = 5 }
+				GRE_BoG_rebalance_others_Working_Class = yes
+				set_country_flag = GRE_bog_Working_Class_approval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+			BOG_Debug_Add_Apathetic_Working_Class_right_click = {
+				add_to_variable = { global.GRE_BOG_Apathetic_Working_Class = 5 }
+				GRE_BoG_rebalance_others_Working_Class = yes
+				set_country_flag = GRE_bog_Working_Class_apathetic_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+			BOG_Debug_Add_Disapprove_Working_Class_right_click = {
+				add_to_variable = { global.GRE_BOG_Disapprove_Working_Class = 5 }
+				GRE_BoG_rebalance_others_Working_Class = yes
+				set_country_flag = GRE_bog_Working_Class_dissaproval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+
+			BOG_Debug_Add_Approve_Intellectuals_click = {
+				add_to_variable = { global.GRE_BOG_Approval_Intellectuals = 1 }
+				GRE_BoG_rebalance_others_Intellectuals = yes
+				set_country_flag = GRE_bog_Intellectuals_approval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+			BOG_Debug_Add_Apathetic_Intellectuals_click = {
+				add_to_variable = { global.GRE_BOG_Apathetic_Intellectuals = 1 }
+				GRE_BoG_rebalance_others_Intellectuals = yes
+				set_country_flag = GRE_bog_Intellectuals_apathetic_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+			BOG_Debug_Add_Disapprove_Intellectuals_click = {
+				add_to_variable = { global.GRE_BOG_Disapprove_Intellectuals = 1 }
+				GRE_BoG_rebalance_others_Intellectuals = yes
+				set_country_flag = GRE_bog_Intellectuals_dissaproval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+			BOG_Debug_Add_Approve_Intellectuals_right_click = {
+				add_to_variable = { global.GRE_BOG_Approval_Intellectuals = 5 }
+				GRE_BoG_rebalance_others_Intellectuals = yes
+				set_country_flag = GRE_bog_Intellectuals_approval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+			BOG_Debug_Add_Apathetic_Intellectuals_right_click = {
+				add_to_variable = { global.GRE_BOG_Apathetic_Intellectuals = 5 }
+				GRE_BoG_rebalance_others_Intellectuals = yes
+				set_country_flag = GRE_bog_Intellectuals_apathetic_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+			BOG_Debug_Add_Disapprove_Intellectuals_right_click = {
+				add_to_variable = { global.GRE_BOG_Disapprove_Intellectuals = 5 }
+				GRE_BoG_rebalance_others_Intellectuals = yes
+				set_country_flag = GRE_bog_Intellectuals_dissaproval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+
+			BOG_Debug_Add_Approve_Elites_click = {
+				add_to_variable = { global.GRE_BOG_Approval_Elites = 1 }
+				GRE_BoG_rebalance_others_Elites = yes
+				set_country_flag = GRE_bog_Elites_approval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+			BOG_Debug_Add_Apathetic_Elites_click = {
+				add_to_variable = { global.GRE_BOG_Apathetic_Elites = 1 }
+				GRE_BoG_rebalance_others_Elites = yes
+				set_country_flag = GRE_bog_Elites_apathetic_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+			BOG_Debug_Add_Disapprove_Elites_click = {
+				add_to_variable = { global.GRE_BOG_Disapprove_Elites = 1 }
+				GRE_BoG_rebalance_others_Elites = yes
+				set_country_flag = GRE_bog_Elites_dissaproval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+			BOG_Debug_Add_Approve_Elites_right_click = {
+				add_to_variable = { global.GRE_BOG_Approval_Elites = 5 }
+				GRE_BoG_rebalance_others_Elites = yes
+				set_country_flag = GRE_bog_Elites_approval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+			BOG_Debug_Add_Apathetic_Elites_right_click = {
+				add_to_variable = { global.GRE_BOG_Apathetic_Elites = 5 }
+				GRE_BoG_rebalance_others_Elites = yes
+				set_country_flag = GRE_bog_Elites_apathetic_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+			BOG_Debug_Add_Disapprove_Elites_right_click = {
+				add_to_variable = { global.GRE_BOG_Disapprove_Elites = 5 }
+				GRE_BoG_rebalance_others_Elites = yes
+				set_country_flag = GRE_bog_Elites_dissaproval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+			}
+
+			BOG_Debug_Add_Approve_Bureaucrats_click = {
+				add_to_variable = { global.GRE_BOG_Approval_Bureaucrats = 1 }
+				GRE_BoG_rebalance_others_Bureaucrats = yes
+				set_country_flag = GRE_bog_Bureaucrats_approval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+			BOG_Debug_Add_Apathetic_Bureaucrats_click = {
+				add_to_variable = { global.GRE_BOG_Apathetic_Bureaucrats = 1 }
+				GRE_BoG_rebalance_others_Bureaucrats = yes
+				set_country_flag = GRE_bog_Bureaucrats_apathetic_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+			BOG_Debug_Add_Disapprove_Bureaucrats_click = {
+				add_to_variable = { global.GRE_BOG_Disapprove_Bureaucrats = 1 }
+				GRE_BoG_rebalance_others_Bureaucrats = yes
+				set_country_flag = GRE_bog_Bureaucrats_dissaproval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+			BOG_Debug_Add_Approve_Bureaucrats_right_click = {
+				add_to_variable = { global.GRE_BOG_Approval_Bureaucrats = 5 }
+				GRE_BoG_rebalance_others_Bureaucrats = yes
+				set_country_flag = GRE_bog_Bureaucrats_approval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+			BOG_Debug_Add_Apathetic_Bureaucrats_right_click = {
+				add_to_variable = { global.GRE_BOG_Apathetic_Bureaucrats = 5 }
+				GRE_BoG_rebalance_others_Bureaucrats = yes
+				set_country_flag = GRE_bog_Bureaucrats_apathetic_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+			BOG_Debug_Add_Disapprove_Bureaucrats_right_click = {
+				add_to_variable = { global.GRE_BOG_Disapprove_Bureaucrats = 5 }
+				GRE_BoG_rebalance_others_Bureaucrats = yes
+				set_country_flag = GRE_bog_Bureaucrats_dissaproval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+
+			BOG_Debug_Add_Approve_Church_click = {
+				add_to_variable = { global.GRE_BOG_Approval_Church = 1 }
+				GRE_BoG_rebalance_others_Church = yes
+				set_country_flag = GRE_bog_Church_approval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+			BOG_Debug_Add_Apathetic_Church_click = {
+				add_to_variable = { global.GRE_BOG_Apathetic_Church = 1 }
+				GRE_BoG_rebalance_others_Church = yes
+				set_country_flag = GRE_bog_Church_apathetic_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+			BOG_Debug_Add_Disapprove_Church_click = {
+				add_to_variable = { global.GRE_BOG_Disapprove_Church = 1 }
+				GRE_BoG_rebalance_others_Church = yes
+				set_country_flag = GRE_bog_Church_dissaproval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+			BOG_Debug_Add_Approve_Church_right_click = {
+				add_to_variable = { global.GRE_BOG_Approval_Church = 5 }
+				GRE_BoG_rebalance_others_Church = yes
+				set_country_flag = GRE_bog_Church_approval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+			BOG_Debug_Add_Apathetic_Church_right_click = {
+				add_to_variable = { global.GRE_BOG_Apathetic_Church = 5 }
+				GRE_BoG_rebalance_others_Church = yes
+				set_country_flag = GRE_bog_Church_apathetic_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+			BOG_Debug_Add_Disapprove_Church_right_click = {
+				add_to_variable = { global.GRE_BOG_Disapprove_Church = 5 }
+				GRE_BoG_rebalance_others_Church = yes
+				set_country_flag = GRE_bog_Church_dissaproval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+
+			BOG_Debug_Add_Approve_Army_click = {
+				add_to_variable = { global.GRE_BOG_Approval_Army = 1 }
+				GRE_BoG_rebalance_others_Army = yes
+				set_country_flag = GRE_bog_Army_approval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+			BOG_Debug_Add_Apathetic_Army_click = {
+				add_to_variable = { global.GRE_BOG_Apathetic_Army = 1 }
+				GRE_BoG_rebalance_others_Army = yes
+				set_country_flag = GRE_bog_Army_apathetic_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+			BOG_Debug_Add_Disapprove_Army_click = {
+				add_to_variable = { global.GRE_BOG_Disapprove_Army = 1 }
+				GRE_BoG_rebalance_others_Army = yes
+				set_country_flag = GRE_bog_Army_dissaproval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+			BOG_Debug_Add_Approve_Army_right_click = {
+				add_to_variable = { global.GRE_BOG_Approval_Army = 5 }
+				GRE_BoG_rebalance_others_Army = yes
+				set_country_flag = GRE_bog_Army_approval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+			BOG_Debug_Add_Apathetic_Army_right_click = {
+				add_to_variable = { global.GRE_BOG_Apathetic_Army = 5 }
+				GRE_BoG_rebalance_others_Army = yes
+				set_country_flag = GRE_bog_Army_apathetic_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+			BOG_Debug_Add_Disapprove_Army_right_click = {
+				add_to_variable = { global.GRE_BOG_Disapprove_Army = 5 }
+				GRE_BoG_rebalance_others_Army = yes
+				set_country_flag = GRE_bog_Army_dissaproval_increase
+				GRE_clamp_approval = yes
+				GRE_recompute_support = yes
+				GRE_BOG_recaluculate_semi_circle_percentages = yes
+				GRE_BOG_recalculate_scale_values = yes
+			}
+		}
+
+		triggers = {
+			BOG_bureaucrat_coup_alert_visible = {
+				OR = {
+					check_variable = {global.GRE_BOG_total_of_two_for_scales = -1.00}
+					check_variable = {global.GRE_BOG_total_of_two_for_scales < -1.00}
+				}
+			}
+			BOG_army_coup_alert_visible = {
+				OR = {
+					check_variable = {global.GRE_BOG_total_of_two_for_scales = 1.00}
+					check_variable = {global.GRE_BOG_total_of_two_for_scales > 1.00}
+				}
+			}
+			BOG_Debug_Add_Approve_Working_Class_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Apathetic_Working_Class_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Disapprove_Working_Class_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Approve_Intellectuals_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Apathetic_Intellectuals_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Disapprove_Intellectuals_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Approve_Elites_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Apathetic_Elites_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Disapprove_Elites_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Approve_Army_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Apathetic_Army_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Disapprove_Army_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Approve_Church_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Apathetic_Church_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Disapprove_Church_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Approve_Bureaucrats_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Apathetic_Bureaucrats_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Debug_Add_Disapprove_Bureaucrats_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+			BOG_Reset_visible = {
+				is_ai = no
+				is_debug = yes
+			}
+		}
+	}
+}

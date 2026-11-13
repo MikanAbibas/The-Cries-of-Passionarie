@@ -1,0 +1,955 @@
+#	Triggers to control if diplomatic actions are enabled:
+#		Format:
+#
+#		<diplomatic action tag>_enabled_trigger = {
+#			<trigger contents>
+#		}
+#
+#		ROOT is the country initiating the diplomatic action.
+#		FROM is the recipient or target of the diplomatic action.
+#
+#		Note:  For cleaner tooltips, it is recommended that you use
+#			if triggers within the enable triggers, and a single
+#			custom_trigger_tooltip trigger within each if trigger.
+#
+#		Example: (Germany is prevented from declaring war on the Soviet Union.)
+#
+#		DIPLOMACY_WAR_ENABLE_TRIGGER = {
+#			if = {
+#				limit = {
+#					tag = GER
+#				}
+#				custom_trigger_tooltip = {
+#					tooltip = PREVENT_GER_WAR_ON_SOV
+#					FROM = {
+#						NOT = {
+#							tag = SOV
+#						}
+#					}
+#				}
+#			}
+#		}
+
+# This specifically overrides the rule check as to whether or not you can guarantee other ideologies
+DIPLOMACY_GUARANTEE_ENABLE_TRIGGER_OVERRIDES_GAME = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+
+DIPLOMACY_GUARANTEE_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+
+DIPLOMACY_REVOKE_GUARANTEE_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+
+DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_RETURN_TERRITORY_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_MILACC_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_OFFER_MILACC_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_DOCKING_RIGHTS_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_OFFER_DOCKING_RIGHTS_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_LEND_LEASE_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_INCOMING_LEND_LEASE_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_REQUEST_LICENSED_PRODUCTION_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_GENERATE_WARGOAL_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_BOOST_PARTY_POPULARITY_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_STAGE_COUP_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_LEAVE_FACTION_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+ DIPLOMACY_ASSUME_FACTION_LEADERSHIP_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_KICK_FROM_FACTION_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_SEND_ATTACHE_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_SEND_VOLUNTEERS_ENABLE_TRIGGER = {
+	if = {
+		limit = {
+			OR = {
+				FROM = {
+					has_country_flag = @ROOT_entered_war
+				}
+				AND = {
+					ROOT = { tag = UDM }
+					FROM = { 
+						is_west_siberian_nation = yes
+						has_country_flag = UDM_SUPPORTED
+					}
+				}
+				AND = {
+					ROOT = { tag = CAN }
+					FROM = { tag = SAF }
+					check_variable = { USA_advisor_level > 1 }
+				}
+				AND = {
+					ROOT = { tag = USA }
+					FROM = { tag = ITA }
+					ITA = { has_idea = TNO_Oil_Crisis }
+					check_variable = { USA_advisor_level > 1 }
+				}
+				AND = {
+					ROOT = { tag = USA }
+					FROM = { tag = IRL }
+					has_country_flag = USA_IRCW_volunteers_sent
+				}
+				AND = {
+					ROOT = { tag = BRG }
+					FROM = { tag = HGR }
+					has_global_flag = german_civil_war
+					FROM = {
+						has_country_flag = BRG_entered_war
+					}
+				}
+				AND = {
+					ROOT = { tag = USA }
+					FROM = { tag = SAF }
+					has_global_flag = south_african_war
+					FROM = {
+						has_country_flag = USA_entered_war
+					}
+				}
+				AND = {
+					ROOT = {
+						OR = {
+							original_tag = CAN
+							original_tag = NZL
+							original_tag = AST
+							original_tag = GUY
+							original_tag = WIN
+						}
+					}
+					FROM = { tag = SAF }
+					has_global_flag = south_african_war
+					has_country_flag = will_send_troops
+				}
+				AND = {
+					ROOT = { tag = GER }
+					FROM = { tag = BEN }
+					has_global_flag = indo_bengali_war
+					FROM = {
+						has_country_flag = GER_entered_war
+					}
+				}
+				AND = {	
+					ROOT = { tag = GER }
+					FROM = {
+						OR = {
+							tag = COG
+							tag = ANG
+							tag = MZB
+						}
+					}
+					has_global_flag = south_african_war
+					FROM = {
+						has_country_flag = GER_entered_war
+					}
+				}
+				AND = { # Ustase Croatia volunteers to the Pakt's proxies
+					ROOT = {
+						tag = CRO
+						has_completed_focus = CRO_comrades_in_afrika
+					}
+					FROM = {
+						OR = {
+							tag = COG
+							tag = ANG
+							tag = MZB
+						}
+					}
+					has_global_flag = south_african_war
+				}
+				AND = { #Japanese "Volunteers" for the Mongolian CW
+					ROOT = { tag = JAP }
+					FROM = { tag = MEN }
+					NOT = {has_global_flag = Tsagaan_defeated}
+				}
+				AND = { # Russian volunteers to western russian nation fighting Germany
+					ROOT = { 
+						is_russian_nation = yes 
+						has_country_flag = RUS_anti_goering_volunteers
+					}
+					FROM = {
+						OR = {
+							event_target:RUS_western_unifier = {
+								original_tag = FROM
+							}
+							original_tag = VTY
+						}
+					}
+				}
+				AND = {#Japanese Auxiliaries for the Western Insurrection
+					ROOT = { tag = JAP }
+					FROM = { tag = CHI }
+					NOT = { has_global_flag = YUN_WI_over }
+					has_global_flag = CHI_Western_Insurrection_Crisis
+					FROM = {
+						has_country_flag = requested_help_Western_Insurrection
+					}
+				}
+				AND = { #WHY WAS IT NOT POSSIBLE TO SEND TROOPS TO INDONESIA ALREADY??! 
+				#on further reading JAP also has nothing for the oil crisis ::::) 
+					ROOT = { tag = JAP }
+					FROM = { tag = INS }
+					FROM = { has_country_flag = INS_Indonesia_Sphere } #Set in Sphere On Actions file.
+				}
+				#Japanese Pro-Italian Intervention
+				AND = { 
+					ROOT = { tag = JAP }
+					FROM = { 
+						OR = {
+							tag = SAU
+							tag = YEM
+							tag = OMA
+							tag = EGY
+							tag = IRQ
+							tag = IRI
+						}
+					}
+					ROOT = { has_country_flag = JAP_love_italy }
+				}
+				#Japanese pro-UAR intervention
+				AND = {
+					ROOT = { tag = JAP }
+					FROM = { 
+						OR = {
+							tag = OMB
+							tag = EGB
+							tag = SDS
+							tag = BIR
+							tag = NYM
+							tag = IRI
+						}
+					}
+					ROOT = { has_country_flag = JAP_love_arab }
+				}
+				#JAP pro saud
+				AND = {
+					ROOT = { tag = JAP }
+					FROM = {
+						OR = {
+							tag = YEM
+							tag = OMI
+							tag = SNI
+							tag = BIR
+							tag = EGQ
+							tag = IRI
+						}
+					}
+					ROOT = { has_country_flag = JAP_love_saud }
+				}
+				AND = { #Japanese "Volunteers" for India
+					ROOT = { tag = JAP }
+					FROM = { tag = BEN }
+				}
+				AND = {#Italian Intervention in the ITW
+					ROOT = { tag = ITA }
+					FROM = { tag = IME }
+					has_global_flag = italy_turkey_war
+					FROM = {
+						has_country_flag = ITA_entered_war
+					}
+				}
+				AND = { # _WIP rule: the Mediterranean branch's Italo-Turkish War. Italy stays out of it and backs its side.
+					ROOT = { tag = ITA }
+					has_global_flag = ITA_MED_WIP_PATHS
+					has_global_flag = italy_turkey_war
+					FROM = {
+						OR = {
+							tag = IME
+							tag = GRE
+							tag = IID
+							tag = LEB
+							tag = JOR
+						}
+					}
+				}
+				AND = {#USA Intervention in the Indonesian Civil War
+					ROOT = { tag = USA }
+					FROM = { tag = FRI }
+				}
+				AND = {
+					ROOT = {
+						OR = {
+							tag = USA
+							tag = BRG
+							tag = JAP
+						}
+					}
+					FROM = {
+						OR = {
+							tag = ENG
+							tag = FEN
+							tag = NOR
+							tag = SWE
+							tag = FIN
+							tag = MOS
+							tag = UKR
+							tag = HUN
+							tag = ROM
+							tag = CRO
+							tag = SER
+							tag = BUL
+							tag = SWI
+						}
+						NOT = {
+							is_in_faction_with = GER
+						}
+					}
+					has_global_flag = german_civil_war_goeringvic
+				}
+				AND = { # Bormann intervention in the Oil Crisis
+					ROOT = {
+						tag = GER
+						has_dynamic_modifier = { modifier = GER_BOR_OC_intervention_dynamic_modifier }
+					}
+					FROM = {
+						OR = {
+							tag = UAR
+							tag = EGB
+							tag = SYR
+							tag = BIR
+							tag = NYM
+							tag = OMB
+							AND = {
+								tag = GUL
+								GUL = { has_government = social_democrat }
+							}
+							AND = {
+								tag = PAL
+								OR = {
+									PAL = { has_government = communist }
+									PAL = { has_government = ultranational_socialism }
+								}
+							}
+						}
+					}
+				}
+				AND = { # Ustase Croatia volunteers to the oil crisis proxies
+					ROOT = {
+						tag = CRO
+						has_idea = CRO_pakt_volunteer_corps
+					}
+					FROM = {
+						OR = {
+							tag = UAR
+							tag = EGB
+							tag = SYR
+							tag = BIR
+							tag = NYM
+							tag = OMB
+						}
+					}
+				}
+				AND = { # Italy backs the East African Military Authority's reconquest (IEA.201)
+					ROOT = { tag = ITA }
+					FROM = { tag = IEA }
+					has_global_flag = IEA_reconquest_war
+					NOT = { has_global_flag = IEA_reconquest_over }
+				}
+				AND = { # The UAR backs the Ba'athists still fighting their own wars
+					ROOT = { tag = UAR }
+					FROM = { UAR_is_baathist_nation = yes }
+				}
+				AND = { #SBA volunteers to libsocs
+					ROOT = { tag = KHA }
+					FROM = { has_government = socialist }
+					ROOT = {
+						has_idea = KHA_anarchist_CIA
+					}
+				}
+				AND = { #Serov's anti-german gang
+					ROOT = { tag = NIK }
+					FROM = {
+						has_opinion_modifier = NIK_ordosocialist_influence
+					}
+					ROOT = {
+						has_idea = NIK_a_blueprint_for_struggle
+					}
+				}
+				AND = { #WerBell's merc contracts
+					ROOT = { tag = MAG }
+					FROM = {
+						has_idea = MAG_WA_mercenary_contract_idea
+					}
+					ROOT = {
+						has_country_flag = MAG_WA_mercenary_contracts_flag
+					}
+				}
+				AND = {#Speer's intervention in the pacific war
+					ROOT = { tag = GER }
+					FROM = {
+						OR = {
+							tag = INS
+							tag = FRI
+						}
+					}
+					FROM = {
+						has_country_flag = GER_entered_war
+					}
+				}
+				AND = { #Italy in Algeria
+					ROOT = { tag = ITA }
+					FROM = { tag = ILG }
+					has_global_flag = algeria_war
+				}
+				AND = { #Iberia Algeria
+					ROOT = { tag = IBR }
+					FROM = { tag = SLG }
+					has_global_flag = algeria_war
+				}
+				AND = { #Iberia in South Africa
+					ROOT = { tag = IBR }
+					FROM = { tag = SAF }
+					has_country_flag = IBR_completed_SAF
+					NOT = {	has_global_flag = SAF_WAR_OVER }
+				}
+				AND = { #Italy in Hungary
+					ROOT = { tag = ITA }
+					FROM = { tag = HUN }
+					has_country_flag = goring_invading_hun
+					NOT = {	has_global_flag = goring_defeated_hun }
+				}
+				AND = { #Italy in Romania
+					ROOT = { tag = ITA }
+					FROM = { tag = ROM }
+					has_country_flag = goring_invading_rom
+					NOT = {	has_global_flag = goring_defeated_rom }
+				}
+				AND = { #Italy in Serbia
+					ROOT = { tag = ITA }
+					FROM = { tag = SER }
+					has_country_flag = goring_invading_ser
+					NOT = {	has_global_flag = goring_defeated_ser }
+				}
+				AND = { #Italy in Oil Crisis
+					ROOT = { tag = ITA }
+					FROM = { 
+						OR = {
+							tag = SAU
+							tag = YEM
+							tag = OMA
+							tag = EGY
+							tag = IRQ
+						}
+
+					}
+					has_country_flag = ITA_oil_crisis_intervention
+				}
+				
+				AND = { #UP Intervention in ECW
+					ROOT = { tag = SCO }
+					FROM = { tag = FEN }
+					has_country_flag = SCO_UPECW_Intervention_Flag
+					NOT = {	FEN = { NOT = { has_war_with = ENG }  } }
+				}
+				AND = { # Germany backs the Ustase in the Croatian civil war (and against Rome after it)
+					ROOT = {
+						tag = GER
+						has_country_flag = GER_croatian_intervention
+					}
+					FROM = {
+						tag = CRO
+						has_government = national_socialism
+						has_war = yes
+					}
+				}
+				AND = { # Germany SAW, no clue why the old method wouldn't work anymore but here we are
+					ROOT = {
+						tag = GER
+						has_country_flag = GER_SAW_intervention
+					}
+					FROM = {
+						OR = {
+							tag = MZB
+							tag = ANG
+							tag = COG
+						}
+					}
+				}
+				AND = { # Germany volunteers to France in Fall Rollo
+					ROOT = {
+						tag = GER
+						has_country_flag = SGR_France_Germany_Support
+					}
+					FROM = {
+						tag = FRA
+					}
+				}
+				AND = { # Germany volunteers to Iran
+					ROOT = {
+						tag = GER
+						has_country_flag = GER_iran_intervention
+					}
+					FROM = { tag = PER }
+				}
+				AND = { # Ustase Croatia volunteers to help finland
+					ROOT = {
+						tag = CRO
+						has_idea = CRO_pakt_volunteer_corps
+						GER = {
+							has_country_flag = GER_iran_intervention
+						}
+					}
+					FROM = {
+						tag = PER
+					}
+				}
+				AND = { #Burgundy intervening in oil crisis
+					ROOT = { tag = BRG }
+					FROM = {
+						OR = {
+							tag = SAU
+							tag= SYR
+							is_in_faction_with = SAU
+							is_in_faction_with = SYR
+						}
+					}
+					ROOT = { has_country_flag = BRG_can_intervene_in_oil_crisis }
+				}
+				AND = { # Lets important tags intervene in russian and kazakh unification
+					ROOT = {
+						OR = {
+							tag = USA
+							tag = JAP
+							tag = GER
+							tag = BRG
+							tag = ITA
+							tag = IBR
+							tag = BRT
+							tag = ENG							
+						}
+					}
+					FROM = {
+						OR = {
+							original_tag = WRS
+							original_tag = KIR
+							original_tag = SAM
+							original_tag = NIK
+							original_tag = PRM
+
+							original_tag = OMS
+							original_tag = ISH
+							original_tag = TOB
+
+							original_tag = ERS
+							original_tag = KHA
+							original_tag = PAV
+							original_tag = SVO
+							original_tag = KEM
+							
+							original_tag = WCH
+							original_tag = AMR
+							original_tag = MAG
+							original_tag = OMO
+							original_tag = BRY
+							original_tag = IRK
+
+							original_tag = DER
+							original_tag = KAZ
+							original_tag = KOK
+							original_tag = SEM
+							original_tag = AKT
+							original_tag = ARL
+						}
+					}
+				}
+				AND = { # Germany can help FIN against the russians
+					ROOT = {
+						tag = GER
+					}
+					FROM = {
+						tag = FIN
+					}
+				}
+				AND = { # Ustase Croatia volunteers to help finland
+					ROOT = {
+						tag = CRO
+						has_idea = CRO_pakt_volunteer_corps
+					}
+					FROM = {
+						tag = FIN
+					}
+				}
+				AND = { # US can help free england
+					ROOT = {
+						tag = USA
+					}
+					FROM = {
+						tag = FEN
+					}
+				}
+				AND = { # Balkan crisis: each sponsor arms its own proxy, decided by the
+					# Great Game rather than a fixed side (TNO_Balkan_Backing_scripted_triggers).
+					ROOT = { tag = GER }
+					OR = {
+						AND = { FROM = { tag = HUN }  has_global_flag = BALKAN_GER_proxy_HUN }
+						AND = { FROM = { tag = ROM }  has_global_flag = BALKAN_GER_proxy_ROM }
+						AND = { FROM = { tag = BUL }  has_global_flag = BALKAN_GER_proxy_BUL }
+						AND = { FROM = { tag = GRE }  has_global_flag = BALKAN_GER_proxy_GRE }
+					}
+					has_global_flag = ZZZ_balkan_troubles
+				}
+				AND = {
+					ROOT = { tag = ITA }
+					OR = {
+						AND = { FROM = { tag = HUN }  has_global_flag = BALKAN_ITA_proxy_HUN }
+						AND = { FROM = { tag = ROM }  has_global_flag = BALKAN_ITA_proxy_ROM }
+						AND = { FROM = { tag = BUL }  has_global_flag = BALKAN_ITA_proxy_BUL }
+						AND = { FROM = { tag = GRE }  has_global_flag = BALKAN_ITA_proxy_GRE }
+					}
+					has_global_flag = ZZZ_balkan_troubles
+				}
+				AND = { # iberian war
+					ROOT = {
+						OR = {
+							tag = USA
+							tag = GER
+							tag = JAP
+							tag = ITA
+							tag = ENG
+							#is_russian_nation = yes
+						}
+					}
+					FROM = {
+						is_iberian_major = yes
+					}
+					has_country_flag = ZZZ_iberia_intervention		# was the ZZZ_iberia_intervention idea, before the Military Advisors window
+					#STRIP(superseded) has_idea = ZZZ_iberia_intervention
+				}
+				AND = { #japan supports khomeni
+					ROOT = { tag = JAP }
+					FROM = { tag = IRI }
+					has_global_flag = Iranian_Civil_War
+				}
+				AND = { # Madagascar Civil War: each power backs the side it took in MADAGASKAR_CIVIL_WAR.6
+					has_global_flag = madagaskar_civil_war
+					OR = {
+						AND = {
+							ROOT = { has_country_flag = MAD_proxy_sponsor_MAD }
+							FROM = { original_tag = MAD }
+						}
+						AND = {
+							ROOT = { has_country_flag = MAD_proxy_sponsor_MDG }
+							FROM = { original_tag = MDG }
+						}
+						AND = {
+							ROOT = { has_country_flag = MAD_proxy_sponsor_MDJ }
+							FROM = { original_tag = MDJ }
+						}
+						AND = {
+							ROOT = { has_country_flag = MAD_proxy_sponsor_MDM }
+							FROM = { original_tag = MDM }
+						}
+					}
+				}
+				AND = { # Vietnam's civil war (TNO_Vietnam_scripted_effects.txt): Japan backs the Empire, the US the Viet Minh
+					has_global_flag = VIN_vietnam_war
+					OR = {
+						AND = {
+							ROOT = { tag = JAP }
+							FROM = { original_tag = VIN }
+						}
+						AND = {
+							ROOT = { tag = USA }
+							FROM = { original_tag = VMN }
+						}
+					}
+				}
+				AND = { # New Scramble for Africa: a patron arms its own proxies (plan 4.8). Not Burgundy: open volunteers
+					# would give its hand away (user, 2026-10-19); it works through its covert actions instead.
+					has_global_flag = SFA_active
+					OR = {
+						AND = { ROOT = { tag = USA } FROM = { has_country_flag = SFA_patron_USA } }
+						AND = { ROOT = { tag = GER } FROM = { has_country_flag = SFA_patron_GER } }
+						AND = { ROOT = { tag = ITA } FROM = { has_country_flag = SFA_patron_ITA } }
+						AND = { ROOT = { tag = JAP } FROM = { has_country_flag = SFA_patron_JAP } }
+						AND = { ROOT = { tag = IBR } FROM = { has_country_flag = SFA_patron_IBR } }
+					}
+				}
+				AND = { # the Second South African Civil War (user, 2026-10-27): Germany backs the Boers while Grossafrika
+					# stands and Hüttig rules it. His fall (MZB_REICHSTAAT.806 / .808) ends it; in the scramble the patron
+					# rule above covers the Boers again.
+					ROOT = { tag = GER }
+					FROM = { tag = BOR }
+					has_global_flag = second_south_african_civil_war
+					NOT = { has_global_flag = MZB_REICHSTAAT_huttig_fallen }
+					country_exists = MZB
+					MZB = {
+						OR = {
+							has_cosmetic_tag = MZB_REICHSTAAT
+							has_cosmetic_tag = MZB_REICHSTAAT_2
+							has_cosmetic_tag = MZB_REICHSTAAT_3
+						}
+					}
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = has_proxy_war
+			always = yes
+		}
+	}
+	else = {
+		custom_trigger_tooltip = {
+			tooltip = no_proxy_war
+			always = no
+		}
+	}
+}
+
+DIPLOMACY_CALL_ALLY_ENABLE_TRIGGER = {
+	if = {
+		limit = {
+			ROOT = {
+				tag = CHI
+				OR = {
+					has_global_flag = CHI_Western_Insurrection_Crisis		
+					has_global_flag = CHI_Yunnan_War
+				}
+				NOT = { has_global_flag = JAP_Western_Insurrection_Intervention }
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = DIPLO_WESTERN_INSURRECTION_CALL
+			always = no
+		}
+	}
+	else_if = {
+		limit  = {
+			has_global_flag = GAW_in_progress
+			ROOT = {
+				OR = {
+					original_tag = JAP
+					original_tag = CHI
+					is_in_faction_with = JAP
+					is_in_faction_with = CHI
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = DIPLO_GAW_CALL
+			always = no
+		}
+	}
+	else_if = {
+		limit = {
+			ROOT = {
+				AND = {
+					OR = {
+						tag = JAP
+						tag = MEN
+						tag = MAN
+						tag = CHI
+					}
+					OR = {
+						has_war_with = SVO
+						has_war_with = MON
+					}
+				}				
+			}		
+		}
+		custom_trigger_tooltip = {
+			tooltip = DIPLO_MON_WAR_CALL
+			always = no
+		}
+	}
+	else = {
+		always = yes
+	}
+}
+
+DIPLOMACY_JOIN_ALLY_ENABLE_TRIGGER = {
+	if = {
+		limit = {
+			FROM = {
+				tag = CHI
+				OR = {
+					has_global_flag = CHI_Western_Insurrection_Crisis		
+					has_global_flag = CHI_Yunnan_War
+				}
+				NOT = { has_global_flag = JAP_Western_Insurrection_Intervention }
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = DIPLO_WESTERN_INSURRECTION_JOIN
+			always = no
+		}
+	}
+	else_if = {
+		limit  ={
+			has_global_flag = GAW_in_progress
+			FROM = {
+				OR = {
+					original_tag = JAP
+					original_tag = CHI
+					is_in_faction_with = JAP
+					is_in_faction_with = CHI
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = DIPLO_GAW_JOIN
+			always = no
+		}
+	}
+	else_if = {
+		limit = {
+			FROM = {
+				AND = {
+					OR = {
+						tag = JAP
+						tag = MEN
+						tag = MAN
+						tag = CHI
+					}
+					OR = {
+						has_war_with = SVO
+						has_war_with = MON
+					}
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = DIPLO_MON_WAR_JOIN
+			always = no
+		}
+	}
+	else = {
+		always = yes
+	}
+}
+
+DIPLOMACY_NONAGGRESSIONPACT_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+
+DIPLOMACY_IMPROVERELATION_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+
+DIPLOMACY_JOIN_FACTION_ENABLE_TRIGGER = { 
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+
+DIPLOMACY_CREATE_FACTION_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+
+DIPLOMACY_OFFER_JOIN_FACTION_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+
+# TNORA: AAT embargo actions disabled (same pattern as faction actions above).
+DIPLOMACY_EMBARGO_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}
+DIPLOMACY_REVOKE_EMBARGO_ENABLE_TRIGGER = {
+	custom_trigger_tooltip = {
+		tooltip = feature_disabled
+		always = no
+	}
+}

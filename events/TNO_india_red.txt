@@ -1,0 +1,2096 @@
+﻿####################
+##RED INDIA EVENTS##
+####################
+
+add_namespace = redindia
+
+country_event = {
+	id = redindia.1 #Pro-Commie Rebels
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.1"}
+ 	title = redindia.1.t
+ 	desc = redindia.1.desc
+ 	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+ 	option = { #ok
+ 		name = redindia.1.a
+		ai_chance = {
+			factor = 1
+		}
+		add_timed_idea = {
+			idea = INC_Communist_Partisans
+			days = 50
+		}
+ 	}
+}
+
+country_event = {
+	id = redindia.2 #CPI burns down a village and yeets
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.2"}
+ 	title = redindia.2.t
+ 	desc = redindia.2.desc
+ 	picture = GFX_report_event_indian_riot
+	
+	is_triggered_only = yes
+ 	
+ 	option = { #ok
+ 		name = redindia.2.a
+		ai_chance = {
+			factor = 1
+		}
+		add_manpower = -500
+		add_war_support = -0.03
+ 	}
+}
+
+country_event = {
+	id = redindia.3 #CPI partisans destroy a factory
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.3"}
+ 	title = redindia.3.t
+ 	desc = redindia.3.desc
+ 	picture = GFX_report_event_indian_riot
+	
+	is_triggered_only = yes
+ 	
+ 	option = { #ok
+ 		name = redindia.3.a
+		ai_chance = {
+			factor = 1
+		}
+		random_owned_state = {
+			damage_building = {
+				type = arms_factory
+				damage = 1
+			}
+		}
+ 	}
+}
+
+country_event = {
+	id = redindia.4 #factory built
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.4"}
+ 	title = redindia.4.t
+ 	desc = redindia.4.desc
+ 	picture = GFX_report_event_generic_factory
+	
+	is_triggered_only = yes
+ 	
+ 	option = { #ok
+ 		name = redindia.4.a
+		ai_chance = {
+			factor = 1
+		}
+		random_owned_state = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+ 	}
+}
+
+country_event = {
+	id = redindia.5 #marxism-raoism founded
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.5"}
+ 	title = redindia.5.t
+ 	desc = redindia.5.desc
+ 	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+ 	option = { #ok
+ 		name = redindia.5.a
+		ai_chance = {
+			factor = 1
+		}
+		custom_effect_tooltip = redindia_not_immediately_apparent_tt
+		hidden_effect = {
+			set_country_flag = RAJ_raoism_founded
+			RAJ = {
+				set_country_flag = RAJ_raoism_founded
+			}
+		}
+ 	}
+}
+
+country_event = {
+	id = redindia.6 #factory destroyed by raoist guerillas. yay
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.6"}
+ 	title = redindia.6.t
+ 	desc = redindia.6.desc
+ 	picture = GFX_report_event_generic_factory
+	
+	is_triggered_only = yes
+ 	
+ 	option = { #ok
+ 		name = redindia.6.a
+		ai_chance = {
+			factor = 1
+		}
+		random_owned_state = {
+			damage_building = {
+				type = arms_factory
+				damage = 1
+			}
+		}
+		add_political_power = 30
+ 	}
+}
+
+country_event = {
+	id = redindia.7 #there are like no communists left in the world
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.7"}
+	title = redindia.7.t
+	desc = redindia.7.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = redindia.7.a
+		ai_chance = {
+			factor = 1
+		}
+		add_war_support = 0.05
+	}
+}
+
+country_event = {
+	id = redindia.8 #cuba - cpi asks for aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.8"}
+	title = redindia.8.t
+	desc = redindia.8.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.8.a
+		ai_chance = {
+			factor = 30
+		}
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 100
+			target = INC
+		}
+		INC = {
+			country_event = {
+				id = redindia.9
+				hours = 5
+			}
+		}
+	}
+	option = { #no
+		name = redindia.8.b
+		ai_chance = {
+			factor = 1
+		}
+		INC = {
+			country_event = {
+				id = redindia.10
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.9 #cuba sent aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.9"}
+	title = redindia.9.t
+	desc = redindia.9.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.9.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = CUB
+			modifier = PAK_sent_aid
+		}
+	}
+}
+
+country_event = {
+	id = redindia.10 #cuba didnt send aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.10"}
+	title = redindia.10.t
+	desc = redindia.10.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.10.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = CUB
+			modifier = PAK_didnt_send_aid
+		}
+	}
+}
+
+country_event = {
+	id = redindia.11 #tajikistan - cpi asks for aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.11"}
+	title = redindia.11.t
+	desc = redindia.11.desc
+	picture = GFX_report_event_india_war_2
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.11.a
+		ai_chance = {
+			factor = 1
+		}
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 100
+			target = INC
+		}
+		INC = {
+			country_event = {
+				id = redindia.12
+				hours = 5
+			}
+		}
+	}
+	option = { #no
+		name = redindia.11.b
+		ai_chance = {
+			factor = 20
+		}
+		INC = {
+			country_event = {
+				id = redindia.13
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.12 #tajikistan sent aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.12"}
+	title = redindia.12.t
+	desc = redindia.12.desc
+	picture = GFX_report_event_india_war_2
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.12.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = TAJ
+			modifier = PAK_sent_aid
+		}
+	}
+}
+
+country_event = {
+	id = redindia.13 #tajikistan didnt send aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.13"}
+	title = redindia.13.t
+	desc = redindia.13.desc
+	picture = GFX_report_event_india_war_2
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.13.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = TAJ
+			modifier = PAK_didnt_send_aid
+		}
+	}
+}
+
+country_event = {
+	id = redindia.14 #kyzylorda - cpi asks for aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.14"}
+	title = redindia.14.t
+	desc = redindia.14.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.14.a
+		ai_chance = {
+			factor = 1
+		}
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 100
+			target = INC
+		}
+		INC = {
+			country_event = {
+				id = redindia.15
+				hours = 5
+			}
+		}
+	}
+	option = { #no
+		name = redindia.14.b
+		ai_chance = {
+			factor = 30
+		}
+		INC = {
+			country_event = {
+				id = redindia.16
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.15 #kyzylorda sent aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.15"}
+	title = redindia.15.t
+	desc = redindia.15.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.15.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = KAZ
+			modifier = PAK_sent_aid
+		}
+	}
+}
+
+country_event = {
+	id = redindia.16 #kyzylorda didnt send aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.16"}
+	title = redindia.16.t
+	desc = redindia.16.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.16.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = KAZ
+			modifier = PAK_didnt_send_aid
+		}
+	}
+}
+
+country_event = {
+	id = redindia.17 #international volunteers arrive
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.17"}
+	title = redindia.17.t
+	desc = redindia.17.desc
+	picture = GFX_report_event_india_war_2
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.17.a
+		ai_chance = {
+			factor = 1
+		}
+		##OOB HERE##
+	}
+}
+
+country_event = {
+	id = redindia.18 #socdems are ok
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.18"}
+	title = redindia.18.t
+	desc = redindia.18.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.18.a
+		ai_chance = {
+			factor = 1
+		}
+		add_stability = 0.05
+	}
+}
+
+country_event = {
+	id = redindia.19 #usa - cpi asks for aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.19"}
+	title = redindia.19.t
+	desc = redindia.19.desc
+	picture = GFX_report_event_india_war_2
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.19.a
+		ai_chance = {
+			factor = 1
+		}
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 100
+			target = INC
+		}
+		INC = {
+			country_event = {
+				id = redindia.20
+				hours = 5
+			}
+		}
+	}
+	option = { #no
+		name = redindia.19.b
+		ai_chance = {
+			factor = 40
+		}
+		INC = {
+			country_event = {
+				id = redindia.21
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.20 #usa sent aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.20"}
+	title = redindia.20.t
+	desc = redindia.20.desc
+	picture = GFX_report_event_india_war_2
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.20.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = USA
+			modifier = PAK_sent_aid
+		}
+	}
+}
+
+country_event = {
+	id = redindia.21 #usa didnt send aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.21"}
+	title = redindia.21.t
+	desc = redindia.21.desc
+	picture = GFX_report_event_india_war_2
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.21.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = USA
+			modifier = PAK_didnt_send_aid
+		}
+	}
+}
+
+country_event = {
+	id = redindia.22 #fs - cpi asks for aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.22"}
+	title = redindia.22.t
+	desc = redindia.22.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.22.a
+		ai_chance = {
+			factor = 1
+		}
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 100
+			target = INC
+		}
+		INC = {
+			country_event = {
+				id = redindia.23
+				hours = 5
+			}
+		}
+	}
+	option = { #no
+		name = redindia.22.b
+		ai_chance = {
+			factor = 15
+		}
+		INC = {
+			country_event = {
+				id = redindia.24
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.23 #fs sent aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.23"}
+	title = redindia.23.t
+	desc = redindia.23.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.23.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = FRA
+			modifier = PAK_sent_aid
+		}
+	}
+}
+
+country_event = {
+	id = redindia.24 #fs didnt send aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.24"}
+	title = redindia.24.t
+	desc = redindia.24.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.24.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = FRA
+			modifier = PAK_didnt_send_aid
+		}
+	}
+}
+
+country_event = {
+	id = redindia.25 #italy - cpi asks for aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.25"}
+	title = redindia.25.t
+	desc = redindia.25.desc
+	picture = GFX_report_event_india_war_2
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.25.a
+		ai_chance = {
+			factor = 1
+		}
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 100
+			target = INC
+		}
+		INC = {
+			country_event = {
+				id = redindia.26
+				hours = 5
+			}
+		}
+	}
+	option = { #no
+		name = redindia.25.b
+		ai_chance = {
+			factor = 25
+		}
+		INC = {
+			country_event = {
+				id = redindia.27
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.26 #italy sent aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.26"}
+	title = redindia.26.t
+	desc = redindia.26.desc
+	picture = GFX_report_event_india_war_2
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.26.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = ITA
+			modifier = PAK_sent_aid
+		}
+	}
+}
+
+country_event = {
+	id = redindia.27 #italy didnt send aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.27"}
+	title = redindia.27.t
+	desc = redindia.27.desc
+	picture = GFX_report_event_india_war_2
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.27.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = ITA
+			modifier = PAK_didnt_send_aid
+		}
+	}
+}
+
+country_event = {
+	id = redindia.28 #azad hind - cpi asks us to yeet on them fashies
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.28"}
+	title = redindia.28.t
+	desc = redindia.28.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.28.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 25
+				has_government = communist
+				has_government = authoritarian_democrat
+			}
+		}
+		INC = {
+			country_event = {
+				id = redindia.29
+				hours = 5
+			}
+		}
+	}
+	option = { #no
+		name = redindia.25.b
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 10
+				has_government = socialist
+			}
+		}
+		INC = {
+			country_event = {
+				id = redindia.30
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.29 #lets go boys
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.29"}
+	title = redindia.29.t
+	desc = redindia.29.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #jai hind
+		name = redindia.29.a
+		ai_chance = {
+			factor = 1
+		}
+		hidden_effect = {
+			IF = {
+				limit = {
+					tag = INC
+					is_ai = no
+				}
+				BEN = { change_tag_from = INC }
+			}
+			every_country = {
+				news_event = {
+					id = WORLD.453
+				}
+			}
+		}
+		BEN = {
+			annex_country = {
+				target = INC
+				transfer_troops = yes
+			}
+			declare_war_on = {
+				target = INF
+				type = civil_war
+			}
+			declare_war_on = {
+				target = RAJ
+				type = annex_everything
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.30 #its not jai hind time
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.30"}
+	title = redindia.30.t
+	desc = redindia.30.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.30.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = BEN
+			modifier = INC_Refused_Unification
+		}
+	}
+}
+
+country_event = {
+	id = redindia.31 #england - cpi asks for aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.31"}
+	title = redindia.31.t
+	desc = redindia.31.desc
+	picture = GFX_report_event_india_war_2
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.31.a
+		ai_chance = {
+			factor = 1
+		}
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 100
+			target = INC
+		}
+		INC = {
+			country_event = {
+				id = redindia.32
+				hours = 5
+			}
+		}
+	}
+	option = { #no
+		name = redindia.31.b
+		ai_chance = {
+			factor = 35
+		}
+		INC = {
+			country_event = {
+				id = redindia.33
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.32 #england sent aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.32"}
+	title = redindia.32.t
+	desc = redindia.32.desc
+	picture = GFX_report_event_india_war_2
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.32.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = ENG
+			modifier = PAK_sent_aid
+		}
+	}
+}
+
+country_event = {
+	id = redindia.33 #england didnt send aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.33"}
+	title = redindia.33.t
+	desc = redindia.33.desc
+	picture = GFX_report_event_india_war_2
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.33.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = ENG
+			modifier = PAK_didnt_send_aid
+		}
+	}
+}
+
+country_event = {
+	id = redindia.34 #cuban volunteers didnt arrive
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.34"}
+	title = redindia.34.t
+	desc = redindia.34.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.34.a
+		ai_chance = {
+			factor = 1
+		}
+		add_political_power = -10
+	}
+}
+
+country_event = {
+	id = redindia.35 #international volunteers didnt arrive
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.35"}
+	title = redindia.35.t
+	desc = redindia.35.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.35.a
+		ai_chance = {
+			factor = 1
+		}
+		add_political_power = -10
+	}
+}
+
+country_event = {
+	id = redindia.36 #american volunteers didnt arrive
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.36"}
+	title = redindia.36.t
+	desc = redindia.36.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.36.a
+		ai_chance = {
+			factor = 1
+		}
+		add_political_power = -10
+	}
+}
+
+country_event = {
+	id = redindia.37 #egypt/italy - arabs leave as volunteers for cpi
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.37"}
+	title = redindia.37.t
+	desc = redindia.37.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.37.a
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+country_event = {
+	id = redindia.38 #usa - get involved in the cpi's dumb shit?
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.38"}
+	title = redindia.38.t
+	desc = redindia.38.desc
+	picture = GFX_report_event_india_war_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.38.a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = { #no
+		name = redindia.38.b
+		ai_chance = {
+			factor = 20
+		}
+		INC = {
+			country_event = {
+				id = redindia.42
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.39 #italy - get involved in the cpi's dumb shit?
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.39"}
+	title = redindia.39.t
+	desc = redindia.39.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.39.a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = { #no
+		name = redindia.39.b
+		ai_chance = {
+			factor = 10
+		}
+		INC = {
+			country_event = {
+				id = redindia.43
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.40 #japan - get involved in the cpi's dumb shit?
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.40"}
+	title = redindia.40.t
+	desc = redindia.40.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.40.a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = { #no
+		name = redindia.40.b
+		ai_chance = {
+			factor = 50
+		}
+		INC = {
+			country_event = {
+				id = redindia.44
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.41 #germany - get involved in the cpi's dumb shit?
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.41"}
+	title = redindia.41.t
+	desc = redindia.41.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.41.a
+		ai_chance = {
+			factor = 20
+		}
+		IF = {
+			limit = {
+				INC = {
+					has_country_flag = INC_USA_not_participating
+					NOT = {
+						has_country_flag = INC_ITA_not_participating
+						has_country_flag = INC_JAP_not_participating
+						has_country_flag = INC_GER_not_participating
+					}
+				}
+			}
+			INC = {
+				country_event = {
+					id = redindia.46
+					days = 12
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				INC = {
+					has_country_flag = INC_USA_not_participating
+					has_country_flag = INC_ITA_not_participating
+					NOT = {
+						has_country_flag = INC_JAP_not_participating
+						has_country_flag = INC_GER_not_participating
+					}
+				}
+			}
+			INC = {
+				country_event = {
+					id = redindia.47
+					days = 12
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				INC = {
+					has_country_flag = INC_USA_not_participating
+					has_country_flag = INC_ITA_not_participating
+					has_country_flag = INC_JAP_not_participating
+					NOT = {
+						has_country_flag = INC_GER_not_participating
+					}
+				}
+			}
+			INC = {
+				country_event = {
+					id = redindia.48
+					days = 12
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				INC = {
+					has_country_flag = INC_USA_not_participating
+					has_country_flag = INC_ITA_not_participating
+					has_country_flag = INC_JAP_not_participating
+					has_country_flag = INC_GER_not_participating
+				}
+			}
+			INC = {
+				country_event = {
+					id = redindia.49
+				}
+			}
+		}
+	}
+	option = { #no
+		name = redindia.41.b
+		ai_chance = {
+			factor = 1
+		}
+		INC = {
+			country_event = {
+				id = redindia.45
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.42 #usa isnt getting involved
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.42"}
+	title = redindia.42.t
+	desc = redindia.42.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.42.a
+		ai_chance = {
+			factor = 1
+		}
+		set_country_flag = INC_USA_not_participating
+	}
+}
+
+country_event = {
+	id = redindia.43 #italy isnt getting involved
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.43"}
+	title = redindia.43.t
+	desc = redindia.43.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.43.a
+		ai_chance = {
+			factor = 1
+		}
+		set_country_flag = INC_ITA_not_participating
+	}
+}
+
+country_event = {
+	id = redindia.44 #japan isnt getting involved
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.44"}
+	title = redindia.44.t
+	desc = redindia.44.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.44.a
+		ai_chance = {
+			factor = 1
+		}
+		set_country_flag = INC_JAP_not_participating
+	}
+}
+
+country_event = {
+	id = redindia.45 #germany isnt getting involved
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.45"}
+	title = redindia.45.t
+	desc = redindia.45.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.45.a
+		ai_chance = {
+			factor = 1
+		}
+		set_country_flag = INC_GER_not_participating
+	}
+}
+
+country_event = {
+	id = redindia.46 #usa offer - guarantee for mil access
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.46"}
+	title = redindia.46.t
+	desc = redindia.46.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.46.a
+		ai_chance = {
+			factor = 20
+		}
+		complete_national_focus = INC_The_States
+	}
+	option = { #no
+		name = redindia.46.b
+		trigger = {
+			NOT = {
+				AND = {
+					has_country_flag = INC_ITA_not_participating
+					has_country_flag = INC_JAP_not_participating
+					has_country_flag = INC_GER_not_participating
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+		}
+		IF = {
+			limit = {
+				NOT = {
+					has_country_flag = INC_ITA_not_participating
+					has_country_flag = INC_JAP_not_participating
+					has_country_flag = INC_GER_not_participating
+				}
+			}
+			INC = {
+				country_event = {
+					id = redindia.47
+					days = 6
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = INC_ITA_not_participating
+				NOT = {
+					has_country_flag = INC_JAP_not_participating
+					has_country_flag = INC_GER_not_participating
+				}
+			}
+			country_event = {
+				id = redindia.48
+				days = 6
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = INC_ITA_not_participating
+				has_country_flag = INC_JAP_not_participating
+				NOT = {
+					has_country_flag = INC_GER_not_participating
+				}
+			}
+			country_event = {
+				id = redindia.48
+				days = 6
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.47 #italy - guarantee and oil for mil access and non-aggression
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.47"}
+	title = redindia.47.t
+	desc = redindia.47.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.47.a
+		ai_chance = {
+			factor = 20
+		}
+		complete_national_focus = INC_The_Boot
+	}
+	option = { #no
+		name = redindia.47.b
+		trigger = {
+			NOT = {
+				AND = {
+					has_country_flag = INC_JAP_not_participating
+					has_country_flag = INC_GER_not_participating
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+		}
+		IF = {
+			limit = {
+				NOT = {
+					has_country_flag = INC_JAP_not_participating
+					has_country_flag = INC_GER_not_participating
+				}
+			}
+			INC = {
+				country_event = {
+					id = redindia.48
+					days = 6
+				}
+			}
+		}
+		IF = {
+			limit = {
+				has_country_flag = INC_JAP_not_participating
+				NOT = {
+					has_country_flag = INC_GER_not_participating
+				}
+			}
+			INC = {
+				country_event = {
+					id = redindia.49
+					days = 6
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.48 #japan - guarantee and unification talks for mil access, non-aggression, and docking rights
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.48"}
+	title = redindia.48.t
+	desc = redindia.48.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.48.a
+		ai_chance = {
+			factor = 20
+		}
+		complete_national_focus = INC_The_Empire
+	}
+	option = { #no
+		name = redindia.48.b
+		trigger = {
+			NOT = {
+				has_country_flag = INC_GER_not_participating
+			}
+		}
+		ai_chance = {
+			factor = 1
+		}
+		INC = {
+			country_event = {
+				id = redindia.49
+				days = 6
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.49 #germany - faction
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.49"}
+	title = redindia.49.t
+	desc = redindia.49.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.49.a
+		ai_chance = {
+			factor = 20
+		}
+		complete_national_focus = INC_The_Reich
+	}
+}
+
+country_event = {
+	id = redindia.50 #confirmation
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.50"}
+	title = redindia.50.t
+	desc = redindia.50.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #yes
+		name = redindia.50.a
+		ai_chance = {
+			factor = 50
+		}
+		complete_national_focus = INC_Well_Take_Anything
+		IF = {
+			limit = {
+				has_completed_focus = INC_The_States
+			}
+			set_country_flag = INC_USA_Support
+		}
+		else_if = {
+			limit = {
+				has_completed_focus = INC_The_Boot
+			}
+			set_country_flag = INC_ITA_Support
+		}
+		else_if = {
+			limit = {
+				has_completed_focus = INC_The_Empire
+			}
+			set_country_flag = INC_JAP_Support
+		}
+	}
+	option = { #no
+		name = redindia.50.b
+		ai_chance = {
+			factor = 1
+		}
+		complete_national_focus = INC_Even_We_Have_Standards
+	}
+}
+
+country_event = {
+	id = redindia.51 #cpi members refuse to cooperate with german
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.51"}
+	title = redindia.51.t
+	desc = redindia.51.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #yes
+		name = redindia.51.a
+		ai_chance = {
+			factor = 1
+		}
+		complete_national_focus = INC_Even_We_Have_Standards
+	}
+}
+
+country_event = {
+	id = redindia.52 #cpi asks if we want military access
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.52"}
+	title = redindia.52.t
+	desc = redindia.52.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #yes
+		name = redindia.52.a
+		ai_chance = {
+			factor = 50
+		}
+		FROM = {
+			give_military_access = ROOT
+		}
+	}
+	option = { #no
+		name = redindia.52.b
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+country_event = {
+	id = redindia.53 #cpi asks for guns
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.53"}
+	title = redindia.53.t
+	desc = redindia.53.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #yes
+		name = redindia.53.a
+		ai_chance = {
+			factor = 5
+		}
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 250
+			target = ROOT
+		}
+	}
+	option = { #no
+		name = redindia.53.b
+		ai_chance = {
+			factor = 30
+		}
+		reverse_add_opinion_modifier = {
+			target = INC
+			modifier = PAK_didnt_send_aid
+		}
+	}
+}
+
+country_event = {
+	id = redindia.54 #cpi asks if we want docking rights
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.54"}
+	title = redindia.54.t
+	desc = redindia.54.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #yes
+		name = redindia.54.a
+		ai_chance = {
+			factor = 50
+		}
+		FROM = {
+			diplomatic_relation = {
+				country = ROOT
+				relation = docking_rights
+				active = yes
+			}
+		}
+	}
+	option = { #no
+		name = redindia.54.b
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+country_event = {
+	id = redindia.55 #cpi asks if we want non-aggression
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.55"}
+	title = redindia.55.t
+	desc = redindia.55.desc
+	picture = GFX_report_event_india_war
+	
+	is_triggered_only = yes
+ 	
+	option = { #yes
+		name = redindia.55.a
+		ai_chance = {
+			factor = 30
+		}
+		FROM = {
+			diplomatic_relation = {
+				country = ROOT
+				relation = non_aggression_pact
+				active = yes
+			}
+		}
+	}
+	option = { #no
+		name = redindia.55.b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+country_event = {
+	id = redindia.56 #usa - cpi asks to join the ofn after winning the icw
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.56"}
+	title = redindia.56.t
+	desc = redindia.56.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #yes
+		name = redindia.56.a
+		ai_chance = {
+			factor = 1
+		}
+		INC = {
+			country_event = {
+				id = redindia.57
+				hours = 5
+			}
+		}
+	}
+	option = { #no
+		name = redindia.56.b
+		ai_chance = {
+			factor = 30
+		}
+		INC = {
+			country_event = {
+				id = redindia.58
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.57 #usa said yes
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.57"}
+	title = redindia.57.t
+	desc = redindia.57.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.57.a
+		ai_chance = {
+			factor = 1
+		}
+		RAJ = {
+			set_country_flag = RAJ_INC_OFN
+		}
+	}
+}
+
+country_event = {
+	id = redindia.58 #usa said no
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.58"}
+	title = redindia.58.t
+	desc = redindia.58.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.58.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = USA
+			modifier = INF_didnt_faction
+		}
+	}
+}
+
+country_event = {
+	id = redindia.59 #maharashtra insurgency begins
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.59"}
+	title = redindia.59.t
+	desc = redindia.59.desc
+	picture = GFX_report_event_india_rss
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.59.a
+		ai_chance = {
+			factor = 1
+		}
+		892 = {
+			set_demilitarized_zone = yes
+		}
+		429 = {
+			set_demilitarized_zone = yes
+		}
+		set_country_flag = RAJ_maharashtra_insurgency
+		hidden_effect = {
+			country_event = {
+				id = redindia.66
+				days = 952
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.60 #jf/cpi proposes indian united front
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.60"}
+	title = redindia.60.t
+	desc = redindia.60.desc
+	picture = GFX_report_event_india_rss
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.60.a
+		ai_chance = {
+			factor = 5
+		}
+		IF = {
+			limit = {
+				is_ai = no
+				INF = {
+					is_ai = yes
+				}
+			}
+			annex_country = {
+				target = INF
+				transfer_troops = yes
+			}
+		}
+		else_if = {
+			limit = {
+				INF = {
+					is_ai = no
+				}
+				is_ai = yes
+			}
+			INF = {
+				annex_country = {
+					target = INC
+					transfer_troops = yes
+				}
+			}
+		}
+		else = {
+			annex_country = {
+				target = INF
+				transfer_troops = yes
+			}
+		}
+		drop_cosmetic_tag = yes
+		set_cosmetic_tag = RAJ_united_front
+	}
+	option = { #no
+		name = redindia.60.b
+		ai_chance = {
+			factor = 20
+		}
+		FROM = {
+			country_event = {
+				id = redindia.61
+				hours = 2
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.61 #redindia/fashindia said no
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.61"}
+	title = redindia.61.t
+	desc = redindia.61.desc
+	picture = GFX_report_event_india_rss
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.61.a
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+country_event = {
+	id = redindia.62 #cpi/inc proposes indian united front
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.62"}
+	title = redindia.62.t
+	desc = redindia.62.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.62.a
+		ai_chance = {
+			factor = 5
+		}
+		IF = {
+			limit = {
+				tag = INC
+				is_ai = no
+				RAJ = {
+					is_ai = yes
+				}
+			}
+			annex_country = {
+				target = RAJ
+				transfer_troops = yes
+			}
+		}
+		else_if = {
+			limit = {
+				tag = INC
+				RAJ = {
+					is_ai = no
+				}
+				is_ai = yes
+			}
+			RAJ = {
+				annex_country = {
+					target = INC
+					transfer_troops = yes
+				}
+			}
+		}
+		else = {
+			RAJ = {
+				annex_country = {
+					target = INC
+					transfer_troops = yes
+				}
+			}
+		}
+		drop_cosmetic_tag = yes
+		set_cosmetic_tag = RAJ_united_front
+	}
+	option = { #no
+		name = redindia.62.b
+		ai_chance = {
+			factor = 20
+		}
+		FROM = {
+			country_event = {
+				id = redindia.63
+				hours = 2
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.63 #inc/cpi said no
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.63"}
+	title = redindia.63.t
+	desc = redindia.63.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.63.a
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+country_event = {
+	id = redindia.64 #land reform
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.64"}
+	title = redindia.64.t
+	desc = redindia.64.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.64.a
+		ai_chance = {
+			factor = 1
+		}
+		add_stability = -0.05
+		add_political_power = 30
+	}
+}
+
+country_event = {
+	id = redindia.65 #maharashtra insurgency crushed, golwalkar murdered
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.65"}
+	title = redindia.65.t
+	desc = redindia.65.desc
+	picture = GFX_report_event_india_rss
+	
+	is_triggered_only = yes
+ 	
+	option = { #ok
+		name = redindia.65.a
+		ai_chance = {
+			factor = 1
+		}
+		add_stability = 0.1
+		add_political_power = 50
+		892 = {
+			set_demilitarized_zone = no
+		}
+		429 = {
+			set_demilitarized_zone = no
+		}
+		clr_country_flag = RAJ_maharashtra_insurgency
+	}
+}
+
+country_event = {
+	id = redindia.66 #maharashtra insurgency grows
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event redindia.66"
+		hidden_effect = {
+			INF = {
+				set_state_owner = 892
+				set_state_owner = 429
+				set_state_owner = 894
+				set_state_controller = 892
+				set_state_controller = 429
+				set_state_controller = 894
+				##PUT OOB HERE##
+			}
+		}
+	}
+	title = redindia.66.t
+	desc = redindia.66.desc
+	picture = GFX_report_event_india_rss
+	
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = RAJ_mahrashtra_insurgency
+	}
+	
+	option = { #ok
+		name = redindia.66.a
+		ai_chance = {
+			factor = 1
+		}
+		INF = {
+			declare_war_on = {
+				target = RAJ
+				type = civil_war
+			}
+		}
+		hidden_effect = {
+			set_global_flag = RAJ_maharashtra_insurgency
+			every_country = {
+				news_event = {
+					id = WORLD.486
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = redindia.67 #show trials and purging of military guys
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.67"}
+	title = redindia.67.t
+	desc = redindia.67.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = redindia.67.a
+		ai_chance = {
+			factor = 1
+		}
+		add_war_support = -0.05
+		add_stability = 0.05
+	}
+}
+
+country_event = {
+	id = redindia.68 #show trials and purging of inc officials
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.68"}
+	title = redindia.68.t
+	desc = redindia.68.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = redindia.68.a
+		ai_chance = {
+			factor = 1
+		}
+		add_political_power = -50
+		add_stability = 0.05
+	}
+}
+
+country_event = {
+	id = redindia.69 #nationalisation of key industries
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.69"}
+	title = redindia.69.t
+	desc = redindia.69.desc
+	picture = GFX_report_event_india_factory_2
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = redindia.69.a
+		ai_chance = {
+			factor = 1
+		}
+		tno_economic_focus_improve = yes
+	}
+}
+
+country_event = {
+	id = redindia.70 #communist education
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.70"}
+	title = redindia.70.t
+	desc = redindia.70.desc
+	picture = GFX_report_event_india_factory_2
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = redindia.70.a
+		ai_chance = {
+			factor = 1
+		}
+		add_war_support = 0.05
+	}
+}
+
+country_event = {
+	id = redindia.72 #new constitution, we commies now boys
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.72"}
+	title = redindia.72.t
+	desc = redindia.72.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = redindia.72.a
+		ai_chance = {
+			factor = 1
+		}
+		add_stability = 0.1
+	}
+}
+
+country_event = {
+	id = redindia.73 #decentralised land reform time
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.73"}
+	title = redindia.73.t
+	desc = redindia.73.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = redindia.73.a
+		ai_chance = {
+			factor = 1
+		}
+		add_political_power = 50
+	}
+}
+
+country_event = {
+	id = redindia.74 #farmer coops time
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.74"}
+	title = redindia.74.t
+	desc = redindia.74.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = redindia.74.a
+		ai_chance = {
+			factor = 1
+		}
+		add_stability = 0.05
+	}
+}
+
+country_event = {
+	id = redindia.75 #funding redirected to extra dalit welfare
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.75"}
+	title = redindia.75.t
+	desc = redindia.75.desc
+	picture = GFX_report_event_india_dalit
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = redindia.75.a
+		ai_chance = {
+			factor = 1
+		}
+		add_to_variable = { misc_costs = 0.1 }
+	}
+}
+
+country_event = {
+	id = redindia.76 #victory in maharashtra
+	immediate = {log = "[GetDateText]: [Root.GetName]: event redindia.76"}
+	title = redindia.76.t
+	desc = redindia.76.desc
+	picture = GFX_report_event_india_communists
+	
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = redindia.76.a
+		ai_chance = {
+			factor = 1
+		}
+		add_stability = 0.1
+		clr_global_flag = RAJ_maharashtra_insurgency
+	}
+}

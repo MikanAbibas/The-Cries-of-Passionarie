@@ -1,0 +1,342 @@
+scripted_gui = {
+	rank_list_open_button = {
+		window_name = "rank_list_open_button_container"
+
+		context_type = player_context
+		parent_window_name = "MapmodesInterface_Ingame"
+
+		ai_enabled = {
+			always = no
+		}
+
+		visible = {
+			always = yes
+		}
+
+		effects = {
+			rank_list_open_button_click = {
+				if = {
+					limit = { has_country_flag = TNO_rank_list_open }
+					clr_country_flag = TNO_rank_list_open
+				}
+				else = {
+					set_country_flag = TNO_rank_list_open
+				}
+			}
+		}
+	}
+
+	rank_list = {
+		window_name = "rank_list_open_container"
+
+		context_type = player_context
+
+		visible = {
+			has_country_flag = TNO_rank_list_open
+		}
+
+		ai_enabled = {
+			always = no
+		}
+
+		dynamic_lists = {
+			# this is the main grid that contains added countries
+			superpower_list = {
+				array = global.superpowers
+				change_scope = yes
+				entry_container = "superpower_list_container"
+			}
+			detente_list = {
+				array = global.detentes_list
+				index = detente_index_i
+				change_scope = no
+				entry_container = "detente_list_container"
+			}
+		}
+
+		properties = {
+			#change flag textures to actual flag texture
+			flag = {
+				image = "[This.GetFlag]"
+			}
+		}
+
+		effects = {
+			close_click = {
+				clr_country_flag = TNO_rank_list_open
+			}
+		}
+	}
+
+	no_detente_alert = {
+		window_name = "no_detente_container"
+		parent_window_name = "rank_list_open_button_container"
+
+		context_type = player_context
+
+		visible = {
+			check_variable = {
+				var = global.detente_active
+				value = 0
+				compare = equals
+			}
+			has_country_flag = TNO_rank_list_open
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+
+	detente_usa_japan = {
+		window_name = "detente_usa_japan_container"
+		parent_window_name = "rank_list_open_button_container"
+
+		context_type = player_context
+
+		visible = {
+			has_global_flag = ZZZ_detente_usa_japan
+			has_country_flag = TNO_rank_list_open
+			check_variable = {
+				var = global.detente_active
+				value = 0
+				compare = not_equals
+			}
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+
+	detente_usa_germany = {
+		window_name = "detente_usa_germany_container"
+		parent_window_name = "rank_list_open_button_container"
+
+		context_type = player_context
+
+		visible = {
+			has_global_flag = ZZZ_detente_usa_germany
+			has_country_flag = TNO_rank_list_open
+			check_variable = {
+				var = global.detente_active
+				value = 0
+				compare = not_equals
+			}
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+
+	detente_italy_usa = {
+		window_name = "detente_italy_usa_container"
+		parent_window_name = "rank_list_open_button_container"
+
+		context_type = player_context
+
+		visible = {
+			has_global_flag = ZZZ_detente_italy_usa
+			has_country_flag = TNO_rank_list_open
+			check_variable = {
+				var = global.detente_active
+				value = 0
+				compare = not_equals
+			}
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+
+	detente_italy_jap = {
+		window_name = "detente_italy_jap_container"
+		parent_window_name = "rank_list_open_button_container"
+
+		context_type = player_context
+
+		visible = {
+			has_global_flag = ZZZ_detente_italy_japan
+			has_country_flag = TNO_rank_list_open
+			check_variable = {
+				var = global.detente_active
+				value = 0
+				compare = not_equals
+			}
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+
+	detente_italy_germany = {
+		window_name = "detente_italy_germany_container"
+		parent_window_name = "rank_list_open_button_container"
+
+		context_type = player_context
+
+		visible = {
+			has_global_flag = ZZZ_detente_italy_germany
+			has_country_flag = TNO_rank_list_open
+			check_variable = {
+				var = global.detente_active
+				value = 0
+				compare = not_equals
+			}
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+
+	detente_rus_usa = {
+		window_name = "detente_rus_usa_container"
+		parent_window_name = "rank_list_open_button_container"
+
+		context_type = player_context
+
+		visible = {
+			has_global_flag = ZZZ_detente_rus_usa
+			has_country_flag = TNO_rank_list_open
+			check_variable = {
+				var = global.detente_active
+				value = 0
+				compare = not_equals
+			}
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+
+	detente_rus_italy = {
+		window_name = "detente_rus_italy_container"
+		parent_window_name = "rank_list_open_button_container"
+
+		context_type = player_context
+
+		visible = {
+			has_global_flag = ZZZ_detente_rus_italy
+			has_country_flag = TNO_rank_list_open
+			check_variable = {
+				var = global.detente_active
+				value = 0
+				compare = not_equals
+			}
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+
+	detente_china_rus = {
+		window_name = "detente_china_rus_container"
+		parent_window_name = "rank_list_open_button_container"
+
+		context_type = player_context
+
+		visible = {
+			has_global_flag = ZZZ_detente_china_rus
+			has_country_flag = TNO_rank_list_open
+			check_variable = {
+				var = global.detente_active
+				value = 0
+				compare = not_equals
+			}
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+
+	detente_china_usa = {
+		window_name = "detente_china_usa_container"
+		parent_window_name = "rank_list_open_button_container"
+
+		context_type = player_context
+
+		visible = {
+			has_global_flag = ZZZ_detente_china_usa
+			has_country_flag = TNO_rank_list_open
+			check_variable = {
+				var = global.detente_active
+				value = 0
+				compare = not_equals
+			}
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+
+	detente_china_germany = {
+		window_name = "detente_china_germany_container"
+		parent_window_name = "rank_list_open_button_container"
+
+		context_type = player_context
+
+		visible = {
+			has_global_flag = ZZZ_detente_china_germany
+			has_country_flag = TNO_rank_list_open
+			check_variable = {
+				var = global.detente_active
+				value = 0
+				compare = not_equals
+			}
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+
+	detente_japan_germany = {
+		window_name = "detente_japan_germany_container"
+		parent_window_name = "rank_list_open_button_container"
+
+		context_type = player_context
+
+		visible = {
+			has_global_flag = ZZZ_detente_japan_germany
+			has_country_flag = TNO_rank_list_open
+			check_variable = {
+				var = global.detente_active
+				value = 0
+				compare = not_equals
+			}
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+
+	detente_kn = {
+		window_name = "detente_kn_container"
+		parent_window_name = "rank_list_open_button_container"
+
+		context_type = player_context
+
+		visible = {
+			has_global_flag = ZZZ_detente_kn_formed
+			has_country_flag = TNO_rank_list_open
+			check_variable = {
+				var = global.detente_active
+				value = 0
+				compare = not_equals
+			}
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+}

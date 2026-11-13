@@ -1,0 +1,5896 @@
+scripted_gui = {
+	reichstag_law_open_button = {
+		window_name = "reichstag_law_open_button_container"
+
+		context_type = player_context
+		parent_window_token = politics_tab
+
+		ai_enabled = {
+			always = yes
+		}
+		ai_check = {
+			has_country_flag = GER_reichstag_law_active
+			NOT = { has_country_flag = GER_reichstag_suspended }
+			NOT = { has_country_flag = TNO_reichstag_law_open }
+			NOT = { has_country_flag = GER_reichstag_vote_cooldown }
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 168
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			reichstag_law_open_button_click = {
+				ai_will_do = { base = 10 }
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = GER_reichstag_law_active
+		}
+
+		triggers = {
+			reichstag_law_open_button_visible = {
+				NOT = { has_country_flag = GER_reichstag_suspended }
+			}
+			reichstag_law_open_button_suspended_visible = {
+				has_country_flag = GER_reichstag_suspended
+			}
+		}
+
+		effects = {
+			reichstag_law_open_button_click = {
+				if = {
+					limit = { has_country_flag = TNO_reichstag_law_open }
+					clr_country_flag = TNO_reichstag_law_open
+				}
+				else = {
+					set_country_flag = TNO_reichstag_law_open
+				}
+				clr_country_flag = TNO_reichstag_open
+			}
+		}
+	}
+
+	reichstag_law_display = {
+		window_name = "reichstag_law_display_container"
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_cooldown }
+			NOT = { has_country_flag = GER_reichstag_suspended }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 2
+		ai_weights = {
+			nsdap_laws_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						GER_nsdap_government = yes
+						NOT = { check_variable = { GER_gui_party_laws_visible = 0 } }
+						add = 20
+					}
+					modifier = {
+						NOT = { GER_nsdap_government = yes }
+						NOT = { check_variable = { GER_gui_party_laws_visible = 0 } }
+						add = 3
+					}
+				}
+			}
+			vup_laws_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						GER_vup_government = yes
+						NOT = { check_variable = { GER_gui_party_laws_visible = 1 } }
+						add = 20
+					}
+					modifier = {
+						NOT = { GER_vup_government = yes }
+						NOT = { check_variable = { GER_gui_party_laws_visible = 1 } }
+						add = 3
+					}
+				}
+			}
+			rsp_laws_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						GER_rsp_government = yes
+						NOT = { check_variable = { GER_gui_party_laws_visible = 2 } }
+						add = 20
+					}
+					modifier = {
+						NOT = { GER_rsp_government = yes }
+						NOT = { check_variable = { GER_gui_party_laws_visible = 2 } }
+						add = 3
+					}
+				}
+			}
+			vaaf_laws_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						GER_vaaf_government = yes
+						NOT = { check_variable = { GER_gui_party_laws_visible = 3 } }
+						add = 20
+					}
+					modifier = {
+						NOT = { GER_vaaf_government = yes }
+						NOT = { check_variable = { GER_gui_party_laws_visible = 3 } }
+						add = 3
+					}
+				}
+			}
+			dg_laws_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						GER_dg_government = yes
+						NOT = { check_variable = { GER_gui_party_laws_visible = 4 } }
+						add = 20
+					}
+					modifier = {
+						NOT = { GER_dg_government = yes }
+						NOT = { check_variable = { GER_gui_party_laws_visible = 4 } }
+						add = 3
+					}
+				}
+			}
+			start_vote_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						GER_law_selected = yes
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { has_country_flag = GER_reichstag_vote_cooldown }
+						add = 15
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_suspended }
+		}
+
+		triggers = {
+			start_vote_button_click_enabled = {
+				GER_law_selected = yes
+				NOT = { has_country_flag = GER_reichstag_vote_cooldown }
+				NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+			}
+		}
+
+		effects = {
+			nsdap_laws_button_click = {
+				set_variable = {
+					var = GER_gui_party_laws_visible
+					value = 0
+				}
+			}
+			vup_laws_button_click = {
+				set_variable = {
+					var = GER_gui_party_laws_visible
+					value = 1
+				}
+			}
+			rsp_laws_button_click = {
+				set_variable = {
+					var = GER_gui_party_laws_visible
+					value = 2
+				}
+			}
+			vaaf_laws_button_click = {
+				set_variable = {
+					var = GER_gui_party_laws_visible
+					value = 3
+				}
+			}
+			dg_laws_button_click = {
+				set_variable = {
+					var = GER_gui_party_laws_visible
+					value = 4
+				}
+			}
+			close_click = {
+				clr_country_flag = TNO_reichstag_law_open
+			}
+			start_vote_button_click = {
+				GER_reichstag_law_start_voting = yes
+			}
+		}
+	}
+
+	# reichstag_law_confirm = {
+	# 	window_name = "reichstag_law_confirm_container"
+	# 	context_type = player_context
+
+	# 	visible = {
+	# 		tag = GER
+	# 		has_country_flag = TNO_reichstag_law_open
+	# 	}
+
+	# 	effects = {
+	# 		start_vote_button_click = {
+	# 			GER_reichstag_law_start_voting = yes
+	# 		}
+	# 	}
+
+	# 	triggers = {
+	# 		start_vote_button_click_enabled = {
+	# 			GER_law_selected = yes
+	# 		}
+	# 	}
+	# }
+
+	reichstag_law_nsdap_term_one_display = {
+		window_name = "reichstag_law_nsdap_term_one_display_container"
+		#parent_window_token = politics_tab
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			volk_support_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_volk_support_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			freedom_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_freedom_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			industrial_revitalization_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_industrial_revitalization_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			youth_productiveness_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_youth_productiveness_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			general_reich_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_general_reich_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			law_for_rural_support_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_law_for_rural_support_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			oberlander_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_oberlander_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			workers_protection_bill_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_workers_protection_bill_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			law_for_restoring_pride_in_the_reich_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_law_for_restoring_pride_in_the_reich_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			professional_adjustment_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_professional_adjustment_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			banking_simplification_bill_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_banking_simplification_bill_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			bill_for_support_of_lawful_and_just_proceedings_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_bill_for_support_of_lawful_and_just_proceedings_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			new_lebensborn_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_new_lebensborn_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			unification_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_unification_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			historical_education_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_historical_education_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			economic_consolidation_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_economic_consolidation_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			check_variable = {
+				GER_gui_party_laws_visible = 0
+			}
+		}
+
+		effects = {
+			volk_support_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_volk_support_act
+			}
+			freedom_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_freedom_law
+			}
+			industrial_revitalization_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_industrial_revitalization_act
+			}
+			youth_productiveness_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_youth_productiveness_act
+			}
+			general_reich_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_general_reich_law
+			}
+			law_for_rural_support_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_law_for_rural_support
+			}
+			oberlander_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_oberlander_law
+			}
+			workers_protection_bill_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_workers_protection_bill
+			}
+			law_for_restoring_pride_in_the_reich_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_law_for_restoring_pride_in_the_reich
+			}
+			professional_adjustment_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_professional_adjustment_act
+			}
+			banking_simplification_bill_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_banking_simplification_bill
+			}
+			bill_for_support_of_lawful_and_just_proceedings_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_bill_for_support_of_lawful_and_just_proceedings
+			}
+			new_lebensborn_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_new_lebensborn_act
+			}
+			unification_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_unification_law
+			}
+			historical_education_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_historical_education_act
+			}
+			economic_consolidation_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_economic_consolidation_act
+			}
+		}
+
+		triggers = {
+			volk_support_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_volk_support_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			freedom_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_freedom_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			industrial_revitalization_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_industrial_revitalization_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			youth_productiveness_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_youth_productiveness_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			general_reich_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_general_reich_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			law_for_rural_support_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_law_for_rural_support_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			oberlander_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_oberlander_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			workers_protection_bill_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_workers_protection_bill_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			law_for_restoring_pride_in_the_reich_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_law_for_restoring_pride_in_the_reich_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			professional_adjustment_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_professional_adjustment_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			banking_simplification_bill_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_banking_simplification_bill_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			bill_for_support_of_lawful_and_just_proceedings_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_bill_for_support_of_lawful_and_just_proceedings_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			new_lebensborn_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_new_lebensborn_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			unification_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_unification_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			historical_education_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_historical_education_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			economic_consolidation_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_economic_consolidation_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+		}
+	}
+
+	reichstag_law_nsdap_term_two_display = {
+		window_name = "reichstag_law_nsdap_term_two_display_container"
+		#parent_window_token = politics_tab
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			reich_defense_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_reich_defense_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			general_security_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_general_security_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			bill_for_informative_media_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_bill_for_informative_media_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			veteran_support_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_veteran_support_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			voter_registation_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_voter_registation_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			reich_banking_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_reich_banking_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			national_trade_union_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_national_trade_union_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			motion_to_condemn_rus_aggression_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_motion_to_condemn_rus_aggression_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			volks_public_works_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_volks_public_works_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			act_for_price_control_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_act_for_price_control_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			bill_law_on_new_political_organizations_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_bill_law_on_new_political_organizations_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			goebbels_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_goebbels_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			majority_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_majority_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			law_national_unity_front_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_law_national_unity_front_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			check_variable = {
+				GER_gui_party_laws_visible = 0
+			}
+			#check that nsdap has second term
+			check_variable = {
+				GER_nsdap_terms_won = 2
+			}
+		}
+
+		effects = {	
+			reich_defense_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_reich_defense_act
+			}
+			general_security_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_general_security_law
+			}
+			bill_for_informative_media_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_bill_for_informative_media
+			}
+			veteran_support_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_veteran_support_act
+			}
+			voter_registation_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_voter_registation_act
+			}
+			reich_banking_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_reich_banking_law
+			}
+			national_trade_union_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_national_trade_union_act
+			}
+			motion_to_condemn_rus_aggression_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_motion_to_condemn_rus_aggression
+			}
+			volks_public_works_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_volks_public_works_act
+			}
+			act_for_price_control_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_act_for_price_control
+			}
+			bill_law_on_new_political_organizations_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_bill_law_on_new_political_organizations
+			}
+			goebbels_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_goebbels_law
+			}
+			majority_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_majority_law
+			}
+			law_national_unity_front_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_law_national_unity_front
+			}
+		}
+
+		triggers = {
+			reich_defense_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_reich_defense_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			general_security_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_general_security_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			bill_for_informative_media_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_bill_for_informative_media_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			veteran_support_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_veteran_support_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			voter_registation_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_voter_registation_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			reich_banking_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_reich_banking_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			national_trade_union_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_national_trade_union_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			motion_to_condemn_rus_aggression_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_motion_to_condemn_rus_aggression_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			volks_public_works_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_volks_public_works_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			act_for_price_control_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_act_for_price_control_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			bill_law_on_new_political_organizations_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_bill_law_on_new_political_organizations_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+				has_country_flag = GER_reichstag_economic_consolidation_act_passed
+				has_country_flag = GER_reichstag_reich_defense_act_passed
+				has_country_flag = GER_reichstag_general_security_law_passed
+				has_country_flag = GER_reichstag_bill_for_informative_media_passed
+				has_country_flag = GER_reichstag_veteran_support_act_passed
+				has_country_flag = GER_reichstag_voter_registation_act_passed
+				has_country_flag = GER_reichstag_reich_banking_law_passed
+				has_country_flag = GER_reichstag_national_trade_union_act_passed
+				has_country_flag = GER_reichstag_motion_to_condemn_rus_aggression_passed
+				has_country_flag = GER_reichstag_volks_public_works_act_passed
+				has_country_flag = GER_reichstag_act_for_price_control_passed
+			}
+			goebbels_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_goebbels_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+				has_country_flag = GER_reichstag_bill_law_on_new_political_organizations_passed
+			}
+			majority_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_majority_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_law_national_unity_front_passed
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+				GER_nsdap_government = yes
+				has_country_flag = GER_reichstag_goebbels_law_passed
+			}
+			law_national_unity_front_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_law_national_unity_front_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_majority_law_passed
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+				GER_nsdap_government = yes
+				has_country_flag = GER_reichstag_majority_law_passed
+				has_global_flag = rus_vengeance_war
+			}
+		}
+	}
+
+	reichstag_law_nsdap_bombers_spring_display = {
+		window_name = "reichstag_law_nsdap_bombers_spring_display_container"
+		#parent_window_token = politics_tab
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			reich_police_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_reich_police_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			law_against_unruly_populations_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_law_against_unruly_populations_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			anti_ss_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_anti_ss_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			internal_fortification_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_internal_fortification_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			national_accounting_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_national_accounting_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			check_variable = {
+				GER_gui_party_laws_visible = 0
+			}
+			has_country_flag = GER_bombers_spring_active
+		}
+
+		effects = {
+			reich_police_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_reich_police_act
+			}
+			law_against_unruly_populations_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_law_against_unruly_populations
+			}
+			anti_ss_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_anti_ss_law
+			}
+			internal_fortification_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_internal_fortification_act
+			}
+			national_accounting_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_national_accounting_law
+			}
+		}
+
+		triggers = {
+			reich_police_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_reich_police_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_peoples_protection_act_passed
+						has_country_flag = GER_reichstag_police_act_passed
+						has_country_flag = GER_reichstag_protection_of_masses_law_passed
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			law_against_unruly_populations_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_militia_deployment_act_passed
+						has_country_flag = GER_reichstag_law_to_defend_liberty_passed
+						has_country_flag = GER_reichstag_law_for_reconciliation_passed
+						has_country_flag = GER_reichstag_law_against_unruly_populations_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			anti_ss_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_orpo_reform_act_passed
+						has_country_flag = GER_reichstag_pakt_security_act_passed
+						has_country_flag = GER_reichstag_governmental_policing_law_passed
+						has_country_flag = GER_reichstag_anti_ss_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			internal_fortification_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_equitable_roads_act_passed
+						has_country_flag = GER_reichstag_riot_management_law_passed
+						has_country_flag = GER_reichstag_poland_act_passed
+						has_country_flag = GER_reichstag_internal_fortification_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			national_accounting_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_general_rights_law_passed
+						has_country_flag = GER_reichstag_consolation_act_passed
+						has_country_flag = GER_reichstag_heritage_protection_act_passed
+						has_country_flag = GER_reichstag_national_accounting_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+		}
+	}
+
+	reichstag_law_vup_term_one_display = {
+		window_name = "reichstag_law_vup_term_one_display_container"
+		#parent_window_token = politics_tab
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			unemployment_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_unemployment_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			agrarian_fund_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_agrarian_fund_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			fair_compensation_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_fair_compensation_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			reich_school_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_reich_school_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			religious_tolerance_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_religious_tolerance_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			general_finance_reform_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_general_finance_reform_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			reich_democracy_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_reich_democracy_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			connective_infrastructure_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_connective_infrastructure_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			repatriation_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_repatriation_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			class_cooperation_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_class_cooperation_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			popular_welfare_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_popular_welfare_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			bill_of_public_dignity_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_bill_of_public_dignity_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			market_fairness_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_market_fairness_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			museum_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_museum_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			reich_outreach_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_reich_outreach_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			check_variable = {
+				GER_gui_party_laws_visible = 1
+			}
+		}
+
+		effects = {
+			unemployment_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_unemployment_act
+			}
+			agrarian_fund_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_agrarian_fund_act
+			}
+			fair_compensation_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_fair_compensation_act
+			}
+			reich_school_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_reich_school_law
+			}
+			religious_tolerance_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_religious_tolerance_law
+			}
+			general_finance_reform_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_general_finance_reform_law
+			}
+			reich_democracy_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_reich_democracy_act
+			}
+			connective_infrastructure_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_connective_infrastructure_act
+			}
+			repatriation_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_repatriation_law
+			}
+			class_cooperation_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_class_cooperation_act
+			}
+			popular_welfare_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_popular_welfare_law
+			}
+			bill_of_public_dignity_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_bill_of_public_dignity
+			}
+			market_fairness_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_market_fairness_law
+			}
+			museum_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_museum_act
+			}
+			reich_outreach_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_reich_outreach_law
+			}
+		}
+
+		triggers = {
+			unemployment_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_unemployment_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			agrarian_fund_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_agrarian_fund_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			fair_compensation_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_fair_compensation_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			reich_school_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_reich_school_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			religious_tolerance_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_religious_tolerance_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			general_finance_reform_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_general_finance_reform_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			reich_democracy_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_reich_democracy_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			connective_infrastructure_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_connective_infrastructure_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			repatriation_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_repatriation_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			class_cooperation_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_class_cooperation_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			popular_welfare_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_popular_welfare_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			bill_of_public_dignity_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_bill_of_public_dignity_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			market_fairness_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_market_fairness_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			museum_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_museum_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			reich_outreach_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_reich_outreach_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+		}
+	}
+
+	reichstag_law_vup_term_two_display = {
+		window_name = "reichstag_law_vup_term_two_display_container"
+		#parent_window_token = politics_tab
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			impoverished_support_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_impoverished_support_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			reich_education_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_reich_education_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			bill_for_civil_law_reform_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_bill_for_civil_law_reform_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			anti_greed_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_anti_greed_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			pakt_aid_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_pakt_aid_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			reich_sick_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_reich_sick_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			wehrmacht_funding_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_wehrmacht_funding_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			vote_streamlining_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_vote_streamlining_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			anti_intimidation_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_anti_intimidation_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			safety_regulation_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_safety_regulation_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			constitutional_protection_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_constitutional_protection_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			bill_church_understanding_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_bill_church_understanding_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			inter_pakt_autobahn_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_inter_pakt_autobahn_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			general_rights_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_general_rights_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			imperial_restoration_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_imperial_restoration_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			check_variable = {
+				GER_gui_party_laws_visible = 1
+			}
+			#check that vup has second term
+			check_variable = {
+				GER_vup_terms_won = 2
+			}
+		}
+
+		effects = {
+			impoverished_support_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_impoverished_support_act
+			}
+			reich_education_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_reich_education_law
+			}
+			bill_for_civil_law_reform_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_bill_for_civil_law_reform
+			}
+			anti_greed_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_anti_greed_act
+			}
+			pakt_aid_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_pakt_aid_law
+			}
+			reich_sick_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_reich_sick_law
+			}
+			wehrmacht_funding_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_wehrmacht_funding_act
+			}
+			vote_streamlining_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_vote_streamlining_act
+			}
+			anti_intimidation_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_anti_intimidation_law
+			}
+			safety_regulation_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_safety_regulation_law
+			}
+			constitutional_protection_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_constitutional_protection_act
+			}
+			bill_church_understanding_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_bill_church_understanding_act
+			}
+			inter_pakt_autobahn_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_inter_pakt_autobahn_law
+			}
+			general_rights_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_general_rights_act
+			}
+			imperial_restoration_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_imperial_restoration_law
+			}
+		}
+
+		triggers = {
+			impoverished_support_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_impoverished_support_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			reich_education_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_reich_education_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			bill_for_civil_law_reform_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_bill_for_civil_law_reform_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			anti_greed_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_anti_greed_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			pakt_aid_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_pakt_aid_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			reich_sick_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_reich_sick_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			wehrmacht_funding_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_wehrmacht_funding_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			vote_streamlining_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_vote_streamlining_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			anti_intimidation_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_anti_intimidation_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			safety_regulation_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_safety_regulation_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			constitutional_protection_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_constitutional_protection_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			bill_church_understanding_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_bill_church_understanding_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			inter_pakt_autobahn_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_inter_pakt_autobahn_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			general_rights_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_general_rights_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+				has_country_flag = GER_reichstag_impoverished_support_act_passed
+				has_country_flag = GER_reichstag_reich_education_law_passed
+				has_country_flag = GER_reichstag_bill_for_civil_law_reform_passed
+				has_country_flag = GER_reichstag_anti_greed_act_passed
+				has_country_flag = GER_reichstag_pakt_aid_law_passed
+				has_country_flag = GER_reichstag_reich_sick_law_passed
+				has_country_flag = GER_reichstag_wehrmacht_funding_act_passed
+				has_country_flag = GER_reichstag_vote_streamlining_act_passed
+				has_country_flag = GER_reichstag_anti_intimidation_law_passed
+				has_country_flag = GER_reichstag_safety_regulation_law_passed
+				has_country_flag = GER_reichstag_constitutional_protection_act_passed
+				has_country_flag = GER_reichstag_bill_church_understanding_act_passed
+				has_country_flag = GER_reichstag_inter_pakt_autobahn_law_passed
+			}
+			imperial_restoration_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_imperial_restoration_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+				has_country_flag = GER_reichstag_general_rights_act_passed
+				#hapsburg still has claims
+				has_country_flag = GER_hapsburg_active
+				has_global_flag = rus_vengeance_war
+				GER_vup_government = yes
+				has_war = no
+			}
+		}
+	}
+
+	reichstag_law_vup_bombers_spring_display = {
+		window_name = "reichstag_law_vup_bombers_spring_display_container"
+		#parent_window_token = politics_tab
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			peoples_protection_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_peoples_protection_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			law_for_reconciliation_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_law_for_reconciliation_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			governmental_policing_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_governmental_policing_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			poland_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_poland_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			heritage_protection_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_heritage_protection_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			check_variable = {
+				GER_gui_party_laws_visible = 1
+			}
+			has_country_flag = GER_bombers_spring_active
+		}
+
+		effects = {
+			peoples_protection_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_peoples_protection_act
+			}
+			law_for_reconciliation_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_law_for_reconciliation
+			}
+			governmental_policing_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_governmental_policing_law
+			}
+			poland_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_poland_act
+			}
+			heritage_protection_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_heritage_protection_act
+			}
+		}
+
+		triggers = {
+			peoples_protection_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_reich_police_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_peoples_protection_act_passed
+						has_country_flag = GER_reichstag_police_act_passed
+						has_country_flag = GER_reichstag_protection_of_masses_law_passed
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			law_for_reconciliation_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_militia_deployment_act_passed
+						has_country_flag = GER_reichstag_law_to_defend_liberty_passed
+						has_country_flag = GER_reichstag_law_for_reconciliation_passed
+						has_country_flag = GER_reichstag_law_against_unruly_populations_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			governmental_policing_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_orpo_reform_act_passed
+						has_country_flag = GER_reichstag_pakt_security_act_passed
+						has_country_flag = GER_reichstag_governmental_policing_law_passed
+						has_country_flag = GER_reichstag_anti_ss_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			poland_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_equitable_roads_act_passed
+						has_country_flag = GER_reichstag_riot_management_law_passed
+						has_country_flag = GER_reichstag_poland_act_passed
+						has_country_flag = GER_reichstag_internal_fortification_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			heritage_protection_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_general_rights_law_passed
+						has_country_flag = GER_reichstag_consolation_act_passed
+						has_country_flag = GER_reichstag_heritage_protection_act_passed
+						has_country_flag = GER_reichstag_national_accounting_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+		}
+	}
+
+	reichstag_law_rsp_term_one_display = {
+		window_name = "reichstag_law_rsp_term_one_display_container"
+		#parent_window_token = politics_tab
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			market_liberty_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_market_liberty_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			industrial_development_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_industrial_development_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			international_trade_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_international_trade_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			coorperation_freedom_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_coorperation_freedom_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			free_press_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_free_press_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			banking_deregulation_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_banking_deregulation_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			reich_liberty_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_reich_liberty_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			judicial_freedom_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_judicial_freedom_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			port_modernization_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_port_modernization_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			act_for_wehrmacht_readiness_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_act_for_wehrmacht_readiness_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			university_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_university_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			national_liberation_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_national_liberation_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			election_procedure_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_election_procedure_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			taxation_reduction_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_taxation_reduction_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			military_infrastructure_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_military_infrastructure_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			individual_autonomy_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_individual_autonomy_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			law_against_bolshevik_subversion_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_law_against_bolshevik_subversion_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			check_variable = {
+				GER_gui_party_laws_visible = 2
+			}
+		}
+
+		effects = {			
+			market_liberty_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_market_liberty_law
+			}
+			industrial_development_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_industrial_development_law
+			}
+			international_trade_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_international_trade_act
+			}
+			coorperation_freedom_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_coorperation_freedom_act
+			}
+			free_press_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_free_press_law
+			}
+			banking_deregulation_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_banking_deregulation_law
+			}
+			reich_liberty_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_reich_liberty_law
+			}
+			judicial_freedom_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_judicial_freedom_law
+			}
+			port_modernization_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_port_modernization_act
+			}
+			act_for_wehrmacht_readiness_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_act_for_wehrmacht_readiness
+			}
+			university_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_university_law
+			}
+			national_liberation_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_national_liberation_law
+			}
+			election_procedure_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_election_procedure_act
+			}
+			taxation_reduction_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_taxation_reduction_law
+			}
+			military_infrastructure_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_military_infrastructure_act
+			}
+			individual_autonomy_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_individual_autonomy_act
+			}
+			law_against_bolshevik_subversion_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_law_against_bolshevik_subversion
+			}
+		}
+
+		triggers = {
+			market_liberty_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_market_liberty_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			industrial_development_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_industrial_development_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			international_trade_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_international_trade_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			coorperation_freedom_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_coorperation_freedom_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			free_press_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_free_press_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			banking_deregulation_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_banking_deregulation_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			reich_liberty_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_reich_liberty_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_judicial_freedom_law_passed
+						GER_g4_bombers_spring_active = yes
+					}			
+				}
+			}
+			judicial_freedom_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_judicial_freedom_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_reich_liberty_law_passed
+						GER_g4_bombers_spring_active = yes
+					}				
+				}
+			}
+			port_modernization_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_port_modernization_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			act_for_wehrmacht_readiness_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_act_for_wehrmacht_readiness_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			university_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_university_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			national_liberation_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_national_liberation_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_election_procedure_act_passed
+						GER_g4_bombers_spring_active = yes
+					}					
+				}
+			}
+			election_procedure_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_election_procedure_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_national_liberation_law_passed
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			taxation_reduction_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_taxation_reduction_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			military_infrastructure_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_military_infrastructure_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			individual_autonomy_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_individual_autonomy_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			law_against_bolshevik_subversion_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_law_against_bolshevik_subversion_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+		}
+	}
+
+	reichstag_law_rsp_term_two_display = {
+		window_name = "reichstag_law_rsp_term_two_display_container"
+		#parent_window_token = politics_tab
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			economic_growth_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_economic_growth_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			political_stability_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_political_stability_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			civil_freedom_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_civil_freedom_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			innovation_bill_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_innovation_bill_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			international_trade_reform_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_international_trade_reform_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			energy_security_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_energy_security_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			age_majority_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_age_majority_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			finance_freedom_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_finance_freedom_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			tax_waste_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_tax_waste_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			work_safety_reform_bill_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_work_safety_reform_bill_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			popular_sovereignty_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_popular_sovereignty_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			personal_consciousness_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_personal_consciousness_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			pakt_trade_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_pakt_trade_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			fair_market_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_fair_market_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			production_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_production_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			check_variable = {
+				GER_gui_party_laws_visible = 2
+			}
+			check_variable = {
+				GER_rsp_terms_won = 2
+			}
+		}
+
+		effects = {
+			economic_growth_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_economic_growth_act
+			}
+			political_stability_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_political_stability_law
+			}
+			civil_freedom_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_civil_freedom_act
+			}
+			innovation_bill_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_innovation_bill
+			}
+			international_trade_reform_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_international_trade_reform_act
+			}
+			energy_security_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_energy_security_act
+			}
+			age_majority_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_age_majority_act
+			}
+			finance_freedom_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_finance_freedom_law
+			}
+			tax_waste_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_tax_waste_act
+			}
+			work_safety_reform_bill_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_work_safety_reform_bill
+			}
+			popular_sovereignty_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_popular_sovereignty_act
+			}
+			personal_consciousness_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_personal_consciousness_law
+			}
+			pakt_trade_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_pakt_trade_law
+			}
+			fair_market_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_fair_market_act
+			}
+			production_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_production_act
+			}
+		}
+
+		triggers = {			
+			economic_growth_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_economic_growth_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			political_stability_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_political_stability_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			civil_freedom_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_civil_freedom_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			innovation_bill_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_innovation_bill_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			international_trade_reform_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_international_trade_reform_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			energy_security_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_energy_security_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			age_majority_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_age_majority_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			finance_freedom_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_finance_freedom_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			tax_waste_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_tax_waste_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			work_safety_reform_bill_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_work_safety_reform_bill_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			popular_sovereignty_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_popular_sovereignty_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			personal_consciousness_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_personal_consciousness_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			pakt_trade_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_pakt_trade_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			fair_market_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_fair_market_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			production_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_production_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+		}
+	}
+
+	reichstag_law_rsp_bombers_spring_display = {
+		window_name = "reichstag_law_rsp_bombers_spring_display_container"
+		#parent_window_token = politics_tab
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			police_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_police_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			law_to_defend_liberty_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_law_to_defend_liberty_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			pakt_security_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_pakt_security_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			riot_management_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_riot_management_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			consolation_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_consolation_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			check_variable = {
+				GER_gui_party_laws_visible = 2
+			}
+			has_country_flag = GER_bombers_spring_active
+		}
+
+		effects = {
+			police_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_police_act
+			}
+			law_to_defend_liberty_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_law_to_defend_liberty
+			}
+			pakt_security_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_pakt_security_act
+			}
+			riot_management_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_riot_management_law
+			}
+			consolation_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_consolation_act
+			}
+		}
+
+		triggers = {
+			police_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_reich_police_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_peoples_protection_act_passed
+						has_country_flag = GER_reichstag_police_act_passed
+						has_country_flag = GER_reichstag_protection_of_masses_law_passed
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			law_to_defend_liberty_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_militia_deployment_act_passed
+						has_country_flag = GER_reichstag_law_to_defend_liberty_passed
+						has_country_flag = GER_reichstag_law_for_reconciliation_passed
+						has_country_flag = GER_reichstag_law_against_unruly_populations_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			pakt_security_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_orpo_reform_act_passed
+						has_country_flag = GER_reichstag_pakt_security_act_passed
+						has_country_flag = GER_reichstag_governmental_policing_law_passed
+						has_country_flag = GER_reichstag_anti_ss_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			riot_management_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_equitable_roads_act_passed
+						has_country_flag = GER_reichstag_riot_management_law_passed
+						has_country_flag = GER_reichstag_poland_act_passed
+						has_country_flag = GER_reichstag_internal_fortification_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			consolation_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_general_rights_law_passed
+						has_country_flag = GER_reichstag_consolation_act_passed
+						has_country_flag = GER_reichstag_heritage_protection_act_passed
+						has_country_flag = GER_reichstag_national_accounting_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+		}
+	}
+
+	reichstag_law_vaaf_term_one_display = {
+		window_name = "reichstag_law_vaaf_term_one_display_container"
+		#parent_window_token = politics_tab
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			proletariat_protection_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_proletariat_protection_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			princeling_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_princeling_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			fair_share_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_fair_share_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			free_union_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_free_union_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			peoples_supremacy_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_peoples_supremacy_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			fair_election_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_fair_election_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			orpo_regulation_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_orpo_regulation_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			civil_security_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_civil_security_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			america_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_america_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			economic_security_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_economic_security_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			law_for_total_freedom_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_law_for_total_freedom_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			government_openness_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_government_openness_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			election_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_election_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			judicial_overhaul_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_judicial_overhaul_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			okw_regulation_law_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_okw_regulation_law_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			absolute_democracy_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_absolute_democracy_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			inclusion_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_inclusion_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			check_variable = {
+				GER_gui_party_laws_visible = 3
+			}
+		}
+
+		effects = {
+			proletariat_protection_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_proletariat_protection_act
+			}
+			princeling_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_princeling_law
+			}
+			fair_share_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_fair_share_act
+			}
+			free_union_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_free_union_act
+			}
+			peoples_supremacy_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_peoples_supremacy_act
+			}
+			fair_election_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_fair_election_act
+			}
+			orpo_regulation_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_orpo_regulation_act
+			}
+			civil_security_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_civil_security_law
+			}
+			america_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_america_act
+			}
+			economic_security_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_economic_security_act
+			}
+			law_for_total_freedom_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_law_for_total_freedom
+			}
+			government_openness_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_government_openness_act
+			}
+			election_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_election_law
+			}
+			judicial_overhaul_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_judicial_overhaul_act
+			}
+			okw_regulation_law_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_okw_regulation_law_act
+			}
+			absolute_democracy_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_absolute_democracy_law
+			}
+			inclusion_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_inclusion_law
+			}
+		}
+
+		triggers = {
+			proletariat_protection_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_proletariat_protection_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			princeling_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_princeling_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			fair_share_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_fair_share_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			free_union_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_free_union_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			peoples_supremacy_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_peoples_supremacy_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_fair_election_act_passed
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			fair_election_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_fair_election_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_peoples_supremacy_act_passed
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			orpo_regulation_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_orpo_regulation_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			civil_security_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_civil_security_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			america_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_america_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			economic_security_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_economic_security_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			law_for_total_freedom_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_law_for_total_freedom_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_government_openness_act_passed
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			government_openness_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_government_openness_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_law_for_total_freedom_passed
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			election_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_election_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			judicial_overhaul_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_judicial_overhaul_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			okw_regulation_law_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_okw_regulation_law_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			absolute_democracy_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_absolute_democracy_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_inclusion_law_passed
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			inclusion_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_inclusion_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_absolute_democracy_law_passed
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+		}
+	}
+
+	reichstag_law_vaaf_term_two_moderate_display = {
+		window_name = "reichstag_law_vaaf_term_two_moderate_display_container"
+		#parent_window_token = politics_tab
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			fair_price_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_fair_price_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			peoples_welfare_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_peoples_welfare_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			health_support_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_health_support_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			societal_democracy_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_societal_democracy_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			labor_rights_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_labor_rights_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			fairness_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_fairness_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			local_minicipalities_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_local_minicipalities_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			internal_defense_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_internal_defense_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			friendship_of_nations_bill_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_friendship_of_nations_bill_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			anti_crime_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_anti_crime_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			public_works_bill_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_public_works_bill_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			work_permit_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_work_permit_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			penal_reform_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_penal_reform_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			reich_coop_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_reich_coop_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			reichsmark_boost_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_reichsmark_boost_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			check_variable = {
+				GER_gui_party_laws_visible = 3
+			}
+			check_variable = {
+				GER_vaaf_terms_won = 2
+			}
+			NOT = {
+				has_country_flag = ger_vaaf_radical_coup
+			}
+		}
+
+		effects = {
+			fair_price_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_fair_price_act
+			}
+			peoples_welfare_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_peoples_welfare_act
+			}
+			health_support_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_health_support_law
+			}
+			societal_democracy_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_societal_democracy_act
+			}
+			labor_rights_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_labor_rights_law
+			}
+			fairness_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_fairness_act
+			}
+			local_minicipalities_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_local_minicipalities_law
+			}
+			internal_defense_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_internal_defense_act
+			}
+			friendship_of_nations_bill_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_friendship_of_nations_bill
+			}
+			anti_crime_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_anti_crime_act
+			}
+			public_works_bill_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_public_works_bill
+			}
+			work_permit_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_work_permit_law
+			}
+			penal_reform_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_penal_reform_law
+			}
+			reich_coop_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_reich_coop_act
+			}
+			reichsmark_boost_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_reichsmark_boost_law
+			}
+		}
+
+		triggers = {
+			fair_price_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_fair_price_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			peoples_welfare_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_peoples_welfare_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			health_support_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_health_support_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			societal_democracy_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_societal_democracy_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			labor_rights_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_labor_rights_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			fairness_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_fairness_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			local_minicipalities_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_local_minicipalities_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			internal_defense_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_internal_defense_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			friendship_of_nations_bill_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_friendship_of_nations_bill_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			anti_crime_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_anti_crime_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			public_works_bill_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_public_works_bill_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			work_permit_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_work_permit_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			penal_reform_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_penal_reform_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			reich_coop_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_reich_coop_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			reichsmark_boost_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_reichsmark_boost_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+		}
+	}
+
+	reichstag_law_vaaf_term_two_radical_display = {
+		window_name = "reichstag_law_vaaf_term_two_radical_display_container"
+		#parent_window_token = politics_tab
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			absolution_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_absolution_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			purity_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_purity_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			total_defense_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_total_defense_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			revision_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_revision_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			perfect_democracy_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_perfect_democracy_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			protelarian_liberation_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_protelarian_liberation_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			bank_annihilation_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_bank_annihilation_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			criminal_wealth_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_criminal_wealth_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			bill_for_total_emancipation_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_bill_for_total_emancipation_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			workers_reich_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_workers_reich_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			infinite_wealth_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_infinite_wealth_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			total_nationalization_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_total_nationalization_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			due_justice_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_due_justice_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			heavy_industry_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_heavy_industry_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			lawful_society_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_lawful_society_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			check_variable = {
+				GER_gui_party_laws_visible = 3
+			}
+			check_variable = {
+				GER_vaaf_terms_won = 2
+			}
+			has_country_flag = ger_vaaf_radical_coup
+		}
+
+		effects = {
+			absolution_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_absolution_law
+			}
+			purity_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_purity_law
+			}
+			total_defense_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_total_defense_act
+			}
+			revision_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_revision_act
+			}
+			perfect_democracy_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_perfect_democracy_law
+			}
+			protelarian_liberation_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_protelarian_liberation_law
+			}
+			bank_annihilation_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_bank_annihilation_act
+			}
+			criminal_wealth_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_criminal_wealth_law
+			}
+			bill_for_total_emancipation_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_bill_for_total_emancipation
+			}
+			workers_reich_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_workers_reich_law
+			}
+			infinite_wealth_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_infinite_wealth_act
+			}
+			total_nationalization_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_total_nationalization_law
+			}
+			due_justice_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_due_justice_law
+			}
+			heavy_industry_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_heavy_industry_act
+			}
+			lawful_society_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_lawful_society_act
+			}
+		}
+
+		triggers = {
+			absolution_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_absolution_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			purity_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_purity_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			total_defense_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_total_defense_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			revision_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_revision_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			perfect_democracy_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_perfect_democracy_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			protelarian_liberation_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_protelarian_liberation_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			bank_annihilation_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_bank_annihilation_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			criminal_wealth_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_criminal_wealth_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			bill_for_total_emancipation_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_bill_for_total_emancipation_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			workers_reich_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_workers_reich_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+				has_country_flag = GER_reichstag_bill_for_total_emancipation_passed
+			}
+			infinite_wealth_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_infinite_wealth_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			total_nationalization_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_total_nationalization_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			due_justice_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_due_justice_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			heavy_industry_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_heavy_industry_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			lawful_society_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_lawful_society_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+				has_country_flag = GER_reichstag_absolution_law_passed
+				has_country_flag = GER_reichstag_purity_law_passed
+				has_country_flag = GER_reichstag_total_defense_act_passed
+				has_country_flag = GER_reichstag_revision_act_passed
+				has_country_flag = GER_reichstag_perfect_democracy_law_passed
+				has_country_flag = GER_reichstag_protelarian_liberation_law_passed
+				has_country_flag = GER_reichstag_bank_annihilation_act_passed
+				has_country_flag = GER_reichstag_criminal_wealth_law_passed
+				has_country_flag = GER_reichstag_bill_for_total_emancipation_passed
+				has_country_flag = GER_reichstag_workers_reich_law_passed
+				has_country_flag = GER_reichstag_infinite_wealth_act_passed
+				has_country_flag = GER_reichstag_total_nationalization_law_passed
+				has_country_flag = GER_reichstag_due_justice_law_passed
+				has_country_flag = GER_reichstag_heavy_industry_act_passed
+			}
+		}
+	}
+
+	reichstag_law_vaaf_bombers_spring_display = {
+		window_name = "reichstag_law_vaaf_bombers_spring_display_container"
+		#parent_window_token = politics_tab
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			protection_of_masses_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_protection_of_masses_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			militia_deployment_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_militia_deployment_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			orpo_reform_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_orpo_reform_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			equitable_roads_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_equitable_roads_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+			general_rights_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_general_rights_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 50
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			check_variable = {
+				GER_gui_party_laws_visible = 3
+			}
+			has_country_flag = GER_bombers_spring_active
+		}
+
+		effects = {
+			protection_of_masses_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_protection_of_masses_law
+			}
+			militia_deployment_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_militia_deployment_act
+			}
+			orpo_reform_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_orpo_reform_act
+			}
+			equitable_roads_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_equitable_roads_act
+			}
+			general_rights_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_general_rights_law
+			}
+		}
+
+		triggers = {
+			protection_of_masses_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_reich_police_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						has_country_flag = GER_reichstag_peoples_protection_act_passed
+						has_country_flag = GER_reichstag_police_act_passed
+						has_country_flag = GER_reichstag_protection_of_masses_law_passed
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			militia_deployment_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_militia_deployment_act_passed
+						has_country_flag = GER_reichstag_law_to_defend_liberty_passed
+						has_country_flag = GER_reichstag_law_for_reconciliation_passed
+						has_country_flag = GER_reichstag_law_against_unruly_populations_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			orpo_reform_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_orpo_reform_act_passed
+						has_country_flag = GER_reichstag_pakt_security_act_passed
+						has_country_flag = GER_reichstag_governmental_policing_law_passed
+						has_country_flag = GER_reichstag_anti_ss_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			equitable_roads_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_equitable_roads_act_passed
+						has_country_flag = GER_reichstag_riot_management_law_passed
+						has_country_flag = GER_reichstag_poland_act_passed
+						has_country_flag = GER_reichstag_internal_fortification_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+			general_rights_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_general_rights_law_passed
+						has_country_flag = GER_reichstag_consolation_act_passed
+						has_country_flag = GER_reichstag_heritage_protection_act_passed
+						has_country_flag = GER_reichstag_national_accounting_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+					}
+				}
+				GER_g4_bombers_spring_active = yes
+			}
+		}
+	}
+
+	reichstag_law_dg_term_one_display = {
+		window_name = "reichstag_law_dg_term_one_display_container"
+		#parent_window_token = politics_tab
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			water_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_water_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			youth_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_youth_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			park_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_park_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			building_code_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_building_code_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			personal_liberty_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_personal_liberty_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			clean_air_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_clean_air_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			green_cities_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_green_cities_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			endangered_species_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_endangered_species_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			anti_dumping_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_anti_dumping_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			pesticide_regulations_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_pesticide_regulations_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			woman_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_woman_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			civil_service_promotion_bill_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_civil_service_promotion_bill_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			check_variable = {
+				GER_gui_party_laws_visible = 4
+			}
+		}
+
+		effects = {
+			water_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_water_act
+			}
+			youth_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_youth_act
+			}
+			park_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_park_act
+			}
+			building_code_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_building_code_act
+			}
+			personal_liberty_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_personal_liberty_act
+			}
+			clean_air_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_clean_air_law
+			}
+			green_cities_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_green_cities_act
+			}
+			endangered_species_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_endangered_species_law
+			}
+			anti_dumping_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_anti_dumping_act
+			}
+			pesticide_regulations_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_pesticide_regulations_act
+			}
+			woman_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_woman_law
+			}
+			civil_service_promotion_bill_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_civil_service_promotion_bill
+			}
+		}
+
+		triggers = {
+			water_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_water_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			youth_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_youth_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			park_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_park_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			building_code_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_building_code_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			personal_liberty_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_personal_liberty_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			clean_air_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_clean_air_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			green_cities_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_green_cities_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			endangered_species_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_endangered_species_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			anti_dumping_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_anti_dumping_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			pesticide_regulations_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_pesticide_regulations_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			woman_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_woman_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			civil_service_promotion_bill_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_civil_service_promotion_bill_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+		}
+	}
+
+	reichstag_law_dg_term_two_display = {
+		window_name = "reichstag_law_dg_term_two_display_container"
+		#parent_window_token = politics_tab
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = TNO_reichstag_law_open
+			NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			purge_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_purge_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			act_against_overpopulation_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_act_against_overpopulation_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			fortified_borders_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_fortified_borders_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			back_to_land_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_back_to_land_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			blood_and_soil_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_blood_and_soil_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			strength_of_will_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_strength_of_will_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			annihilation_of_filth_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_annihilation_of_filth_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			agrarian_society_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_agrarian_society_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			green_reich_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_green_reich_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			final_solution_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_final_solution_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			demolition_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_demolition_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			environmental_tax_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_environmental_tax_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			national_security_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_national_security_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			foreign_agents_act_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_foreign_agents_act_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+			lightning_and_sun_law_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_lightning_and_sun_law_passed }
+						NOT = { has_country_flag = GER_reichstag_vote_in_progress }
+						NOT = { GER_law_selected = yes }
+						add = 5
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = TNO_reichstag_law_open
+			check_variable = {
+				GER_gui_party_laws_visible = 4
+			}
+			has_government = ultranational_socialism
+			check_variable = {
+				GER_dg_terms_won = 1
+			}
+		}
+
+		effects = {
+			purge_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_purge_law
+			}
+			act_against_overpopulation_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_act_against_overpopulation
+			}
+			fortified_borders_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_fortified_borders_act
+			}
+			back_to_land_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_back_to_land_act
+			}
+			blood_and_soil_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_blood_and_soil_law
+			}
+			strength_of_will_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_strength_of_will_law
+			}
+			annihilation_of_filth_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_annihilation_of_filth_act
+			}
+			agrarian_society_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_agrarian_society_law
+			}
+			green_reich_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_green_reich_law
+			}
+			final_solution_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_final_solution_act
+			}
+			demolition_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_demolition_act
+			}
+			environmental_tax_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_environmental_tax_act
+			}
+			national_security_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_national_security_act
+			}
+			foreign_agents_act_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_foreign_agents_act
+			}
+			lightning_and_sun_law_button_click = {
+				GER_reichstag_law_clear_flags = yes
+				set_country_flag = GER_reichstag_lightning_and_sun_law
+			}
+		}
+
+		triggers = {
+			purge_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_purge_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			act_against_overpopulation_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_act_against_overpopulation_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			fortified_borders_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_fortified_borders_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			back_to_land_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_back_to_land_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			blood_and_soil_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_blood_and_soil_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			strength_of_will_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_strength_of_will_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			annihilation_of_filth_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_annihilation_of_filth_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			agrarian_society_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_agrarian_society_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			green_reich_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_green_reich_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			final_solution_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_final_solution_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			demolition_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_demolition_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			environmental_tax_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_environmental_tax_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			national_security_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_national_security_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			foreign_agents_act_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_foreign_agents_act_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+			}
+			lightning_and_sun_law_button_click_enabled = {
+				NOT = {
+					OR = {
+						has_country_flag = GER_reichstag_lightning_and_sun_law_passed
+						has_country_flag = GER_reichstag_vote_in_progress
+						GER_g4_bombers_spring_active = yes
+					}
+				}
+				has_country_flag = GER_reichstag_purge_law_passed
+				has_country_flag = GER_reichstag_act_against_overpopulation_passed
+				has_country_flag = GER_reichstag_fortified_borders_act_passed
+				has_country_flag = GER_reichstag_back_to_land_act_passed
+				has_country_flag = GER_reichstag_blood_and_soil_law_passed
+				has_country_flag = GER_reichstag_strength_of_will_law_passed
+				has_country_flag = GER_reichstag_annihilation_of_filth_act_passed
+				has_country_flag = GER_reichstag_agrarian_society_law_passed
+				has_country_flag = GER_reichstag_green_reich_law_passed
+				has_country_flag = GER_reichstag_final_solution_act_passed
+				has_country_flag = GER_reichstag_demolition_act_passed
+				has_country_flag = GER_reichstag_environmental_tax_act_passed
+				has_country_flag = GER_reichstag_national_security_act_passed
+				has_country_flag = GER_reichstag_foreign_agents_act_passed
+			}
+		}
+	}
+
+	reichstag_law_voting_window = {
+		window_name = "reichstag_law_voting_window_container"
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = GER_reichstag_vote_in_progress
+			NOT = { has_country_flag = GER_reichstag_suspended }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 3
+		ai_weights = {
+			# NSDAP compromise/strongarm
+			compromise_nsdap_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_nsdap_already_negotiated }
+						GER_vup_government = yes
+						add = 15
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_nsdap_already_negotiated }
+						OR = {
+							GER_rsp_government = yes
+							GER_vaaf_government = yes
+						}
+						add = 8
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_nsdap_already_negotiated }
+						GER_dg_government = yes
+						add = 10
+					}
+				}
+			}
+			strongarm_nsdap_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_nsdap_already_negotiated }
+						GER_nsdap_government = yes
+						add = 15
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_nsdap_already_negotiated }
+						OR = {
+							GER_rsp_government = yes
+							GER_vaaf_government = yes
+						}
+						add = 8
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_nsdap_already_negotiated }
+						GER_dg_government = yes
+						add = 3
+					}
+				}
+			}
+			# VUP compromise/strongarm
+			compromise_vup_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_vup_already_negotiated }
+						GER_vup_government = yes
+						add = 15
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_vup_already_negotiated }
+						OR = {
+							GER_rsp_government = yes
+							GER_vaaf_government = yes
+						}
+						add = 8
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_vup_already_negotiated }
+						GER_dg_government = yes
+						add = 15
+					}
+				}
+			}
+			strongarm_vup_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_vup_already_negotiated }
+						GER_nsdap_government = yes
+						add = 15
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_vup_already_negotiated }
+						OR = {
+							GER_rsp_government = yes
+							GER_vaaf_government = yes
+						}
+						add = 8
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_vup_already_negotiated }
+						GER_dg_government = yes
+						add = 3
+					}
+				}
+			}
+			# RSP compromise/strongarm
+			compromise_rsp_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_rsp_already_negotiated }
+						GER_vup_government = yes
+						add = 15
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_rsp_already_negotiated }
+						OR = {
+							GER_rsp_government = yes
+							GER_vaaf_government = yes
+						}
+						add = 8
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_rsp_already_negotiated }
+						GER_dg_government = yes
+						add = 10
+					}
+				}
+			}
+			strongarm_rsp_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_rsp_already_negotiated }
+						GER_nsdap_government = yes
+						add = 15
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_rsp_already_negotiated }
+						OR = {
+							GER_rsp_government = yes
+							GER_vaaf_government = yes
+						}
+						add = 8
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_rsp_already_negotiated }
+						GER_dg_government = yes
+						add = 3
+					}
+				}
+			}
+			# VAAF compromise/strongarm
+			compromise_vaaf_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_vaaf_already_negotiated }
+						GER_vup_government = yes
+						add = 15
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_vaaf_already_negotiated }
+						OR = {
+							GER_rsp_government = yes
+							GER_vaaf_government = yes
+						}
+						add = 8
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_vaaf_already_negotiated }
+						GER_dg_government = yes
+						add = 10
+					}
+				}
+			}
+			strongarm_vaaf_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_vaaf_already_negotiated }
+						GER_nsdap_government = yes
+						add = 15
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_vaaf_already_negotiated }
+						OR = {
+							GER_rsp_government = yes
+							GER_vaaf_government = yes
+						}
+						add = 8
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_vaaf_already_negotiated }
+						GER_dg_government = yes
+						add = 3
+					}
+				}
+			}
+			# DG compromise/strongarm
+			compromise_dg_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_dg_already_negotiated }
+						GER_vup_government = yes
+						add = 15
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_dg_already_negotiated }
+						OR = {
+							GER_rsp_government = yes
+							GER_vaaf_government = yes
+						}
+						add = 8
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_dg_already_negotiated }
+						GER_nsdap_government = yes
+						add = 3
+					}
+				}
+			}
+			strongarm_dg_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_dg_already_negotiated }
+						GER_nsdap_government = yes
+						add = 15
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_dg_already_negotiated }
+						OR = {
+							GER_rsp_government = yes
+							GER_vaaf_government = yes
+						}
+						add = 8
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_dg_already_negotiated }
+						GER_vup_government = yes
+						add = 3
+					}
+				}
+			}
+			# Finalize vote
+			finalize_vote_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						check_variable = { GER_current_votes > GER_reichstag_seats_majority }
+						add = 25
+					}
+					modifier = {
+						check_variable = { GER_current_votes = GER_reichstag_seats_majority }
+						add = 25
+					}
+				}
+			}
+			# Cancel - AI should never cancel
+			cancel_vote_button_click = {
+				ai_will_do = { base = -1 }
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = GER_reichstag_vote_in_progress
+			NOT = { has_country_flag = GER_reichstag_suspended }
+		}
+
+		effects = {
+			compromise_nsdap_button_click = {
+				GER_reichstag_compromise_nsdap = yes
+			}
+			compromise_vup_button_click = {
+				GER_reichstag_compromise_vup = yes
+			}
+			compromise_rsp_button_click = {
+				GER_reichstag_compromise_rsp = yes
+			}
+			compromise_vaaf_button_click = {
+				GER_reichstag_compromise_vaaf = yes
+			}
+			compromise_dg_button_click = {
+				GER_reichstag_compromise_dg = yes
+			}
+			strongarm_nsdap_button_click = {
+				GER_reichstag_strongarm_nsdap = yes
+			}
+			strongarm_vup_button_click = {
+				GER_reichstag_strongarm_vup = yes
+			}
+			strongarm_rsp_button_click = {
+				GER_reichstag_strongarm_rsp = yes
+			}
+			strongarm_vaaf_button_click = {
+				GER_reichstag_strongarm_vaaf = yes
+			}
+			strongarm_dg_button_click = {
+				GER_reichstag_strongarm_dg = yes
+			}
+			finalize_vote_button_click = {
+				GER_reichstag_finalize_vote = yes
+			}
+			cancel_vote_button_click = {
+				GER_reichstag_cancel_vote = yes
+			}
+		}
+
+		triggers = {
+			compromise_nsdap_button_click_enabled = {
+				NOT = { has_government = national_socialism }
+				NOT = { has_government = fascism }
+				NOT = { has_country_flag = GER_reichstag_nsdap_in_coalition }
+				NOT = { has_country_flag = GER_reichstag_nsdap_already_negotiated }
+			}
+			compromise_vup_button_click_enabled = {
+				NOT = { has_government = social_conservative }
+				NOT = { has_government = social_democrat }
+				NOT = { has_country_flag = GER_reichstag_vup_in_coalition }
+				NOT = { has_country_flag = GER_reichstag_vup_already_negotiated }
+			}
+			compromise_rsp_button_click_enabled = {
+				NOT = { has_government = authoritarian_democrat }
+				NOT = { has_government = market_liberal }
+				NOT = { has_country_flag = GER_reichstag_rsp_in_coalition }
+				NOT = { has_country_flag = GER_reichstag_rsp_already_negotiated }
+			}
+			compromise_vaaf_button_click_enabled = {
+				NOT = { has_government = socialist }
+				NOT = { has_government = communist }
+				NOT = { has_country_flag = GER_reichstag_vaaf_in_coalition }
+				NOT = { has_country_flag = GER_reichstag_vaaf_already_negotiated }
+			}
+			compromise_dg_button_click_enabled = {
+				NOT = { has_government = social_liberal }
+				NOT = { has_country_flag = GER_reichstag_dg_in_coalition }
+				NOT = { has_country_flag = GER_reichstag_dg_already_negotiated }
+			}
+			strongarm_nsdap_button_click_enabled = {
+				NOT = { has_government = national_socialism }
+				NOT = { has_government = fascism }
+				NOT = { has_country_flag = GER_reichstag_nsdap_in_coalition }
+				NOT = { has_country_flag = GER_reichstag_nsdap_already_negotiated }
+				NOT = {
+					has_country_flag = GER_g4_strongarm_banned
+				}
+			}
+			strongarm_vup_button_click_enabled = {
+				NOT = { has_government = social_conservative }
+				NOT = { has_government = social_democrat }
+				NOT = { has_country_flag = GER_reichstag_vup_in_coalition }
+				NOT = { has_country_flag = GER_reichstag_vup_already_negotiated }
+				NOT = {
+					has_country_flag = GER_g4_strongarm_banned
+				}
+			}
+			strongarm_rsp_button_click_enabled = {
+				NOT = { has_government = authoritarian_democrat }
+				NOT = { has_government = market_liberal }
+				NOT = { has_country_flag = GER_reichstag_rsp_in_coalition }
+				NOT = { has_country_flag = GER_reichstag_rsp_already_negotiated }
+				NOT = {
+					has_country_flag = GER_g4_strongarm_banned
+				}
+			}
+			strongarm_vaaf_button_click_enabled = {
+				NOT = { has_government = socialist }
+				NOT = { has_government = communist }
+				NOT = { has_country_flag = GER_reichstag_vaaf_in_coalition }
+				NOT = { has_country_flag = GER_reichstag_vaaf_already_negotiated }
+				NOT = {
+					has_country_flag = GER_g4_strongarm_banned
+				}
+			}
+			strongarm_dg_button_click_enabled = {
+				NOT = { has_government = social_liberal }
+				NOT = { has_country_flag = GER_reichstag_dg_in_coalition }
+				NOT = { has_country_flag = GER_reichstag_dg_already_negotiated }
+				NOT = {
+					has_country_flag = GER_g4_strongarm_banned
+				}
+			}
+			finalize_vote_button_click_enabled = {
+				check_variable = {
+					var = GER_current_votes
+					value = GER_reichstag_seats_majority
+					compare = greater_than_or_equals
+				}
+			}
+		}
+	}
+
+	reichstag_law_voting_dap = {
+		window_name = "reichstag_law_voting_dap_container"
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = GER_reichstag_vote_in_progress
+			has_country_flag = GER_dap_active
+			NOT = { has_country_flag = GER_reichstag_suspended }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			compromise_dap_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_dap_already_negotiated }
+						GER_vup_government = yes
+						add = 15
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_dap_already_negotiated }
+						OR = {
+							GER_rsp_government = yes
+							GER_vaaf_government = yes
+						}
+						add = 8
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_dap_already_negotiated }
+						GER_dg_government = yes
+						add = 10
+					}
+				}
+			}
+			strongarm_dap_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_dap_already_negotiated }
+						GER_nsdap_government = yes
+						add = 15
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_dap_already_negotiated }
+						OR = {
+							GER_rsp_government = yes
+							GER_vaaf_government = yes
+						}
+						add = 8
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_dap_already_negotiated }
+						OR = {
+							GER_vup_government = yes
+							GER_dg_government = yes
+						}
+						add = 3
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = GER_reichstag_vote_in_progress
+			has_country_flag = GER_dap_active
+			NOT = { has_country_flag = GER_reichstag_suspended }
+		}
+
+		effects = {
+			compromise_dap_button_click = {
+				GER_reichstag_compromise_dap = yes
+			}
+			strongarm_dap_button_click = {
+				GER_reichstag_strongarm_dap = yes
+			}
+		}
+
+		triggers = {
+			compromise_dap_button_click_enabled = {
+				NOT = { has_country_flag = GER_reichstag_dap_in_coalition }
+				NOT = { has_country_flag = GER_reichstag_dap_already_negotiated }
+			}
+			strongarm_dap_button_click_enabled = {
+				NOT = { has_country_flag = GER_reichstag_dap_in_coalition }
+				NOT = { has_country_flag = GER_reichstag_dap_already_negotiated }
+				NOT = {
+					has_country_flag = GER_g4_strongarm_banned
+				}
+			}
+		}
+	}
+
+	reichstag_law_voting_ler = {
+		window_name = "reichstag_law_voting_ler_container"
+		context_type = player_context
+
+		ai_enabled = { original_tag = GER }
+		ai_check = {
+			has_country_flag = GER_reichstag_vote_in_progress
+			has_country_flag = GER_ler_active
+			NOT = { has_country_flag = GER_reichstag_suspended }
+		}
+		ai_test_interval = 24
+		ai_max_weight_taken_per_test = 1
+		ai_weights = {
+			compromise_ler_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_ler_already_negotiated }
+						GER_vup_government = yes
+						add = 15
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_ler_already_negotiated }
+						OR = {
+							GER_rsp_government = yes
+							GER_vaaf_government = yes
+						}
+						add = 8
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_ler_already_negotiated }
+						GER_dg_government = yes
+						add = 10
+					}
+				}
+			}
+			strongarm_ler_button_click = {
+				ai_will_do = {
+					base = -1
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_ler_already_negotiated }
+						GER_nsdap_government = yes
+						add = 15
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_ler_already_negotiated }
+						OR = {
+							GER_rsp_government = yes
+							GER_vaaf_government = yes
+						}
+						add = 8
+					}
+					modifier = {
+						NOT = { has_country_flag = GER_reichstag_ler_already_negotiated }
+						OR = {
+							GER_vup_government = yes
+							GER_dg_government = yes
+						}
+						add = 3
+					}
+				}
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_country_flag = GER_reichstag_vote_in_progress
+			has_country_flag = GER_ler_active
+			NOT = { has_country_flag = GER_reichstag_suspended }
+		}
+
+		effects = {
+			compromise_ler_button_click = {
+				GER_reichstag_compromise_ler = yes
+			}
+			strongarm_ler_button_click = {
+				GER_reichstag_strongarm_ler = yes
+			}
+		}
+
+		triggers = {
+			compromise_ler_button_click_enabled = {
+				NOT = { has_country_flag = GER_reichstag_ler_in_coalition }
+				NOT = { has_country_flag = GER_reichstag_ler_already_negotiated }
+			}
+			strongarm_ler_button_click_enabled = {
+				NOT = { has_country_flag = GER_reichstag_ler_in_coalition }
+				NOT = { has_country_flag = GER_reichstag_ler_already_negotiated }
+				NOT = {
+					has_country_flag = GER_g4_strongarm_banned
+				}
+			}
+		}
+	}
+}

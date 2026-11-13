@@ -1,0 +1,21 @@
+on_actions = {
+	on_monthly_CRO = {
+		effect = {
+			# Italian Power tracks ITA's influence score, which Italy moves on its own.
+			CRO_sync_italian_power = yes
+
+			# The Poglavnik's Twilight: the Ustase succession struggle opens ~1970.
+			# Rechecks monthly until the Ustase state exists and has joined the Pakt.
+			if = {
+				limit = {
+					has_country_flag = ustasevictory
+					has_completed_focus = CRO_join_the_pakt
+					NOT = { has_country_flag = CRO_leadership_crisis }
+					NOT = { has_country_flag = CRO_crisis_resolved }
+					date > 1969.12.31
+				}
+				country_event = { id = crocrisis.1 days = 0 }
+			}
+		}
+	}
+}

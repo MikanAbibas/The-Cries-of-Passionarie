@@ -1,0 +1,41 @@
+# Stopgap content for after the Oil Crisis civil war, until proper Yemen content is
+# written. Gated on arab_war_ongoing (set when the civil war begins) so the decision
+# only appears after the war, not at game start when NYM also does not exist yet.
+# Yemen leaves Italy's faction and loses its Rome_client idea during the war; this
+# decision restores both. The AI is made to always take the decision.
+YEM_postwar_decisions = {
+
+	# Return to Italy's alliance as a dependent client now that the uprising is crushed.
+	YEM_rejoin_rome_pakt = {
+
+		icon = generic_form_nation
+
+		available = {
+			has_global_flag = arab_war_ongoing
+			NOT = { country_exists = NYM }
+			has_war = no
+			ITA = {
+				exists = yes
+				is_faction_leader = yes
+			}
+		}
+
+		visible = {
+			tag = YEM
+		}
+
+		cost = 0
+
+		fire_only_once = yes
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision YEM_rejoin_rome_pakt"
+			if = { limit = { NOT = { has_idea = Rome_client } } add_ideas = Rome_client }
+			ITA = { add_to_faction = YEM }
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+}

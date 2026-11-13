@@ -1,0 +1,1313 @@
+############################################################################
+## ██╗████████╗ █████╗ ██╗         ██╗███╗   ███╗██████╗ ███████╗██████╗  ##
+## ██║╚══██╔══╝██╔══██╗██║         ██║████╗ ████║██╔══██╗██╔════╝██╔══██╗ ##
+## ██║   ██║   ███████║██║         ██║██╔████╔██║██████╔╝█████╗  ██████╔╝ ##
+## ██║   ██║   ██╔══██║██║         ██║██║╚██╔╝██║██╔═══╝ ██╔══╝  ██╔══██╗ ##
+## ██║   ██║   ██║  ██║███████╗    ██║██║ ╚═╝ ██║██║     ███████╗██║  ██║ ##
+## ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝ ##
+############################################################################ (not)
+#Decisions
+
+ITA_RED_election = {
+
+	## assembly decrees/resolutions ##
+
+	ITA_RED_assembly_workers_delegates = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = ITA_RED_assembly_workers_decisions_unlocked 
+			}
+		}
+		available = {
+		}
+		complete_effect = {
+			set_temp_variable = { ITA_RED_election_orthodox_temp = 2 }
+			ITA_RED_election_add_orthodox_seats = yes 
+			set_temp_variable = { ITA_RED_election_firebrand_temp = 2 }
+			ITA_RED_election_add_firebrand_seats = yes 
+
+			set_temp_variable = { ITA_red_moderate_approval_temp = -5 }
+			ITA_RED_assembly_add_moderate_approval = yes
+
+			set_country_flag = ITA_RED_assembly_invited_workers_delegates
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		fire_only_once = yes
+	}
+	ITA_RED_assembly_power_to_the_committees = { 
+		visible = {
+			AND = {
+				tag = ITA
+				has_country_flag = ITA_RED_assembly_workers_decisions_unlocked 
+				has_country_flag = ITA_RED_assembly_invited_workers_delegates 
+			}
+		}
+		available = {
+			check_variable = { ITA_RED_assembly_unity > 70 }
+		}
+		complete_effect = {
+			set_temp_variable = { ITA_RED_election_orthodox_temp = 2 }
+			ITA_RED_election_add_orthodox_seats = yes
+			set_temp_variable = { ITA_RED_election_firebrand_temp = 2 }
+			ITA_RED_election_add_firebrand_seats = yes
+
+			set_temp_variable = { ITA_red_moderate_approval_temp = -10 }
+			ITA_RED_assembly_add_moderate_approval = yes
+
+			set_country_flag = ITA_RED_assembly_soviets_empowered
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		fire_only_once = yes
+	}
+	ITA_RED_assembly_cooperate_with_trade_unions = { 
+		visible = {
+			AND = {
+				tag = ITA
+				has_country_flag = ITA_RED_assembly_workers_decisions_unlocked 
+			}
+		}
+		available = {
+			check_variable = { ITA_RED_assembly_unity > 70 }
+		}
+		complete_effect = {
+			set_temp_variable = { ITA_RED_election_orthodox_temp = 2 }
+			ITA_RED_election_add_orthodox_seats = yes
+			set_temp_variable = { ITA_RED_election_firebrad_temp = 2 }
+			ITA_RED_election_add_firebrand_seats = yes
+
+			set_temp_variable = { ITA_red_moderate_approval_temp = -10 }
+			ITA_RED_assembly_add_moderate_approval = yes
+
+			set_country_flag = ITA_RED_assembly_soviets_empowered
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 0
+		fire_only_once = yes
+	}
+
+	
+
+	## "election" decisions ##
+	#generic popularity decisions
+
+	ITA_RED_election_boost_orthodox_popularity = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				NOT = { has_country_flag = ITA_RED_is_old_guard }
+			}
+		}
+		available = { }
+		complete_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_chose_second_leader}
+				set_temp_variable = { Y = 2 }
+			}
+			else = {
+				set_temp_variable = { Y = 1 }
+			}
+			set_temp_variable = { ITA_RED_election_orthodox_pop_temp = 0.1 }
+			ITA_RED_election_add_orthodox_popularity = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 25
+		days_re_enable = 21
+	}
+	ITA_RED_election_boost_firebrand_popularity = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				NOT = { has_country_flag = ITA_RED_is_new_left }
+			}
+		}
+		available = { }
+		complete_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_chose_second_leader}
+				set_temp_variable = { Y = 2 }
+			}
+			else = {
+				set_temp_variable = { Y = 1 }
+			}
+			set_temp_variable = { ITA_RED_election_firebrand_pop_temp = 0.1 }
+			ITA_RED_election_add_firebrand_popularity = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 25
+		days_re_enable = 21
+	}
+	ITA_RED_election_boost_underclass_popularity = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				NOT = { has_country_flag = ITA_RED_is_cathcom }
+			}
+		}
+		available = { }
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_chose_second_leader}
+				set_temp_variable = { Y = 2 }
+			}
+			else = {
+				set_temp_variable = { Y = 1 }
+			}
+			set_temp_variable = { ITA_RED_election_underclass_pop_temp = 0.1 }
+			ITA_RED_election_add_underclass_popularity = yes
+		}
+		cost = 25
+		days_re_enable = 21
+	}
+
+	#old guard decisions
+
+	ITA_RED_election_OG_stack_assembly = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				has_country_flag = ITA_RED_is_old_guard
+			}
+		}
+		available = { }
+		complete_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_chose_second_leader}
+				set_temp_variable = { Y = 2 }
+			}
+			else = {
+				set_temp_variable = { Y = 1 }
+			}
+			set_temp_variable = { ITA_RED_election_orthodox_temp = 3 }
+			ITA_RED_election_add_orthodox_seats = yes 
+			tno_political_parties_improve = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 30
+		days_re_enable = 21
+	}
+	ITA_RED_election_OG_call_favors = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				has_country_flag = ITA_RED_is_old_guard
+			}
+		}
+		available = { }
+		complete_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_chose_second_leader}
+				set_temp_variable = { Y = 2 }
+			}
+			else = {
+				set_temp_variable = { Y = 1 }
+			}
+			set_temp_variable = { ITA_RED_election_orthodox_pop_temp = 0.1 }
+			ITA_RED_election_add_orthodox_popularity = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 35
+		days_re_enable = 21
+	}
+	ITA_RED_election_OG_marxist_principles = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				has_country_flag = ITA_RED_is_old_guard
+			}
+		}
+		available = { }
+		complete_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_chose_second_leader}
+				set_temp_variable = { Y = 2 }
+			}
+			else = {
+				set_temp_variable = { Y = 1 }
+			}
+			set_temp_variable = { ITA_RED_election_orthodox_pop_temp = 0.1 }
+			ITA_RED_election_add_orthodox_popularity = yes
+			random_list = {
+				50 = {
+					set_temp_variable = { ITA_RED_election_firebrand_pop_temp = -0.05 }
+					ITA_RED_election_add_firebrand_popularity = yes
+				}
+				50 = {
+					set_temp_variable = { ITA_RED_election_underclass_pop_temp = -0.05 }
+					ITA_RED_election_add_underclass_popularity = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 20
+		days_re_enable = 21
+	}
+	
+	# new left decisions
+	
+	ITA_RED_election_NL_organize_marches = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				has_country_flag = ITA_RED_is_new_left
+			}
+		}
+		available = { }
+		complete_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_chose_second_leader}
+				set_temp_variable = { Y = 2 }
+			}
+			else = {
+				set_temp_variable = { Y = 1 }
+			}
+			set_temp_variable = { ITA_RED_election_firebrand_pop_temp = 0.1 }
+			ITA_RED_election_add_firebrand_popularity = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 35
+		days_re_enable = 21
+	}
+	ITA_RED_election_NL_cancel_opponents = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				has_country_flag = ITA_RED_is_new_left
+			}
+		}
+		available = { }
+		complete_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_chose_second_leader}
+				set_temp_variable = { Y = 2 }
+			}
+			else = {
+				set_temp_variable = { Y = 1 }
+			}
+			set_temp_variable = { ITA_RED_election_firebrand_pop_temp = 0.05 }
+			ITA_RED_election_add_firebrand_popularity = yes
+			random_list = {
+				50 = {	
+					set_temp_variable = { ITA_RED_election_orthodox_pop_temp = 0.05 }
+					ITA_RED_election_add_orthodox_popularity = yes
+				}
+				50 = {
+					set_temp_variable = { ITA_RED_election_underclass_pop_temp = -0.05 }
+					ITA_RED_election_add_underclass_popularity = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 25
+		days_re_enable = 21
+	}
+	ITA_RED_election_NL_praise_worker_action = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				has_country_flag = ITA_RED_is_new_left
+			}
+		}
+		available = { }
+		complete_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_chose_second_leader}
+				set_temp_variable = { Y = 2 }
+			}
+			else = {
+				set_temp_variable = { Y = 1 }
+			}
+			set_temp_variable = { ITA_RED_election_firebrand_pop_temp = 0.05 }
+			ITA_RED_election_add_firebrand_popularity = yes
+			set_temp_variable = { ITA_RED_election_orthodox_pop_temp = -0.05 }
+			ITA_RED_election_add_orthodox_popularity = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 10
+		days_re_enable = 21
+	}
+
+	# cathcom decisions
+
+	ITA_RED_election_CC_organize_unions = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				has_country_flag = ITA_RED_is_cathcom
+			}
+		}
+		available = { }
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_chose_second_leader}
+				set_temp_variable = { Y = 2 }
+			}
+			else = {
+				set_temp_variable = { Y = 1 }
+			}
+			set_temp_variable = { ITA_RED_election_underclass_pop_temp = 0.05 }
+			ITA_RED_election_add_underclass_popularity = yes
+			set_temp_variable = { ITA_RED_election_firebrand_pop_temp = 0.05 }
+			ITA_RED_election_add_firebrand_popularity = yes
+			set_temp_variable = { ITA_RED_election_orthodox_pop_temp = 0.05 }
+			ITA_RED_election_add_orthodox_popularity = yes
+			tno_trade_unions_improve = yes
+		}
+		cost = 35
+		days_re_enable = 21
+	}
+	ITA_RED_election_CC_clergy_endorsements = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				has_country_flag = ITA_RED_is_cathcom
+			}
+		}
+		available = { }
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_chose_second_leader}
+				set_temp_variable = { Y = 2 }
+			}
+			else = {
+				set_temp_variable = { Y = 1 }
+			}
+			set_temp_variable = { ITA_RED_election_underclass_pop_temp = 0.15 }
+			ITA_RED_election_add_underclass_popularity = yes
+			set_temp_variable = { ITA_RED_election_firebrand_pop_temp = -0.05 }
+			ITA_RED_election_add_firebrand_popularity = yes
+			set_temp_variable = { ITA_RED_election_orthodox_pop_temp = -0.05 }
+			ITA_RED_election_add_orthodox_popularity = yes
+		}
+		cost = 25
+		days_re_enable = 21
+	}
+	ITA_RED_election_CC_promise_social_reforms = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				has_country_flag = ITA_RED_is_cathcom
+			}
+		}
+		available = { }
+		ai_will_do = {
+			factor = 100
+		}
+		complete_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_chose_second_leader}
+				set_temp_variable = { Y = 2 }
+			}
+			else = {
+				set_temp_variable = { Y = 1 }
+			}
+			set_temp_variable = { ITA_RED_election_underclass_pop_temp = 0.075 }
+			ITA_RED_election_add_underclass_popularity = yes
+		}
+		cost = 15
+		days_re_enable = 21
+	}
+
+	#leader-specific decisions
+
+	ITA_RED_election_secchia_discipline = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				has_country_flag = ITA_RED_is_old_guard
+				has_country_flag = ITA_RED_chose_first_leader
+			}
+		}
+		available = { }
+		complete_effect = {
+			set_temp_variable = { Y = 1 }
+			set_temp_variable = { ITA_RED_election_orthodox_pop_temp = 0.1 }
+			ITA_RED_election_add_orthodox_popularity = yes
+			set_temp_variable = { ITA_RED_election_underclass_pop_temp = -0.05 }
+			ITA_RED_election_add_underclass_popularity = yes
+			set_temp_variable = { ITA_RED_election_firebrand_pop_temp = -0.05 }
+			ITA_RED_election_add_firebrand_popularity = yes
+			tno_political_parties_improve = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 25
+		days_re_enable = 21
+	}
+
+	ITA_RED_election_damen_condemn = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				has_country_flag = ITA_RED_is_old_guard
+				has_country_flag = ITA_RED_chose_second_leader
+			}
+		}
+		available = { }
+		complete_effect = {
+			set_temp_variable = { Y = 2 }
+			set_temp_variable = { ITA_RED_election_orthodox_pop_temp = -0.05 }
+			ITA_RED_election_add_orthodox_popularity = yes
+			set_temp_variable = { ITA_RED_election_firebrand_pop_temp = 0.05 }
+			ITA_RED_election_add_firebrand_popularity = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 15
+		days_re_enable = 21
+	}
+	
+	ITA_RED_election_feltrinelli_publish = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				has_country_flag = ITA_RED_is_new_left
+				has_country_flag = ITA_RED_chose_first_leader
+			}
+		}
+		available = { }
+		complete_effect = {
+			set_temp_variable = { Y = 1 }
+			set_temp_variable = { ITA_RED_election_orthodox_pop_temp = 0.05 }
+			ITA_RED_election_add_orthodox_popularity = yes
+			set_temp_variable = { ITA_RED_election_firebrand_pop_temp = 0.05 }
+			ITA_RED_election_add_firebrand_popularity = yes
+			set_temp_variable = { ITA_RED_election_underclass_pop_temp = 0.05 }
+			ITA_RED_election_add_underclass_popularity = yes
+			tno_press_rights_improve = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 40
+		days_re_enable = 21
+	}
+	
+	ITA_RED_election_negri_culture = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				has_country_flag = ITA_RED_is_new_left
+				has_country_flag = ITA_RED_chose_second_leader
+			}
+		}
+		available = { }
+		complete_effect = {
+			set_temp_variable = { Y = 2 }
+			set_temp_variable = { ITA_RED_election_firebrand_pop_temp = 0.1 }
+			ITA_RED_election_add_firebrand_popularity = yes
+			set_temp_variable = { ITA_RED_election_underclass_pop_temp = 0.05 }
+			ITA_RED_election_add_underclass_popularity = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 50
+		days_re_enable = 21
+	}
+
+	ITA_RED_election_rodano_rapproachement = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				has_country_flag = ITA_RED_is_cathcom
+				has_country_flag = ITA_RED_chose_first_leader
+			}
+		}
+		available = { }
+		complete_effect = {
+			set_temp_variable = { Y = 1 }
+			set_temp_variable = { ITA_RED_election_orthodox_pop_temp = -0.05 }
+			ITA_RED_election_add_orthodox_popularity = yes
+			set_temp_variable = { ITA_RED_election_firebrand_pop_temp = -0.05 }
+			ITA_RED_election_add_firebrand_popularity = yes
+			set_temp_variable = { ITA_RED_election_underclass_pop_temp = 0.15 }
+			ITA_RED_election_add_underclass_popularity = yes
+			tno_religious_rights_improve = yes
+		}
+		ai_will_do = {
+			factor = 25
+		}
+		cost = 30
+		days_re_enable = 21
+	}
+
+	ITA_RED_election_gallo_preach = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = red_italy_elections
+				has_country_flag = ITA_RED_is_cathcom
+				has_country_flag = ITA_RED_chose_second_leader
+			}
+		}
+		available = { }
+		complete_effect = {
+			set_temp_variable = { Y = 2 }
+			set_temp_variable = { ITA_RED_election_firebrand_pop_temp = 0.05 }
+			ITA_RED_election_add_firebrand_popularity = yes
+			set_temp_variable = { ITA_RED_election_underclass_pop_temp = 0.05 }
+			ITA_RED_election_add_underclass_popularity = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		cost = 30
+		days_re_enable = 21
+	}
+
+	ITA_RED_election_random_changes = {
+		priority = 100
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		is_good = yes
+		cancel_if_not_visible = no
+		days_mission_timeout = 14
+
+		timeout_effect = {
+			set_temp_variable = { Y = ITA_RED_random_leader }
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							check_variable = { Y = 1 }
+							has_country_flag = ITA_RED_chose_first_leader
+						}
+						AND = {
+							check_variable = { Y = 2 }
+							has_country_flag = ITA_RED_chose_second_leader
+						}
+						AND = {
+							check_variable = { Y = 3 }
+							has_country_flag = ITA_RED_chose_third_leader
+						}
+					}
+				}
+				random_list = {
+					33 = {
+						set_temp_variable = { ITA_RED_election_orthodox_pop_temp = -0.05 }
+						ITA_RED_election_add_orthodox_popularity = yes
+					}
+					33 = {
+						set_temp_variable = { ITA_RED_election_firebrand_pop_temp = -0.05 }
+						ITA_RED_election_add_firebrand_popularity = yes
+					}
+					33 = {
+						set_temp_variable = { ITA_RED_election_underclass_pop_temp = -0.05 }
+						ITA_RED_election_add_underclass_popularity = yes
+					}
+				}
+			}
+			else = {
+				random_list = {
+					33 = {
+						set_temp_variable = { ITA_RED_election_orthodox_pop_temp = 0.05 }
+						ITA_RED_election_add_orthodox_popularity = yes
+						set_temp_variable = { ITA_RED_election_orthodox_temp = 5 }
+						ITA_RED_election_add_orthodox_seats = yes 
+					}
+					33 = {
+						set_temp_variable = { ITA_RED_election_firebrand_pop_temp = 0.05 }
+						ITA_RED_election_add_firebrand_popularity = yes
+						set_temp_variable = { ITA_RED_election_firebrand_temp = 5 }
+						ITA_RED_election_add_firebrand_seats = yes 
+					}
+					33 = {
+						set_temp_variable = { ITA_RED_election_underclass_pop_temp = 0.05 }
+						ITA_RED_election_add_underclass_popularity = yes
+						set_temp_variable = { ITA_RED_election_underclass_temp = 5 }
+						ITA_RED_election_add_underclass_seats = yes 
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { has_country_flag = red_italy_elections }
+					activate_mission = ITA_RED_election_random_changes
+					random_list = {
+						33 = {
+							set_variable = { ITA_RED_random_leader = 1 }
+						}
+						33 = {
+							set_variable = { ITA_RED_random_leader = 2 }
+						}
+						33 = {
+							set_variable = { ITA_RED_random_leader = 3 }
+						}
+					}
+				}
+			}
+		}
+	}
+	ITA_RED_election_timer = {
+		priority = 200
+		icon = GFX_decision_clock
+		activation = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+		available = {
+			hidden_trigger = {
+				always = no
+			}
+		}
+
+		is_good = yes
+		cancel_if_not_visible = no
+		days_mission_timeout = 150
+
+		timeout_effect = {
+			clr_country_flag = red_italy_elections
+			if = {
+				limit = { has_country_flag = ITA_RED_is_old_guard }
+				if = {
+					limit = {
+						check_variable = { ITA_RED_election_first_total > ITA_RED_election_second_total }
+						check_variable = { ITA_RED_election_first_total > ITA_RED_election_third_total }
+					}
+					set_country_flag = ITA_RED_chose_secchia
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_RED_election_second_total > ITA_RED_election_first_total }
+						check_variable = { ITA_RED_election_second_total > ITA_RED_election_third_total }
+					}
+					set_country_flag = ITA_RED_chose_damen
+				}
+				else = {
+					set_country_flag = ITA_RED_chose_conti
+				}
+			}
+			else_if = {
+				limit = { has_country_flag = ITA_RED_is_new_left }
+				if = {
+					limit = {
+						check_variable = { ITA_RED_election_first_total > ITA_RED_election_second_total }
+						check_variable = { ITA_RED_election_first_total > ITA_RED_election_third_total }
+					}
+					set_country_flag = ITA_RED_chose_feltrinelli
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_RED_election_second_total > ITA_RED_election_first_total }
+						check_variable = { ITA_RED_election_second_total > ITA_RED_election_third_total }
+					}
+					set_country_flag = ITA_RED_chose_negri
+				}
+				else = {
+					set_country_flag = ITA_RED_chose_cervetto
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						check_variable = { ITA_RED_election_first_total > ITA_RED_election_second_total }
+						check_variable = { ITA_RED_election_first_total > ITA_RED_election_third_total }
+					}
+					set_country_flag = ITA_RED_chose_rodano
+				}
+				else_if = {
+					limit = {
+						check_variable = { ITA_RED_election_second_total > ITA_RED_election_first_total }
+						check_variable = { ITA_RED_election_second_total > ITA_RED_election_third_total }
+					}
+					set_country_flag = ITA_RED_chose_gallo
+				}
+				else = {
+					set_country_flag = ITA_RED_chose_labor
+				}
+			}
+			country_event = revolutionary_provisional_government.30
+			custom_effect_tooltip = ITA_RED_election_end
+		}
+	}
+}	
+
+
+## Le epic Risorgimento mechanic and also army reforms in the same deccat because. idk
+
+ITA_RED_army_management = {
+	
+	# state control decisions
+
+	ITA_RED_statecontrol_header_decision = {
+		icon = GFX_decision_generic_civil_support_red
+		visible = {
+			NOT = {
+				check_variable = { ITA_RED_statecontrol_SelectedEntry_i = 0 }
+			}
+		}
+		available = {
+			hidden_trigger = { always = no }
+		}
+	}
+	ITA_RED_statecontrol_header_decision_empty = {
+		visible = {
+			check_variable = { ITA_RED_statecontrol_SelectedEntry_i = 0 }
+		}
+		available = {
+			hidden_trigger = { always = no }
+		}
+	}
+	ITA_RED_statecontrol_supply_insurgents = {
+		icon = GFX_decision_generic_assault
+		custom_cost_text = decision_cost_10_cp_500_inf_eq
+		visible = {
+			NOT = {
+				check_variable = { ITA_RED_statecontrol_SelectedEntry_i = 0 }
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			check_variable = { ITA_RED_statecontrol_mil^ITA_RED_statecontrol_SelectedEntry_i < 66.66 }
+		}
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 499 }
+			command_power > 9.99
+		}
+		days_re_enable = 10
+		complete_effect = {
+			hidden_effect = {
+				add_equipment_to_stockpile = { 
+					type = infantry_equipment 
+					amount = -500 
+				}
+				add_command_power = -10
+			}
+			set_variable = { ITA_RED_statecontrol_supply_state = ITA_RED_statecontrol_SelectedEntry_i }
+		}
+		days_remove = 10
+		remove_effect = {
+			set_temp_variable = { ITA_RED_statecontrol_SelectedEntry_i_temp = ITA_RED_statecontrol_supply_state }
+			set_temp_variable = { ITA_RED_statecontrol_mil_boost_temp = 10 }
+			ITA_RED_statecontrol_mil_boost = yes
+		}
+	}
+#	ITA_RED_statecontrol_launch_raid = {
+#		icon = GFX_decision_generic_border_war
+#	}
+	ITA_RED_statecontrol_launch_uprising = {
+		icon = GFX_decision_generic_assault
+		custom_cost_text = decision_cost_20_cp_25_pp
+		visible = {
+			NOT = {
+				check_variable = { ITA_RED_statecontrol_SelectedEntry_i = 0 }
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			check_variable = { ITA_RED_statecontrol_mil^ITA_RED_statecontrol_SelectedEntry_i > 33.33 }
+			var:ITA_RED_statecontrol_Regions^ITA_RED_statecontrol_SelectedEntry_i = {
+				NOT = { has_state_flag = ITA_RED_statecontrol_has_launched_uprising }
+			}
+		}
+		custom_cost_trigger = {
+			has_political_power > 24.99
+			command_power > 19.99
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_political_power = -25
+				add_command_power = -20
+			}
+			set_variable = { ITA_RED_statecontrol_uprising_state = ITA_RED_statecontrol_SelectedEntry_i }
+		}
+		days_remove = 10
+		remove_effect = {
+			ITA_RED_statecontrol_initiate_uprising = yes
+		}
+	}
+	ITA_RED_statecontrol_fortify_outposts = {
+		icon = GFX_decision_generic_assault
+		custom_cost_text = decision_cost_10_cp_500_inf_eq
+		visible = {
+			NOT = {
+				check_variable = { ITA_RED_statecontrol_SelectedEntry_i = 0 }
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		available = {
+			check_variable = { ITA_RED_statecontrol_mil^ITA_RED_statecontrol_SelectedEntry_i > 33.33 }
+		}
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 499 }
+			command_power > 9.99
+		}
+		days_re_enable = 10
+		complete_effect = {
+			hidden_effect = {
+				add_equipment_to_stockpile = { 
+					type = infantry_equipment 
+					amount = -500 
+				}
+				add_command_power = -10
+			}
+			set_variable = { ITA_RED_statecontrol_fortify_state = ITA_RED_statecontrol_SelectedEntry_i }
+		}
+		days_remove = 10
+		remove_effect = {
+			set_temp_variable = { ITA_RED_statecontrol_SelectedEntry_i_temp = ITA_RED_statecontrol_fortify_state }
+			set_temp_variable = { ITA_RED_statecontrol_mil_boost_temp = 10 }
+			ITA_RED_statecontrol_mil_boost = yes
+		}
+	}
+
+
+
+
+	# army reforms
+
+	ITA_RED_establish_unified_command = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = ITA_RED_show_army_management
+				NOT = { has_country_flag = ITA_RED_established_unified_command }
+			}
+		}
+		available = { }
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -25
+			}
+		}
+		remove_effect = {
+			army_experience = 5
+			TNO_improve_army_professionalism_low = yes
+			add_to_variable = { ITA_red_army_command_gain = 0.1 }
+			custom_effect_tooltip = ITA_red_army_improve_command_tt
+			set_country_flag = ITA_RED_established_unified_command
+			add_to_variable = { ITA_red_army_progress = 1 }
+		}
+		cost = 25
+		custom_cost_trigger = { command_power > 24.99 }
+		custom_cost_text = decision_cost_25_cp
+
+		days_remove = 14
+		fire_only_once = yes
+	}
+
+	ITA_RED_raise_emergency_defenses = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = ITA_RED_show_army_management
+				has_country_flag = ITA_RED_emergency_defenses
+			}
+		}
+		available = {
+			has_country_flag = ITA_RED_standardized_command
+			has_country_flag = ITA_RED_established_supply_command
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -25
+			}
+		}
+		modifier = {
+			dig_in_speed_factor = 0.5
+			army_speed_factor = 0.3
+			org_loss_when_moving = 0.1
+			production_speed_buildings_factor = 0.5
+		}
+		
+		cost = 0
+		custom_cost_trigger = { command_power > 24.99 }
+		custom_cost_text = decision_cost_25_cp
+
+		days_remove = 14
+		fire_only_once = yes
+	}
+	
+	ITA_RED_establish_supply_command = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = ITA_RED_show_army_management
+			}
+		}
+		available = {
+			has_country_flag = ITA_RED_established_unified_command
+			custom_trigger_tooltip = {
+				tooltip = ITA_RED_changing_army_tt	
+				NOT = { has_country_flag = ITA_RED_changing_army }
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			set_country_flag = ITA_RED_changing_army
+		}
+		remove_effect = {
+			add_to_variable = { ITA_red_army_recovery = 0.05 }
+			add_to_variable = { ITA_red_army_org = 0.05 }
+			add_to_variable = { ITA_red_army_supply_factor = 0.1 }
+			add_command_power = 25
+			custom_effect_tooltip = ITA_red_army_improve_recovery_tt
+			custom_effect_tooltip = ITA_red_army_improve_org_tt
+			custom_effect_tooltip = ITA_red_army_worsen_supply_tt
+			clr_country_flag = ITA_RED_changing_army
+			set_country_flag = ITA_RED_established_supply_command
+			add_to_variable = { ITA_red_army_progress = 1 }
+		}
+		cost = 25
+
+		days_remove = 21
+		fire_only_once = yes
+	}
+
+	ITA_RED_standardize_chain_of_command = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = ITA_RED_show_army_management
+			}
+		}
+		available = {
+			has_country_flag = ITA_RED_established_unified_command
+			custom_trigger_tooltip = {
+				tooltip = ITA_RED_changing_army_tt	
+				NOT = { has_country_flag = ITA_RED_changing_army }
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -25
+				army_experience = -20
+			}
+			set_country_flag = ITA_RED_changing_army
+		}
+		remove_effect = {
+			TNO_improve_army_professionalism_med = yes
+			add_to_variable = { ITA_red_army_command_gain = 0.1 }
+			add_to_variable = { ITA_red_army_recovery = 0.05 }
+			add_to_variable = { ITA_red_army_org = 0.05 }
+			custom_effect_tooltip = ITA_red_army_improve_command_tt
+			custom_effect_tooltip = ITA_red_army_improve_recovery_tt
+			custom_effect_tooltip = ITA_red_army_improve_org_tt
+			clr_country_flag = ITA_RED_changing_army
+			set_country_flag = ITA_RED_standardized_command
+			add_to_variable = { ITA_red_army_progress = 1 }
+		}
+		cost = 0
+		custom_cost_trigger = { 
+			command_power > 24.99 
+			has_army_experience > 19.99
+		}
+		custom_cost_text = decision_cost_20_army_xp_25_cp
+
+		days_remove = 35
+		fire_only_once = yes
+	}
+
+	ITA_RED_organize_professional_force = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = ITA_RED_show_army_management
+			}
+		}
+		available = {
+			has_country_flag = ITA_RED_standardized_command
+			has_country_flag = ITA_RED_established_supply_command
+			custom_trigger_tooltip = {
+				tooltip = ITA_RED_changing_army_tt	
+				NOT = { has_country_flag = ITA_RED_changing_army }
+			}
+			#has_completed_focus = ITA_RED_provisional_revolutionary_government
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -25
+				army_experience = -50
+			}
+			set_country_flag = ITA_RED_changing_army
+		}
+		remove_effect = {
+			TNO_improve_army_professionalism_med = yes
+			hidden_effect = { country_lock_all_division_template = no }
+			add_to_variable = { ITA_red_army_recovery = 0.05 }
+			add_to_variable = { ITA_red_army_org = 0.05 }
+			custom_effect_tooltip = ITA_red_army_unlock_templates_tt
+			custom_effect_tooltip = ITA_red_army_improve_recovery_tt
+			custom_effect_tooltip = ITA_red_army_improve_org_tt
+			clr_country_flag = ITA_RED_changing_army
+			set_country_flag = ITA_RED_organized_main_force
+			add_to_variable = { ITA_red_army_progress = 1 }
+		}
+		cost = 0
+		custom_cost_trigger = { 
+			command_power > 24.99 
+			has_army_experience > 49.99
+		}
+		custom_cost_text = decision_cost_50_army_xp_25_cp
+
+		days_remove = 35
+		fire_only_once = yes
+	}
+
+	ITA_RED_establish_political_oversight = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = ITA_RED_show_army_management
+			}
+		}
+		available = {
+			has_country_flag = ITA_RED_standardized_command
+			custom_trigger_tooltip = {
+				tooltip = ITA_RED_changing_army_tt	
+				NOT = { has_country_flag = ITA_RED_changing_army }
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
+			set_country_flag = ITA_RED_changing_army
+		}
+		modifier = {
+			political_power_cost = 0.1
+		}
+		remove_effect = {
+			tno_military_supervision_improve = yes
+			hidden_effect = {
+				tno_military_supervision_worsen = yes
+				tno_military_supervision_worsen = yes
+				tno_military_supervision_worsen = yes
+			}
+			add_to_variable = { ITA_red_army_recovery = 0.05 }
+			custom_effect_tooltip = ITA_red_army_improve_recovery_tt
+			add_stability = 0.02
+			clr_country_flag = ITA_RED_changing_army
+			set_country_flag = ITA_RED_has_political_oversight
+		}
+		custom_cost_trigger = { command_power > 49.99 }
+		custom_cost_text = decision_cost_50_cp
+
+		days_remove = 35
+		fire_only_once = yes
+	}
+
+	ITA_RED_issue_training_standards = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = ITA_RED_show_army_management
+			}
+		}
+		available = {
+			has_country_flag = ITA_RED_standardized_command
+			custom_trigger_tooltip = {
+				tooltip = ITA_RED_changing_army_tt	
+				NOT = { has_country_flag = ITA_RED_changing_army }
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -25
+				army_experience = -20
+			}
+			set_country_flag = ITA_RED_changing_army
+		}
+		remove_effect = {
+			TNO_improve_army_professionalism_med = yes
+			add_to_variable = { ITA_red_army_command_gain = 0.1 }
+			add_to_variable = { ITA_red_army_recovery = 0.05 }
+			add_to_variable = { ITA_red_army_org = 0.05 }
+			custom_effect_tooltip = ITA_red_army_improve_command_tt
+			custom_effect_tooltip = ITA_red_army_improve_recovery_tt
+			custom_effect_tooltip = ITA_red_army_improve_org_tt
+			tno_training_improve = yes
+			clr_country_flag = ITA_RED_changing_army
+			add_to_variable = { ITA_red_army_progress = 1 }
+		}
+		cost = 0
+		custom_cost_trigger = { 
+			command_power > 24.99 
+			has_army_experience > 19.99
+		}
+		custom_cost_text = decision_cost_20_army_xp_25_cp
+
+		days_remove = 35
+		fire_only_once = yes
+	}
+
+	
+	ITA_RED_strengthen_central_command = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = ITA_RED_show_army_management
+			}
+		}
+		available = {
+			has_country_flag = ITA_RED_has_political_oversight
+			has_country_flag = ITA_RED_standardized_command
+			custom_trigger_tooltip = {
+				tooltip = ITA_RED_changing_army_tt	
+				NOT = { has_country_flag = ITA_RED_changing_army }
+			}
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
+			set_country_flag = ITA_RED_changing_army
+		}
+		modifier = {
+			political_power_cost = 0.1
+		}
+		remove_effect = {
+			TNO_improve_army_professionalism_low = yes
+			add_to_variable = { ITA_red_army_command_gain = 0.1 }
+			add_to_variable = { ITA_red_army_recovery = 0.05 }
+			add_to_variable = { ITA_red_army_org = 0.05 }
+			custom_effect_tooltip = ITA_red_army_improve_command_tt
+			custom_effect_tooltip = ITA_red_army_improve_recovery_tt
+			custom_effect_tooltip = ITA_red_army_improve_org_tt
+			clr_country_flag = ITA_RED_changing_army
+			set_country_flag = ITA_RED_strengthened_command
+			add_to_variable = { ITA_red_army_progress = 1 }
+		}
+		custom_cost_trigger = { command_power > 49.99 }
+		custom_cost_text = decision_cost_50_cp
+
+		days_remove = 35
+		fire_only_once = yes
+	}
+
+	ITA_RED_begin_militia_reorganization = { 
+		visible = { 
+			AND = {
+				tag = ITA
+				has_country_flag = ITA_RED_show_army_management
+			}
+		}
+		available = {
+			has_country_flag = ITA_RED_strengthened_command
+			custom_trigger_tooltip = {
+				tooltip = ITA_RED_changing_army_tt	
+				NOT = { has_country_flag = ITA_RED_changing_army }
+			}
+			has_war = no
+		}
+		ai_will_do = {
+			factor = 1000
+		}
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+			}
+			set_country_flag = ITA_RED_changing_army
+		}
+		remove_effect = {
+			TNO_improve_army_professionalism_low = yes
+			add_to_variable = { ITA_red_army_command_gain = 0.1 }
+			add_to_variable = { ITA_red_army_recovery = 0.05 }
+			add_to_variable = { ITA_red_army_org = 0.05 }
+			custom_effect_tooltip = ITA_red_army_improve_command_tt
+			custom_effect_tooltip = ITA_red_army_improve_recovery_tt
+			custom_effect_tooltip = ITA_red_army_improve_org_tt
+			clr_country_flag = ITA_RED_changing_army_tt
+			set_country_flag = ITA_RED_reorganizing_militias
+			custom_effect_tooltip = ITA_red_army_begin_reorganization_tt
+		}
+		custom_cost_trigger = { command_power > 49.99 }
+		custom_cost_text = decision_cost_50_cp
+
+		days_remove = 35
+		fire_only_once = yes
+	}
+}

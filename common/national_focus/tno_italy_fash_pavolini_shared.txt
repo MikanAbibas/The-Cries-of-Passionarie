@@ -1,0 +1,2791 @@
+#####################################################################################################################################################
+## █████╗ ██╗     ███████╗███████╗███████╗ █████╗ ███╗   ██╗██████╗ ██████╗  ██████╗     ██████╗  █████╗ ██╗   ██╗ ██████╗ ██╗     ██╗███╗   ██╗██╗##
+##██╔══██╗██║     ██╔════╝██╔════╝██╔════╝██╔══██╗████╗  ██║██╔══██╗██╔══██╗██╔═══██╗    ██╔══██╗██╔══██╗██║   ██║██╔═══██╗██║     ██║████╗  ██║██║##
+##███████║██║     █████╗  ███████╗███████╗███████║██╔██╗ ██║██║  ██║██████╔╝██║   ██║    ██████╔╝███████║██║   ██║██║   ██║██║     ██║██╔██╗ ██║██║##
+##██╔══██║██║     ██╔══╝  ╚════██║╚════██║██╔══██║██║╚██╗██║██║  ██║██╔══██╗██║   ██║    ██╔═══╝ ██╔══██║╚██╗ ██╔╝██║   ██║██║     ██║██║╚██╗██║██║##
+##██║  ██║███████╗███████╗███████║███████║██║  ██║██║ ╚████║██████╔╝██║  ██║╚██████╔╝    ██║     ██║  ██║ ╚████╔╝ ╚██████╔╝███████╗██║██║ ╚████║██║##
+##╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝     ╚═╝     ╚═╝  ╚═╝  ╚═══╝   ╚═════╝ ╚══════╝╚═╝╚═╝  ╚═══╝╚═╝##
+#####################################################################################################################################################
+
+#Index; Search for these names using CTRL+F and you'll find the section they entitle.
+#	ALESSANDRO PAVOLINI
+#		a) Inauguration Tree
+#		b) Main Trees
+#		c) Oil Crisis Tree
+#		d) Epilogue Tree
+#		e) Diplomacy Tree
+
+###=====| a) Inauguration Tree |=====###
+shared_focus = {
+	id = ITA_black_augustus_crowned
+	icon = GFX_goal_unknown
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 7
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_black_augustus_crowned"
+		set_temp_variable = {econ_centralization_temp = 10}
+		econ_centralization_change = yes 
+	}
+}
+
+shared_focus = {
+	id = ITA_the_victor_writes
+	icon = GFX_goal_unknown
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_black_augustus_crowned
+	}
+	
+	x = 0
+	y = 1
+	relative_position_id = ITA_black_augustus_crowned
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_the_victor_writes"
+	}
+}
+
+shared_focus = {
+	id = ITA_take_the_stage
+	icon = GFX_goal_unknown
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_the_victor_writes
+	}
+	
+	x = 0
+	y = 1
+	relative_position_id = ITA_the_victor_writes
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_take_the_stage"
+	}
+}
+
+shared_focus = {
+	id = ITA_erase_sansepolcro
+	icon = GFX_goal_unknown
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_take_the_stage
+	}
+	
+	x = 0
+	y = 1
+	relative_position_id = ITA_take_the_stage
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_erase_sansepolcro"
+		set_temp_variable = {econ_centralization_temp = 5}
+		econ_centralization_change = yes 
+		# Pavolini's inauguration ends when the tree is spent. Princeps Civitatis needs both
+		# soft options (Iron Pen, Empty the Offices); either hard option (Fire and Lead,
+		# Evict Rome's Traitors) rules it out, and then the tree ends once both branches
+		# and the Sansepolcro line are done. This check sits on every focus that can finish
+		# last, and treats its own focus as done.
+		if = {
+			limit = {
+				OR = {
+					has_completed_focus = ITA_princeps_civitatis
+					AND = {
+						OR = { has_completed_focus = ITA_evict_romes_traitors has_completed_focus = ITA_with_fire_and_lead }
+						OR = { has_completed_focus = ITA_evict_romes_traitors has_completed_focus = ITA_crush_the_old_guard }
+						OR = { has_completed_focus = ITA_with_fire_and_lead has_completed_focus = ITA_gag_the_fanatics }
+						always = yes
+					}
+				}
+			}
+			hidden_effect = {
+				load_focus_tree = ITA_pavolini_trees_main
+				mark_focus_tree_layout_dirty = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_wipe_the_slate_clean
+	icon = GFX_goal_unknown
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_black_augustus_crowned
+	}
+
+	x = -3
+	y = 1
+	relative_position_id = ITA_black_augustus_crowned
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_wipe_the_slate_clean"
+	}
+}
+
+shared_focus = {
+	id = ITA_empty_the_offices
+	icon = GFX_goal_unknown
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_wipe_the_slate_clean
+	}
+	mutually_exclusive = {
+		focus = ITA_evict_romes_traitors
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_wipe_the_slate_clean
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_empty_the_offices"
+	}
+}
+
+shared_focus = {
+	id = ITA_evict_romes_traitors
+	icon = GFX_goal_unknown
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_wipe_the_slate_clean
+	}
+	mutually_exclusive = {
+		focus = ITA_empty_the_offices
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_wipe_the_slate_clean
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_evict_romes_traitors"
+		# Pavolini's inauguration ends when the tree is spent. Princeps Civitatis needs both
+		# soft options (Iron Pen, Empty the Offices); either hard option (Fire and Lead,
+		# Evict Rome's Traitors) rules it out, and then the tree ends once both branches
+		# and the Sansepolcro line are done. This check sits on every focus that can finish
+		# last, and treats its own focus as done.
+		if = {
+			limit = {
+				OR = {
+					has_completed_focus = ITA_princeps_civitatis
+					AND = {
+						OR = { always = yes has_completed_focus = ITA_with_fire_and_lead }
+						OR = { always = yes has_completed_focus = ITA_crush_the_old_guard }
+						OR = { has_completed_focus = ITA_with_fire_and_lead has_completed_focus = ITA_gag_the_fanatics }
+						has_completed_focus = ITA_erase_sansepolcro
+					}
+				}
+			}
+			hidden_effect = {
+				load_focus_tree = ITA_pavolini_trees_main
+				mark_focus_tree_layout_dirty = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_crush_the_old_guard
+	icon = GFX_goal_unknown
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+			focus = ITA_empty_the_offices OR = ITA_evict_romes_traitors
+	}
+	
+	x = 1
+	y = 1
+	relative_position_id = ITA_evict_romes_traitors
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_crush_the_old_guard"
+		# Pavolini's inauguration ends when the tree is spent. Princeps Civitatis needs both
+		# soft options (Iron Pen, Empty the Offices); either hard option (Fire and Lead,
+		# Evict Rome's Traitors) rules it out, and then the tree ends once both branches
+		# and the Sansepolcro line are done. This check sits on every focus that can finish
+		# last, and treats its own focus as done.
+		if = {
+			limit = {
+				OR = {
+					has_completed_focus = ITA_princeps_civitatis
+					AND = {
+						OR = { has_completed_focus = ITA_evict_romes_traitors has_completed_focus = ITA_with_fire_and_lead }
+						OR = { has_completed_focus = ITA_evict_romes_traitors always = yes }
+						OR = { has_completed_focus = ITA_with_fire_and_lead has_completed_focus = ITA_gag_the_fanatics }
+						has_completed_focus = ITA_erase_sansepolcro
+					}
+				}
+			}
+			hidden_effect = {
+				load_focus_tree = ITA_pavolini_trees_main
+				mark_focus_tree_layout_dirty = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_end_the_dissent
+	icon = GFX_goal_unknown
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_black_augustus_crowned
+	}
+	
+	x = 3
+	y = 1
+	relative_position_id = ITA_black_augustus_crowned
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_end_the_dissent"
+	}
+}
+
+shared_focus = {
+	id = ITA_with_fire_and_lead
+	icon = GFX_goal_unknown
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_end_the_dissent
+	}
+	mutually_exclusive = {
+		focus = ITA_with_iron_pen
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_end_the_dissent
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_with_fire_and_lead"
+		# Pavolini's inauguration ends when the tree is spent. Princeps Civitatis needs both
+		# soft options (Iron Pen, Empty the Offices); either hard option (Fire and Lead,
+		# Evict Rome's Traitors) rules it out, and then the tree ends once both branches
+		# and the Sansepolcro line are done. This check sits on every focus that can finish
+		# last, and treats its own focus as done.
+		if = {
+			limit = {
+				OR = {
+					has_completed_focus = ITA_princeps_civitatis
+					AND = {
+						OR = { has_completed_focus = ITA_evict_romes_traitors always = yes }
+						OR = { has_completed_focus = ITA_evict_romes_traitors has_completed_focus = ITA_crush_the_old_guard }
+						OR = { always = yes has_completed_focus = ITA_gag_the_fanatics }
+						has_completed_focus = ITA_erase_sansepolcro
+					}
+				}
+			}
+			hidden_effect = {
+				load_focus_tree = ITA_pavolini_trees_main
+				mark_focus_tree_layout_dirty = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_with_iron_pen
+	icon = GFX_goal_unknown
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_end_the_dissent
+	}
+	mutually_exclusive = {
+		focus = ITA_with_fire_and_lead
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_end_the_dissent
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_with_iron_pen"
+	}
+}
+
+shared_focus = {
+	id = ITA_gag_the_fanatics
+	icon = GFX_goal_unknown
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_with_iron_pen OR = ITA_with_fire_and_lead
+	}
+	
+	x = 1
+	y = 1
+	relative_position_id = ITA_with_fire_and_lead
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_gag_the_fanatics"
+		# Pavolini's inauguration ends when the tree is spent. Princeps Civitatis needs both
+		# soft options (Iron Pen, Empty the Offices); either hard option (Fire and Lead,
+		# Evict Rome's Traitors) rules it out, and then the tree ends once both branches
+		# and the Sansepolcro line are done. This check sits on every focus that can finish
+		# last, and treats its own focus as done.
+		if = {
+			limit = {
+				OR = {
+					has_completed_focus = ITA_princeps_civitatis
+					AND = {
+						OR = { has_completed_focus = ITA_evict_romes_traitors has_completed_focus = ITA_with_fire_and_lead }
+						OR = { has_completed_focus = ITA_evict_romes_traitors has_completed_focus = ITA_crush_the_old_guard }
+						OR = { has_completed_focus = ITA_with_fire_and_lead always = yes }
+						has_completed_focus = ITA_erase_sansepolcro
+					}
+				}
+			}
+			hidden_effect = {
+				load_focus_tree = ITA_pavolini_trees_main
+				mark_focus_tree_layout_dirty = yes
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_princeps_civitatis
+	icon = GFX_goal_unknown
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_gag_the_fanatics
+	}
+	prerequisite = { 
+		focus = ITA_crush_the_old_guard
+	}
+	prerequisite = { 
+		focus = ITA_erase_sansepolcro
+	}
+	
+	x = 0
+	y = 1
+	relative_position_id = ITA_erase_sansepolcro
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_princeps_civitatis"
+		# Pavolini's inauguration ends when the tree is spent. Princeps Civitatis needs both
+		# soft options (Iron Pen, Empty the Offices); either hard option (Fire and Lead,
+		# Evict Rome's Traitors) rules it out, and then the tree ends once both branches
+		# and the Sansepolcro line are done. This check sits on every focus that can finish
+		# last, and treats its own focus as done.
+		if = {
+			limit = {
+				OR = {
+					always = yes
+					AND = {
+						OR = { has_completed_focus = ITA_evict_romes_traitors has_completed_focus = ITA_with_fire_and_lead }
+						OR = { has_completed_focus = ITA_evict_romes_traitors has_completed_focus = ITA_crush_the_old_guard }
+						OR = { has_completed_focus = ITA_with_fire_and_lead has_completed_focus = ITA_gag_the_fanatics }
+						has_completed_focus = ITA_erase_sansepolcro
+					}
+				}
+			}
+			hidden_effect = {
+				load_focus_tree = ITA_pavolini_trees_main
+				mark_focus_tree_layout_dirty = yes
+			}
+		}
+	}
+}
+
+###=====| b) Main Trees |=====###
+##Pavolini Political##
+shared_focus = {
+	id = ITA_PAV_time_to_set_things_right
+	icon = GFX_goal_unknown
+	cost = 1.00
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 5
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_time_to_set_things_right"
+	}
+}
+
+shared_focus = {
+	id = ITA_PAV_bring_back_dedication
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_time_to_set_things_right
+	}
+	
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_time_to_set_things_right
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_bring_back_dedication"
+	}
+}
+
+shared_focus = {
+	id = ITA_PAV_mandatory_pnf_registration
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_bring_back_dedication
+	}
+	
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_bring_back_dedication
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_mandatory_pnf_registration"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_loyalty_reward_programs
+	}
+}
+
+shared_focus = {
+	id = ITA_PAV_loyalty_reward_programs
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_bring_back_dedication
+	}
+	
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_bring_back_dedication
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_loyalty_reward_programs"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_mandatory_pnf_registration
+	}
+}
+
+shared_focus = {
+	id = ITA_PAV_empower_the_federali
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_loyalty_reward_programs 
+		focus = ITA_PAV_mandatory_pnf_registration
+	}
+	
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_bring_back_dedication
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_empower_the_federali"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_controlling_the_controllers
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_empower_the_federali
+	}
+	
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_empower_the_federali
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_controlling_the_controllers"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_let_slip_the_dogs_of_the_pnf
+	}
+}
+shared_focus = {
+	id = ITA_PAV_let_slip_the_dogs_of_the_pnf
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_empower_the_federali
+	}
+	
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_empower_the_federali
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_let_slip_the_dogs_of_the_pnf"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_controlling_the_controllers
+	}
+}
+shared_focus = {
+	id = ITA_PAV_a_dedicated_party
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_let_slip_the_dogs_of_the_pnf
+		focus = ITA_PAV_controlling_the_controllers
+	}
+	
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_empower_the_federali
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_a_dedicated_party"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_bring_back_order
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_time_to_set_things_right
+	}
+	
+	x = -5
+	y = 1
+	relative_position_id = ITA_PAV_time_to_set_things_right
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_bring_back_order"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_the_duces_most_loyal_government
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_bring_back_order
+	}
+	
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_bring_back_order
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_the_duces_most_loyal_government"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_grant_token_positions_to_monarchists
+	}
+}
+shared_focus = {
+	id = ITA_PAV_grant_token_positions_to_monarchists
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_bring_back_order
+	}
+	
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_bring_back_order
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_grant_token_positions_to_monarchists"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_the_duces_most_loyal_government
+	}
+}
+shared_focus = {
+	id = ITA_PAV_control_the_ministries
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_grant_token_positions_to_monarchists
+		focus = ITA_PAV_the_duces_most_loyal_government
+	}
+	
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_bring_back_order
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_control_the_ministries"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_purge_the_bureaucracy
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_the_duces_most_loyal_government
+	}
+	
+	x = -2
+	y = 2
+	relative_position_id = ITA_PAV_bring_back_order
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_purge_the_bureaucracy"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_selective_terminations
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_grant_token_positions_to_monarchists
+	}
+	
+	x = 2
+	y = 2
+	relative_position_id = ITA_PAV_bring_back_order
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_selective_terminations"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_extend_decree_duration
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_control_the_ministries
+	}
+	prerequisite = { 
+		focus = ITA_PAV_selective_terminations
+		focus = ITA_PAV_purge_the_bureaucracy
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_control_the_ministries
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_extend_decree_duration"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_an_ordered_government
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_extend_decree_duration
+	}
+	prerequisite = { 
+		focus = ITA_PAV_selective_terminations
+		focus = ITA_PAV_purge_the_bureaucracy
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_extend_decree_duration
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_an_ordered_government"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_bring_back_discipline
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_time_to_set_things_right
+	}
+	x = 5
+	y = 1
+	relative_position_id = ITA_PAV_time_to_set_things_right
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_bring_back_discipline"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_inspire_awe
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_bring_back_discipline
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_bring_back_discipline
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_inspire_awe"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_inspire_fear
+	}
+}
+shared_focus = {
+	id = ITA_PAV_inspire_fear
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_bring_back_discipline
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_bring_back_discipline
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_inspire_fear"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_inspire_awe
+	}
+}
+shared_focus = {
+	id = ITA_PAV_expand_the_minculpop
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_inspire_awe
+		focus = ITA_PAV_inspire_fear
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_bring_back_discipline
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_expand_the_minculpop"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_no_mercy_on_ourselves
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_inspire_awe
+	}
+	x = -2
+	y = 2
+	relative_position_id = ITA_PAV_bring_back_discipline
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_no_mercy_on_ourselves"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_no_mercy_for_the_traitors
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_inspire_fear
+	}
+	x = 2
+	y = 2
+	relative_position_id = ITA_PAV_bring_back_discipline
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_no_mercy_for_the_traitors"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_from_the_duces_mouth
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_inspire_fear
+	}
+	prerequisite = { 
+		focus = ITA_PAV_no_mercy_for_the_traitors
+		focus = ITA_PAV_no_mercy_on_ourselves
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_expand_the_minculpop
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_from_the_duces_mouth"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_a_disciplined_society
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_from_the_duces_mouth
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_from_the_duces_mouth
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_a_disciplined_society"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_un_impero_un_popolo_un_duce
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_a_disciplined_society
+	}
+	prerequisite = { 
+		focus = ITA_PAV_a_dedicated_party
+	}
+	prerequisite = { 
+		focus = ITA_PAV_an_ordered_government
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_a_dedicated_party
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_un_impero_un_popolo_un_duce"
+	}
+}
+
+##Pavolini Economy ####
+
+shared_focus = {
+	id = ITA_PAV_an_economy_out_of_control
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 25
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_an_economy_out_of_control"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_bring_back_efficiency
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_an_economy_out_of_control
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_an_economy_out_of_control
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_bring_back_efficiency"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_work_with_the_iri
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_bring_back_efficiency
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_PAV_bring_back_efficiency
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_work_with_the_iri"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_found_the_API
+	}
+}
+shared_focus = {
+	id = ITA_PAV_found_the_API
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_bring_back_efficiency
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_PAV_bring_back_efficiency
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_found_the_API"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_work_with_the_iri
+	}
+}
+shared_focus = {
+	id = ITA_PAV_shake_hands_with_them
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_work_with_the_iri
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_PAV_work_with_the_iri
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_shake_hands_with_them"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_a_one_sided_cooperation
+	}
+}
+shared_focus = {
+	id = ITA_PAV_a_one_sided_cooperation
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_work_with_the_iri
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_work_with_the_iri
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_a_one_sided_cooperation"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_shake_hands_with_them
+	}
+}
+shared_focus = {
+	id = ITA_PAV_sweeping_nationalizations
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_bring_back_efficiency
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_bring_back_efficiency
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_sweeping_nationalizations"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_an_impartial_board
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_found_the_API
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_found_the_API
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_an_impartial_board"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_a_fascist_board
+	}
+}
+shared_focus = {
+	id = ITA_PAV_a_fascist_board
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_found_the_API
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_PAV_found_the_API
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_a_fascist_board"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_an_impartial_board
+	}
+}
+shared_focus = {
+	id = ITA_PAV_taxes_and_bonds
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_sweeping_nationalizations
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_sweeping_nationalizations
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_taxes_and_bonds"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_money_is_not_a_problem
+	}
+}
+shared_focus = {
+	id = ITA_PAV_money_is_not_a_problem
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_sweeping_nationalizations
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_sweeping_nationalizations
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_money_is_not_a_problem"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_taxes_and_bonds
+	}
+}
+shared_focus = {
+	id = ITA_PAV_expand_the_iri_budget
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_a_one_sided_cooperation
+		focus = ITA_PAV_shake_hands_with_them
+	}
+	x = -1
+	y = 2
+	relative_position_id = ITA_PAV_work_with_the_iri
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_expand_the_iri_budget"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_merge_iri_and_api
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_an_impartial_board
+		focus = ITA_PAV_a_fascist_board
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_an_impartial_board
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_merge_iri_and_api"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_focus_on_quantity
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_expand_the_iri_budget
+	}
+	prerequisite = { 
+		focus = ITA_PAV_taxes_and_bonds
+		focus = ITA_PAV_money_is_not_a_problem
+	}
+	x = -1.5
+	y = 2
+	relative_position_id = ITA_PAV_sweeping_nationalizations
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_focus_on_quantity"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_focus_on_quality
+	}
+}
+shared_focus = {
+	id = ITA_PAV_focus_on_quality
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_merge_iri_and_api
+	}
+	prerequisite = { 
+		focus = ITA_PAV_taxes_and_bonds
+		focus = ITA_PAV_money_is_not_a_problem
+	}
+	x = 1.5
+	y = 2
+	relative_position_id = ITA_PAV_sweeping_nationalizations
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_focus_on_quality"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_focus_on_quantity
+	}
+}
+shared_focus = {
+	id = ITA_PAV_efficient_management
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_focus_on_quality
+		focus = ITA_PAV_focus_on_quantity
+	}
+	x = 0
+	y = 3
+	relative_position_id = ITA_PAV_sweeping_nationalizations
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_efficient_management"
+	}
+}
+
+shared_focus = {
+	id = ITA_PAV_bring_back_cooperation
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_an_economy_out_of_control
+	}
+	x = -7
+	y = 1
+	relative_position_id = ITA_PAV_an_economy_out_of_control
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_bring_back_cooperation"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_purge_the_camera
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_bring_back_cooperation
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_bring_back_cooperation
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_purge_the_camera"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_amnesty_for_resignations
+	}
+}
+shared_focus = {
+	id = ITA_PAV_amnesty_for_resignations
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_bring_back_cooperation
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_bring_back_cooperation
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_amnesty_for_resignations"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_purge_the_camera
+	}
+}
+shared_focus = {
+	id = ITA_PAV_clamp_down_on_corruption
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_purge_the_camera
+		focus = ITA_PAV_amnesty_for_resignations
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_bring_back_cooperation
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_clamp_down_on_corruption"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_expand_the_economic_ministries
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_clamp_down_on_corruption
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_clamp_down_on_corruption
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_expand_the_economic_ministries"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_public_private_cooperation
+	}
+}
+shared_focus = {
+	id = ITA_PAV_public_private_cooperation
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_clamp_down_on_corruption
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_clamp_down_on_corruption
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_public_private_cooperation"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_expand_the_economic_ministries
+	}
+}
+shared_focus = {
+	id = ITA_PAV_a_new_class_cooperation
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_expand_the_economic_ministries
+		focus = ITA_PAV_public_private_cooperation
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_clamp_down_on_corruption
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_a_new_class_cooperation"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_dedicated_corporatism
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_a_new_class_cooperation
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_a_new_class_cooperation
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_dedicated_corporatism"
+	}
+}
+
+
+shared_focus = {
+	id = ITA_PAV_bring_back_hard_work
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_an_economy_out_of_control
+	}
+	x = 7
+	y = 1
+	relative_position_id = ITA_PAV_an_economy_out_of_control
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_bring_back_hard_work"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_reform_the_cncs
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_bring_back_hard_work
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_bring_back_hard_work
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_reform_the_cncs"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_an_entirely_new_system
+	}
+}
+shared_focus = {
+	id = ITA_PAV_an_entirely_new_system
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_bring_back_hard_work
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_bring_back_hard_work
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_an_entirely_new_system"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_reform_the_cncs
+	}
+}
+shared_focus = {
+	id = ITA_PAV_expand_ond
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_reform_the_cncs
+		focus = ITA_PAV_an_entirely_new_system
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_bring_back_hard_work
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_expand_ond"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_labor_camps_for_the_reds
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_expand_ond
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_expand_ond
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_labor_camps_for_the_reds"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_a_lesson_from_lepidus
+	}
+}
+shared_focus = {
+	id = ITA_PAV_a_lesson_from_lepidus
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_expand_ond
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_expand_ond
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_a_lesson_from_lepidus"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_labor_camps_for_the_reds
+	}
+}
+shared_focus = {
+	id = ITA_PAV_subjects_and_colonials
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_a_lesson_from_lepidus
+		focus = ITA_PAV_labor_camps_for_the_reds
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_expand_ond
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_subjects_and_colonials"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_hardworking_personnel
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_subjects_and_colonials
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_subjects_and_colonials
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_hardworking_personnel"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_Perche_lEconomia_e_Donna
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_efficient_management
+	}
+	prerequisite = { 
+		focus = ITA_PAV_dedicated_corporatism
+	}
+	prerequisite = { 
+		focus = ITA_PAV_hardworking_personnel
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_efficient_management
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_Perche_lEconomia_e_Donna"
+	}
+}
+
+##Pavolini Military####
+shared_focus = {
+	id = ITA_PAV_the_empires_hammer
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 45
+	y = 0
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_the_empires_hammer"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_italiani_di_terra
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_the_empires_hammer
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_the_empires_hammer
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_italiani_di_terra"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_create_the_brigate_nere
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_italiani_di_terra
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_italiani_di_terra
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_create_the_brigate_nere"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_black_pretorians_for_a_black_augustus
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_create_the_brigate_nere
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_create_the_brigate_nere
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_black_pretorians_for_a_black_augustus"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_elite_of_the_elite
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_black_pretorians_for_a_black_augustus
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_black_pretorians_for_a_black_augustus
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_elite_of_the_elite"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_spread_the_roots
+	}
+}
+shared_focus = {
+	id = ITA_PAV_spread_the_roots
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_black_pretorians_for_a_black_augustus
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_black_pretorians_for_a_black_augustus
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_spread_the_roots"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_elite_of_the_elite
+	}
+}
+shared_focus = {
+	id = ITA_PAV_expand_the_regio_esercito
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_italiani_di_terra
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_PAV_italiani_di_terra
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_expand_the_regio_esercito"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_indoctrinate_the_levies
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_expand_the_regio_esercito
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_expand_the_regio_esercito
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_indoctrinate_the_levies"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_we_fight_for_the_empire
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_indoctrinate_the_levies
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_indoctrinate_the_levies
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_we_fight_for_the_empire"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_bypass_obsolete_equipment
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_italiani_di_terra
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_PAV_italiani_di_terra
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_bypass_obsolete_equipment"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_artillery_and_support
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_bypass_obsolete_equipment
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_bypass_obsolete_equipment
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_artillery_and_support"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_challenge_the_panzerkorps
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_artillery_and_support
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_artillery_and_support
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_challenge_the_panzerkorps"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_black_banners_rise
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_we_fight_for_the_empire
+	}
+	prerequisite = { 
+		focus = ITA_PAV_elite_of_the_elite
+		focus = ITA_PAV_spread_the_roots
+	}
+	prerequisite = { 
+		focus = ITA_PAV_challenge_the_panzerkorps
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_black_pretorians_for_a_black_augustus
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_black_banners_rise"
+	}
+}
+
+
+shared_focus = {
+	id = ITA_PAV_italiani_di_mare
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_the_empires_hammer
+	}
+	x = -7
+	y = 1
+	relative_position_id = ITA_PAV_the_empires_hammer
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_italiani_di_mare"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_an_efficient_fleet
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_italiani_di_mare
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_italiani_di_mare
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_an_efficient_fleet"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_an_effective_fleet
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_italiani_di_mare
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_italiani_di_mare
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_an_effective_fleet"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_the_naval_renaissance
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_an_efficient_fleet
+	}
+	prerequisite = { 
+		focus = ITA_PAV_an_effective_fleet
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_italiani_di_mare
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_the_naval_renaissance"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_the_black_princes_fief
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_the_naval_renaissance
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_the_naval_renaissance
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_the_black_princes_fief"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_maintain_the_balance
+	}
+}
+shared_focus = {
+	id = ITA_PAV_maintain_the_balance
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_the_naval_renaissance
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_the_naval_renaissance
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_maintain_the_balance"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_the_black_princes_fief
+	}
+}
+shared_focus = {
+	id = ITA_PAV_the_black_fleet_sails
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_the_black_princes_fief
+		focus = ITA_PAV_maintain_the_balance
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_the_naval_renaissance
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_the_black_fleet_sails"
+	}
+}
+
+
+shared_focus = {
+	id = ITA_PAV_italiani_di_aria
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_the_empires_hammer
+	}
+	x = 7
+	y = 1
+	relative_position_id = ITA_PAV_the_empires_hammer
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_italiani_di_aria"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_wings_to_bedazzle
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_italiani_di_aria
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_italiani_di_aria
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_wings_to_bedazzle"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_talons_to_lacerate
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_italiani_di_aria
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_italiani_di_aria
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_talons_to_lacerate"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_fear_of_retribution
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_wings_to_bedazzle
+	}
+	prerequisite = { 
+		focus = ITA_PAV_talons_to_lacerate
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_italiani_di_aria
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_fear_of_retribution"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_a_fascist_dominion
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_fear_of_retribution
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_fear_of_retribution
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_a_fascist_dominion"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_a_royal_air_force
+	}
+}
+shared_focus = {
+	id = ITA_PAV_a_royal_air_force
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_fear_of_retribution
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_fear_of_retribution
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_a_royal_air_force"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_a_fascist_dominion
+	}
+}
+shared_focus = {
+	id = ITA_PAV_black_wings_spread
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_a_fascist_dominion
+		focus = ITA_PAV_a_royal_air_force
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_fear_of_retribution
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_black_wings_spread"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_the_eagles_shadow
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = { 
+		focus = ITA_PAV_the_black_fleet_sails
+	}
+	prerequisite = { 
+		focus = ITA_PAV_black_banners_rise
+	}
+	prerequisite = { 
+		focus = ITA_PAV_black_wings_spread
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_black_banners_rise
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_the_eagles_shadow"
+	}
+}
+
+
+###colonial tree###
+
+
+shared_focus = {
+	id = ITA_PAV_bring_order_to_the_colonies
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_un_impero_un_popolo_un_duce
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_bring_order_to_the_colonies"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_perfect_the_german_model
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_bring_order_to_the_colonies
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_PAV_bring_order_to_the_colonies
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_perfect_the_german_model"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_divide_et_impera
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_perfect_the_german_model
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_perfect_the_german_model
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_divide_et_impera"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_all_equal_under_our_boot
+	}
+}
+shared_focus = {
+	id = ITA_PAV_all_equal_under_our_boot
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_perfect_the_german_model
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_perfect_the_german_model
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_all_equal_under_our_boot"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_divide_et_impera
+	}
+}
+shared_focus = {
+	id = ITA_PAV_a_productive_empire
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_divide_et_impera
+		focus = ITA_PAV_all_equal_under_our_boot
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_perfect_the_german_model
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_a_productive_empire"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_resume_italianization
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_bring_order_to_the_colonies
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_PAV_bring_order_to_the_colonies
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_resume_italianization"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_support_lessonas_policies
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_resume_italianization
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_resume_italianization
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_support_lessonas_policies"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_a_page_out_of_balbos_book
+	}
+}
+shared_focus = {
+	id = ITA_PAV_a_page_out_of_balbos_book
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_resume_italianization
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_resume_italianization
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_a_page_out_of_balbos_book"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_support_lessonas_policies
+	}
+}
+shared_focus = {
+	id = ITA_PAV_a_disciplined_empire
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_support_lessonas_policies
+		focus = ITA_PAV_a_page_out_of_balbos_book
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_resume_italianization
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_a_disciplined_empire"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_an_empire_upon_which_the_sun_never_dawns
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_a_disciplined_empire
+	}
+	prerequisite = {
+		focus = ITA_PAV_a_productive_empire
+	}
+	x = 0
+	y = 4
+	relative_position_id = ITA_PAV_bring_order_to_the_colonies
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_an_empire_upon_which_the_sun_never_dawns"
+	}
+}
+
+###=====| e) Diplomacy Tree |=====###
+
+
+shared_focus = {
+	id = ITA_PAV_spreading_out_our_wings_once_again
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_Perche_lEconomia_e_Donna
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_spreading_out_our_wings_once_again"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_il_centro_della_scena
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_spreading_out_our_wings_once_again
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_spreading_out_our_wings_once_again
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_il_centro_della_scena"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_we_were_once_brothers
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_il_centro_della_scena
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_il_centro_della_scena
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_we_were_once_brothers"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_but_you_betrayed_us
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_we_were_once_brothers
+	}
+	x = -4
+	y = 1
+	relative_position_id = ITA_PAV_we_were_once_brothers
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_but_you_betrayed_us"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_but_we_can_turn_a_new_leaf
+	}
+}
+shared_focus = {
+	id = ITA_PAV_securing_our_left_flank
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_but_you_betrayed_us
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_but_you_betrayed_us
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_securing_our_left_flank"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_securing_the_eastern_border
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_but_you_betrayed_us
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_but_you_betrayed_us
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_securing_the_eastern_border"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_denounce_burgundian_madness
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_securing_our_left_flank
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_securing_our_left_flank
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_denounce_burgundian_madness"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_mare_nostrum_initiative
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_securing_our_left_flank
+	}
+	prerequisite = {
+		focus = ITA_PAV_securing_the_eastern_border
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_securing_our_left_flank
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_mare_nostrum_initiative"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_the_oil_must_flow
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_securing_the_eastern_border
+	}
+	x = 3
+	y = 1
+	relative_position_id = ITA_PAV_securing_our_left_flank
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_the_oil_must_flow"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_an_iron_curtain_over_europe
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_denounce_burgundian_madness
+	}
+	prerequisite = {
+		focus = ITA_PAV_the_oil_must_flow
+	}
+	prerequisite = {
+		focus = ITA_PAV_mare_nostrum_initiative
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_mare_nostrum_initiative
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_an_iron_curtain_over_europe"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_but_we_can_turn_a_new_leaf
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_we_were_once_brothers
+	}
+	x = 4
+	y = 1
+	relative_position_id = ITA_PAV_we_were_once_brothers
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_but_we_can_turn_a_new_leaf"
+	}
+	mutually_exclusive = {
+		focus = ITA_PAV_but_you_betrayed_us
+	}
+}
+shared_focus = {
+	id = ITA_PAV_demilitarize_the_border
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_but_we_can_turn_a_new_leaf
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_but_we_can_turn_a_new_leaf
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_demilitarize_the_border"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_open_up_trade
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_but_we_can_turn_a_new_leaf
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_but_we_can_turn_a_new_leaf
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_open_up_trade"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_military_cooperation
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_demilitarize_the_border
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_demilitarize_the_border
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_military_cooperation"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_the_geneva_conference
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_demilitarize_the_border
+	}
+	prerequisite = {
+		focus = ITA_PAV_open_up_trade
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_demilitarize_the_border
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_the_geneva_conference"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_grant_suez_access
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_open_up_trade
+	}
+	x = 3
+	y = 1
+	relative_position_id = ITA_PAV_demilitarize_the_border
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_grant_suez_access"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_the_second_rome_berlin_axis
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_military_cooperation
+	}
+	prerequisite = {
+		focus = ITA_PAV_the_geneva_conference
+	}
+	prerequisite = {
+		focus = ITA_PAV_grant_suez_access
+	}
+	x = 0
+	y = 1
+	relative_position_id = ITA_PAV_the_geneva_conference
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_the_second_rome_berlin_axis"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_loccidente_sognante
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_spreading_out_our_wings_once_again
+	}
+	x = -10
+	y = 1
+	relative_position_id = ITA_PAV_spreading_out_our_wings_once_again
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_loccidente_sognante"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_ventures_in_italian_america
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_loccidente_sognante
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_PAV_loccidente_sognante
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_ventures_in_italian_america"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_the_tip_of_spear
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_ventures_in_italian_america
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_ventures_in_italian_america
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_the_tip_of_spear"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_the_slumbering_giant
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_ventures_in_italian_america
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_ventures_in_italian_america
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_the_slumbering_giant"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_expand_ala_littora_airways
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_the_tip_of_spear
+	}
+	prerequisite = {
+		focus = ITA_PAV_the_slumbering_giant
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_ventures_in_italian_america
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_expand_ala_littora_airways"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_denounce_american_imperialism
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_loccidente_sognante
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_PAV_loccidente_sognante
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_denounce_american_imperialism"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_the_atlantic_cage
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_denounce_american_imperialism
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_denounce_american_imperialism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_the_atlantic_cage"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_embargo_the_ofn
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_denounce_american_imperialism
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_denounce_american_imperialism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_embargo_the_ofn"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_il_pepe_negli_occhi_altrui
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_the_atlantic_cage
+	}
+	prerequisite = {
+		focus = ITA_PAV_embargo_the_ofn
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_denounce_american_imperialism
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_il_pepe_negli_occhi_altrui"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_gold_from_the_west
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_il_pepe_negli_occhi_altrui
+	}
+	prerequisite = {
+		focus = ITA_PAV_expand_ala_littora_airways
+	}
+	x = 0
+	y = 5
+	relative_position_id = ITA_PAV_loccidente_sognante
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_gold_from_the_west"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_il_risveglio_dellest
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_spreading_out_our_wings_once_again
+	}
+	x = 10
+	y = 1
+	relative_position_id = ITA_PAV_spreading_out_our_wings_once_again
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_il_risveglio_dellest"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_a_modern_marco_polo
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_il_risveglio_dellest
+	}
+	x = -2
+	y = 1
+	relative_position_id = ITA_PAV_il_risveglio_dellest
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_a_modern_marco_polo"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_a_new_silk_road
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_a_modern_marco_polo
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_a_modern_marco_polo
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_a_new_silk_road"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_the_tientsin_connection
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_a_modern_marco_polo
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_a_modern_marco_polo
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_the_tientsin_connection"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_invest_in_indian_business
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_a_new_silk_road
+	}
+	prerequisite = {
+		focus = ITA_PAV_the_tientsin_connection
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_a_modern_marco_polo
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_invest_in_indian_business"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_aquile_e_crisantemi
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_il_risveglio_dellest
+	}
+	x = 2
+	y = 1
+	relative_position_id = ITA_PAV_il_risveglio_dellest
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_aquile_e_crisantemi"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_secure_oil_deals
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_aquile_e_crisantemi
+	}
+	x = -1
+	y = 1
+	relative_position_id = ITA_PAV_aquile_e_crisantemi
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_secure_oil_deals"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_strengthen_technological_cooperation
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_aquile_e_crisantemi
+	}
+	x = 1
+	y = 1
+	relative_position_id = ITA_PAV_aquile_e_crisantemi
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_strengthen_technological_cooperation"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_the_column_of_friendship
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_secure_oil_deals
+	}
+	prerequisite = {
+		focus = ITA_PAV_strengthen_technological_cooperation
+	}
+	x = 0
+	y = 2
+	relative_position_id = ITA_PAV_aquile_e_crisantemi
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_the_column_of_friendship"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_jade_from_the_east
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_invest_in_indian_business
+	}
+	prerequisite = {
+		focus = ITA_PAV_the_column_of_friendship
+	}
+	x = 0
+	y = 5
+	relative_position_id = ITA_PAV_il_risveglio_dellest
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_jade_from_the_east"
+	}
+}
+shared_focus = {
+	id = ITA_PAV_we_leave_a_black_mark_upon_the_world
+	icon = GFX_goal_unknown
+	cost = 4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_PAV_gold_from_the_west
+	}
+	prerequisite = {
+		focus = ITA_PAV_an_iron_curtain_over_europe
+	}
+	prerequisite = {
+		focus = ITA_PAV_the_second_rome_berlin_axis
+	}
+	prerequisite = {
+		focus = ITA_PAV_jade_from_the_east
+	}
+	x = 0
+	y = 5
+	relative_position_id = ITA_PAV_we_were_once_brothers
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_PAV_we_leave_a_black_mark_upon_the_world"
+	}
+}

@@ -1,0 +1,605 @@
+ITA_fash_resistance_category = {
+
+	############
+	#REPRESSION#
+	############
+
+	### SMALL ###
+	
+	ITA_repression_expand_colonial_police = {
+
+		allowed = {
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ITA_fash_resistance_mechanic_enabled
+			check_variable = { ITA_fash_resistance_decision_counter^0 < 3 }
+		}
+		
+		days_remove = 7
+		days_re_enable = 7
+
+		remove_effect = {
+			ITA_fash_resistance_add_repression_small = yes
+			add_manpower = -2500
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -500
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = -100
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = -250
+			}
+			add_equipment_to_stockpile = {
+				type = IFV_equipment
+				amount = -100
+			}
+			set_temp_variable = { temp_econ_spending_amount = 0.05 }
+			econ_spend_money_once_effect_raw_money = yes
+
+			### GCF loyalties
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 } #Balbo
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 } #Militaristi 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 } #Balbo
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 } #MSVN 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 } #Muti
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 } #Militaristi 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 } #Muti
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 } #MSVN 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { Region_i = 3 } # Ethiopia
+			set_variable = {ITA_EM_sel_region = Region_i } # Ethiopia
+			set_temp_variable = { exploit_amt = 10 } 
+			set_temp_variable = {ITA_EM_dec_days = 120}
+			
+			ITA_fash_resistance_dec_exploit = yes
+			
+
+			add_to_variable = { ITA_fash_resistance_decision_counter^0 = 1 }
+		}
+		custom_cost_trigger = {
+			has_manpower > 2499
+			has_equipment = { infantry_equipment > 499 }
+			has_equipment = { support_equipment > 99 }
+			has_equipment = { motorized_equipment > 249 }
+			has_equipment = { IFV_equipment > 99 }
+			#$50 mil
+		}
+		custom_cost_text = ITA_repression_expand_colonial_police_cost
+	}
+
+	ITA_repression_aerial_recon = {
+
+		allowed = {
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ITA_fash_resistance_mechanic_enabled
+			check_variable = { ITA_fash_resistance_decision_counter^1 < 3 }
+		}
+		
+		days_remove = 7
+		days_re_enable = 7
+
+		remove_effect = {
+			ITA_fash_resistance_add_repression_small = yes
+			add_manpower = -500
+			add_equipment_to_stockpile = {
+				type = fighter_equipment
+				amount = -25
+			}
+
+			set_temp_variable = { temp_econ_spending_amount = 0.05 }
+			econ_spend_money_once_effect_raw_money = yes
+
+			###GCF Loyalties
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 } #Pavolini
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 } #Militaristi 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 } #Pavolini
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 } #Burocrati 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 } #Giani
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 } #Militaristi 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 } #Giani
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 } #Burocrati 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { Region_i = 3 } # Ethiopia
+			set_variable = {ITA_EM_sel_region = Region_i } # Ethiopia
+			set_temp_variable = { exploit_amt = 10 } 
+			set_temp_variable = {ITA_EM_dec_days = 180}
+			
+			ITA_fash_resistance_dec_exploit = yes
+
+			add_to_variable = { ITA_fash_resistance_decision_counter^1 = 1 }
+		}
+		custom_cost_trigger = {
+			has_manpower > 499
+			has_equipment = { fighter_equipment > 24 }
+			#$50 mil
+		}
+		custom_cost_text = ITA_repression_aerial_recon_cost
+	}
+
+	ITA_repression_deserters = {
+
+		allowed = {
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ITA_fash_resistance_mechanic_enabled
+			check_variable = { ITA_fash_resistance_decision_counter^2 < 3 }
+		}
+		
+		days_remove = 7
+		days_re_enable = 7
+
+		remove_effect = {
+			ITA_fash_resistance_add_repression_small = yes
+			add_political_power = -25
+
+			set_temp_variable = { temp_econ_spending_amount = 0.05 }
+			econ_spend_money_once_effect_raw_money = yes
+			
+			###GCF Loyalties
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 } #Pavolini
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 } #Ministri 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 } #Pavolini
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 } #Moderati 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 } #Balbo
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 } #Ministri 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 } #Balbo
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 } #Moderati 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { Region_i = 3 } # Ethiopia
+			set_variable = {ITA_EM_sel_region = Region_i } # Ethiopia
+			set_temp_variable = { exploit_amt = 10 } 
+			set_temp_variable = {ITA_EM_dec_days = 180}
+			
+			ITA_fash_resistance_dec_exploit = yes
+			add_to_variable = { ITA_fash_resistance_decision_counter^2 = 1 }
+		}
+		custom_cost_trigger = {
+			has_political_power > 24
+			#$50 mil
+		}
+		custom_cost_text = ITA_repression_deserters_cost
+	}
+
+	ITA_repression_agents_in_italy = {
+
+		allowed = {
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ITA_fash_resistance_mechanic_enabled
+			check_variable = { ITA_fash_resistance_decision_counter^3 < 3 }
+		}
+		
+		days_remove = 7
+		days_re_enable = 7
+
+		remove_effect = {
+			ITA_fash_resistance_add_repression_small = yes
+			add_manpower = -1000
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = -200
+			}
+
+			set_temp_variable = { temp_econ_spending_amount = 0.05 }
+			econ_spend_money_once_effect_raw_money = yes
+						
+			###GCF Loyalties
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 } #Balbo
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 } #Burocrati 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 } #Balbo
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 } #MVSN 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.02
+			}
+
+			add_to_variable = { ITA_fash_resistance_decision_counter^3 = 1 }
+		}
+		custom_cost_trigger = {
+			has_manpower > 999
+			has_equipment = { support_equipment > 199 }
+			#$50 mil
+		}
+		custom_cost_text = ITA_repression_agents_in_italy_cost
+	}
+
+	### MEDIUM ###
+
+	ITA_repression_shakedown = {
+
+		allowed = {
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ITA_fash_resistance_mechanic_enabled
+			has_country_flag = ITA_fash_resistance_medium_enabled
+			check_variable = { ITA_fash_resistance_decision_counter^4 < 3 }
+		}
+		
+		days_remove = 7
+		days_re_enable = 7
+
+		remove_effect = {
+			ITA_fash_resistance_add_repression_moderate = yes
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -500
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = -100
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = -100
+			}
+
+			set_temp_variable = { temp_econ_spending_amount = 0.10 }
+			econ_spend_money_once_effect_raw_money = yes
+
+			###GCF Loyalties
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 } #Pavolini
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 } #Militaristi 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 } #Pavolini
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 } #MVSN 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 } #Balbo
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 } #Militaristi 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 } #Balbo
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 } #MVSN 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			IEA = { add_stability = -0.03 }
+
+			set_temp_variable = { Region_i = 3 } # Ethiopia
+			set_variable = {ITA_EM_sel_region = Region_i } # Ethiopia
+			set_temp_variable = { control_amt = 3 } 
+			set_temp_variable = {ITA_EM_dec_days = 120}
+			
+			ITA_fash_resistance_dec_control = yes
+
+			add_to_variable = { ITA_fash_resistance_decision_counter^4 = 1 }
+		}
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 499 }
+			has_equipment = { support_equipment > 99 }
+			has_equipment = { motorized_equipment > 99 }
+			#$50 mil
+		}
+		custom_cost_text = ITA_repression_shakedown_cost
+	}
+
+	ITA_repression_modernise_interrogation = {
+
+		allowed = {
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ITA_fash_resistance_mechanic_enabled
+			has_country_flag = ITA_fash_resistance_medium_enabled
+		}
+		
+		fire_only_once = yes
+
+		days_remove = 7
+
+		remove_effect = {
+			ITA_fash_resistance_add_repression_moderate = yes
+			add_political_power = -50
+
+			set_temp_variable = { temp_econ_spending_amount = 0.10 }
+			econ_spend_money_once_effect_raw_money = yes
+
+			###GCF Loyalties
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 } #Pavolini
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 } #MVSN 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 } #Pavolini
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 } #Burocrati 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 } #Giani
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 } #MVSN 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 } #Giani
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 } #Burocrati 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.02 }
+			ITA_GCF_AddLoy = yes
+
+			IEA = {
+				add_timed_idea = {
+					idea = IEA_enhanced_interrogation_techniques
+					days = 180
+				}
+			}
+
+			country_event = {
+				id = ITA_fash_resistance.7
+				days = 1
+			}
+
+			set_temp_variable = { Region_i = 3 } # GULF
+			set_variable = {ITA_EM_sel_region = Region_i } # GULF
+			set_temp_variable = { control_amt = 3 } 
+			set_temp_variable = {ITA_EM_dec_days = 120}
+			
+			ITA_fash_resistance_dec_control = yes
+
+		}
+		custom_cost_trigger = {
+			has_political_power > 49
+			#$100 mil
+		}
+		custom_cost_text = ITA_repression_modernise_interrogation_cost
+	}
+
+	### LARGE ###
+
+	ITA_repression_martial_law = {
+
+		allowed = {
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ITA_fash_resistance_mechanic_enabled
+			has_country_flag = ITA_fash_resistance_large_enabled
+		}
+		
+		fire_only_once = yes
+
+		days_remove = 7
+		remove_effect = {
+			ITA_fash_resistance_add_repression_large = yes
+			add_political_power = -50
+			add_manpower = -10000
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -2000
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = -500
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = -500
+			}
+			add_equipment_to_stockpile = {
+				type = IFV_equipment
+				amount = -250
+			}
+
+			set_temp_variable = { temp_econ_spending_amount = 0.25 }
+			econ_spend_money_once_effect_raw_money = yes
+
+			### GCF loyalties
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 } #Balbo
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 } #Militaristi 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 } #Balbo
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 } #MSVN 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 1 } #Balbo
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 } #Ministri  
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 } #Muti
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 } #Militaristi 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 } #Muti
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 } #MSVN 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 2 } #Muti
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 } #Ministri  
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+			ITA_GCF_AddLoy = yes
+
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.05
+			}
+
+			add_stability = -0.05
+			IEA = { add_stability = -0.05 }
+
+			set_temp_variable = { Region_i = 3 } # Ethiopia
+			set_variable = {ITA_EM_sel_region = Region_i } # Ethiopia
+			set_temp_variable = { exploit_amt = 10 } 
+			set_temp_variable = {ITA_EM_dec_days = 120}
+			
+			ITA_fash_resistance_dec_exploit = yes
+
+		}
+		custom_cost_trigger = {
+			has_political_power > 49
+			has_manpower > 9999
+			has_equipment = { infantry_equipment > 1999 }
+			has_equipment = { support_equipment > 499 }
+			has_equipment = { motorized_equipment > 499 }
+			has_equipment = { IFV_equipment > 249 }
+			#$250 mil
+		}
+		custom_cost_text = ITA_repression_martial_law_cost
+	}
+	
+	ITA_repression_selective_deportations = {
+
+		allowed = {
+			tag = ITA
+		}
+
+		icon = GFX_decision_generic_political_discourse
+
+		visible = {
+			has_country_flag = ITA_fash_resistance_mechanic_enabled
+			has_country_flag = ITA_fash_resistance_large_enabled
+		}
+		
+		fire_only_once = yes
+
+		days_remove = 7
+
+		remove_effect = {
+			ITA_fash_resistance_add_repression_large = yes
+			add_political_power = -75
+			add_manpower = -5000
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -2000
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = -500
+			}
+			add_equipment_to_stockpile = {
+				type = motorized_equipment
+				amount = -500
+			}
+			add_equipment_to_stockpile = {
+				type = IFV_equipment
+				amount = -250
+			}
+
+			set_temp_variable = { temp_econ_spending_amount = 0.25 }
+			econ_spend_money_once_effect_raw_money = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 } #Pavolini
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 } #MVSN 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 0 } #Pavolini
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 } #Militaristi 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 } #Giani
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 } #MVSN 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+			ITA_GCF_AddLoy = yes
+
+			set_temp_variable = { ITA_GCF_fella_to_add = 3 } #Giani
+			set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 } #Militaristi 
+			set_temp_variable = { ITA_GCF_amount_to_add = 0.04 }
+			ITA_GCF_AddLoy = yes
+
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.05
+			}
+
+			add_stability = -0.05
+			IEA = { add_stability = -0.05 }
+
+			set_temp_variable = { Region_i = 3 } # Ethiopia
+			set_variable = {ITA_EM_sel_region = Region_i } # Ethiopia
+			set_temp_variable = { exploit_amt = 10 } 
+			set_temp_variable = {ITA_EM_dec_days = 120}
+			
+			ITA_fash_resistance_dec_exploit = yes
+			
+		}
+		custom_cost_trigger = {
+			has_political_power > 74
+			has_manpower > 4999
+			has_equipment = { infantry_equipment > 999 }
+			has_equipment = { support_equipment > 249 }
+			has_equipment = { motorized_equipment > 249 }
+			has_equipment = { IFV_equipment > 124 }
+			#$250 mil
+		}
+		custom_cost_text = ITA_repression_selective_deportations_cost
+	}
+}

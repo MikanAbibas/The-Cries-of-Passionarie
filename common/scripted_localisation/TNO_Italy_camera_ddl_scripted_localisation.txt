@@ -1,0 +1,3436 @@
+###################################
+#  #  # Camera dei Deputati #  #  #
+###################################
+
+defined_text = {
+	name = ITA_Get_Camera_Help_Page
+
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_help_page^0 = 10 }
+		}
+		localization_key = "TNO_Italy_Camera_Help_10"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_help_page^0 = 11 }
+		}
+		localization_key = "TNO_Italy_Camera_Help_11"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_help_page^0 = 12 }
+		}
+		localization_key = "TNO_Italy_Camera_Help_12"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_help_page^0 = 13 }
+		}
+		localization_key = "TNO_Italy_Camera_Help_13"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_help_page^0 = 7 }
+		}
+		localization_key = "TNO_Italy_Camera_Help_7"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_help_page^0 = 6 }
+		}
+		localization_key = "TNO_Italy_Camera_Help_6"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_help_page^0 = 5 }
+		}
+		localization_key = "TNO_Italy_Camera_Help_5"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_help_page^0 = 4 }
+		}
+		localization_key = "TNO_Italy_Camera_Help_4"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_help_page^0 = 3 }
+		}
+		localization_key = "TNO_Italy_Camera_Help_3"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_help_page^0 = 2 }
+		}
+		localization_key = "TNO_Italy_Camera_Help_2"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_help_page^0 = 1 }
+		}
+		localization_key = "TNO_Italy_Camera_Help_1"
+	}
+	
+	text = {
+		localization_key = "TNO_Italy_Camera_Help"
+	}
+
+}
+
+# Uses a recursive scripted loc (ITA_Get_DDL_Relevant_Stato_Groups_inner) which modifies temp variables 
+# to print out a list of all stato groups relevant for this DDL
+defined_text = {
+	name = ITA_Get_DDL_Relevant_Stato_Groups
+	text = {
+		trigger = {
+			check_variable = { ITA_ddl_focus_relevant_stato_groups^num = 0 }
+		}
+		localization_key = "ITA_ddl_focus_stato_support"
+	}
+	text = {
+		trigger = {
+			set_temp_variable = { sgi = -1 }
+			subtract_from_temp_variable = { cn = 1 }
+			set_temp_variable = { max_sgi = ITA_ddl_focus_relevant_stato_groups^num }
+			subtract_from_temp_variable = { max_sgi = 2 }
+		}
+		localization_key = "[ITA_Get_DDL_Relevant_Stato_Groups_inner]"
+	}
+}
+
+defined_text = {
+	name = ITA_Get_DDL_Relevant_Stato_Groups_inner
+	text = {
+		trigger = {
+			check_variable = { ITA_ddl_focus_relevant_stato_groups^num = 1 }
+			add_to_temp_variable = { sgi = 1 }
+		}
+		localization_key = "[ITA_Get_Stato_Group_Name_dynamic]"
+	}
+	text = {
+		trigger = {
+			check_variable = { sgi = max_sgi }
+			add_to_temp_variable = { sgi = 1 }
+		}
+		localization_key = "and [ITA_Get_Stato_Group_Name_dynamic]"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_ddl_focus_relevant_stato_groups^num = 2 }
+			add_to_temp_variable = { sgi = 1 }
+		}
+		localization_key = "[ITA_Get_Stato_Group_Name_dynamic] [ITA_Get_DDL_Relevant_Stato_Groups_inner]"
+	}
+	text = {
+		trigger = {
+			add_to_temp_variable = { sgi = 1 }
+		}
+		localization_key = "[ITA_Get_Stato_Group_Name_dynamic], [ITA_Get_DDL_Relevant_Stato_Groups_inner]"
+	}
+}
+
+defined_text = {
+	name = ITA_Get_Stato_Group_Name_dynamic
+	text = {
+		trigger = { check_variable = { ITA_ddl_focus_relevant_stato_groups^sgi = 0 } }
+		localization_key = ITA_POP_GUI_bureaucracy
+	}
+	text = {
+		trigger = { check_variable = { ITA_ddl_focus_relevant_stato_groups^sgi = 1 } }
+		localization_key = ITA_POP_GUI_judiciary
+	}
+	text = {
+		trigger = { check_variable = { ITA_ddl_focus_relevant_stato_groups^sgi = 2 } }
+		localization_key = ITA_POP_GUI_industry
+	}
+	text = {
+		trigger = { check_variable = { ITA_ddl_focus_relevant_stato_groups^sgi = 3 } }
+		localization_key = ITA_POP_GUI_brass
+	}
+	text = {
+		trigger = { check_variable = { ITA_ddl_focus_relevant_stato_groups^sgi = 4 } }
+		localization_key = ITA_POP_GUI_monarchy
+	}
+	text = {
+		trigger = { check_variable = { ITA_ddl_focus_relevant_stato_groups^sgi = 5 } }
+		localization_key = ITA_POP_GUI_clergy
+	}
+}
+
+defined_text = {
+	name = ITA_Get_Coalition_Bar_Segment_Tooltip
+	text = {
+		trigger = {
+			ITA_govform_active = no
+		}
+		localization_key = ITA_camera_overton_tt_no_gf
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_current_negotiation^current_number > 3 }
+		}
+		localization_key = ITA_camera_overton_tt_in
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_current_negotiation^current_number = 3 }
+		}
+		localization_key = ITA_camera_overton_tt_close
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_current_negotiation^current_number = 2 }
+		}
+		localization_key = ITA_camera_overton_tt_negotiate
+	}
+}
+
+defined_text = {
+	name = ITA_Get_GF_PM_Instructions
+	text = {
+		trigger = {
+			has_country_flag = ITA_camera_natunity_mode
+		}
+		localization_key = ITA_gf_pm_natunity_instructions
+	}
+	text = {
+		trigger = {
+			has_country_flag = ITA_gf_post_election
+		}
+		localization_key = ITA_gf_pm_instructions
+	}
+	text = {
+		localization_key = ITA_gf_pm_instructions_collapse
+	}
+}
+
+defined_text = {
+	name = ITA_Get_GF_Instructions
+	text = {
+		trigger = {
+			has_country_flag = ITA_camera_natunity_mode
+		}
+		localization_key = ITA_gf_natunity_instructions
+	}
+	text = {
+		trigger = {
+			has_country_flag = ITA_gf_post_election
+		}
+		localization_key = ITA_gf_instructions
+	}
+	text = {
+		localization_key = ITA_gf_instructions_collapse
+	}
+}
+
+defined_text = {
+	name = Get_DDL_Status
+	text = {
+		trigger = {
+			check_variable = { ITA_ddl_history_status^history_idx = 2 }
+		}
+		localization_key = ITA_ddl_status_failed
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_ddl_history_status^history_idx = 3 }
+		}
+		localization_key = ITA_ddl_status_repealed
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_ddl_history_status^history_idx = 4 }
+		}
+		localization_key = ITA_ddl_status_repeal_failed
+	}
+	text = {
+		localization_key = ITA_ddl_status_passed
+	}
+}
+
+defined_text = {
+	name = Get_GF_Wing
+	text = {
+		trigger = {
+			check_variable = { ITA_winning_wing = 0 }
+		}
+		localization_key = ITA_camera_left_name_lc
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_winning_wing = 1 }
+		}
+		localization_key = ITA_camera_center_name_lc
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_winning_wing = 2 }
+		}
+		localization_key = ITA_camera_right_name_lc
+	}
+}
+
+defined_text = {
+	name = ITA_Get_PM_Name_dynamic
+	text = {
+		trigger = {
+			ITA_pm_available_dynamic = yes
+		}
+		localization_key = ITA_gf_pm_name_ok
+	}
+	text = {
+		localization_key = ITA_gf_pm_name_no
+	}
+}
+
+defined_text = {
+	name = ITA_Get_PM_Tooltip
+	text = {
+		trigger = {
+			ITA_pm_available_dynamic = yes
+		}
+		localization_key = ITA_gf_pm_desc_ok
+	}
+	text = {
+		localization_key = ITA_gf_pm_desc_no
+	}
+}
+
+defined_text ={
+	name = Get_GF_Confirm_Tooltip
+	text = {
+		trigger = {
+			check_variable = { ITA_total_coalition_members > 200 }
+		}
+		localization_key = ITA_gf_confirm_tt_ok
+	}
+	text = {
+		localization_key = ITA_gf_confirm_tt_no
+	}
+}
+
+defined_text = {
+	name = Get_Selected_PM_Name
+	text = {
+		trigger = {
+			set_temp_variable = { current_number = ITA_gf_selected_pm }
+		}
+		localization_key = "[Get_Current_PM_Name_dynamic]"
+	}
+}
+
+defined_text = {
+	name = Get_Selected_PM_Ability
+	text = {
+		trigger = {
+			set_temp_variable = { current_number = ITA_gf_selected_pm }
+		}
+		localization_key = "[Get_Current_PM_Ability_dynamic]"
+	}
+}
+
+defined_text = {
+	name = Get_Selected_PM_Color
+	text = {
+		trigger = {
+			set_temp_variable = { current_number = ITA_gf_selected_pm }
+		}
+		localization_key = "[Get_Current_Color_dynamic]"
+	}
+}
+
+defined_text = {
+	name = Get_Selected_PM_Current_Name_Short
+	text = {
+		trigger = {
+			set_temp_variable = { current_number = ITA_gf_selected_pm }
+		}
+		localization_key = "[Get_Current_Name_Short_dynamic]"
+	}
+}
+
+defined_text = {
+	name = Get_Current_Negotiate_Tooltip
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_current_negotiation^current_number = 5 }
+		}
+		localization_key = ITA_gf_current_negotiate_tt_core
+	}
+	text = {
+		trigger = {
+			set_temp_variable = { nextidx = current_number }
+			set_temp_variable = { previdx = current_number }
+			add_to_temp_variable = { nextidx = 1 }
+			subtract_from_temp_variable = { previdx = 1 }
+			OR = {
+				NOT = { check_variable = { ITA_camera_current_coalition^nextidx = 2 } }
+				NOT = { check_variable = { ITA_camera_current_coalition^previdx = 2 } }
+			}
+
+			check_variable = { ITA_gf_current_negotiation^current_number = 4 }
+		}
+		localization_key = ITA_gf_current_negotiate_tt_remove
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_current_negotiation^current_number = 4 }
+		}
+		localization_key = ITA_gf_current_negotiate_tt_cant_remove
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_current_negotiation^current_number = 1 }
+		}
+		localization_key = ITA_gf_current_negotiate_tt_convince_unhappy
+	}
+	text = {
+		trigger = {
+			NOT = { OR = {
+				check_variable = { ITA_camera_current_coalition^nextidx = 2}
+				check_variable = { ITA_camera_current_coalition^previdx = 2}
+			}}
+		}
+		localization_key = ITA_gf_current_negotiate_tt_convince_not_adjacent
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_current_negotiation^current_number = 3 }
+		}
+		localization_key = ITA_gf_current_negotiate_tt_add
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_current_negotiation^current_number = 2 }
+		}
+		localization_key = ITA_gf_current_negotiate_tt_convince
+	}
+}
+
+defined_text = {
+	name = Get_DDL_Amendment_Focus_Mod
+	text = {
+		trigger = {
+			set_temp_variable = { n = ITA_ddl_amend_focus_mod^amendment_num }
+			if = {
+				limit = { check_variable = { ITA_gf_selected_pm = 1 } }
+				multiply_temp_variable = { n = 1.25 }
+			}
+		}
+		localization_key = "[?n|1]"
+	}
+}
+
+defined_text = {
+	name = Get_Current_Convince_Tooltip
+	text = {
+		trigger = {
+			set_temp_variable = { supporting_deputies = ITA_ddl_support_current_deputies^current_number }
+
+			set_temp_variable = { new_pct = ITA_ddl_support_current_pct^current_number }
+			# Saragat Negotiation Bonus
+			if = {
+				limit = { check_variable = { ITA_gf_selected_pm = 4 } }
+				multiply_temp_variable = { new_pct = 1.15 }
+			}
+			# Berlinguer Bonus/Penalty
+			else_if = {
+				limit = { check_variable = { ITA_gf_selected_pm = 0 } }
+				set_temp_variable = { bonus = ITA_ddl_negotiation_effectiveness_modifier_optimism }
+				multiply_temp_variable = { bonus = 0.1 }
+				add_to_temp_variable = { bonus = 1.00 }
+				multiply_temp_variable = { new_pct = bonus }
+			}
+			# Fanfani Penalty
+			else_if = {
+				limit = {
+					check_variable = { ITA_gf_selected_pm = 7 }
+					check_variable = { ITA_camera_current_coalition^current_number < 2 }
+				}
+				multiply_temp_variable = { new_pct = 1.00 }
+			}
+			# Moro Bonus
+			else_if = {
+				limit = { check_variable = { ITA_gf_selected_pm = 8 } }
+				set_temp_variable = { bonus = ITA_ddl_negotiation_effectiveness_modifier_cooperation }
+				multiply_temp_variable = { bonus = 0.1 }
+				add_to_temp_variable = { bonus = 1.05 }
+				multiply_temp_variable = { new_pct = bonus }
+			}
+			else = {
+				multiply_temp_variable = { new_pct = 1.05 }
+			}
+			clamp_temp_variable = { var = new_pct min = 0 max = 1}
+			set_temp_variable = { min_new_support = ITA_camera_current_deputies^current_number }
+			multiply_temp_variable = { min_new_support = new_pct }
+			round_temp_variable = min_new_support
+			subtract_from_temp_variable = { min_new_support = supporting_deputies }
+			
+			set_temp_variable = { new_pct = ITA_ddl_support_current_pct^current_number }
+			# Saragat Negotiation Bonus
+			if = {
+				limit = { check_variable = { ITA_gf_selected_pm = 4 } }
+				multiply_temp_variable = { new_pct = 1.25 }
+			}
+			# Berlinuger Bonus/Penalty
+			else_if = {
+				limit = { check_variable = { ITA_gf_selected_pm = 0 } }
+				set_temp_variable = { bonus = ITA_ddl_negotiation_effectiveness_modifier_optimism }
+				multiply_temp_variable = { bonus = 0.1 }
+				add_to_temp_variable = { bonus = 1.10 }
+				multiply_temp_variable = { new_pct = bonus }
+			}
+			# Fanfani Penalty
+			else_if = {
+				limit = {
+					check_variable = { ITA_gf_selected_pm = 7 }
+					check_variable = { ITA_camera_current_coalition^current_number < 2 }
+				}
+				multiply_temp_variable = { new_pct = 1.10 }
+			}
+			# Moro Bonus
+			else_if = {
+				limit = { check_variable = { ITA_gf_selected_pm = 8 } }
+				set_temp_variable = { bonus = ITA_ddl_negotiation_effectiveness_modifier_cooperation }
+				multiply_temp_variable = { bonus = 0.1 }
+				add_to_temp_variable = { bonus = 1.15 }
+				multiply_temp_variable = { new_pct = bonus }
+			}
+			else = {
+				multiply_temp_variable = { new_pct = 1.15 }
+			}
+			clamp_temp_variable = { var = new_pct min = 0 max = 1}
+			set_temp_variable = { max_new_support = ITA_camera_current_deputies^current_number }
+			multiply_temp_variable = { max_new_support = new_pct }
+			round_temp_variable = max_new_support
+			subtract_from_temp_variable = { max_new_support = supporting_deputies }
+
+			set_temp_variable = { pp_cost = 20 }
+			if = {
+				limit = { check_variable = { ITA_camera_current_coalition^current_number = 2 } }
+				set_temp_variable = { pp_cost = 10 }
+			}
+
+			ITA_ddl_active = no
+		}
+		localization_key = ITA_camera_current_convince_tt_no_legge
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_ddl_has_convinced^current_number = 1 }
+		}
+		localization_key = ITA_camera_current_convince_tt_already_done
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_current_coalition^current_number = 2 }
+			check_variable = { max_new_support > 0 }
+		}
+		localization_key = ITA_camera_current_convince_tt_ok_coal
+	}
+	text = {
+		trigger = {
+			check_variable = { max_new_support > 0 }
+		}
+		localization_key = ITA_camera_current_convince_tt_ok
+	}
+	text = {
+		localization_key = ITA_camera_current_convince_tt_not_enough_support
+	}
+}
+
+defined_text = {
+	name = Get_DDL_Remove_Amend_Tooltip
+	text = {
+		trigger = {
+			ITA_ddl_repealing = yes 
+		}
+		localization_key = ITA_ddl_cant_remove_amend_tt
+	}
+	text = {
+		localization_key = ITA_ddl_can_remove_amend_tt
+	}
+}
+
+defined_text = { 
+	name = Get_DDL_Repeal_Tooltip
+	text = {
+		trigger = {
+			ITA_ddl_active = no
+		}
+		localization_key = ITA_ddl_can_repeal_tt
+	}
+	text = {
+		localization_key = ITA_ddl_cant_repeal_tt
+	}
+}
+
+defined_text = {
+	name = Get_DDL_Focus_Tooltip
+	text = {
+		trigger = {
+			ITA_ddl_active = no
+		}
+		localization_key = ITA_ddl_focus_tt_no_legge
+	}
+	text = {
+		localization_key = ITA_ddl_focus_tt_legge
+	}
+}
+
+defined_text = {
+	name = Get_DDL_Timer_Tooltip
+	text = {
+		trigger = {
+			ITA_ddl_active = no
+		}
+		localization_key = ITA_ddl_timer_tt_no_legge
+	}
+	text = {
+		localization_key = ITA_ddl_timer_tt_legge
+	}
+}
+
+defined_text = {
+	name = GET_Active_DDL_Effect_Icon
+	text = {
+		trigger = {
+			set_temp_variable = { legge_id = ITA_ddl_active_ddl }
+		}
+		localization_key = "[GET_DDL_Effect_Icon]"
+	}
+}
+defined_text = {
+	name = GET_DDL_Effect_Icon
+	text = {
+		trigger = {
+			set_temp_variable = { index = legge_id }
+			multiply_temp_variable = { index = 7 }
+			add_to_temp_variable = { index = effect_idx }
+			set_temp_variable = { effect_id = ITA_ddl_legge_effects^index }
+		}
+		localization_key = "[GET_DDL_Effect_Icon_inner]"
+	}
+}
+defined_text = {
+	name = GET_DDL_Amend_Effect_Icon
+	text = {
+		trigger = {
+			set_temp_variable = { index = amendment_num }
+			multiply_temp_variable = { index = 5 }
+			add_to_temp_variable = { index = effect_idx }
+			set_temp_variable = { effect_id = ITA_ddl_amend_effects^index }
+		}
+		localization_key = "[GET_DDL_Effect_Icon_inner]"
+	}
+}
+defined_text = {
+	name = GET_DDL_Effect_Icon_inner
+	text = {
+		trigger = { check_variable = { effect_id = 1 }}
+		localization_key = "GFX_camera_ddl_icon1"
+	}
+	text = {
+		localization_key = "GFX_blank"
+	}
+}
+
+defined_text = {
+	name = Get_Camera_Submenu_Container
+	text = {
+		trigger = { ITA_govform_active = yes }
+		localization_key = "ITA_camera_submenu_govform"
+	}
+	text = {
+		trigger = { has_country_flag = ITA_camera_suspended }	
+		localization_key = "ITA_camera_submenu_suspended"
+	}
+	text = {
+		localization_key = "ITA_camera_submenu_ddl"
+	}
+}
+
+
+defined_text = {
+	name = Get_Amendment_Container
+	text = {
+		trigger = {
+			OR = {
+				AND = {
+					check_variable = { amendment_idx = 0 }
+					check_variable = { ITA_ddl_amendments^amendment_idx = 0 }
+					ITA_ddl_active = yes
+					ITA_ddl_repealing = no 
+				}
+				AND = {
+					set_temp_variable = { prev_idx = amendment_idx }
+					subtract_from_temp_variable = { prev_idx = 1 }
+					check_variable = { ITA_ddl_amendments^prev_idx > 0 }
+					check_variable = { ITA_ddl_amendments^amendment_idx = 0 }
+					ITA_ddl_active = yes
+					ITA_ddl_repealing = no 
+				}
+			}
+		}
+		localization_key = "ITA_camera_ddl_add_amendment"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_ddl_amendments^amendment_idx = 0 }
+		}
+		localization_key = "ITA_camera_ddl_blank_amendment"
+	}
+	text = {
+		localization_key = "ITA_camera_ddl_amendment_active"
+	}
+}
+
+defined_text = {
+	name = Get_Preview_DDL_Title
+	text = {
+		trigger = {
+			set_temp_variable = { legge_id = ITA_ddl_details_picked }
+		}
+		localization_key = "[Get_DDL_Title]"
+	}
+}
+defined_text = {
+	name = Get_Alert_DDL_Title
+	text = {
+		trigger = {
+			set_temp_variable = { legge_id = TNO_alert_data^alert_idx }
+		}
+		localization_key = "[Get_DDL_Title]"
+	}
+}
+defined_text = {
+	name = Get_Active_DDL_Title
+	text = {
+		trigger = {
+			set_temp_variable = { legge_id = ITA_ddl_active_ddl }
+		}
+		localization_key = "[Get_DDL_Title]"
+	}
+}
+defined_text = {
+	name = Get_DDL_passed_trigger_1_Title
+	text = {
+		trigger = {
+			set_temp_variable = { legge_id = ddl_id_to_check_1 }
+		}
+		localization_key = "[Get_DDL_Title]"
+	}
+}
+defined_text = {
+	name = Get_DDL_passed_trigger_2_Title
+	text = {
+		trigger = {
+			set_temp_variable = { legge_id = ddl_id_to_check_2 }
+		}
+		localization_key = "[Get_DDL_Title]"
+	}
+}
+defined_text = {
+	name = Get_DDL_Title
+	text = {
+		trigger = { check_variable = { legge_id = 1 }}
+		localization_key = "ITA_ddl_1_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 2 }}
+		localization_key = "ITA_ddl_2_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 3 }}
+		localization_key = "ITA_ddl_3_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 4 }}
+		localization_key = "ITA_ddl_4_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 5 }}
+		localization_key = "ITA_ddl_5_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 6 }}
+		localization_key = "ITA_ddl_6_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 7 }}
+		localization_key = "ITA_ddl_7_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 8 }}
+		localization_key = "ITA_ddl_8_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 9 }}
+		localization_key = "ITA_ddl_9_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 10 }}
+		localization_key = "ITA_ddl_10_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 11 }}
+		localization_key = "ITA_ddl_11_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 12 }}
+		localization_key = "ITA_ddl_12_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 13 }}
+		localization_key = "ITA_ddl_13_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 14 }}
+		localization_key = "ITA_ddl_14_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 15 }}
+		localization_key = "ITA_ddl_15_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 16 }}
+		localization_key = "ITA_ddl_16_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 17 }}
+		localization_key = "ITA_ddl_17_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 18 }}
+		localization_key = "ITA_ddl_18_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 19 }}
+		localization_key = "ITA_ddl_19_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 20 }}
+		localization_key = "ITA_ddl_20_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 21 }}
+		localization_key = "ITA_ddl_21_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 22 }}
+		localization_key = "ITA_ddl_22_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 23 }}
+		localization_key = "ITA_ddl_23_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 24 }}
+		localization_key = "ITA_ddl_24_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 25 }}
+		localization_key = "ITA_ddl_25_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 26 }}
+		localization_key = "ITA_ddl_26_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 27 }}
+		localization_key = "ITA_ddl_27_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 28 }}
+		localization_key = "ITA_ddl_28_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 29 }}
+		localization_key = "ITA_ddl_29_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 30 }}
+		localization_key = "ITA_ddl_30_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 31 }}
+		localization_key = "ITA_ddl_31_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 32 }}
+		localization_key = "ITA_ddl_32_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 33 }}
+		localization_key = "ITA_ddl_33_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 34 }}
+		localization_key = "ITA_ddl_34_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 35 }}
+		localization_key = "ITA_ddl_35_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 36 }}
+		localization_key = "ITA_ddl_36_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 37 }}
+		localization_key = "ITA_ddl_37_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 38 }}
+		localization_key = "ITA_ddl_38_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 39 }}
+		localization_key = "ITA_ddl_39_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 40 }}
+		localization_key = "ITA_ddl_40_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 41 }}
+		localization_key = "ITA_ddl_41_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 42 }}
+		localization_key = "ITA_ddl_42_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 43 }}
+		localization_key = "ITA_ddl_43_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 44 }}
+		localization_key = "ITA_ddl_44_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 45 }}
+		localization_key = "ITA_ddl_45_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 46 }}
+		localization_key = "ITA_ddl_46_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 47 }}
+		localization_key = "ITA_ddl_47_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 48 }}
+		localization_key = "ITA_ddl_48_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 49 }}
+		localization_key = "ITA_ddl_49_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 50 }}
+		localization_key = "ITA_ddl_50_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 51 }}
+		localization_key = "ITA_ddl_51_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 52 }}
+		localization_key = "ITA_ddl_52_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 53 }}
+		localization_key = "ITA_ddl_53_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 54 }}
+		localization_key = "ITA_ddl_54_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 55 }}
+		localization_key = "ITA_ddl_55_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 56 }}
+		localization_key = "ITA_ddl_56_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 57 }}
+		localization_key = "ITA_ddl_57_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 58 }}
+		localization_key = "ITA_ddl_58_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 59 }}
+		localization_key = "ITA_ddl_59_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 60 }}
+		localization_key = "ITA_ddl_60_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 61 }}
+		localization_key = "ITA_ddl_61_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 62 }}
+		localization_key = "ITA_ddl_62_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 63 }}
+		localization_key = "ITA_ddl_63_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 64 }}
+		localization_key = "ITA_ddl_64_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 65 }}
+		localization_key = "ITA_ddl_65_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 66 }}
+		localization_key = "ITA_ddl_66_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 67 }}
+		localization_key = "ITA_ddl_67_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 68 }}
+		localization_key = "ITA_ddl_68_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 69 }}
+		localization_key = "ITA_ddl_69_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 70 }}
+		localization_key = "ITA_ddl_70_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 71 }}
+		localization_key = "ITA_ddl_71_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 72 }}
+		localization_key = "ITA_ddl_72_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 73 }}
+		localization_key = "ITA_ddl_73_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 74 }}
+		localization_key = "ITA_ddl_74_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 75 }}
+		localization_key = "ITA_ddl_75_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 76 }}
+		localization_key = "ITA_ddl_76_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 77 }}
+		localization_key = "ITA_ddl_77_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 78 }}
+		localization_key = "ITA_ddl_78_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 79 }}
+		localization_key = "ITA_ddl_79_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 80 }}
+		localization_key = "ITA_ddl_80_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 81 }}
+		localization_key = "ITA_ddl_81_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 82 }}
+		localization_key = "ITA_ddl_82_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 83 }}
+		localization_key = "ITA_ddl_83_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 84 }}
+		localization_key = "ITA_ddl_84_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 85 }}
+		localization_key = "ITA_ddl_85_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 86 }}
+		localization_key = "ITA_ddl_86_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 87 }}
+		localization_key = "ITA_ddl_87_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 88 }}
+		localization_key = "ITA_ddl_88_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 89 }}
+		localization_key = "ITA_ddl_89_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 90 }}
+		localization_key = "ITA_ddl_90_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 91 }}
+		localization_key = "ITA_ddl_91_title"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 92 }}
+		localization_key = "ITA_ddl_92_title"
+	}
+}
+
+defined_text = {
+	name = Get_Preview_DDL_Desc
+	text = {
+		trigger = {
+			set_temp_variable = { legge_id = ITA_ddl_details_picked }
+		}
+		localization_key = "[Get_DDL_Desc]"
+	}
+}
+defined_text = {
+	name = Get_Active_DDL_Desc
+	text = {
+		trigger = {
+			set_temp_variable = { legge_id = ITA_ddl_active_ddl }
+		}
+		localization_key = "[Get_DDL_Desc]"
+	}
+}
+defined_text = {
+	name = Get_DDL_Desc
+	text = {
+		trigger = { check_variable = { legge_id = 1 }}
+		localization_key = "ITA_ddl_1_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 2 }}
+		localization_key = "ITA_ddl_2_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 3 }}
+		localization_key = "ITA_ddl_3_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 4 }}
+		localization_key = "ITA_ddl_4_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 5 }}
+		localization_key = "ITA_ddl_5_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 6 }}
+		localization_key = "ITA_ddl_6_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 7 }}
+		localization_key = "ITA_ddl_7_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 8 }}
+		localization_key = "ITA_ddl_8_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 9 }}
+		localization_key = "ITA_ddl_9_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 10 }}
+		localization_key = "ITA_ddl_10_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 11 }}
+		localization_key = "ITA_ddl_11_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 12 }}
+		localization_key = "ITA_ddl_12_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 13 }}
+		localization_key = "ITA_ddl_13_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 14 }}
+		localization_key = "ITA_ddl_14_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 15 }}
+		localization_key = "ITA_ddl_15_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 16 }}
+		localization_key = "ITA_ddl_16_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 17 }}
+		localization_key = "ITA_ddl_17_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 18 }}
+		localization_key = "ITA_ddl_18_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 19 }}
+		localization_key = "ITA_ddl_19_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 20 }}
+		localization_key = "ITA_ddl_20_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 21 }}
+		localization_key = "ITA_ddl_21_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 22 }}
+		localization_key = "ITA_ddl_22_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 23 }}
+		localization_key = "ITA_ddl_23_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 24 }}
+		localization_key = "ITA_ddl_24_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 25 }}
+		localization_key = "ITA_ddl_25_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 26 }}
+		localization_key = "ITA_ddl_26_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 27 }}
+		localization_key = "ITA_ddl_27_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 28 }}
+		localization_key = "ITA_ddl_28_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 29 }}
+		localization_key = "ITA_ddl_29_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 30 }}
+		localization_key = "ITA_ddl_30_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 31 }}
+		localization_key = "ITA_ddl_31_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 32 }}
+		localization_key = "ITA_ddl_32_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 33 }}
+		localization_key = "ITA_ddl_33_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 34 }}
+		localization_key = "ITA_ddl_34_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 35 }}
+		localization_key = "ITA_ddl_35_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 36 }}
+		localization_key = "ITA_ddl_36_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 37 }}
+		localization_key = "ITA_ddl_37_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 38 }}
+		localization_key = "ITA_ddl_38_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 39 }}
+		localization_key = "ITA_ddl_39_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 40 }}
+		localization_key = "ITA_ddl_40_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 41 }}
+		localization_key = "ITA_ddl_41_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 42 }}
+		localization_key = "ITA_ddl_42_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 43 }}
+		localization_key = "ITA_ddl_43_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 44 }}
+		localization_key = "ITA_ddl_44_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 45 }}
+		localization_key = "ITA_ddl_45_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 46 }}
+		localization_key = "ITA_ddl_46_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 47 }}
+		localization_key = "ITA_ddl_47_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 48 }}
+		localization_key = "ITA_ddl_48_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 49 }}
+		localization_key = "ITA_ddl_49_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 50 }}
+		localization_key = "ITA_ddl_50_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 51 }}
+		localization_key = "ITA_ddl_51_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 52 }}
+		localization_key = "ITA_ddl_52_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 53 }}
+		localization_key = "ITA_ddl_53_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 54 }}
+		localization_key = "ITA_ddl_54_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 55 }}
+		localization_key = "ITA_ddl_55_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 56 }}
+		localization_key = "ITA_ddl_56_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 57 }}
+		localization_key = "ITA_ddl_57_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 58 }}
+		localization_key = "ITA_ddl_58_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 59 }}
+		localization_key = "ITA_ddl_59_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 60 }}
+		localization_key = "ITA_ddl_60_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 61 }}
+		localization_key = "ITA_ddl_61_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 62 }}
+		localization_key = "ITA_ddl_62_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 63 }}
+		localization_key = "ITA_ddl_63_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 64 }}
+		localization_key = "ITA_ddl_64_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 65 }}
+		localization_key = "ITA_ddl_65_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 66 }}
+		localization_key = "ITA_ddl_66_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 67 }}
+		localization_key = "ITA_ddl_67_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 68 }}
+		localization_key = "ITA_ddl_68_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 69 }}
+		localization_key = "ITA_ddl_69_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 70 }}
+		localization_key = "ITA_ddl_70_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 71 }}
+		localization_key = "ITA_ddl_71_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 72 }}
+		localization_key = "ITA_ddl_72_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 73 }}
+		localization_key = "ITA_ddl_73_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 74 }}
+		localization_key = "ITA_ddl_74_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 75 }}
+		localization_key = "ITA_ddl_75_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 76 }}
+		localization_key = "ITA_ddl_76_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 77 }}
+		localization_key = "ITA_ddl_77_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 78 }}
+		localization_key = "ITA_ddl_78_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 79 }}
+		localization_key = "ITA_ddl_79_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 80 }}
+		localization_key = "ITA_ddl_80_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 81 }}
+		localization_key = "ITA_ddl_81_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 82 }}
+		localization_key = "ITA_ddl_82_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 83 }}
+		localization_key = "ITA_ddl_83_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 84 }}
+		localization_key = "ITA_ddl_84_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 85 }}
+		localization_key = "ITA_ddl_85_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 86 }}
+		localization_key = "ITA_ddl_86_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 87 }}
+		localization_key = "ITA_ddl_87_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 88 }}
+		localization_key = "ITA_ddl_88_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 89 }}
+		localization_key = "ITA_ddl_89_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 90 }}
+		localization_key = "ITA_ddl_90_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 91 }}
+		localization_key = "ITA_ddl_91_desc"
+	}
+	text = {
+		trigger = { check_variable = { legge_id = 92 }}
+		localization_key = "ITA_ddl_92_desc"
+	}
+}
+
+defined_text = {
+	name = Get_DDL_Amendment_Title
+	text = {
+		trigger = { check_variable = { amendment_num = 10 }}
+		localization_key = "ITA_amend_10_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 50 }}
+		localization_key = "ITA_amend_50_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 51 }}
+		localization_key = "ITA_amend_51_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 52 }}
+		localization_key = "ITA_amend_52_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 60 }}
+		localization_key = "ITA_amend_60_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 61 }}
+		localization_key = "ITA_amend_61_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 70 }}
+		localization_key = "ITA_amend_70_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 71 }}
+		localization_key = "ITA_amend_71_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 80 }}
+		localization_key = "ITA_amend_80_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 81 }}
+		localization_key = "ITA_amend_81_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 82 }}
+		localization_key = "ITA_amend_82_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 90 }}
+		localization_key = "ITA_amend_90_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 100 }}
+		localization_key = "ITA_amend_100_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 101 }}
+		localization_key = "ITA_amend_101_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 110 }}
+		localization_key = "ITA_amend_110_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 111 }}
+		localization_key = "ITA_amend_111_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 120 }}
+		localization_key = "ITA_amend_120_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 121 }}
+		localization_key = "ITA_amend_121_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 122 }}
+		localization_key = "ITA_amend_122_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 123 }}
+		localization_key = "ITA_amend_123_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 130 }}
+		localization_key = "ITA_amend_130_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 131 }}
+		localization_key = "ITA_amend_131_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 140 }}
+		localization_key = "ITA_amend_140_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 141 }}
+		localization_key = "ITA_amend_141_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 150 }}
+		localization_key = "ITA_amend_150_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 151 }}
+		localization_key = "ITA_amend_151_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 160 }}
+		localization_key = "ITA_amend_160_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 170 }}
+		localization_key = "ITA_amend_170_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 171 }}
+		localization_key = "ITA_amend_171_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 180 }}
+		localization_key = "ITA_amend_180_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 181 }}
+		localization_key = "ITA_amend_181_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 190 }}
+		localization_key = "ITA_amend_190_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 200 }}
+		localization_key = "ITA_amend_200_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 210 }}
+		localization_key = "ITA_amend_210_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 220 }}
+		localization_key = "ITA_amend_220_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 221 }}
+		localization_key = "ITA_amend_221_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 230 }}
+		localization_key = "ITA_amend_230_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 240 }}
+		localization_key = "ITA_amend_240_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 260 }}
+		localization_key = "ITA_amend_260_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 261 }}
+		localization_key = "ITA_amend_261_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 270 }}
+		localization_key = "ITA_amend_270_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 280 }}
+		localization_key = "ITA_amend_280_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 290 }}
+		localization_key = "ITA_amend_290_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 300 }}
+		localization_key = "ITA_amend_300_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 310 }}
+		localization_key = "ITA_amend_310_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 311 }}
+		localization_key = "ITA_amend_311_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 320 }}
+		localization_key = "ITA_amend_320_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 330 }}
+		localization_key = "ITA_amend_330_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 340 }}
+		localization_key = "ITA_amend_340_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 350 }}
+		localization_key = "ITA_amend_350_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 351 }}
+		localization_key = "ITA_amend_351_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 360 }}
+		localization_key = "ITA_amend_360_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 361 }}
+		localization_key = "ITA_amend_361_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 370 }}
+		localization_key = "ITA_amend_370_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 380 }}
+		localization_key = "ITA_amend_380_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 381 }}
+		localization_key = "ITA_amend_381_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 400 }}
+		localization_key = "ITA_amend_400_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 410 }}
+		localization_key = "ITA_amend_410_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 420 }}
+		localization_key = "ITA_amend_420_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 430 }}
+		localization_key = "ITA_amend_430_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 440 }}
+		localization_key = "ITA_amend_440_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 441 }}
+		localization_key = "ITA_amend_441_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 610 }}
+		localization_key = "ITA_amend_610_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 611 }}
+		localization_key = "ITA_amend_611_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 640 }}
+		localization_key = "ITA_amend_640_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 641 }}
+		localization_key = "ITA_amend_641_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 650 }}
+		localization_key = "ITA_amend_650_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 651 }}
+		localization_key = "ITA_amend_651_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 660 }}
+		localization_key = "ITA_amend_660_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 670 }}
+		localization_key = "ITA_amend_670_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 671 }}
+		localization_key = "ITA_amend_671_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 690 }}
+		localization_key = "ITA_amend_690_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 691 }}
+		localization_key = "ITA_amend_691_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 700 }}
+		localization_key = "ITA_amend_700_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 710 }}
+		localization_key = "ITA_amend_710_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 720 }}
+		localization_key = "ITA_amend_720_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 730 }}
+		localization_key = "ITA_amend_730_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 740 }}
+		localization_key = "ITA_amend_740_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 741 }}
+		localization_key = "ITA_amend_741_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 750 }}
+		localization_key = "ITA_amend_750_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 760 }}
+		localization_key = "ITA_amend_760_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 770 }}
+		localization_key = "ITA_amend_770_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 771 }}
+		localization_key = "ITA_amend_771_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 780 }}
+		localization_key = "ITA_amend_780_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 790 }}
+		localization_key = "ITA_amend_790_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 791 }}
+		localization_key = "ITA_amend_791_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 800 }}
+		localization_key = "ITA_amend_800_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 810 }}
+		localization_key = "ITA_amend_810_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 820 }}
+		localization_key = "ITA_amend_820_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 821 }}
+		localization_key = "ITA_amend_821_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 830 }}
+		localization_key = "ITA_amend_830_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 840 }}
+		localization_key = "ITA_amend_840_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 850 }}
+		localization_key = "ITA_amend_850_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 860 }}
+		localization_key = "ITA_amend_860_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 861 }}
+		localization_key = "ITA_amend_861_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 870 }}
+		localization_key = "ITA_amend_870_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 871 }}
+		localization_key = "ITA_amend_871_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 880 }}
+		localization_key = "ITA_amend_880_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 890 }}
+		localization_key = "ITA_amend_890_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 920 }}
+		localization_key = "ITA_amend_920_title"
+	}
+	text = {
+		trigger = { check_variable = { amendment_num = 921 }}
+		localization_key = "ITA_amend_921_title"
+	}
+}
+
+defined_text = {
+	name = Get_DDL_Amendment_Desc
+	text = {
+		localization_key = "ITA_ddl_placeholder_desc"
+	}
+}
+
+
+defined_text = {
+	name = ITA_Get_DDL_Overton_Shift_Msg
+	text = {
+		trigger = { check_variable = { ITA_ddl_amend_overton_mod^amendment_num < -0.1 }}
+		localization_key = "ITA_ddl_amend_overton_shift_left"
+	}
+	text = {
+		trigger = { check_variable = { ITA_ddl_amend_overton_mod^amendment_num > 0.1 }}
+		localization_key = "ITA_ddl_amend_overton_shift_right"
+	}
+	text = {
+		localization_key = "ITA_ddl_amend_overton_shift_none"
+	}
+}
+
+# Gets the current name for the currently hovered dot
+defined_text = {
+	name = Get_Camera_Dot_Tooltip
+	text = {
+		trigger = {
+			set_temp_variable = { current_number = ITA_camera_seat_current^seat_idx }
+		}
+		localization_key = "[ITA_Get_Current_Icon_dynamic] [Get_Current_Name_dynamic]"
+	}
+}
+
+# Gets the current status fo the hovered dot
+# Tells you whether they are in your coalition or whether they support your legge
+defined_text = {
+	name = Get_Camera_Dot_Status
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_ddl_view = 1 }
+			set_temp_variable = { current_number = ITA_camera_seat_current^seat_idx }
+		}
+		localization_key = "[Get_Current_Coalition_Status_dynamic]"
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_ddl_view = 2 }
+			check_variable = { seat_idx < ITA_ddl_total_support }
+		}
+		localization_key = ITA_camera_seat_like_legge
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_ddl_view = 2 }
+		}
+		localization_key = ITA_camera_seat_dislike_legge
+	}
+}
+
+
+# Name for the current coalition based on its lean
+defined_text = {
+	name = Get_Coalition_Name
+	text = {
+		trigger = { AND = {
+			check_variable = { ITA_coalition_overton > 6.99 }
+			check_variable = { ITA_coalition_overton < 9 }
+		}}
+		localization_key = ITA_coalition_centrismo
+	}
+	text = {
+		trigger = { AND = {
+			check_variable = { ITA_coalition_overton > 3.99 }
+			check_variable = { ITA_coalition_overton < 7 }
+		}}
+		localization_key = ITA_coalition_centrosinistra_organico
+	}
+	text = {
+		trigger = { AND = {
+			check_variable = { ITA_coalition_overton > 8.99 }
+			check_variable = { ITA_coalition_overton < 11 }
+		}}
+		localization_key = ITA_coalition_centrodestra_organico
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_coalition_overton < 4 }
+		}
+		localization_key = ITA_coalition_fdp
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_coalition_overton > 10.99 }
+		}
+		localization_key = ITA_coalition_bn
+	}
+}
+
+# TODO - not functional
+# Returns how stable the current coalition is
+defined_text = {
+	name = Get_Coalition_Stability
+	text = {
+		localization_key = ITA_coalition_very_stable
+	}
+}
+
+# Returns what the leaning of the coalition is
+defined_text = {
+	name = Get_Coalition_Lean
+	text = {
+		trigger = {
+			set_temp_variable = { lean = ITA_coalition_overton }
+		}
+		localization_key = "[Get_Lean_dynamic]"
+	}
+}
+
+# Returns what the leaning of the coalition's policy is
+defined_text = {
+	name = Get_Policy_Lean
+	text = {
+		trigger = {
+			set_temp_variable = { lean = ITA_policy_overton }
+		}
+		localization_key = "[Get_Lean_dynamic]"
+	}
+}
+
+# Returns what side of the spectrum a particular leaning is on, given the `lean` temp variable
+defined_text = {
+	name = Get_Lean_dynamic
+	text = {
+		trigger = { AND = {
+			check_variable = { lean > 6.99 }
+			check_variable = { lean < 8 }
+		}}
+		localization_key = ITA_lean_centrist
+	}
+	text = {
+		trigger = { AND = {
+			check_variable = { lean > 7.99 }
+			check_variable = { lean < 10 }
+		}}
+		localization_key = ITA_lean_center_right
+	}
+	text = {
+		trigger = {
+			check_variable = { lean > 9.99 }
+		}
+		localization_key = ITA_lean_right
+	}
+	text = {
+		trigger = { AND = {
+			check_variable = { lean > 4.99 }
+			check_variable = { lean < 7 }
+		}}
+		localization_key = ITA_lean_center_left
+	}
+	text = {
+		trigger = {
+			check_variable = { lean < 5 }
+		}
+		localization_key = ITA_lean_left
+	}
+}
+
+defined_text = {
+	name = Get_DDL_Policy_Overton_TT
+	text = {
+		trigger = {
+			ITA_ddl_active = no
+		}
+		localization_key = ITA_camera_policy_overton_tt_no_legge
+	}
+	text = {
+		localization_key = ITA_camera_policy_overton_tt_legge
+	}
+}
+
+
+defined_text = {
+	name = Get_Camera_Legge_Support
+	text = {
+		trigger = {
+			ITA_ddl_active = no
+		}
+		localization_key = ITA_camera_no_legge
+	}
+	text = {
+		localization_key = ITA_camera_legge_support
+	}
+}
+
+# Returns either the number of deputies or number of deputies supporting the current legge, if one is active
+defined_text = {
+	name = Get_Current_Supporting_Deputies_dynamic
+	text = {
+		trigger = {
+			ITA_ddl_active = no
+			check_variable = { ITA_camera_current_coalition^current_number = 2 }
+		}
+		localization_key = ITA_camera_current_total_deputies_in_coalition
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_current_coalition^current_number = 2 }
+		}
+		localization_key = ITA_camera_current_supporting_deputies_in_coalition
+	}
+	text = {
+		trigger = {
+			ITA_ddl_active = no
+		}
+		localization_key = ITA_camera_current_total_deputies
+	}
+	text = {
+		localization_key = ITA_camera_current_supporting_deputies
+	}
+}
+defined_text = {
+	name = Get_Current_Supporting_Deputies_Long_dynamic
+	text = {
+		trigger = {
+			ITA_ddl_active = no
+		}
+		localization_key = ITA_camera_current_total_deputies_long
+	}
+	text = {
+		localization_key = ITA_camera_current_supporting_deputies_long
+	}
+}
+
+
+# Returns whether the current given by `current_number` is in your coalition or not
+defined_text = {
+	name = Get_Current_Coalition_Status_dynamic
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_current_coalition^current_number = 2 }
+		}
+		localization_key = ITA_camera_seat_in_coalition
+	}
+	text = {
+		localization_key = ITA_camera_seat_not_in_coalition
+	}
+}
+
+
+# This is my new favorite scripted loc trick
+# Uses a recursive scripted loc (Get_Coalition_Current_Names_inner) which modifies temp variables 
+# to print out a list of all coalition partners
+defined_text = {
+	name = Get_Coalition_Current_Names
+	text = {
+		trigger = {
+			set_temp_variable = { cn = ITA_coalition_overton_base }
+			subtract_from_temp_variable = { cn = 1 }
+			set_temp_variable = { max_current_number = ITA_coalition_overton_end }
+			subtract_from_temp_variable = { max_current_number = 1 }
+			set_temp_variable = { total_size = max_current_number }
+			subtract_from_temp_variable = { total_size = cn }
+		}
+		localization_key = "[Get_Coalition_Current_Names_inner]"
+	}
+}
+
+defined_text = {
+	name = Get_Coalition_Current_Names_inner
+	text = {
+		trigger = {
+			check_variable = { total_size = 0 }
+			check_variable = { cn = max_current_number }
+			add_to_temp_variable = { cn = 1 }
+		}
+		localization_key = "[ITA_Get_Current_Icon_dynamic_alt] [Get_Current_Name_Short_dynamic_alt]"
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = max_current_number }
+			add_to_temp_variable = { cn = 1 }
+		}
+		localization_key = "and [ITA_Get_Current_Icon_dynamic_alt] [Get_Current_Name_Short_dynamic_alt]"
+	}
+	text = {
+		trigger = {
+			check_variable = { total_size = 1 }
+			add_to_temp_variable = { cn = 1 }
+		}
+		localization_key = "[ITA_Get_Current_Icon_dynamic_alt] [Get_Current_Name_Short_dynamic_alt] [Get_Coalition_Current_Names_inner]"
+	}
+	text = {
+		trigger = {
+			add_to_temp_variable = { cn = 1 }
+		}
+		localization_key = "[ITA_Get_Current_Icon_dynamic_alt] [Get_Current_Name_Short_dynamic_alt], [Get_Coalition_Current_Names_inner]"
+	}
+}
+
+defined_text = {
+	name = ITA_Get_Policy_Bar_Segment_Current_Names
+	text = {
+		trigger = {
+			check_variable = { ITA_camera_policy_bar_segments_max^bar_segment_idx = -1 }
+		}
+		localization_key = ""
+	}
+	text = {
+		trigger = {
+			set_temp_variable = { cn = ITA_camera_policy_bar_segments_min^bar_segment_idx }
+			subtract_from_temp_variable = { cn = 1 }
+			set_temp_variable = { max_current_number = ITA_camera_policy_bar_segments_max^bar_segment_idx }
+			subtract_from_temp_variable = { max_current_number = 1 }
+			set_temp_variable = { total_size = max_current_number }
+			subtract_from_temp_variable = { total_size = cn }
+		}
+		localization_key = "[Get_Coalition_Current_Names_inner]"
+	}
+}
+
+defined_text = {
+	name = ITA_Get_Current_Icon_dynamic
+	text = {
+		trigger = {
+			check_variable = { current_number = 2 }
+		}
+		localization_key = ITA_pr_texticon
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 4 }
+		}
+		localization_key = ITA_psdi_texticon
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number > 5 }
+			check_variable = { current_number < 10 }
+		}
+		localization_key = ITA_dc_texticon
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 5 }
+		}
+		localization_key = ITA_pri_texticon
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 10 }
+		}
+		localization_key = ITA_pli_texticon
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 11 }
+		}
+		localization_key = ITA_pdi_texticon
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 15 }
+		}
+		localization_key = ITA_umberto_texticon
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number > 11 }
+		}
+		localization_key = ITA_msi_texticon
+	}
+	text = {
+		localization_key = ITA_psi_texticon
+	}
+}
+
+
+defined_text = {
+	name = ITA_Get_Current_Icon_dynamic_alt
+	text = {
+		trigger = {
+			check_variable = { cn = 2 }
+		}
+		localization_key = ITA_pr_texticon
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 4 }
+		}
+		localization_key = ITA_psdi_texticon
+	}
+	text = {
+		trigger = {
+			check_variable = { cn > 5 }
+			check_variable = { cn < 10 }
+		}
+		localization_key = ITA_dc_texticon
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 5 }
+		}
+		localization_key = ITA_pri_texticon
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 10 }
+		}
+		localization_key = ITA_pli_texticon
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 11 }
+		}
+		localization_key = ITA_pdi_texticon
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 15 }
+		}
+		localization_key = ITA_umberto_texticon
+	}
+	text = {
+		trigger = {
+			check_variable = { cn > 11 }
+		}
+		localization_key = ITA_msi_texticon
+	}
+	text = {
+		localization_key = ITA_psi_texticon
+	}
+}
+
+
+# Gets the short name of the current number specified by temp var `current_number`
+defined_text = {
+	name = Get_Current_Name_Short_dynamic
+	text = {
+		trigger = {
+			check_variable = { current_number = 0 }
+		}
+		localization_key = ITA_camera_current_0_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 1 }
+		}
+		localization_key = ITA_camera_current_1_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 2 }
+		}
+		localization_key = ITA_camera_current_2_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 3 }
+		}
+		localization_key = ITA_camera_current_3_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 4 }
+		}
+		localization_key = ITA_camera_current_4_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 5 }
+		}
+		localization_key = ITA_camera_current_5_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 6 }
+		}
+		localization_key = ITA_camera_current_6_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 7 }
+		}
+		localization_key = ITA_camera_current_7_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 8 }
+		}
+		localization_key = ITA_camera_current_8_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 9 }
+		}
+		localization_key = ITA_camera_current_9_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 10 }
+		}
+		localization_key = ITA_camera_current_10_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 11 }
+		}
+		localization_key = ITA_camera_current_11_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 12 }
+		}
+		localization_key = ITA_camera_current_12_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 13 }
+		}
+		localization_key = ITA_camera_current_13_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 14 }
+		}
+		localization_key = ITA_camera_current_14_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 15 }
+		}
+		localization_key = ITA_camera_current_15_short
+	}
+}
+
+# Gets the short name of the current number specified by temp var `cn`
+defined_text = {
+	name = Get_Current_Name_Short_dynamic_alt
+	text = {
+		trigger = {
+			check_variable = { cn = 0 }
+		}
+		localization_key = ITA_camera_current_0_short
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 1 }
+		}
+		localization_key = ITA_camera_current_1_short
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 2 }
+		}
+		localization_key = ITA_camera_current_2_short
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 3 }
+		}
+		localization_key = ITA_camera_current_3_short
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 4 }
+		}
+		localization_key = ITA_camera_current_4_short
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 5 }
+		}
+		localization_key = ITA_camera_current_5_short
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 6 }
+		}
+		localization_key = ITA_camera_current_6_short
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 7 }
+		}
+		localization_key = ITA_camera_current_7_short
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 8 }
+		}
+		localization_key = ITA_camera_current_8_short
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 9 }
+		}
+		localization_key = ITA_camera_current_9_short
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 10 }
+		}
+		localization_key = ITA_camera_current_10_short
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 11 }
+		}
+		localization_key = ITA_camera_current_11_short
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 12 }
+		}
+		localization_key = ITA_camera_current_12_short
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 13 }
+		}
+		localization_key = ITA_camera_current_13_short
+	}
+	text = {
+		trigger = {
+			check_variable = { cn = 14 }
+		}
+		localization_key = ITA_camera_current_14_short
+	}
+
+	text = {
+		trigger = {
+			check_variable = { cn = 15 }
+		}
+		localization_key = ITA_camera_current_15_short
+	}
+}
+
+# Gets the medium length name of the current number specified by temp var `current_number`
+defined_text = {
+	name = Get_Current_Name_Med_dynamic
+	text = {
+		trigger = {
+			check_variable = { current_number = 0 }
+		}
+		localization_key = ITA_camera_current_0_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 6 }
+		}
+		localization_key = ITA_camera_current_6_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 7 }
+		}
+		localization_key = ITA_camera_current_7_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 12 }
+		}
+		localization_key = ITA_camera_current_12_short
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 13 }
+		}
+		localization_key = ITA_camera_current_13_short
+	}
+	text = {
+		localization_key = "[Get_Current_Name_dynamic]"
+	}
+}
+
+# Gets the display name of the current number specified by temp var `current_number`
+defined_text = {
+	name = Get_Current_Name_dynamic
+	text = {
+		trigger = {
+			check_variable = { current_number = 0 }
+		}
+		localization_key = ITA_camera_current_0
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 1 }
+		}
+		localization_key = ITA_camera_current_1
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 2 }
+		}
+		localization_key = ITA_camera_current_2
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 3 }
+		}
+		localization_key = ITA_camera_current_3
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 4 }
+		}
+		localization_key = ITA_camera_current_4
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 5 }
+		}
+		localization_key = ITA_camera_current_5
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 6 }
+		}
+		localization_key = ITA_camera_current_6
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 7 }
+		}
+		localization_key = ITA_camera_current_7
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 8 }
+		}
+		localization_key = ITA_camera_current_8
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 9 }
+		}
+		localization_key = ITA_camera_current_9
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 10 }
+		}
+		localization_key = ITA_camera_current_10
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 11 }
+		}
+		localization_key = ITA_camera_current_11
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 12 }
+		}
+		localization_key = ITA_camera_current_12
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 13 }
+		}
+		localization_key = ITA_camera_current_13
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 14 }
+		}
+		localization_key = ITA_camera_current_14
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 15 }
+		}
+		localization_key = ITA_camera_current_15
+	}
+}
+
+# Gets the formal (long) name of the current number specified by temp var `current_number`
+defined_text = {
+	name = Get_Current_Name_Formal_dynamic
+	text = {
+		trigger = {
+			check_variable = { current_number = 0 }
+		}
+		localization_key = ITA_camera_current_0_formal
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 1 }
+		}
+		localization_key = ITA_camera_current_1_formal
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 2 }
+		}
+		localization_key = ITA_camera_current_2_formal
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 3 }
+		}
+		localization_key = ITA_camera_current_3_formal
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 4 }
+		}
+		localization_key = ITA_camera_current_4_formal
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 5 }
+		}
+		localization_key = ITA_camera_current_5_formal
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 6 }
+		}
+		localization_key = ITA_camera_current_6_formal
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 7 }
+		}
+		localization_key = ITA_camera_current_7_formal
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 8 }
+		}
+		localization_key = ITA_camera_current_8_formal
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 9 }
+		}
+		localization_key = ITA_camera_current_9_formal
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 10 }
+		}
+		localization_key = ITA_camera_current_10_formal
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 11 }
+		}
+		localization_key = ITA_camera_current_11_formal
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 12 }
+		}
+		localization_key = ITA_camera_current_12_formal
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 13 }
+		}
+		localization_key = ITA_camera_current_13_formal
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 14 }
+		}
+		localization_key = ITA_camera_current_14_formal
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 15 }
+		}
+		localization_key = ITA_camera_current_15_formal
+	}
+}
+
+# Gets the description of the current number specified by temp var `current_number`
+defined_text = {
+	name = Get_Current_Desc_dynamic
+	text = {
+		trigger = {
+			check_variable = { current_number = 0 }
+		}
+		localization_key = ITA_camera_current_0_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 1 }
+		}
+		localization_key = ITA_camera_current_1_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 2 }
+		}
+		localization_key = ITA_camera_current_2_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 3 }
+		}
+		localization_key = ITA_camera_current_3_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 4 }
+		}
+		localization_key = ITA_camera_current_4_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 5 }
+		}
+		localization_key = ITA_camera_current_5_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 6 }
+		}
+		localization_key = ITA_camera_current_6_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 7 }
+		}
+		localization_key = ITA_camera_current_7_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 8 }
+		}
+		localization_key = ITA_camera_current_8_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 9 }
+		}
+		localization_key = ITA_camera_current_9_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 10 }
+		}
+		localization_key = ITA_camera_current_10_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 11 }
+		}
+		localization_key = ITA_camera_current_11_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 12 }
+		}
+		localization_key = ITA_camera_current_12_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 13 }
+		}
+		localization_key = ITA_camera_current_13_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 14 }
+		}
+		localization_key = ITA_camera_current_14_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 15 }
+		}
+		localization_key = ITA_camera_current_15_desc
+	}
+}
+
+
+# Gets the PM for the current number specified by temp var `current_number`
+defined_text = {
+	name = Get_Current_PM_Name_dynamic
+	text = {
+		trigger = {
+			check_variable = { current_number = 0 }
+		}
+		localization_key = ITA_camera_current_0_pm
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 1 }
+		}
+		localization_key = ITA_camera_current_1_pm
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 2 }
+		}
+		localization_key = ITA_camera_current_2_pm
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 3 }
+		}
+		localization_key = ITA_camera_current_3_pm
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 4 }
+		}
+		localization_key = ITA_camera_current_4_pm
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 5 }
+		}
+		localization_key = ITA_camera_current_5_pm
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 6 }
+		}
+		localization_key = ITA_camera_current_6_pm
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 7 }
+		}
+		localization_key = ITA_camera_current_7_pm
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 8 }
+		}
+		localization_key = ITA_camera_current_8_pm
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 9 }
+		}
+		localization_key = ITA_camera_current_9_pm
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 10 }
+		}
+		localization_key = ITA_camera_current_10_pm
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 11 }
+		}
+		localization_key = ITA_camera_current_11_pm
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 12 }
+		}
+		localization_key = ITA_camera_current_12_pm
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 13 }
+		}
+		localization_key = ITA_camera_current_13_pm
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 14 }
+		}
+		localization_key = ITA_camera_current_14_pm
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 15 }
+		}
+		localization_key = ITA_camera_current_15_pm
+	}
+}
+
+
+# Gets the description for the PM for the current number specified by temp var `current_number`
+defined_text = {
+	name = Get_Current_PM_Desc_dynamic
+	text = {
+		trigger = {
+			check_variable = { current_number = 0 }
+		}
+		localization_key = ITA_camera_current_0_pm_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 1 }
+		}
+		localization_key = ITA_camera_current_1_pm_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 2 }
+		}
+		localization_key = ITA_camera_current_2_pm_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 3 }
+		}
+		localization_key = ITA_camera_current_3_pm_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 4 }
+		}
+		localization_key = ITA_camera_current_4_pm_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 5 }
+		}
+		localization_key = ITA_camera_current_5_pm_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 6 }
+		}
+		localization_key = ITA_camera_current_6_pm_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 7 }
+		}
+		localization_key = ITA_camera_current_7_pm_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 8 }
+		}
+		localization_key = ITA_camera_current_8_pm_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 9 }
+		}
+		localization_key = ITA_camera_current_9_pm_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 10 }
+		}
+		localization_key = ITA_camera_current_10_pm_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 11 }
+		}
+		localization_key = ITA_camera_current_11_pm_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 12 }
+		}
+		localization_key = ITA_camera_current_12_pm_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 13 }
+		}
+		localization_key = ITA_camera_current_13_pm_desc
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 14 }
+		}
+		localization_key = ITA_camera_current_14_pm_desc
+	}
+
+	text = {
+		trigger = {
+			check_variable = { current_number = 15 }
+		}
+		localization_key = ITA_camera_current_15_pm_desc
+	}
+}
+
+defined_text = {
+	name = Get_Selected_PM_Ability_Title
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_selected_pm = 0 }
+		}
+		localization_key = ITA_camera_current_0_pm_ability_title
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_selected_pm = 8 }
+		}
+		localization_key = ITA_camera_current_8_pm_ability_title
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_selected_pm = 5 }
+		}
+		localization_key = ITA_camera_current_5_pm_ability_title
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_selected_pm = 9 }
+		}
+		localization_key = ITA_camera_current_9_pm_ability_title
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_selected_pm = 15 }
+		}
+		localization_key = ITA_camera_current_15_pm_ability_title
+	}
+}
+
+defined_text = {
+	name = Get_Selected_PM_Ability_tt
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_selected_pm = 0 }
+		}
+		localization_key = ITA_camera_current_0_pm_ability_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_selected_pm = 8 }
+		}
+		localization_key = ITA_camera_current_8_pm_ability_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_selected_pm = 5 }
+		}
+		localization_key = ITA_camera_current_5_pm_ability_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_selected_pm = 9 }
+		}
+		localization_key = ITA_camera_current_9_pm_ability_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_selected_pm = 15 }
+		}
+		localization_key = ITA_camera_current_15_pm_ability_tt
+	}
+
+}
+
+defined_text = {
+	name = Get_Current_PM_Ability_dynamic
+	text = {
+		trigger = {
+			check_variable = { current_number = 0 }
+		}
+		localization_key = ITA_camera_current_0_pm_ability
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 1 }
+		}
+		localization_key = ITA_camera_current_1_pm_ability
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 2 }
+		}
+		localization_key = ITA_camera_current_2_pm_ability
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 4 }
+		}
+		localization_key = ITA_camera_current_4_pm_ability
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 7 }
+		}
+		localization_key = ITA_camera_current_7_pm_ability
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 8 }
+		}
+		localization_key = ITA_camera_current_8_pm_ability
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 5 }
+		}
+		localization_key = ITA_camera_current_5_pm_ability
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 9 }
+		}
+		localization_key = ITA_camera_current_9_pm_ability
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 15 }
+		}
+		localization_key = ITA_camera_current_15_pm_ability
+	}
+}
+
+
+# Gets the GFX for the PM of the current  number specified by temp var `current_number`
+defined_text = {
+	name = Get_Current_PM_GFX_dynamic
+	text = {
+		trigger = {
+			check_variable = { current_number = 0 }
+		}
+		localization_key = GFX_camera_gf_berlinguer
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 1 }
+		}
+		localization_key = GFX_camera_gf_nenni
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 2 }
+		}
+		localization_key = GFX_camera_gf_panella
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 3 }
+		}
+		localization_key = GFX_camera_gf_pm_blank
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 4 }
+		}
+		localization_key = GFX_camera_gf_saragat
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 5 }
+		}
+		localization_key = GFX_camera_gf_lamalfa
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 6 }
+		}
+		localization_key = GFX_camera_gf_pm_blank
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 7 }
+		}
+		localization_key = GFX_camera_gf_fanfani
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 8 }
+		}
+		localization_key = GFX_camera_gf_moro
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 9 }
+		}
+		localization_key = GFX_camera_gf_andreotti
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 10 }
+		}
+		localization_key = GFX_camera_gf_malagodi
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 11 }
+		}
+		localization_key = GFX_camera_gf_lauro
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 12 }
+		}
+		localization_key = GFX_camera_gf_pm_blank
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 13 }
+		}
+		localization_key = GFX_camera_gf_almirante
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 14 }
+		}
+		localization_key = GFX_camera_gf_rauti
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 15 }
+		}
+		localization_key = GFX_camera_gf_umberto
+	}
+}
+
+# Gets the color of the current number specified by temp var `current_number`
+defined_text = {
+	name = Get_Current_Color_dynamic
+	text = {
+		trigger = {
+			check_variable = { current_number = 0 }
+		}
+		localization_key = ITA_camera_current_0_color
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 1 }
+		}
+		localization_key = ITA_camera_current_1_color
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 2 }
+		}
+		localization_key = ITA_camera_current_2_color
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 3 }
+		}
+		localization_key = ITA_camera_current_3_color
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 4 }
+		}
+		localization_key = ITA_camera_current_4_color
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 5 }
+		}
+		localization_key = ITA_camera_current_5_color
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 6 }
+		}
+		localization_key = ITA_camera_current_6_color
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 7 }
+		}
+		localization_key = ITA_camera_current_7_color
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 8 }
+		}
+		localization_key = ITA_camera_current_8_color
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 9 }
+		}
+		localization_key = ITA_camera_current_9_color
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 10 }
+		}
+		localization_key = ITA_camera_current_10_color
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 11 }
+		}
+		localization_key = ITA_camera_current_11_color
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 12 }
+		}
+		localization_key = ITA_camera_current_12_color
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 13 }
+		}
+		localization_key = ITA_camera_current_13_color
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 14 }
+		}
+		localization_key = ITA_camera_current_14_color
+	}
+	text = {
+		trigger = {
+			check_variable = { current_number = 15 }
+		}
+		localization_key = ITA_camera_current_15_color
+	}
+}
+
+defined_text = {
+	name = Get_60_day_limit_text
+	text = {
+		trigger = {
+			check_variable = { no_60_days_limit = 0 }
+		}
+		localization_key = ITA_generic_bill
+	}
+}
+
+defined_text = {
+	name = ITA_ddl_focus_umbertos_effect
+	text = {
+		trigger = {
+			check_variable = { ITA_gf_selected_pm = 15 }
+		}
+		localization_key = ITA_ddl_focus_umbertos_effect_loc
+	}
+}

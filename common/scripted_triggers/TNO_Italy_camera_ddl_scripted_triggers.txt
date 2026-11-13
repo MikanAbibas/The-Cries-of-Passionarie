@@ -1,0 +1,70 @@
+ITA_ddl_active = {
+	check_variable = { ITA_ddl_active_ddl > 0 }
+}
+ITA_ddl_repealing = {
+	check_variable = { ITA_ddl_repealing > 0 }
+}
+ITA_govform_active = {
+	check_variable = { ITA_camera_submenu = 2 }
+	# ITA_begin_gf is what arms the clock, and it always sets seven days. If the
+	# total is still zero the formation was never begun - a save from before the
+	# Camera existed, or the submenu set by hand - and the daily tick would read
+	# the missing days-left as zero, time out, and keep timing out every day
+	# after. Four days of that walks the player through both snap elections and
+	# into Piano Solo.
+	check_variable = { var = ITA_gf_days_total value = 0 compare = greater_than }
+	NOT = {
+		has_country_flag = ITA_PIANO_SOLO_COUP
+		has_country_flag = ITA_BORGHESE_COUP
+	}
+}
+ITA_pm_available_dynamic = {
+	set_temp_variable = { difference = current_number }
+	add_to_temp_variable = { difference = 0.5 }
+	subtract_from_temp_variable = { difference = ITA_policy_overton }
+	set_temp_variable = { difference_inv = difference }
+	multiply_temp_variable = { difference_inv = -1 }
+	add_to_temp_variable = { difference = 1 }
+	add_to_temp_variable = { difference_inv = 1 }
+
+	OR = {
+		has_country_flag = ITA_gf_post_election
+		AND = {
+			check_variable = { var = difference value = ITA_gf_accept_window compare = less_than_or_equals }
+			check_variable = { var = difference_inv value = ITA_gf_accept_window compare = less_than_or_equals }
+		}
+	}
+}
+ITA_ddl_has_passed_ddl = {
+	#ddl_id_to_check has to be set as a temp var before this is called
+
+	set_temp_variable = { legge_id = ddl_id_to_check }
+
+	custom_trigger_tooltip = {
+		tooltip = ITA_ddl_has_passed_ddl_tt
+
+		is_in_array = {
+			array = ITA_ddl_passed_bills
+			value = ddl_id_to_check
+		}
+	}
+}
+ITA_ddl_has_passed_ddl_with_or = { # because OR = {} doesn't work with the above trigger for some reason
+	#ddl_id_to_check_1, ddl_id_to_check_2 has to be set as a temp var before this is called
+
+	custom_trigger_tooltip = {
+		tooltip = ITA_ddl_has_passed_ddl_with_or_tt
+
+		OR = {
+			is_in_array = {
+				array = ITA_ddl_passed_bills
+				value = ddl_id_to_check_1
+			}
+			is_in_array = {
+				array = ITA_ddl_passed_bills
+				value = ddl_id_to_check_2
+			}
+		}
+		
+	}
+}

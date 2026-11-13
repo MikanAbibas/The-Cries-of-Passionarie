@@ -1,0 +1,2567 @@
+#Gay Priesthood decisions
+
+
+
+#Bottom Text
+
+GAY_candidate_mechanic_category = {
+	GAY_Pavlov_side = { #Pavlov's Decisions here
+		visible = {
+			hidden_trigger = {
+				AND = { 
+				has_country_flag = GAY_candidate_mechanic
+				NOT = {
+					OR = { has_country_flag = GAY_izvekov_selected
+					has_country_flag = GAY_antipin_selected	
+					has_country_flag = GAY_pavlov_selected	
+					}
+				}
+				}
+			}
+		}
+
+		available = {
+			has_country_flag = GAY_candidate_mechanic
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+		
+
+		complete_effect = {
+			set_country_flag = GAY_pavlov_selected
+			custom_effect_tooltip = GAY_pavlov_route_tt			
+
+		}
+	}
+	GAY_hold_sermon = {
+		icon = GFX_decision_holy_icons
+	
+		allowed = {
+			tag = GAY
+		}
+		
+		available = {
+			AND = { NOT = {
+				has_country_flag = GAY_candidate_action_in_progress
+			}
+			has_country_flag = GAY_pavlov_selected
+			}
+		}
+		
+		visible = {
+			hidden_trigger = {
+				AND = { has_country_flag = GAY_candidate_mechanic
+				has_country_flag = GAY_pavlov_selected
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		cost = 10
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_hold_sermon"
+			set_country_flag = GAY_candidate_action_in_progress
+			set_temp_variable = { GAY_pavlov_power_temp = 5 }
+			GAY_add_pavlov_power = yes
+			hidden_effect = { GAY_ideologies_var = yes }
+			add_war_support = 0.025
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_hold_sermon"
+			clr_country_flag = GAY_candidate_action_in_progress
+		}
+	}
+    GAY_our_values = {
+		icon = GFX_decision_generic_shake_hands
+	
+		allowed = {
+			tag = GAY
+		}
+		
+		available = {
+			AND = { NOT = {
+				has_country_flag = GAY_candidate_action_in_progress
+			}
+			has_country_flag = GAY_pavlov_selected
+			}
+		}
+		
+		visible = {
+			hidden_trigger = {
+				AND = { has_country_flag = GAY_candidate_mechanic
+				has_country_flag = GAY_pavlov_selected
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		cost = 20
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_our_values"
+			set_country_flag = GAY_candidate_action_in_progress
+			set_temp_variable = { GAY_pavlov_power_temp = 7 }
+			GAY_add_pavlov_power = yes
+			hidden_effect = { GAY_ideologies_var = yes }			
+			set_temp_variable = {
+				GAY_loyalty_change = 5
+			}
+			GAY_loyalty_nobility_change = yes
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_our_values"
+			clr_country_flag = GAY_candidate_action_in_progress
+		}
+	}	
+    GAY_provide_charity = {
+		icon = GFX_decision_generic_political_discourse
+	
+		allowed = {
+			tag = GAY
+		}
+		
+		available = {
+			AND = { NOT = {
+				has_country_flag = GAY_candidate_action_in_progress
+			}
+			has_country_flag = GAY_pavlov_selected
+			}
+		}
+		
+		visible = {
+			hidden_trigger = {
+				AND = { has_country_flag = GAY_candidate_mechanic
+				has_country_flag = GAY_pavlov_selected
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		cost = 50
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_provide_charity"
+			set_country_flag = GAY_candidate_action_in_progress
+				set_temp_variable = { GAY_pavlov_power_temp = 10 }
+				GAY_add_pavlov_power = yes
+				hidden_effect = { GAY_ideologies_var = yes }	
+				TNO_improve_poverty_low = yes			
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_provide_charity"
+			clr_country_flag = GAY_candidate_action_in_progress
+		}
+	}	
+    GAY_stamp_down = {
+		icon = GFX_decision_generic_political_discourse
+	
+		allowed = {
+			tag = GAY
+		}
+		
+		available = {
+			AND = { NOT = {
+				has_country_flag = GAY_candidate_action_in_progress
+			}
+			has_country_flag = GAY_pavlov_selected
+			}
+		}
+		
+		visible = {
+			hidden_trigger = {
+				AND = { has_country_flag = GAY_candidate_mechanic
+				has_country_flag = GAY_pavlov_selected
+				check_variable = { GAY_pavlov_power > 70 }
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		cost = 75
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_provide_charity"
+			set_country_flag = GAY_candidate_action_in_progress
+			set_temp_variable = { GAY_pavlov_power_temp = 15 }
+			GAY_add_pavlov_power = yes
+			hidden_effect = { GAY_ideologies_var = yes }	
+			add_stability = 0.1			
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_provide_charity"
+			clr_country_flag = GAY_candidate_action_in_progress
+		}
+	}		
+	GAY_antipin_side = { #antipin's Decisions here
+		visible = {
+			hidden_trigger = {
+				AND = { has_country_flag = GAY_candidate_mechanic
+				NOT = {
+					OR = { has_country_flag = GAY_izvekov_selected
+					has_country_flag = GAY_antipin_selected	
+					has_country_flag = GAY_pavlov_selected	
+					}
+				}
+				}
+			}
+		}
+
+		available = {
+			has_country_flag = GAY_candidate_mechanic
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+
+		complete_effect = {
+         set_country_flag = GAY_antipin_selected
+		custom_effect_tooltip = GAY_antipin_route_tt				 
+		}
+	}
+	GAY_rouse_the_faithful = {
+		icon = GFX_decision_generic_civil_support
+	
+		allowed = {
+			tag = GAY
+		}
+		
+		available = {
+			AND = { NOT = {
+				has_country_flag = GAY_candidate_action_in_progress
+			}
+			has_country_flag = GAY_antipin_selected
+			}
+		}
+		
+		visible = {
+			hidden_trigger = {
+				AND = { 
+					has_country_flag = GAY_candidate_mechanic
+					has_country_flag = GAY_antipin_selected
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		cost = 10
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_rouse_the_faithful"
+			set_country_flag = GAY_candidate_action_in_progress
+			set_temp_variable = { GAY_antipin_power_temp = 5 }
+			GAY_add_antipin_power = yes
+			hidden_effect = { 
+				GAY_ideologies_var = yes 
+				if = {
+					limit = { 
+						NOT = {
+							has_country_flag = GAY_antipin_has_roused_the_faithful
+						}
+						397 = {
+							is_owned_by = GAY
+						} 
+					}
+					set_country_flag = GAY_antipin_has_roused_the_faithful
+					country_event = {
+						id = GAY.152
+						days = 12
+					}
+				}
+			}
+			add_manpower = 2000
+												
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_rouse_the_faithful"
+			clr_country_flag = GAY_candidate_action_in_progress
+		}
+	}
+    GAY_righteous_cause = {
+		icon = GFX_decision_generic_military_parade
+	
+		allowed = {
+			tag = GAY
+		}
+		
+		available = {
+			AND = { NOT = {
+				has_country_flag = GAY_candidate_action_in_progress
+			}
+			has_country_flag = GAY_antipin_selected
+			}
+		}
+		
+		visible = {
+			hidden_trigger = {
+				AND = { has_country_flag = GAY_candidate_mechanic
+				has_country_flag = GAY_antipin_selected
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		cost = 20
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_righteous_cause"
+			set_country_flag = GAY_candidate_action_in_progress
+			set_temp_variable = { GAY_antipin_power_temp = 7 }
+			GAY_add_antipin_power = yes
+			hidden_effect = { GAY_ideologies_var = yes }		
+			add_war_support = 0.025		
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_righteous_cause"
+			clr_country_flag = GAY_candidate_action_in_progress
+		}
+	}	
+    GAY_hold_excerise = {
+		icon = GFX_decision_generic_prepare_civil_war
+	
+		allowed = {
+			tag = GAY
+		}
+		
+		available = {
+			AND = { NOT = {
+				has_country_flag = GAY_candidate_action_in_progress
+			}
+			has_country_flag = GAY_antipin_selected
+			}
+		}
+		
+		visible = {
+			hidden_trigger = {
+				AND = { has_country_flag = GAY_candidate_mechanic
+				has_country_flag = GAY_antipin_selected
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		cost = 50
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_hold_excerise"
+			set_country_flag = GAY_candidate_action_in_progress
+			set_temp_variable = { GAY_antipin_power_temp = 10 }
+			GAY_add_antipin_power = yes
+			hidden_effect = { GAY_ideologies_var = yes }	
+			army_experience = 10			
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_hold_excerise"
+			clr_country_flag = GAY_candidate_action_in_progress
+		}
+	}
+    GAY_sway_the_military = {
+		icon = GFX_decision_generic_military_parade
+	
+		allowed = {
+			tag = GAY
+		}
+		
+		available = {
+			AND = { NOT = {
+				has_country_flag = GAY_candidate_action_in_progress
+			}
+			has_country_flag = GAY_antipin_selected
+			}
+		}
+		
+		visible = {
+			hidden_trigger = {
+				AND = { has_country_flag = GAY_candidate_mechanic
+				has_country_flag = GAY_antipin_selected
+				check_variable = { GAY_antipin_power > 40 }
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		cost = 75
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 40
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_sway_the_military"
+			set_country_flag = GAY_candidate_action_in_progress
+			set_temp_variable = { GAY_antipin_power_temp = 15 }
+			GAY_add_antipin_power = yes
+			hidden_effect = { GAY_ideologies_var = yes }	
+			TNO_improve_army_professionalism_med = yes			
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_sway_the_military"
+			clr_country_flag = GAY_candidate_action_in_progress
+		}
+	}		
+	GAY_izvekov_side = { #Izvekov's Decisions here
+		visible = {
+			hidden_trigger = {
+				AND = { has_country_flag = GAY_candidate_mechanic
+				NOT = {
+					OR = { has_country_flag = GAY_izvekov_selected
+					has_country_flag = GAY_antipin_selected	
+					has_country_flag = GAY_pavlov_selected	
+					}
+				}
+				}
+			}
+		}
+
+		available = {
+				has_country_flag = GAY_candidate_mechanic			
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+
+		complete_effect = {
+			set_country_flag = GAY_izvekov_selected
+		custom_effect_tooltip = GAY_izvekov_route_tt			
+
+		}
+	}
+	GAY_hold_a_speech = {
+		icon = GFX_decision_generic_propaganda
+	
+		allowed = {
+			tag = GAY
+		}
+		
+		available = {
+			AND = { NOT = {
+				has_country_flag = GAY_candidate_action_in_progress
+			}
+			has_country_flag = GAY_izvekov_selected		
+			}	
+		}
+		
+		visible = {
+			hidden_trigger = {
+				has_country_flag = GAY_candidate_mechanic
+				has_country_flag = GAY_izvekov_selected			
+			}
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		cost = 10
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_hold_a_speech"
+			set_country_flag = GAY_candidate_action_in_progress
+			set_temp_variable = { GAY_izvekov_power_temp = 5 }
+			GAY_add_izvekov_power = yes
+			hidden_effect = { GAY_ideologies_var = yes }	
+			add_war_support = 0.025		
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_hold_a_speech"
+			clr_country_flag = GAY_candidate_action_in_progress
+		}
+	}
+    GAY_rally_the_people = {
+		icon = GFX_decision_generic_political_action
+	
+		allowed = {
+			tag = GAY
+		}
+		
+		available = {
+		AND = {	NOT = {
+				has_country_flag = GAY_candidate_action_in_progress
+			}
+			has_country_flag = GAY_izvekov_selected
+			}
+		}
+		
+		visible = {
+			hidden_trigger = {
+				AND = { has_country_flag = GAY_candidate_mechanic
+				has_country_flag = GAY_izvekov_selected		
+				}	
+			}
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+	
+		cost = 20
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_rally_the_people"
+			set_country_flag = GAY_candidate_action_in_progress
+			set_temp_variable = { GAY_izvekov_power_temp = 7 }
+			GAY_add_izvekov_power = yes
+			hidden_effect = { GAY_ideologies_var = yes }
+			add_manpower = 5000
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_rally_the_people"
+			clr_country_flag = GAY_candidate_action_in_progress
+		}
+	}	
+    GAY_spread_ideals_of_democracy = {
+		icon = GFX_decision_generic_voting
+	
+		allowed = {
+			tag = GAY
+		}
+		
+		available = {
+		AND = {	NOT = {
+				has_country_flag = GAY_candidate_action_in_progress
+			}
+			has_country_flag = GAY_izvekov_selected
+			}
+		}
+		
+		visible = {
+			hidden_trigger = {
+				AND = { has_country_flag = GAY_candidate_mechanic
+				has_country_flag = GAY_izvekov_selected		
+				}	
+			}
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		cost = 50
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 21
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_spread_ideals_of_democracy"
+			set_country_flag = GAY_candidate_action_in_progress
+			set_temp_variable = { GAY_izvekov_power_temp = 10 }
+			GAY_add_izvekov_power = yes
+			hidden_effect = { GAY_ideologies_var = yes }
+			add_popularity = {
+				ideology = social_conservative
+				popularity = 0.05
+			}
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_spread_ideals_of_democracy"
+			clr_country_flag = GAY_candidate_action_in_progress
+		}
+	}
+    GAY_denounce_the_army = {
+		icon = GFX_decision_generic_voting
+	
+		allowed = {
+			tag = GAY
+		}
+		
+		available = {
+		AND = {	NOT = {
+				has_country_flag = GAY_candidate_action_in_progress
+			}
+			has_country_flag = GAY_izvekov_selected
+			}
+		}
+		
+		visible = {
+			hidden_trigger = {
+				AND = { has_country_flag = GAY_candidate_mechanic
+				has_country_flag = GAY_izvekov_selected	
+				check_variable = { GAY_izvekov_power > 40 }	
+				}	
+			}
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		cost = 75
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 40
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_denounce_the_army"
+			set_country_flag = GAY_candidate_action_in_progress
+			set_temp_variable = { GAY_izvekov_power_temp = 15 }
+			GAY_add_izvekov_power = yes
+			hidden_effect = { GAY_ideologies_var = yes }
+			add_stability = 0.05
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_denounce_the_army"
+			clr_country_flag = GAY_candidate_action_in_progress
+		}
+	}
+    GAY_centralize_power = {
+		icon = GFX_decision_generic_political_discourse
+	
+		allowed = {
+			tag = GAY
+		}
+		
+		available = {
+			AND = { NOT = {
+				has_country_flag = GAY_candidate_action_in_progress
+			}
+			OR = { has_country_flag = GAY_pavlov_selected
+			has_country_flag = GAY_izvekov_selected 
+			has_country_flag = GAY_antipin_selected}
+
+			}
+		}
+		
+		visible = {
+			hidden_trigger = {
+				AND = { 
+					has_country_flag = GAY_candidate_mechanic
+					OR = { 
+						has_country_flag = GAY_pavlov_selected
+						has_country_flag = GAY_izvekov_selected 
+						has_country_flag = GAY_antipin_selected 
+					}
+					if = { 
+						limit = {
+							has_country_flag = GAY_pavlov_selected
+							check_variable = { GAY_pavlov_power > 90 }
+						} 
+					}    
+					else_if = {  
+						limit = {
+							has_country_flag = GAY_izvekov_selected
+							check_variable = { GAY_izvekov_power > 90 }
+						}
+					}  	
+					else_if = { 
+						limit = {
+							has_country_flag = GAY_antipin_selected
+							check_variable = { GAY_antipin_power > 90 }
+						} 
+					}  					           
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 5
+		}
+		
+		cost = 75
+		days_remove = 5
+		fire_only_once = no
+		days_re_enable = 50
+		
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_centralize_power"
+			set_country_flag = GAY_candidate_action_in_progress
+			if = { 
+				limit = { has_country_flag = GAY_pavlov_selected }
+				set_temp_variable = { GAY_pavlov_power_temp = 15 }
+				GAY_add_pavlov_power = yes 
+			}   
+			else_if = { 
+				limit = { has_country_flag = GAY_antipin_selected }
+				set_temp_variable = { GAY_antipin_power_temp = 15 }
+				GAY_add_antipin_power = yes 
+			} 
+			else_if = { 
+				limit = { has_country_flag = GAY_izvekov_selected }
+				set_temp_variable = { GAY_izvekov_power_temp = 15 }
+				GAY_add_izvekov_power = yes 
+			}  	
+			add_political_power = 100  					           
+								
+			hidden_effect = { GAY_ideologies_var = yes }				
+		}
+		
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_centralize_power"
+			clr_country_flag = GAY_candidate_action_in_progress
+		}
+	}			
+	GAY_influence_increase_pavlov = {
+
+		icon = GFX_decision_generic_propaganda
+
+		allowed = {
+			tag = GAY
+		}
+
+		visible = {
+			has_country_flag = GAY_candidate_mechanic
+			NOT = { has_country_flag = GAY_pavlov_selected }			
+		}
+
+		activation = {
+			has_country_flag = GAY_candidate_mechanic
+			NOT = { has_country_flag = GAY_pavlov_selected }
+		}
+
+		available = {
+			hidden_trigger = {
+				NOT = {
+					OR = { has_country_flag = GAY_candidate_mechanic
+					has_country_flag = GAY_pavlov_selected }
+				}
+			}
+		}
+
+		days_mission_timeout = 20
+
+		is_good = no
+
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision Timeout GAY_influence_increase_pavlov"
+			activate_mission = GAY_influence_increase_pavlov
+			custom_effect_tooltip = GAY_influence_increase_tt
+			hidden_effect = {
+				random_list = {
+					33 = {
+                       set_temp_variable = { GAY_pavlov_power_temp = 5 }
+					}
+					34 = {
+						set_temp_variable = { GAY_pavlov_power_temp = 10 }
+					}
+					33 = {
+						set_temp_variable = { GAY_pavlov_power_temp = 15 }
+					}
+					}
+				}
+				GAY_add_pavlov_power = yes				
+				hidden_effect = { GAY_ideologies_var = yes }				
+			}
+		}	
+	GAY_influence_increase_antipin = {
+
+		icon = GFX_decision_generic_propaganda
+
+		allowed = {
+			tag = GAY
+		}
+
+		visible = {
+			has_country_flag = GAY_candidate_mechanic
+			NOT = { has_country_flag = GAY_antipin_selected }			
+		}
+
+		activation = {
+			has_country_flag = GAY_candidate_mechanic
+			NOT = { has_country_flag = GAY_antipin_selected }
+		}
+
+		available = {
+			hidden_trigger = {
+				NOT = {
+					OR = { has_country_flag = GAY_candidate_mechanic
+					has_country_flag = GAY_antipin_selected }
+				}
+			}
+		}
+
+		days_mission_timeout = 20
+
+		is_good = no
+
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision Timeout GAY_influence_increase_antipin"
+			activate_mission = GAY_influence_increase_antipin
+			custom_effect_tooltip = GAY_influence_increase_tt
+			hidden_effect = {
+				random_list = {
+					33 = {
+                       set_temp_variable = { GAY_antipin_power_temp = 5 }
+					}
+					34 = {
+						set_temp_variable = { GAY_antipin_power_temp = 10 }
+					}
+					33 = {
+						set_temp_variable = { GAY_antipin_power_temp = 15 }
+					}
+					}
+				}
+				GAY_add_antipin_power = yes				
+				hidden_effect = { GAY_ideologies_var = yes }			
+			}
+		}		
+	GAY_influence_increase_izvekov = {
+
+		icon = GFX_decision_generic_propaganda
+
+		allowed = {
+			tag = GAY
+		}
+
+		visible = {
+			has_country_flag = GAY_candidate_mechanic
+			NOT = { has_country_flag = GAY_izvekov_selected }			
+		}
+
+		activation = {
+			has_country_flag = GAY_candidate_mechanic
+			NOT = { has_country_flag = GAY_izvekov_selected }
+		}
+
+		available = {
+			hidden_trigger = {
+				NOT = {
+					OR = { has_country_flag = GAY_candidate_mechanic
+					has_country_flag = GAY_izvekov_selected }
+				}
+			}
+		}
+
+		days_mission_timeout = 20
+
+		is_good = no
+
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision Timeout GAY_influence_increase_izvekov"
+			activate_mission = GAY_influence_increase_izvekov
+			custom_effect_tooltip = GAY_influence_increase_tt
+			hidden_effect = {
+				random_list = {
+						33 = {
+							set_temp_variable = { GAY_izvekov_power_temp = 5 }
+						}
+						34 = {
+							set_temp_variable = { GAY_izvekov_power_temp = 10 }
+						}
+						33 = {
+							set_temp_variable = { GAY_izvekov_power_temp = 15 }
+						}
+					}
+				}
+				GAY_add_izvekov_power = yes				
+				hidden_effect = { GAY_ideologies_var = yes }				
+			}
+		}							
+    }	
+
+GAY_purges_category = {
+	GAY_purge_kostroma = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		ai_will_do = { base = 50 }
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 856
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_kostroma"
+			856 = {
+				add_manpower = -10321
+			}
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_kostroma remove"
+			add_popularity = {
+				ideology = social_liberal
+				popularity = -0.15
+			}
+			add_political_power = 100
+		}
+	}
+	GAY_purge_viatka = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		ai_will_do = { base = 50 }
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 400
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_viatka"
+			400 = {
+				add_manpower = -40121
+			}
+			752 = {
+				add_manpower = -7520
+			}
+			399 = {
+				add_manpower = -3991
+			}
+			add_popularity = {
+				ideology = despotism
+				popularity = -0.15
+			}
+			add_political_power = 100
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_viatka remove"
+		}
+	}
+	GAY_purge_samara = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		ai_will_do = { base = 50 }
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 850
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_samara"
+			850 = {
+				add_manpower = -85012
+			}
+			251 = {
+				add_manpower = -21021
+			}
+			755 = {
+				add_manpower = -7510
+			}
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.15
+			}
+			add_political_power = 100
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_samara remove"
+		}
+	}
+	GAY_purge_perm = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		ai_will_do = { base = 50 }
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 753
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_perm"
+			753 = {
+				add_manpower = -1933
+			}
+			add_popularity = {
+				ideology = national_socialism
+				popularity = -0.15
+			}
+			add_political_power = 100
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_perm remove"
+		}
+	}
+	GAY_purge_tyumen = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		ai_will_do = { base = 50 }
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 572
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_tyumen"
+			572 = {
+				add_manpower = -137101
+			}
+			add_popularity = {
+				ideology = communist
+				popularity = -0.15
+			}
+			add_political_power = 100
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_tyumen remove"
+		}
+	}
+	GAY_purge_omsk = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		ai_will_do = { base = 50 }
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 571
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_omsk"
+			571 = {
+				add_manpower = -666
+			}
+			add_political_power = 130
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_omsk remove"
+		}
+	}
+
+	GAY_purge_yugra = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		ai_will_do = { base = 50 }
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 756
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_yugra"
+			756 = {
+				add_manpower = -7102
+			}
+			add_popularity = {
+				ideology = authoritarian_democrat
+				popularity = -0.15
+			}
+			add_political_power = 100
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_yugra remove"
+		}
+	}
+	GAY_purge_gayny = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		ai_will_do = { base = 50 }
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 866
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_gayny"
+			866 = {
+				add_manpower = -991
+			}
+			add_political_power = 200
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_gayny remove"
+		}
+	}
+	#Might add some decisions to purge regions from siberia and far east, later on
+	
+	GAY_purge_intelectuals = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		ai_will_do = { base = 50 }
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_intelectuals"
+			add_manpower = -5111
+			TNO_worsen_academic_base_high = yes
+			set_temp_variable = {
+				GAY_loyalty_change = 20
+			}
+			set_temp_variable = {
+				GAY_influence_change = -15
+			}
+			GAY_loyalty_peasant_change = yes
+			GAY_influence_peasant_change = yes
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_intelectuals remove"
+		}
+	}
+	GAY_purge_atheists = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		ai_will_do = { base = 50 }
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_atheists"
+			add_manpower = -5111
+			set_temp_variable = {
+				GAY_loyalty_change = 20
+			}
+			set_temp_variable = {
+				GAY_influence_change = -15
+			}
+			GAY_loyalty_peasant_change = yes
+			GAY_influence_peasant_change = yes
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_atheists remove"
+		}
+	}
+	GAY_purge_heretics = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		ai_will_do = { base = 50 }
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_heretics"
+			add_manpower = -9121
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_heretics remove"
+			set_temp_variable = {
+				GAY_loyalty_change = 10
+			}
+			set_temp_variable = {
+				GAY_influence_change = 10
+			}
+			GAY_loyalty_nobility_change = yes
+			GAY_influence_nobility_change = yes
+		}
+	}
+	GAY_purge_heathens = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		ai_will_do = { base = 50 }
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_heathens"
+			add_manpower = -30128
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_heathens remove"
+			set_temp_variable = {
+				GAY_loyalty_change = 10
+			}
+			set_temp_variable = {
+				GAY_influence_change = 10
+			}
+			GAY_loyalty_nobility_change = yes
+			GAY_influence_nobility_change = yes
+		}
+	}
+	GAY_purge_sinners = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		ai_will_do = { base = 50 }
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_sinners"
+			add_manpower = -50121
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_sinners remove"
+			set_temp_variable = {
+				GAY_loyalty_change = 20
+			}
+			set_temp_variable = {
+				GAY_influence_change = 10
+			}
+			GAY_loyalty_nobility_change = yes
+			GAY_influence_nobility_change = yes
+		}
+	}
+	GAY_purge_unloyal = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		ai_will_do = { base = 50 }
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_unloyal"
+			add_manpower = -9381
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_unloyal remove"
+			set_temp_variable = {
+				GAY_loyalty_change = 20
+			}
+			set_temp_variable = {
+				GAY_influence_change = -15
+			}
+			GAY_loyalty_oligarch_change = yes
+			GAY_influence_oligarch_change = yes
+		}
+	}
+	GAY_purge_skeptics = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		ai_will_do = { base = 50 }
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_skeptics"
+			add_manpower = -9211
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_skeptics remove"
+			set_temp_variable = {
+				GAY_loyalty_change = 15
+			}
+			set_temp_variable = {
+				GAY_influence_change = -20
+			}
+			GAY_loyalty_oligarch_change = yes
+			GAY_influence_oligarch_change = yes
+		}
+	}
+	GAY_purge_agnostics = {
+		icon = GFX_decision_generic_use_force
+		visible = {
+			has_country_flag = GAY_purges_started
+		}
+		ai_will_do = { base = 50 }
+		available = {
+			has_country_flag = GAY_purges_started
+		}
+
+		cost = 25
+		days_remove = 50
+		fire_only_once = yes
+
+		modifier = {
+			political_power_gain = -0.1
+		}
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_agnostics"
+			add_manpower = -10112
+		}
+
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_purge_agnostics remove"
+			set_temp_variable = {
+				GAY_loyalty_change = 10
+			}
+			set_temp_variable = {
+				GAY_influence_change = 10
+			}
+			GAY_loyalty_nobility_change = yes
+			GAY_influence_nobility_change = yes
+			add_political_power = 5
+		}
+	}
+}
+
+GAY_warlord_expansion = {
+	GAY_declare_war_on_warlord = {
+		icon = GFX_decision_generic_ignite_civil_war
+		target_array = global.russian_warlords
+		target_trigger = {
+			FROM = {
+				is_central_russian_nation = yes
+				is_neighbor_of = GAY
+				NOT = {
+					OR = {
+						tag = UKH
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 80
+			modifier = {
+				add = -90
+				ROOT = {
+					has_war = yes
+				}
+			}
+		}
+		war_with_target_on_remove = yes
+		cost = 30
+		days_remove = 35
+		modifier = {
+			political_power_gain = -0.1
+		}
+		fire_only_once = yes
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_declare_war_on_warlord"
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_declare_war_on_warlord"
+			declare_war_on = {
+				type = russian_reclaimation
+				target = FROM
+			}
+		}
+	}
+}
+
+GAY_estate_machanic_descisions = {
+	GAY_confiscate_land = {
+		icon = GFX_decision_generic_civil_support
+		available = {
+			check_variable = {
+				national_pct < 100
+			}
+		}
+		cost = 25
+		fire_only_once = no
+		days_re_enable = 150
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_exempt_from_conscription"
+			#gain 10 pct
+			#all estate loyalty and influence drop
+			set_temp_variable = {
+				GAY_increase_land = 5
+			}
+			GAY_land_to_nation = yes
+			set_temp_variable = {
+				GAY_loyalty_change = -10
+			}
+			set_temp_variable = {
+				GAY_influence_change = -10
+			}
+			GAY_loyalty_peasant_change = yes
+			GAY_loyalty_nobility_change = yes
+			GAY_loyalty_oligarch_change = yes
+			GAY_influence_peasant_change = yes
+			GAY_influence_nobility_change = yes
+			GAY_influence_oligarch_change = yes
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_exempt_from_conscription"
+		}
+	}
+
+	GAY_garner_support = {
+		icon = GFX_decision_generic_civil_support
+		cost = 200
+		fire_only_once = no
+		days_re_enable = 50
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_garner_support"
+			#gain 10 pct
+			#all estate loyalty rise
+			set_temp_variable = {
+				GAY_loyalty_change = 10
+			}
+			GAY_loyalty_peasant_change = yes
+			GAY_loyalty_nobility_change = yes
+			GAY_loyalty_oligarch_change = yes
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_garner_support"
+		}
+	}
+
+	#Note: all of these increase influence of their respective estate and some increase loyalty
+	#people priveleges
+	GAY_exempt_from_conscription = {
+		icon = GFX_decision_generic_civil_support
+		visible = {
+			NOT = {
+				has_country_flag = GAY_priv_exempt_from_conscription
+			}
+		}
+		cost = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_exempt_from_conscription"
+			#lower militarization
+			#gain pp and stab
+			set_country_flag = GAY_priv_exempt_from_conscription
+			tno_draft_exemptions_improve = yes
+			tno_conscription_improve = yes
+			
+			set_temp_variable = {
+				GAY_loyalty_change = 5
+			}
+			set_temp_variable = {
+				GAY_influence_change = 5
+			}
+			GAY_loyalty_peasant_change = yes
+			GAY_influence_peasant_change = yes
+			GAY_estate_calcs = yes
+			custom_effect_tooltip = GAY_priv_exempt_from_conscription_tt
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_exempt_from_conscription"
+		}
+	}
+
+	GAY_exempt_from_conscription_remove = {
+		icon = decision_generic_political_action
+		visible = {
+			has_country_flag = GAY_priv_exempt_from_conscription
+		}
+		cost = 50
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_exempt_from_conscription_remove"
+			tno_draft_exemptions_worsen = yes
+			tno_conscription_worsen = yes
+			set_temp_variable = {
+				GAY_loyalty_change = -10
+			}
+			set_temp_variable = {
+				GAY_influence_change = -5
+			}
+			GAY_loyalty_peasant_change = yes
+			GAY_influence_peasant_change = yes
+			clr_country_flag = GAY_priv_exempt_from_conscription
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_exempt_from_conscription_remove"
+		}
+	}
+
+	GAY_allow_homesteading = {
+		icon = decision_generic_propaganda
+		visible = {
+			NOT = {
+				has_country_flag = GAY_priv_allow_homesteading
+			}
+		}
+		available = {
+			check_variable = {
+				national_pct > 9
+			}
+		}
+		cost = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_allow_homesteading"
+			#monthly pop and weekly stab growth
+			TNO_improve_agriculture_high = yes
+			#-10 state control to people
+			set_temp_variable = {
+				GAY_increase_land = 10
+			}
+			GAY_land_to_peasant = yes
+			set_country_flag = GAY_priv_allow_homesteading
+			
+			set_temp_variable = {
+				GAY_loyalty_change = 10
+			}
+			set_temp_variable = {
+				GAY_influence_change = 10
+			}
+			GAY_loyalty_peasant_change = yes
+			GAY_influence_peasant_change = yes
+			GAY_estate_calcs = yes
+			custom_effect_tooltip = GAY_priv_allow_homesteading_tt
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_allow_homesteading"
+		}
+	}
+
+	GAY_allow_homesteading_remove = {
+		icon = decision_generic_political_action
+		visible = {
+			has_country_flag = GAY_priv_allow_homesteading
+		}
+		cost = 50
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_allow_homesteading_remove"
+			TNO_worsen_agriculture_high = yes
+			set_temp_variable = {
+				GAY_loyalty_change = -15
+			}
+			set_temp_variable = {
+				GAY_influence_change = -10
+			}
+			GAY_loyalty_peasant_change = yes
+			GAY_influence_peasant_change = yes
+			clr_country_flag = GAY_priv_allow_homesteading
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_allow_homesteading_remove"
+		}
+	}
+
+	GAY_town_development_program = {
+		icon = GFX_decision_generic_construction
+		visible = {
+			NOT = {
+				has_country_flag = GAY_priv_town_development_program
+			}
+		}
+		available = {
+			check_variable = {
+				national_pct > 4
+			}
+		}
+		cost = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_town_development_program"
+			#percent slots consumer goods
+			#-5 state control to people
+			set_country_flag = GAY_priv_town_development_program
+			set_temp_variable = {
+				GAY_increase_land = 5
+			}
+			GAY_land_to_peasant = yes
+			
+			set_temp_variable = {
+				GAY_influence_change = 5
+			}
+			GAY_influence_peasant_change = yes
+			GAY_estate_calcs = yes
+			custom_effect_tooltip = GAY_priv_town_development_program_tt
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_town_development_program"
+		}
+	}
+
+	GAY_town_development_program_remove = {
+		icon = decision_generic_political_action
+		visible = {
+			has_country_flag = GAY_priv_town_development_program
+		}
+		cost = 50
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_town_development_program_remove"
+			set_temp_variable = {
+				GAY_loyalty_change = -5
+			}
+			set_temp_variable = {
+				GAY_influence_change = -5
+			}
+			GAY_loyalty_peasant_change = yes
+			GAY_influence_peasant_change = yes
+			clr_country_flag = GAY_priv_town_development_program
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_town_development_program_remove"
+		}
+	}
+
+	GAY_grant_local_autonomy = {
+		icon = GFX_decision_generic_form_nation
+		visible = {
+			NOT = {
+				has_country_flag = GAY_priv_grant_local_autonomy
+			}
+		}
+		available = {
+			check_variable = {
+				national_pct > 9
+			}
+		}
+		cost = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_grant_local_autonomy"
+			#political power consumer goods construction
+			#-10 state control to people
+			set_country_flag = GAY_priv_grant_local_autonomy
+			set_temp_variable = {
+				GAY_increase_land = 10
+			}
+			GAY_land_to_peasant = yes
+			
+			set_temp_variable = {
+				GAY_loyalty_change = 10
+			}
+			set_temp_variable = {
+				GAY_influence_change = 10
+			}
+			GAY_loyalty_peasant_change = yes
+			GAY_influence_peasant_change = yes
+			GAY_estate_calcs = yes
+			custom_effect_tooltip = GAY_priv_grant_local_autonomy_tt
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_grant_local_autonomy"
+		}
+	}
+
+	GAY_grant_local_autonomy_remove = {
+		icon = decision_generic_political_action
+		visible = {
+			has_country_flag = GAY_priv_grant_local_autonomy
+		}
+		cost = 50
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_grant_local_autonomy_remove"
+			set_temp_variable = {
+				GAY_loyalty_change = -15
+			}
+			set_temp_variable = {
+				GAY_influence_change = -10
+			}
+			GAY_loyalty_peasant_change = yes
+			GAY_influence_peasant_change = yes
+			clr_country_flag = GAY_priv_grant_local_autonomy
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_grant_local_autonomy_remove"			
+		}
+	}
+
+	GAY_research_grants = {
+		icon = GFX_decision_drug_trade_increase
+		visible = {
+			NOT = {
+				has_country_flag = GAY_priv_research_grants
+			}
+		}
+		available = {
+			check_variable = {
+				national_pct > 4
+			}
+		}
+		cost = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_research_grants"
+			#research speed
+			#-5 state control to people
+			set_country_flag = GAY_priv_research_grants
+			set_temp_variable = {
+				GAY_increase_land = 5
+			}
+			GAY_land_to_peasant = yes
+			TNO_improve_academic_base_high = yes
+			
+			set_temp_variable = {
+				GAY_influence_change = 5
+			}
+			GAY_influence_peasant_change = yes
+			GAY_estate_calcs = yes
+			custom_effect_tooltip = GAY_priv_research_grants_tt
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_research_grants"
+		}
+	}
+
+	GAY_research_grants_remove = {
+		icon = decision_generic_political_action
+		visible = {
+			has_country_flag = GAY_priv_research_grants
+		}
+		cost = 50
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_research_grants_remove"
+			TNO_worsen_academic_base_high = yes
+			set_temp_variable = {
+				GAY_loyalty_change = -5
+			}
+			set_temp_variable = {
+				GAY_influence_change = -5
+			}
+			GAY_loyalty_peasant_change = yes
+			GAY_influence_peasant_change = yes
+			clr_country_flag = GAY_priv_research_grants
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_research_grants_remove"
+		}
+	}
+
+	#clergy priveleges
+	GAY_land_for_monastaries = {
+		icon = decision_generic_phone_call
+		visible = {
+			NOT = {
+				has_country_flag = GAY_priv_land_for_monastaries
+			}
+		}
+		available = {
+			check_variable = {
+				national_pct > 4
+			}
+		}
+		cost = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_land_for_monastaries"
+			#-5 state control to clergy
+			#lower militarization
+			#popularity gain for ruling party
+			set_country_flag = GAY_priv_land_for_monastaries
+			set_temp_variable = {
+				GAY_increase_land = 5
+			}
+			GAY_land_to_nobility = yes
+			set_temp_variable = {
+				GAY_loyalty_change = 10
+			}
+			set_temp_variable = {
+				GAY_influence_change = 10
+			}
+			GAY_loyalty_nobility_change = yes
+			GAY_influence_nobility_change = yes
+			GAY_estate_calcs = yes
+			custom_effect_tooltip = GAY_priv_land_for_monastaries_tt
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_land_for_monastaries"
+		}
+	}
+
+	GAY_land_for_monastaries_remove = {
+		icon = decision_generic_political_action
+		visible = {
+			has_country_flag = GAY_priv_land_for_monastaries
+		}
+		cost = 50
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_land_for_monastaries_remove"
+			set_temp_variable = {
+				GAY_loyalty_change = -20
+			}
+			set_temp_variable = {
+				GAY_influence_change = -10
+			}
+			GAY_loyalty_nobility_change = yes
+			GAY_influence_nobility_change = yes
+			clr_country_flag = GAY_priv_land_for_monastaries
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_land_for_monastaries_remove"
+		}
+	}
+
+	GAY_reaffirm_church_autonomy = {
+		icon = GFX_decision_generic_nationalism
+		visible = {
+			NOT = {
+				has_country_flag = GAY_priv_reaffirm_church_autonomy
+			}
+		}
+		available = {
+			check_variable = {
+				national_pct > 4
+			}
+		}
+		cost = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_reaffirm_church_autonomy"
+			#-5 state control to clergy
+			#resistance nullification
+			set_country_flag = GAY_priv_reaffirm_church_autonomy
+			set_temp_variable = {
+				GAY_increase_land = 5
+			}
+			GAY_land_to_nobility = yes
+			set_temp_variable = {
+				GAY_loyalty_change = 10
+			}
+			set_temp_variable = {
+				GAY_influence_change = 15
+			}
+			GAY_loyalty_nobility_change = yes
+			GAY_influence_nobility_change = yes
+			GAY_estate_calcs = yes
+			custom_effect_tooltip = GAY_priv_reaffirm_church_autonomy_tt
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_reaffirm_church_autonomy"
+		}
+	}
+
+	GAY_reaffirm_church_autonomy_remove = {
+		icon = decision_generic_political_action
+		visible = {
+			has_country_flag = GAY_priv_reaffirm_church_autonomy
+		}
+		cost = 50
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_reaffirm_church_autonomy_remove"
+			set_temp_variable = {
+				GAY_loyalty_change = -20
+			}
+			set_temp_variable = {
+				GAY_influence_change = -15
+			}
+			GAY_loyalty_nobility_change = yes
+			GAY_influence_nobility_change = yes
+			clr_country_flag = GAY_priv_reaffirm_church_autonomy
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_reaffirm_church_autonomy_remove"
+		}
+	}
+
+	GAY_orthodox_primacy_in_policy = {
+		icon = GFX_decision_generic_political_discourse
+		visible = {
+			NOT = {
+				has_country_flag = GAY_priv_orthodox_primacy_in_policy
+			}
+		}
+		available = {
+			check_variable = {
+				national_pct > 9
+			}
+		}
+		cost = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_orthodox_primacy_in_policy"
+			#-10 state control to clergy
+			#army morale and mobilization speed
+			set_country_flag = GAY_priv_orthodox_primacy_in_policy
+			set_temp_variable = {
+				GAY_increase_land = 10
+			}
+			GAY_land_to_nobility = yes
+			set_temp_variable = {
+				GAY_loyalty_change = 10
+			}
+			set_temp_variable = {
+				GAY_influence_change = 10
+			}
+			GAY_loyalty_nobility_change = yes
+			GAY_influence_nobility_change = yes
+			GAY_estate_calcs = yes
+			custom_effect_tooltip = GAY_priv_orthodox_primacy_in_policy_tt
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_orthodox_primacy_in_policy"
+		}
+	}
+
+	GAY_orthodox_primacy_in_policy_remove = {
+		icon = decision_generic_political_action
+		visible = {
+			has_country_flag = GAY_priv_orthodox_primacy_in_policy
+		}
+		cost = 50
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_orthodox_primacy_in_policy_remove"
+			set_temp_variable = {
+				GAY_loyalty_change = -20
+			}
+			set_temp_variable = {
+				GAY_influence_change = -10
+			}
+			GAY_loyalty_nobility_change = yes
+			GAY_influence_nobility_change = yes
+			clr_country_flag = GAY_priv_orthodox_primacy_in_policy
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_orthodox_primacy_in_policy_remove"
+		}
+	}
+
+	GAY_missionary_effort = {
+		icon = GFX_decision_category_generic_crisis
+		visible = {
+			NOT = {
+				has_country_flag = GAY_priv_missionary_effort
+			}
+		}
+		available = {
+			check_variable = {
+				national_pct > 4
+			}
+		}
+		cost = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_missionary_effort"
+			#-5 state control to clergy
+			#army org
+			set_country_flag = GAY_priv_missionary_effort
+			set_temp_variable = {
+				GAY_increase_land = 5
+			}
+			GAY_land_to_nobility = yes
+			set_temp_variable = {
+				GAY_loyalty_change = 10
+			}
+			set_temp_variable = {
+				GAY_influence_change = 15
+			}
+			GAY_loyalty_nobility_change = yes
+			GAY_influence_nobility_change = yes
+			GAY_estate_calcs = yes
+			custom_effect_tooltip = GAY_priv_missionary_effort_tt
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_missionary_effort"
+		}
+	}
+
+	GAY_missionary_effort_remove = {
+		icon = decision_generic_political_action
+		visible = {
+			has_country_flag = GAY_priv_missionary_effort
+		}
+		cost = 50
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_missionary_effort_remove"
+			set_temp_variable = {
+				GAY_loyalty_change = -20
+			}
+			set_temp_variable = {
+				GAY_influence_change = -15
+			}
+			GAY_loyalty_nobility_change = yes
+			GAY_influence_nobility_change = yes
+			clr_country_flag = GAY_priv_missionary_effort
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_missionary_effort_remove"
+		}
+	}
+
+	#oligarch priveleges
+	GAY_mining_rights = {
+		icon = GFX_decision_category_generic_prospect_for_resources
+		visible = {
+			NOT = {
+				has_country_flag = GAY_priv_mining_rights
+			}
+		}
+		available = {
+			check_variable = {
+				national_pct > 9
+			}
+		}
+		cost = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_mining_rights"
+			#-10 state control to oligarch
+			#resource gain
+			set_country_flag = GAY_priv_mining_rights
+			set_temp_variable = {
+				GAY_increase_land = 10
+			}
+			GAY_land_to_oligarch = yes
+			set_temp_variable = {
+				GAY_loyalty_change = 5
+			}
+			set_temp_variable = {
+				GAY_influence_change = 10
+			}
+			GAY_loyalty_oligarch_change = yes
+			GAY_influence_oligarch_change = yes
+			GAY_estate_calcs = yes
+			custom_effect_tooltip = GAY_priv_mining_rights_tt
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_mining_rights"
+		}
+	}
+
+	GAY_mining_rights_remove = {
+		icon = decision_generic_political_action
+		visible = {
+			has_country_flag = GAY_priv_mining_rights
+		}
+		cost = 50
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_mining_rights_remove"
+			set_temp_variable = {
+				GAY_loyalty_change = -10
+			}
+			set_temp_variable = {
+				GAY_influence_change = -10
+			}
+			GAY_loyalty_oligarch_change = yes
+			GAY_influence_oligarch_change = yes
+			clr_country_flag = GAY_priv_mining_rights
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_mining_rights_remove"
+		}
+	}
+
+	GAY_cutting_regulations = {
+		icon = GFX_decision_industrial_farm
+		visible = {
+			NOT = {
+				has_country_flag = GAY_priv_cutting_regulations
+			}
+		}
+		available = {
+			check_variable = {
+				national_pct > 9
+			}
+		}
+		cost = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_cutting_regulations"
+			#-10 state control to oligarch
+			#effeciency gain output
+			set_country_flag = GAY_priv_cutting_regulations
+			set_temp_variable = {
+				GAY_increase_land = 10
+			}
+			GAY_land_to_oligarch = yes
+			set_temp_variable = {
+				GAY_loyalty_change = 10
+			}
+			set_temp_variable = {
+				GAY_influence_change = 15
+			}
+			GAY_loyalty_oligarch_change = yes
+			GAY_influence_oligarch_change = yes
+			GAY_estate_calcs = yes
+			custom_effect_tooltip = GAY_priv_cutting_regulations_tt
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_cutting_regulations"
+		}
+	}
+
+	GAY_cutting_regulations_remove = {
+		icon = decision_generic_political_action
+		visible = {
+			has_country_flag = GAY_priv_cutting_regulations
+		}
+		cost = 50
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_cutting_regulations_remove"
+			set_temp_variable = {
+				GAY_loyalty_change = -10
+			}
+			set_temp_variable = {
+				GAY_influence_change = -15
+			}
+			GAY_loyalty_oligarch_change = yes
+			GAY_influence_oligarch_change = yes
+			clr_country_flag = GAY_priv_cutting_regulations
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_cutting_regulations_remove"
+		}
+	}
+
+	GAY_development_program = {
+		icon = GFX_decision_humanitarian_aid_increase
+		visible = {
+			NOT = {
+				has_country_flag = GAY_priv_development_program
+			}
+		}
+		available = {
+			check_variable = {
+				national_pct > 9
+			}
+		}
+		cost = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_development_program"
+			#-10 state control to oligarch
+			#construction speed civ expenditure
+			set_country_flag = GAY_priv_development_program
+			set_temp_variable = {
+				GAY_increase_land = 10
+			}
+			GAY_land_to_oligarch = yes
+			set_temp_variable = {
+				GAY_influence_change = 10
+			}
+			GAY_influence_oligarch_change = yes
+			GAY_estate_calcs = yes
+			custom_effect_tooltip = GAY_priv_development_program_tt
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_development_program"
+		}
+	}
+
+	GAY_development_program_remove = {
+		icon = decision_generic_political_action
+		visible = {
+			has_country_flag = GAY_priv_development_program
+		}
+		cost = 50
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_development_program_remove"
+			set_temp_variable = {
+				GAY_loyalty_change = -10
+			}
+			set_temp_variable = {
+				GAY_influence_change = -10
+			}
+			GAY_loyalty_oligarch_change = yes
+			GAY_influence_oligarch_change = yes
+			clr_country_flag = GAY_priv_development_program
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_development_program_remove"
+		}
+	}
+
+	GAY_technical_research_enterprise_grants = {
+		icon = GFX_decision_generic_prepare_civil_war
+		visible = {
+			NOT = {
+				has_country_flag = GAY_priv_technical_research_enterprise_grants
+			}
+		}
+		available = {
+			check_variable = {
+				national_pct > 4
+			}
+		}
+		cost = 30
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_technical_research_enterprise_grants"
+			#-5 state control to oligarch
+			#construction and electronics research speed
+			TNO_improve_industrial_expertise_med = yes
+			TNO_improve_research_facilities_med = yes
+			set_country_flag = GAY_priv_technical_research_enterprise_grants
+			add_ideas = GAY_technical_research_enterprise_grants
+			set_temp_variable = {
+				GAY_increase_land = 5
+			}
+			GAY_land_to_oligarch = yes
+			set_temp_variable = {
+				GAY_influence_change = 5
+			}
+			GAY_influence_oligarch_change = yes
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_technical_research_enterprise_grants"
+		}
+	}
+
+	GAY_technical_research_enterprise_grants_remove = {
+		icon = decision_generic_political_action
+		visible = {
+			has_country_flag = GAY_priv_technical_research_enterprise_grants
+		}
+		cost = 50
+		fire_only_once = no
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GAY_technical_research_enterprise_grants_remove"
+			TNO_worsen_industrial_expertise_med = yes
+			TNO_worsen_research_facilities_med = yes
+			set_temp_variable = {
+				GAY_loyalty_change = -10
+			}
+			set_temp_variable = {
+				GAY_influence_change = -5
+			}
+			GAY_loyalty_oligarch_change = yes
+			GAY_influence_oligarch_change = yes
+			clr_country_flag = GAY_priv_technical_research_enterprise_grants
+			remove_ideas = GAY_technical_research_enterprise_grants
+			GAY_estate_calcs = yes
+		}
+		remove_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision remove GAY_technical_research_enterprise_grants_remove"
+		}
+	}
+}
+
+GAY_debug_category = {
+
+	GAY_load_starting_tree = {
+
+		fire_only_once = no
+
+		complete_effect = {
+			load_focus_tree = GAY_oosg_warlord
+		}
+	}
+
+	GAY_load_smuta_tree = {
+
+		fire_only_once = no
+
+		complete_effect = {
+           load_focus_tree = GAY_warlord_war
+		}
+	}
+
+	GAY_load_pav_regional = {
+
+		fire_only_once = no
+
+		complete_effect = {
+           load_focus_tree = GAY_pavlov_regional
+		   set_cosmetic_tag = GAY_regional_unifier_despotism
+		}
+	}
+
+	GAY_load_izv_regional = {
+
+		fire_only_once = no
+
+		complete_effect = {
+           load_focus_tree = GAY_izvekov_regional
+		   set_cosmetic_tag = GAY_regional_unifier_conservatism
+		}
+	}
+
+	GAY_load_ant_regional = {
+
+		fire_only_once = no
+
+		complete_effect = {
+			load_focus_tree = GAY_antipin_regional
+			set_cosmetic_tag = GAY_regional_unifier_ultranationalism
+		}
+	}
+
+	GAY_load_pav_superregional = {
+
+		fire_only_once = no
+
+		complete_effect = {
+           load_focus_tree = GAY_Pavlov_superregional
+		   set_cosmetic_tag = GAY_RUS_despotism
+		}
+	}
+
+	GAY_load_izv_superregional = {
+
+		fire_only_once = no
+
+		complete_effect = {
+           load_focus_tree = GAY_Izvekov_superregional
+		   set_cosmetic_tag = GAY_RUS_conservatism
+		}
+	}
+
+	GAY_load_ant_superregional ={
+
+		fire_only_once = no
+		complete_effect = {
+			load_focus_tree = GAY_Antipin_superregional
+			set_cosmetic_tag = GAY_RUS_ultranationalism
+		}
+	}
+
+	GAY_load_candidate = {
+		fire_only_once = no
+		complete_effect = {
+			GAY_initialize_candidate = yes
+		}
+	}
+}

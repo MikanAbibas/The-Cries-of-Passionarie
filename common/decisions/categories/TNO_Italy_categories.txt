@@ -1,0 +1,464 @@
+ITA_debug_category = {
+	picture = GFX_decision_ITA_empire_management
+	icon = GFX_decision_category_generic
+	allowed = {
+		tag = ITA
+	}
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		is_debug = yes
+		is_ai = no
+	}
+	priority = {
+		base = 200
+	}
+}
+
+ITA_grand_council_of_fascism = {
+	icon = GFX_decision_category_generic_monarchism
+	scripted_gui = ITA_GCF_GUI
+	
+	allowed = { tag = ITA }
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_show_grand_council_of_fascism
+		is_ai = no
+	}
+	visible_when_empty = yes
+	
+	priority = 400
+}
+
+ITA_Camera = {
+	icon = GFX_decision_category_generic_democracy
+	allowed = {
+		tag = ITA
+	}
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_Camera_Enabled
+	}
+	priority = 190
+	visible_when_empty = yes
+	scripted_gui = TNO_Italy_Camera
+}
+
+ITA_Institutions = {
+	icon = GFX_decision_category_generic_democracy
+	allowed = {
+		tag = ITA
+	}
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_Institutions_Enabled
+	}
+	priority = 200
+	visible_when_empty = yes
+	scripted_gui = TNO_Italy_dem_institutions
+}
+
+ITA_ciano_pillars_of_power = {
+	icon = GFX_decision_category_generic_monarchism
+	scripted_gui = ITA_GUI_Ciano_Pillars_of_Power_GUI
+	allowed = {
+		tag = ITA
+	}
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = Ciano_PoP_Active
+		is_ai = no
+	}
+	visible_when_empty = yes
+	priority = {
+		base = 150
+	}
+}
+
+ITA_ciano_victory_pillars_of_power = {
+	icon = GFX_decision_category_generic_monarchism
+	scripted_gui = ITA_GUI_Ciano_Victory_Pillars_of_Power_GUI
+	allowed = {
+		tag = ITA
+	}
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = Ciano_Victory_PoP_Active
+		is_ai = no
+	}
+	visible_when_empty = yes
+	priority = {
+		base = 150
+	}
+}
+
+ITA_pillars_of_power = {
+	icon = GFX_decision_category_generic_monarchism
+	scripted_gui = ITA_GUI_Dem_Pillars_of_Power_GUI
+	allowed = {
+		tag = ITA
+	}
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = DemItaly_PoP_Active
+		is_ai = no
+	}
+	visible_when_empty = yes
+	priority = {
+		base = 150
+	}
+}
+
+ITA_RQSC_pavolini = {
+	icon = GFX_decision_category_generic_monarchism
+	scripted_gui = ITA_GUI_Reddite_Quae_Sunt_Caesari_GUI
+	allowed = {
+		tag = ITA
+	}
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		is_ai = no
+		has_country_flag = ITA_RQSC_Mechanic
+	}
+	visible_when_empty = yes
+	priority = {
+		base = 150
+	}
+}
+
+ITA_Verona_Congress = {
+	icon = GFX_decision_category_power_struggle
+	scripted_gui = ITA_GUI_Verona_Congress_GUI
+	allowed = {
+		tag = ITA
+	}
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_show_verona_congress
+		NOT = {
+			has_country_flag = ITA_Verona_Congress_Over
+		}
+	}
+	visible_when_empty = yes
+	priority = {
+		base = 150
+	}
+}
+
+ITA_ZZZ_Verona_Congress_Countdown = {
+	allowed = {
+		tag = ZZZ
+	}
+	visible = {
+		has_global_flag = ITA_MED_REWORK
+		ITA = {
+			has_country_flag = ITA_show_verona_congress
+			NOT = {
+				has_country_flag = ITA_Verona_Congress_Over
+			}
+		}
+	}
+	visible_when_empty = no
+	priority = {
+		base = 1
+	}
+}
+
+ITA_Pepe_Silvia_Disco_Elysium = {
+	icon = decision_generic_prepare_civil_war
+	scripted_gui = ITA_GUI_Pepe_Silvia_Disco_Elysium_GUI
+	allowed = {
+		tag = ITA
+	}
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_PSDE_Enabled
+		is_ai = no
+	}
+	visible_when_empty = yes
+	priority = {
+		base = 150
+	}
+}
+
+ITA_balbo_imper = {
+	icon = GFX_decision_category_generic_monarchism
+	allowed = {
+		OR = {
+			tag = ITA
+			tag = ZZZ
+		}
+	}
+	visible = {
+		has_global_flag = ITA_MED_REWORK
+		has_country_flag = ITA_Balbo_Mechanic
+	}
+	visible_when_empty = yes
+	scripted_gui = TNO_Italy_Balbo_GUI
+	priority = {
+		base = 150
+	}
+}
+
+#Italy_Balbo_GUI = {
+#	allowed = {
+#		tag = ITA
+#	}
+#	visible = {
+#		always = yes
+#	}
+#	priority = 100000
+#	visible_when_empty = yes
+#	scripted_gui = TNO_Italy_Balbo_GUI
+#}
+
+ITA_nuke_development_category = {
+	icon = GFX_decision_category_ITA_missiolinis
+	#picture = GFX_decision_ITA_progetta_alfa
+	allowed = {
+		tag = ITA
+	}
+	# Was is_debug = yes, which meant the only way to move the programme along -
+	# the uranium, reactor, scientist and safety decisions that feed
+	# ITA_nuclear_development_monthly_modifier - was unreachable in a normal game.
+	# At the base rate of 0.3 a month from a start of 5.5, reaching 100 takes some
+	# twenty-six years, so without those decisions the bomb never arrives.
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		is_ai = no
+	}
+	visible_when_empty = yes
+	priority = 45
+	scripted_gui = ITA_GUI_Nuke_Production
+}
+
+ITA_fash_resistance_category = {
+	icon = decision_generic_prepare_civil_war
+	picture = GFX_decision_IME_decision_operation_masada
+	allowed = {
+		tag = ITA
+	}
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_fash_resistance_mechanic_enabled
+		always = yes
+	}
+	scripted_gui = ITA_GUI_fash_resistance_GUI
+	visible_when_empty = yes
+	priority = 45
+}
+ITA_sansepolchro_revolution = {
+	icon = decision_category_military_operation
+	scripted_gui = ITA_GUI_Multi_Revolution_GUI
+	allowed = {
+		tag = ITA
+	}
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_Muti_mechanic
+	}
+	visible_when_empty = yes
+	priority = {
+		base = 9999
+	}
+}
+
+ITA_conversion_mech = {
+	icon = GFX_ITA_Giani_ITA_Fasces
+	allowed = {
+		tag = ITA
+	}
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_GUI_giani_mech_active
+	}
+	priority = 9999
+	visible_when_empty = yes
+	scripted_gui = TNO_ITA_conversion_mech
+}
+
+ITA_election_countdown = {
+	allowed = {
+		tag = ZZZ
+	}
+	visible_when_empty = no
+	visible = {
+		has_global_flag = ITA_MED_REWORK
+		always = yes
+	}
+}
+
+ITA_italo_german_war_category = {
+	allowed = { 
+		OR = {
+			tag = ITA
+			tag = GER
+		}
+	}
+	visible_when_empty = no
+	visible = {
+		has_global_flag = ITA_MED_REWORK has_global_flag = italo_german_war }
+}
+
+ITA_damen_UMSR_category = {
+	allowed = { tag = ITA }
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_damen_UMSR
+	}
+	visible_when_empty = yes
+	
+	priority = 400
+}
+
+ITA_RED_election = {
+	icon = GFX_decision_category_generic_political_actions
+	allowed = { tag = ITA }
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_RED_assembly_active
+	}
+	visible_when_empty = yes
+
+	scripted_gui = ITA_RED_election_GUI
+
+	priority = 400
+}
+
+ITA_RED_army_management = {
+	icon = GFX_decision_category_military_operation
+	allowed = { tag = ITA }
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_RED_show_army_management
+	}
+	visible_when_empty = yes
+
+	priority = 300
+	scripted_gui = ITA_RED_army_management_GUI
+}
+
+ITA_IEA_Decol_GUI = {
+	icon = GFX_decision_category_ITA_colonial_management
+	allowed = { tag = ITA }
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_show_IEA_Decol_GUI
+	}
+	visible_when_empty = yes
+	
+	priority = 120
+	scripted_gui = ITA_IEA_Decol_GUI
+}
+
+ITA_IEA_Collapse_GUI = {
+	allowed = { tag = ITA }
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_show_IEA_Collapse_GUI
+	}
+	visible_when_empty = yes
+	
+	priority = 1000
+	scripted_gui = ITA_IEA_Collapse_GUI
+}
+
+ITA_RED_rodano_mechanic = {
+	icon = GFX_decision_category_generic_communism
+	allowed = { tag = ITA }
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_RED_cathcom_mechanic_active
+		NOT = {
+			has_global_flag = ITA_Vidali_coup
+			has_global_flag = ITA_counterrevolutionary_coup
+		}
+	}
+	scripted_gui = TNO_ITA_RED_church_and_state
+	visible_when_empty = yes
+
+	priority = 1000
+}
+
+ITA_RED_gallo_mechanic = {
+	allowed = { tag = ITA }
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_RED_gallo_mechanic_active
+		NOT = {
+			has_global_flag = ITA_Vidali_coup
+			has_global_flag = ITA_counterrevolutionary_coup
+		}
+	}
+#	scripted_gui = TNO_ITA_RED_church_and_state
+	visible_when_empty = yes
+
+	priority = 1000
+}
+
+ITA_RED_secchia_mechanic = {
+	icon = GFX_decision_category_generic_communism
+	allowed = { tag = ITA }
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_RED_secchia_mechanic_active
+		NOT = {
+			has_global_flag = ITA_Vidali_coup
+			has_global_flag = ITA_counterrevolutionary_coup
+		}
+	}
+	scripted_gui = TNO_ITA_RED_the_vanguards_shield
+	visible_when_empty = yes
+
+	priority = 1000
+}
+
+ITA_RED_damen_mechanic = {
+	icon = GFX_decision_category_generic_communism
+	allowed = { tag = ITA }
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_RED_damen_mechanic_active
+		NOT = {
+			has_global_flag = ITA_Vidali_coup
+			has_global_flag = ITA_counterrevolutionary_coup
+		}
+	}
+#	scripted_gui = TNO_ITA_RED_the_vanguards_shield
+	visible_when_empty = yes
+
+	priority = 1000
+}
+
+ITA_RED_Negri_mechanic = {
+	icon = GFX_decision_category_generic_communism
+	allowed = { tag = ITA }
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_RED_negri_mechanic_active
+		NOT = {
+			has_global_flag = ITA_Vidali_coup
+			has_global_flag = ITA_counterrevolutionary_coup
+		}
+	}
+	scripted_gui = TNO_ITA_RED_democracy_is_the_rifle_on_the_workers_shoulder
+	visible_when_empty = yes
+
+	priority = 500
+}
+
+ITA_RED_a_bird_and_its_cage = {
+	icon = GFX_decision_category_generic_communism
+	allowed = { tag = ITA }
+	visible = {
+		has_country_flag = ITA_med_rework_active
+		has_country_flag = ITA_RED_feltrinelli_mechanic_active
+		NOT = {
+			has_global_flag = ITA_Vidali_coup
+			has_global_flag = ITA_counterrevolutionary_coup
+		}
+	}
+	scripted_gui = TNO_ITA_RED_a_bird_and_its_cage
+	visible_when_empty = yes
+
+	priority = 1000
+}

@@ -1,0 +1,3249 @@
+######### REWORKED DEMOCRACY EFFECTS
+
+GRE_initialize_election_system = {
+
+	# establish state pop numbers
+	add_to_array = { GRE_election_state_IDs = 1262 } #central greece
+	add_to_array = { GRE_election_state_IDs = 1266 } #central thrace
+	add_to_array = { GRE_election_state_IDs = 182 } #crete
+	add_to_array = { GRE_election_state_IDs = 185 } #epirus
+	add_to_array = { GRE_election_state_IDs = 731 } #macedonia
+	add_to_array = { GRE_election_state_IDs = 187 } #naxos
+	add_to_array = { GRE_election_state_IDs = 1328 } #north cyprus
+	add_to_array = { GRE_election_state_IDs = 186 } #peloponnese
+	add_to_array = { GRE_election_state_IDs = 1263 } #saronikos
+	add_to_array = { GRE_election_state_IDs = 183 } #south cyprus
+	add_to_array = { GRE_election_state_IDs = 47 } #thessaly
+	add_to_array = { GRE_election_state_IDs = 184 } #west thrace
+	
+	# popularities per state
+	for_each_loop = {
+		array = GRE_election_state_IDs
+		#BoG groups are elit, int and erg
+		add_to_array = { ERE_pop_elit = 45 }
+		add_to_array = { ERE_pop_int = 35 }
+		add_to_array = { ERE_pop_erg = 30 }
+		
+		add_to_array = { EDA_pop_elit = 25 }
+		add_to_array = { EDA_pop_int = 35 }
+		add_to_array = { EDA_pop_erg = 40 }
+		
+		add_to_array = { EK_pop_elit = 23 }
+		add_to_array = { EK_pop_int = 20 }
+		add_to_array = { EK_pop_erg = 15 }
+		
+		add_to_array = { KKE_pop_elit = 2 }
+		add_to_array = { KKE_pop_int = 5 }
+		add_to_array = { KKE_pop_erg = 10 }
+		
+		add_to_array = { MK_pop_elit = 5 }
+		add_to_array = { MK_pop_int = 5 }
+		add_to_array = { MK_pop_erg = 5 }
+		
+		#effects based on development
+		if = {
+			limit = {
+				var:GRE_election_state_IDs^i = {
+					has_state_category = wasteland
+				}
+			}
+			add_to_variable = { ERE_base_add = 10 }
+		}
+		
+		if = {
+			limit = {
+				var:GRE_election_state_IDs^i = {
+					has_state_category = pastoral
+				}
+			}
+			add_to_variable = { ERE_base_add = 10 }
+		}
+		
+		if = {
+			limit = {
+				var:GRE_election_state_IDs^i = {
+					has_state_category = rural
+				}
+			}
+			add_to_variable = { ERE_base_add = 10 }
+		}
+
+		if = {
+			limit = {
+				var:GRE_election_state_IDs^i = {
+					has_state_category = town
+				}
+			}
+			add_to_variable = { EK_base_add = 5 }
+			add_to_variable = { EDA_base_add = 5 }
+		}
+		
+		if = {
+			limit = {
+				var:GRE_election_state_IDs^i = {
+					has_state_category = large_town
+				}
+			}
+			add_to_variable = { EK_base_add = 5 }
+			add_to_variable = { EDA_base_add = 5 }
+		}
+		
+		if = {
+			limit = {
+				var:GRE_election_state_IDs^i = {
+					has_state_category = city
+				}
+			}
+			add_to_variable = { EK_base_add = 5 }
+			add_to_variable = { EDA_base_add = 5 }
+		}
+		
+		if = {
+			limit = {
+				var:GRE_election_state_IDs^i = {
+					has_state_category = large_city
+				}
+			}
+			add_to_variable = { EK_base_add = 5 }
+			add_to_variable = { EDA_base_add = 5 }
+		}
+		
+		if = {
+			limit = {
+				var:GRE_election_state_IDs^i = {
+					has_state_category = metropolis
+				}
+			}
+			add_to_variable = { EK_base_add = 10 }
+			add_to_variable = { EDA_base_add = 10 }
+		}
+		
+		if = {
+			limit = {
+				var:GRE_election_state_IDs^i = {
+					has_state_category = megalopolis
+				}
+			}
+			add_to_variable = { EK_base_add = 10 }
+			add_to_variable = { EDA_base_add = 10 }
+		}
+		
+		var:GRE_election_state_IDs^i = {
+			#GDP per capita
+			set_temp_variable = { GRE_GDP_per_capita = state_GDPPC }
+			divide_temp_variable = { GRE.GRE_GDP_per_capita = state_population_k }
+			log = "[?GRE.GRE_GDP_per_capita]"
+			clear_variable = GRE.GRE_GDP_per_capita
+		}
+		
+		
+		
+		
+		#add non-BoG state changes
+		add_to_variable = { ERE_pop_elit^i = ERE_base_add }
+		add_to_variable = { ERE_pop_int^i = ERE_base_add }
+		add_to_variable = { ERE_pop_erg^i = ERE_base_add }
+		
+		add_to_variable = { EDA_pop_elit^i = EDA_base_add }
+		add_to_variable = { EDA_pop_int^i = EDA_base_add }
+		add_to_variable = { EDA_pop_erg^i = EDA_base_add }
+		
+		add_to_variable = { EK_pop_elit^i = EK_base_add }
+		add_to_variable = { EK_pop_int^i = EK_base_add }
+		add_to_variable = { EK_pop_erg^i = EK_base_add }
+		
+		### display bars stuff
+		add_to_array = { EDA_pop_elit_displayed = 0 }
+		add_to_array = { EK_pop_elit_displayed = 0 }
+		add_to_array = { KKE_pop_elit_displayed = 0 }
+		
+		add_to_array = { EDA_pop_int_displayed = 0 }
+		add_to_array = { EK_pop_int_displayed = 0 }
+		add_to_array = { KKE_pop_int_displayed = 0 }
+		
+		add_to_array = { EDA_pop_erg_displayed = 0 }
+		add_to_array = { EK_pop_erg_displayed = 0 }
+		add_to_array = { KKE_pop_erg_displayed = 0 }
+		
+		GRE_election_adjust_popularities = yes
+		GRE_set_popularity_bars = yes
+	}
+}
+
+GRE_prepare_election = {
+	custom_effect_tooltip = GRE_prepare_election_tooltip
+	# med's campaign events: 1964 is Kanellopoulos against Pyromaglou; the second election is
+	# Karamanlis against whoever leads the EDA's influence bar (Phase E)
+	if = {
+		limit = { has_country_flag = GRE_second_election }
+		if = {
+			limit = { check_variable = { GRE_EDA_kyrkos_progress > GRE_EDA_papandreou_progress } }
+			country_event = { id = GRE_election_new.3 }
+		}
+		else = {
+			country_event = { id = GRE_election_new.2 }
+		}
+	}
+	else = {
+		country_event = { id = GRE_election_new.1 }
+	}
+	
+	for_each_loop = {
+		array = GRE_election_state_IDs
+		
+		#BoG modifiers
+		### 0 is ERE, 1 is EDA, 2 is EK
+		
+		### pop bonus from elite
+	
+		set_temp_variable = { GRE_BOG_elite_add = global.GRE_BOG_Approval_Elites }
+		subtract_from_variable = { GRE_BOG_elite_add = global.GRE_BOG_Disapprove_Elites }
+		divide_temp_variable = { GRE_BOG_elite_add = 2 }
+		if = {
+			limit = {
+				has_government = social_conservative # ERE
+			}
+			add_to_variable = { ERE_pop_elit^i = GRE_BOG_elite_add }
+		}
+		
+		if = {
+			limit = {
+				OR = { has_government = social_democrat has_government = socialist } # EDA
+			}
+			add_to_variable = { EDA_pop_elit^i = GRE_BOG_elite_add }
+		}
+
+		if = {
+			limit = {
+				has_government = social_liberal # EK
+			}
+			add_to_variable = { EK_pop_elit^i = GRE_BOG_elite_add }
+		}
+		
+		### pop bonus from intellectuals
+		
+		set_temp_variable = { GRE_BOG_intellectuals_add = global.GRE_BOG_Approval_Intellectuals }
+		subtract_from_variable = { GRE_BOG_intellectuals_add = global.GRE_BOG_Disapprove_Intellectuals }
+		divide_temp_variable = { GRE_BOG_intellectuals_add = 2 }
+		if = {
+			limit = {
+				has_government = social_conservative # ERE
+			}
+			add_to_variable = { ERE_pop_int^i = GRE_BOG_intellectuals_add }
+		}
+	
+		if = {
+			limit = {
+				OR = { has_government = social_democrat has_government = socialist } # EDA
+			}
+			add_to_variable = { EDA_pop_int^i = GRE_BOG_intellectuals_add }
+		}
+
+		if = {
+			limit = {
+				has_government = social_liberal # EK
+			}
+			add_to_variable = { EK_pop_int^i = GRE_BOG_intellectuals_add }
+		}
+		
+		### pop bonus from workers
+		
+		set_temp_variable = { GRE_BOG_workers_add = global.GRE_BOG_Approval_Working_Class }
+		subtract_from_variable = { GRE_BOG_workers_add = global.GRE_BOG_Disapprove_Working_Class }
+		divide_temp_variable = { GRE_BOG_workers_add = 2 }
+		if = {
+			limit = {
+				has_government = social_conservative # ERE
+			}
+			add_to_variable = { ERE_pop_erg^i = GRE_BOG_workers_add }
+		}
+
+		if = {
+			limit = {
+				OR = { has_government = social_democrat has_government = socialist } # EDA
+			}
+			add_to_variable = { EDA_pop_erg^i = GRE_BOG_workers_add }
+		}
+	
+		if = {
+			limit = {
+				has_government = social_liberal # EK
+			}
+			add_to_variable = { EK_pop_erg^i = GRE_BOG_workers_add }
+		}
+		
+		GRE_election_adjust_popularities = yes
+		
+		GRE_set_popularity_bars = yes
+	}
+}
+
+GRE_election_adjust_popularities = {
+	set_temp_variable = { pop_elit_compiled = ERE_pop_elit^i }
+	add_to_temp_variable = { pop_elit_compiled = EDA_pop_elit^i }
+	add_to_temp_variable = { pop_elit_compiled = EK_pop_elit^i }
+	add_to_temp_variable = { pop_elit_compiled = KKE_pop_elit^i }
+	add_to_temp_variable = { pop_elit_compiled = MK_pop_elit^i }
+	divide_temp_variable = { pop_elit_compiled = 100 }
+	divide_variable = { ERE_pop_elit^i = pop_elit_compiled }
+	divide_variable = { EDA_pop_elit^i = pop_elit_compiled }
+	divide_variable = { EK_pop_elit^i = pop_elit_compiled }
+	divide_variable = { KKE_pop_elit^i = pop_elit_compiled }
+	divide_variable = { MK_pop_elit^i = pop_elit_compiled }
+	
+	set_temp_variable = { pop_int_compiled = ERE_pop_int^i }
+	add_to_temp_variable = { pop_int_compiled = EDA_pop_int^i }
+	add_to_temp_variable = { pop_int_compiled = EK_pop_int^i }
+	add_to_temp_variable = { pop_int_compiled = KKE_pop_int^i }
+	add_to_temp_variable = { pop_int_compiled = MK_pop_int^i }
+	divide_temp_variable = { pop_int_compiled = 100 }
+	divide_variable = { ERE_pop_int^i = pop_int_compiled }
+	divide_variable = { EDA_pop_int^i = pop_int_compiled }
+	divide_variable = { EK_pop_int^i = pop_int_compiled }
+	divide_variable = { KKE_pop_int^i = pop_int_compiled }
+	divide_variable = { MK_pop_int^i = pop_int_compiled }
+	
+	set_temp_variable = { pop_erg_compiled = ERE_pop_erg^i }
+	add_to_temp_variable = { pop_erg_compiled = EDA_pop_erg^i }
+	add_to_temp_variable = { pop_erg_compiled = EK_pop_erg^i }
+	add_to_temp_variable = { pop_erg_compiled = KKE_pop_erg^i }
+	add_to_temp_variable = { pop_erg_compiled = MK_pop_erg^i }
+	divide_temp_variable = { pop_erg_compiled = 100 }
+	divide_variable = { ERE_pop_erg^i = pop_erg_compiled }
+	divide_variable = { EDA_pop_erg^i = pop_erg_compiled }
+	divide_variable = { EK_pop_erg^i = pop_erg_compiled }
+	divide_variable = { KKE_pop_erg^i = pop_erg_compiled }
+	divide_variable = { MK_pop_erg^i = pop_erg_compiled }
+}
+
+GRE_set_popularity_bars = {
+
+	set_variable = { EDA_pop_elit_displayed^i = 0 }
+	set_variable = { EK_pop_elit_displayed^i = 0 }
+	set_variable = { KKE_pop_elit_displayed^i = 0 }
+	
+	set_variable = { EDA_pop_int_displayed^i = 0 }
+	set_variable = { EK_pop_int_displayed^i = 0 }
+	set_variable = { KKE_pop_int_displayed^i = 0 }
+	
+	set_variable = { EDA_pop_erg_displayed^i = 0 }
+	set_variable = { EK_pop_erg_displayed^i = 0 }
+	set_variable = { KKE_pop_erg_displayed^i = 0 }
+	
+	### elit
+	add_to_variable = { EDA_pop_elit_displayed^i = EDA_pop_elit^i }
+	add_to_variable = { EDA_pop_elit_displayed^i = ERE_pop_elit^i }
+	
+	add_to_variable = { EK_pop_elit_displayed^i = EK_pop_elit^i }
+	add_to_variable = { EK_pop_elit_displayed^i = EDA_pop_elit_displayed^i }
+	
+	add_to_variable = { KKE_pop_elit_displayed^i = KKE_pop_elit^i }
+	add_to_variable = { KKE_pop_elit_displayed^i = EK_pop_elit_displayed^i }
+	
+	### diannooumenoi
+	
+	add_to_variable = { EDA_pop_int_displayed^i = EDA_pop_int^i }
+	add_to_variable = { EDA_pop_int_displayed^i = ERE_pop_int^i }
+	
+	add_to_variable = { EK_pop_int_displayed^i = EK_pop_int^i }
+	add_to_variable = { EK_pop_int_displayed^i = EDA_pop_int_displayed^i }
+	
+	add_to_variable = { KKE_pop_int_displayed^i = KKE_pop_int^i }
+	add_to_variable = { KKE_pop_int_displayed^i = EK_pop_int_displayed^i }
+	
+	### ergates
+	
+	add_to_variable = { EDA_pop_erg_displayed^i = EDA_pop_erg^i }
+	add_to_variable = { EDA_pop_erg_displayed^i = ERE_pop_erg^i }
+	
+	add_to_variable = { EK_pop_erg_displayed^i = EK_pop_erg^i }
+	add_to_variable = { EK_pop_erg_displayed^i = EDA_pop_erg_displayed^i }
+	
+	add_to_variable = { KKE_pop_erg_displayed^i = KKE_pop_erg^i }
+	add_to_variable = { KKE_pop_erg_displayed^i = EK_pop_erg_displayed^i }
+	
+}
+
+GRE_election_state_victor_loop_effect = {
+	log = "HELLO"
+	set_temp_variable = { ERE_popularity_total = ERE_pop_elit^i }
+	add_to_temp_variable = { ERE_popularity_total = ERE_pop_int^i }
+	add_to_temp_variable = { ERE_popularity_total = ERE_pop_erg^i }
+	
+	add_to_temp_array = { GRE_election_popularities = ERE_popularity_total }
+	
+	set_temp_variable = { EK_popularity_total = EK_pop_elit^i }
+	add_to_temp_variable = { EK_popularity_total = EK_pop_int^i }
+	add_to_temp_variable = { EK_popularity_total = EK_pop_erg^i }
+	
+	add_to_temp_array = { GRE_election_popularities = EK_popularity_total }
+	
+	set_temp_variable = { EDA_popularity_total = EDA_pop_elit^i }
+	add_to_temp_variable = { EDA_popularity_total = EDA_pop_int^i }
+	add_to_temp_variable = { EDA_popularity_total = EDA_pop_erg^i }
+	
+	add_to_temp_array = { GRE_election_popularities = EDA_popularity_total }
+	
+	set_temp_variable = { KKE_popularity_total = KKE_pop_elit^i }
+	add_to_temp_variable = { KKE_popularity_total = KKE_pop_int^i }
+	add_to_temp_variable = { KKE_popularity_total = KKE_pop_erg^i }
+	
+	add_to_temp_array = { GRE_election_popularities = KKE_popularity_total }
+	
+	set_temp_variable = { MK_popularity_total = MK_pop_elit^i }
+	add_to_temp_variable = { MK_popularity_total = MK_pop_int^i }
+	add_to_temp_variable = { MK_popularity_total = MK_pop_erg^i }
+	
+	add_to_temp_array = { GRE_election_popularities = MK_popularity_total }
+	
+	find_highest_in_array = {
+		array = GRE_election_popularities
+		index = gre_victor_index
+	}
+	log = "state winner: [?gre_victor_index]"
+	set_variable = { GRE_state_winner = gre_victor_index } # the winner's index, not its share (Phase E)
+	
+	if = {
+		limit = {
+			check_variable = { GRE_state_winner = 0 }
+		}
+		GRE = {
+			add_to_array = { GRE_election_frame = 2 }
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = { GRE_state_winner = 1 }
+		}
+		GRE = {
+			add_to_array = { GRE_election_frame = 3 }
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = { GRE_state_winner = 2 }
+		}
+		GRE = {
+			add_to_array = { GRE_election_frame = 4 }
+		}
+	}
+	else = {
+		add_to_array = { GRE_election_frame = 1 }
+	}
+	
+	clear_temp_array = GRE_election_popularities
+}
+
+GRE_election_select_state_victors = {
+	clear_array = GRE_election_frame
+	for_each_loop = {
+		array = GRE_election_state_IDs
+		
+		GRE_election_state_victor_loop_effect = yes
+	}
+}
+
+GRE_election_select_national_victors = {
+	set_variable = { ERE_popularity_national = 0 }
+	set_variable = { EDA_popularity_national = 0 }
+	set_variable = { EK_popularity_national = 0 }
+	set_variable = { KKE_popularity_national = 0 }
+	set_variable = { MK_popularity_national = 0 }
+	
+	set_variable = { GRE_election_phase_var = 2 }
+	clear_variable = GRE_campaigning_party
+	
+	clr_country_flag = GRE_Kanellopooulos_campaign
+	clr_country_flag = GRE_Pyromaglou_campaign
+	clr_country_flag = GRE_Karamanlis_campaign
+	clr_country_flag = GRE_Papandreou_campaign
+	clr_country_flag = GRE_Kyrkos_campaign
+	clr_country_flag = GRE_Mavros_campaign
+
+	for_each_loop = {
+		array = GRE_election_state_IDs
+		
+		var:GRE_election_state_IDs^i = {
+			set_temp_variable = { GRE_state_voters = state_population_k }
+		}
+		log = "State Population: [?GRE_state_voters]"
+		
+		multiply_temp_variable = { GRE_state_voters = 0.55 }
+		
+		# this state's own totals: ERE_popularity_total was left over from the last state counted (Phase E)
+		set_temp_variable = { ERE_popularity_total = ERE_pop_elit^i }
+		add_to_temp_variable = { ERE_popularity_total = ERE_pop_int^i }
+		add_to_temp_variable = { ERE_popularity_total = ERE_pop_erg^i }
+		set_temp_variable = { ERE_state_voters = ERE_popularity_total }
+		divide_temp_variable = { ERE_state_voters = 300 }
+		multiply_temp_variable = { ERE_state_voters = GRE_state_voters }
+		add_to_variable = { ERE_popularity_national = ERE_state_voters }
+		log = "[?ERE_state_voters]"
+		
+		# this state's own totals: EDA_popularity_total was left over from the last state counted (Phase E)
+		set_temp_variable = { EDA_popularity_total = EDA_pop_elit^i }
+		add_to_temp_variable = { EDA_popularity_total = EDA_pop_int^i }
+		add_to_temp_variable = { EDA_popularity_total = EDA_pop_erg^i }
+		set_temp_variable = { EDA_state_voters = EDA_popularity_total }
+		divide_temp_variable = { EDA_state_voters = 300 }
+		multiply_temp_variable = { EDA_state_voters = GRE_state_voters }
+		add_to_variable = { EDA_popularity_national = EDA_state_voters }
+		log = "[?EDA_state_voters]"
+		
+		# this state's own totals: EK_popularity_total was left over from the last state counted (Phase E)
+		set_temp_variable = { EK_popularity_total = EK_pop_elit^i }
+		add_to_temp_variable = { EK_popularity_total = EK_pop_int^i }
+		add_to_temp_variable = { EK_popularity_total = EK_pop_erg^i }
+		set_temp_variable = { EK_state_voters = EK_popularity_total }
+		divide_temp_variable = { EK_state_voters = 300 }
+		multiply_temp_variable = { EK_state_voters = GRE_state_voters }
+		add_to_variable = { EK_popularity_national = EK_state_voters }
+		log = "[?EK_state_voters]"
+		
+		# this state's own totals: KKE_popularity_total was left over from the last state counted (Phase E)
+		set_temp_variable = { KKE_popularity_total = KKE_pop_elit^i }
+		add_to_temp_variable = { KKE_popularity_total = KKE_pop_int^i }
+		add_to_temp_variable = { KKE_popularity_total = KKE_pop_erg^i }
+		set_temp_variable = { KKE_state_voters = KKE_popularity_total }
+		divide_temp_variable = { KKE_state_voters = 300 }
+		multiply_temp_variable = { KKE_state_voters = GRE_state_voters }
+		add_to_variable = { KKE_popularity_national = KKE_state_voters }
+		log = "[?KKE_state_voters]"
+		
+		# this state's own totals: MK_popularity_total was left over from the last state counted (Phase E)
+		set_temp_variable = { MK_popularity_total = MK_pop_elit^i }
+		add_to_temp_variable = { MK_popularity_total = MK_pop_int^i }
+		add_to_temp_variable = { MK_popularity_total = MK_pop_erg^i }
+		set_temp_variable = { MK_state_voters = MK_popularity_total }
+		divide_temp_variable = { MK_state_voters = 300 }
+		multiply_temp_variable = { MK_state_voters = GRE_state_voters }
+		add_to_variable = { MK_popularity_national = MK_state_voters }
+		log = "[?MK_state_voters]"
+	}
+	
+	add_to_temp_array = { GRE_national_election_results = ERE_popularity_national }
+	add_to_temp_array = { GRE_national_election_results = EDA_popularity_national }
+	add_to_temp_array = { GRE_national_election_results = EK_popularity_national }
+	add_to_temp_array = { GRE_national_election_results = KKE_popularity_national }
+	add_to_temp_array = { GRE_national_election_results = MK_popularity_national }
+	
+	find_highest_in_array = {
+		array = GRE_national_election_results
+		index = gre_national_victor_index
+	}
+	
+	if = {
+		limit = { #ERE
+			check_variable = { gre_national_victor_index = 0 }
+		}
+	}
+	else_if = {
+		limit = { #EDA
+			check_variable = { gre_national_victor_index = 1 }
+		}
+	}
+	else_if = {
+		limit = { #EK
+			check_variable = { gre_national_victor_index = 2 }
+		}
+	}
+	
+	log = "National Results"
+	log = "[?ERE_popularity_national]"
+	log = "[?EDA_popularity_national]"
+	log = "[?EK_popularity_national]"
+	log = "[?KKE_popularity_national]"
+	log = "[?MK_popularity_national]"
+}
+
+
+
+######### OLD DEMOCRACY EFFECTS
+
+GRE_initialize_national_election_system = { #Fires at game start.
+
+	#GLOBAL BONUS POPULARITIES
+	set_variable = { GRE_socdem_global_bonus_pop = 0 }
+	set_variable = { GRE_auth_global_bonus_pop = 0 }
+	set_variable = { GRE_liberal_global_bonus_pop = 0 }
+	set_variable = { GRE_conservative_global_bonus_pop = 0 }
+
+	every_owned_state = {
+		set_variable = { GRE_general_state_turnout = 1 }
+		set_variable = { GRE_socdem_state_turnout = 1 }
+		set_variable = { GRE_auth_state_turnout = 1 }
+		set_variable = { GRE_liberal_state_turnout = 1 }
+		set_variable = { GRE_conservative_state_turnout = 1 }
+	}
+}
+
+GRE_generate_state_party_pops = { #Fires at game start, and when a democratic warlord absorbs another warlord.
+	set_variable = { GRE_state_conservative_pop = PREV.party_popularity@social_conservative }
+	set_variable = { GRE_state_liberal_pop = PREV.party_popularity@social_liberal }
+	set_variable = { GRE_state_socdem_pop = PREV.party_popularity@social_democrat }
+	set_variable = { GRE_state_auth_pop = 0 }
+	set_temp_variable = { GRE_state_socialist_temp_pop = PREV.party_popularity@socialist }
+	set_temp_variable = { GRE_state_communist_temp_pop = PREV.party_popularity@communist }
+	set_temp_variable = { GRE_state_despotism_temp_pop = PREV.party_popularity@despotism }
+	set_temp_variable = { GRE_state_auth_temp_pop = PREV.party_popularity@authoritarian_democrat }
+	set_temp_variable = { GRE_state_fascism_temp_pop = PREV.party_popularity@fascism }
+	set_temp_variable = { GRE_state_natsoc_temp_pop = PREV.party_popularity@national_socialism }
+	set_temp_variable = { GRE_state_ultranat_temp_pop = PREV.party_popularity@ultranational_socialism }
+	set_temp_variable = { GRE_state_burgsys_temp_pop = PREV.party_popularity@burgundian_system }
+
+	#Calculations for Party Fracturing
+	set_temp_variable = { GRE_state_socialist_socdem_fraction = GRE_state_socialist_temp_pop }
+	set_temp_variable = { GRE_state_socialist_liberal_fraction = GRE_state_socialist_temp_pop }
+	set_temp_variable = { GRE_state_communist_socdem_fraction = GRE_state_communist_temp_pop }
+	set_temp_variable = { GRE_state_communist_auth_fraction = GRE_state_communist_temp_pop }
+	set_temp_variable = { GRE_state_communist_liberal_fraction = GRE_state_communist_temp_pop }
+	set_temp_variable = { GRE_state_fascism_conservative_fraction = GRE_state_fascism_temp_pop }
+	set_temp_variable = { GRE_state_fascism_auth_fraction = GRE_state_fascism_temp_pop }
+	set_temp_variable = { GRE_state_natsoc_conservative_fraction = GRE_state_natsoc_temp_pop }
+	set_temp_variable = { GRE_state_natsoc_auth_fraction = GRE_state_natsoc_temp_pop }
+	set_temp_variable = { GRE_state_ultranat_conservative_fraction = GRE_state_ultranat_temp_pop }
+	set_temp_variable = { GRE_state_ultranat_auth_fraction = GRE_state_ultranat_temp_pop }
+	set_temp_variable = { GRE_state_despotism_socdem_fraction = GRE_state_despotism_temp_pop }
+	set_temp_variable = { GRE_state_despotism_conservative_fraction = GRE_state_despotism_temp_pop }
+	set_temp_variable = { GRE_state_despotism_auth_fraction = GRE_state_despotism_temp_pop }
+	set_temp_variable = { GRE_state_auth_socdem_fraction = GRE_state_auth_temp_pop }
+	set_temp_variable = { GRE_state_auth_conservative_fraction = GRE_state_auth_temp_pop }
+	set_temp_variable = { GRE_state_auth_auth_fraction = GRE_state_auth_temp_pop }
+	set_temp_variable = { GRE_state_auth_liberal_fraction = GRE_state_auth_temp_pop }
+	set_temp_variable = { GRE_state_burgsys_conservative_fraction = GRE_state_burgsys_temp_pop }
+	set_temp_variable = { GRE_state_burgsys_auth_fraction = GRE_state_burgsys_temp_pop }
+
+	#Breakdowns for Party Fracturing
+	multiply_temp_variable = { GRE_state_socialist_socdem_fraction = 0.75 }
+	multiply_temp_variable = { GRE_state_socialist_liberal_fraction = 0.25 }
+	multiply_temp_variable = { GRE_state_communist_socdem_fraction = 0.75 }
+	multiply_temp_variable = { GRE_state_communist_auth_fraction = 0.15 }
+	multiply_temp_variable = { GRE_state_communist_liberal_fraction = 0.10 }
+	multiply_temp_variable = { GRE_state_fascism_conservative_fraction = 0.7 }
+	multiply_temp_variable = { GRE_state_fascism_auth_fraction = 0.3 }
+	multiply_temp_variable = { GRE_state_natsoc_conservative_fraction = 0.7 }
+	multiply_temp_variable = { GRE_state_natsoc_auth_fraction = 0.3 }
+	multiply_temp_variable = { GRE_state_ultranat_conservative_fraction = 0.65 }
+	multiply_temp_variable = { GRE_state_ultranat_auth_fraction = 0.35 }
+	multiply_temp_variable = { GRE_state_despotism_socdem_fraction = 0.2 }
+	multiply_temp_variable = { GRE_state_despotism_conservative_fraction = 0.2 }
+	multiply_temp_variable = { GRE_state_despotism_liberal_fraction = 0.2 }
+	multiply_temp_variable = { GRE_state_despotism_auth_fraction = 0.4 }
+	multiply_temp_variable = { GRE_state_auth_socdem_fraction = 0.1 }
+	multiply_temp_variable = { GRE_state_auth_conservative_fraction = 0.2 }
+	multiply_temp_variable = { GRE_state_auth_liberal_fraction = 0.2 }
+	multiply_temp_variable = { GRE_state_auth_auth_fraction = 0.5 }
+	multiply_temp_variable = { GRE_state_burgsys_conservative_fraction = 0.8 }
+	multiply_temp_variable = { GRE_state_burgsys_auth_fraction = 0.2 }
+
+	#Adding fractured parties to democratic parties
+	add_to_variable = { GRE_state_conservative_pop = GRE_state_fascism_conservative_fraction }
+	add_to_variable = { GRE_state_conservative_pop = GRE_state_natsoc_conservative_fraction }
+	add_to_variable = { GRE_state_conservative_pop = GRE_state_ultranat_conservative_fraction }
+	add_to_variable = { GRE_state_conservative_pop = GRE_state_despotism_conservative_fraction }
+	add_to_variable = { GRE_state_liberal_pop = GRE_state_socialist_liberal_fraction }
+	add_to_variable = { GRE_state_liberal_pop = GRE_state_communist_liberal_fraction }
+	add_to_variable = { GRE_state_liberal_pop = GRE_state_despotism_liberal_fraction }
+	add_to_variable = { GRE_state_auth_pop = GRE_state_communist_auth_fraction }
+	add_to_variable = { GRE_state_auth_pop = GRE_state_fascism_auth_fraction }
+	add_to_variable = { GRE_state_auth_pop = GRE_state_ultranat_auth_fraction }
+	add_to_variable = { GRE_state_auth_pop = GRE_state_despotism_auth_fraction }
+	add_to_variable = { GRE_state_auth_pop = GRE_state_auth_socdem_fraction }
+	add_to_variable = { GRE_state_auth_pop = GRE_state_auth_conservative_fraction }
+	add_to_variable = { GRE_state_auth_pop = GRE_state_auth_liberal_fraction }
+	add_to_variable = { GRE_state_auth_pop = GRE_state_auth_liberal_fraction }
+	add_to_variable = { GRE_state_socdem_pop = GRE_state_socialist_socdem_fraction }
+	add_to_variable = { GRE_state_socdem_pop = GRE_state_communist_socdem_fraction }
+	add_to_variable = { GRE_state_socdem_pop = GRE_state_despotism_socdem_fraction }
+
+	#Defining temporary state pop variables (to be reset by election)
+	set_variable = { GRE_state_socdem_temp_pop = 0 }
+	set_variable = { GRE_state_auth_temp_pop = 0 }
+	set_variable = { GRE_state_liberal_temp_pop = 0 }
+	set_variable = { GRE_state_conservative_temp_pop = 0 }
+
+	if = {
+		limit = {
+			OWNER = {
+				has_government = communist
+				has_government = socialist
+			}
+		}
+		multiply_variable = { GRE_state_socdem_pop = 1.1 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_democrat
+			}
+		}
+		multiply_variable = { GRE_state_socdem_pop = 1.15 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_liberal
+			}
+		}
+		multiply_variable = { GRE_state_liberal_pop = 1.15 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_conservative
+			}
+		}
+		multiply_variable = { GRE_state_conservative_pop = 1.15 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = authoritarian_democrat
+			}
+		}
+		multiply_variable = { GRE_state_conservative_pop = 1.05 }
+		multiply_variable = { GRE_state_auth_pop = 1.05 }
+		multiply_variable = { GRE_state_socdem_pop = 1.05 }
+		multiply_variable = { GRE_state_liberal_pop = 1.05 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = despotism
+			}
+		}
+		multiply_variable = { GRE_state_conservative_pop = 1.05 }
+		multiply_variable = { GRE_state_auth_pop = 1.05 }
+		multiply_variable = { GRE_state_socdem_pop = 1.05 }
+		multiply_variable = { GRE_state_liberal_pop = 1.05 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				OR = {
+					has_government = fascism
+					has_government = ultranational_socialism
+					has_government = burgundian_system
+					has_government = national_socialism
+				}
+			}
+		}
+		multiply_variable = { GRE_state_conservative_pop = 1.1 }
+	}
+
+	#It's the 1960s.
+	if = {
+		limit = {
+			OR = {
+				has_state_category = town
+				has_state_category = rural
+				has_state_category = pastoral
+				has_state_category = wasteland
+			}
+		}
+		multiply_variable = { GRE_state_conservative_pop = 1.3 }
+	}
+	else = {
+		multiply_variable = { GRE_state_conservative_pop = 1.15 }
+	}
+
+	#Compensating for half of greece being AuthDem
+	if = {
+		limit = {
+			check_variable = { GRE_state_auth_pop > 0 }
+		}
+		multiply_variable = { GRE_state_auth_pop = 0.8 }
+	}
+
+	GRE_get_state_special_party_pop = yes
+}
+
+
+GRE_adjust_state_party_pops = {
+	if = {
+		limit = {
+			OWNER = {
+				has_government = communist
+				has_government = socialist
+			}
+		}
+		add_to_variable = { GRE_state_socdem_pop = 0.07 }
+		multiply_variable = { GRE_state_socdem_pop = 1.1 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_democrat
+			}
+		}
+		add_to_variable = { GRE_state_socdem_pop = 0.07 }
+		multiply_variable = { GRE_state_socdem_pop = 1.15 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_liberal
+			}
+		}
+		add_to_variable = { GRE_state_liberal_pop = 0.07 }
+		multiply_variable = { GRE_state_liberal_pop = 1.15 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_conservative
+			}
+		}
+		add_to_variable = { GRE_state_conservative_pop = 0.07 }
+		multiply_variable = { GRE_state_conservative_pop = 1.15 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = authoritarian_democrat
+			}
+		}
+		multiply_variable = { GRE_state_conservative_pop = 1.05 }
+		multiply_variable = { GRE_state_auth_pop = 1.05 }
+		multiply_variable = { GRE_state_socdem_pop = 1.05 }
+		multiply_variable = { GRE_state_liberal_pop = 1.05 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = despotism
+			}
+		}
+		multiply_variable = { GRE_state_conservative_pop = 1.05 }
+		multiply_variable = { GRE_state_auth_pop = 1.05 }
+		multiply_variable = { GRE_state_socdem_pop = 1.05 }
+		multiply_variable = { GRE_state_liberal_pop = 1.05 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				OR = {
+					has_government = fascism
+					has_government = ultranational_socialism
+					has_government = burgundian_system
+					has_government = national_socialism
+				}
+			}
+		}
+		add_to_variable = { GRE_state_conservative_pop = 0.07 }
+		multiply_variable = { GRE_state_conservative_pop = 1.1 }
+	}
+}
+
+GRE_get_state_special_party_pop = { #Fired every month, to update pops with material conditions
+	set_variable = { GRE_state_socdem_condition_pop = 0 }
+	set_variable = { GRE_state_auth_condition_pop = 0 }
+	set_variable = { GRE_state_liberal_condition_pop = 0 }
+	set_variable = { GRE_state_conservative_condition_pop = 0 }
+
+	#Capitals should usually vote for the ruling party
+	if = {
+		limit = {
+			is_capital = yes
+		}
+		if = {
+			limit = {
+				OWNER = {
+					OR = {
+						has_government = communist
+						has_government = socialist
+						has_government = social_democrat
+					}
+				}
+			}
+			add_to_variable = { GRE_state_socdem_condition_pop = 0.15 }
+			multiply_variable = { GRE_state_socdem_condition_pop = 1.5 }
+		}
+		if = {
+			limit = {
+				OWNER = {
+					OR = {
+						has_government = social_liberal
+					}
+				}
+			}
+			add_to_variable = { GRE_state_liberal_condition_pop = 0.15 }
+			multiply_variable = { GRE_state_liberal_condition_pop = 1.5 }
+		}
+		if = {
+			limit = {
+				OWNER = {
+					OR = {
+						has_government = social_conservative
+						has_government = fascism
+						has_government = ultranational_socialism
+						has_government = national_socialism
+						has_government = burgundian_system
+					}
+				}
+			}
+			add_to_variable = { GRE_state_conservative_condition_pop = 0.15 }
+			multiply_variable = { GRE_state_conservative_condition_pop = 1.5 }
+		}
+		if = {
+			limit = {
+				OWNER = {
+					OR = {
+						has_government = authoritarian_democrat
+						has_government = despotism
+					}
+				}
+			}
+			add_to_variable = { GRE_state_auth_condition_pop = 0.15 }
+			multiply_variable = { GRE_state_auth_condition_pop = 1.5 }
+		}
+	}
+
+	#State categories - rural states are more rightist
+	if = {
+		limit = {
+			has_state_category = wasteland
+		}
+		add_to_variable = { GRE_state_conservative_condition_pop = 0.2 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 1.4 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 0.6 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 0.8 }
+	}
+	if = {
+		limit = {
+			has_state_category = pastoral
+		}
+		add_to_variable = { GRE_state_conservative_condition_pop = 0.15 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 1.3 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 0.7 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 0.85 }
+	}
+	if = {
+		limit = {
+			has_state_category = rural
+		}
+		add_to_variable = { GRE_state_conservative_condition_pop = 0.1 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 1.2 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 0.8 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 0.9 }
+	}
+	if = {
+		limit = {
+			has_state_category = town
+		}
+		add_to_variable = { GRE_state_conservative_condition_pop = 0.05 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 1.1 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 0.9 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 0.95 }
+	}
+	if = {
+		limit = {
+			has_state_category = large_town
+		}
+		add_to_variable = { GRE_state_liberal_condition_pop = 0.05 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.9 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.1 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.05 }
+	}
+	if = {
+		limit = {
+			has_state_category = city
+		}
+		add_to_variable = { GRE_state_liberal_condition_pop = 0.1 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.8 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.2 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.1 }
+	}
+	if = {
+		limit = {
+			has_state_category = large_city
+		}
+		add_to_variable = { GRE_state_liberal_condition_pop = 0.15 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.7 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.3 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.15 }
+	}
+	if = {
+		limit = {
+			has_state_category = metropolis
+		}
+		add_to_variable = { GRE_state_liberal_condition_pop = 0.20 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.6 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.4 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.2 }
+	}
+	if = {
+		limit = {
+			has_state_category = megalopolis
+		}
+		add_to_variable = { GRE_state_liberal_condition_pop = 0.25 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.5 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.5 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 0.10 }
+	}
+
+	#Industry makes states more leftist
+	if = {
+		limit = {
+			check_variable = { TNO_combined_factory_total > 10 }
+		}
+		add_to_variable = { GRE_state_socdem_condition_pop = 0.25 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.7 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.12 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.3 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { TNO_combined_factory_total > 9 }
+		}
+		add_to_variable = { GRE_state_socdem_condition_pop = 0.20 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.75 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.1 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.25 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { TNO_combined_factory_total > 8 }
+		}
+		add_to_variable = { GRE_state_socdem_condition_pop = 0.15 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.8 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.08 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.20 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { TNO_combined_factory_total > 7 }
+		}
+		add_to_variable = { GRE_state_socdem_condition_pop = 0.1 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.85 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.06 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.15 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { TNO_combined_factory_total > 6 }
+		}
+		add_to_variable = { GRE_state_socdem_condition_pop = 0.05 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.9 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.04 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.1 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { TNO_combined_factory_total > 5 }
+		}
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.95 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.02 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.05 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { TNO_combined_factory_total > 4 }
+		}
+		multiply_variable = { GRE_state_conservative_condition_pop = 1.0 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.0 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.0 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { TNO_combined_factory_total > 3 }
+		}
+		multiply_variable = { GRE_state_conservative_condition_pop = 1.05 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 0.98 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 0.95 }
+	}
+	else_if = {
+		limit = {
+			check_variable = { TNO_combined_factory_total > 2 }
+		}
+		multiply_variable = { GRE_state_conservative_condition_pop = 1.1 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 0.96 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 0.9 }
+	}
+
+	#Education makes states more leftist or rightist, depending
+	if = {
+		limit = {
+			OWNER = {
+				has_idea = tno_academic_base_mass_illiteracy
+			}
+		}
+		multiply_variable = { GRE_state_conservative_condition_pop = 1.5 }
+		multiply_variable = { GRE_state_auth_condition_pop = 1.25 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 0.5 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 0.75 }
+	}
+	else_if = {
+		limit = {
+			OWNER = {
+				has_idea = tno_academic_base_basic_literacy
+			}
+		}
+		multiply_variable = { GRE_state_conservative_condition_pop = 1.25 }
+		multiply_variable = { GRE_state_auth_condition_pop = 1.1 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 0.75 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 0.9 }
+	}
+	else_if = {
+		limit = {
+			OWNER = {
+				has_idea = tno_academic_base_primary_schooling
+			}
+		}
+		multiply_variable = { GRE_state_conservative_condition_pop = 1 }
+		multiply_variable = { GRE_state_auth_condition_pop = 1 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1 }
+	}
+	else_if = {
+		limit = {
+			OWNER = {
+				has_idea = tno_academic_base_secondary_schooling
+			}
+		}
+		add_to_variable = { GRE_state_liberal_condition_pop = 0.05 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.75 }
+		multiply_variable = { GRE_state_auth_condition_pop = 0.9 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.25 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.1 }
+	}
+	else_if = {
+		limit = {
+			OWNER = {
+				has_idea = tno_academic_base_tertiary_schooling
+			}
+		}
+		add_to_variable = { GRE_state_liberal_condition_pop = 0.075 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.5 }
+		multiply_variable = { GRE_state_auth_condition_pop = 0.75 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.5 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.25 }
+	}
+	else_if = {
+		limit = {
+			OWNER = {
+				has_idea = tno_academic_base_golden_age
+			}
+		}
+		add_to_variable = { GRE_state_liberal_condition_pop = 0.15 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.25 }
+		multiply_variable = { GRE_state_auth_condition_pop = 0.5 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.75 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.5 }
+	}
+
+	#Religion causes social_conservative
+	if = {
+		limit = {
+			OWNER = {
+				has_idea = tno_religious_rights_state_religion
+			}
+		}
+		add_to_variable = { GRE_state_conservative_condition_pop = 0.1 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 1.35 }
+		multiply_variable = { GRE_state_auth_condition_pop = 1.15 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 0.75 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 0.75 }
+	}
+	else_if = {
+		limit = {
+			OWNER = {
+				has_idea = tno_religious_rights_pluralism
+			}
+		}
+		add_to_variable = { GRE_state_liberal_condition_pop = 0.025 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 1.15 }
+		multiply_variable = { GRE_state_auth_condition_pop = 1.05 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 0.90 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 0.90 }
+	}
+	else_if = {
+		limit = {
+			OWNER = {
+				has_idea = tno_religious_rights_secularism
+			}
+		}
+		add_to_variable = { GRE_state_liberal_condition_pop = 0.05 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.85 }
+		multiply_variable = { GRE_state_auth_condition_pop = 0.95 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.1 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.1 }
+	}
+	else_if = {
+		limit = {
+			OWNER = {
+				has_idea = tno_religious_rights_state_atheism
+			}
+		}
+		add_to_variable = { GRE_state_liberal_condition_pop = 0.075 }
+		multiply_variable = { GRE_state_conservative_condition_pop = 0.65 }
+		multiply_variable = { GRE_state_auth_condition_pop = 0.85 }
+		multiply_variable = { GRE_state_liberal_condition_pop = 1.25 }
+		multiply_variable = { GRE_state_socdem_condition_pop = 1.25 }
+	}
+
+	GRE_get_final_popularities = yes
+}
+
+#Calculates polling averages - to clear later
+GRE_calculate_polling_averages = {
+	set_variable = { GRE_state_socdem_final_poll_pop = GRE_state_socdem_pop }
+	set_variable = { GRE_state_auth_final_poll_pop = GRE_state_auth_pop }
+	set_variable = { GRE_state_liberal_final_poll_pop = GRE_state_liberal_pop }
+	set_variable = { GRE_state_conservative_final_poll_pop = GRE_state_conservative_pop }
+
+	add_to_variable = { GRE_state_socdem_final_poll_pop = GRE_state_socdem_condition_pop }
+	add_to_variable = { GRE_state_auth_final_poll_pop = GRE_state_auth_condition_pop }
+	add_to_variable = { GRE_state_liberal_final_poll_pop = GRE_state_liberal_condition_pop }
+	add_to_variable = { GRE_state_conservative_final_poll_pop = GRE_state_conservative_condition_pop }
+
+	add_to_variable = { GRE_state_socdem_final_poll_pop = GRE_state_socdem_temp_pop }
+	add_to_variable = { GRE_state_auth_final_poll_pop = GRE_state_auth_temp_pop }
+	add_to_variable = { GRE_state_liberal_final_poll_pop = GRE_state_liberal_temp_pop }
+	add_to_variable = { GRE_state_conservative_final_poll_pop = GRE_state_conservative_temp_pop }
+
+	add_to_variable = { GRE_state_socdem_final_poll_pop = PREV.GRE_socdem_global_bonus_pop }
+	add_to_variable = { GRE_state_auth_final_poll_pop = PREV.GRE_auth_global_bonus_pop }
+	add_to_variable = { GRE_state_liberal_final_poll_pop = PREV.GRE_liberal_global_bonus_pop }
+	add_to_variable = { GRE_state_conservative_final_poll_pop = PREV.GRE_conservative_global_bonus_pop }
+
+	#PSD is a disaster of a political party
+	if = {
+		limit = {
+			OWNER = {
+				tag = GRE
+			}
+		}
+		set_temp_variable = { PSD_unity_multiplier = GRE.GRE_PSD_unity }
+		divide_temp_variable = { PSD_unity_multiplier = 100 }
+		add_to_temp_variable = { PSD_unity_multiplier = 0.3 }
+		multiply_variable = { GRE_state_auth_final_poll_pop = PSD_unity_multiplier }
+	}
+
+	#Komi conservatives get distributed
+	if = {
+		limit = {
+			OWNER = {
+				tag = GRE
+			}
+		}
+		clamp_variable = { var = GRE_state_conservative_final_poll_pop min = 0 max = 0.5 }
+		set_temp_variable = { GRE_conservative_to_liberal_poll_pop = GRE_state_conservative_final_poll_pop }
+		set_temp_variable = { GRE_conservative_to_socdem_poll_pop = GRE_state_conservative_final_poll_pop }
+		set_temp_variable = { GRE_conservative_to_auth_poll_pop = GRE_state_conservative_final_poll_pop }
+		if = {
+			limit = {
+				OR = {
+					has_state_category = large_town
+					has_state_category = city
+					has_state_category = large_city
+					has_state_category = metropolis
+					has_state_category = megalopolis
+				}
+			}
+			divide_temp_variable = { GRE_conservative_to_liberal_poll_pop = 5 }
+			divide_temp_variable = { GRE_conservative_to_socdem_poll_pop = 3 }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_state_category = town
+					has_state_category = rural
+					has_state_category = pastoral
+					has_state_category = wasteland
+				}
+			}
+			divide_temp_variable = { GRE_conservative_to_liberal_poll_pop = 6 }
+			divide_temp_variable = { GRE_conservative_to_socdem_poll_pop = 3 }
+		}
+
+		#PSD is a disaster of a political party
+		set_temp_variable = { PSD_conservative_multiplier = GRE.GRE_PSD_right_power }
+		divide_temp_variable = { PSD_right_multiplier = 100 }
+		add_to_temp_variable = { PSD_right_multiplier = 0.3 }
+		multiply_temp_variable = { GRE_conservative_to_auth_poll_pop = PSD_right_multiplier }
+		clamp_variable = { var = GRE_conservative_to_auth_poll_pop min = 0 max = GRE_state_conservative_final_poll_pop }
+
+		add_to_variable = { GRE_state_socdem_final_poll_pop = GRE_conservative_to_socdem_poll_pop }
+		add_to_variable = { GRE_state_auth_final_poll_pop = GRE_conservative_to_auth_poll_pop }
+		add_to_variable = { GRE_state_liberal_final_poll_pop = GRE_conservative_to_liberal_poll_pop }
+
+		set_variable = { GRE_state_conservative_final_poll_pop = 0 }
+	}
+
+	#Vyatka SocDems get distributed
+	if = {
+		limit = {
+			OWNER = {
+				tag = GRE
+			}
+		}
+		clamp_variable = { var = GRE_state_socdem_final_poll_pop min = 0 max = 0.5 }
+		set_temp_variable = { GRE_socdem_to_liberal_poll_pop = GRE_state_socdem_final_poll_pop }
+		set_temp_variable = { GRE_socdem_to_conservative_poll_pop = GRE_state_socdem_final_poll_pop }
+		set_temp_variable = { GRE_socdem_to_auth_poll_pop = GRE_state_socdem_final_poll_pop }
+
+		if = {
+			limit = {
+				OR = {
+					has_state_category = large_town
+					has_state_category = city
+					has_state_category = large_city
+					has_state_category = metropolis
+					has_state_category = megalopolis
+				}
+			}
+			multiply_temp_variable = { GRE_socdem_to_liberal_poll_pop = 0.85 }
+			multiply_temp_variable = { GRE_socdem_to_conservative_poll_pop = 0.05 }
+			multiply_temp_variable = { GRE_socdem_to_auth_poll_pop = 0.1 }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_state_category = town
+					has_state_category = rural
+					has_state_category = pastoral
+					has_state_category = wasteland
+				}
+			}
+			multiply_temp_variable = { GRE_socdem_to_liberal_poll_pop = 0.7 }
+			multiply_temp_variable = { GRE_socdem_to_conservative_poll_pop = 0.1 }
+			multiply_temp_variable = { GRE_socdem_to_auth_poll_pop = 0.2 }
+		}
+
+		add_to_variable = { GRE_state_conservative_final_poll_pop = GRE_socdem_to_conservative_poll_pop }
+		add_to_variable = { GRE_state_auth_final_poll_pop = GRE_socdem_to_auth_poll_pop }
+		add_to_variable = { GRE_state_liberal_final_poll_pop = GRE_socdem_to_liberal_poll_pop }
+
+		set_variable = { GRE_state_socdem_final_poll_pop = 0 }
+	}
+
+	#Sverd SocDems and Liberals get distributed
+	if = {
+		limit = {
+			OWNER = {
+				tag = TOB
+			}
+		}
+		clamp_variable = { var = GRE_state_socdem_final_poll_pop min = 0 max = 0.5 }
+		clamp_variable = { var = GRE_state_liberal_final_poll_pop min = 0 max = 0.5 }
+		set_temp_variable = { TOB_socdem_to_conservative_poll_pop = GRE_state_socdem_final_poll_pop }
+		set_temp_variable = { TOB_socdem_to_auth_poll_pop = GRE_state_socdem_final_poll_pop }
+		set_temp_variable = { TOB_liberal_to_conservative_poll_pop = GRE_state_liberal_final_poll_pop }
+		set_temp_variable = { TOB_liberal_to_auth_poll_pop = GRE_state_liberal_final_poll_pop }
+
+
+		if = {
+			limit = {
+				OR = {
+					has_state_category = large_town
+					has_state_category = city
+					has_state_category = large_city
+					has_state_category = metropolis
+					has_state_category = megalopolis
+				}
+			}
+			multiply_temp_variable = { TOB_socdem_to_conservative_poll_pop = 0.4 }
+			multiply_temp_variable = { TOB_liberal_to_conservative_poll_pop = 0.6 }
+
+			multiply_temp_variable = { TOB_socdem_to_auth_poll_pop = 0.1 }
+			multiply_temp_variable = { TOB_liberal_to_auth_poll_pop = 0.2 }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_state_category = town
+					has_state_category = rural
+					has_state_category = pastoral
+					has_state_category = wasteland
+				}
+			}
+			multiply_temp_variable = { TOB_socdem_to_conservative_poll_pop = 0.3 }
+			multiply_temp_variable = { TOB_liberal_to_conservative_poll_pop = 0.4 }
+
+			multiply_temp_variable = { TOB_socdem_to_auth_poll_pop = 0.4 }
+			multiply_temp_variable = { TOB_liberal_to_auth_poll_pop = 0.5 }
+		}
+
+		add_to_variable = { GRE_state_conservative_final_pop = TOB_liberal_to_conservative_poll_pop }
+		add_to_variable = { GRE_state_conservative_final_pop = TOB_socdem_to_conservative_poll_pop }
+
+		add_to_variable = { GRE_state_auth_final_poll_pop = TOB_socdem_to_auth_poll_pop }
+		add_to_variable = { GRE_state_auth_final_poll_pop = TOB_liberal_to_auth_poll_pop }
+
+
+		set_variable = { GRE_state_liberal_final_poll_pop = 0 }
+		set_variable = { GRE_state_socdem_final_poll_pop = 0 }
+	}
+
+	log = "[GetDateText]: [THIS.GetName]: FINAL STATE POLLING RESULTS - CONDEM ([?GRE_state_conservative_final_poll_pop]) - AUTHDEM ([?GRE_state_auth_final_poll_pop]) - LIBDEM ([?GRE_state_liberal_final_poll_pop]) - SOCDEM ([?GRE_state_socdem_final_poll_pop])"
+}
+
+GRE_clear_polling_variables = {
+	every_owned_state = {
+		round_variable = GRE_state_socdem_final_poll_pop
+		round_variable = GRE_state_auth_final_poll_pop
+		round_variable = GRE_state_liberal_final_poll_pop
+		round_variable = GRE_conservative_final_poll_pop
+	}
+}
+
+GRE_get_final_popularities = {
+	#Prevents modifiers from stacking endlessly
+	set_variable = { GRE_state_socdem_final_pop = GRE_state_socdem_pop }
+	set_variable = { GRE_state_auth_final_pop = GRE_state_auth_pop }
+	set_variable = { GRE_state_liberal_final_pop = GRE_state_liberal_pop }
+	set_variable = { GRE_state_conservative_final_pop = GRE_state_conservative_pop }
+
+	add_to_variable = { GRE_state_socdem_final_pop = GRE_state_socdem_condition_pop }
+	add_to_variable = { GRE_state_auth_final_pop = GRE_state_auth_condition_pop }
+	add_to_variable = { GRE_state_liberal_final_pop = GRE_state_liberal_condition_pop }
+	add_to_variable = { GRE_state_conservative_final_pop = GRE_state_conservative_condition_pop }
+
+	add_to_variable = { GRE_state_socdem_final_pop = GRE_state_socdem_temp_pop }
+	add_to_variable = { GRE_state_auth_final_pop = GRE_state_auth_temp_pop }
+	add_to_variable = { GRE_state_liberal_final_pop = GRE_state_liberal_temp_pop }
+	add_to_variable = { GRE_state_conservative_final_pop = GRE_state_conservative_temp_pop }
+
+	add_to_variable = { GRE_state_socdem_final_pop = PREV.GRE_socdem_global_bonus_pop }
+	add_to_variable = { GRE_state_auth_final_pop = PREV.GRE_auth_global_bonus_pop }
+	add_to_variable = { GRE_state_liberal_final_pop = PREV.GRE_liberal_global_bonus_pop }
+	add_to_variable = { GRE_state_conservative_final_pop = PREV.GRE_conservative_global_bonus_pop }
+
+	#PSD is a disaster of a political party
+	if = {
+		limit = {
+			OWNER = {
+				tag = GRE
+			}
+		}
+		set_temp_variable = { PSD_unity_multiplier = GRE.GRE_PSD_unity }
+		divide_temp_variable = { PSD_unity_multiplier = 100 }
+		add_to_temp_variable = { PSD_unity_multiplier = 0.35 }
+		multiply_variable = { GRE_state_auth_final_pop = PSD_unity_multiplier }
+	}
+}
+
+GRE_run_election = {
+	set_variable = { GRE_socdem_votes = 0 }
+	set_variable = { GRE_auth_votes = 0 }
+	set_variable = { GRE_liberal_votes = 0 }
+	set_variable = { GRE_conservative_votes = 0 }
+
+	set_variable = { GRE_log_urban_socdem_votes = 0 }
+	set_variable = { GRE_log_urban_auth_votes = 0 }
+	set_variable = { GRE_log_urban_liberal_votes = 0 }
+	set_variable = { GRE_log_urban_conservative_votes = 0 }
+
+	set_variable = { GRE_log_industrial_socdem_votes = 0 }
+	set_variable = { GRE_log_industrial_auth_votes = 0 }
+	set_variable = { GRE_log_industrial_liberal_votes = 0 }
+	set_variable = { GRE_log_industrial_conservative_votes = 0 }
+
+	set_variable = { GRE_log_rural_socdem_votes = 0 }
+	set_variable = { GRE_log_rural_auth_votes = 0 }
+	set_variable = { GRE_log_rural_liberal_votes = 0 }
+	set_variable = { GRE_log_rural_conservative_votes = 0 }
+
+
+	set_variable = { GRE_total_votes = 0 }
+
+	every_owned_state = {
+		GRE_get_final_popularities = yes
+
+		set_variable = { GRE_vote_count_state = state_population_k }
+		multiply_variable = { GRE_vote_count_state = GRE_general_state_turnout }
+
+		set_variable = { GRE_socdem_state_votes = GRE_state_socdem_final_pop }
+		set_variable = { GRE_auth_state_votes = GRE_state_auth_final_pop }
+		set_variable = { GRE_liberal_state_votes = GRE_state_liberal_final_pop }
+		set_variable = { GRE_conservative_state_votes = GRE_state_conservative_final_pop }
+
+		multiply_variable = { GRE_socdem_state_votes = GRE_vote_count_state }
+		multiply_variable = { GRE_auth_state_votes = GRE_vote_count_state }
+		multiply_variable = { GRE_liberal_state_votes = GRE_vote_count_state }
+		multiply_variable = { GRE_conservative_state_votes = GRE_vote_count_state }
+
+		multiply_variable = { GRE_socdem_state_votes = GRE_socdem_state_turnout }
+		multiply_variable = { GRE_auth_state_votes = GRE_auth_state_turnout }
+		multiply_variable = { GRE_liberal_state_votes = GRE_liberal_state_turnout }
+		multiply_variable = { GRE_conservative_state_votes = GRE_conservative_state_turnout }
+
+		#Komi conservatives distributed
+		if = {
+			limit = {
+				OWNER = {
+					tag = ZZZ
+				}
+			}
+			clamp_variable = { var = GRE_conservative_state_votes min = 0 max = 0.5 }
+			set_temp_variable = { GRE_conservative_to_liberal_state_votes = GRE_conservative_state_votes }
+			set_temp_variable = { GRE_conservative_to_socdem_state_votes = GRE_conservative_state_votes }
+			set_temp_variable = { GRE_conservative_to_auth_state_votes = GRE_conservative_state_votes }
+			if = {
+				limit = {
+					OR = {
+						has_state_category = large_town
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+					}
+				}
+				divide_temp_variable = { GRE_conservative_to_liberal_state_votes = 4 }
+				divide_temp_variable = { GRE_conservative_to_socdem_state_votes = 5 }
+			}
+			else_if = {
+				limit = {
+					OR = {
+						has_state_category = town
+						has_state_category = rural
+						has_state_category = pastoral
+						has_state_category = wasteland
+					}
+				}
+				divide_temp_variable = { GRE_conservative_to_liberal_state_votes = 6 }
+				divide_temp_variable = { GRE_conservative_to_socdem_state_votes = 4 }
+
+			}
+
+			#PSD is a disaster of a political party
+			set_temp_variable = { PSD_conservative_multiplier = GRE.GRE_PSD_right_power }
+			divide_temp_variable = { PSD_conservative_multiplier = 100 }
+			add_to_temp_variable = { PSD_conservative_multiplier = 0.3 }
+			multiply_temp_variable = { GRE_conservative_to_auth_state_votes = PSD_conservative_multiplier }
+			clamp_variable = { var = GRE_conservative_to_auth_state_votes min = 0 max = GRE_conservative_state_votes }
+
+			add_to_variable = { GRE_socdem_state_votes = GRE_conservative_to_socdem_state_votes }
+			add_to_variable = { GRE_auth_state_votes = GRE_conservative_to_auth_state_votes }
+			add_to_variable = { GRE_liberal_state_votes = GRE_conservative_to_liberal_state_votes }
+
+			#Clear conservative votes
+			clear_variable = GRE_conservative_state_votes
+		}
+
+		#Vyatka SocDems get distributed
+		if = {
+			limit = {
+				OWNER = {
+					tag = ZZZ
+				}
+			}
+			clamp_variable = { var = GRE_socdem_state_votes min = 0 max = 0.5 }
+			set_temp_variable = { GRE_socdem_to_liberal_state_votes = GRE_socdem_state_votes }
+			set_temp_variable = { GRE_socdem_to_conservative_state_votes = GRE_socdem_state_votes }
+			set_temp_variable = { GRE_socdem_to_auth_state_votes = GRE_socdem_state_votes }
+
+			if = {
+				limit = {
+					OR = {
+						has_state_category = large_town
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+					}
+				}
+				multiply_temp_variable = { GRE_socdem_to_liberal_state_votes = 0.85 }
+				multiply_temp_variable = { GRE_socdem_to_conservative_state_votes = 0.05 }
+				multiply_temp_variable = { GRE_socdem_to_auth_state_votes = 0.1 }
+			}
+			else_if = {
+				limit = {
+					OR = {
+						has_state_category = town
+						has_state_category = rural
+						has_state_category = pastoral
+						has_state_category = wasteland
+					}
+				}
+				multiply_temp_variable = { GRE_socdem_to_liberal_state_votes = 0.7 }
+				multiply_temp_variable = { GRE_socdem_to_conservative_state_votes = 0.1 }
+				multiply_temp_variable = { GRE_socdem_to_auth_state_votes = 0.2 }
+			}
+
+			add_to_variable = { GRE_conservative_state_votes = GRE_socdem_to_conservative_state_votes }
+			add_to_variable = { GRE_auth_state_votes = GRE_socdem_to_auth_state_votes }
+			add_to_variable = { GRE_liberal_state_votes = GRE_socdem_to_liberal_state_votes }
+
+			clear_variable = GRE_socdem_state_votes
+		}
+
+		#Sverd SocDems and Liberals get distributed
+		if = {
+			limit = {
+				OWNER = {
+					tag = ZZZ
+				}
+			}
+			clamp_variable = { var = GRE_socdem_state_votes min = 0 max = 0.5 }
+			clamp_variable = { var = GRE_liberal_state_votes min = 0 max = 0.5 }
+			set_temp_variable = { TOB_socdem_to_conservative_state_votes = GRE_socdem_state_votes }
+			set_temp_variable = { TOB_socdem_to_auth_state_votes = GRE_socdem_state_votes }
+			set_temp_variable = { TOB_liberal_to_conservative_state_votes = GRE_liberal_state_votes }
+			set_temp_variable = { TOB_liberal_to_auth_state_votes = GRE_liberal_state_votes }
+
+
+			if = {
+				limit = {
+					OR = {
+						has_state_category = large_town
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+					}
+				}
+				multiply_temp_variable = { TOB_socdem_to_conservative_state_votes = 0.4 }
+				multiply_temp_variable = { TOB_liberal_to_conservative_state_votes = 0.6 }
+
+				multiply_temp_variable = { TOB_socdem_to_auth_state_votes = 0.1 }
+				multiply_temp_variable = { TOB_liberal_to_auth_state_votes = 0.2 }
+			}
+			else_if = {
+				limit = {
+					OR = {
+						has_state_category = town
+						has_state_category = rural
+						has_state_category = pastoral
+						has_state_category = wasteland
+					}
+				}
+				multiply_temp_variable = { TOB_socdem_to_conservative_state_votes = 0.3 }
+				multiply_temp_variable = { TOB_liberal_to_conservative_state_votes = 0.4 }
+
+				multiply_temp_variable = { TOB_socdem_to_auth_state_votes = 0.4 }
+				multiply_temp_variable = { TOB_liberal_to_auth_state_votes = 0.5 }
+			}
+
+			add_to_variable = { GRE_conservative_state_votes = TOB_liberal_to_conservative_state_votes }
+			add_to_variable = { GRE_conservative_state_votes = TOB_socdem_to_conservative_state_votes }
+
+			add_to_variable = { GRE_auth_state_votes = TOB_socdem_to_auth_state_votes }
+			add_to_variable = { GRE_auth_state_votes = TOB_liberal_to_auth_state_votes }
+
+
+			clear_variable = GRE_socdem_state_votes
+			clear_variable = GRE_liberal_state_votes
+		}
+
+		# First Past the Post
+		if = {
+			limit = {
+				ROOT = {
+					has_country_flag = GRE_dem_first_past_the_post
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { GRE_auth_state_votes > GRE_liberal_state_votes }
+					check_variable = { GRE_auth_state_votes > GRE_socdem_state_votes }
+					check_variable = { GRE_auth_state_votes > GRE_conservative_state_votes }
+				}
+				add_to_variable = { GRE_auth_state_votes = GRE_liberal_state_votes }
+				add_to_variable = { GRE_auth_state_votes = GRE_socdem_state_votes }
+				add_to_variable = { GRE_auth_state_votes = GRE_conservative_state_votes }
+				set_variable = { GRE_liberal_state_votes = 0 }
+				set_variable = { GRE_socdem_state_votes = 0 }
+				set_variable = { GRE_conservative_state_votes = 0 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { GRE_liberal_state_votes > GRE_auth_state_votes }
+					check_variable = { GRE_liberal_state_votes > GRE_socdem_state_votes }
+					check_variable = { GRE_liberal_state_votes > GRE_conservative_state_votes }
+				}
+				add_to_variable = { GRE_liberal_state_votes = GRE_auth_state_votes }
+				add_to_variable = { GRE_liberal_state_votes = GRE_socdem_state_votes }
+				add_to_variable = { GRE_liberal_state_votes = GRE_conservative_state_votes }
+				set_variable = { GRE_auth_state_votes = 0 }
+				set_variable = { GRE_socdem_state_votes = 0 }
+				set_variable = { GRE_conservative_state_votes = 0 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { GRE_socdem_state_votes > GRE_liberal_state_votes }
+					check_variable = { GRE_socdem_state_votes > GRE_auth_state_votes }
+					check_variable = { GRE_socdem_state_votes > GRE_conservative_state_votes }
+				}
+				add_to_variable = { GRE_socdem_state_votes = GRE_liberal_state_votes }
+				add_to_variable = { GRE_socdem_state_votes = GRE_auth_state_votes }
+				add_to_variable = { GRE_socdem_state_votes = GRE_conservative_state_votes }
+				set_variable = { GRE_liberal_state_votes = 0 }
+				set_variable = { GRE_auth_state_votes = 0 }
+				set_variable = { GRE_conservative_state_votes = 0 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { GRE_conservative_state_votes > GRE_liberal_state_votes }
+					check_variable = { GRE_conservative_state_votes > GRE_socdem_state_votes }
+					check_variable = { GRE_conservative_state_votes > GRE_auth_state_votes }
+				}
+				add_to_variable = { GRE_conservative_state_votes = GRE_liberal_state_votes }
+				add_to_variable = { GRE_conservative_state_votes = GRE_socdem_state_votes }
+				add_to_variable = { GRE_conservative_state_votes = GRE_auth_state_votes }
+				set_variable = { GRE_liberal_state_votes = 0 }
+				set_variable = { GRE_socdem_state_votes = 0 }
+				set_variable = { GRE_auth_state_votes = 0 }
+			}
+			else = {
+				add_to_variable = { GRE_auth_state_votes = GRE_liberal_state_votes }
+				add_to_variable = { GRE_auth_state_votes = GRE_socdem_state_votes }
+				add_to_variable = { GRE_auth_state_votes = GRE_conservative_state_votes }
+				set_variable = { GRE_liberal_state_votes = 0 }
+				set_variable = { GRE_socdem_state_votes = 0 }
+				set_variable = { GRE_conservative_state_votes = 0 }
+			}	
+		}
+
+		divide_variable = { GRE_socdem_state_votes = 50 }
+		divide_variable = { GRE_auth_state_votes = 50 }
+		divide_variable = { GRE_liberal_state_votes = 50 }
+		divide_variable = { GRE_conservative_state_votes = 50 }
+
+		#Compensate for low-population states - super inefficient code, fix later
+		if = {
+			limit = {
+				AND = {
+					check_variable = { GRE_conservative_state_votes < 0.5 }
+					check_variable = { GRE_liberal_state_votes < 0.5 }
+					check_variable = { GRE_auth_state_votes < 0.5 }
+					check_variable = { GRE_socdem_state_votes < 0.5 }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { THIS.GRE_auth_state_votes > THIS.GRE_liberal_state_votes }
+					check_variable = { THIS.GRE_auth_state_votes > THIS.GRE_socdem_state_votes }
+					check_variable = { THIS.GRE_auth_state_votes > THIS.GRE_conservative_state_votes }
+				}
+				set_variable = { GRE_auth_state_votes = 1 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { THIS.GRE_liberal_state_votes > THIS.GRE_auth_state_votes }
+					check_variable = { THIS.GRE_liberal_state_votes > THIS.GRE_socdem_state_votes }
+					check_variable = { THIS.GRE_liberal_state_votes > THIS.GRE_conservative_state_votes }
+				}
+				set_variable = { GRE_liberal_state_votes = 1 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { THIS.GRE_socdem_state_votes > THIS.GRE_liberal_state_votes }
+					check_variable = { THIS.GRE_socdem_state_votes > THIS.GRE_auth_state_votes }
+					check_variable = { THIS.GRE_socdem_state_votes > THIS.GRE_conservative_state_votes }
+				}
+				set_variable = { GRE_socdem_state_votes = 1 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { THIS.GRE_conservative_state_votes > THIS.GRE_liberal_state_votes }
+					check_variable = { THIS.GRE_conservative_state_votes > THIS.GRE_socdem_state_votes }
+					check_variable = { THIS.GRE_conservative_state_votes > THIS.GRE_auth_state_votes }
+				}
+				set_variable = { GRE_conservative_state_votes = 1 }
+			}
+		}
+
+
+		round_variable = GRE_socdem_state_votes
+		round_variable = GRE_auth_state_votes
+		round_variable = GRE_liberal_state_votes
+		round_variable = GRE_conservative_state_votes
+
+		if = {
+			limit = {
+				check_variable = { GRE_socdem_state_votes < 0 }
+			}
+			set_variable = { GRE_socdem_state_votes = 0 }
+		}
+
+		if = {
+			limit = {
+				check_variable = { GRE_auth_state_votes < 0 }
+			}
+			set_variable = { GRE_auth_state_votes = 0 }
+		}
+
+		if = {
+			limit = {
+				check_variable = { GRE_liberal_state_votes < 0 }
+			}
+			set_variable = { GRE_liberal_state_votes = 0 }
+		}
+
+		if = {
+			limit = {
+				check_variable = { GRE_conservative_state_votes < 0 }
+			}
+			set_variable = { GRE_conservative_state_votes = 0 }
+		}
+
+		set_variable = { GRE_total_state_votes = GRE_socdem_state_votes }
+		add_to_variable = { GRE_total_state_votes = GRE_auth_state_votes }
+		add_to_variable = { GRE_total_state_votes = GRE_liberal_state_votes }
+		add_to_variable = { GRE_total_state_votes = GRE_conservative_state_votes }
+
+		add_to_variable = { PREV.GRE_socdem_votes = GRE_socdem_state_votes }
+		add_to_variable = { PREV.GRE_auth_votes = GRE_auth_state_votes }
+		add_to_variable = { PREV.GRE_liberal_votes = GRE_liberal_state_votes }
+		add_to_variable = { PREV.GRE_conservative_votes = GRE_conservative_state_votes }
+
+		if = {
+			limit = {
+				OR = {
+					has_state_category = large_town
+					has_state_category = city
+					has_state_category = large_city
+					has_state_category = metropolis
+					has_state_category = megalopolis
+					check_variable = { state_population_k > 600 }
+				}
+			}
+			add_to_variable = { PREV.GRE_log_urban_socdem_votes = GRE_socdem_state_votes }
+			add_to_variable = { PREV.GRE_log_urban_auth_votes = GRE_auth_state_votes }
+			add_to_variable = { PREV.GRE_log_urban_liberal_votes = GRE_liberal_state_votes }
+			add_to_variable = { PREV.GRE_log_urban_conservative_votes = GRE_conservative_state_votes }
+		}
+		if = {
+			limit = {
+				check_variable = { TNO_combined_factory_total > 4 }
+			}
+			add_to_variable = { PREV.GRE_log_industrial_socdem_votes = GRE_socdem_state_votes }
+			add_to_variable = { PREV.GRE_log_industrial_auth_votes = GRE_auth_state_votes }
+			add_to_variable = { PREV.GRE_log_industrial_liberal_votes = GRE_liberal_state_votes }
+			add_to_variable = { PREV.GRE_log_industrial_conservative_votes = GRE_conservative_state_votes }
+		}
+		if = {
+			limit = {
+				NOT = {
+					OR = {
+						has_state_category = large_town
+						has_state_category = city
+						has_state_category = large_city
+						has_state_category = metropolis
+						has_state_category = megalopolis
+						check_variable = { state_population_k > 600 }
+						check_variable = { TNO_combined_factory_total > 4 }
+					}
+				}
+			}
+			add_to_variable = { PREV.GRE_log_rural_socdem_votes = GRE_socdem_state_votes }
+			add_to_variable = { PREV.GRE_log_rural_auth_votes = GRE_auth_state_votes }
+			add_to_variable = { PREV.GRE_log_rural_liberal_votes = GRE_liberal_state_votes }
+			add_to_variable = { PREV.GRE_log_rural_conservative_votes = GRE_conservative_state_votes }
+		}
+		
+
+		#Resetting temp popularity
+		set_variable = { GRE_state_socdem_temp_pop = 0 }
+		set_variable = { GRE_state_auth_temp_pop = 0 }
+		set_variable = { GRE_state_liberal_temp_pop = 0 }
+		set_variable = { GRE_state_conservative_temp_pop = 0 }
+
+		log = "[GetDateText]: [THIS.GetName]: STATE RESULTS - CONDEM ([?GRE_conservative_state_votes]) - AUTHDEM ([?GRE_auth_state_votes]) - LIBDEM ([?GRE_liberal_state_votes]) - SOCDEM ([?GRE_socdem_state_votes]) - TOTAL VOTES ([?GRE_total_state_votes])"
+	}
+	round_variable = GRE_socdem_votes
+	round_variable = GRE_auth_votes
+	round_variable = GRE_liberal_votes
+	round_variable = GRE_conservative_votes
+
+	add_to_variable = { GRE_total_votes = GRE_socdem_votes }
+	add_to_variable = { GRE_total_votes = GRE_auth_votes }
+	add_to_variable = { GRE_total_votes = GRE_liberal_votes }
+	add_to_variable = { GRE_total_votes = GRE_conservative_votes }
+
+	set_variable = { GRE_socdem_percentage_vote = GRE_socdem_votes }
+	set_variable = { GRE_auth_percentage_vote = GRE_auth_votes }
+	set_variable = { GRE_liberal_percentage_vote = GRE_liberal_votes }
+	set_variable = { GRE_conservative_percentage_vote = GRE_conservative_votes }
+
+	divide_variable = { GRE_socdem_percentage_vote = GRE_total_votes }
+	divide_variable = { GRE_auth_percentage_vote = GRE_total_votes }
+	divide_variable = { GRE_liberal_percentage_vote = GRE_total_votes }
+	divide_variable = { GRE_conservative_percentage_vote = GRE_total_votes }
+
+	if = {
+		limit = {
+			tag = GRE
+		}
+
+		set_variable = { GRE_socdem_deputies = GRE_socdem_percentage_vote }
+		set_variable = { GRE_auth_deputies = GRE_auth_percentage_vote }
+		set_variable = { GRE_liberal_deputies = GRE_liberal_percentage_vote }
+		set_variable = { GRE_conservative_deputies = GRE_conservative_percentage_vote }
+
+		multiply_variable = { GRE_socdem_deputies = 200 }
+		multiply_variable = { GRE_auth_deputies = 200 }
+		multiply_variable = { GRE_liberal_deputies = 200 }
+
+		round_variable = GRE_socdem_deputies
+		round_variable = GRE_auth_deputies
+		round_variable = GRE_liberal_deputies
+
+		set_temp_variable = { GRE_deputy_var_checker = 0 }
+
+		add_to_temp_variable = { GRE_deputy_var_checker = GRE_socdem_deputies }
+		add_to_temp_variable = { GRE_deputy_var_checker = GRE_auth_deputies }
+		add_to_temp_variable = { GRE_deputy_var_checker = GRE_liberal_deputies }
+
+		if = {
+			limit = {
+				NOT = {
+					check_variable = { GRE_deputy_var_checker = 200 }
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { GRE_deputy_var_checker = 203 }
+				}
+				random_list = {
+					34 = {
+						subtract_from_variable = { GRE_auth_deputies = 3 }
+					}
+					33 = {
+						subtract_from_variable = { GRE_socdem_deputies = 3 }
+					}
+					33 = {
+						subtract_from_variable = { GRE_liberal_deputies = 3 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { GRE_deputy_var_checker = 202 }
+				}
+				random_list = {
+					34 = {
+						subtract_from_variable = { GRE_auth_deputies = 2 }
+					}
+					33 = {
+						subtract_from_variable = { GRE_socdem_deputies = 2 }
+					}
+					33 = {
+						subtract_from_variable = { GRE_liberal_deputies = 2 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { GRE_deputy_var_checker = 201 }
+				}
+				random_list = {
+					34 = {
+						subtract_from_variable = { GRE_auth_deputies = 1 }
+					}
+					33 = {
+						subtract_from_variable = { GRE_socdem_deputies = 1 }
+					}
+					33 = {
+						subtract_from_variable = { GRE_liberal_deputies = 1 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { GRE_deputy_var_checker = 199 }
+				}
+				random_list = {
+					34 = {
+						add_to_variable = { GRE_auth_deputies = 1 }
+					}
+					33 = {
+						add_to_variable = { GRE_socdem_deputies = 1 }
+					}
+					33 = {
+						add_to_variable = { GRE_liberal_deputies = 1 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { GRE_deputy_var_checker = 198 }
+				}
+				random_list = {
+					34 = {
+						add_to_variable = { GRE_auth_deputies = 2 }
+					}
+					33 = {
+						add_to_variable = { GRE_socdem_deputies = 2 }
+					}
+					33 = {
+						add_to_variable = { GRE_liberal_deputies = 2 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { GRE_deputy_var_checker = 197 }
+				}
+				random_list = {
+					34 = {
+						add_to_variable = { GRE_auth_deputies = 3 }
+					}
+					33 = {
+						add_to_variable = { GRE_socdem_deputies = 3 }
+					}
+					33 = {
+						add_to_variable = { GRE_liberal_deputies = 3 }
+					}
+				}
+			}
+		}
+	}
+
+	multiply_variable = { GRE_socdem_percentage_vote = 100 }
+	multiply_variable = { GRE_auth_percentage_vote = 100 }
+	multiply_variable = { GRE_liberal_percentage_vote = 100 }
+	multiply_variable = { GRE_conservative_percentage_vote = 100 }
+
+	if = {
+		limit = {
+			check_variable = { GRE_auth_votes > GRE_liberal_votes }
+			check_variable = { GRE_auth_votes > GRE_socdem_votes }
+			check_variable = { GRE_auth_votes > GRE_conservative_votes }
+		}
+		set_country_flag = GRE_ELECTION_AUTH_VICTORY
+	}
+	if = {
+		limit = {
+			check_variable = { GRE_socdem_votes > GRE_auth_votes }
+			check_variable = { GRE_socdem_votes > GRE_liberal_votes }
+			check_variable = { GRE_socdem_votes > GRE_conservative_votes }
+		}
+		set_country_flag = GRE_ELECTION_SOCDEM_VICTORY
+	}
+	if = {
+		limit = {
+			check_variable = { GRE_liberal_votes > GRE_auth_votes }
+			check_variable = { GRE_liberal_votes > GRE_socdem_votes }
+			check_variable = { GRE_liberal_votes > GRE_conservative_votes }
+		}
+		set_country_flag = GRE_ELECTION_LIBERAL_VICTORY
+	}
+	if = {
+		limit = {
+			check_variable = { GRE_conservative_votes > GRE_auth_votes }
+			check_variable = { GRE_conservative_votes > GRE_socdem_votes }
+			check_variable = { GRE_conservative_votes > GRE_liberal_votes }
+		}
+		set_country_flag = GRE_ELECTION_CONSERVATIVE_VICTORY
+	}
+	
+	log = "[GetDateText]: [THIS.GetName]: URBAN ELECTION RESULTS - CONDEM VOTES ([?GRE_log_urban_conservative_votes]) - AUTHDEM VOTES ([?GRE_log_urban_auth_votes]) - LIBDEM VOTES ([?GRE_log_urban_liberal_votes]) - SOCDEM VOTES ([?GRE_log_urban_socdem_votes])"
+	log = "[GetDateText]: [THIS.GetName]: INDUSTRIAL ELECTION RESULTS - CONDEM VOTES ([?GRE_log_industrial_conservative_votes]) - AUTHDEM VOTES ([?GRE_log_industrial_auth_votes]) - LIBDEM VOTES ([?GRE_log_industrial_liberal_votes]) - SOCDEM VOTES ([?GRE_log_industrial_socdem_votes])"
+	log = "[GetDateText]: [THIS.GetName]: RURAL ELECTION RESULTS - CONDEM VOTES ([?GRE_log_rural_conservative_votes]) - AUTHDEM VOTES ([?GRE_log_rural_auth_votes]) - LIBDEM VOTES ([?GRE_log_rural_liberal_votes]) - SOCDEM VOTES ([?GRE_log_rural_socdem_votes])"
+	round_variable = GRE_total_votes
+	log = "[GetDateText]: [THIS.GetName]: FINAL ELECTION RESULTS - CONDEM VOTES ([?GRE_conservative_votes]) - AUTHDEM VOTES ([?GRE_auth_votes]) - LIBDEM VOTES ([?GRE_liberal_votes]) - SOCDEM VOTES ([?GRE_socdem_votes]) - TOTAL VOTES ([?GRE_total_votes])"
+}
+
+GRE_clear_election_variables = {
+	clear_variable = GRE_total_votes
+	clear_variable = GRE_socdem_votes
+	clear_variable = GRE_auth_votes
+	clear_variable = GRE_liberal_votes
+	clear_variable = GRE_conservative_votes
+	clr_country_flag = GRE_ELECTION_AUTH_VICTORY
+	clr_country_flag = GRE_ELECTION_SOCDEM_VICTORY
+	clr_country_flag = GRE_ELECTION_LIBERAL_VICTORY
+	clr_country_flag = GRE_ELECTION_CONSERVATIVE_VICTORY
+
+	every_owned_state = {
+		round_variable = GRE_socdem_state_votes
+		round_variable = GRE_auth_state_votes
+		round_variable = GRE_liberal_state_votes
+		round_variable = GRE_conservative_state_votes
+		clear_variable = GRE_total_state_votes
+		clear_variable = GRE_vote_count_state
+	}
+}
+
+GRE_increase_urban_socdem_pop = {
+	custom_effect_tooltip = GRE_increase_urban_socdem_pop_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					has_state_category = large_town
+					has_state_category = city
+					has_state_category = large_city
+					has_state_category = metropolis
+					has_state_category = megalopolis
+				}
+			}
+			add_to_variable = { GRE_state_socdem_pop = 0.05 }
+			add_to_variable = { GRE_state_conservative_pop = -0.05 }
+		}
+	}
+	add_popularity = {
+		ideology = social_democrat
+		popularity = 0.025
+	}
+}
+
+GRE_increase_urban_auth_pop = {
+	custom_effect_tooltip = GRE_increase_urban_auth_pop_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					has_state_category = large_town
+					has_state_category = city
+					has_state_category = large_city
+					has_state_category = metropolis
+					has_state_category = megalopolis
+				}
+			}
+			add_to_variable = { GRE_state_auth_pop = 0.05 }
+			add_to_variable = { GRE_state_liberal_pop = -0.05 }
+		}
+	}
+	add_popularity = {
+		ideology = authoritarian_democrat
+		popularity = 0.025
+	}
+}
+
+GRE_increase_urban_liberal_pop = {
+	custom_effect_tooltip = GRE_increase_urban_liberal_pop_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					has_state_category = large_town
+					has_state_category = city
+					has_state_category = large_city
+					has_state_category = metropolis
+					has_state_category = megalopolis
+				}
+			}
+			add_to_variable = { GRE_state_liberal_pop = 0.05 }
+			add_to_variable = { GRE_state_auth_pop = -0.05 }
+		}
+	}
+	add_popularity = {
+		ideology = social_liberal
+		popularity = 0.025
+	}
+}
+
+GRE_increase_urban_conservative_pop = {
+	custom_effect_tooltip = GRE_increase_urban_conservative_pop_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					has_state_category = large_town
+					has_state_category = city
+					has_state_category = large_city
+					has_state_category = metropolis
+					has_state_category = megalopolis
+				}
+			}
+			add_to_variable = { GRE_state_conservative_pop = 0.05 }
+			add_to_variable = { GRE_state_socdem_pop = -0.05 }
+		}
+	}
+	add_popularity = {
+		ideology = social_conservative
+		popularity = 0.025
+	}
+}
+
+
+GRE_increase_rural_socdem_pop = {
+	custom_effect_tooltip = GRE_increase_rural_socdem_pop_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					has_state_category = town
+					has_state_category = rural
+					has_state_category = pastoral
+					has_state_category = wasteland
+				}
+			}
+			add_to_variable = { GRE_state_socdem_pop = 0.05 }
+			add_to_variable = { GRE_state_conservative_pop = -0.05 }
+		}
+	}
+	add_popularity = {
+		ideology = social_democrat
+		popularity = 0.025
+	}
+}
+
+GRE_increase_rural_auth_pop = {
+	custom_effect_tooltip = GRE_increase_rural_auth_pop_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					has_state_category = town
+					has_state_category = rural
+					has_state_category = pastoral
+					has_state_category = wasteland
+				}
+			}
+			add_to_variable = { GRE_state_auth_pop = 0.05 }
+			add_to_variable = { GRE_state_liberal_pop = -0.05 }
+		}
+	}
+	add_popularity = {
+		ideology = authoritarian_democrat
+		popularity = 0.025
+	}
+}
+
+GRE_increase_rural_liberal_pop = {
+	custom_effect_tooltip = GRE_increase_rural_liberal_pop_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					has_state_category = town
+					has_state_category = rural
+					has_state_category = pastoral
+					has_state_category = wasteland
+				}
+			}
+			add_to_variable = { GRE_state_liberal_pop = 0.05 }
+			add_to_variable = { GRE_state_auth_pop = -0.05 }
+		}
+	}
+	add_popularity = {
+		ideology = social_liberal
+		popularity = 0.025
+	}
+}
+
+GRE_increase_rural_conservative_pop = {
+	custom_effect_tooltip = GRE_increase_rural_conservative_pop_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					has_state_category = town
+					has_state_category = rural
+					has_state_category = pastoral
+					has_state_category = wasteland
+				}
+			}
+			add_to_variable = { GRE_state_conservative_pop = 0.05 }
+			add_to_variable = { GRE_state_socdem_pop = -0.05 }
+		}
+	}
+	add_popularity = {
+		ideology = social_conservative
+		popularity = 0.025
+	}
+}
+
+GRE_suppress_rural_voting = {
+	custom_effect_tooltip = GRE_suppress_rural_voting_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					has_state_category = town
+					has_state_category = rural
+					has_state_category = pastoral
+					has_state_category = wasteland
+				}
+			}
+			add_to_variable = { GRE_general_state_turnout = -0.035 }
+		}
+	}
+}
+
+GRE_suppress_urban_voting = {
+	custom_effect_tooltip = GRE_suppress_urban_voting_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					has_state_category = large_town
+					has_state_category = city
+					has_state_category = large_city
+					has_state_category = metropolis
+					has_state_category = megalopolis
+				}
+			}
+			add_to_variable = { GRE_general_state_turnout = -0.035 }
+		}
+	}
+}
+
+GRE_encourage_rural_voting = {
+	custom_effect_tooltip = GRE_encourage_rural_voting_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					has_state_category = town
+					has_state_category = rural
+					has_state_category = pastoral
+					has_state_category = wasteland
+				}
+			}
+			add_to_variable = { GRE_general_state_turnout = 0.035 }
+		}
+	}
+}
+
+GRE_encourage_urban_voting = {
+	custom_effect_tooltip = GRE_encourage_urban_voting_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					has_state_category = large_town
+					has_state_category = city
+					has_state_category = large_city
+					has_state_category = metropolis
+					has_state_category = megalopolis
+				}
+			}
+			add_to_variable = { GRE_general_state_turnout = 0.035 }
+		}
+	}
+}
+
+GRE_suppress_minority_voting = {
+	custom_effect_tooltip = GRE_suppress_minority_voting_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				NOT = {
+					check_variable = { nationality = 151 }
+				}
+			}
+			add_to_variable = { GRE_general_state_turnout = -0.035 }
+		}
+	}
+}
+
+GRE_encourage_minority_voting = {
+	custom_effect_tooltip = GRE_encourage_minority_voting_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				NOT = {
+					check_variable = { nationality = 151 }
+				}
+			}
+			add_to_variable = { GRE_general_state_turnout = 0.035 }
+		}
+	}
+}
+
+GRE_increase_ruling_party_state_pop = {
+	if = {
+		limit = {
+			OWNER = {
+				has_government = authoritarian_democrat
+			}
+		}
+		add_to_variable = { GRE_state_auth_pop = 0.045 }
+		add_to_variable = { GRE_state_socdem_pop = -0.015 }
+		add_to_variable = { GRE_state_liberal_pop = -0.015 }
+		add_to_variable = { GRE_state_conservative_pop = -0.015 }
+		custom_effect_tooltip = GRE_increase_state_auth_pop_tt
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_democrat
+			}
+		}
+		add_to_variable = { GRE_state_socdem_pop = 0.045 }
+		add_to_variable = { GRE_state_auth_pop = -0.015 }
+		add_to_variable = { social_liberal = -0.015 }
+		add_to_variable = { social_conservative = -0.015 }
+		custom_effect_tooltip = GRE_increase_state_socdem_pop_tt
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_liberal
+			}
+		}
+		add_to_variable = { GRE_state_liberal_pop = 0.045 }
+		add_to_variable = { GRE_state_auth_pop = -0.015 }
+		add_to_variable = { GRE_state_socdem_pop = -0.015 }
+		add_to_variable = { GRE_state_conservative_pop = -0.015 }
+		custom_effect_tooltip = GRE_increase_state_liberal_pop_tt
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_conservative
+			}
+		}
+		add_to_variable = { GRE_state_conservative_pop = 0.045 }
+		add_to_variable = { GRE_state_auth_pop = -0.015 }
+		add_to_variable = { social_democrat = -0.015 }
+		add_to_variable = { social_liberal = -0.015 }
+		custom_effect_tooltip = GRE_increase_state_conservative_pop_tt
+	}
+}
+
+GRE_increase_ruling_party_industrial_pop = {
+	if = {
+		limit = {
+			has_government = authoritarian_democrat
+		}
+		custom_effect_tooltip = GRE_increase_state_auth_industrial_pop_tt
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.025
+		}
+	}
+	if = {
+		limit = {
+			has_government = social_democrat
+		}
+		custom_effect_tooltip = GRE_increase_state_socdem_industrial_pop_tt
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.025
+		}
+	}
+	if = {
+		limit = {
+			has_government = social_liberal
+		}
+		custom_effect_tooltip = GRE_increase_state_liberal_industrial_pop_tt
+		add_popularity = {
+			ideology = social_liberal
+			popularity = 0.025
+		}
+	}
+	if = {
+		limit = {
+			has_government = social_conservative
+		}
+		custom_effect_tooltip = GRE_increase_state_conservative_industrial_pop_tt
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.025
+		}
+	}
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				check_variable = { TNO_combined_factory_total > 4 }
+			}
+			if = {
+				limit = {
+					OWNER = {
+						has_government = authoritarian_democrat
+					}
+				}
+				add_to_variable = { GRE_state_auth_pop = 0.045 }
+				add_to_variable = { GRE_state_socdem_pop = -0.015 }
+				add_to_variable = { GRE_state_liberal_pop = -0.015 }
+				add_to_variable = { GRE_state_conservative_pop = -0.015 }
+			}
+			if = {
+				limit = {
+					OWNER = {
+						has_government = social_democrat
+					}
+				}
+				add_to_variable = { GRE_state_socdem_pop = 0.045 }
+				add_to_variable = { GRE_state_auth_pop = -0.015 }
+				add_to_variable = { social_liberal = -0.015 }
+				add_to_variable = { social_conservative = -0.015 }
+			}
+			if = {
+				limit = {
+					OWNER = {
+						has_government = social_liberal
+					}
+				}
+				add_to_variable = { GRE_state_liberal_pop = 0.045 }
+				add_to_variable = { GRE_state_auth_pop = -0.015 }
+				add_to_variable = { GRE_state_socdem_pop = -0.015 }
+				add_to_variable = { GRE_state_conservative_pop = -0.015 }
+			}
+			if = {
+				limit = {
+					OWNER = {
+						has_government = social_conservative
+					}
+				}
+				add_to_variable = { GRE_state_conservative_pop = 0.045 }
+				add_to_variable = { GRE_state_auth_pop = -0.015 }
+				add_to_variable = { social_democrat = -0.015 }
+				add_to_variable = { social_liberal = -0.015 }
+			}
+		}
+	}
+}
+
+GRE_increase_ruling_party_minority_pop = {
+	if = {
+		limit = {
+			has_government = authoritarian_democrat
+		}
+		custom_effect_tooltip = GRE_increase_state_auth_minority_pop_tt
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.025
+		}
+	}
+	if = {
+		limit = {
+			has_government = social_democrat
+		}
+		custom_effect_tooltip = GRE_increase_state_socdem_minority_pop_tt
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.025
+		}
+	}
+	if = {
+		limit = {
+			has_government = social_liberal
+		}
+		custom_effect_tooltip = GRE_increase_state_liberal_minority_pop_tt
+		add_popularity = {
+			ideology = social_liberal
+			popularity = 0.025
+		}
+	}
+	if = {
+		limit = {
+			has_government = social_conservative
+		}
+		custom_effect_tooltip = GRE_increase_state_conservative_minority_pop_tt
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.025
+		}
+	}
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				NOT = {
+					check_variable = { nationality = 151 }
+				}
+			}
+			if = {
+				limit = {
+					OWNER = {
+						has_government = authoritarian_democrat
+					}
+				}
+				add_to_variable = { GRE_state_auth_pop = 0.045 }
+				add_to_variable = { GRE_state_socdem_pop = -0.015 }
+				add_to_variable = { GRE_state_liberal_pop = -0.015 }
+				add_to_variable = { GRE_state_conservative_pop = -0.015 }
+			}
+			if = {
+				limit = {
+					OWNER = {
+						has_government = social_democrat
+					}
+				}
+				add_to_variable = { GRE_state_socdem_pop = 0.045 }
+				add_to_variable = { GRE_state_auth_pop = -0.015 }
+				add_to_variable = { social_liberal = -0.015 }
+				add_to_variable = { social_conservative = -0.015 }
+			}
+			if = {
+				limit = {
+					OWNER = {
+						has_government = social_liberal
+					}
+				}
+				add_to_variable = { GRE_state_liberal_pop = 0.045 }
+				add_to_variable = { GRE_state_auth_pop = -0.015 }
+				add_to_variable = { GRE_state_socdem_pop = -0.015 }
+				add_to_variable = { GRE_state_conservative_pop = -0.015 }
+			}
+			if = {
+				limit = {
+					OWNER = {
+						has_government = social_conservative
+					}
+				}
+				add_to_variable = { GRE_state_conservative_pop = 0.045 }
+				add_to_variable = { GRE_state_auth_pop = -0.015 }
+				add_to_variable = { social_democrat = -0.015 }
+				add_to_variable = { social_liberal = -0.015 }
+			}
+		}
+	}
+}
+
+GRE_decrease_ruling_party_minority_pop = {
+	if = {
+		limit = {
+			has_government = authoritarian_democrat
+		}
+		custom_effect_tooltip = GRE_decrease_state_auth_minority_pop_tt
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = -0.025
+		}
+	}
+	if = {
+		limit = {
+			has_government = social_democrat
+		}
+		custom_effect_tooltip = GRE_decrease_state_socdem_minority_pop_tt
+		add_popularity = {
+			ideology = social_democrat
+			popularity = -0.025
+		}
+	}
+	if = {
+		limit = {
+			has_government = social_liberal
+		}
+		custom_effect_tooltip = GRE_decrease_state_liberal_minority_pop_tt
+		add_popularity = {
+			ideology = social_liberal
+			popularity = -0.025
+		}
+	}
+	if = {
+		limit = {
+			has_government = social_conservative
+		}
+		custom_effect_tooltip = GRE_decrease_state_conservative_minority_pop_tt
+		add_popularity = {
+			ideology = social_conservative
+			popularity = -0.025
+		}
+	}
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				NOT = {
+					check_variable = { nationality = 151 }
+				}
+			}
+			if = {
+				limit = {
+					OWNER = {
+						has_government = authoritarian_democrat
+					}
+				}
+				add_to_variable = { GRE_state_auth_pop = -0.045 }
+				add_to_variable = { GRE_state_socdem_pop = 0.015 }
+				add_to_variable = { GRE_state_liberal_pop = 0.015 }
+				add_to_variable = { GRE_state_conservative_pop = 0.015 }
+			}
+			if = {
+				limit = {
+					OWNER = {
+						has_government = social_democrat
+					}
+				}
+				add_to_variable = { GRE_state_socdem_pop = -0.045 }
+				add_to_variable = { GRE_state_auth_pop = 0.015 }
+				add_to_variable = { social_liberal = 0.015 }
+				add_to_variable = { social_conservative = 0.015 }
+			}
+			if = {
+				limit = {
+					OWNER = {
+						has_government = social_liberal
+					}
+				}
+				add_to_variable = { GRE_state_liberal_pop = -0.045 }
+				add_to_variable = { GRE_state_auth_pop = 0.015 }
+				add_to_variable = { GRE_state_socdem_pop = 0.015 }
+				add_to_variable = { GRE_state_conservative_pop = 0.015 }
+			}
+			if = {
+				limit = {
+					OWNER = {
+						has_government = social_conservative
+					}
+				}
+				add_to_variable = { GRE_state_conservative_pop = -0.045 }
+				add_to_variable = { GRE_state_auth_pop = 0.015 }
+				add_to_variable = { social_democrat = 0.015 }
+				add_to_variable = { social_liberal = 0.015 }
+			}
+		}
+	}
+}
+
+GRE_add_ruling_party_temp_pop_large = {
+	custom_effect_tooltip = GRE_add_ruling_party_temp_pop_large_tt
+	if = {
+		limit = {
+			OWNER = {
+				has_government = authoritarian_democrat
+			}
+		}
+		add_to_variable = { GRE_state_auth_temp_pop = 0.075 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_democrat
+			}
+		}
+		add_to_variable = { GRE_state_socdem_temp_pop = 0.075 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_liberal
+			}
+		}
+		add_to_variable = { GRE_state_liberal_temp_pop = 0.075 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_conservative
+			}
+		}
+		add_to_variable = { GRE_state_conservative_temp_pop = 0.075 }
+	}
+}
+
+GRE_add_ruling_party_temp_pop_medium = {
+	custom_effect_tooltip = GRE_add_ruling_party_temp_pop_medium_tt
+	if = {
+		limit = {
+			OWNER = {
+				has_government = authoritarian_democrat
+			}
+		}
+		add_to_variable = { GRE_state_auth_temp_pop = 0.05 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_democrat
+			}
+		}
+		add_to_variable = { GRE_state_socdem_temp_pop = 0.05 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_liberal
+			}
+		}
+		add_to_variable = { GRE_state_liberal_temp_pop = 0.05 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_conservative
+			}
+		}
+		add_to_variable = { GRE_state_conservative_temp_pop = 0.05 }
+	}
+}
+
+GRE_add_ruling_party_temp_pop_small = {
+	custom_effect_tooltip = GRE_add_ruling_party_temp_pop_small_tt
+	if = {
+		limit = {
+			OWNER = {
+				has_government = authoritarian_democrat
+			}
+		}
+		add_to_variable = { GRE_state_auth_temp_pop = 0.025 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_democrat
+			}
+		}
+		add_to_variable = { GRE_state_socdem_temp_pop = 0.025 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_liberal
+			}
+		}
+		add_to_variable = { GRE_state_liberal_temp_pop = 0.025 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_conservative
+			}
+		}
+		add_to_variable = { GRE_state_conservative_temp_pop = 0.025 }
+	}
+}
+
+GRE_decrease_ruling_party_temp_pop_small = {
+	custom_effect_tooltip = GRE_decrease_ruling_party_temp_pop_small_tt
+	if = {
+		limit = {
+			OWNER = {
+				has_government = authoritarian_democrat
+			}
+		}
+		add_to_variable = { GRE_state_auth_temp_pop = 0.025 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_democrat
+			}
+		}
+		add_to_variable = { GRE_state_socdem_temp_pop = 0.025 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_liberal
+			}
+		}
+		add_to_variable = { GRE_state_liberal_temp_pop = 0.025 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_conservative
+			}
+		}
+		add_to_variable = { GRE_state_conservative_temp_pop = 0.025 }
+	}
+}
+
+GRE_decrease_ruling_party_temp_pop_medium = {
+	custom_effect_tooltip = GRE_decrease_ruling_party_temp_pop_small_tt
+	if = {
+		limit = {
+			OWNER = {
+				has_government = authoritarian_democrat
+			}
+		}
+		add_to_variable = { GRE_state_auth_temp_pop = -0.05 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_democrat
+			}
+		}
+		add_to_variable = { GRE_state_socdem_temp_pop = -0.05 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_liberal
+			}
+		}
+		add_to_variable = { GRE_state_liberal_temp_pop = -0.05 }
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_government = social_conservative
+			}
+		}
+		add_to_variable = { GRE_state_conservative_temp_pop = -0.05 }
+	}
+}
+
+GRE_socdem_campaign_effects = {
+	set_temp_variable = { GRE_election_regional_random_modifier = 2 }
+	randomize_temp_variable = {
+		var = GRE_election_regional_random_modifier
+		distribution = uniform
+		min = 0.00
+		max = 0.08
+	}
+	add_to_variable = { GRE_state_socdem_pop = GRE_election_regional_random_modifier }
+	divide_temp_variable = { GRE_election_regional_random_modifier = 3 }
+	subtract_from_variable = { GRE_state_conservative_pop = GRE_election_regional_random_modifier }
+	subtract_from_variable = { GRE_state_auth_pop = GRE_election_regional_random_modifier }
+	subtract_from_variable = { GRE_state_liberal_pop = GRE_election_regional_random_modifier }
+}
+
+GRE_authdem_campaign_effects = {
+	set_temp_variable = { GRE_election_regional_random_modifier = 2 }
+	randomize_temp_variable = {
+		var = GRE_election_regional_random_modifier
+		distribution = uniform
+		min = 0.00
+		max = 0.08
+	}
+	add_to_variable = { GRE_state_auth_pop = GRE_election_regional_random_modifier }
+	divide_temp_variable = { GRE_election_regional_random_modifier = 3 }
+	subtract_from_variable = { GRE_state_conservative_pop = GRE_election_regional_random_modifier }
+	subtract_from_variable = { GRE_state_liberal_pop = GRE_election_regional_random_modifier }
+	subtract_from_variable = { GRE_state_socdem_pop = GRE_election_regional_random_modifier }
+}
+
+GRE_liberal_campaign_effects = {
+	set_temp_variable = { GRE_election_regional_random_modifier = 2 }
+	randomize_temp_variable = {
+		var = GRE_election_regional_random_modifier
+		distribution = uniform
+		min = 0.00
+		max = 0.08
+	}
+	add_to_variable = { GRE_state_liberal_pop = GRE_election_regional_random_modifier }
+	divide_temp_variable = { GRE_election_regional_random_modifier = 3 }
+	subtract_from_variable = { GRE_state_conservative_pop = GRE_election_regional_random_modifier }
+	subtract_from_variable = { GRE_state_socdem_pop = GRE_election_regional_random_modifier }
+	subtract_from_variable = { GRE_state_auth_pop = GRE_election_regional_random_modifier }
+}
+
+GRE_conservative_campaign_effects = {
+	set_temp_variable = { GRE_election_regional_random_modifier = 2 }
+	randomize_temp_variable = {
+		var = GRE_election_regional_random_modifier
+		distribution = uniform
+		min = 0.00
+		max = 0.08
+	}
+	add_to_variable = { GRE_state_conservative_pop = GRE_election_regional_random_modifier }
+	divide_temp_variable = { GRE_election_regional_random_modifier = 3 }
+	subtract_from_variable = { GRE_state_socdem_pop = GRE_election_regional_random_modifier }
+	subtract_from_variable = { GRE_state_liberal_pop = GRE_election_regional_random_modifier }
+	subtract_from_variable = { GRE_state_auth_pop = GRE_election_regional_random_modifier }
+}
+
+
+GRE_region_campaigning_effects = { #USE IN STATE SCOPE
+	if = {
+		limit = {
+			OWNER = {
+				has_country_flag = GRE_campaigning_for_socdem
+			}
+		}
+		GRE_socdem_campaign_effects = yes
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_country_flag = GRE_campaigning_for_conservative
+			}
+		}
+		GRE_conservative_campaign_effects = yes
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_country_flag = GRE_campaigning_for_liberal
+			}
+		}
+		GRE_liberal_campaign_effects = yes
+	}
+	if = {
+		limit = {
+			OWNER = {
+				has_country_flag = GRE_campaigning_for_authdem
+			}
+		}
+		GRE_authdem_campaign_effects = yes
+	}
+}
+
+GRE_northern_greece_campaign = {
+	custom_effect_tooltip = GRE_northern_greece_campaign_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					region = 150
+					region = 132
+					region = 12
+				}
+			}
+			GRE_region_campaigning_effects = yes
+		}
+	}
+}
+
+GRE_central_greece_campaign = {
+	custom_effect_tooltip = GRE_central_greece_campaign_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				region = 133
+			}
+			GRE_region_campaigning_effects = yes
+		}
+	}
+}
+
+GRE_ural_region_campaign = {
+	custom_effect_tooltip = GRE_ural_region_campaign_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				region = 138
+			}
+			GRE_region_campaigning_effects = yes
+		}
+	}
+}
+
+GRE_southern_campaign = {
+	custom_effect_tooltip = GRE_southern_campaign_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				region = 40
+			}
+			GRE_region_campaigning_effects = yes
+		}
+	}
+}
+
+GRE_southern_urals_campaign = {
+	custom_effect_tooltip = GRE_southern_urals_campaign_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				region = 209
+			}
+			GRE_region_campaigning_effects = yes
+		}
+	}
+}
+
+
+GRE_trans_urais_campaign = {
+	custom_effect_tooltip = GRE_trans_urais_campaign_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				region = 14
+			}
+			GRE_region_campaigning_effects = yes
+		}
+	}
+}
+
+GRE_western_siberia_campaign = {
+	custom_effect_tooltip = GRE_western_siberia_campaign_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				region = 151
+			}
+			GRE_region_campaigning_effects = yes
+		}
+	}
+}
+
+GRE_northern_siberia_campaign = {
+	custom_effect_tooltip = GRE_northern_siberia_campaign_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				region = 147
+			}
+			GRE_region_campaigning_effects = yes
+		}
+	}
+}
+
+GRE_central_siberia_campaign = {
+	custom_effect_tooltip = GRE_central_siberia_campaign_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				region = 207
+			}
+			GRE_region_campaigning_effects = yes
+		}
+	}
+}
+
+GRE_eastern_siberia_campaign = {
+	custom_effect_tooltip = GRE_eastern_siberia_campaign_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				region = 149
+			}
+			GRE_region_campaigning_effects = yes
+		}
+	}
+}
+
+GRE_trans_baikal_campaign = {
+	custom_effect_tooltip = GRE_trans_baikal_campaign_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				region = 211
+			}
+			GRE_region_campaigning_effects = yes
+		}
+	}
+}
+
+GRE_far_east_campaign = {
+	custom_effect_tooltip = GRE_far_east_campaign_tt
+	hidden_effect = {
+		every_owned_state = {
+			limit = {
+				OR = {
+					region = 148
+					region = 213
+				}
+			}
+			GRE_region_campaigning_effects = yes
+		}
+	}
+}
+
+GRE_polls_effect = {
+	if = {
+		limit = { tag = GRE }
+		random_list = {
+			33  = {
+				country_event = {
+					id = Greek_democracy_helpers.11
+					days = 4
+					random = 48
+				}
+				country_event = {
+					id = Greek_democracy_helpers.12
+					days = 8
+					random = 48
+				}
+				country_event = {
+					id = Greek_democracy_helpers.13
+					days = 12
+					random = 48
+				}
+			}
+			33 = {
+				country_event = {
+					id = Greek_democracy_helpers.12
+					days = 4
+					random = 48
+				}
+				country_event = {
+					id = Greek_democracy_helpers.13
+					days = 8
+					random = 48
+				}
+				country_event = {
+					id = Greek_democracy_helpers.11
+					days = 12
+					random = 48
+				}
+			}
+			34 = {
+				country_event = {
+					id = Greek_democracy_helpers.13
+					days = 4
+					random = 48
+				}
+				country_event = {
+					id = Greek_democracy_helpers.11
+					days = 8
+					random = 48
+				}
+				country_event = {
+					id = Greek_democracy_helpers.12
+					days = 12
+					random = 48
+				}
+			}
+		}
+	}
+
+	if = {
+		limit = { tag = GRE }
+		random_list = {
+			33  = {
+				country_event = {
+					id = Greek_democracy_helpers.14
+					days = 4
+					random = 48
+				}
+				country_event = {
+					id = Greek_democracy_helpers.12
+					days = 8
+					random = 48
+				}
+				country_event = {
+					id = Greek_democracy_helpers.13
+					days = 12
+					random = 48
+				}
+			}
+			33 = {
+				country_event = {
+					id = Greek_democracy_helpers.12
+					days = 4
+					random = 48
+				}
+				country_event = {
+					id = Greek_democracy_helpers.13
+					days = 8
+					random = 48
+				}
+				country_event = {
+					id = Greek_democracy_helpers.14
+					days = 12
+					random = 48
+				}
+			}
+			34 = {
+				country_event = {
+					id = Greek_democracy_helpers.13
+					days = 4
+					random = 48
+				}
+				country_event = {
+					id = Greek_democracy_helpers.14
+					days = 8
+					random = 48
+				}
+				country_event = {
+					id = Greek_democracy_helpers.12
+					days = 12
+					random = 48
+				}
+			}
+		}
+	}
+
+	if = {
+		limit = { tag = TOB }
+		random_list = {
+			50 = {
+				country_event = {
+					id = Greek_democracy_helpers.14
+					days = 4
+					random = 48
+				}
+				country_event = {
+					id = Greek_democracy_helpers.13
+					days = 8
+					random = 48
+				}
+			}
+			50 = {
+				country_event = {
+					id = Greek_democracy_helpers.13
+					days = 4
+					random = 48
+				}
+				country_event = {
+					id = Greek_democracy_helpers.14
+					days = 8
+					random = 48
+				}
+			}
+		}
+	}
+}

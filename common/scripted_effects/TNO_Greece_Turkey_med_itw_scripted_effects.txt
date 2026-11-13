@@ -1,0 +1,82 @@
+# Phase D of the Greece and Turkey import (GREECE_INTEGRATION_PLAN.md): the Mediterranean branch's
+# Italo-Turkish War, settled on master. Reached only under the _WIP rule, from Turkey's War_Timer
+# mission and from the capitulation handler in TNO_peace_on_actions.txt (through turitw.1).
+
+# TUR scope. Each front is settled once, by whichever comes first: the War_Timer mission running
+# out, the war ending early, or a capitulation. The peace effects' conditions read who is still at
+# war, so a front that ended some other way (tur.113) only runs their shared tail.
+TUR_ITW_settle_greece = {
+	if = {
+		limit = { NOT = { has_global_flag = TUR_ITW_greece_settled } }
+		set_global_flag = TUR_ITW_greece_settled
+		TUR_calculate_peace_outcome_Greece = yes
+	}
+}
+TUR_ITW_settle_levant = {
+	if = {
+		limit = { NOT = { has_global_flag = TUR_ITW_levant_settled } }
+		set_global_flag = TUR_ITW_levant_settled
+		TUR_calculate_peace_outcome_Levant = yes
+	}
+}
+
+# TUR scope. The War_Timer mission's end, whether it ran out or the war ended first.
+TUR_ITW_war_over = {
+	TUR_ITW_settle_greece = yes
+	TUR_ITW_settle_levant = yes
+	TUR_ITW_master_aftermath = yes
+	ITA = { ITA_get_ITW_outcome_event = yes }
+}
+
+# TUR scope, once. Master's own war ends in itatur.4 (Turkey wins) or itatur.5 (Italy wins).
+# Besides the map, those set the flags and fire the events master's Italy, IME and the Gulf
+# carry on from, so the branch's war does the same, keyed to Turkey's result as
+# ITA_get_ITW_outcome_event reads it.
+TUR_ITW_master_aftermath = {
+	if = {
+		limit = { NOT = { has_global_flag = IME_TUR_peace_deal } }
+		set_global_flag = IME_TUR_peace_deal
+		ITA = {
+			ITA_itw_stand_down = yes
+			# Greece left the pact at tur.58; the peace makes it Italy's subject again
+			if = {
+				limit = {
+					is_faction_leader = yes
+					GRE = {
+						exists = yes
+						is_subject_of = ITA
+					}
+					NOT = { is_in_faction_with = GRE }
+				}
+				add_to_faction = GRE
+			}
+		}
+		if = {
+			limit = { IME = { exists = yes } }
+			IME = {
+				clr_country_flag = ime_italy_turkey_war
+				country_event = { id = ita.1005 days = 1 }
+				country_event = { id = ime.114 days = 1 }
+			}
+		}
+		if = {
+			limit = { check_variable = { TUR_ITW_win_counter > 0 } }
+			# as itatur.4 / itatur.102
+			set_global_flag = ita_tur_ita_lose
+			if = {
+				limit = { IME = { exists = yes } }
+				IME = { country_event = { id = ime.100 days = 14 } }
+			}
+			ITA = { country_event = { id = ITAENI.1 days = 30 } }
+		}
+		else = {
+			# as itatur.5 / itatur.101
+			set_global_flag = ita_tur_ita_win
+			if = {
+				limit = { IME = { exists = yes } }
+				IME = { country_event = { id = ime.48 days = 3 } }
+			}
+			ITA = { country_event = { id = ITAENI.2 days = 30 } }
+		}
+	}
+}

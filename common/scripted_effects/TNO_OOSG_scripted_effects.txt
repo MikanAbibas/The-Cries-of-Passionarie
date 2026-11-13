@@ -1,0 +1,1688 @@
+GAY_militarization_setup = {
+	set_variable = {
+		GAY_Militarization = 50
+	}
+	GAY_clamp_militarization_var = yes
+	GAY_militarization_50_effect = yes
+	# set_variable = { national_land_ownership = 40 }
+	# set_variable = { paesants_land_ownership = 15 }
+	# set_variable = { aristocracy_land_ownership = 30 }
+	# set_variable = { oligarchs_land_ownership = 15 }
+	#I don't know what pct is supposed to be so for now I am assuming it's the same as land ownership (maybe stands for percent controlled territory?)
+	#It might be a combination of land ownership and population? But considering this is almost a direct rip of the eu4 estates
+	#mechanic I will go with pure land ownership for now. It should be sufficient and I don't want to burden hoi4 with excess calcs
+	#g4 germany is already perhaps too intensive and St. George is no lightweight either. -GWS
+	set_variable = {
+		national_pct = 40
+	}
+	set_variable = {
+		peasants_pct = 15
+	}
+	set_variable = {
+		nobilty_pct = 30
+	}
+	set_variable = {
+		oligarchs_pct = 15
+	}
+	set_variable = {
+		peasants_loyalty = 60
+	}
+	set_variable = {
+		nobilty_loyalty = 45
+	}
+	set_variable = {
+		oligarchs_loyalty = 40
+	}
+	set_variable = {
+		peasants_strength = 36
+	}
+	set_variable = {
+		nobilty_strength = 52
+	}
+	set_variable = {
+		oligarchs_strength = 43
+	}
+	add_dynamic_modifier = {
+		modifier = GAY_estate_modifiers
+	}
+	GAY_estate_calcs = yes
+}
+
+#Militarization changes
+GAY_raise_Militarization_low = {
+	custom_effect_tooltip = GAY_increase_mil_low_tt
+	add_to_variable = {
+		GAY_Militarization = 5
+	}
+	GAY_clamp_militarization_var = yes
+	GAY_militarization_apply_modifiers = yes
+}
+
+GAY_raise_Militarization_mid = {
+	custom_effect_tooltip = GAY_increase_mil_med_tt
+	add_to_variable = {
+		GAY_Militarization = 10
+	}
+	GAY_clamp_militarization_var = yes
+	GAY_militarization_apply_modifiers = yes
+}
+
+GAY_raise_Militarization_high = {
+	custom_effect_tooltip = GAY_increase_mil_high_tt
+	add_to_variable = {
+		GAY_Militarization = 15
+	}
+	GAY_clamp_militarization_var = yes
+	GAY_militarization_apply_modifiers = yes
+}
+
+GAY_lower_Militarization_low = {
+	custom_effect_tooltip = GAY_decrease_mil_low_tt
+	subtract_from_variable = {
+		GAY_Militarization = 5
+	}
+	GAY_clamp_militarization_var = yes
+	GAY_militarization_apply_modifiers = yes
+}
+
+GAY_lower_Militarization_mid = {
+	custom_effect_tooltip = GAY_decrease_mil_med_tt
+	subtract_from_variable = {
+		GAY_Militarization = 10
+	}
+	GAY_clamp_militarization_var = yes
+	GAY_militarization_apply_modifiers = yes
+}
+
+GAY_lower_Militarization_high = {
+	custom_effect_tooltip = GAY_decrease_mil_high_tt
+	subtract_from_variable = {
+		GAY_Militarization = 15
+	}
+	GAY_clamp_militarization_var = yes
+	GAY_militarization_apply_modifiers = yes
+}
+
+#Militarization effects
+GAY_militarization_0_effect = {
+	add_ideas = GAY_militarization_0
+	hidden_effect = {
+		remove_ideas = {
+			GAY_militarization_25
+			GAY_militarization_50
+			GAY_militarization_75
+			GAY_militarization_100
+		}
+	}
+}
+
+GAY_militarization_25_effect = {
+	add_ideas = GAY_militarization_25
+	hidden_effect = {
+		remove_ideas = {
+			GAY_militarization_0
+			GAY_militarization_50
+			GAY_militarization_75
+			GAY_militarization_100
+		}
+	}
+}
+
+GAY_militarization_50_effect = {
+	add_ideas = GAY_militarization_50
+	hidden_effect = {
+		remove_ideas = {
+			GAY_militarization_25
+			GAY_militarization_0
+			GAY_militarization_75
+			GAY_militarization_100
+		}
+	}
+}
+
+GAY_militarization_75_effect = {
+	add_ideas = GAY_militarization_75
+	hidden_effect = {
+		remove_ideas = {
+			GAY_militarization_25
+			GAY_militarization_0
+			GAY_militarization_50
+			GAY_militarization_100
+		}
+	}
+}
+
+GAY_militarization_100_effect = {
+	add_ideas = GAY_militarization_100
+	hidden_effect = {
+		remove_ideas = {
+			GAY_militarization_25
+			GAY_militarization_0
+			GAY_militarization_75
+			GAY_militarization_50
+		}
+	}
+}
+
+#Militarization clamp
+GAY_clamp_militarization_var = {
+	round_variable = GAY_Militarization
+	clamp_variable = {
+		var = GAY_Militarization
+		min = 0
+		max = 100
+	}
+	set_variable = {
+		GAY_demilitarization = 100
+	}
+	subtract_from_variable = {
+		GAY_demilitarization = GAY_Militarization
+	}
+	set_variable = {
+		GAY_militarization_x_axis = 4.44
+	}
+	#(774-330)/100
+	multiply_variable = {
+		GAY_militarization_x_axis = GAY_Militarization
+	}
+	round_variable = GAY_militarization_x_axis
+	add_to_variable = {
+		GAY_militarization_x_axis = 330
+	}
+}
+
+GAY_militarization_Interaction_cooldown = {
+	custom_effect_tooltip = GAY_Interaction_cooldown_tt
+	hidden_effect = {
+		set_country_flag = GAY_militarization_interaction_cooldown
+		country_event = {
+			id = GAY.201
+			days = 60
+		}
+	}
+}
+
+GAY_militarization_apply_modifiers = {
+	if = {
+		limit = {
+			check_variable = {
+				GAY_Militarization < 25
+			}
+		}
+		GAY_militarization_0_effect = yes
+	}
+	if = {
+		limit = {
+			check_variable = {
+				GAY_Militarization > 24
+			}
+			check_variable = {
+				GAY_Militarization < 50
+			}
+		}
+		GAY_militarization_25_effect = yes
+	}
+	if = {
+		limit = {
+			check_variable = {
+				GAY_Militarization > 49
+			}
+			check_variable = {
+				GAY_Militarization < 75
+			}
+		}
+		GAY_militarization_50_effect = yes
+	}
+	if = {
+		limit = {
+			check_variable = {
+				GAY_Militarization > 74
+			}
+			check_variable = {
+				GAY_Militarization < 100
+			}
+		}
+		GAY_militarization_75_effect = yes
+	}
+	if = {
+		limit = {
+			check_variable = {
+				GAY_Militarization > 99
+			}
+		}
+		GAY_militarization_100_effect = yes
+	}
+}
+
+GAY_estate_calcs = {
+	#>25% national land owndership causes debuffs and gradually lowers militarization and increases estate power
+	#<50% does the opposite and <75% adds more buffs
+	#estate effects are scaled with strength, privalege effects are scaled with land owndership
+	#higher values increase magnitude of buffs and debuffs depending on loyalty
+	#unlike eu4, influence and loyalty do not return to an equilibrium
+	GAY_clamp_estate_values = yes
+	set_variable = {
+		GAY_estate_modifiers_political_power_gain = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_war_support_weekly = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_stability_factor = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_stability_weekly = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_conscription_factor = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_army_org_factor = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_production_speed_buildings_factor = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_production_factory_max_efficiency_factor = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_production_factory_efficiency_gain_factor = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_line_change_production_efficiency_factor = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_industrial_capacity_factory = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_army_morale_factor = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_war_support_factor = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_monthly_population = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_consumer_goods_factor = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_global_building_slots_factor = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_research_speed_factor = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_despotism_drift = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_social_conservative_drift = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_ultranational_socialism_drift = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_resistance_growth = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_starting_compliance = 0
+	}
+	set_variable = {
+		GAY_estate_modifiers_local_resources_factor = 0
+	}
+	#national
+	if = {
+		limit = {
+			check_variable = {
+				national_pct < 25
+			}
+		}
+		#debuffs
+		#GAY_lower_Militarization_mid = yes <----see on actions
+		set_variable = {
+			GAY_estate_modifiers_political_power_gain = -0.15
+		}
+		set_variable = {
+			GAY_estate_modifiers_war_support_weekly = -0.02
+		}
+		set_variable = {
+			GAY_estate_modifiers_stability_factor = 0
+		}
+		set_variable = {
+			GAY_estate_modifiers_stability_weekly = -0.02
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				national_pct > 24
+				national_pct < 50
+			}
+		}
+		#nothing
+		set_variable = {
+			GAY_estate_modifiers_political_power_gain = 0.02
+		}
+		set_variable = {
+			GAY_estate_modifiers_war_support_weekly = 0
+		}
+		set_variable = {
+			GAY_estate_modifiers_stability_factor = 0
+		}
+		set_variable = {
+			GAY_estate_modifiers_stability_weekly = 0
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				national_pct > 49
+				national_pct < 75
+			}
+		}
+		#buffs
+		set_variable = {
+			GAY_estate_modifiers_political_power_gain = 0.05
+		}
+		set_variable = {
+			GAY_estate_modifiers_war_support_weekly = 0
+		}
+		set_variable = {
+			GAY_estate_modifiers_stability_factor = 0.1
+		}
+		set_variable = {
+			GAY_estate_modifiers_stability_weekly = 0.01
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				national_pct > 74
+			}
+		}
+		#large buffs
+		set_variable = {
+			GAY_estate_modifiers_political_power_gain = 0.05
+		}
+		set_variable = {
+			GAY_estate_modifiers_war_support_weekly = 0.01
+		}
+		set_variable = {
+			GAY_estate_modifiers_stability_factor = 0.15
+		}
+		set_variable = {
+			GAY_estate_modifiers_stability_weekly = 0.02
+		}
+	}
+	#estate loyalty checks
+	if = {
+		limit = {
+			check_variable = {
+				peasants_loyalty < 20
+			}
+		}
+		#debuffs
+		set_variable = {
+			peasant_loyalty_scale = -1.5
+		}
+		GAY_peasant_effect_calc = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				peasants_loyalty > 19
+				peasants_loyalty < 40
+			}
+		}
+		#debuff
+		set_variable = {
+			peasant_loyalty_scale = -1
+		}
+		GAY_peasant_effect_calc = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				peasants_loyalty > 39
+				peasants_loyalty < 60
+			}
+		}
+		#nothing
+		set_variable = {
+			peasant_loyalty_scale = 0.5
+		}
+		GAY_peasant_effect_calc = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				peasants_loyalty > 59
+				peasants_loyalty < 80
+			}
+		}
+		#buffs
+		set_variable = {
+			peasant_loyalty_scale = 1
+		}
+		GAY_peasant_effect_calc = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				peasants_loyalty > 79
+			}
+		}
+		#large buffs
+		set_variable = {
+			peasant_loyalty_scale = 1.5
+		}
+		GAY_peasant_effect_calc = yes
+	}
+	if = {
+		limit = {
+			check_variable = {
+				nobilty_loyalty < 20
+			}
+		}
+		#debuffs
+		set_variable = {
+			nobilty_loyalty_scale = -1.5
+		}
+		GAY_nobilty_effect_calc = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				nobilty_loyalty > 19
+				nobilty_loyalty < 40
+			}
+		}
+		#debuff
+		set_variable = {
+			nobilty_loyalty_scale = -1
+		}
+		GAY_nobilty_effect_calc = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				nobilty_loyalty > 39
+				nobilty_loyalty < 60
+			}
+		}
+		#nothing
+		set_variable = {
+			nobilty_loyalty_scale = 0.5
+		}
+		GAY_nobilty_effect_calc = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				nobilty_loyalty > 59
+				nobilty_loyalty < 80
+			}
+		}
+		#buffs
+		set_variable = {
+			nobilty_loyalty_scale = 1
+		}
+		GAY_nobilty_effect_calc = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				nobilty_loyalty > 79
+			}
+		}
+		#large buffs
+		set_variable = {
+			nobilty_loyalty_scale = 1.5
+		}
+		GAY_nobilty_effect_calc = yes
+	}
+	if = {
+		limit = {
+			check_variable = {
+				oligarchs_loyalty < 20
+			}
+		}
+		#debuffs
+		set_variable = {
+			oligarchs_loyalty_scale = -1.5
+		}
+		GAY_oligarchs_effect_calc = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				oligarchs_loyalty > 19
+				oligarchs_loyalty < 40
+			}
+		}
+		#debuff
+		set_variable = {
+			oligarchs_loyalty_scale = -1
+		}
+		GAY_oligarchs_effect_calc = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				oligarchs_loyalty > 39
+				oligarchs_loyalty < 60
+			}
+		}
+		#nothing
+		set_variable = {
+			oligarchs_loyalty_scale = 0.5
+		}
+		GAY_oligarchs_effect_calc = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				oligarchs_loyalty > 59
+				oligarchs_loyalty < 80
+			}
+		}
+		#buffs
+		set_variable = {
+			oligarchs_loyalty_scale = 0.75
+		}
+		GAY_oligarchs_effect_calc = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				oligarchs_loyalty > 79
+			}
+		}
+		#large buffs
+		set_variable = {
+			oligarchs_loyalty_scale = 1
+		}
+		GAY_oligarchs_effect_calc = yes
+	}
+	GAY_pie_chart_update = yes
+}
+
+GAY_clamp_estate_values = {
+	clamp_variable = {
+		var = national_pct
+		min = 0
+		max = 100
+	}
+	clamp_variable = {
+		var = peasants_pct
+		min = 0
+		max = 100
+	}
+	clamp_variable = {
+		var = nobilty_pct
+		min = 0
+		max = 100
+	}
+	clamp_variable = {
+		var = oligarchs_pct
+		min = 0
+		max = 100
+	}
+	clamp_variable = {
+		var = peasants_loyalty
+		min = 0
+		max = 100
+	}
+	clamp_variable = {
+		var = nobilty_loyalty
+		min = 0
+		max = 100
+	}
+	clamp_variable = {
+		var = oligarchs_loyalty
+		min = 0
+		max = 100
+	}
+	clamp_variable = {
+		var = peasants_strength
+		min = 0
+		max = 100
+	}
+	clamp_variable = {
+		var = nobilty_strength
+		min = 0
+		max = 100
+	}
+	clamp_variable = {
+		var = oligarchs_strength
+		min = 0
+		max = 100
+	}
+}
+
+GAY_peasant_effect_calc = {
+	set_variable = {
+		peasant_loyalty_scale_pct = peasant_loyalty_scale
+	}
+	set_variable = {
+		peasant_loyalty_scale_strength = peasant_loyalty_scale
+	}
+	multiply_variable = {
+		peasant_loyalty_scale_pct = peasants_pct
+	}
+	divide_variable = {
+		peasant_loyalty_scale_pct = 10
+	}
+	multiply_variable = {
+		peasant_loyalty_scale_strength = peasants_strength
+	}
+	divide_variable = {
+		peasant_loyalty_scale_strength = 10
+	}
+	#pct modifiers
+	set_variable = {
+		GAY_estate_modifiers_conscription_factor = 0.02
+	}
+	multiply_variable = {
+		GAY_estate_modifiers_conscription_factor = peasant_loyalty_scale_pct
+	}
+	#estate modifiers
+	if = {
+		limit = {
+			has_country_flag = GAY_priv_exempt_from_conscription
+		}
+		set_temp_variable = {
+			exempt_from_conscription_pp = 0.02
+		}
+		multiply_temp_variable = {
+			exempt_from_conscription_pp = peasant_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_political_power_gain = exempt_from_conscription_pp
+		}
+		set_temp_variable = {
+			exempt_from_conscription_stab = 0.01
+		}
+		multiply_temp_variable = {
+			exempt_from_conscription_stab = peasant_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_stability_factor = exempt_from_conscription_stab
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = GAY_priv_allow_homesteading
+		}
+		set_temp_variable = {
+			exempt_from_conscription_pop_gain = 0.05
+		}
+		multiply_temp_variable = {
+			exempt_from_conscription_pop_gain = peasant_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_monthly_population = exempt_from_conscription_pop_gain
+		}
+		set_temp_variable = {
+			allow_homesteading_stab = 0.003
+		}
+		multiply_temp_variable = {
+			allow_homesteading_stab = peasant_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_stability_weekly = allow_homesteading_stab
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = GAY_priv_town_development_program
+		}
+		set_temp_variable = {
+			town_development_program_con_goods = -0.01
+		}
+		multiply_temp_variable = {
+			town_development_program_con_goods = peasant_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_consumer_goods_factor = town_development_program_con_goods
+		}
+		set_temp_variable = {
+			town_development_program_build_slots = 0.02
+		}
+		multiply_temp_variable = {
+			town_development_program_build_slots = peasant_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_global_building_slots_factor = town_development_program_build_slots
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = GAY_priv_grant_local_autonomy
+		}
+		set_temp_variable = {
+			grant_local_autonomy_con_speed = 0.03
+		}
+		multiply_temp_variable = {
+			grant_local_autonomy_con_speed = peasant_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_production_speed_buildings_factor = grant_local_autonomy_con_speed
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = GAY_priv_research_grants
+		}
+		set_temp_variable = {
+			research_grants_research = 0.005
+		}
+		multiply_temp_variable = {
+			research_grants_research = peasant_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_research_speed_factor = research_grants_research
+		}
+	}
+}
+
+GAY_nobilty_effect_calc = {
+	set_variable = {
+		nobilty_loyalty_scale_pct = nobilty_loyalty_scale
+	}
+	set_variable = {
+		nobilty_loyalty_scale_strength = nobilty_loyalty_scale
+	}
+	multiply_variable = {
+		nobilty_loyalty_scale_pct = nobilty_pct
+	}
+	divide_variable = {
+		nobilty_loyalty_scale_pct = 10
+	}
+	multiply_variable = {
+		nobilty_loyalty_scale_strength = nobilty_strength
+	}
+	divide_variable = {
+		nobilty_loyalty_scale_strength = 10
+	}
+	#pct modifiers
+	set_variable = {
+		GAY_estate_modifiers_army_org_factor = 0.02
+	}
+	multiply_variable = {
+		GAY_estate_modifiers_army_org_factor = nobilty_loyalty_scale_pct
+	}
+	#estate modifiers
+	if = {
+		limit = {
+			has_country_flag = GAY_priv_land_for_monastaries
+		}
+		set_temp_variable = {
+			land_for_monastaries_pop = 0.005
+		}
+		multiply_temp_variable = {
+			land_for_monastaries_pop = nobilty_loyalty_scale_strength
+		}
+		if = {
+			limit = {
+				has_government = social_conservative
+			}
+			add_to_variable = {
+				GAY_estate_modifiers_social_conservative_drift = land_for_monastaries_pop
+			}
+		}
+		else_if = {
+			limit = {
+				has_government = despotism
+			}
+			add_to_variable = {
+				GAY_estate_modifiers_despotism_drift = land_for_monastaries_pop
+			}
+		}
+		else = {
+			add_to_variable = {
+				GAY_estate_modifiers_ultranational_socialism_drift = land_for_monastaries_pop
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = GAY_priv_reaffirm_church_autonomy
+		}
+		set_temp_variable = {
+			reaffirm_church_autonomy_res = -0.05
+		}
+		multiply_temp_variable = {
+			reaffirm_church_autonomy_res = nobilty_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_resistance_growth = reaffirm_church_autonomy_res
+		}
+		set_temp_variable = {
+			reaffirm_church_autonomy_comp = 0.05
+		}
+		multiply_temp_variable = {
+			reaffirm_church_autonomy_comp = nobilty_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_starting_compliance = reaffirm_church_autonomy_comp
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = GAY_priv_orthodox_primacy_in_policy
+		}
+		set_temp_variable = {
+			orthodox_primacy_in_policy_morale = 0.02
+		}
+		multiply_temp_variable = {
+			orthodox_primacy_in_policy_morale = nobilty_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_army_morale_factor = orthodox_primacy_in_policy_morale
+		}
+		set_temp_variable = {
+			orthodox_primacy_in_policy_ws = 0.03
+		}
+		multiply_temp_variable = {
+			orthodox_primacy_in_policy_ws = nobilty_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_war_support_factor = orthodox_primacy_in_policy_ws
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = GAY_priv_missionary_effort
+		}
+		set_temp_variable = {
+			missionary_effort_org = 0.02
+		}
+		multiply_temp_variable = {
+			missionary_effort_org = nobilty_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_army_org_factor = missionary_effort_org
+		}
+	}
+}
+
+GAY_oligarchs_effect_calc = {
+	set_variable = {
+		oligarchs_loyalty_scale_pct = oligarchs_loyalty_scale
+	}
+	set_variable = {
+		oligarchs_loyalty_scale_strength = oligarchs_loyalty_scale
+	}
+	multiply_variable = {
+		oligarchs_loyalty_scale_pct = oligarchs_pct
+	}
+	divide_variable = {
+		oligarchs_loyalty_scale_pct = 10
+	}
+	multiply_variable = {
+		oligarchs_loyalty_scale_strength = oligarchs_strength
+	}
+	divide_variable = {
+		oligarchs_loyalty_scale_strength = 10
+	}
+	#pct modifiers
+	set_variable = {
+		GAY_estate_modifiers_production_speed_buildings_factor = 0.02
+	}
+	multiply_variable = {
+		GAY_estate_modifiers_production_speed_buildings_factor = oligarchs_loyalty_scale_pct
+	}
+	#estate modifiers
+	if = {
+		limit = {
+			has_country_flag = GAY_priv_mining_rights
+		}
+		set_temp_variable = {
+			mining_rights_re = 0.02
+		}
+		multiply_temp_variable = {
+			mining_rights_re = oligarchs_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_local_resources_factor = mining_rights_re
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = GAY_priv_cutting_regulations
+		}
+		set_temp_variable = {
+			cutting_regulations_output = 0.02
+		}
+		multiply_temp_variable = {
+			cutting_regulations_output = oligarchs_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_industrial_capacity_factory = cutting_regulations_output
+		}
+		set_temp_variable = {
+			priv_development_program_gf = 0.02
+		}
+		multiply_temp_variable = {
+			priv_development_program_gf = oligarchs_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_production_factory_efficiency_gain_factor = priv_development_program_gf
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = GAY_priv_development_program
+		}
+		set_temp_variable = {
+			priv_development_program_me = 0.02
+		}
+		multiply_temp_variable = {
+			priv_development_program_me = oligarchs_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_production_factory_max_efficiency_factor = priv_development_program_me
+		}
+		set_temp_variable = {
+			priv_development_program_lc = 0.01
+		}
+		multiply_temp_variable = {
+			priv_development_program_lc = oligarchs_loyalty_scale_strength
+		}
+		add_to_variable = {
+			GAY_estate_modifiers_line_change_production_efficiency_factor = priv_development_program_lc
+		}
+	}
+}
+
+GAY_land_to_nation = {
+	add_to_variable = {
+		national_pct = GAY_increase_land
+	}
+	custom_effect_tooltip = GAY_national_land_change
+	divide_temp_variable = {
+		GAY_increase_land = 3
+	}
+	subtract_from_variable = {
+		peasants_pct = GAY_increase_land
+	}
+	subtract_from_variable = {
+		nobilty_pct = GAY_increase_land
+	}
+	subtract_from_variable = {
+		oligarchs_pct = GAY_increase_land
+	}
+}
+
+GAY_land_to_peasant = {
+	add_to_variable = {
+		peasants_pct = GAY_increase_land
+	}
+	subtract_from_variable = {
+		national_pct = GAY_increase_land
+	}
+	custom_effect_tooltip = GAY_peasant_land_change
+}
+
+GAY_land_to_nobility = {
+	add_to_variable = {
+		nobilty_pct = GAY_increase_land
+	}
+	subtract_from_variable = {
+		national_pct = GAY_increase_land
+	}
+	custom_effect_tooltip = GAY_nobility_land_change
+}
+
+GAY_land_to_oligarch = {
+	add_to_variable = {
+		oligarchs_pct = GAY_increase_land
+	}
+	subtract_from_variable = {
+		national_pct = GAY_increase_land
+	}
+	custom_effect_tooltip = GAY_oligarch_land_change
+}
+
+GAY_loyalty_peasant_change = {
+	add_to_variable = {
+		peasants_loyalty = GAY_loyalty_change
+	}
+	custom_effect_tooltip = GAY_peasant_loyalty_change
+}
+
+GAY_influence_peasant_change = {
+	add_to_variable = {
+		peasants_strength = GAY_influence_change
+	}
+	custom_effect_tooltip = GAY_peasant_influence_change
+}
+
+GAY_loyalty_nobility_change = {
+	add_to_variable = {
+		nobilty_loyalty = GAY_loyalty_change
+	}
+	custom_effect_tooltip = GAY_nobility_loyalty_change
+}
+
+GAY_influence_nobility_change = {
+	add_to_variable = {
+		nobilty_strength = GAY_influence_change
+	}
+	custom_effect_tooltip = GAY_nobility_influence_change
+}
+
+GAY_loyalty_oligarch_change = {
+	add_to_variable = {
+		oligarchs_loyalty = GAY_loyalty_change
+	}
+	custom_effect_tooltip = GAY_oligarch_loyalty_change
+}
+
+GAY_influence_oligarch_change = {
+	add_to_variable = {
+		oligarchs_loyalty = GAY_influence_change
+	}
+	custom_effect_tooltip = GAY_oligarch_influence_change
+}
+
+############################################################
+###################Candidate mechanic#######################
+############################################################
+#This code was definitely stolen from the Ukraine files
+GAY_initialize_candidate = {
+	set_variable = {
+		GAY_pavlov_power = 57
+	}
+	set_variable = {
+		GAY_antipin_power = 33
+	}
+	set_variable = {
+		GAY_izvekov_power = 10
+	}
+	set_country_flag = GAY_candidate_mechanic
+	GAY_candidate_math = yes
+}
+
+GAY_candidate_math = {
+	hidden_effect = {
+		set_variable = {
+			GAY_pavlov_power_display = GAY_pavlov_power
+		}
+		set_variable = {
+			GAY_antipin_power_display = GAY_pavlov_power_display
+		}
+		add_to_variable = {
+			GAY_antipin_power_display = GAY_antipin_power
+		}
+		set_variable = {
+			GAY_izvekov_power_display = GAY_antipin_power_display
+		}
+		add_to_variable = {
+			GAY_izvekov_power_display = GAY_izvekov_power
+		}
+		clamp_variable = {
+			var = GAY_pavlov_power
+			min = 0
+			max = 100
+		}
+		clamp_variable = {
+			var = GAY_antipin_power
+			min = 0
+			max = 100
+		}
+		clamp_variable = {
+			var = GAY_izvekov_power
+			min = 0
+			max = 100
+		}
+		clamp_variable = {
+			var = GAY_pavlov_power_display
+			min = 0
+			max = 100
+		}
+		clamp_variable = {
+			var = GAY_antipin_power_display
+			min = 0
+			max = 100
+		}
+		clamp_variable = {
+			var = GAY_izvekov_power_display
+			min = 0
+			max = 100
+		}
+		## ideas not coded and it would be simpler to use country flags anyway - GWS
+		# remove_ideas = {
+		# 	GAY_pavlov_dominant
+		# 	GAY_antipin_dominant
+		# 	GAY_izvekov_dominant
+		# }
+		clr_country_flag = GAY_pavlov_dominant
+		clr_country_flag = GAY_antipin_dominant
+		clr_country_flag = GAY_izvekov_dominant
+		if = {
+			limit = {
+				check_variable = {
+					GAY_pavlov_power > 50
+				}
+			}
+			set_country_flag = GAY_pavlov_dominant
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					GAY_antipin_power > 50
+				}
+			}
+			set_country_flag = GAY_antipin_dominant
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					GAY_izvekov_power > 50
+				}
+			}
+			set_country_flag = GAY_izvekov_dominant
+		}
+		set_variable = {
+			GAY_pavlov_dynmod = GAY_pavlov_power
+		}
+		divide_variable = {
+			GAY_pavlov_dynmod = 500
+		}
+		set_variable = {
+			GAY_antipin_dynmod = GAY_antipin_power
+		}
+		divide_variable = {
+			GAY_antipin_dynmod = -5
+		}
+		set_variable = {
+			GAY_izvekov_dynmod = GAY_izvekov_power
+		}
+		divide_variable = {
+			GAY_izvekov_dynmod = 2500
+		}
+	}
+}
+
+GAY_ideologies_var = {
+	if = {
+		limit = {
+			has_country_flag = GAY_candidate_mechanic
+		}
+		set_variable = {
+			GAY_despot_var = GAY_pavlov_power
+		}
+		set_variable = {
+			GAY_ultranat_var = GAY_antipin_power
+		}
+		set_variable = {
+			GAY_condem_var = GAY_izvekov_power
+		}
+		set_popularities = {
+			social_conservative = GAY_condem_var
+			despotism = GAY_despot_var
+			ultranational_socialism = GAY_ultranat_var
+		}
+	}
+}
+
+GAY_ideologies_var_antipin = {
+	set_variable = {
+		GAY_despot_var = GAY_pavlov_power
+	}
+	set_variable = {
+		GAY_ultranat_var = GAY_antipin_power
+	}
+	set_variable = {
+		GAY_condem_var = GAY_izvekov_power
+	}
+	set_popularities = {
+		ultranational_socialism = GAY_ultranat_var
+		social_conservative = GAY_condem_var
+		despotism = GAY_despot_var
+	}
+}
+
+GAY_add_pavlov_power = {
+	add_to_variable = {
+		GAY_pavlov_power = GAY_pavlov_power_temp
+	}
+	if = {
+		limit = {
+			check_variable = {
+				GAY_antipin_power < GAY_izvekov_power
+			}
+		}
+		subtract_from_variable = {
+			GAY_izvekov_power = GAY_pavlov_power_temp
+		}
+		if = {
+			limit = {
+				check_variable = {
+					GAY_izvekov_power < 0
+				}
+			}
+			set_temp_variable = {
+				GAY_negative_temp = GAY_izvekov_power
+			}
+			add_to_variable = {
+				GAY_antipin_power = GAY_negative_temp
+			}
+		}
+	}
+	else = {
+		subtract_from_variable = {
+			GAY_antipin_power = GAY_pavlov_power_temp
+		}
+		if = {
+			limit = {
+				check_variable = {
+					GAY_antipin_power < 0
+				}
+			}
+			set_temp_variable = {
+				GAY_negative_temp = GAY_antipin_power
+			}
+			add_to_variable = {
+				GAY_izvekov_power = GAY_negative_temp
+			}
+		}
+	}
+	custom_effect_tooltip = GAY_add_pavlov_power_tt
+	GAY_candidate_math = yes
+}
+
+GAY_add_antipin_power = {
+	add_to_variable = {
+		GAY_antipin_power = GAY_antipin_power_temp
+	}
+	if = {
+		limit = {
+			check_variable = {
+				GAY_pavlov_power < GAY_izvekov_power
+			}
+		}
+		subtract_from_variable = {
+			GAY_izvekov_power = GAY_antipin_power_temp
+		}
+		if = {
+			limit = {
+				check_variable = {
+					GAY_izvekov_power < 0
+				}
+			}
+			set_temp_variable = {
+				GAY_negative_temp = GAY_izvekov_power
+			}
+			add_to_variable = {
+				GAY_pavlov_power = GAY_negative_temp
+			}
+		}
+	}
+	else = {
+		subtract_from_variable = {
+			GAY_pavlov_power = GAY_antipin_power_temp
+		}
+		if = {
+			limit = {
+				check_variable = {
+					GAY_pavlov_power < 0
+				}
+			}
+			set_temp_variable = {
+				GAY_negative_temp = GAY_pavlov_power
+			}
+			add_to_variable = {
+				GAY_izvekov_power = GAY_negative_temp
+			}
+		}
+	}
+	custom_effect_tooltip = GAY_add_antipin_power_tt
+	GAY_candidate_math = yes
+}
+
+GAY_add_izvekov_power = {
+	add_to_variable = {
+		GAY_izvekov_power = GAY_izvekov_power_temp
+	}
+	if = {
+		limit = {
+			check_variable = {
+				GAY_pavlov_power < GAY_antipin_power
+			}
+		}
+		subtract_from_variable = {
+			GAY_antipin_power = GAY_izvekov_power_temp
+		}
+		if = {
+			limit = {
+				check_variable = {
+					GAY_antipin_power < 0
+				}
+			}
+			set_temp_variable = {
+				GAY_negative_temp = GAY_antipin_power
+			}
+			add_to_variable = {
+				GAY_pavlov_power = GAY_negative_temp
+			}
+		}
+	}
+	else = {
+		subtract_from_variable = {
+			GAY_pavlov_power = GAY_izvekov_power_temp
+		}
+		if = {
+			limit = {
+				check_variable = {
+					GAY_pavlov_power < 0
+				}
+			}
+			set_temp_variable = {
+				GAY_negative_temp = GAY_pavlov_power
+			}
+			add_to_variable = {
+				GAY_antipin_power = GAY_negative_temp
+			}
+		}
+	}
+	custom_effect_tooltip = GAY_add_izvekov_power_tt
+	GAY_candidate_math = yes
+}
+
+GAY_add_pavlov_power_flat = {
+	add_to_variable = {
+		GAY_pavlov_power = GAY_pavlov_power_temp
+	}
+	custom_effect_tooltip = GAY_add_pavlov_power_tt
+	GAY_candidate_math = yes
+}
+
+GAY_add_antipin_power_flat = {
+	add_to_variable = {
+		GAY_antipin_power = GAY_antipin_power_temp
+	}
+	custom_effect_tooltip = GAY_add_antipin_power_tt
+	GAY_candidate_math = yes
+}
+
+GAY_add_izvekov_power_flat = {
+	add_to_variable = {
+		GAY_izvekov_power = GAY_izvekov_power_temp
+	}
+	custom_effect_tooltip = GAY_add_izvekov_power_tt
+	GAY_candidate_math = yes
+}
+
+GAY_sort_candidate = {
+	if = {
+		limit = {
+			check_variable = {
+				GAY_antipin_power > GAY_izvekov_power
+			}
+			AND = {
+				check_variable = {
+					GAY_antipin_power > GAY_pavlov_power
+				}
+			}
+		}
+		GAY_antipin_wins = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				GAY_pavlov_power > GAY_izvekov_power
+			}
+			AND = {
+				check_variable = {
+					GAY_pavlov_power > GAY_antipin_power
+				}
+			}
+		}
+		GAY_pavlov_wins = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				GAY_izvekov_power > GAY_pavlov_power
+			}
+			AND = {
+				check_variable = {
+					GAY_izvekov_power > GAY_antipin_power
+				}
+			}
+		}
+		GAY_izvekov_wins = yes
+	}
+	clr_country_flag = GAY_candidate_mechanic
+}
+
+GAY_antipin_wins = {
+	set_politics = {
+		ruling_party = ultranational_socialism
+	}
+	GAY_ideologies_var_antipin = yes
+	country_event = {
+		id = GAY.60
+		days = 1
+	}
+	load_focus_tree = GAY_antipin_regional
+}
+
+GAY_izvekov_wins = {
+	set_politics = {
+		ruling_party = social_conservative
+	}
+	country_event = {
+		id = GAY.91
+		days = 1
+	}
+	country_event = {
+		id = GAY.47
+		days = 7
+	}
+	load_focus_tree = GAY_izvekov_regional
+}
+
+GAY_pavlov_wins = {
+	country_event = {
+		id = GAY.44
+		days = 9
+	}
+	country_event = {
+		id = GAY.59
+		days = 1
+	}
+	load_focus_tree = GAY_pavlov_regional
+}
+
+GAY_ui_estate_pie_update = {
+	set_temp_variable = {
+		national_st = 0
+	}
+	set_temp_variable = {
+		national_end = national_pct
+	}
+	set_variable = {
+		national_frame = national_st
+	}
+	round_variable = national_frame
+	multiply_variable = {
+		national_frame = 1000
+	}
+	add_to_variable = {
+		national_frame = national_end
+	}
+	set_temp_variable = {
+		nobilty_st = national_end
+	}
+	set_temp_variable = {
+		nobilty_end = nobilty_st
+	}
+	add_to_temp_variable = {
+		nobilty_end = nobilty_pct
+	}
+	set_variable = {
+		nobilty_frame = nobilty_st
+	}
+	round_variable = nobilty_frame
+	multiply_variable = {
+		nobilty_frame = 1000
+	}
+	add_to_variable = {
+		nobilty_frame = nobilty_end
+	}
+	set_temp_variable = {
+		peasants_st = nobilty_end
+	}
+	set_temp_variable = {
+		peasants_end = peasants_st
+	}
+	add_to_temp_variable = {
+		peasants_end = peasants_pct
+	}
+	set_variable = {
+		peasants_frame = peasants_st
+	}
+	round_variable = peasants_frame
+	multiply_variable = {
+		peasants_frame = 1000
+	}
+	add_to_variable = {
+		peasants_frame = peasants_end
+	}
+	set_temp_variable = {
+		oligarchs_st = peasants_end
+	}
+	set_temp_variable = {
+		oligarchs_end = oligarchs_st
+	}
+	add_to_temp_variable = {
+		oligarchs_end = oligarchs_pct
+	}
+	set_variable = {
+		oligarchs_frame = oligarchs_st
+	}
+	round_variable = oligarchs_frame
+	multiply_variable = {
+		oligarchs_frame = 1000
+	}
+	add_to_variable = {
+		oligarchs_frame = oligarchs_end
+	}
+}
+
+GAY_pie_chart_update = {
+	#custom_effect_tooltip = RUS_reconstruction_region_emigrate_tt	# auto generated tooltip
+	set_temp_variable = {
+		temp_national_pct = national_pct
+	}
+	# pulls percentage value of region population types
+	set_temp_variable = {
+		temp_nobilty_pct = nobilty_pct
+	}
+	set_temp_variable = {
+		temp_peasants_pct = peasants_pct
+	}
+	set_temp_variable = {
+		temp_oligarchs_pct = oligarchs_pct
+	}
+	divide_temp_variable = {
+		temp_national_pct = 100
+	}
+	# converts into actual percentile values
+	divide_temp_variable = {
+		temp_nobilty_pct = 100
+	}
+	divide_temp_variable = {
+		temp_peasants_pct = 100
+	}
+	divide_temp_variable = {
+		temp_oligarchs_pct = 100
+	}
+	multiply_temp_variable = {
+		temp_national_pct_add = temp_national_pct
+	}
+	# adds desired percentage values
+	multiply_temp_variable = {
+		temp_nobilty_pct_add = temp_nobilty_pct
+	}
+	multiply_temp_variable = {
+		temp_peasants_pct_add = temp_peasants_pct
+	}
+	multiply_temp_variable = {
+		temp_oligarchs_pct_add = temp_oligarchs_pct
+	}
+	add_to_variable = {
+		national_pct = temp_national_pct_add
+	}
+	subtract_from_variable = {
+		rus_muscovy_germanpop = temp_pop_remove
+	}
+	add_to_variable = {
+		nobilty_pct = temp_nobilty_pct_add
+	}
+	add_to_variable = {
+		peasants_pct = temp_peasants_pct
+	}
+	add_to_variable = {
+		oligarchs_pct = temp_oligarchs_pct
+	}
+	set_temp_variable = {
+		temp_pop_100_checker = temp_pop_remove
+	}
+	set_temp_variable = {
+		temp_pop_delta = temp_national_pct_add
+	}
+	set_temp_variable = {
+		temp_pop_delta = temp_nobilty_pct_add
+	}
+	set_temp_variable = {
+		temp_pop_delta = temp_peasants_pct
+	}
+	set_temp_variable = {
+		temp_pop_delta = temp_oligarchs_pct
+	}
+	## Rounds all variables, to make sure the delta is below 100 if the numbers wouldn't add up on the pie chart
+	round_variable = national_pct
+	round_variable = rus_muscovy_germanpop
+	round_variable = nobilty_pct
+	round_variable = peasants_pct
+	round_variable = oligarchs_pct
+	## Calculate the difference between the rounded variables and 100
+	set_temp_variable = {
+		temp_pop_pct = 100
+	}
+	set_temp_variable = {
+		temp_pop_delta = national_pct
+	}
+	add_to_temp_variable = {
+		temp_pop_delta = rus_muscovy_germanpop
+	}
+	add_to_temp_variable = {
+		temp_pop_delta = nobilty_pct
+	}
+	add_to_temp_variable = {
+		temp_pop_delta = peasants_pct
+	}
+	add_to_temp_variable = {
+		temp_pop_delta = oligarchs_pct
+	}
+	if = {
+		# Add the difference back to Russian pops (largest)
+		limit = {
+			check_variable = {
+				temp_pop_delta < 100
+			}
+		}
+		subtract_from_temp_variable = {
+			temp_pop_pct = temp_pop_delta
+		}
+		add_to_variable = {
+			national_pct = temp_pop_pct
+		}
+	}
+	GAY_ui_estate_pie_update = yes
+}

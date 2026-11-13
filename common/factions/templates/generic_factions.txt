@@ -1,0 +1,15 @@
+# TNORA override: the new-faction-system databases are intentionally blanked, BUT the
+# NCNS ("Deeper Factions") DLC routes the legacy create_faction effect through
+# FACTION_DEFAULT_TEMPLATE = "faction_template_generic" (vanilla 00_defines.lua).
+# Without this template the effect silently fails and the next add_to_faction in
+# country history dereferences a null faction -> CTD at scenario start with DLCs on.
+# This template must stay self-contained: no goals/rules (those databases are blanked).
+faction_template_generic = {
+	manifest = faction_manifest_tno_generic
+	can_leader_join_other_factions = yes
+	icon = GFX_faction_logo_generic
+	visible = {
+		always = no # fallback only - never offered in the faction-creation UI
+	}
+	default_rules = { change_leader_rule_never }
+}

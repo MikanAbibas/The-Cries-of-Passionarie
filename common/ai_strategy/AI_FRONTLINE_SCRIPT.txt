@@ -1,0 +1,389 @@
+#Credit To Sheep Mod
+
+
+going_slow = {
+	
+	enable = {
+		has_equipment = { infantry_equipment < -25000 }
+		has_civil_war = no
+		enemies_strength_ratio > 1.9
+		NOT = {
+			OR = {
+				AND = {
+					tag = RUS
+					OR = {
+						has_war_with = GER
+						has_war_with = JAP
+					}
+				}
+				tag = BGR
+				tag = SGR
+				tag = HGR
+				tag = GGR
+				AND = {
+					is_iberian_major = yes
+					has_global_flag = Iberian_Wars
+				}
+				AND = {
+					OR = {
+						tag = IRL
+						tag = IRI
+						tag = PER
+					}
+					OR = {
+						has_war_with = IRL
+						has_war_with = IRI
+						has_war_with = PER
+					}
+				}
+				tag = OMA
+				tag = OMB
+				tag = OMI
+				tag = ILG
+				tag = SLG
+				tag = BIR
+				tag = SNI
+				tag = IRP
+				tag = KUR
+			}
+		}
+	}
+	abort = {
+	
+		OR = {
+			has_equipment = { infantry_equipment > -5000 }
+			AND = {
+				tag = RUS
+				OR = {
+					has_war_with = GER
+					has_war_with = JAP
+				}
+			}
+			AND = {
+				is_iberian_major = yes
+				has_global_flag = Iberian_Wars
+			}
+			AND = {
+				OR = {
+					tag = IRL
+					tag = IRI
+					tag = PER
+				}
+				OR = {
+					has_war_with = IRL
+					has_war_with = IRI
+					has_war_with = PER
+				}
+			}
+			tag = BGR
+			tag = SGR
+			tag = HGR
+			tag = GGR
+			tag = OMA
+			tag = OMB
+			tag = OMI
+			tag = ILG
+			tag = SLG
+			tag = BIR
+			tag = SNI
+			tag = IRP
+			tag = KUR
+		}
+	}
+	
+	ai_strategy = {
+		type = front_control
+
+		country_trigger = {
+			has_war_with = FROM
+		}
+
+		ratio > 0.0
+
+		priority = 400
+		ordertype = front
+		execution_type = careful
+	}
+	
+}
+
+
+
+
+
+
+
+
+always_prioritize_our_core = {
+	enable = {
+		surrender_progress > 0.25
+	}
+	abort = {
+		OR = {
+			surrender_progress < 0.15
+			has_capitulated = yes
+		}
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders #bypass value 1 on force defend
+		value = 50
+	}
+}
+
+always_prioritize_our_core_2 = {
+	enable = {
+		surrender_progress > 0.50
+	}
+	abort = {
+		OR = {
+			surrender_progress < 0.40
+			has_capitulated = yes
+		}
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders #bypass value 100 on force defend
+		value = 200
+	}
+}
+always_prioritize_our_core_3 = {
+	enable = {
+		surrender_progress > 0.75
+	}
+	abort = {
+		OR = {
+			surrender_progress < 0.60
+			has_capitulated = yes
+		}
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders #bypass value 1000 on force defend
+		value = 2000
+	}
+}
+always_prioritize_our_core_4 = {
+	enable = {
+		surrender_progress > 0.90
+	}
+	abort = {
+		OR = {
+			surrender_progress < 0.75
+			has_capitulated = yes
+		}
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders #bypass value 9999 on force defend
+		value = 9999
+	}
+}
+
+
+
+#Credit to Frontline AI
+
+will_you_concentrate_troops = {
+	enable = {
+		has_army_size = { size < 10 type = armor }
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = force_concentration_factor
+		value = 5  # base + 5 = 20 %
+	}
+
+}
+
+
+
+will_you_concentrate_troops_TooManyTanks = {
+	enable = {
+		has_army_size = { size > 24 type = armor }
+		
+			NOT = {
+		has_army_size = { size > 52 type = armor }
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = force_concentration_factor
+		value = -5  # base - 5 = 10 %
+	}
+
+}
+
+
+
+
+
+
+
+
+#Press the attack only with a clear edge (enemies at 80% of our strength or less); otherwise the AI decides for itself.
+#In country_trigger the scope is the enemy and FROM is us; the old ROOT checks never matched, so this never ran.
+#Lowest front_control priority: war-specific rushes (80), end_pocket (90) and going_slow (400) all win over it.
+there_is_no_place_for_coward_in_war = {
+	enable = {
+		has_equipment = { infantry_equipment > -5000 }
+		enemies_strength_ratio < 0.8
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		country_trigger = {
+			has_war_with = FROM
+		}
+
+		ratio = 0.3
+
+		priority = 50
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+	}
+}
+
+#Force concentration: push to retake our own lost cores, and toward the enemy capital.
+TNO_force_concentration_targets = {
+	enable = {
+		has_war = yes
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state_trigger = {
+			is_core_of = FROM.FROM
+			is_controlled_by = FROM
+		}
+		value = 50
+	}
+
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state_trigger = {
+			is_capital = yes
+			is_owned_by = FROM
+		}
+		value = 40
+	}
+}
+
+
+
+forced_check_omega_lul = {
+	enable = {
+		always = yes
+	}
+	abort = {
+		always = no
+	}
+	
+	ai_strategy = {
+		type = front_unit_request
+		state_trigger = {
+			is_controlled_by = FROM
+			NOT = {
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+					}
+					building = supply_node
+					level > 0
+				}
+			}
+		}
+		value = -5
+	}
+	ai_strategy = {
+		type = front_unit_request
+		state_trigger = { 
+			OR = {
+				is_capital = yes
+				any_neighbor_state = { is_capital = yes }
+			}
+		}
+		value = 15
+	}
+	ai_strategy = {
+		type = front_unit_request
+		state_trigger = { 
+			is_capital = yes
+			owner = { tag = FROM.FROM }
+		}
+		value = 50
+	}
+	
+}
+
+
+
+end_pocket = {
+	enable = {
+		always = yes
+	}
+	
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = front_control
+		state_trigger = {
+			OR = {
+				AND = {
+					is_controlled_by = FROM.FROM
+					NOT = {
+						is_fully_controlled_by = FROM.FROM
+					}
+				}
+				controller = {
+					has_war_with = FROM.FROM
+				}
+			}
+			all_neighbor_state = {
+				controller = {
+					NOT = {
+						has_war_with = FROM.FROM
+					}
+				}
+			}
+		}
+		ratio = 0.0
+		priority = 90
+		ordertype = front
+		execution_type = rush
+		execute_order = yes
+		manual_attack = yes
+	}
+	
+	ai_strategy = {
+		type = front_unit_request
+	
+		state_trigger = {
+			OR = {
+				AND = {
+					is_controlled_by = FROM.FROM
+					NOT = {
+						is_fully_controlled_by = FROM.FROM
+					}
+				}
+				controller = {
+					has_war_with = FROM.FROM
+				}
+			}
+			all_neighbor_state = {
+				controller = {
+					NOT = {
+						has_war_with = FROM.FROM
+					}
+				}
+			}
+		}		
+		value = 40 
+	}	
+}
+

@@ -1,0 +1,212 @@
+### Balbo diplomatic tree - negotiation events (Mediterranean Italy rework).
+###
+### Three focuses put a proposal to another power rather than simply granting a
+### result. Each is a country_event to the other side; the AI answers according
+### to the brief, and a human on that side may decide for themselves.
+
+add_namespace = ITA_med_diplo
+
+### =========================================================================
+### 1. Washington - ITA_the_aviator_in_dc
+### =========================================================================
+
+# Italy proposes a detente to the United States.
+country_event = {
+	id = ITA_med_diplo.1
+	title = ITA_med_diplo.1.t
+	desc = ITA_med_diplo.1.d
+	picture = GFX_report_event_generic_handshake
+
+	is_triggered_only = yes
+
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_med_diplo.1"}
+
+	option = { # Accept
+		name = ITA_med_diplo.1.a
+		ai_chance = { factor = 100 }
+		set_global_flag = ZZZ_detente_italy_usa
+		add_opinion_modifier = { target = ITA modifier = ITA_med_american_rapprochement }
+		ITA = {
+			add_opinion_modifier = { target = ROOT modifier = ITA_med_american_rapprochement }
+			country_event = { id = ITA_med_diplo.2 hours = 6 }
+		}
+	}
+
+	option = { # Decline
+		name = ITA_med_diplo.1.b
+		ai_chance = { factor = 0 }
+		ITA = { country_event = { id = ITA_med_diplo.3 hours = 6 } }
+	}
+}
+
+# Washington accepts.
+country_event = {
+	id = ITA_med_diplo.2
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_med_diplo.2.t
+	desc = ITA_med_diplo.2.d
+	picture = GFX_report_event_generic_handshake
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_med_diplo.2"}
+
+	option = { name = ITA_med_diplo.2.a }
+}
+
+# Washington declines.
+country_event = {
+	id = ITA_med_diplo.3
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_med_diplo.3.t
+	desc = ITA_med_diplo.3.d
+	picture = GFX_report_event_generic_conference
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_med_diplo.3"}
+
+	option = { name = ITA_med_diplo.3.a }
+}
+
+### =========================================================================
+### 2. Ankara - ITA_the_bosphorus_deal
+### =========================================================================
+
+# Italy proposes mutual military access through the Straits.
+country_event = {
+	id = ITA_med_diplo.10
+	title = ITA_med_diplo.10.t
+	desc = ITA_med_diplo.10.d
+	picture = GFX_report_event_generic_conference
+
+	is_triggered_only = yes
+
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_med_diplo.10"}
+
+	option = { # Accept
+		name = ITA_med_diplo.10.a
+		ai_chance = { factor = 80 }
+		give_military_access = ITA
+		ITA = {
+			give_military_access = ROOT
+			add_opinion_modifier = { target = TUR modifier = ITA_med_bosphorus_accord }
+			country_event = { id = ITA_med_diplo.11 hours = 6 }
+		}
+		add_opinion_modifier = { target = ITA modifier = ITA_med_bosphorus_accord }
+	}
+
+	option = { # Decline
+		name = ITA_med_diplo.10.b
+		ai_chance = { factor = 20 }
+		ITA = { country_event = { id = ITA_med_diplo.12 hours = 6 } }
+	}
+}
+
+country_event = {
+	id = ITA_med_diplo.11
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_med_diplo.11.t
+	desc = ITA_med_diplo.11.d
+	picture = GFX_report_event_generic_handshake
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_med_diplo.11"}
+
+	option = { name = ITA_med_diplo.11.a }
+}
+
+country_event = {
+	id = ITA_med_diplo.12
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_med_diplo.12.t
+	desc = ITA_med_diplo.12.d
+	picture = GFX_report_event_generic_conference
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_med_diplo.12"}
+
+	option = { name = ITA_med_diplo.12.a }
+}
+
+### =========================================================================
+### 3. Tokyo - ITA_a_return_to_tokyo
+### =========================================================================
+
+# Italy proposes a detente to Japan. Tokyo is markedly cooler if Rome has been
+# funding Delhi: ITA_indias_gateway sets ITA_med_boosted_india.
+country_event = {
+	id = ITA_med_diplo.20
+	title = ITA_med_diplo.20.t
+	desc = ITA_med_diplo.20.d
+	picture = GFX_report_event_generic_handshake
+
+	is_triggered_only = yes
+
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_med_diplo.20"}
+
+	option = { # Accept
+		name = ITA_med_diplo.20.a
+		ai_chance = {
+			base = 100
+			modifier = {
+				factor = 0.5
+				ITA = { has_country_flag = ITA_med_boosted_india }
+			}
+		}
+		set_global_flag = ZZZ_detente_italy_jap
+		add_opinion_modifier = { target = ITA modifier = ITA_med_tokyo_understanding }
+		ITA = {
+			add_opinion_modifier = { target = ROOT modifier = ITA_med_tokyo_understanding }
+			country_event = { id = ITA_med_diplo.21 hours = 6 }
+		}
+	}
+
+	option = { # Decline
+		name = ITA_med_diplo.20.b
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = 50
+				ITA = { has_country_flag = ITA_med_boosted_india }
+			}
+		}
+		ITA = { country_event = { id = ITA_med_diplo.22 hours = 6 } }
+	}
+}
+
+country_event = {
+	id = ITA_med_diplo.21
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_med_diplo.21.t
+	desc = ITA_med_diplo.21.d
+	picture = GFX_report_event_generic_handshake
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_med_diplo.21"}
+
+	option = { name = ITA_med_diplo.21.a }
+}
+
+country_event = {
+	id = ITA_med_diplo.22
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	title = ITA_med_diplo.22.t
+	desc = ITA_med_diplo.22.d
+	picture = GFX_report_event_generic_conference
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ITA_med_diplo.22"}
+
+	option = { name = ITA_med_diplo.22.a }
+}

@@ -1,0 +1,38 @@
+# Madagascar's civil war (MAD, MDG, MDJ, MDM) ends only when every side but one has been annexed
+# (MAD_civil_war_check_end, from on_annex). With no war-specific order the AI held its lines and the island stayed split
+# for good (user's test, 2026-10-24: "they should fight until one side wins"). Each side now rushes the other sides.
+# Scopes (vanilla _documentation.md): in country_trigger THIS is the enemy and FROM is us. Priority 80 is the
+# war-specific rush rung (CLAUDE.md): over the generic attack order (50), under end_pocket (90) and going_slow (400).
+
+MAD_civil_war_rush = {
+	enable = {
+		has_global_flag = madagaskar_civil_war
+		OR = {
+			original_tag = MAD
+			original_tag = MDG
+			original_tag = MDJ
+			original_tag = MDM
+		}
+		has_war = yes
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		country_trigger = {
+			OR = {
+				original_tag = MAD
+				original_tag = MDG
+				original_tag = MDJ
+				original_tag = MDM
+			}
+			has_war_with = FROM
+		}
+		priority = 80
+		ordertype = front
+		execution_type = rush
+		manual_attack = yes
+		execute_order = yes
+	}
+}

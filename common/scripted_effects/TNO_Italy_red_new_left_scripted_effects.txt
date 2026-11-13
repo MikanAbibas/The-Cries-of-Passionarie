@@ -1,0 +1,300 @@
+ITA_RED_setup_post_IGW_NL = {
+	hidden_effect = {
+		if = {
+			limit = {
+				has_country_leader = {
+					name = "Antonio Negri"
+					ruling_only = yes
+				}
+			}
+			load_focus_tree = { tree = ITA_RED_negri keep_completed = yes }
+		}
+		else_if = {
+			limit = {
+				has_country_leader = {
+					name = "Giangiacomo Feltrinelli"
+					ruling_only = yes
+				}
+			}
+			load_focus_tree = { tree = ITA_RED_feltrinelli keep_completed = yes }
+		}
+	}
+}
+
+# Feltrinelli Mech
+
+ITA_RED_a_bird_and_its_cage_setup = {
+	set_country_flag = ITA_RED_feltrinelli_mechanic_active
+	set_variable = { ITA_RED_feltrinelli_international = 70 }
+	set_variable = { ITA_RED_feltrinelli_domestic = 60 }
+	set_variable = { ITA_RED_feltrinelli_zone = 1 }
+	set_country_flag = ITA_RED_feltrinelli_cooldown
+	activate_mission = ITA_RED_feltrinelli_cooldown
+	activate_mission = ITA_RED_feltrinelli_domestic_tick
+
+	ITA_RED_birdcage_math = yes
+
+	add_dynamic_modifier = { modifier = ITA_RED_Feltrinelli_CulRev_modifier }
+}
+
+ITA_RED_birdcage_math = {
+	clamp_variable = { var = ITA_RED_feltrinelli_domestic min = 0 max = 100 }
+	clamp_variable = { var = ITA_RED_feltrinelli_international min = 0 max = 100 }
+	set_variable = { ITA_RED_feltrinelli_international_display = 100 }
+	subtract_from_variable = { ITA_RED_feltrinelli_international_display = ITA_RED_feltrinelli_international }
+
+	set_variable = { ITA_RED_feltrinelli_domestic_dynmod = ITA_RED_feltrinelli_domestic }
+	subtract_from_variable = { ITA_RED_feltrinelli_domestic_dynmod = 50 }
+	set_variable = { ITA_RED_feltrinelli_domestic_dynmod_percent = ITA_RED_feltrinelli_domestic_dynmod }
+	divide_variable = { ITA_RED_feltrinelli_domestic_dynmod = -20 }
+	divide_variable = { ITA_RED_feltrinelli_domestic_dynmod_percent = 200 }
+
+	set_variable = { ITA_RED_feltrinelli_international_dynmod = ITA_RED_feltrinelli_international }
+	subtract_from_variable = { ITA_RED_feltrinelli_international_dynmod = 50 }
+	set_variable = { ITA_RED_feltrinelli_international_dynmod_percent = ITA_RED_feltrinelli_international_dynmod }
+	divide_variable = { ITA_RED_feltrinelli_international_dynmod = 20 }
+	divide_variable = { ITA_RED_feltrinelli_international_dynmod_percent = 200 }
+}
+
+ITA_RED_birdcage_tooltip_domestic = {
+	set_temp_variable = { ITA_RED_feltrinelli_domestic_change_tt = ITA_RED_feltrinelli_domestic_tt }
+	set_temp_variable = { ITA_RED_feltrinelli_domestic_change_percent_tt = ITA_RED_feltrinelli_domestic_change_tt }
+	divide_temp_variable = { ITA_RED_feltrinelli_domestic_change_tt = -2000 }
+	divide_temp_variable = { ITA_RED_feltrinelli_domestic_change_percent_tt = 200 }
+}
+
+ITA_RED_birdcage_tooltip_international = {
+	set_temp_variable = { ITA_RED_feltrinelli_international_change_tt = ITA_RED_feltrinelli_abroad_tt }
+	set_temp_variable = { ITA_RED_feltrinelli_international_change_percent_tt = ITA_RED_feltrinelli_international_change_tt }
+	divide_temp_variable = { ITA_RED_feltrinelli_international_change_tt = 2000 }
+	divide_temp_variable = { ITA_RED_feltrinelli_international_change_percent_tt = 200 }
+}
+
+ITA_RED_feltrinelli_travel = {
+	if = {
+		limit = { check_variable = { ITA_RED_feltrinelli_zone = 1 } }
+		set_variable = { ITA_RED_feltrinelli_zone = 2 }
+		hidden_effect = {
+			activate_mission = ITA_RED_feltrinelli_travel_abroad
+		}
+		custom_effect_tooltip = ITA_RED_feltrinelli_travel_abroad_tt
+	}
+	else_if = {
+		limit = { check_variable = { ITA_RED_feltrinelli_zone = 3 } }
+		set_variable = { ITA_RED_feltrinelli_zone = 2 }
+		hidden_effect = {
+			activate_mission = ITA_RED_feltrinelli_travel_domestic
+		}
+		custom_effect_tooltip = ITA_RED_feltrinelli_travel_domestic_tt
+	}
+	else = {
+		custom_effect_tooltip = ITA_RED_feltrinelli_travel_traveling_tt
+	}
+}
+
+ITA_RED_feltrinelli_domestic_increase = {
+	add_to_variable = { ITA_RED_feltrinelli_domestic = ITA_RED_feltrinelli_domestic_temp }
+	set_temp_variable = { ITA_RED_feltrinelli_domestic_tt = ITA_RED_feltrinelli_domestic_temp }
+	ITA_RED_birdcage_math = yes
+	ITA_RED_birdcage_tooltip_domestic = yes
+	custom_effect_tooltip = ITA_RED_feltrinelli_domestic_increase_tt
+}
+ITA_RED_feltrinelli_domestic_decrease = {
+	subtract_from_variable = { ITA_RED_feltrinelli_domestic = ITA_RED_feltrinelli_domestic_temp }
+	set_temp_variable = { ITA_RED_feltrinelli_domestic_tt = ITA_RED_feltrinelli_domestic_temp }
+	multiply_temp_variable = { ITA_RED_feltrinelli_domestic_tt = -1 }
+	ITA_RED_birdcage_math = yes
+	ITA_RED_birdcage_tooltip_domestic = yes
+	custom_effect_tooltip = ITA_RED_feltrinelli_domestic_decrease_tt
+}
+ITA_RED_feltrinelli_international_increase = {
+	add_to_variable = { ITA_RED_feltrinelli_international = ITA_RED_feltrinelli_abroad_temp }
+	set_temp_variable = { ITA_RED_feltrinelli_abroad_tt = ITA_RED_feltrinelli_abroad_temp }
+	ITA_RED_birdcage_math = yes
+	ITA_RED_birdcage_tooltip_international = yes
+	custom_effect_tooltip = ITA_RED_feltrinelli_international_increase_tt
+}
+ITA_RED_feltrinelli_international_decrease = {
+	subtract_from_variable = { ITA_RED_feltrinelli_international = ITA_RED_feltrinelli_abroad_temp }
+	set_temp_variable = { ITA_RED_feltrinelli_abroad_tt = ITA_RED_feltrinelli_abroad_temp }
+	multiply_temp_variable = { ITA_RED_feltrinelli_abroad_tt = -1 }
+	ITA_RED_birdcage_math = yes
+	ITA_RED_birdcage_tooltip_international = yes
+	custom_effect_tooltip = ITA_RED_feltrinelli_international_decrease_tt
+}
+
+ #Negri
+
+ITA_RED_Negri_Mechanic_Setup = {
+	set_country_flag = ITA_RED_negri_mechanic_active
+	clamp_variable = {var = ITA_RED_Negri_Workers_Status min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_Negri_Square_Status min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_Negri_Students_Status min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_Workers_Tendecies min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_Square_Tendecies min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_Students_Tendecies min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_Negri_Policies_var min = 0 max = 100}
+	clamp_variable = {var = ITA_RED_Negri_Workers_Industrial_Capacity_dynmod min = -20 max = 20}
+	clamp_variable = {var = ITA_RED_Negri_Workers_Consumers_dynmod min = -5 max = 5}
+	clamp_variable = {var = ITA_RED_Negri_Workers_Production_Speed_dynmod min = -25 max = 25}
+	clamp_variable = {var = ITA_RED_Negri_Square_Weekly_Reaction_dynmod min = -2.50 max = 2.50}
+	clamp_variable = {var = ITA_RED_Negri_Square_Weekly_militant_approval_dynmod min = -2.50 max = 2.50}
+	clamp_variable = {var = ITA_RED_Negri_Square_Weekly_Red_Terror_dynmod min = -2.50 max = 2.50}
+	clamp_variable = {var = ITA_RED_Negri_Student_Research_dynmod min = -15 max = 15}
+	clamp_variable = {var = ITA_RED_Negri_Student_PP_dynmod min = -1.50 max = 1.50}
+	clamp_variable = {var = ITA_RED_Negri_Student_War_Support_dynmod min = -15 max = 15}
+	set_variable = {ITA_RED_Workers_Tendecies = 50}
+	set_variable = {ITA_RED_Square_Tendecies = 50}
+	set_variable = {ITA_RED_Students_Tendecies = 50}
+	set_variable = {ITA_RED_Negri_Square_Weekly_Reaction_dynmod = 0}
+	set_variable = {ITA_RED_Negri_Square_Weekly_militant_approval_dynmod = 0}
+	set_variable = {ITA_RED_Negri_Square_Weekly_Red_Terror_dynmod = 0}
+	set_variable = {ITA_RED_Negri_Workers_Industrial_Capacity_dynmod = 0}
+	set_variable = {ITA_RED_Negri_Workers_Consumers_dynmod = 0}
+	set_variable = {ITA_RED_Negri_Workers_Production_Speed_dynmod = 0}
+	set_variable = {ITA_RED_Negri_Student_Research_dynmod = 0}
+	set_variable = {ITA_RED_Negri_Student_PP_dynmod = 0}
+	set_variable = {ITA_RED_Negri_Student_War_Support_dynmod = 0}
+	set_variable = {ITA_RED_Negri_Workers_Status = 20}
+	set_variable = {ITA_RED_Negri_Square_Status = 20}
+	set_variable = {ITA_RED_Negri_Students_Status = 10}
+	add_to_array = {ITA_RED_Negri_Events = 1}
+	ITA_RED_Negri_Policies_Efficency = yes
+	activate_mission = ITA_RED_Negri_Monthly_decrease
+	add_dynamic_modifier = { modifier = ITA_RED_Negri_CulRev_modifier }
+}
+
+ITA_RED_Negri_Increase_Statalism = {
+	add_to_temp_variable = {ITA_RED_Negri_Workers_Industrial_Capacity_dynmod_temp = 4}
+	add_to_temp_variable = {ITA_RED_Negri_Workers_Consumers_dynmod_temp = 1}
+	add_to_temp_variable = {ITA_RED_Negri_Workers_Production_Speed_dynmod_temp = 5}
+	divide_temp_variable = {ITA_RED_Negri_Workers_Industrial_Capacity_dynmod_temp = 100}
+	divide_temp_variable = {ITA_RED_Negri_Workers_Consumers_dynmod_temp = 100}
+	divide_temp_variable = {ITA_RED_Negri_Workers_Production_Speed_dynmod_temp = 100}
+	ITA_RED_Negri_Bar2_stuff = yes
+	set_temp_variable = {ITA_RED_Negri_Workers_Industrial_Capacity_dynmod_tt = ITA_RED_Negri_Workers_Industrial_Capacity_dynmod_temp}
+	set_temp_variable = {ITA_RED_Negri_Workers_Consumers_dynmod_tt = ITA_RED_Negri_Workers_Consumers_dynmod_temp}
+	set_temp_variable = {ITA_RED_Negri_Workers_Production_Speed_dynmod_tt = ITA_RED_Negri_Workers_Production_Speed_dynmod_temp}
+	add_to_variable = {ITA_RED_Workers_Tendecies = 10}
+	custom_effect_tooltip = ITA_RED_Negri_increase_statalism_tt
+}
+
+ITA_RED_Negri_Increase_Cooperativism = {
+	add_to_temp_variable = {ITA_RED_Negri_Workers_Industrial_Capacity_dynmod_temp = -4}
+	add_to_temp_variable = {ITA_RED_Negri_Workers_Consumers_dynmod_temp = -1}
+	add_to_temp_variable = {ITA_RED_Negri_Workers_Production_Speed_dynmod_temp = -5}
+	divide_temp_variable = {ITA_RED_Negri_Workers_Industrial_Capacity_dynmod_temp = 100}
+	divide_temp_variable = {ITA_RED_Negri_Workers_Consumers_dynmod_temp = 100}
+	divide_temp_variable = {ITA_RED_Negri_Workers_Production_Speed_dynmod_temp = 100}
+	ITA_RED_Negri_Bar2_stuff = yes
+	set_temp_variable = {ITA_RED_Negri_Workers_Industrial_Capacity_dynmod_tt = ITA_RED_Negri_Workers_Industrial_Capacity_dynmod_temp}
+	set_temp_variable = {ITA_RED_Negri_Workers_Consumers_dynmod_tt = ITA_RED_Negri_Workers_Consumers_dynmod_temp}
+	set_temp_variable = {ITA_RED_Negri_Workers_Production_Speed_dynmod_tt = ITA_RED_Negri_Workers_Production_Speed_dynmod_temp}
+	add_to_variable = {ITA_RED_Workers_Tendecies = 10}
+	custom_effect_tooltip = ITA_RED_Negri_increase_cooperativism_tt
+}
+
+ITA_RED_Negri_Increase_External_Opposition = {
+	add_to_temp_variable = {ITA_RED_Negri_Square_Weekly_Reaction_dynmod_temp = -0.50}
+	add_to_temp_variable = {ITA_RED_Negri_Square_Weekly_militant_approval_dynmod_temp = 0.50}
+	add_to_temp_variable = {ITA_RED_Negri_Square_Weekly_Red_Terror_dynmod_temp = 0.50}
+	divide_temp_variable = {ITA_RED_Negri_Square_Weekly_Reaction_dynmod_temp = 100}
+	divide_temp_variable = {ITA_RED_Negri_Square_Weekly_militant_approval_dynmod_temp = 100}
+	divide_temp_variable = {ITA_RED_Negri_Square_Weekly_Red_Terror_dynmod_temp = 100}
+	ITA_RED_Negri_Bar1_stuff = yes
+	set_temp_variable = {ITA_RED_Negri_Square_Weekly_Reaction_dynmod_tt = ITA_RED_Negri_Square_Weekly_Reaction_dynmod_temp}
+	set_temp_variable = {ITA_RED_Negri_Square_Weekly_militant_approval_dynmod_tt = ITA_RED_Negri_Square_Weekly_militant_approval_dynmod_temp}
+	set_temp_variable = {ITA_RED_Negri_Square_Weekly_Red_Terror_dynmod_tt = ITA_RED_Negri_Square_Weekly_Red_Terror_dynmod_temp}
+	add_to_variable = {ITA_RED_Square_Tendecies = 10}
+	custom_effect_tooltip = ITA_RED_Negri_increase_external_opposition_tt
+}
+
+ITA_RED_Negri_Increase_Internal_Dissent = {
+	add_to_temp_variable = {ITA_RED_Negri_Square_Weekly_Reaction_dynmod_temp = 0.50}
+	add_to_temp_variable = {ITA_RED_Negri_Square_Weekly_militant_approval_dynmod_temp = -0.50}
+	add_to_temp_variable = {ITA_RED_Negri_Square_Weekly_Red_Terror_dynmod_temp = -0.50}
+	divide_temp_variable = {ITA_RED_Negri_Square_Weekly_Reaction_dynmod_temp = 100}
+	divide_temp_variable = {ITA_RED_Negri_Square_Weekly_militant_approval_dynmod_temp = 100}
+	divide_temp_variable = {ITA_RED_Negri_Square_Weekly_Red_Terror_dynmod_temp = 100}
+	ITA_RED_Negri_Bar1_stuff = yes
+	set_temp_variable = {ITA_RED_Negri_Square_Weekly_Reaction_dynmod_tt = ITA_RED_Negri_Square_Weekly_Reaction_dynmod_temp}
+	set_temp_variable = {ITA_RED_Negri_Square_Weekly_militant_approval_dynmod_tt = ITA_RED_Negri_Square_Weekly_militant_approval_dynmod_temp}
+	set_temp_variable = {ITA_RED_Negri_Square_Weekly_Red_Terror_dynmod_tt = ITA_RED_Negri_Square_Weekly_Red_Terror_dynmod_temp}
+	add_to_variable = {ITA_RED_Square_Tendecies = 10}
+	custom_effect_tooltip = ITA_RED_Negri_increase_internal_dissent_tt
+}
+
+ITA_RED_Negri_Increase_Students_Unity = {
+	add_to_temp_variable = {ITA_RED_Negri_Student_Research_dynmod_temp = 3}
+	add_to_temp_variable = {ITA_RED_Negri_Student_PP_dynmod_temp = -0.50}
+	add_to_temp_variable = {ITA_RED_Negri_Student_War_Support_dynmod_temp = 3}
+	divide_temp_variable = {ITA_RED_Negri_Student_Research_dynmod_temp = 100}
+	divide_temp_variable = {ITA_RED_Negri_Student_PP_dynmod_temp = 200}
+	divide_temp_variable = {ITA_RED_Negri_Student_War_Support_dynmod_temp = 100}
+	ITA_RED_Negri_Bar3_stuff = yes
+	set_temp_variable = {ITA_RED_Negri_Student_Research_dynmod_tt = ITA_RED_Negri_Student_Research_dynmod_temp}
+	set_temp_variable = {ITA_RED_Negri_Student_PP_dynmod_tt = ITA_RED_Negri_Student_PP_dynmod_temp}
+	set_temp_variable = {ITA_RED_Negri_Student_War_Support_dynmod_tt = ITA_RED_Negri_Student_War_Support_dynmod_temp}
+	subtract_from_variable = {ITA_RED_Students_Tendecies = 10}
+	custom_effect_tooltip = ITA_RED_Negri_increase_students_unity_tt
+}
+
+ITA_RED_Negri_Increase_Students_Disorganization = {
+	add_to_temp_variable = {ITA_RED_Negri_Student_Research_dynmod_temp = -3}
+	add_to_temp_variable = {ITA_RED_Negri_Student_PP_dynmod_temp = 0.50}
+	add_to_temp_variable = {ITA_RED_Negri_Student_War_Support_dynmod_temp = -3}
+	divide_temp_variable = {ITA_RED_Negri_Student_Research_dynmod_temp = 100}
+	divide_temp_variable = {ITA_RED_Negri_Student_PP_dynmod_temp = 200}
+	divide_temp_variable = {ITA_RED_Negri_Student_War_Support_dynmod_temp = 100}
+	ITA_RED_Negri_Bar3_stuff = yes
+	set_temp_variable = {ITA_RED_Negri_Student_Research_dynmod_tt = ITA_RED_Negri_Student_Research_dynmod_temp}
+	set_temp_variable = {ITA_RED_Negri_Student_PP_dynmod_tt = ITA_RED_Negri_Student_PP_dynmod_temp}
+	set_temp_variable = {ITA_RED_Negri_Student_War_Support_dynmod_tt = ITA_RED_Negri_Student_War_Support_dynmod_temp}
+	subtract_from_variable = {ITA_RED_Students_Tendecies = 10}
+	custom_effect_tooltip = ITA_RED_Negri_increase_students_disorganization_tt
+}
+
+ITA_RED_Negri_Policies_Efficency = {
+	set_temp_variable = {ITA_RED_Negri_Policies_temp = ITA_RED_Negri_Workers_Status}
+	add_to_temp_variable = {ITA_RED_Negri_Policies_temp = ITA_RED_Negri_Square_Status}
+	add_to_temp_variable = {ITA_RED_Negri_Policies_temp = ITA_RED_Negri_Students_Status}
+	divide_temp_variable = {ITA_RED_Negri_Policies_temp = 3}
+	round_temp_variable = ITA_RED_Negri_Policies_temp
+	set_variable = {ITA_RED_Negri_Policies_var = ITA_RED_Negri_Policies_temp}
+}
+
+ITA_RED_Negri_Bar1_stuff = {
+	add_to_variable = {ITA_RED_Negri_Square_Weekly_Reaction_dynmod = ITA_RED_Negri_Square_Weekly_Reaction_dynmod_temp}
+	add_to_variable = {ITA_RED_Negri_Square_Weekly_militant_approval_dynmod = ITA_RED_Negri_Square_Weekly_militant_approval_dynmod_temp}
+	subtract_from_variable = {ITA_RED_Negri_Square_Weekly_Red_Terror_dynmod = ITA_RED_Negri_Square_Weekly_Red_Terror_dynmod_temp}
+}
+
+ITA_RED_Negri_Bar2_stuff = {
+	add_to_variable = {ITA_RED_Negri_Workers_Industrial_Capacity_dynmod = ITA_RED_Negri_Workers_Industrial_Capacity_dynmod_temp}
+	add_to_variable = {ITA_RED_Negri_Workers_Consumers_dynmod = ITA_RED_Negri_Workers_Consumers_dynmod_temp}
+	subtract_from_variable = {ITA_RED_Negri_Workers_Production_Speed_dynmod = ITA_RED_Negri_Workers_Production_Speed_dynmod_temp}
+}
+
+ITA_RED_Negri_Bar3_stuff = {
+	add_to_variable = {ITA_RED_Negri_Student_Research_dynmod = ITA_RED_Negri_Student_Research_dynmod_temp}
+	add_to_variable = {ITA_RED_Negri_Student_PP_dynmod = ITA_RED_Negri_Student_PP_dynmod_temp}
+	subtract_from_variable = {ITA_RED_Negri_Student_War_Support_dynmod = ITA_RED_Negri_Student_War_Support_dynmod_temp}
+}
+
+ITA_RED_Negri_Workers_change = {
+	add_to_variable = {ITA_RED_Negri_Workers_Status = ITA_RED_Negri_Workers_Opinion_temp}
+	ITA_RED_Negri_Policies_Efficency = yes
+	custom_effect_tooltip = ITA_RED_Negri_Workers_change_tt
+}
+
+ITA_RED_Negri_Square_change = {
+	add_to_variable = {ITA_RED_Negri_Square_Status = ITA_RED_Negri_Square_Opinion_temp}
+	ITA_RED_Negri_Policies_Efficency = yes
+	custom_effect_tooltip = ITA_RED_Negri_Square_change_tt
+}
+
+ITA_RED_Negri_Students_change = {
+	add_to_variable = {ITA_RED_Negri_Students_Status = ITA_RED_Negri_Students_Opinion_temp}
+	ITA_RED_Negri_Policies_Efficency = yes
+	custom_effect_tooltip = ITA_RED_Negri_Students_change_tt
+}

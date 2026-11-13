@@ -1,0 +1,4780 @@
+﻿#   FFFFF   Ü   Ü   H   H   RRRRR   EEEEE   RRRRR   DDDDD   EEEEE   M   M   OOOOO   K   K   RRRRR   AAAAA   TTTTT   IIIII   EEEEE   #
+#   F       Ü   Ü   H   H   R   R   E       R   R   D   D   E       M M M   O   O   K  K    R   R   A   A     T       I     E       #
+#   F       Ü   Ü   HHHHH   RRRRR   EEEEE   RRRRR   D   D   EEEEE   M M M   O   O   K K     RRRRR   AAAAA     T       I     EEEEE   #
+#   FFFFF   Ü   Ü   H   H   R  R    E       R  R    D   D   E       M   M   O   O   KK      R  R    A   A     T       I     E       #
+#   F       Ü   Ü   H   H   R   R   E       R   R   D   D   E       M   M   O   O   K K     R   R   A   A     T       I     E       #
+#   F       ÜÜÜÜÜ   H   H   R   R   EEEEE   R   R   DDDDD   EEEEE   M   M   OOOOO   K  K    R   R   A   A     T     IIIII   EEEEE   #
+
+add_namespace = GER_gfour_intro
+add_namespace = GER_gfour_party_formation
+add_namespace = GER_gfour_election_one
+add_namespace = GER_gfour_election_two
+add_namespace = GER_gfour_bombers_spring
+add_namespace = GER_gfour_econ
+add_namespace = GER_gfour_military
+add_namespace = GER_kn
+add_namespace = GER_gfour_lala_land
+add_namespace = GER_gfour_nsdap
+add_namespace = GER_gfour_vup
+add_namespace = GER_gfour_rsp
+add_namespace = GER_gfour_vaaf
+add_namespace = GER_gfour_vaaf_rad
+add_namespace = GER_gfour_dg_true
+add_namespace = GER_gfour_endgame
+add_namespace = GER_gfour_ler_uprising
+
+#event after concluding event for phase 1
+country_event = {
+	id = GER_gfour_intro.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_intro.1"}
+ 	title = GER_gfour_intro.1.t
+ 	desc = GER_gfour_intro.1.d
+ 	picture = GFX_report_event_schmidt
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_intro.1.a
+		#load focus tree
+		load_focus_tree = GER_g_four
+		#country flag to signal g4 path
+		set_country_flag = GER_Fuhrerdemokratie
+		#G4 identity from day one (replaces Speer's SGR_* cosmetic tag)
+		set_cosmetic_tag = GER_gfour
+ 	}
+}
+
+#introduction to intro tree
+country_event = {
+	id = GER_gfour_intro.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_intro.2"}
+ 	title = GER_gfour_intro.2.t
+ 	desc = GER_gfour_intro.2.d
+ 	picture = GFX_report_event_generic_kiesinger
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_intro.2.a
+		
+ 	}
+}
+
+#tricolor restored
+country_event = {
+	id = GER_gfour_intro.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_intro.3"}
+ 	title = GER_gfour_intro.3.t
+ 	desc = GER_gfour_intro.3.d
+ 	picture = GFX_gang_of_four_intro
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_intro.3.a
+		set_cosmetic_tag = GER_gfour
+ 	}
+}
+
+#Speer's Last Play
+country_event = {
+	id = GER_gfour_intro.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_intro.4"}
+ 	title = GER_gfour_intro.4.t
+ 	desc = GER_gfour_intro.4.d
+ 	picture = GFX_report_event_post_apoc_sunset
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_intro.4.a
+		set_country_flag = GER_g4_plans_change
+		#malus idea
+		add_ideas = GER_hitlers_ghost1
+		mark_focus_tree_layout_dirty = yes
+ 	}
+}
+
+#one step forward
+country_event = {
+	id = GER_gfour_intro.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_intro.5"}
+ 	title = GER_gfour_intro.5.t
+ 	desc = GER_gfour_intro.5.d
+ 	picture = GFX_report_event_erhard
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_intro.5.a
+ 	}
+}
+
+#what has to be done
+country_event = {
+	id = GER_gfour_intro.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_intro.6"}
+ 	title = GER_gfour_intro.6.t
+ 	desc = GER_gfour_intro.6.d
+ 	picture = GFX_report_event_generic_tresckow
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_intro.6.a
+		#malus reduced
+		swap_ideas = {
+			remove_idea = GER_hitlers_ghost1
+			add_idea = GER_hitlers_ghost2
+		}
+ 	}
+}
+
+#Final Meeting
+country_event = {
+	id = GER_gfour_intro.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_intro.7"}
+ 	title = GER_gfour_intro.7.t
+ 	desc = GER_gfour_intro.7.d
+ 	picture = GFX_report_event_sad_speer
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_intro.7.a
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.03
+		}
+ 	}
+}
+
+#The Swastika Eternal
+country_event = {
+	id = GER_gfour_intro.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_intro.8"}
+ 	title = GER_gfour_intro.8.t
+ 	desc = GER_gfour_intro.8.d
+ 	picture = GFX_report_event_nazi_street
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	option = { #
+ 		name = GER_gfour_intro.8.a
+ 	}
+}
+
+#Back In Weimar
+country_event = {
+	id = GER_gfour_intro.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_intro.9"}
+ 	title = GER_gfour_intro.9.t
+ 	desc = GER_gfour_intro.9.d
+ 	picture = GFX_report_event_reichstag
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_intro.9.a
+
+ 	}
+}
+
+#Election Day
+country_event = {
+	id = GER_gfour_intro.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_intro.10"}
+ 	title = GER_gfour_intro.10.t
+ 	desc = GER_gfour_intro.10.d
+ 	picture = GFX_report_event_generic_election
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_election_two.1
+				days = 1825
+			}
+			#bomber's spring event
+			country_event = {
+				id = GER_gfour_bombers_spring.1
+				days = 1100
+			}
+			#election cycle issue debates
+			country_event = {
+				id = GER_gfour_election_two.8
+				days = 1300
+			}
+		}
+	}
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_intro.10.a
+		#variables for checking what term you're on
+		retire_country_leader = yes
+		#create new fuhrer leaders
+		#NSDAP - Speerite technocratic and Goebbelite populist wings
+		create_country_leader = {
+			name = "Helmut Goebbels"
+			desc = ""
+			picture = "Portrait_GER_Helmut_Goebbels.dds"
+			expire = "1999.1.1"
+			ideology = national_socialism_subtype
+			traits = {
+			}
+		}
+		create_country_leader = {
+			name = "Helmut Goebbels"
+			desc = ""
+			picture = "Portrait_GER_Helmut_Goebbels.dds"
+			expire = "1999.1.1"
+			ideology = fascism_subtype
+			traits = {
+			}
+		}
+		#VUP - traditionalist and labour wings
+		create_country_leader = {
+			name = "Joseph Alois Ratzinger"
+			desc = ""
+			picture = "Portrait_GER_Joseph_Ratzinger.dds"
+			expire = "1999.1.1"
+			ideology = social_conservative_subtype
+			traits = {
+			}
+		}
+		create_country_leader = {
+			name = "Joseph Alois Ratzinger"
+			desc = ""
+			picture = "Portrait_GER_Joseph_Ratzinger.dds"
+			expire = "1999.1.1"
+			ideology = social_democrat_subtype
+			traits = {
+			}
+		}
+		#RSP - nationalist corpocratic and liberal wings
+		create_country_leader = {
+			name = "Alfred Dregger"
+			desc = ""
+			picture = "Portrait_GER_Alfred_Dregger.dds"
+			expire = "1999.1.1"
+			ideology = authoritarian_democrat_subtype
+			traits = {
+			}
+		}
+		create_country_leader = {
+			name = "Alfred Dregger"
+			desc = ""
+			picture = "Portrait_GER_Alfred_Dregger.dds"
+			expire = "1999.1.1"
+			ideology = market_liberal_subtype
+			traits = {
+			}
+		}
+		#VAAF - libertarian and authoritarian socialist wings
+		create_country_leader = {
+			name = "Günter Grass"
+			desc = ""
+			picture = "Portrait_GER_Gunter_Grass.dds"
+			expire = "1999.1.1"
+			ideology = socialist_subtype
+			traits = {
+			}
+		}
+		create_country_leader = {
+			name = "Günter Grass"
+			desc = ""
+			picture = "Portrait_GER_Gunter_Grass.dds"
+			expire = "1999.1.1"
+			ideology = communist_subtype
+			traits = {
+			}
+		}
+		#Die Grünen
+		create_country_leader = {
+			name = "Baldur Springmann"
+			desc = ""
+			picture = "Portrait_GER_Baldur_Springmann.dds"
+			expire = "1999.1.1"
+			ideology = social_liberal_subtype
+			traits = {
+			}
+		}
+		set_variable = {
+			var = GER_nsdap_terms_won
+			value = 0
+		}
+		set_variable = {
+			var = GER_vup_terms_won
+			value = 0
+		}
+		set_variable = {
+			var = GER_rsp_terms_won
+			value = 0
+		}
+		set_variable = {
+			var = GER_vaaf_terms_won
+			value = 0
+		}
+		set_variable = {
+			var = GER_dg_terms_won
+			value = 0
+		}
+		set_variable = {
+			var = GER_dap_terms_won
+			value = 0
+		}
+		#set_variable = {
+		#	var = GER_ler_terms_won
+		#	value = 0
+		#}
+		GER_determine_election_winner_1 = yes
+		hidden_effect = {
+			GER_reichstag_calculate_state_seats = yes
+		}
+ 	}
+}
+
+#nsdap wins
+country_event = {
+	id = GER_gfour_intro.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_intro.11"}
+ 	title = GER_gfour_intro.11.t
+ 	desc = GER_gfour_intro.11.d
+ 	picture = GFX_report_event_nazi_street
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_intro.11.a
+		set_politics = {
+			ruling_party = national_socialism
+		}
+		add_popularity = {
+			ideology = national_socialism
+			popularity = 0.15
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.1
+		}
+		add_to_variable = {
+			GER_nsdap_terms_won = 1
+		}
+		add_ideas = {
+			GER_g4_Adolf_von_Thadden_hog
+			GER_g4_Siegfried_Zoglmann_for
+			GER_g4_Otto_Ernst_Remer_sec
+			GER_g4_Hermann_Oberth_eco
+		}
+		load_focus_tree = GER_fuhrer_democracy
+		set_country_flag = GER_reichstag_law_active
+		custom_effect_tooltip = GER_reichstag_law_active_tt
+		#first election is always a first term
+		hidden_effect = {
+			every_country = {
+				news_event = RA_GLOBAL_NEWS.51
+			}
+		}
+ 	}
+}
+
+#vup wins
+country_event = {
+	id = GER_gfour_intro.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_intro.12"}
+ 	title = GER_gfour_intro.12.t
+ 	desc = GER_gfour_intro.12.d
+ 	picture = GFX_report_event_reichstag
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_intro.12.a
+		set_politics = {
+			ruling_party = social_conservative
+		}
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.15
+		}
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.1
+		}
+		add_to_variable = {
+			GER_vup_terms_won = 1
+		}
+		add_ideas = {
+			GER_g4_Karl_Arnold_hog
+			GER_g4_Alois_Mertes_for
+			GER_g4_Rainer_Barzel_sec
+			GER_g4_Norbert_Blum_eco
+		}
+		load_focus_tree = GER_fuhrer_democracy
+		set_country_flag = GER_reichstag_law_active
+		custom_effect_tooltip = GER_reichstag_law_active_tt
+		#first election is always a first term
+		hidden_effect = {
+			every_country = {
+				news_event = RA_GLOBAL_NEWS.53
+			}
+		}
+ 	}
+}
+
+#rsp wins
+country_event = {
+	id = GER_gfour_intro.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_intro.13"}
+ 	title = GER_gfour_intro.13.t
+ 	desc = GER_gfour_intro.13.d
+ 	picture = GFX_report_event_generic_dregger
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_intro.13.a
+		set_politics = {
+			ruling_party = authoritarian_democrat
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.15
+		}
+		add_popularity = {
+			ideology = market_liberal
+			popularity = 0.1
+		}
+		add_to_variable = {
+			GER_rsp_terms_won = 1
+		}
+		add_ideas = {
+			GER_g4_Axel_Springer_hog
+			GER_g4_Erich_Mende_for
+			GER_g4_Hans_Dietrich_Genscher_sec
+			GER_g4_Walter_Scheel_eco
+		}
+		load_focus_tree = GER_fuhrer_democracy
+		set_country_flag = GER_reichstag_law_active
+		custom_effect_tooltip = GER_reichstag_law_active_tt
+		#first election is always a first term
+		hidden_effect = {
+			every_country = {
+				news_event = RA_GLOBAL_NEWS.55
+			}
+		}
+ 	}
+}
+
+#vaaf wins
+country_event = {
+	id = GER_gfour_intro.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_intro.14"}
+ 	title = GER_gfour_intro.14.t
+ 	desc = GER_gfour_intro.14.d
+ 	picture = GFX_report_event_generic_revolution_colour
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_intro.14.a
+			set_politics = {
+			ruling_party = socialist
+		}
+		add_popularity = {
+			ideology = socialist
+			popularity = 0.15
+		}
+		add_popularity = {
+			ideology = communist
+			popularity = 0.1
+		}
+		add_to_variable = {
+			GER_vaaf_terms_won = 1
+		}
+		add_ideas = {
+			GER_g4_Herbert_Wehner_hog
+			GER_g4_Egon_Bahr_for
+			GER_g4_Markus_Wolf_sec
+			GER_g4_Karl_Schiller_eco
+		}
+		load_focus_tree = GER_fuhrer_democracy
+		set_country_flag = GER_reichstag_law_active
+		custom_effect_tooltip = GER_reichstag_law_active_tt
+		set_variable = {
+			GER_g4_vaaf_rad_power = 0
+		}
+		#first election is always a first term
+		hidden_effect = {
+			every_country = {
+				news_event = RA_GLOBAL_NEWS.57
+			}
+		}
+ 	}
+}
+
+#vup forms
+country_event = {
+	id = GER_gfour_election_one.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_one.1"}
+ 	title = GER_gfour_election_one.1.t
+ 	desc = GER_gfour_election_one.1.d
+ 	picture = GFX_report_event_reichstag
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_election_one.1.a
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.15
+		}
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.05
+		}
+		set_party_name = {
+			ideology = social_conservative
+			long_name = "Volksunionspartei - Centre Faction"
+			name = "VUP (Centre)"
+		}
+		set_party_name = {
+			ideology = social_democrat
+			long_name = "Volksunionspartei - Labour Faction"
+			name = "VUP (Labour)"
+		}
+ 	}
+}
+
+#rsp forms
+country_event = {
+	id = GER_gfour_election_one.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_one.2"}
+ 	title = GER_gfour_election_one.2.t
+ 	desc = GER_gfour_election_one.2.d
+ 	picture = GFX_report_event_generic_dregger
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_election_one.2.a
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.15
+		}
+		add_popularity = {
+			ideology = market_liberal
+			popularity = 0.05
+		}
+		set_party_name = {
+			ideology = authoritarian_democrat
+			long_name = "Reichsstaatspartei - Nationalist Faction"
+			name = "RSP (Nationalist)"
+		}
+		set_party_name = {
+			ideology = market_liberal
+			long_name = "Reichsstaatspartei - Freedom Faction"
+			name = "RSP (Freedom)"
+		}
+ 	}
+}
+
+#vaaf forms
+country_event = {
+	id = GER_gfour_election_one.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_one.3"}
+ 	title = GER_gfour_election_one.3.t
+ 	desc = GER_gfour_election_one.3.d
+ 	picture = GFX_report_event_generic_revolution_colour
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_election_one.3.a
+		add_popularity = {
+			ideology = socialist
+			popularity = 0.15
+		}
+		add_popularity = {
+			ideology = communist
+			popularity = 0.05
+		}
+		set_party_name = {
+			ideology = socialist
+			long_name = "Vereinigte Allianz für Arbeit und Freiheit - Moderates"
+			name = "VAAF (Moderate)"
+		}
+		set_party_name = {
+			ideology = communist
+			long_name = "Vereinigte Allianz für Arbeit und Freiheit - Radicals"
+			name = "VAAF (Radical)"
+		}
+ 	}
+}
+
+#nsdap reorganization
+country_event = {
+	id = GER_gfour_election_one.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_one.4"}
+ 	title = GER_gfour_election_one.4.t
+ 	desc = GER_gfour_election_one.4.d
+ 	picture = GFX_report_event_joseph_goebbels
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #goebbels appears!
+ 		name = GER_gfour_election_one.4.a
+		add_popularity = {
+			ideology = national_socialism
+			popularity = 0.15
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+		set_party_name = {
+			ideology = national_socialism
+			long_name = "Nationalsozialistische Deutsche Arbeiterpartei - Goebbelite"
+			name = "NSDAP (Goebbelite)"
+		}
+		set_party_name = {
+			ideology = fascism
+			long_name = "Nationalsozialistische Deutsche Arbeiterpartei - Speerite"
+			name = "NSDAP (Speerite)"
+		}
+ 	}
+}
+
+#DG
+country_event = {
+	id = GER_gfour_election_one.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_one.5"}
+ 	title = GER_gfour_election_one.5.t
+ 	desc = GER_gfour_election_one.5.d
+ 	picture = GFX_YGR_forest
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { 
+ 		name = GER_gfour_election_one.5.a
+		add_popularity = {
+			ideology = social_liberal
+			popularity = 0.05
+		}
+		set_party_name = {
+			ideology = social_liberal
+			long_name = "Die Grünen"
+			name = "Die Grünen"
+		}
+ 	}
+}
+
+#Otto Von Hapsburg requests to return
+country_event = {
+	id = GER_gfour_election_one.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_one.6"}
+ 	title = GER_gfour_election_one.6.t
+ 	desc = GER_gfour_election_one.6.d
+ 	picture = GFX_report_event_reichstag
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #yes
+ 		name = GER_gfour_election_one.6.a
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.02
+		}
+		every_core_state = {
+			GER_increase_vup_support_large = yes
+		}
+		set_country_flag = GER_hapsburg_active
+ 	}
+
+	option = { #he can return but he must give up his claims
+ 		name = GER_gfour_election_one.6.b
+		add_popularity = {
+			ideology = socialist
+			popularity = 0.01
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.01
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_rsp_support_large = yes
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_vaaf_support_large = yes
+		}
+ 	}
+
+	option = { #no
+ 		name = GER_gfour_election_one.6.c
+		add_popularity = {
+			ideology = national_socialism
+			popularity = 0.02
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_nsdap_support_large = yes
+		}
+ 	}
+}
+
+#Vaaf tries making inroads into working class
+country_event = {
+	id = GER_gfour_election_one.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_one.7"}
+ 	title = GER_gfour_election_one.7.t
+ 	desc = GER_gfour_election_one.7.d
+ 	picture = GFX_report_event_generic_read_write
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #counter them
+ 		name = GER_gfour_election_one.7.a
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = national_socialism
+			popularity = 0.02
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_decrease_vaaf_support_small = yes
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_nsdap_support_small = yes
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_vup_support_large = yes
+		}
+ 	}
+
+	option = { #they make gains
+ 		name = GER_gfour_election_one.7.b
+		add_popularity = {
+			ideology = socialist
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = communist
+			popularity = 0.02
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_vaaf_support_large = yes
+		}
+ 	}
+}
+
+#RSP spends tons of money
+country_event = {
+	id = GER_gfour_election_one.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_one.8"}
+ 	title = GER_gfour_election_one.8.t
+ 	desc = GER_gfour_election_one.8.d
+ 	picture = GFX_report_event_generic_office
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #they make gains
+ 		name = GER_gfour_election_one.8.a
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = market_liberal
+			popularity = 0.02
+		}
+		42 = {
+			GER_increase_rsp_support_large = yes
+		}
+		56 = {
+			GER_increase_rsp_support_large = yes
+		}
+		54 = {
+			GER_increase_rsp_support_large = yes
+		}
+		188 = {
+			GER_increase_rsp_support_large = yes
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_rsp_support_small = yes
+		}
+ 	}
+
+	option = { #they fail
+ 		name = GER_gfour_election_one.8.b
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = -0.02
+		}
+		add_popularity = {
+			ideology = market_liberal
+			popularity = -0.02
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_decrease_rsp_support_small = yes
+		}
+ 	}
+}
+
+#goebbels takes control
+country_event = {
+	id = GER_gfour_election_one.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_one.9"}
+ 	title = GER_gfour_election_one.9.t
+ 	desc = GER_gfour_election_one.9.d
+ 	picture = GFX_report_event_joseph_goebbels
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #counter them
+ 		name = GER_gfour_election_one.9.a
+		add_popularity = {
+			ideology = national_socialism
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.01
+		}
+		64 = {
+			GER_increase_nsdap_support_large = yes
+		}
+		52 = {
+			GER_increase_nsdap_support_large = yes
+		}
+		1025 = {
+			GER_increase_nsdap_support_large = yes
+		}
+		69 = {
+			GER_increase_nsdap_support_large = yes
+		}
+ 	}
+}
+
+#wooing non-germans
+country_event = {
+	id = GER_gfour_election_one.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_one.10"}
+ 	title = GER_gfour_election_one.10.t
+ 	desc = GER_gfour_election_one.10.d
+ 	picture = GFX_report_event_generic_read_write
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #vup
+ 		name = GER_gfour_election_one.10.a
+		8 = {
+			GER_increase_vup_support_large = yes
+		}
+		9 = {
+			GER_increase_vup_support_large = yes
+		}
+		75 = {
+			GER_increase_vup_support_large = yes
+		}
+		69 = {
+			GER_increase_vup_support_large = yes
+		}
+		87 = {
+			GER_increase_vup_support_large = yes
+		}
+		98 = {
+			GER_increase_vup_support_large = yes
+		}
+		97 = {
+			GER_increase_vup_support_large = yes
+		}
+ 	}
+
+	option = { #vaaf
+ 		name = GER_gfour_election_one.10.b
+		8 = {
+			GER_increase_vaaf_support_large = yes
+		}
+		9 = {
+			GER_increase_vaaf_support_large = yes
+		}
+		75 = {
+			GER_increase_vaaf_support_large = yes
+		}
+		69 = {
+			GER_increase_vaaf_support_large = yes
+		}
+		87 = {
+			GER_increase_vaaf_support_large = yes
+		}
+		98 = {
+			GER_increase_vaaf_support_large = yes
+		}
+		97 = {
+			GER_increase_vaaf_support_large = yes
+		}
+ 	}
+}
+
+###2nd election events###
+
+#Election Day 2
+country_event = {
+	id = GER_gfour_election_two.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_two.1"}
+ 	title = GER_gfour_election_two.1.t
+ 	desc = GER_gfour_election_two.1.d
+ 	picture = GFX_report_event_iberia_election_line
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	#scheduled 1825 days ahead; skipped if the Vengeance War already ended and the endgame took over
+	trigger = {
+		NOT = { has_country_flag = GER_g4_endgame_started }
+	}
+
+
+ 	option = { #
+ 		name = GER_gfour_election_two.1.a
+		#variables for checking what term you're on
+		GER_determine_election_winner_2 = yes
+		hidden_effect = {
+			GER_reichstag_calculate_state_seats = yes
+		}
+ 	}
+}
+
+#nsdap wins 2nd election
+country_event = {
+	id = GER_gfour_election_two.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_two.2"}
+ 	title = GER_gfour_election_two.2.t
+ 	desc = GER_gfour_election_two.2.d
+ 	picture = GFX_report_event_nazi_street
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+ 	option = { #
+ 		name = GER_gfour_election_two.2.a
+		set_politics = {
+			ruling_party = national_socialism
+		}
+		add_popularity = {
+			ideology = national_socialism
+			popularity = 0.1
+		}
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.05
+		}
+		add_to_variable = {
+			GER_nsdap_terms_won = 1
+		}
+		hidden_effect = {
+			GER_g4_remove_all_ministers = yes
+		}
+		add_ideas = {
+			GER_g4_Adolf_von_Thadden_hog
+			GER_g4_Siegfried_Zoglmann_for
+			GER_g4_Otto_Ernst_Remer_sec
+			GER_g4_Hermann_Oberth_eco
+		}
+		load_focus_tree = GER_fuhrer_democracy
+		#reelection news if the nsdap also won the first term
+		hidden_effect = {
+			if = {
+				limit = {
+					check_variable = {
+						var = GER_nsdap_terms_won
+						value = 2
+						compare = greater_than_or_equals
+					}
+				}
+				every_country = {
+					news_event = RA_GLOBAL_NEWS.52
+				}
+			}
+			else = {
+				every_country = {
+					news_event = RA_GLOBAL_NEWS.51
+				}
+			}
+		}
+ 	}
+}
+
+#vup wins 2nd election
+country_event = {
+	id = GER_gfour_election_two.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_two.3"}
+ 	title = GER_gfour_election_two.3.t
+ 	desc = GER_gfour_election_two.3.d
+ 	picture = GFX_report_event_iberia_congress_clapping
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+ 	option = { #
+ 		name = GER_gfour_election_two.3.a
+		set_politics = {
+			ruling_party = social_conservative
+		}
+		add_popularity = {
+			ideology = social_conservative
+			popularity = 0.1
+		}
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.05
+		}
+		add_to_variable = {
+			GER_vup_terms_won = 1
+		}
+		hidden_effect = {
+			GER_g4_remove_all_ministers = yes
+		}
+		add_ideas = {
+			GER_g4_Karl_Arnold_hog
+			GER_g4_Alois_Mertes_for
+			GER_g4_Rainer_Barzel_sec
+			GER_g4_Norbert_Blum_eco
+		}
+		load_focus_tree = GER_fuhrer_democracy
+		#death of the reichskanzler and the cabinet decision
+		country_event = {
+			id = GER_gfour_vup.1
+			days = 5
+		}
+		#reelection news if the vup also won the first term
+		hidden_effect = {
+			if = {
+				limit = {
+					check_variable = {
+						var = GER_vup_terms_won
+						value = 2
+						compare = greater_than_or_equals
+					}
+				}
+				every_country = {
+					news_event = RA_GLOBAL_NEWS.54
+				}
+			}
+			else = {
+				every_country = {
+					news_event = RA_GLOBAL_NEWS.53
+				}
+			}
+		}
+ 	}
+}
+
+#rsp wins 2nd election
+country_event = {
+	id = GER_gfour_election_two.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_two.4"}
+ 	title = GER_gfour_election_two.4.t
+ 	desc = GER_gfour_election_two.4.d
+ 	picture = GFX_report_event_generic_dregger
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+ 	option = { #
+ 		name = GER_gfour_election_two.4.a
+		set_politics = {
+			ruling_party = authoritarian_democrat
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.1
+		}
+		add_popularity = {
+			ideology = market_liberal
+			popularity = 0.05
+		}
+		add_to_variable = {
+			GER_rsp_terms_won = 1
+		}
+		hidden_effect = {
+			GER_g4_remove_all_ministers = yes
+		}
+		add_ideas = {
+			GER_g4_Axel_Springer_hog
+			GER_g4_Erich_Mende_for
+			GER_g4_Hans_Dietrich_Genscher_sec
+			GER_g4_Walter_Scheel_eco
+		}
+		load_focus_tree = GER_fuhrer_democracy
+		#reelection news if the rsp also won the first term
+		hidden_effect = {
+			if = {
+				limit = {
+					check_variable = {
+						var = GER_rsp_terms_won
+						value = 2
+						compare = greater_than_or_equals
+					}
+				}
+				every_country = {
+					news_event = RA_GLOBAL_NEWS.56
+				}
+			}
+			else = {
+				every_country = {
+					news_event = RA_GLOBAL_NEWS.55
+				}
+			}
+		}
+ 	}
+}
+
+#vaaf moderate wins 2nd election
+country_event = {
+	id = GER_gfour_election_two.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_two.5"}
+ 	title = GER_gfour_election_two.5.t
+ 	desc = GER_gfour_election_two.5.d
+ 	picture = GFX_report_event_generic_revolution_colour
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+ 	option = { #
+ 		name = GER_gfour_election_two.5.a
+		set_politics = {
+			ruling_party = socialist
+		}
+		add_popularity = {
+			ideology = socialist
+			popularity = 0.1
+		}
+		add_popularity = {
+			ideology = communist
+			popularity = 0.05
+		}
+		add_to_variable = {
+			GER_vaaf_terms_won = 1
+		}
+		hidden_effect = {
+			GER_g4_remove_all_ministers = yes
+		}
+		add_ideas = {
+			GER_g4_Herbert_Wehner_hog
+			GER_g4_Egon_Bahr_for
+			GER_g4_Markus_Wolf_sec
+			GER_g4_Karl_Schiller_eco
+		}
+		load_focus_tree = GER_fuhrer_democracy
+		#reelection news if the vaaf also won the first term
+		hidden_effect = {
+			if = {
+				limit = {
+					check_variable = {
+						var = GER_vaaf_terms_won
+						value = 2
+						compare = greater_than_or_equals
+					}
+				}
+				every_country = {
+					news_event = RA_GLOBAL_NEWS.58
+				}
+			}
+			else = {
+				every_country = {
+					news_event = RA_GLOBAL_NEWS.57
+				}
+			}
+		}
+ 	}
+}
+
+#vaaf radical wins 2nd election
+country_event = {
+	id = GER_gfour_election_two.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_two.6"}
+ 	title = GER_gfour_election_two.6.t
+ 	desc = GER_gfour_election_two.6.d
+ 	picture = GFX_report_event_afghanistan_communist_coup
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+ 	option = { #
+ 		name = GER_gfour_election_two.6.a
+		set_politics = {
+			ruling_party = communist
+		}
+		add_popularity = {
+			ideology = communist
+			popularity = 0.15
+		}
+		add_to_variable = {
+			GER_vaaf_terms_won = 1
+		}
+		set_country_flag = ger_vaaf_radical_coup
+		hidden_effect = {
+			GER_g4_remove_all_ministers = yes
+		}
+		add_ideas = {
+			GER_g4_Wolfgang_Harich_hog
+			GER_g4_Jurgen_Kuczynski_for
+			GER_g4_Erich_Mielke_sec
+			GER_g4_Gunter_Mittag_eco
+		}
+		load_focus_tree = GER_fuhrer_democracy
+		hidden_effect = {
+			every_country = {
+				news_event = RA_GLOBAL_NEWS.59
+			}
+		}
+ 	}
+}
+
+#die grunen wins 2nd election
+country_event = {
+	id = GER_gfour_election_two.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_two.7"}
+ 	title = GER_gfour_election_two.7.t
+ 	desc = GER_gfour_election_two.7.d
+ 	picture = GFX_report_event_art
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+ 	option = { #
+ 		name = GER_gfour_election_two.7.a
+		set_politics = {
+			ruling_party = social_liberal
+		}
+		add_popularity = {
+			ideology = social_liberal
+			popularity = 0.15
+		}
+		add_to_variable = {
+			GER_dg_terms_won = 1
+		}
+		hidden_effect = {
+			GER_g4_remove_all_ministers = yes
+			#die grunen reveals its true face shortly after taking power
+			country_event = {
+				id = GER_gfour_dg_true.1
+				days = 10
+			}
+		}
+		add_ideas = {
+			GER_g4_Alfred_Mechtersheimer_hog
+			GER_g4_Herbert_Gruhl_for
+			GER_g4_Werner_Georg_Haverbeck_sec
+			GER_g4_Werner_Vogel_eco
+		}
+		load_focus_tree = GER_fuhrer_democracy
+		hidden_effect = {
+			every_country = {
+				news_event = RA_GLOBAL_NEWS.60
+			}
+		}
+ 	}
+}
+
+#on the russian menace
+country_event = {
+	id = GER_gfour_election_two.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_two.8"}
+ 	title = GER_gfour_election_two.8.t
+ 	desc = GER_gfour_election_two.8.d
+ 	picture = GFX_report_event_radio2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_election_two.9
+				days = 100
+			}
+		}
+	}
+
+
+ 	option = { #we must be proactive
+ 		name = GER_gfour_election_two.8.a
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_nsdap_support_small = yes
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_rsp_support_small = yes
+		}
+ 	}
+
+	option = { #we must prep
+ 		name = GER_gfour_election_two.8.b
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_vup_support_small = yes
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_vaaf_support_small = yes
+		}
+ 	}
+}
+
+#on the economy
+country_event = {
+	id = GER_gfour_election_two.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_two.9"}
+ 	title = GER_gfour_election_two.9.t
+ 	desc = GER_gfour_election_two.9.d
+ 	picture = GFX_report_event_generic_office
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_election_two.10
+				days = 100
+			}
+		}
+	}
+
+ 	option = { #free market
+ 		name = GER_gfour_election_two.9.a
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_rsp_support_small = yes
+		}
+ 	}
+
+	option = { #state directed industry
+ 		name = GER_gfour_election_two.9.b
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_nsdap_support_small = yes
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_vaaf_support_small = yes
+		}
+ 	}
+
+	option = { #protect working families
+ 		name = GER_gfour_election_two.9.c
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_vup_support_small = yes
+		}
+		if = {
+			limit = {
+				has_country_flag = GER_g4_rsp_liberals_defected
+			}
+			every_core_state = {
+				limit = {
+					has_state_flag = GER_reichstag_state
+				}
+				GER_increase_dg_support_small = yes
+			}
+		}
+ 	}
+}
+
+#on minority rights
+country_event = {
+	id = GER_gfour_election_two.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_two.10"}
+ 	title = GER_gfour_election_two.10.t
+ 	desc = GER_gfour_election_two.10.d
+ 	picture = GFX_report_event_italy_BN_students
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_election_two.11
+				days = 100
+			}
+		}
+	}
+
+ 	option = { #extend rights to minorities
+ 		name = GER_gfour_election_two.10.a
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_vaaf_support_small = yes
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_dg_support_small = yes
+		}
+		#boost ler in select minority-heavy states
+		9 = { GER_increase_ler_support_large = yes }
+		75 = { GER_increase_ler_support_large = yes }
+		87 = { GER_increase_ler_support_large = yes }
+ 	}
+
+	option = { #germany for germans
+ 		name = GER_gfour_election_two.10.b
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_nsdap_support_small = yes
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_rsp_support_small = yes
+		}
+		#boost dap in select hardliner states
+		69 = { GER_increase_dap_support_large = yes }
+		63 = { GER_increase_dap_support_large = yes }
+		64 = { GER_increase_dap_support_large = yes }
+ 	}
+}
+
+#on cultural identity
+country_event = {
+	id = GER_gfour_election_two.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_two.11"}
+ 	title = GER_gfour_election_two.11.t
+ 	desc = GER_gfour_election_two.11.d
+ 	picture = GFX_report_event_reichstag
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_election_two.12
+				days = 100
+			}
+		}
+	}
+
+ 	option = { #preserve tradition
+ 		name = GER_gfour_election_two.11.a
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_vup_support_small = yes
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_rsp_support_small = yes
+		}
+ 	}
+
+	option = { #embrace the new
+ 		name = GER_gfour_election_two.11.b
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_dg_support_small = yes
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_vaaf_support_small = yes
+		}
+ 	}
+
+	option = { #revive the old ways
+ 		name = GER_gfour_election_two.11.c
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_nsdap_support_small = yes
+		}
+		#boost dap in heartland states
+		28 = { GER_increase_dap_support_large = yes }
+		86 = { GER_increase_dap_support_large = yes }
+		62 = { GER_increase_dap_support_large = yes }
+ 	}
+}
+
+#on constitutional reform
+country_event = {
+	id = GER_gfour_election_two.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_two.12"}
+ 	title = GER_gfour_election_two.12.t
+ 	desc = GER_gfour_election_two.12.d
+ 	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_election_two.13
+				days = 100
+			}
+		}
+	}
+
+ 	option = { #strengthen the reichstag
+ 		name = GER_gfour_election_two.12.a
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_vup_support_small = yes
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_dg_support_small = yes
+		}
+		#boost ler in border states
+		9 = { GER_increase_ler_support_large = yes }
+		770 = { GER_increase_ler_support_large = yes }
+		98 = { GER_increase_ler_support_large = yes }
+ 	}
+
+	option = { #power to the executive
+ 		name = GER_gfour_election_two.12.b
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_rsp_support_small = yes
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_nsdap_support_small = yes
+		}
+ 	}
+
+	option = { #burn it all down
+ 		name = GER_gfour_election_two.12.c
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_vaaf_support_small = yes
+		}
+ 	}
+}
+
+#on foreign policy
+country_event = {
+	id = GER_gfour_election_two.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_election_two.13"}
+ 	title = GER_gfour_election_two.13.t
+ 	desc = GER_gfour_election_two.13.d
+ 	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = { #maintain the pakt
+ 		name = GER_gfour_election_two.13.a
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_rsp_support_small = yes
+		}
+ 	}
+
+	option = { #pursue detente
+ 		name = GER_gfour_election_two.13.b
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_dg_support_small = yes
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_vaaf_support_small = yes
+		}
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_vup_support_small = yes
+		}
+		#boost ler in cosmopolitan states
+		85 = { GER_increase_ler_support_large = yes }
+		97 = { GER_increase_ler_support_large = yes }
+		137 = { GER_increase_ler_support_large = yes }
+ 	}
+
+	option = { #germany stands alone
+ 		name = GER_gfour_election_two.13.c
+		every_core_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_increase_nsdap_support_small = yes
+		}
+		#boost dap in eastern states
+		63 = { GER_increase_dap_support_large = yes }
+		69 = { GER_increase_dap_support_large = yes }
+		86 = { GER_increase_dap_support_large = yes }
+ 	}
+}
+
+###BOMBERS SPRING###
+
+#foundation of the ler
+country_event = {
+	id = GER_gfour_bombers_spring.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.1"}
+ 	title = GER_gfour_bombers_spring.1.t
+ 	desc = GER_gfour_bombers_spring.1.d
+ 	picture = GFX_report_event_german_bunker
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.1.a
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.2
+				days = 90
+			}
+		}
+		85 = {
+			GER_increase_ler_support_large = yes
+		}
+		97 = {
+			GER_increase_ler_support_large = yes
+		}
+		87 = {
+			GER_increase_ler_support_large = yes
+		}
+		75 = {
+			GER_increase_ler_support_large = yes
+		}
+		set_country_flag = GER_ler_active
+		set_party_name = {
+			ideology = despotism
+			long_name = "Liga der Entzogenen Rechte"
+			name = "LER"
+		}
+		create_country_leader = {
+			name = "Wojciech Jaruzelski"
+			desc = ""
+			picture = "Portrait_LER_Wojciech_Jaruzelski.dds"
+			expire = "1999.1.1"
+			ideology = despotism_subtype
+			traits = {
+			}
+		}
+ 	}
+}
+
+#foundation of the dap
+country_event = {
+	id = GER_gfour_bombers_spring.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.2"}
+ 	title = GER_gfour_bombers_spring.2.t
+ 	desc = GER_gfour_bombers_spring.2.d
+ 	picture = GFX_report_event_ss_loyalty
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.2.a
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.3
+				days = 180
+			}
+		}
+		69 = {
+			GER_increase_dap_support_large = yes
+		}
+		63 = {
+			GER_increase_dap_support_large = yes
+		}
+		86 = {
+			GER_increase_dap_support_large = yes
+		}
+		28 = {
+			GER_increase_dap_support_large = yes
+		}
+		set_country_flag = GER_dap_active
+		set_party_name = {
+			ideology = burgundian_system
+			long_name = "Deutsche Arierpartei"
+			name = "DAP"
+		}
+		create_country_leader = {
+			name = "Manfred Roeder"
+			desc = ""
+			picture = "Portrait_GER_Manfred_Roeder.dds"
+			expire = "1999.1.1"
+			ideology = burgundian_system_subtype
+			traits = {
+			}
+		}
+ 	}
+}
+
+#terrorists vaguely prepping for something
+country_event = {
+	id = GER_gfour_bombers_spring.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.3"}
+ 	title = GER_gfour_bombers_spring.3.t
+ 	desc = GER_gfour_bombers_spring.3.d
+ 	picture = GFX_report_event_iberia_burning_letter
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.3.a
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.4
+				days = 60
+			}
+		}
+ 	}
+}
+
+#lap and der start rallies
+country_event = {
+	id = GER_gfour_bombers_spring.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.4"}
+ 	title = GER_gfour_bombers_spring.4.t
+ 	desc = GER_gfour_bombers_spring.4.d
+ 	picture = GFX_report_event_street_fight
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.4.a
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.5
+				days = 15
+			}
+		}
+		9 = {
+			GER_increase_ler_support_small = yes
+			GER_increase_dap_support_small = yes
+		}
+		add_stability = -0.02
+ 	}
+}
+
+#ler and dap rally
+country_event = {
+	id = GER_gfour_bombers_spring.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.5"}
+ 	title = GER_gfour_bombers_spring.5.t
+ 	desc = GER_gfour_bombers_spring.5.d
+ 	picture = GFX_report_event_nazi_newspaper
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.5.a
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.6
+				days = 15
+			}
+		}
+ 	}
+}
+
+#protests spiral out of control, der and lap clash
+country_event = {
+	id = GER_gfour_bombers_spring.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.6"}
+ 	title = GER_gfour_bombers_spring.6.t
+ 	desc = GER_gfour_bombers_spring.6.d
+ 	picture = GFX_report_event_italy_shootout_aftermath
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.6.a
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.7
+				days = 20
+			}
+		}
+ 	}
+}
+
+#day of action
+country_event = {
+	id = GER_gfour_bombers_spring.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.7"}
+ 	title = GER_gfour_bombers_spring.7.t
+ 	desc = GER_gfour_bombers_spring.7.d
+ 	picture = GFX_report_event_abwehr_intelligence
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.7.a
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.8
+				days = 1
+			}
+		}
+		set_variable = {
+			GER_terrorist_incident_speed = 35
+		}
+ 	}
+}
+
+#bombings across Germany. Hamburg, Vienna, Frankfurt, and Konigsburg bombed. Bombing at Volkshare foiled
+country_event = {
+	id = GER_gfour_bombers_spring.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.8"}
+ 	title = GER_gfour_bombers_spring.8.t
+ 	desc = GER_gfour_bombers_spring.8.d
+ 	picture = GFX_report_event_german_city_burning
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.8.a
+		set_country_flag = GER_bombers_spring_active
+		add_ideas = GER_bomber_spring0
+		add_political_power = -300
+		add_stability = -0.3
+		add_manpower = -1357
+		clr_country_flag = GER_reichstag_vote_cooldown
+		
+		#custom effect tooltip
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.9
+				days = 10
+			}
+			country_event = {
+				id = GER_gfour_bombers_spring.15
+				days = 30
+				random_days = 10
+			}
+		}
+		1025 = {
+			damage_building = {
+				type = infrastructure
+				damage = 4
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+		}
+		775 = {
+			damage_building = {
+				type = infrastructure
+				damage = 4
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+		}
+		55 = {
+			damage_building = {
+				type = infrastructure
+				damage = 4
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+		}
+		5 = {
+			damage_building = {
+				type = infrastructure
+				damage = 4
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+		}
+		activate_mission = GER_terrorist_incident
+		set_variable = {
+			GER_ler_rally_speed = 20
+		}
+		set_variable = {
+			GER_dap_rally_speed = 20
+		}
+ 	}
+}
+
+#dap makes moves
+country_event = {
+	id = GER_gfour_bombers_spring.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.9"}
+ 	title = GER_gfour_bombers_spring.9.t
+ 	desc = GER_gfour_bombers_spring.9.d
+ 	picture = GFX_report_event_iberia_falange_rally
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.9.a
+		#dynamic mod added
+		add_popularity = {
+			ideology = burgundian_system
+			popularity = 0.03
+		}
+		add_stability = -0.1
+		775 = {
+			GER_increase_dap_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		64 = {
+			GER_increase_dap_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		1026 = {
+			GER_increase_dap_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		54 = {
+			GER_increase_dap_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		55 = {
+			GER_increase_dap_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		every_owned_state = {
+			limit = {
+				check_variable = {
+					GER_dap_support_state > 1
+				}
+			}
+			GER_increase_dap_support_small = yes
+			set_demilitarized_zone = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.10
+				days = 15
+			}
+		}
+		activate_mission = GER_dap_rally
+ 	}
+}
+
+#ler makes moves
+country_event = {
+	id = GER_gfour_bombers_spring.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.10"}
+ 	title = GER_gfour_bombers_spring.10.t
+ 	desc = GER_gfour_bombers_spring.10.d
+ 	picture = GFX_report_event_iberia_meeting_table
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.10.a
+		#dynamic mod added
+		add_popularity = {
+			ideology = despotism
+			popularity = 0.03
+		}
+		add_political_power = -100
+		770 = {
+			GER_increase_ler_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		9 = {
+			GER_increase_ler_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		137 = {
+			GER_increase_ler_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		8 = {
+			GER_increase_ler_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		98 = {
+			GER_increase_ler_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		every_owned_state = {
+			limit = {
+				check_variable = {
+					GER_ler_support_state > 1
+				}
+			}
+			GER_increase_ler_support_small = yes
+			set_demilitarized_zone = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.11
+				days = 25
+			}
+		}
+		activate_mission = GER_ler_rally
+		activate_mission = GER_desperate_measures
+ 	}
+}
+
+#clashes in posen
+country_event = {
+	id = GER_gfour_bombers_spring.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.11"}
+ 	title = GER_gfour_bombers_spring.11.t
+ 	desc = GER_gfour_bombers_spring.11.d
+ 	picture = GFX_report_event_OST_partisans
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.11.a
+		#dynamic mod added
+		add_popularity = {
+			ideology = despotism
+			popularity = 0.01
+		}
+		add_political_power = -50
+		86 = {
+			GER_increase_ler_support_large = yes
+			GER_decrease_dap_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.12
+				days = 35
+			}
+		}
+ 	}
+
+	option = { #
+ 		name = GER_gfour_bombers_spring.11.b
+		#dynamic mod added
+		add_popularity = {
+			ideology = burgundian_system
+			popularity = 0.01
+		}
+		add_political_power = -50
+		86 = {
+			GER_increase_dap_support_large = yes
+			GER_decrease_ler_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.12
+				days = 35
+			}
+		}
+ 	}
+}
+
+#clashes in bohemia
+country_event = {
+	id = GER_gfour_bombers_spring.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.12"}
+ 	title = GER_gfour_bombers_spring.12.t
+ 	desc = GER_gfour_bombers_spring.12.d
+ 	picture = GFX_report_event_prague_burning
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.12.a
+		#dynamic mod added
+		add_popularity = {
+			ideology = despotism
+			popularity = 0.01
+		}
+		add_political_power = -50
+		9 = {
+			GER_increase_ler_support_large = yes
+			GER_decrease_dap_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.13
+				days = 40
+			}
+		}
+ 	}
+
+	option = { #
+ 		name = GER_gfour_bombers_spring.12.b
+		#dynamic mod added
+		add_popularity = {
+			ideology = burgundian_system
+			popularity = 0.01
+		}
+		add_political_power = -50
+		9 = {
+			GER_increase_dap_support_large = yes
+			GER_decrease_ler_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.13
+				days = 40
+			}
+		}
+ 	}
+}
+
+#clashes in danzig
+country_event = {
+	id = GER_gfour_bombers_spring.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.13"}
+ 	title = GER_gfour_bombers_spring.13.t
+ 	desc = GER_gfour_bombers_spring.13.d
+ 	picture = GFX_report_event_post_apoc_london_underground
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.13.a
+		#dynamic mod added
+		add_popularity = {
+			ideology = despotism
+			popularity = 0.01
+		}
+		add_political_power = -50
+		85 = {
+			GER_increase_ler_support_large = yes
+			GER_decrease_dap_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.14
+				days = 40
+			}
+		}
+  	}
+
+	option = { #
+  		name = GER_gfour_bombers_spring.13.b
+		#dynamic mod added
+		add_popularity = {
+			ideology = burgundian_system
+			popularity = 0.01
+		}
+		add_political_power = -50
+		85 = {
+			GER_increase_dap_support_large = yes
+			GER_decrease_ler_support_large = yes
+			set_demilitarized_zone = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.14
+				days = 40
+			}
+		}
+ 	}
+}
+
+#uprising in Crimea
+country_event = {
+	id = GER_gfour_bombers_spring.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.14"}
+ 	title = GER_gfour_bombers_spring.14.t
+ 	desc = GER_gfour_bombers_spring.14.d
+ 	picture = GFX_report_event_russia_partisan
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.14.a
+		#dynamic mod added
+		add_popularity = {
+			ideology = despotism
+			popularity = 0.01
+		}
+		add_political_power = -50
+		137 = {
+			GER_increase_ler_support_large = yes
+			GER_decrease_dap_support_large = yes
+			set_demilitarized_zone = yes
+		}
+  	}
+
+	option = { #
+  		name = GER_gfour_bombers_spring.14.b
+		#dynamic mod added
+		add_popularity = {
+			ideology = burgundian_system
+			popularity = 0.01
+		}
+		add_political_power = -50
+		137 = {
+			GER_increase_dap_support_large = yes
+			GER_decrease_ler_support_large = yes
+			set_demilitarized_zone = yes
+		}
+ 	}
+}
+
+#bombing in munich
+country_event = {
+	id = GER_gfour_bombers_spring.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.15"}
+ 	title = GER_gfour_bombers_spring.15.t
+ 	desc = GER_gfour_bombers_spring.15.d
+ 	picture = GFX_report_event_generic_election
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.15.a
+		add_stability = -0.025
+		add_manpower = -207
+		52 = {
+			damage_building = {
+				type = infrastructure
+				damage = 5
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.16
+				days = 30
+				random_days = 10
+			}
+		}
+ 	}
+}
+
+#bombing in cologne
+country_event = {
+	id = GER_gfour_bombers_spring.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.16"}
+ 	title = GER_gfour_bombers_spring.16.t
+ 	desc = GER_gfour_bombers_spring.16.d
+ 	picture = GFX_report_event_generic_election
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.16.a
+		add_stability = -0.025
+		add_manpower = -178
+		51 = {
+			damage_building = {
+				type = infrastructure
+				damage = 4
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.17
+				days = 30
+				random_days = 10
+			}
+		}
+ 	}
+}
+
+#bombing in strausborg
+country_event = {
+	id = GER_gfour_bombers_spring.17
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.17"}
+ 	title = GER_gfour_bombers_spring.17.t
+ 	desc = GER_gfour_bombers_spring.17.d
+ 	picture = GFX_report_event_burning_building
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.17.a
+		add_stability = -0.025
+		28 = {
+			damage_building = {
+				type = infrastructure
+				damage = 5
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.18
+				days = 30
+				random_days = 10
+			}
+		}
+ 	}
+}
+
+#bombing in nuremburg
+country_event = {
+	id = GER_gfour_bombers_spring.18
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.18"}
+ 	title = GER_gfour_bombers_spring.18.t
+ 	desc = GER_gfour_bombers_spring.18.d
+ 	picture = GFX_report_event_cog_explosion
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.18.a
+		add_stability = -0.025
+		add_manpower = -127
+		54 = {
+			damage_building = {
+				type = infrastructure
+				damage = 5
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+			damage_building = {
+				type = industrial_complex
+				damage = 5
+			}
+			damage_building = {
+				type = arms_factory
+				damage = 5
+			}
+		}
+ 	}
+}
+
+##resolution events##
+
+#ler and dap disarmed
+country_event = {
+	id = GER_gfour_bombers_spring.19
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.19"}
+ 	title = GER_gfour_bombers_spring.19.t
+ 	desc = GER_gfour_bombers_spring.19.d
+ 	picture = GFX_report_event_iberia_military_meeting
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.19.a
+		add_stability = 0.1
+		every_owned_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+				is_demilitarized_zone = yes
+			}
+			set_demilitarized_zone = no
+			GER_decrease_ler_support_small = yes
+			GER_decrease_dap_support_small = yes
+		}
+ 	}
+}
+
+#terrorists caught
+country_event = {
+	id = GER_gfour_bombers_spring.20
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.20"}
+ 	title = GER_gfour_bombers_spring.20.t
+ 	desc = GER_gfour_bombers_spring.20.d
+ 	picture = GFX_report_event_generic_german_arrests
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.20.a
+		add_political_power = 200
+		add_stability = 0.2
+		set_country_flag = GER_bombers_spring_resolved
+		custom_effect_tooltip = GER_bombers_spring_resolved_tt
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_bombers_spring.21
+				days = 60
+			}
+		}
+ 	}
+}
+
+#before they can be brought to trial, all the captured terrorists are found dead
+country_event = {
+	id = GER_gfour_bombers_spring.21
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.21"}
+ 	title = GER_gfour_bombers_spring.21.t
+ 	desc = GER_gfour_bombers_spring.21.d
+ 	picture = GFX_report_event_firing_squad
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.21.a
+		#if the espionage mechanic has been utilized and at least 8/10 RND techs are researched, trigger the next event
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_flag = SGR_created_RND
+					count_triggers = {
+						amount = 8
+						has_country_flag = SGR_RND_FmElo_researched
+						has_country_flag = SGR_RND_Sonder_researched
+						has_country_flag = SGR_RND_Ent_researched
+						has_country_flag = SGR_RND_Bugs_researched
+						has_country_flag = SGR_RND_Cipher_researched
+						has_country_flag = SGR_RND_Nah_researched
+						has_country_flag = SGR_RND_Radio_researched
+						has_country_flag = SGR_RND_Camera_researched
+						has_country_flag = SGR_RND_Fleck_researched
+						has_country_flag = SGR_RND_Truth_researched
+					}
+				}
+				country_event = {
+					id = GER_gfour_bombers_spring.22
+					days = 5
+				}
+			}
+			else = {
+				#news event about capture
+			}
+		}
+ 	}
+}
+
+#burgundy found to be involved suspects identified and incarcerated
+country_event = {
+	id = GER_gfour_bombers_spring.22
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.22"}
+ 	title = GER_gfour_bombers_spring.22.t
+ 	desc = GER_gfour_bombers_spring.22.d
+ 	picture = GFX_report_event_ffr_massu_secret_service
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.22.a
+		add_political_power = 100
+		#news event about capture but Burgundy is implicated
+		BRG = {
+			country_event = {
+				id = GER_gfour_bombers_spring.23
+				days = 4
+			}
+		}
+ 	}
+}
+
+#burgundy is told they were found out and are very naughty 
+country_event = {
+	id = GER_gfour_bombers_spring.23
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.23"}
+ 	title = GER_gfour_bombers_spring.23.t
+ 	desc = GER_gfour_bombers_spring.23.d
+ 	picture = GFX_report_event_iberia_pide_arrest
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.23.a
+		add_political_power = -100
+		#lose supplies
+ 	}
+}
+
+#ger fails to adequetly resolve the crisis and is forced to declare martial laws
+country_event = {
+	id = GER_gfour_bombers_spring.24
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_bombers_spring.24"}
+ 	title = GER_gfour_bombers_spring.24.t
+ 	desc = GER_gfour_bombers_spring.24.d
+ 	picture = GFX_report_event_iberia_pide_arrest
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_bombers_spring.24.a
+		add_political_power = -400
+		set_country_flag = GER_bombers_spring_resolved
+		custom_effect_tooltip = GER_bombers_spring_resolved_tt
+		add_to_variable = { GER_reichstag_coercion_cost_modifier = 0.25 }
+		add_to_variable = { GER_reichstag_compromise_cost_modifier = 0.25 }
+		add_timed_idea = {
+			idea = GER_gfour_martial_law
+			days = 200
+		}
+		#lower ruling party's popularity in every state
+		hidden_effect = {
+			remove_ideas = {
+				GER_bomber_spring0
+				GER_bomber_spring1
+				GER_bomber_spring2
+				GER_bomber_spring3
+				GER_bomber_spring4
+			}
+		}
+ 	}
+}
+
+###ECONOMY EVENTS###
+
+#GER_on_the_mend
+country_event = {
+	id = GER_gfour_econ.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_econ.1"}
+ 	title = GER_gfour_econ.1.t
+ 	desc = GER_gfour_econ.1.d
+ 	picture = GFX_report_event_eng_reconstruction1
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_econ.1.a
+ 	}
+}
+
+#GER_the_final_death
+country_event = {
+	id = GER_gfour_econ.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_econ.2"}
+ 	title = GER_gfour_econ.2.t
+ 	desc = GER_gfour_econ.2.d
+ 	picture = GFX_report_event_eng_reconstruction2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_econ.2.a
+ 	}
+}
+
+#GER_plan_for_the_future
+country_event = {
+	id = GER_gfour_econ.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_econ.3"}
+ 	title = GER_gfour_econ.3.t
+ 	desc = GER_gfour_econ.3.d
+ 	picture = GFX_report_event_generic_newspaper
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_econ.3.a
+ 	}
+}
+
+#GER_clean_up_the_revolt_remains
+country_event = {
+	id = GER_gfour_econ.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_econ.4"}
+ 	title = GER_gfour_econ.4.t
+ 	desc = GER_gfour_econ.4.d
+ 	picture = GFX_report_event_burning_building
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_econ.4.a
+ 	}
+}
+
+#GER_crossroads - choosing overall economic path
+country_event = {
+	id = GER_gfour_econ.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_econ.5"}
+ 	title = GER_gfour_econ.5.t
+ 	desc = GER_gfour_econ.5.d
+ 	picture = GFX_report_event_bureaucrats_generic
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_econ.5.a
+		set_country_flag = GER_full_speed_ahead_chosen
+ 	}
+
+	option = {
+ 		name = GER_gfour_econ.5.b
+		set_country_flag = GER_cant_rush_art_chosen
+ 	}
+}
+
+###MILITARY EVENTS###
+
+#GER_the_wehermacht_and_germany - adds Horst and Wolfgang as generals
+country_event = {
+	id = GER_gfour_military.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_military.1"}
+ 	title = GER_gfour_military.1.t
+ 	desc = GER_gfour_military.1.d
+ 	picture = GFX_report_event_german_officer
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_military.1.a
+		create_field_marshal = { 
+			name = "Wolfgang Altenburg"
+			picture = "Portrait_GER_Wolfgang_Altenburg.dds"
+			traits = { career_officer bearer_of_artillery organizer  }
+			skill = 4
+			attack_skill = 2
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+		}
+		create_field_marshal = { 
+			name = "Horst Stechbarth"
+			picture = "Portrait_GER_Horst_Stechbarth.dds"
+			traits = { panzer_leader panzer_expert trait_reckless politically_connected }
+			skill = 4
+			attack_skill = 4
+			defense_skill = 3
+			planning_skill = 2
+			logistics_skill = 2
+		}
+ 	}
+}
+
+#GER_new_heer_initiative - explains the mechanic
+country_event = {
+	id = GER_gfour_military.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_military.2"}
+ 	title = GER_gfour_military.2.t
+ 	desc = GER_gfour_military.2.d
+ 	picture = GFX_report_event_germania_tank
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_military.2.a
+ 	}
+}
+
+#GER_reforms_and_the_high_seas
+country_event = {
+	id = GER_gfour_military.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_military.3"}
+ 	title = GER_gfour_military.3.t
+ 	desc = GER_gfour_military.3.d
+ 	picture = GFX_report_event_germany_donitz
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_military.3.a
+ 	}
+}
+
+#GER_continue_the_global_theory
+country_event = {
+	id = GER_gfour_military.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_military.4"}
+ 	title = GER_gfour_military.4.t
+ 	desc = GER_gfour_military.4.d
+ 	picture = GFX_report_event_generic_submarine
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_military.4.a
+ 	}
+}
+
+#GER_expand_the_european_fleet
+country_event = {
+	id = GER_gfour_military.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_military.5"}
+ 	title = GER_gfour_military.5.t
+ 	desc = GER_gfour_military.5.d
+ 	picture = GFX_report_event_italy_naval_ship
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_military.5.a
+ 	}
+}
+
+#GER_breach_the_pacific
+country_event = {
+	id = GER_gfour_military.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_military.6"}
+ 	title = GER_gfour_military.6.t
+ 	desc = GER_gfour_military.6.d
+ 	picture = GFX_report_event_generic_submarine
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_military.6.a
+ 	}
+}
+
+#GER_the_third_dimension_of_war
+country_event = {
+	id = GER_gfour_military.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_military.7"}
+ 	title = GER_gfour_military.7.t
+ 	desc = GER_gfour_military.7.d
+ 	picture = GFX_report_event_german_planes
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_military.7.a
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_military.8
+				days = 40
+			}
+		}
+ 	}
+}
+
+#GER_old_honour
+country_event = {
+	id = GER_gfour_military.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_military.8"}
+ 	title = GER_gfour_military.8.t
+ 	desc = GER_gfour_military.8.d
+ 	picture = GFX_report_event_jets
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_military.8.a
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_military.9
+				days = 40
+			}
+		}
+ 	}
+}
+
+#GER_new_aces
+country_event = {
+	id = GER_gfour_military.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_military.9"}
+ 	title = GER_gfour_military.9.t
+ 	desc = GER_gfour_military.9.d
+ 	picture = GFX_report_event_mig25_interceptor_plane
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_military.9.a
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_military.10
+				days = 40
+			}
+		}
+ 	}
+}
+
+#GER_iron_cross_tradition
+country_event = {
+	id = GER_gfour_military.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_military.10"}
+ 	title = GER_gfour_military.10.t
+ 	desc = GER_gfour_military.10.d
+ 	picture = GFX_report_event_jets
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_military.10.a
+		hidden_effect = {
+			country_event = {
+				id = GER_gfour_military.11
+				days = 40
+			}
+		}
+ 	}
+}
+
+#GER_fly_by_wire_revolution - gives electronics tech
+country_event = {
+	id = GER_gfour_military.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_military.11"}
+ 	title = GER_gfour_military.11.t
+ 	desc = GER_gfour_military.11.d
+ 	picture = GFX_report_event_m_50_jet_bomber
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_military.11.a
+ 	}
+}
+
+######## KN EVENTS ########
+
+#KN Formation
+country_event = {
+	id = GER_kn.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_kn.1"}
+	title = GER_kn.1.t
+	desc = GER_kn.1.d
+	picture = GFX_report_event_generic_sign_treaty1
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = GER_kn.1.a
+		hidden_effect = {
+			every_country = {
+				news_event = RA_GLOBAL_NEWS.67
+			}
+		}
+	}
+}
+
+#Drafting the KN Charter
+country_event = {
+	id = GER_kn.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_kn.2"}
+	title = GER_kn.2.t
+	desc = GER_kn.2.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = GER_kn.2.a
+	}
+}
+
+#Down to the Med - invitations to Iberia, Italy, Balkans
+country_event = {
+	id = GER_kn.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_kn.3"}
+	title = GER_kn.3.t
+	desc = GER_kn.3.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = GER_kn.3.a
+	}
+}
+
+#The Pakt Members join
+country_event = {
+	id = GER_kn.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_kn.4"}
+	title = GER_kn.4.t
+	desc = GER_kn.4.d
+	picture = GFX_report_event_generic_sign_treaty1
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = GER_kn.4.a
+	}
+}
+
+#Reach Across the Atlantic - South American invitations
+country_event = {
+	id = GER_kn.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_kn.5"}
+	title = GER_kn.5.t
+	desc = GER_kn.5.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = GER_kn.5.a
+	}
+}
+
+#Invite America
+country_event = {
+	id = GER_kn.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_kn.6"}
+	title = GER_kn.6.t
+	desc = GER_kn.6.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = GER_kn.6.a
+	}
+}
+
+#Invite Japan
+country_event = {
+	id = GER_kn.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_kn.7"}
+	title = GER_kn.7.t
+	desc = GER_kn.7.d
+	picture = GFX_report_event_generic_sign_treaty1
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = GER_kn.7.a
+	}
+}
+
+#On Distant Shores - Africa, India, RUS invitations
+country_event = {
+	id = GER_kn.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_kn.8"}
+	title = GER_kn.8.t
+	desc = GER_kn.8.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = GER_kn.8.a
+	}
+}
+
+#The Great Question - governance structure decision
+country_event = {
+	id = GER_kn.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_kn.9"}
+	title = GER_kn.9.t
+	desc = GER_kn.9.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = GER_kn.9.a
+		set_country_flag = GER_kn_sec_council
+	}
+
+	option = {
+		name = GER_kn.9.b
+		set_country_flag = GER_kn_equal_vote
+	}
+}
+
+#USA receives a KdN invitation
+country_event = {
+	id = GER_kn.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_kn.10"}
+	title = GER_kn.10.t
+	desc = GER_kn.10.d
+	picture = GFX_report_event_generic_sign_treaty1
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Accept
+		name = GER_kn.10.a
+		ai_chance = { base = 20 }
+		set_country_flag = GER_kn_member_flag
+		add_dynamic_modifier = {
+			modifier = GER_kn_detente
+		}
+		FROM = {
+			country_event = {
+				id = GER_kn.12
+				days = 2
+			}
+		}
+	}
+
+	option = { #Reject
+		name = GER_kn.10.b
+		ai_chance = { base = 80 }
+		FROM = {
+			country_event = {
+				id = GER_kn.13
+				days = 2
+			}
+		}
+	}
+}
+
+#Japan receives a KdN invitation
+country_event = {
+	id = GER_kn.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_kn.11"}
+	title = GER_kn.11.t
+	desc = GER_kn.11.d
+	picture = GFX_report_event_generic_sign_treaty1
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Accept
+		name = GER_kn.11.a
+		ai_chance = { base = 40 }
+		set_country_flag = GER_kn_member_flag
+		add_dynamic_modifier = {
+			modifier = GER_kn_detente
+		}
+		FROM = {
+			country_event = {
+				id = GER_kn.12
+				days = 2
+			}
+		}
+	}
+
+	option = { #Reject
+		name = GER_kn.11.b
+		ai_chance = { base = 60 }
+		FROM = {
+			country_event = {
+				id = GER_kn.13
+				days = 2
+			}
+		}
+	}
+}
+
+#Generic acceptance feedback to Germany - FROM = the country that accepted
+country_event = {
+	id = GER_kn.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_kn.12"}
+	title = GER_kn.12.t
+	desc = GER_kn.12.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+
+	option = {
+		name = GER_kn.12.a
+	}
+}
+
+#Generic rejection feedback to Germany - FROM = the country that rejected
+country_event = {
+	id = GER_kn.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_kn.13"}
+	title = GER_kn.13.t
+	desc = GER_kn.13.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = {
+		name = GER_kn.13.a
+	}
+}
+
+#Generic invite event for player-controlled invitees - FROM = GER
+country_event = {
+	id = GER_kn.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_kn.14"}
+	title = GER_kn.14.t
+	desc = GER_kn.14.d
+	picture = GFX_report_event_generic_sign_treaty1
+
+	is_triggered_only = yes
+
+	option = { #Accept
+		name = GER_kn.14.a
+		set_country_flag = GER_kn_member_flag
+		add_dynamic_modifier = {
+			modifier = GER_kn_detente
+		}
+		FROM = {
+			country_event = {
+				id = GER_kn.12
+				days = 2
+			}
+		}
+	}
+
+	option = { #Reject
+		name = GER_kn.14.b
+		FROM = {
+			country_event = {
+				id = GER_kn.13
+				days = 2
+			}
+		}
+	}
+}
+
+###FAKE EVENTS###
+
+#new constitution
+country_event = {
+	id = GER_gfour_lala_land.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.1"}
+ 	title = GER_gfour_lala_land.1.t
+ 	desc = GER_gfour_lala_land.1.d
+ 	picture = GFX_report_event_generic_sign_treaty1
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.1.a
+ 	}
+}
+
+#defanged okw
+country_event = {
+	id = GER_gfour_lala_land.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.2"}
+ 	title = GER_gfour_lala_land.2.t
+ 	desc = GER_gfour_lala_land.2.d
+ 	picture = GFX_report_event_generic_military_parade
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.2.a
+ 	}
+}
+
+#your vote matters
+country_event = {
+	id = GER_gfour_lala_land.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.3"}
+ 	title = GER_gfour_lala_land.3.t
+ 	desc = GER_gfour_lala_land.3.d
+ 	picture = GFX_report_event_generic_election
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.3.a
+ 	}
+}
+
+#journalism
+country_event = {
+	id = GER_gfour_lala_land.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.4"}
+ 	title = GER_gfour_lala_land.4.t
+ 	desc = GER_gfour_lala_land.4.d
+ 	picture = GFX_report_event_generic_read_write
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.4.a
+ 	}
+}
+
+#help the poor
+country_event = {
+	id = GER_gfour_lala_land.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.5"}
+ 	title = GER_gfour_lala_land.5.t
+ 	desc = GER_gfour_lala_land.5.d
+ 	picture = GFX_report_event_generic_read_write
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.5.a
+ 	}
+}
+
+#doctor's visit
+country_event = {
+	id = GER_gfour_lala_land.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.6"}
+ 	title = GER_gfour_lala_land.6.t
+ 	desc = GER_gfour_lala_land.6.d
+ 	picture = GFX_report_event_generic_office
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.6.a
+ 	}
+}
+
+#power to the fairer
+country_event = {
+	id = GER_gfour_lala_land.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.7"}
+ 	title = GER_gfour_lala_land.7.t
+ 	desc = GER_gfour_lala_land.7.d
+ 	picture = GFX_report_event_generic_revolution_colour
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.7.a
+ 	}
+}
+
+#absolute equality
+country_event = {
+	id = GER_gfour_lala_land.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.8"}
+ 	title = GER_gfour_lala_land.8.t
+ 	desc = GER_gfour_lala_land.8.d
+ 	picture = GFX_report_event_generic_revolution_colour
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.8.a
+ 	}
+}
+
+#a good life for all
+country_event = {
+	id = GER_gfour_lala_land.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.9"}
+ 	title = GER_gfour_lala_land.9.t
+ 	desc = GER_gfour_lala_land.9.d
+ 	picture = GFX_report_event_generic_read_write
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.9.a
+ 	}
+}
+
+#money out of politics
+country_event = {
+	id = GER_gfour_lala_land.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.10"}
+ 	title = GER_gfour_lala_land.10.t
+ 	desc = GER_gfour_lala_land.10.d
+ 	picture = GFX_report_event_generic_office
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.10.a
+ 	}
+}
+
+#the judge
+country_event = {
+	id = GER_gfour_lala_land.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.11"}
+ 	title = GER_gfour_lala_land.11.t
+ 	desc = GER_gfour_lala_land.11.d
+ 	picture = GFX_report_event_germany_court
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.11.a
+ 	}
+}
+
+#goodbye
+country_event = {
+	id = GER_gfour_lala_land.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.12"}
+ 	title = GER_gfour_lala_land.12.t
+ 	desc = GER_gfour_lala_land.12.d
+ 	picture = GFX_report_event_generic_funeral
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.12.a
+ 	}
+}
+
+#sins of the past
+country_event = {
+	id = GER_gfour_lala_land.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.13"}
+ 	title = GER_gfour_lala_land.13.t
+ 	desc = GER_gfour_lala_land.13.d
+ 	picture = GFX_report_event_broken_mirror
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.13.a
+ 	}
+}
+
+#independence day
+country_event = {
+	id = GER_gfour_lala_land.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.14"}
+ 	title = GER_gfour_lala_land.14.t
+ 	desc = GER_gfour_lala_land.14.d
+ 	picture = GFX_report_event_generic_military_parade
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.14.a
+ 	}
+}
+
+#so much innocent blood
+country_event = {
+	id = GER_gfour_lala_land.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.15"}
+ 	title = GER_gfour_lala_land.15.t
+ 	desc = GER_gfour_lala_land.15.d
+ 	picture = GFX_report_event_broken_mirror
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.15.a
+ 	}
+}
+
+#defender of freedom
+country_event = {
+	id = GER_gfour_lala_land.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.16"}
+ 	title = GER_gfour_lala_land.16.t
+ 	desc = GER_gfour_lala_land.16.d
+ 	picture = GFX_report_event_generic_military_parade
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.16.a
+ 	}
+}
+
+#no more hatred
+country_event = {
+	id = GER_gfour_lala_land.17
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.17"}
+ 	title = GER_gfour_lala_land.17.t
+ 	desc = GER_gfour_lala_land.17.d
+ 	picture = GFX_report_event_generic_revolution_colour
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.17.a
+ 	}
+}
+
+#end of the new order
+country_event = {
+	id = GER_gfour_lala_land.18
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.18"}
+ 	title = GER_gfour_lala_land.18.t
+ 	desc = GER_gfour_lala_land.18.d
+ 	picture = GFX_report_event_broken_mirror
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.18.a
+ 	}
+}
+
+#naughty naughty naughty
+country_event = {
+	id = GER_gfour_lala_land.19
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_lala_land.19"}
+ 	title = GER_gfour_lala_land.19.t
+ 	desc = GER_gfour_lala_land.19.d
+ 	picture = GFX_report_event_german_anarchy
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_lala_land.19.a
+		remove_ideas = GER_freedom_forever
+ 	}
+}
+
+### ASSORTED POLITICS ###
+
+## NSDAP events ##
+
+#begin epilogue tree
+country_event = {
+	id = GER_gfour_nsdap.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_nsdap.1"}
+ 	title = GER_gfour_nsdap.1.t
+ 	desc = GER_gfour_nsdap.1.d
+ 	picture = GFX_report_event_radio2
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #traditional
+ 		name = GER_gfour_nsdap.1.a
+		
+ 	}
+}
+
+#unity ending event
+country_event = {
+	id = GER_gfour_nsdap.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_nsdap.2"}
+ 	title = GER_gfour_nsdap.2.t
+ 	desc = GER_gfour_nsdap.2.d
+ 	picture = GFX_report_event_reichstag
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #traditional
+ 		name = GER_gfour_nsdap.2.a
+		set_country_flag = TNO_closing_screen_show 
+		#tooltip
+		custom_effect_tooltip = GER_g4_nsdap_unity_ending_tt
+ 	}
+}
+
+#majority ending event
+country_event = {
+	id = GER_gfour_nsdap.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_nsdap.3"}
+ 	title = GER_gfour_nsdap.3.t
+ 	desc = GER_gfour_nsdap.3.d
+ 	picture = GFX_report_event_GER_germania_snow
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #traditional
+ 		name = GER_gfour_nsdap.3.a
+		set_country_flag = TNO_closing_screen_show 
+		#tooltip
+		custom_effect_tooltip = GER_g4_nsdap_majority_ending_tt
+ 	}
+}
+
+## VUP events ##
+
+#death of the reichkanzler and decision between traditional or reformist cabinet
+country_event = {
+	id = GER_gfour_vup.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_vup.1"}
+ 	title = GER_gfour_vup.1.t
+ 	desc = GER_gfour_vup.1.d
+ 	picture = GFX_report_event_bureaucrats_generic
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #traditional
+ 		name = GER_gfour_vup.1.a
+		#stay soc con and add new ministers
+		remove_ideas = GER_g4_Karl_Arnold_hog
+		add_ideas = GER_g4_Heinrich_Krone_hog
+ 	}
+
+	option = { #reform
+ 		name = GER_gfour_vup.1.b
+		#flip to soc dem and add new ministers
+		remove_ideas = {
+			GER_g4_Karl_Arnold_hog
+			GER_g4_Rainer_Barzel_sec
+		}
+		add_ideas = {
+			GER_g4_Hans_Jochen_Vogel_hog
+			GER_g4_Georg_Leber_sec
+		}
+ 	}
+}
+
+#Coronation of Otto von Hapsburg
+country_event = {
+	id = GER_gfour_vup.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_vup.2"}
+ 	title = GER_gfour_vup.2.t
+ 	desc = GER_gfour_vup.2.d
+ 	picture = GFX_report_event_generic_sign_treaty1
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_vup.2.a
+		#load focus tree
+		
+		#get hapsburg as an idea
+		add_ideas = GER_g4_emperor_otto_hapsburg
+		#load cosmetic tag for new flag
+		set_cosmetic_tag = GER_gfour_vup_imperial
+		hidden_effect = {
+			every_country = {
+				news_event = RA_GLOBAL_NEWS.68
+			}
+		}
+ 	}
+}
+
+#loading republican epilogue tree
+country_event = {
+	id = GER_gfour_vup.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_vup.3"}
+ 	title = GER_gfour_vup.3.t
+ 	desc = GER_gfour_vup.3.d
+ 	picture = GFX_report_event_capitol_building1
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_vup.3.a
+		#load focus tree
+
+ 	}
+}
+
+#ending event for republic vup
+country_event = {
+	id = GER_gfour_vup.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_vup.4"}
+ 	title = GER_gfour_vup.4.t
+ 	desc = GER_gfour_vup.4.d
+ 	picture = GFX_report_event_building_2
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_vup.4.a
+		set_country_flag = TNO_closing_screen_show 
+		custom_effect_tooltip = GER_g4_vup_republic_ending_tt
+ 	}
+}
+
+#ending event for hapsburg vup
+country_event = {
+	id = GER_gfour_vup.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_vup.5"}
+ 	title = GER_gfour_vup.5.t
+ 	desc = GER_gfour_vup.5.d
+ 	picture = GFX_report_event_german_agreement
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_vup.5.a
+		set_country_flag = TNO_closing_screen_show 
+		custom_effect_tooltip = GER_g4_vup_imperial_ending_tt
+ 	}
+}
+
+## RSP Events ##
+
+#rsp epilogue tree event
+country_event = {
+	id = GER_gfour_rsp.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_rsp.1"}
+ 	title = GER_gfour_rsp.1.t
+ 	desc = GER_gfour_rsp.1.d
+ 	picture = GFX_report_event_generic_dregger
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_rsp.1.a
+		
+ 	}
+}
+
+#rsp ending event
+country_event = {
+	id = GER_gfour_rsp.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_rsp.2"}
+ 	title = GER_gfour_rsp.2.t
+ 	desc = GER_gfour_rsp.2.d
+ 	picture = GFX_report_event_germania_tank
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_rsp.2.a
+		set_country_flag = TNO_closing_screen_show 
+		custom_effect_tooltip = GER_g4_rsp_ending_tt
+ 	}
+}
+
+## VAAF mod events ##
+
+#vaaf epilogue tree event
+country_event = {
+	id = GER_gfour_vaaf.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_vaaf.1"}
+ 	title = GER_gfour_vaaf.1.t
+ 	desc = GER_gfour_vaaf.1.d
+ 	picture = GFX_report_event_pub
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_vaaf.1.a
+		
+ 	}
+}
+
+#vaaf ending event
+country_event = {
+	id = GER_gfour_vaaf.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_vaaf.2"}
+ 	title = GER_gfour_vaaf.2.t
+ 	desc = GER_gfour_vaaf.2.d
+ 	picture = GFX_report_event_night_sky
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_vaaf.2.a
+		set_country_flag = TNO_closing_screen_show 
+		custom_effect_tooltip = GER_g4_vaaf_ending_tt
+ 	}
+}
+
+## VAAF rad events ##
+
+#vaaf radical power culmination
+country_event = {
+	id = GER_gfour_vaaf_rad.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_vaaf_rad.1"}
+ 	title = GER_gfour_vaaf_rad.1.t
+ 	desc = GER_gfour_vaaf_rad.1.d
+ 	picture = GFX_report_event_abwehr_intelligence
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+ 	option = { #
+ 		name = GER_gfour_vaaf_rad.1.a
+		add_popularity = {
+			ideology = communist
+			popularity = 0.10
+		}
+		add_popularity = {
+			ideology = socialist
+			popularity = -0.10
+		}
+		add_political_power = -200
+		add_stability = -0.2
+		set_country_flag = GER_g4_radicals_takeover_vaaf
+		every_owned_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+			}
+			GER_decrease_vaaf_support_small = yes
+		}
+		#gunter grass disappears and is conviniently replaced with Markus Wolf
+		kill_country_leader = yes 
+		hidden_effect = {
+			set_politics = {
+				ruling_party = communist
+			}
+			kill_country_leader = yes 
+			create_country_leader = {
+				name = "Markus Wolf"
+				desc = ""
+				picture = "Portrait_GER_Markus_Wolf.dds"
+				expire = "1999.1.1"
+				ideology = socialist_subtype
+				traits = {
+				}
+			}
+			create_country_leader = {
+				name = "Markus Wolf"
+				desc = ""
+				picture = "Portrait_GER_Markus_Wolf.dds"
+				expire = "1999.1.1"
+				ideology = communist_subtype
+				traits = {
+				}
+			}
+		}
+ 	}
+}
+
+#vaaf radical ending event
+country_event = {
+	id = GER_gfour_vaaf_rad.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_vaaf_rad.2"}
+ 	title = GER_gfour_vaaf_rad.2.t
+ 	desc = GER_gfour_vaaf_rad.2.d
+ 	picture = GFX_report_event_german_communists_riot
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+ 	option = { #
+ 		name = GER_gfour_vaaf_rad.2.a
+		set_country_flag = TNO_closing_screen_show
+		custom_effect_tooltip = GER_g4_vaaf_rad_ending_tt
+ 	}
+}
+
+
+#vaaf radical epilogue tree event
+country_event = {
+	id = GER_gfour_vaaf_rad.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_vaaf_rad.3"}
+ 	title = GER_gfour_vaaf_rad.3.t
+ 	desc = GER_gfour_vaaf_rad.3.d
+ 	picture = GFX_report_event_purge
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+ 	option = { #
+ 		name = GER_gfour_vaaf_rad.3.a
+		
+ 	}
+}
+
+## DG events ##
+
+#die grunen reveals itself
+country_event = {
+	id = GER_gfour_dg_true.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_dg_true.1"}
+ 	title = GER_gfour_dg_true.1.t
+ 	desc = GER_gfour_dg_true.1.d
+ 	picture = GFX_report_event_broken_mirror
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+
+ 	option = { #uh
+ 		name = GER_gfour_dg_true.1.a
+		add_popularity = {
+			ideology = ultranational_socialism
+			popularity = 0.25
+		}
+		add_popularity = {
+			ideology = social_liberal
+			popularity = -0.25
+		}
+		set_party_name = {
+			ideology = ultranational_socialism
+			long_name = "Die Grünen"
+			name = "Die Grünen"
+		}
+		set_politics = {
+			ruling_party = ultranational_socialism
+		}
+		create_country_leader = {
+			name = "Baldur Springmann"
+			desc = ""
+			picture = "Portrait_GER_Baldur_Springmann.dds"
+			expire = "1999.1.1"
+			ideology = ultranational_socialism_subtype
+			traits = {
+			}
+		}
+		set_country_flag = GER_g4_dg_takeover
+		#the cabinet drops the mask
+		remove_ideas = {
+			GER_g4_Alfred_Mechtersheimer_hog
+			GER_g4_Herbert_Gruhl_for
+			GER_g4_Werner_Georg_Haverbeck_sec
+			GER_g4_Werner_Vogel_eco
+		}
+		add_ideas = {
+			GER_g4_Alfred_Mechtersheimer_true_hog
+			GER_g4_Herbert_Gruhl_true_for
+			GER_g4_Werner_Georg_Haverbeck_true_sec
+			GER_g4_Werner_Vogel_true_eco
+		}
+		set_country_flag = GER_reichstag_dap_in_coalition
+		custom_effect_tooltip = GER_g4_coalition_with_dap_tt
+ 	}
+}
+
+#rsp liberals defect to die grunen
+country_event = {
+	id = GER_gfour_dg_true.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_dg_true.2"}
+ 	title = GER_gfour_dg_true.2.t
+ 	desc = GER_gfour_dg_true.2.d
+ 	picture = GFX_report_event_radio2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_dg_true.2.a
+		set_country_flag = GER_g4_rsp_liberals_defected
+		#large support shift in RSP-majority reichstag states
+		every_owned_state = {
+			limit = {
+				has_state_flag = GER_reichstag_state
+				check_variable = { var = GER_rsp_support_state value = GER_nsdap_support_state compare = greater_than }
+				check_variable = { var = GER_rsp_support_state value = GER_vup_support_state compare = greater_than }
+				check_variable = { var = GER_rsp_support_state value = GER_vaaf_support_state compare = greater_than }
+				check_variable = { var = GER_rsp_support_state value = GER_dg_support_state compare = greater_than }
+				check_variable = { var = GER_rsp_support_state value = GER_dap_support_state compare = greater_than }
+				check_variable = { var = GER_rsp_support_state value = GER_ler_support_state compare = greater_than }
+			}
+			GER_decrease_rsp_support_large = yes
+			GER_increase_dg_support_large = yes
+		}
+		#25% of sitting RSP MPs defect to DG (one-time, holds until next election recalcs from support)
+		set_temp_variable = { GER_rsp_defection_temp = GER_rsp_seats }
+		multiply_temp_variable = { GER_rsp_defection_temp = 0.25 }
+		round_temp_variable = GER_rsp_defection_temp
+		subtract_from_variable = { GER_rsp_seats = GER_rsp_defection_temp }
+		add_to_variable = { GER_dg_seats = GER_rsp_defection_temp }
+		#Scheel resigns with the liberals if he holds the economy ministry
+		if = {
+			limit = { has_idea = GER_g4_Walter_Scheel_eco }
+			remove_ideas = GER_g4_Walter_Scheel_eco
+			add_ideas = GER_g4_Ernst_Achenbach_eco
+		}
+ 	}
+}
+
+#die grunen ending event
+country_event = {
+	id = GER_gfour_dg_true.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_dg_true.3"}
+ 	title = GER_gfour_dg_true.3.t
+ 	desc = GER_gfour_dg_true.3.d
+ 	picture = GFX_report_event_post_apoc_sunset
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_dg_true.3.a
+		set_country_flag = TNO_closing_screen_show 
+		custom_effect_tooltip = GER_g4_dg_ending_tt
+ 	}
+}
+
+#die grunen epilogue tree event
+country_event = {
+	id = GER_gfour_dg_true.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_dg_true.4"}
+ 	title = GER_gfour_dg_true.4.t
+ 	desc = GER_gfour_dg_true.4.d
+ 	picture = GFX_report_event_generic_mountain
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = GER_gfour_dg_true.4.a
+		
+ 	}
+}
+
+######## G4 ENDGAME ########
+
+#master endgame resolver
+country_event = {
+	id = GER_gfour_endgame.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_endgame.1"}
+	title = GER_gfour_endgame.1.t
+	desc = GER_gfour_endgame.1.d
+	picture = GFX_report_event_reichstag
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = GER_gfour_endgame.1.a
+		#the war is over: a second election still pending must not fire on top of the ending
+		set_country_flag = GER_g4_endgame_started
+		hidden_effect = {
+			if = {
+				limit = { 
+					has_country_flag = GER_vengeance_war_total_loss 
+					NOT = {
+						GER_dg_government = yes
+					}
+				}
+				GER_g4_endgame_total_loss = yes
+			}
+			else_if = {
+				limit = { 
+					OR = {
+						has_country_flag = GER_vengeance_war_total_loss 
+						has_country_flag = GER_vengeance_war_partial_loss
+					}
+					GER_dg_government = yes
+				}
+				#civil war
+				country_event = {
+					id = GER_gfour_endgame.4
+					days = 10
+				}
+			}
+			else_if = {
+				limit = { 
+					has_country_flag = GER_vengeance_war_partial_loss 
+					NOT = {
+						has_government = communist
+					}
+				}
+				GER_g4_endgame_partial_loss = yes
+			}
+			else_if = {
+				limit = { 
+					has_country_flag = GER_vengeance_war_partial_loss 
+					has_government = communist
+				}
+				GER_g4_endgame_total_loss = yes
+			}
+			else = {
+				GER_g4_endgame_victory = yes
+			}
+		}
+	}
+}
+
+#military junta installs Wolfgang or Horst (used by total loss + radical VAAF coup) unique loc for the latter
+country_event = {
+	id = GER_gfour_endgame.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_endgame.2"}
+	title = GER_gfour_endgame.2.t
+	desc = GER_gfour_endgame.2.d
+	picture = GFX_report_event_generic_revolver
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = GER_gfour_endgame.2.a
+		GER_g4_install_military_junta = yes
+		hidden_effect = {
+			every_country = {
+				news_event = RA_GLOBAL_NEWS.62
+			}
+		}
+	}
+}
+
+#the fuhrer is "encouraged" to resign and a caretaker is installed
+country_event = {
+	id = GER_gfour_endgame.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_endgame.3"}
+	title = GER_gfour_endgame.3.t
+	desc = GER_gfour_endgame.3.d
+	picture = GFX_report_event_abwehr_intelligence
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = GER_gfour_endgame.3.a
+		#if the ruling party isn't nsdap someone from the nsdap speerite wing will take over
+		#if the ruling party is nsdap rsp takes over
+		#or maybe just do the first would be funny if everything just cycles back to speer
+		set_variable = { GER_g4_loss_wounded_democracy_stability_factor = -0.3 }
+		set_variable = { GER_g4_loss_wounded_democracy_war_support_factor = -0.5 }
+		set_variable = { GER_g4_loss_wounded_democracy_army_org_regain = -0.15 }
+		set_variable = { GER_g4_loss_wounded_democracy_army_org_factor = -0.2 }
+		set_variable = { GER_g4_loss_wounded_democracy_consumer_goods_factor = 0.3 }
+		set_variable = { GER_g4_loss_wounded_democracy_army_attack_factor = -0.2 }
+		set_variable = { GER_g4_loss_wounded_democracy_production_speed_buildings_factor = -0.15 }
+		set_variable = { GER_g4_loss_wounded_democracy_mobilization_speed = -0.3 }
+		set_variable = { GER_g4_loss_wounded_democracy_land_reinforce_rate = -0.05 }
+		set_variable = { GER_g4_loss_wounded_democracy_industrial_capacity_factory = -0.3 }
+		set_variable = { GER_g4_loss_wounded_democracy_conscription_factor = -0.5 }
+		set_variable = { GER_g4_loss_wounded_democracy_production_factory_max_efficiency_factor = 0 }
+		add_dynamic_modifier = {
+			modifier = GER_g4_loss_wounded_democracy
+		}
+		custom_effect_tooltip = {
+			localization_key = GER_g4_loss_wounded_democracy_effect
+		}
+		add_stability = -0.2
+		add_popularity = {
+			ideology = fascism
+			popularity = 0.15
+		}
+		set_politics = {
+			ruling_party = fascism
+		}
+		hidden_effect = {
+			GER_g4_remove_all_ministers = yes
+		}
+		add_ideas = {
+			GER_g4_Gerhard_Stoltenberg_hog
+			GER_g4_Walter_Becher_for
+			GER_g4_Horst_Herold_sec
+			GER_g4_Kurt_Biedenkopf_eco
+		}
+		#caretaker fuhrer until the next election
+		create_country_leader = {
+			name = "Theodor Oberländer"
+			desc = ""
+			picture = "Portrait_Germany_Theodor_Oberlander.dds"
+			expire = "1999.1.1"
+			ideology = fascism_subtype
+			traits = {
+			}
+		}
+		load_focus_tree = GER_gfour_loser_tree
+		mark_focus_tree_layout_dirty = yes
+		hidden_effect = {
+			every_country = {
+				news_event = RA_GLOBAL_NEWS.61
+			}
+		}
+	}
+}
+
+#DAP coup
+country_event = {
+	id = GER_gfour_endgame.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_endgame.4"}
+	title = GER_gfour_endgame.4.t
+	desc = GER_gfour_endgame.4.d
+	picture = GFX_report_event_nazi_street
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = GER_gfour_endgame.4.a
+		kill_country_leader = yes
+		add_popularity = {
+			ideology = ultranational_socialism
+			popularity = -0.8
+		}
+		set_politics = {
+			ruling_party = burgundian_system
+		}
+		GER_reichstag_suspend = yes
+		add_stability = -0.5
+		add_war_support = -0.5
+		hidden_effect = {
+			GER_g4_remove_all_ministers = yes
+		}
+		add_ideas = {
+			GER_g4_Friedhelm_Busse_hog
+			GER_g4_Karl_Heinz_Hoffmann_for
+			GER_g4_Alois_Brunner_sec
+			GER_g4_Wilhelm_Landig_eco
+		}
+		#country leader
+		hidden_effect = {
+			if = {
+				limit = { GER = { owns_state = 86 } }
+				86 = {
+					set_demilitarized_zone = yes
+					set_state_flag = GER_ler_pol_state
+				}
+			}
+			if = {
+				limit = { GER = { owns_state = 87 } }
+				87 = {
+					set_demilitarized_zone = yes
+					set_state_flag = GER_ler_pol_state
+				}
+			}
+			if = {
+				limit = { GER = { owns_state = 98 } }
+				98 = {
+					set_demilitarized_zone = yes
+					set_state_flag = GER_ler_pol_state
+				}
+			}
+			if = {
+				limit = { GER = { owns_state = 8 } }
+				8 = {
+					set_demilitarized_zone = yes
+					set_state_flag = GER_ler_lux_state
+				}
+			}
+			if = {
+				limit = { GER = { owns_state = 75 } }
+				75 = {
+					set_demilitarized_zone = yes
+					set_state_flag = GER_ler_cze_state
+				}
+			}
+			if = {
+				limit = { 
+					GER = {
+						owns_state = 97
+					}
+				}
+				97 = {
+					set_demilitarized_zone = yes
+					set_state_flag = GER_ler_pol_state
+				}
+			}
+			country_event = {
+				id = GER_gfour_endgame.5
+				days = 5
+			}
+		}
+	}
+}
+
+#LER uprising
+country_event = {
+	id = GER_gfour_endgame.5
+	title = GER_gfour_endgame.5.t
+	desc = GER_gfour_endgame.5.d
+	picture = GFX_report_event_uprising
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event GER_gfour_endgame.5"
+		hidden_effect = {
+			GER = {
+				#kick all puppets and allies from pakt temporarily
+				every_country = {
+					limit = {
+						is_ally_with = GER
+					}
+					leave_faction = yes
+					if = {
+						limit = {
+							is_subject_of = GER
+						}
+						GER = { end_puppet = PREV }
+					}
+				}
+				set_variable = { GER_g4_dap_final_conflict_army_morale_factor = -0.6 }
+				set_variable = { GER_g4_dap_final_conflict_army_attack_factor = -0.5 }
+				set_variable = { GER_g4_dap_final_conflict_recruitable_population_factor = -0.7 }
+				set_variable = { GER_g4_dap_final_conflict_army_defence_factor = -0.5 }
+				set_variable = { GER_g4_dap_final_conflict_breakthrough_factor = -0.20 }
+				set_variable = { GER_g4_dap_final_conflict_consumer_goods_factor = 0.5 }
+				set_variable = { GER_g4_dap_final_conflict_stability_factor = 0.3 }
+				set_variable = { GER_g4_dap_final_conflict_surrender_limit = -0.1 }
+				add_dynamic_modifier = {
+					modifier = GER_g4_dap_final_conflict
+				}
+				set_country_flag = GER_g4_dg_breakdown
+				load_focus_tree = GER_gfour_civil_war_dap_tree
+			}
+			LER = {
+				set_country_flag = GER_g4_dg_breakdown
+				if = {
+					limit = { GER = { owns_state = 86 } }
+					transfer_state = 86
+					add_state_core = 86
+				}
+				if = {
+					limit = { GER = { owns_state = 87 } }
+					transfer_state = 87
+					add_state_core = 87
+				}
+				if = {
+					limit = { GER = { owns_state = 98 } }
+					transfer_state = 98
+					add_state_core = 98
+				}
+				if = {
+					limit = { GER = { owns_state = 8 } }
+					transfer_state = 8
+					add_state_core = 8
+				}
+				if = {
+					limit = { GER = { owns_state = 75 } }
+					transfer_state = 75
+					add_state_core = 75
+				}
+				if = {
+					limit = {
+						GER = {
+							owns_state = 97
+						}
+					}
+					transfer_state = 97
+					add_state_core = 97
+				}
+				#tree and cabinet after the transfers, once LER exists
+				load_focus_tree = GER_ler_uprising
+				add_ideas = {
+					LER_Pierre_Werner_hog
+					LER_Vaclav_Havel_for
+					LER_Bronislaw_Geremek_sec
+					LER_Jacek_Kuron_eco
+				}
+				inherit_technology = GER
+				#main uprising army: units in every transferred state + 2 in Prague
+				load_oob = LER_uprising
+				declare_war_on = {
+					target = GER
+					type = liberate_wargoal
+				}
+				if = {
+					limit = { 
+						GER = {
+							owns_state = 137
+						}
+					}
+					#extra divisions rising in Crimea if it's still German-held
+					load_oob = LER_uprising_crimea
+				}
+				#activate mission which triggers stalemate if war goes on too long
+				activate_mission = GER_g4_stalemate
+			}
+			#covers both the dap countercoup and the uprising
+			every_country = {
+				news_event = RA_GLOBAL_NEWS.63
+			}
+		}
+	}
+
+	option = {
+		name = GER_gfour_endgame.5.a
+		custom_effect_tooltip = {
+			localization_key = GER_g4_dap_final_conflict_effect
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_recovery_rate
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-60.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_army_attack
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-50.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_recruitable_population
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-70.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_army_defense
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-50.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_army_breakthrough
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-20.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_consumer_goods
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "+50.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_stability_factor
+			VALUE = {
+				localization_key = TNO_COLOR_GREEN
+				VALUE_CHANGE = "+30.00%"
+			}
+		}
+		custom_effect_tooltip = {
+			localization_key = TNO_surrender_limit
+			VALUE = {
+				localization_key = TNO_COLOR_RED
+				VALUE_CHANGE = "-10.00%"
+			}
+		}
+	}
+
+	option = {
+		name = GER_gfour_endgame.5.b
+		custom_effect_tooltip = {
+			localization_key = GER_g4_ler_freedom_tt
+		}
+		LER = {
+			change_tag_from = GER
+		}	
+	}
+}
+
+#Speerite technocrat ending event
+country_event = {
+	id = GER_gfour_endgame.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_endgame.6"}
+	title = GER_gfour_endgame.6.t
+	desc = GER_gfour_endgame.6.d
+	picture = GFX_report_event_generic_office
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = GER_gfour_endgame.6.a
+		set_country_flag = TNO_closing_screen_show
+		custom_effect_tooltip = GER_g4_technocrat_ending_tt 
+	}
+}
+
+#Wehrmacht coup ending event
+country_event = {
+	id = GER_gfour_endgame.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_endgame.7"}
+	title = GER_gfour_endgame.7.t
+	desc = GER_gfour_endgame.7.d
+	picture = GFX_report_event_generic_wehrmacht_saluting
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = GER_gfour_endgame.7.a
+		set_country_flag = TNO_closing_screen_show 
+		custom_effect_tooltip = GER_g4_mil_coup_ending_tt
+	}
+}
+
+#DAP ending event
+country_event = {
+	id = GER_gfour_ler_uprising.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_ler_uprising.1"}
+ 	title = GER_gfour_ler_uprising.1.t
+ 	desc = GER_gfour_ler_uprising.1.d
+ 	picture = GFX_report_event_german_arrest
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_ler_uprising.1.a
+		set_country_flag = TNO_closing_screen_show
+		custom_effect_tooltip = GER_g4_dap_ending_tt
+		hidden_effect = {
+			every_country = {
+				news_event = RA_GLOBAL_NEWS.64
+			}
+		}
+ 	}
+}
+
+#LER freedom resolution
+country_event = {
+	id = GER_gfour_ler_uprising.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_ler_uprising.2"}
+ 	title = GER_gfour_ler_uprising.2.t
+ 	desc = GER_gfour_ler_uprising.2.d
+ 	picture = GFX_report_event_german_riot
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_ler_uprising.2.a
+		GER_g4_ler_epilogue_freedom = yes
+ 	}
+}
+
+#LER ending event
+country_event = {
+	id = GER_gfour_ler_uprising.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_ler_uprising.3"}
+ 	title = GER_gfour_ler_uprising.3.t
+ 	desc = GER_gfour_ler_uprising.3.d
+ 	picture = GFX_report_event_destroyed_krakow
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_ler_uprising.3.a
+		set_country_flag = TNO_closing_screen_show 
+		custom_effect_tooltip = GER_g4_ler_ending_tt
+ 	}
+}
+
+#DAP ending event (bad)
+country_event = {
+	id = GER_gfour_ler_uprising.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event GER_gfour_ler_uprising.4"}
+ 	title = GER_gfour_ler_uprising.4.t
+ 	desc = GER_gfour_ler_uprising.4.d
+ 	picture = GFX_report_event_german_city_burning
+ 	
+	is_triggered_only = yes	
+	fire_only_once = yes
+
+ 	
+ 	option = { #
+ 		name = GER_gfour_ler_uprising.4.a
+		set_country_flag = TNO_closing_screen_show
+		custom_effect_tooltip = GER_g4_dap_fail_ending_tt
+		hidden_effect = {
+			every_country = {
+				news_event = RA_GLOBAL_NEWS.65
+			}
+		}
+ 	}
+}

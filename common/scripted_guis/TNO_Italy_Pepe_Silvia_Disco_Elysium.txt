@@ -1,0 +1,205 @@
+scripted_gui = { # Flaxbeard
+	ITA_GUI_Pepe_Silvia_Disco_Elysium_GUI = {
+		context_type = decision_category
+		window_name = "ITA_GUI_Pepe_Silvia_Disco_Elysium_GUI"
+		
+		visible = {
+			always = yes
+		}
+
+		triggers = {
+			top_right_line_visible = {
+				has_country_flag = ITA_PSDE_picked_hint
+			}
+			right_photo_visible = {
+				has_country_flag = ITA_PSDE_picked_hint
+			}
+			right_photo_pin_visible = {
+				has_country_flag = ITA_PSDE_picked_hint
+			}
+
+
+			top_left_line_visible = {
+				has_country_flag = ITA_PSDE_picked_culprit
+			}
+			left_photo_visible = {
+				has_country_flag = ITA_PSDE_picked_culprit
+			}
+			left_photo_pin_visible = {
+				has_country_flag = ITA_PSDE_picked_culprit
+			}
+			
+
+			bottom_left_line_visible = {
+				has_country_flag = ITA_PSDE_picked_instigator
+				has_country_flag = ITA_PSDE_picked_culprit
+			}
+			bottom_photo_visible = {
+				has_country_flag = ITA_PSDE_picked_instigator
+			}
+			bottom_photo_pin_visible = {
+				has_country_flag = ITA_PSDE_picked_instigator
+			}
+			bottom_right_line_visible = {
+				has_country_flag = ITA_PSDE_picked_instigator
+				has_country_flag = ITA_PSDE_picked_hint
+			}
+
+		}
+
+		properties = {
+			right_photo_recticle = {
+				frame = ITA_PSDE_right_recticle_frame
+			}
+			left_photo_recticle = {
+				frame = ITA_PSDE_left_recticle_frame
+			}
+			bottom_photo_recticle = {
+				frame = ITA_PSDE_bottom_recticle_frame
+			}
+
+			top_photo = {
+				image = "GFX_psde_c[?GFX_psde_case_no]_case"
+			}
+			right_photo = {
+				image = "GFX_psde_c[?GFX_psde_case_no]_hint_[?ITA_PSDE_hint]_board"
+			}
+			left_photo = {
+				image = "GFX_psde_c[?GFX_psde_case_no]_culprit_[?ITA_PSDE_culprit]_board"
+			}
+			bottom_photo = {
+				image = "GFX_psde_c[?GFX_psde_case_no]_instigator_[?ITA_PSDE_instigator]_board"
+			}
+		}
+
+		effects = {
+			right_photo_recticle_click = {
+				if = {
+					limit = { has_country_flag = ITA_PSDE_Show_Hint_Select }
+					clr_country_flag = ITA_PSDE_Show_Hint_Select
+				}
+				else = {
+					set_country_flag = ITA_PSDE_Show_Hint_Select
+					clr_country_flag = ITA_PSDE_Show_Culprit_Select
+					clr_country_flag = ITA_PSDE_Show_Instigator_Select
+				}
+			}
+			left_photo_recticle_click = {
+				if = {
+					limit = { has_country_flag = ITA_PSDE_Show_Culprit_Select }
+					clr_country_flag = ITA_PSDE_Show_Culprit_Select
+				}
+				else = {
+					set_country_flag = ITA_PSDE_Show_Culprit_Select
+					clr_country_flag = ITA_PSDE_Show_Hint_Select
+					clr_country_flag = ITA_PSDE_Show_Instigator_Select
+				}
+			}
+			bottom_photo_recticle_click = {
+				if = {
+					limit = { has_country_flag = ITA_PSDE_Show_Instigator_Select }
+					clr_country_flag = ITA_PSDE_Show_Instigator_Select
+				}
+				else = {
+					set_country_flag = ITA_PSDE_Show_Instigator_Select
+					clr_country_flag = ITA_PSDE_Show_Hint_Select
+					clr_country_flag = ITA_PSDE_Show_Culprit_Select
+				}
+			}
+		}
+		
+	}
+
+	ITA_PSDE_Hint_Select = {
+		context_type = player_context
+		window_name = "ITA_PSDE_Hint_Select"
+		parent_window_token = top_bar
+
+		visible = {
+			has_country_flag = ITA_PSDE_Show_Hint_Select
+		}
+
+		effects = {
+			hint_1_select_click = {
+				clr_country_flag = ITA_PSDE_Show_Hint_Select
+				set_country_flag = ITA_PSDE_picked_hint
+				set_variable = { ITA_PSDE_hint = 1 }
+				set_variable = { ITA_PSDE_right_recticle_frame = 2 }
+			}
+			hint_2_select_click = {
+				clr_country_flag = ITA_PSDE_Show_Hint_Select
+				set_country_flag = ITA_PSDE_picked_hint
+				set_variable = { ITA_PSDE_hint = 2 }
+				set_variable = { ITA_PSDE_right_recticle_frame = 2 }
+			}
+			hint_3_select_click = {
+				clr_country_flag = ITA_PSDE_Show_Hint_Select
+				set_country_flag = ITA_PSDE_picked_hint
+				set_variable = { ITA_PSDE_hint = 3 }
+				set_variable = { ITA_PSDE_right_recticle_frame = 2 }
+			}
+		}
+	}
+
+	ITA_PSDE_Culprit_Select = {
+		context_type = player_context
+		window_name = "ITA_PSDE_Culprit_Select"
+		parent_window_token = top_bar
+
+		visible = {
+			has_country_flag = ITA_PSDE_Show_Culprit_Select
+		}
+
+		effects = {
+			culprit_1_select_click = {
+				clr_country_flag = ITA_PSDE_Show_Culprit_Select
+				set_country_flag = ITA_PSDE_picked_culprit
+				set_variable = { ITA_PSDE_culprit = 1 }
+				set_variable = { ITA_PSDE_left_recticle_frame = 2 }
+			}
+			culprit_2_select_click = {
+				clr_country_flag = ITA_PSDE_Show_Culprit_Select
+				set_country_flag = ITA_PSDE_picked_culprit
+				set_variable = { ITA_PSDE_culprit = 2 }
+				set_variable = { ITA_PSDE_left_recticle_frame = 2 }
+			}
+			culprit_3_select_click = {
+				clr_country_flag = ITA_PSDE_Show_Culprit_Select
+				set_country_flag = ITA_PSDE_picked_culprit
+				set_variable = { ITA_PSDE_culprit = 3 }
+				set_variable = { ITA_PSDE_left_recticle_frame = 2 }
+			}
+		}
+	}
+
+	ITA_PSDE_Instigator_Select = {
+		context_type = player_context
+		window_name = "ITA_PSDE_Instigator_Select"
+		parent_window_token = top_bar
+
+		visible = {
+			has_country_flag = ITA_PSDE_Show_Instigator_Select
+		}
+
+		effects = {
+			instigator_1_select_click = {
+				clr_country_flag = ITA_PSDE_Show_Instigator_Select
+				set_country_flag = ITA_PSDE_picked_instigator
+				set_variable = { ITA_PSDE_instigator = 1 }
+				set_variable = { ITA_PSDE_bottom_recticle_frame = 2 }
+			}
+			instigator_2_select_click = {
+				clr_country_flag = ITA_PSDE_Show_Instigator_Select
+				set_country_flag = ITA_PSDE_picked_instigator
+				set_variable = { ITA_PSDE_instigator = 2 }
+				set_variable = { ITA_PSDE_bottom_recticle_frame = 2 }
+			}
+			instigator_3_select_click = {
+				clr_country_flag = ITA_PSDE_Show_Instigator_Select
+				set_country_flag = ITA_PSDE_picked_instigator
+				set_variable = { ITA_PSDE_instigator = 3 }
+				set_variable = { ITA_PSDE_bottom_recticle_frame = 2 }
+			}
+		}
+	}
+}

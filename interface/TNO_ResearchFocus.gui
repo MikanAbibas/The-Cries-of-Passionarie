@@ -1,0 +1,569 @@
+guiTypes = {
+
+	### Opener - grafted into TNO_research_focus_anchor, the strip under the research slots.
+	### Position is 0,0 on purpose: the anchor in countrytechnologyview.gui does the aligning.
+	containerWindowType = {
+		name = "TNO_research_focus_open_container"
+		position = { x = 0 y = 0 }
+		size = { width = 550 height = 72 }
+
+		### Decorative only - the neon frame button below sits on top of this and
+		### swallows the clicks, so the whole framed strip is the hit area.
+		iconType = {
+			name = "TNO_research_focus_open_icon"
+			position = { x = 24 y = 2 }
+			spriteType = "GFX_research_academic_type_window_button"
+		}
+
+		instantTextboxType = {
+			name = "TNO_research_focus_open_label"
+			position = { x = 102 y = 12 }
+			font = "aldrich_20_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "TNO_RESEARCH_FOCUS_OPEN"
+			maxWidth = 420
+			maxHeight = 22
+			format = left
+			pdx_tooltip = "TNO_RESEARCH_FOCUS_OPEN_TT"
+		}
+
+		instantTextboxType = {
+			name = "TNO_research_focus_open_current"
+			position = { x = 102 y = 40 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "TNO_RESEARCH_FOCUS_CURRENT"
+			maxWidth = 420
+			maxHeight = 20
+			format = left
+			pdx_tooltip = "TNO_RESEARCH_FOCUS_OPEN_TT"
+		}
+
+		### Neon frame AND the click target. Declared last so it is topmost: the whole
+		### framed strip takes the click, not just the 74x68 icon. The sprite's centre is
+		### fully transparent, so the icon and both labels render through it.
+		### Overflows the anchor by 8px top and bottom on purpose - the anchor doesn't
+		### clip, and the frame needs that clearance to clear the 68px-tall icon.
+		buttonType = {
+			name = "TNO_research_focus_open_button"
+			position = { x = 10 y = -8 }
+			size = { x = 534 y = 88 }
+			quadTextureSprite = "GFX_TNO_research_focus_neon_border"
+			clicksound = click_ok
+			oversound = ui_menu_over
+			pdx_tooltip = "TNO_RESEARCH_FOCUS_OPEN_TT"
+		}
+	}
+
+	### Entry template for unlocked national academias.
+	### The dynamic list in common/scripted_guis/TNO_ResearchFocus.txt stamps one of
+	### these per ID in TNO_research_focus_available, so nothing in here is per-academia -
+	### all the text comes from scripted loc reading the list index.
+	containerWindowType = {
+		name = "TNO_research_focus_extra_entry"
+		position = { x = 0 y = 0 }
+		size = { width = 404 height = 104 }
+
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_idea_entry"
+		}
+
+		instantTextboxType = {
+			name = "TNO_research_focus_extra_name"
+			position = { x = 14 y = 6 }
+			font = "aldrich_20_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "[This.GetResearchFocusEntryName]"
+			maxWidth = 280
+			maxHeight = 22
+			format = left
+		}
+
+		instantTextboxType = {
+			name = "TNO_research_focus_extra_current"
+			position = { x = 255 y = 8 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "TNO_RESEARCH_FOCUS_ACTIVE"
+			maxWidth = 140
+			maxHeight = 20
+			format = right
+		}
+
+		instantTextboxType = {
+			name = "TNO_research_focus_extra_effect"
+			position = { x = 14 y = 30 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "[This.GetResearchFocusEntryEffect]"
+			maxWidth = 376
+			maxHeight = 36
+			format = left
+		}
+
+		buttonType = {
+			name = "TNO_research_focus_extra_pick"
+			position = { x = 89 y = 68 }
+			scale = 0.6
+			quadTextureSprite = "GFX_Tomsk_control_bar_bg"
+			clicksound = click_ok
+			oversound = ui_menu_over
+			pdx_tooltip = "TNO_RESEARCH_FOCUS_SELECT_TT"
+		}
+
+		### Label drawn separately (Tomsk pattern) so the frame's scale doesn't shrink
+		### the font. alwaystransparent lets the click through to the button under it.
+		instantTextBoxType = {
+			name = "TNO_research_focus_extra_pick_text"
+			position = { x = 89 y = 72 }
+			alwaystransparent = yes
+			font = "aldrich_18_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "TNO_RESEARCH_FOCUS_SELECT"
+			maxWidth = 226
+			maxHeight = 20
+			format = center
+		}
+	}
+
+	### Priority picker - opens where the vanilla special projects roster sits.
+	### Five fixed entries at 108px pitch inside a scrolling list, then the grid of
+	### unlocked academias directly underneath them.
+	containerWindowType = {
+		name = "TNO_research_focus_window"
+		position = { x = 545 y = 2 }
+		size = { width = 454 height = 674 }
+		show_sound = open_sub_window
+		moveable = no
+		click_to_front = yes
+
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_bg"
+		}
+
+		instantTextboxType = {
+			name = "TNO_research_focus_title"
+			position = { x = 14 y = 16 }
+			font = "aldrich_22_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "TNO_RESEARCH_FOCUS_TITLE"
+			maxWidth = 380
+			maxHeight = 24
+			format = left
+		}
+
+		buttonType = {
+			name = "TNO_research_focus_close_button"
+			position = { x = -30 y = 18 }
+			quadTextureSprite = "GFX_crt_closebutton"
+			Orientation = "UPPER_RIGHT"
+			clicksound = click_close
+			pdx_tooltip = "CLOSE"
+			shortcut = "ESCAPE"
+		}
+
+		instantTextboxType = {
+			name = "TNO_research_focus_desc"
+			position = { x = 14 y = 38 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "TNO_RESEARCH_FOCUS_DESC"
+			maxWidth = 413
+			maxHeight = 64
+			format = left
+		}
+
+		instantTextboxType = {
+			name = "TNO_research_focus_status"
+			position = { x = 185 y = 108 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "TNO_RESEARCH_FOCUS_STATUS"
+			maxWidth = 413
+			maxHeight = 20
+			format = left
+			pdx_tooltip = "TNO_RESEARCH_FOCUS_STATUS_TT"
+		}
+
+		iconType = {
+			name = "research_focus_divider_line"
+			position = { x = 12 y = 129 }
+			spriteType = "GFX_horizontal_divider"
+			alwaystransparent = yes
+			scale = 0.91
+			orientation = left
+		}
+
+		containerWindowType = {
+			name = "TNO_research_focus_list_scroll"
+			position = { x = 0 y = 124 }
+			size = { width = 441 height = 538 }
+			verticalScrollbar = "right_vertical_slider"
+			scroll_wheel_factor = 40
+			smooth_scrolling = yes
+			margin = { top = 6 bottom = 6 }
+
+			background = {
+				name = "Background"
+				quadTextureSprite = "GFX_tiled_window_transparent"
+			}
+
+			### Balanced ###
+			containerWindowType = {
+				name = "TNO_research_focus_entry_balanced"
+				position = { x = 10 y = 0 }
+				size = { width = 404 height = 104 }
+
+				background = {
+					name = "Background"
+					quadTextureSprite = "GFX_tiled_idea_entry"
+				}
+
+				instantTextboxType = {
+					name = "TNO_research_focus_name_balanced"
+					position = { x = 14 y = 6 }
+					font = "aldrich_20_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "tno_research_focus_balanced"
+					maxWidth = 280
+					maxHeight = 22
+					format = left
+				}
+
+				instantTextboxType = {
+					name = "TNO_research_focus_current_balanced"
+					position = { x = 255 y = 8 }
+					font = "aldrich_16_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "TNO_RESEARCH_FOCUS_ACTIVE"
+					maxWidth = 140
+					maxHeight = 20
+					format = right
+				}
+
+				instantTextboxType = {
+					name = "TNO_research_focus_effect_balanced"
+					position = { x = 14 y = 30 }
+					font = "aldrich_16_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "TNO_RESEARCH_FOCUS_BALANCED_EFFECT"
+					maxWidth = 376
+					maxHeight = 36
+					format = left
+				}
+
+				buttonType = {
+					name = "TNO_research_focus_pick_balanced"
+					position = { x = 89 y = 68 }
+					scale = 0.6
+					quadTextureSprite = "GFX_Tomsk_control_bar_bg"
+					clicksound = click_ok
+					oversound = ui_menu_over
+					pdx_tooltip = "TNO_RESEARCH_FOCUS_SELECT_TT"
+				}
+
+				### Label drawn separately (Tomsk pattern) so the frame's scale doesn't shrink
+				### the font. alwaystransparent lets the click through to the button under it.
+				instantTextBoxType = {
+					name = "TNO_research_focus_pick_balanced_text"
+					position = { x = 89 y = 72 }
+					alwaystransparent = yes
+					font = "aldrich_18_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "TNO_RESEARCH_FOCUS_SELECT"
+					maxWidth = 226
+					maxHeight = 20
+					format = center
+				}
+			}
+
+			### Doctrine ###
+			containerWindowType = {
+				name = "TNO_research_focus_entry_doctrine"
+				position = { x = 10 y = 108 }
+				size = { width = 404 height = 104 }
+
+				background = {
+					name = "Background"
+					quadTextureSprite = "GFX_tiled_idea_entry"
+				}
+
+				instantTextboxType = {
+					name = "TNO_research_focus_name_doctrine"
+					position = { x = 14 y = 6 }
+					font = "aldrich_20_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "tno_research_focus_doctrine"
+					maxWidth = 280
+					maxHeight = 22
+					format = left
+				}
+
+				instantTextboxType = {
+					name = "TNO_research_focus_current_doctrine"
+					position = { x = 255 y = 8 }
+					font = "aldrich_16_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "TNO_RESEARCH_FOCUS_ACTIVE"
+					maxWidth = 140
+					maxHeight = 20
+					format = right
+				}
+
+				instantTextboxType = {
+					name = "TNO_research_focus_effect_doctrine"
+					position = { x = 14 y = 30 }
+					font = "aldrich_16_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "TNO_RESEARCH_FOCUS_DOCTRINE_EFFECT"
+					maxWidth = 376
+					maxHeight = 36
+					format = left
+				}
+
+				buttonType = {
+					name = "TNO_research_focus_pick_doctrine"
+					position = { x = 89 y = 68 }
+					scale = 0.6
+					quadTextureSprite = "GFX_Tomsk_control_bar_bg"
+					clicksound = click_ok
+					oversound = ui_menu_over
+					pdx_tooltip = "TNO_RESEARCH_FOCUS_SELECT_TT"
+				}
+
+				### Label drawn separately (Tomsk pattern) so the frame's scale doesn't shrink
+				### the font. alwaystransparent lets the click through to the button under it.
+				instantTextBoxType = {
+					name = "TNO_research_focus_pick_doctrine_text"
+					position = { x = 89 y = 72 }
+					alwaystransparent = yes
+					font = "aldrich_18_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "TNO_RESEARCH_FOCUS_SELECT"
+					maxWidth = 226
+					maxHeight = 20
+					format = center
+				}
+			}
+
+			### Land & Naval Equipment ###
+			containerWindowType = {
+				name = "TNO_research_focus_entry_land_naval"
+				position = { x = 10 y = 216 }
+				size = { width = 404 height = 104 }
+
+				background = {
+					name = "Background"
+					quadTextureSprite = "GFX_tiled_idea_entry"
+				}
+
+				instantTextboxType = {
+					name = "TNO_research_focus_name_land_naval"
+					position = { x = 14 y = 6 }
+					font = "aldrich_20_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "tno_research_focus_land_naval"
+					maxWidth = 280
+					maxHeight = 22
+					format = left
+				}
+
+				instantTextboxType = {
+					name = "TNO_research_focus_current_land_naval"
+					position = { x = 255 y = 8 }
+					font = "aldrich_16_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "TNO_RESEARCH_FOCUS_ACTIVE"
+					maxWidth = 140
+					maxHeight = 20
+					format = right
+				}
+
+				instantTextboxType = {
+					name = "TNO_research_focus_effect_land_naval"
+					position = { x = 14 y = 30 }
+					font = "aldrich_16_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "TNO_RESEARCH_FOCUS_LAND_NAVAL_EFFECT"
+					maxWidth = 376
+					maxHeight = 36
+					format = left
+				}
+
+				buttonType = {
+					name = "TNO_research_focus_pick_land_naval"
+					position = { x = 89 y = 68 }
+					scale = 0.6
+					quadTextureSprite = "GFX_Tomsk_control_bar_bg"
+					clicksound = click_ok
+					oversound = ui_menu_over
+					pdx_tooltip = "TNO_RESEARCH_FOCUS_SELECT_TT"
+				}
+
+				### Label drawn separately (Tomsk pattern) so the frame's scale doesn't shrink
+				### the font. alwaystransparent lets the click through to the button under it.
+				instantTextBoxType = {
+					name = "TNO_research_focus_pick_land_naval_text"
+					position = { x = 89 y = 72 }
+					alwaystransparent = yes
+					font = "aldrich_18_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "TNO_RESEARCH_FOCUS_SELECT"
+					maxWidth = 226
+					maxHeight = 20
+					format = center
+				}
+			}
+
+			### Air Equipment ###
+			containerWindowType = {
+				name = "TNO_research_focus_entry_air"
+				position = { x = 10 y = 324 }
+				size = { width = 404 height = 104 }
+
+				background = {
+					name = "Background"
+					quadTextureSprite = "GFX_tiled_idea_entry"
+				}
+
+				instantTextboxType = {
+					name = "TNO_research_focus_name_air"
+					position = { x = 14 y = 6 }
+					font = "aldrich_20_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "tno_research_focus_air"
+					maxWidth = 280
+					maxHeight = 22
+					format = left
+				}
+
+				instantTextboxType = {
+					name = "TNO_research_focus_current_air"
+					position = { x = 255 y = 8 }
+					font = "aldrich_16_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "TNO_RESEARCH_FOCUS_ACTIVE"
+					maxWidth = 140
+					maxHeight = 20
+					format = right
+				}
+
+				instantTextboxType = {
+					name = "TNO_research_focus_effect_air"
+					position = { x = 14 y = 30 }
+					font = "aldrich_16_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "TNO_RESEARCH_FOCUS_AIR_EFFECT"
+					maxWidth = 376
+					maxHeight = 36
+					format = left
+				}
+
+				buttonType = {
+					name = "TNO_research_focus_pick_air"
+					position = { x = 89 y = 68 }
+					scale = 0.6
+					quadTextureSprite = "GFX_Tomsk_control_bar_bg"
+					clicksound = click_ok
+					oversound = ui_menu_over
+					pdx_tooltip = "TNO_RESEARCH_FOCUS_SELECT_TT"
+				}
+
+				### Label drawn separately (Tomsk pattern) so the frame's scale doesn't shrink
+				### the font. alwaystransparent lets the click through to the button under it.
+				instantTextBoxType = {
+					name = "TNO_research_focus_pick_air_text"
+					position = { x = 89 y = 72 }
+					alwaystransparent = yes
+					font = "aldrich_18_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "TNO_RESEARCH_FOCUS_SELECT"
+					maxWidth = 226
+					maxHeight = 20
+					format = center
+				}
+			}
+
+			### Industry / Electronics ###
+			containerWindowType = {
+				name = "TNO_research_focus_entry_industry"
+				position = { x = 10 y = 432 }
+				size = { width = 404 height = 104 }
+
+				background = {
+					name = "Background"
+					quadTextureSprite = "GFX_tiled_idea_entry"
+				}
+
+				instantTextboxType = {
+					name = "TNO_research_focus_name_industry"
+					position = { x = 14 y = 6 }
+					font = "aldrich_20_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "tno_research_focus_industry"
+					maxWidth = 280
+					maxHeight = 22
+					format = left
+				}
+
+				instantTextboxType = {
+					name = "TNO_research_focus_current_industry"
+					position = { x = 255 y = 8 }
+					font = "aldrich_16_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "TNO_RESEARCH_FOCUS_ACTIVE"
+					maxWidth = 140
+					maxHeight = 20
+					format = right
+				}
+
+				instantTextboxType = {
+					name = "TNO_research_focus_effect_industry"
+					position = { x = 14 y = 30 }
+					font = "aldrich_16_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "TNO_RESEARCH_FOCUS_INDUSTRY_EFFECT"
+					maxWidth = 376
+					maxHeight = 36
+					format = left
+				}
+
+				buttonType = {
+					name = "TNO_research_focus_pick_industry"
+					position = { x = 89 y = 68 }
+					scale = 0.6
+					quadTextureSprite = "GFX_Tomsk_control_bar_bg"
+					clicksound = click_ok
+					oversound = ui_menu_over
+					pdx_tooltip = "TNO_RESEARCH_FOCUS_SELECT_TT"
+				}
+
+				### Label drawn separately (Tomsk pattern) so the frame's scale doesn't shrink
+				### the font. alwaystransparent lets the click through to the button under it.
+				instantTextBoxType = {
+					name = "TNO_research_focus_pick_industry_text"
+					position = { x = 89 y = 72 }
+					alwaystransparent = yes
+					font = "aldrich_18_outline"
+					borderSize = { x = 0 y = 0 }
+					text = "TNO_RESEARCH_FOCUS_SELECT"
+					maxWidth = 226
+					maxHeight = 20
+					format = center
+				}
+			}
+
+			### Unlocked national academias - one slot per ID in TNO_research_focus_available ###
+			gridBoxType = {
+				name = "TNO_research_focus_extra_grid"
+				position = { x = 10 y = 540 }
+				size = { width = 404 height = 100%% }
+				slotsize = { width = 404 height = 108 }
+				max_slots_horizontal = 1
+				format = "UPPER_LEFT"
+			}
+		}
+	}
+}

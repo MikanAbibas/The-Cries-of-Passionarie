@@ -1,0 +1,143 @@
+guiTypes = {
+
+	# ---------------------------------------------------------------------------------
+	# Military Advisors, at the top of the deployment tab's training list (scripted GUI
+	# TNO_military_advisors_gui, parent_window_token = deployment_tab). Same x and width
+	# as the training lines (15, 520). countrydeploymentview.gui starts the list's
+	# entries 97 px lower to make room; the list window itself keeps vanilla's size.
+	#
+	# Layout follows z_plans/advisor_gui/2_window_states.png pixel for pixel; the sprites
+	# are built from the mockup's own drawing code (z_plans/advisor_gui/build_textures.py).
+	# Text boxes sit 1 px above the mockup's y: the game's aldrich fonts put cap tops
+	# 1 px lower than the TTF the mockup draws with.
+	# ---------------------------------------------------------------------------------
+	containerWindowType = {
+		name = "TNO_military_advisors_window"
+		position = { x = 15 y = 50 }
+		size = { width = 520 height = 84 }
+		moveable = no
+
+		iconType = {
+			name = "military_advisors_bg"
+			spriteType = "GFX_TNO_military_advisors_bg"
+			position = { x = 0 y = 0 }
+			alwaystransparent = yes
+		}
+
+		# level 0 plate and the advisor idea art for levels 1-5; frame = level + 1.
+		# The *_zero copies show level 0 at frame 1 without reading a variable, so a country
+		# that has never raised (or was created mid-game) never shows an unset frame.
+		iconType = {
+			name = "military_advisors_level_zero"
+			spriteType = "GFX_TNO_military_advisors_level"
+			position = { x = 10 y = 11 }
+			frame = 1
+			pdx_tooltip = "TNO_MILITARY_ADVISORS_BONUS_TT"
+		}
+		iconType = {
+			name = "military_advisors_level_icon"
+			spriteType = "GFX_TNO_military_advisors_level"
+			position = { x = 10 y = 11 }
+			frame = 1
+			pdx_tooltip = "TNO_MILITARY_ADVISORS_BONUS_TT"
+		}
+
+		instantTextBoxType = {
+			name = "military_advisors_title"
+			position = { x = 80 y = 8 }
+			font = "aldrich_20_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "TNO_MILITARY_ADVISORS_TITLE"
+			maxWidth = 270
+			maxHeight = 22
+			format = left
+		}
+
+		iconType = {
+			name = "military_advisors_pips_zero"
+			spriteType = "GFX_TNO_military_advisors_pips"
+			position = { x = 81 y = 36 }
+			frame = 1
+			pdx_tooltip = "TNO_MILITARY_ADVISORS_BONUS_TT"
+		}
+		iconType = {
+			name = "military_advisors_pips"
+			spriteType = "GFX_TNO_military_advisors_pips"
+			position = { x = 81 y = 36 }
+			frame = 1
+			pdx_tooltip = "TNO_MILITARY_ADVISORS_BONUS_TT"
+		}
+
+		instantTextBoxType = {
+			name = "military_advisors_bonus"
+			position = { x = 174 y = 32 }
+			font = "aldrich_18_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "TNO_MILITARY_ADVISORS_BONUS"
+			maxWidth = 180
+			maxHeight = 20
+			format = left
+			pdx_tooltip = "TNO_MILITARY_ADVISORS_BONUS_TT"
+		}
+
+		instantTextBoxType = {
+			name = "military_advisors_term"
+			position = { x = 80 y = 56 }
+			font = "aldrich_16_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "TNO_MILITARY_ADVISORS_TERM"
+			maxWidth = 270
+			maxHeight = 18
+			format = left
+		}
+
+		# days left of the 30-day term; frame = days + 1. Placed after "Resets to 0 in 23 days".
+		iconType = {
+			name = "military_advisors_term_bar"
+			spriteType = "GFX_TNO_military_advisors_term_bar"
+			position = { x = 239 y = 59 }
+			frame = 1
+		}
+
+		# level 5: the mockup's grey "off" button in place of Raise
+		iconType = {
+			name = "military_advisors_max"
+			spriteType = "GFX_TNO_military_advisors_button_max"
+			position = { x = 348 y = 12 }
+			pdx_tooltip = "TNO_MILITARY_ADVISORS_RAISE_TT"
+		}
+		instantTextBoxType = {
+			name = "military_advisors_max_text"
+			position = { x = 348 y = 18 }
+			font = "aldrich_18_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "TNO_MILITARY_ADVISORS_BUTTON_MAX"
+			maxWidth = 158
+			maxHeight = 20
+			format = center
+			pdx_tooltip = "TNO_MILITARY_ADVISORS_RAISE_TT"
+		}
+
+		buttonType = {
+			name = "military_advisors_raise"
+			spriteType = "GFX_TNO_military_advisors_button"
+			position = { x = 348 y = 12 }
+			buttonText = "TNO_MILITARY_ADVISORS_BUTTON"
+			buttonFont = "aldrich_18_outline"
+			pdx_tooltip = "TNO_MILITARY_ADVISORS_RAISE_TT"
+			clicksound = click_default
+		}
+
+		instantTextBoxType = {
+			name = "military_advisors_cost"
+			position = { x = 348 y = 49 }
+			font = "aldrich_18_outline"
+			borderSize = { x = 0 y = 0 }
+			text = "TNO_MILITARY_ADVISORS_COST"
+			maxWidth = 158
+			maxHeight = 20
+			format = center
+			pdx_tooltip = "TNO_MILITARY_ADVISORS_RAISE_TT"
+		}
+	}
+}

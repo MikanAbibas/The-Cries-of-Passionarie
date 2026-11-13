@@ -1,0 +1,2786 @@
+############################################################################
+## ██╗████████╗ █████╗ ██╗         ██╗███╗   ███╗██████╗ ███████╗██████╗  ##
+## ██║╚══██╔══╝██╔══██╗██║         ██║████╗ ████║██╔══██╗██╔════╝██╔══██╗ ##
+## ██║   ██║   ███████║██║         ██║██╔████╔██║██████╔╝█████╗  ██████╔╝ ##
+## ██║   ██║   ██╔══██║██║         ██║██║╚██╔╝██║██╔═══╝ ██╔══╝  ██╔══██╗ ##
+## ██║   ██║   ██║  ██║███████╗    ██║██║ ╚═╝ ██║██║     ███████╗██║  ██║ ##
+## ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝ ##
+############################################################################ (not)
+
+#Index; Search for these names using CTRL+F and you'll find the section they entitle.
+#
+#	1) KICKSTARTING THE REPUBLIC
+#		a) King's Government
+#		b) Revolutionary Provisional Government
+#       c) Italo-German War
+#
+#   2) 100 Day Preview Content
+#       a) Scuderi Funnies
+#       b) Pacciardi Advantures
+
+#############################################
+###=====| KICKSTARTING THE REPUBLIC |=====###
+#############################################
+###=====| a) King's Government |=====###
+shared_focus = {
+	id = ITA_king_chaos_in_kingdom
+	icon = GFX_ITA_remind_the_king_rework
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 5
+	y = 1
+	completion_reward = {
+		add_stability = -0.5
+		add_political_power = -100
+		country_event = provisional_government.3
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_chaos_in_kingdom"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_dissolve_the_grand_council
+	icon = GFX_meet_with_the_grand_council
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_chaos_in_kingdom
+	}
+	x = 4.5
+	y = 2
+	completion_reward = {
+		add_political_power = 25
+		ITA_RED_decrease_fascism = yes
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.15
+		}
+		tno_political_parties_improve = yes
+		country_event = provisional_government.5
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_dissolve_the_grand_council"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_dissolve_parliament
+	icon = GFX_ITA_speak_to_parliament
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_chaos_in_kingdom
+	}
+	x = 6.5
+	y = 2
+	completion_reward = {
+		add_political_power = 25
+		ITA_RED_decrease_fascism = yes
+		country_event = provisional_government.6
+		custom_effect_tooltip = ITA_king_dissolve_parliament_tt
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_dissolve_parliament"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_invite_generals
+	icon = GFX_HGR_Military_Preference
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 3
+	y = 3
+	prerequisite = {
+		focus = ITA_king_dissolve_the_grand_council
+	}
+	completion_reward = {
+		ITA_RED_Kings_Reforms_Decrease_Soldiers_Vines = yes
+		custom_effect_tooltip = ITA_king_invite_generals_tt
+		hidden_effect = {
+			# The purge the tooltip promises. TNORA has no character roster, so the
+			# five PNF placemen carry ITA_pnf_placeman in Italy's history file and
+			# are picked out by that; the officers upstream recruited to replace
+			# them - De Lorenzo, Baroni, Izzo, Marchesi, Angioni - already serve
+			# from 1962, so only the removals are left to do.
+			every_unit_leader = {
+				limit = { has_trait = ITA_pnf_placeman }
+				retire = yes
+			}
+		}
+		# Character-system commander role. TNORA has no character roster, and history/countries/ITA - Italy.txt
+		# already creates this officer, so the block is redundant as well as inert.
+# ITA_Giovanni_De_Lorenzo = {
+		# promote_leader = yes #promote to field marshal
+		# }
+		hidden_effect = {
+			# Character-system commander role. TNORA has no character roster, and history/countries/ITA - Italy.txt
+			# already creates this officer, so the block is redundant as well as inert.
+# ITA_Andrea_Baroni = {
+			# add_corps_commander_role = {
+			# traits = { media_personality trickster skilled_staffer }
+			# skill = 2
+			# attack_skill = 1
+			# defense_skill = 2
+			# planning_skill = 3
+			# logistics_skill = 1
+			# }
+			# }
+			# Character-system commander role. TNORA has no character roster, and history/countries/ITA - Italy.txt
+			# already creates this officer, so the block is redundant as well as inert.
+# ITA_Giuseppe_Izzo = {
+			# add_corps_commander_role = {
+			# traits = { war_hero infantry_officer trait_engineer fortress_buster }
+			# skill = 3
+			# attack_skill = 3
+			# defense_skill = 2
+			# planning_skill = 2
+			# logistics_skill = 3
+			# }
+			# }
+			# Character-system commander role. TNORA has no character roster, and history/countries/ITA - Italy.txt
+			# already creates this officer, so the block is redundant as well as inert.
+# ITA_Enzo_Marchesi = {
+			# add_corps_commander_role = {
+			# traits = { career_officer infantry_officer infantry_leader	organizer logistics_wizard offensive_doctrine }
+			# skill = 3
+			# attack_skill = 2
+			# defense_skill = 2
+			# planning_skill = 2
+			# logistics_skill = 4
+			# }
+			# }
+			# Character-system commander role. TNORA has no character roster, and history/countries/ITA - Italy.txt
+			# already creates this officer, so the block is redundant as well as inert.
+# ITA_Franco_Angioni = {
+			# add_corps_commander_role = {
+			# traits = { career_officer infantry_officer desert_fox }
+			# skill = 2
+			# attack_skill = 3
+			# defense_skill = 1
+			# planning_skill = 1
+			# logistics_skill = 2
+			# }
+			# }
+			# Character-system retire. TNORA has no character roster, so this is inert.
+			# ITA_Piero_Parini = { retire = yes }
+			# Character-system retire. TNORA has no character roster, so this is inert.
+			# ITA_Aldo_Vidussoni = { retire = yes }
+			# Character-system retire. TNORA has no character roster, so this is inert.
+			# ITA_Carlo_Borsani = { retire = yes }
+			# Character-system retire. TNORA has no character roster, so this is inert.
+			# ITA_Igino_Ghisellini = { retire = yes }
+			# Character-system retire. TNORA has no character roster, so this is inert.
+			# ITA_Renato_Ricci = { retire = yes }
+		}
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_invite_generals"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_rule_by_royal_decree
+	icon = GFX_ITA_I_Love_Umberto_And_Democracy
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 5
+	y = 3
+	prerequisite = {
+		focus = ITA_king_dissolve_parliament
+	}
+	prerequisite = {
+		focus = ITA_king_dissolve_the_grand_council
+	}
+	completion_reward = {
+		add_political_power = 25
+		add_popularity = {
+			ideology = despotism
+			popularity = 0.05
+		}
+		set_temp_variable = { econ_centralization_temp = 5 }
+		econ_centralization_change = yes
+		custom_effect_tooltip = ITA_RED_King_Reform_Rule_by_Royal_Decree_tt
+		add_to_array = {ITA_RED_king_decrees = 1}
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_rule_by_royal_decree"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_freeze_pnf
+	icon = GFX_ITA_In_the_PNF
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 7
+	y = 3
+	prerequisite = {
+		focus = ITA_king_dissolve_parliament
+	}
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.15
+		}
+		TNO_worsen_academic_base_low = yes
+		ITA_RED_decrease_fascism = yes
+		add_timed_idea = { idea = ITA_undoing_the_pnf days = 70 }
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_freeze_pnf"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_emergency_brakes
+	icon = GFX_USA_Stop_the_Enforcement
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 5
+	y = 4
+	prerequisite = {
+		focus = ITA_king_invite_generals
+	}
+	prerequisite = {
+		focus = ITA_king_rule_by_royal_decree
+	}
+	prerequisite = {
+		focus = ITA_king_freeze_pnf
+	}
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_emergency_brakes"
+		ITA_RED_decrease_fascism = yes
+		custom_effect_tooltip = ITA_RED_King_Reform_Emergency_Brakes_tt
+		custom_effect_tooltip = ITA_RED_economy_worsen_tt
+		add_to_array = {ITA_RED_king_decrees = 2}
+		#maybe put an event here
+		add_to_variable = { ITA_RED_inflation_dynmod_variable = 1.0 }
+		add_to_variable = { ITA_RED_prod_fact_dynmod_variable = -0.03 }
+		add_to_variable = { ITA_RED_gdp_growth_dynmod_variable = -0.02 }
+		add_to_variable = { ITA_RED_industrial_capacity_dynmod_variable = -0.06 }
+		add_to_variable = { ITA_RED_consumers_dynmod_variable = 0.01 }
+		set_variable = { ITA_RED_poverty_rate_variable = -0.05 }
+		TNO_worsen_academic_base_med = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_king_arrests_and_assassinations
+	icon = GFX_TNO_generic_prison_camp
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_emergency_brakes
+	}
+	x = 4.5
+	y = 5
+	completion_reward = {
+		add_stability = 0.05
+		tno_penal_system_improve = yes
+		#STRIP(building) 2 = {
+			#STRIP(building) add_building_construction = {
+				#STRIP(building) type = prisons
+				#STRIP(building) level = 2
+				#STRIP(building) instant_build = yes
+			#STRIP(building) }
+		#STRIP(building) }
+		#STRIP(building) 743 = {
+			#STRIP(building) add_building_construction = {
+				#STRIP(building) type = prisons
+				#STRIP(building) level = 2
+				#STRIP(building) instant_build = yes
+			#STRIP(building) }
+		#STRIP(building) }
+		country_event = provisional_government.14
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_arrests_and_assassinations"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_blackmails_and_exiles
+	icon = GFX_GER_kick_down_the_door
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_emergency_brakes
+	}
+	x = 6.5
+	y = 5
+	completion_reward = {
+		add_stability = 0.05
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.10
+		}
+		ITA_RED_decrease_fascism = yes
+		tno_security_improve = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_blackmails_and_exiles"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_restoring_order
+	icon = GFX_generic_police_rifle
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_arrests_and_assassinations
+	}
+	prerequisite = {
+		focus = ITA_king_blackmails_and_exiles
+	}
+	x = 5
+	y = 6
+	completion_reward = {
+		country_event = {
+			id = provisional_government.8
+			hours = 1
+		}
+		add_stability = 0.10
+		add_popularity = {
+			ideology = despotism
+			popularity = 0.20
+		}
+		custom_effect_tooltip = ITA_king_restoring_order_tt
+		hidden_effect = {
+			if = {
+				limit = {
+					HGR = { is_ai = yes }
+					GGR = { is_ai = yes }
+					SGR = { is_ai = yes }
+					BGR = { is_ai = yes }
+				}
+				HGR = {
+					add_ideas = {
+						GCW_hidden_debuff_1
+						GCW_hidden_debuff_2
+					}
+				}
+				GGR = {
+					add_ideas = {
+						GCW_hidden_debuff_1
+						GCW_hidden_debuff_2
+					}
+				}
+				random_list = {
+					50 = {
+						BGR = {
+							add_ideas = {
+								GCW_hidden_debuff_1
+								GCW_hidden_debuff_2
+							}
+						}
+						modifier = {
+							factor = -50
+							GER = {
+								has_country_flag = bormann_for_germany
+							}
+						}
+					}
+					50 = {
+						SGR = {
+							add_ideas = {
+								GCW_hidden_debuff_1
+								GCW_hidden_debuff_2
+							}
+						}
+						modifier = {
+							factor = -50
+							GER = {
+								has_country_flag = speer_for_germany
+							}
+						}
+					}
+				}
+				BGR = {
+					if = {
+						limit = { NOT = {has_idea = GCW_hidden_debuff_1 } }
+						add_ideas = GCW_hidden_holy_shit_win_already
+					}
+				}
+				SGR = {
+					if = {
+						limit = { NOT = {has_idea = GCW_hidden_debuff_1 } }
+						add_ideas = GCW_hidden_holy_shit_win_already
+					}
+				}
+			}
+		}
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_restoring_order"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_in_mind
+	icon = GFX_IND_India_A_Socialist_Society
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_restoring_order
+	}
+	available = {
+		has_country_flag = ITA_RED_king_target_new_left
+	}
+	x = 5
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_in_mind"
+		add_timed_idea = { idea = ITA_restricting_the_academics days = 35 }
+		custom_effect_tooltip = ITA_RED_target_new_left_tt
+	}
+}
+
+shared_focus = {
+	id = ITA_king_restoring_wartime_censorship
+	icon = GFX_generic_writing
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_in_mind
+	}
+	x = 4.5
+	y = 8
+	completion_reward = {
+		ITA_RED_Kings_Reforms_Decrease_Worker_Vines = yes
+		tno_press_rights_improve = yes
+		tno_press_rights_worsen = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_restoring_wartime_censorship"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_silence_students
+	icon = GFX_SAF_restrict_the_protests
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_in_mind
+	}
+	x = 6.5
+	y = 8
+	completion_reward = {
+		tno_public_meetings_improve = yes
+		ITA_RED_Kings_Reforms_Decrease_Academia_Vines = yes
+		custom_effect_tooltip = ITA_RED_economy_new_left_tt
+		add_to_variable = { ITA_RED_inflation_dynmod_variable = 1.0 }
+		add_to_variable = { ITA_RED_gdp_growth_dynmod_variable = 0.02 }
+		add_to_variable = { ITA_RED_industrial_capacity_dynmod_variable = -0.03 }
+		add_to_variable = { ITA_RED_poverty_rate_variable = -0.02 }
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_silence_students"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_tearing_down_manifestos
+	icon = GFX_GER_burn_the_blacklist
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_restoring_wartime_censorship
+	}
+	prerequisite = {
+		focus = ITA_king_silence_students
+	}
+	x = 5
+	y = 9
+	completion_reward = {
+		ITA_RED_Kings_Reforms_Decrease_Academia_Vines = yes
+		add_popularity = {
+			ideology = communist
+			popularity = -0.10
+		}
+		add_popularity = {
+			ideology = socialist
+			popularity = -0.10
+		}
+		ITA_RED_decrease_new_left = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_tearing_down_manifestos"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_burning_newspapers
+	icon = GFX_IBR_burning_paperwork
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_tearing_down_manifestos
+	}
+	x = 4.5
+	y = 10
+	completion_reward = {
+		ITA_RED_Kings_Reforms_Decrease_Academia_Vines = yes
+		ITA_RED_decrease_new_left = yes
+		custom_effect_tooltip = ITA_RED_economy_new_left_tt
+		add_to_variable = { ITA_RED_inflation_dynmod_variable = 0.3 }
+		add_to_variable = { ITA_RED_gdp_growth_dynmod_variable = 0.03 }
+		add_to_variable = { ITA_RED_industrial_capacity_dynmod_variable = -0.04 }
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_burning_newspapers"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_revealing_guerillas
+	icon = GFX_MAG_Soldiers_Without_Borders
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_tearing_down_manifestos
+	}
+	x = 6.5
+	y = 10
+	completion_reward = {
+		ITA_EM_GUI_increase_control_colonies = yes
+		ITA_RED_decrease_new_left = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_revealing_guerillas"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_La_Voce_del_Padrone
+	icon = GFX_generic_monarchist_constitution
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_burning_newspapers
+	}
+	prerequisite = {
+		focus = ITA_king_revealing_guerillas
+	}
+	x = 5
+	y = 11
+	completion_reward = {
+		ITA_RED_decrease_new_left = yes
+		subtract_from_variable = {ITA_RED_New_Left_Power_weekly = 5}
+		custom_effect_tooltip = ITA_RED_King_Reform_La_Voce_del_Padrone_tt
+		add_to_array = {ITA_RED_king_decrees = 4}
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_La_Voce_del_Padrone"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_in_body
+	icon = GFX_generic_revolutionary_movement
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_restoring_order
+	}
+	available = {
+		has_country_flag = ITA_RED_king_target_old_guard
+	}
+	x = 1
+	y = 7
+	completion_reward = {
+		add_timed_idea = { idea = ITA_cracking_down_on_strikes days = 35 }
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_in_body"
+		custom_effect_tooltip = ITA_RED_target_old_guard_tt
+	}
+}
+
+shared_focus = {
+	id = ITA_king_no_more_bread_riots
+	icon = GFX_TNO_generic_riot_police
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_in_body
+	}
+	x = 0.5
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_no_more_bread_riots"
+		add_stability = 0.10
+		tno_public_meetings_improve = yes
+		tno_security_improve = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_king_lock_down_factories
+	icon = GFX_Arms_factory_green
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_in_body
+	}
+	x = 2.5
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_lock_down_factories"
+		set_temp_variable = { econ_centralization_temp = 10 }
+		econ_centralization_change = yes
+		set_temp_variable = { temp_econ_GDP_boost_percentage = -0.01 }
+		econ_GDP_boost_once_percentage = yes
+		add_to_variable = { ITA_RED_inflation_dynmod_variable = -1.0 }
+		add_to_variable = { ITA_RED_prod_fact_dynmod_variable = -0.02 }
+		add_to_variable = { ITA_RED_industrial_capacity_dynmod_variable = 0.04 }
+		add_to_variable = { ITA_RED_consumers_dynmod_variable = 0.01 }
+		ITA_RED_Kings_Reforms_Decrease_Worker_Vines = yes
+		custom_effect_tooltip = ITA_RED_economy_old_guard_tt
+	}
+}
+
+shared_focus = {
+	id = ITA_king_over_the_hills_and_far_away
+	icon = GFX_TUR_Flower_On_The_Hills
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_no_more_bread_riots
+	}
+	x = 0.5
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_over_the_hills_and_far_away"
+		tno_conscription_improve = yes
+		ITA_RED_Kings_Reforms_Decrease_Soldiers_Vines = yes
+		set_temp_variable = { GarrisonChange = 3 }
+		ITA_EmpireManagement_GarrisonChange = yes
+		ITA_RED_decrease_old_guard = yes
+		country_event = provisional_government.16
+	}
+}
+
+shared_focus = {
+	id = ITA_king_good_times_bad_times
+	icon = GFX_TUR_What_Happened_To_A_Full_Stomach
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_lock_down_factories
+	}
+	x = 2.5
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_good_times_bad_times"
+		ITA_RED_Kings_Reforms_Decrease_Farmer_Vines = yes
+		TNO_improve_agriculture_low = yes
+		ITA_RED_decrease_old_guard = yes
+		custom_effect_tooltip = ITA_RED_economy_old_guard_tt
+		add_to_variable = { ITA_RED_inflation_dynmod_variable = -0.5 }
+		add_to_variable = { ITA_RED_prod_fact_dynmod_variable = -0.03 }
+		add_to_variable = { ITA_RED_industrial_capacity_dynmod_variable = -0.03 }
+		add_to_variable = { ITA_RED_consumers_dynmod_variable = 0.01 }
+		add_to_variable = { ITA_RED_poverty_rate_variable = -0.04 }
+	}
+}
+
+shared_focus = {
+	id = ITA_king_when_the_levee_breaks
+	icon = GFX_TUR_What_Happened_To_Our_Dream
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_no_more_bread_riots
+	}
+	prerequisite = {
+		focus = ITA_king_lock_down_factories
+	}
+	x = 1
+	y = 10
+	completion_reward = {
+		tno_security_improve = yes
+		tno_security_improve = yes
+		ITA_RED_decrease_old_guard = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_when_the_levee_breaks"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_La_Pace_del_Re
+	icon = GFX_ITA_forza_rework
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_over_the_hills_and_far_away
+	}
+	prerequisite = {
+		focus = ITA_king_good_times_bad_times
+	}
+	prerequisite = {
+		focus = ITA_king_when_the_levee_breaks
+	}
+	x = 2.5
+	y = 11
+	completion_reward = {
+		ITA_RED_decrease_old_guard = yes
+		subtract_from_variable = {ITA_RED_Old_Left_Power_weekly = 5}
+		custom_effect_tooltip = ITA_RED_King_Reform_La_Pace_del_Re_tt
+		add_to_array = {ITA_RED_king_decrees = 3}
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_La_Pace_del_Re"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_in_spirit
+	icon = GFX_generic_change_law_religion
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_restoring_order
+	}
+	available = {
+		has_country_flag = ITA_RED_king_target_cath_com
+	}
+	x = 9
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_in_spirit"
+		add_timed_idea = { idea = ITA_dealing_with_the_humanists days = 35 }
+		custom_effect_tooltip = ITA_RED_target_cath_com_tt
+	}
+}
+
+shared_focus = {
+	id = ITA_king_vatican_hotline
+	icon = GFX_GER_international_communication
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_in_spirit
+	}
+	x = 8.5
+	y = 8
+	completion_reward = {
+		ITA_RED_Kings_Reforms_Decrease_Clergy_Vines = yes
+		#STRIP(vatican) add_opinion_modifier = {
+			#STRIP(vatican) target = VAC
+			#STRIP(vatican) modifier = ITA_closer_ties_to_vatican
+		#STRIP(vatican) }
+		ITA_EM_GUI_increase_control_catholic = yes
+		ITA_RED_decrease_cath_com = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_vatican_hotline"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_placating_the_masses
+	icon = GFX_Generic_Question_of_Womens_Rights
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_in_spirit
+	}
+	x = 10.5
+	y = 8
+	completion_reward = {
+		tno_health_care_improve = yes
+		tno_gender_rights_improve = yes
+		ITA_RED_Kings_Reforms_Decrease_Marginalized_Vines = yes
+		ITA_RED_decrease_cath_com = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_placating_the_masses"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_pray_and_obey
+	icon = GFX_BRG_focus_a_ray_of_hope
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_vatican_hotline
+	}
+	x = 8.5
+	y = 9
+	completion_reward = {
+		add_stability = 0.05
+		ITA_RED_Kings_Reforms_Decrease_Middle_Classes_Vines = yes
+		ITA_RED_decrease_cath_com = yes
+		custom_effect_tooltip = ITA_RED_economy_catholic_communism_tt
+		add_to_variable = { ITA_RED_prod_fact_dynmod_variable = -0.02 }
+		add_to_variable = { ITA_RED_gdp_growth_dynmod_variable = -0.03 }
+		add_to_variable = { ITA_RED_consumers_dynmod_variable = -0.01 }
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_pray_and_obey"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_pray_and_stay_silent
+	icon = GFX_KOM_censorship_ultravisionary
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_placating_the_masses
+	}
+	x = 10.5
+	y = 9
+	completion_reward = {
+		add_political_power = 15
+		tno_press_rights_improve = yes
+		ITA_RED_Kings_Reforms_Decrease_Academia_Vines = yes
+		ITA_RED_decrease_cath_com = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_pray_and_stay_silent"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_pray_and_work
+	icon = GFX_generic_labor
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_vatican_hotline
+	}
+	prerequisite = {
+		focus = ITA_king_placating_the_masses
+	}
+	x = 9
+	y = 10
+	completion_reward = {
+		set_temp_variable = { temp_econ_GDP_boost_percentage = 0.015 }
+		econ_GDP_boost_once_percentage = yes
+		ITA_RED_Kings_Reforms_Decrease_Worker_Vines = yes
+		ITA_RED_decrease_cath_com = yes
+		custom_effect_tooltip = ITA_RED_economy_catholic_communism_tt
+		add_to_variable = { ITA_RED_prod_fact_dynmod_variable = -0.02 }
+		add_to_variable = { ITA_RED_gdp_growth_dynmod_variable = -0.03 }
+		add_to_variable = { ITA_RED_consumers_dynmod_variable = -0.01 }
+		add_to_variable = { ITA_RED_poverty_rate_variable = -0.05 }
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_pray_and_work"
+	}
+}
+
+shared_focus = {
+	id = ITA_king_La_Volonta_di_Dio
+	icon = GFX_FSR_Only_God_And_His_Servants
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_king_pray_and_obey
+	}
+	prerequisite = {
+		focus = ITA_king_pray_and_stay_silent
+	}
+	prerequisite = {
+		focus = ITA_king_pray_and_work
+	}
+	x = 8.5
+	y = 11
+	completion_reward = {
+		ITA_RED_decrease_cath_com = yes
+		subtract_from_variable = {ITA_RED_CathCom_Power_weekly = 5}
+		custom_effect_tooltip = ITA_RED_King_Reform_La_Volonta_di_Dio_tt
+		add_to_array = {ITA_RED_king_decrees = 5}
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_king_La_Volonta_di_Dio"
+	}
+}
+
+###=====| b) Revolutionary Provisional Government |=====###
+
+	# Intro Section
+
+shared_focus = { # this focus is autocompleted. does nothing, just wanted to keep the assets after the redesign bc they were nice
+	id = ITA_RED_out_of_the_void
+	icon = GFX_ITA_a_light_shining_from_the_pit
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 7
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_out_of_the_void"
+		custom_effect_tooltip = ITA_RED_tt
+	}
+}
+
+shared_focus = { # organizing the regime after bologna
+	id = ITA_RED_the_sun_rises
+	icon = GFX_NOV_Sunrise_Democracy_Sunset_Dictatorship
+	cost = 0.4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_out_of_the_void
+	}
+	x = 7
+	y = 2
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_sun_rises"
+		
+		set_country_flag = ITA_RED_assembly_active
+		ITA_RED_assembly_setup = yes
+		custom_effect_tooltip = ITA_RED_enable_assembly_mechanic_tt
+
+		country_event = { # initial government organization event chain
+			id = ITA_RED_revolutionary_assembly.1
+		}
+	}
+}
+
+shared_focus = { # reaching out to workers
+	id = ITA_RED_marching_workers
+	icon = GFX_NOV_Sunrise_Democracy_Sunset_Dictatorship
+	cost = 0.5
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_sun_rises
+	}
+	x = 5
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_marching_workers"
+
+		tno_trade_unions_improve = yes
+		set_country_flag = ITA_RED_assembly_workers_decisions_unlocked
+		custom_effect_tooltip = ITA_RED_assembly_workers_decisions_tt
+
+		country_event = {
+			id = revolutionary_provisional_government.3
+			hours = 6
+		}
+	}
+}
+
+shared_focus = { # revolutionary administration logistics
+	id = ITA_RED_bustling_deputies
+	icon = GFX_FEN_The_Red_Navy
+	cost = 0.5
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_sun_rises
+	}
+	x = 7
+	y = 3
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_bustling_deputies"
+		add_political_power = 15
+		
+		# add control in owned regions
+		set_country_flag = ITA_RED_assembly_admin_decisions_unlocked
+		custom_effect_tooltip = ITA_RED_assembly_admin_decisions_tt
+
+		country_event = {
+			id = revolutionary_provisional_government.4
+			hours = 6
+		}
+	}
+}
+
+shared_focus = { #
+	id = ITA_RED_surging_militants
+	icon = GFX_Generic_Spy
+	cost = 0.4
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_sun_rises
+	}
+	x = 9
+	y = 3
+	completion_reward = {
+		custom_effect_tooltip = ITA_RED_recruit_militias_tt
+		hidden_effect = {
+			add_to_variable = { ITA_red_alpine_militia_cap = 2 }
+			set_division_template_cap = { division_template = "Milizia Alpina" division_cap = ITA_red_alpine_militia_cap }
+			load_oob = "ITA_RED_revolution_militias"
+			set_division_template_cap = {
+				division_template = "Brigata Partigiana"
+				division_cap = ITA_red_partisan_cap
+			}
+			set_division_template_cap = {
+				division_template = "Brigata Studentesca"
+				division_cap = ITA_red_student_brigade_cap
+			}
+		}
+		set_country_flag = ITA_RED_show_army_management
+		country_event = revolutionary_provisional_government.40
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_surging_militants"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_a_symphony_from_pandemonium
+	icon = GFX_ITA_Symphonic_Crescendo
+	cost = 0.5
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_marching_workers
+	}
+	prerequisite = {
+		focus = ITA_RED_bustling_deputies
+	}
+	prerequisite = {
+		focus = ITA_RED_surging_militants
+	}
+	x = 7
+	y = 4
+	completion_reward = {
+		add_to_variable = { ITA_RED_music_communist = .1 }
+		add_to_variable = { ITA_RED_music_socialist = .1 }
+		# boost control in liberated territory
+		custom_effect_tooltip = ITA_RED_boost_music_tt
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_a_symphony_from_pandemonium"
+	}
+}
+
+shared_focus = {	# ok we are not taking rome yet. lets regroup and dig in
+	id = ITA_RED_the_show_must_go_on
+	icon = GFX_goal_unknown
+	cost = 0.5
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_a_symphony_from_pandemonium
+	}
+	x = 7
+	y = 5
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_show_must_go_on"
+	# empower military command
+	# unlocks control decisions
+	}
+}
+
+	# Main Section - Left
+
+shared_focus = {	# propaganda and political education
+	id = ITA_RED_going_to_the_masses
+	icon = GFX_WRS_The_Spectre_That_Haunts_The_World
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_show_must_go_on
+	}
+	x = 3
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_going_to_the_masses"
+
+		#buff civilian decisions
+		country_event = {
+			id = revolutionary_provisional_government.2
+			hours = 6
+		}
+	}
+}
+
+shared_focus = { 	#	get people to take up arms
+	id = ITA_RED_a_rebel_on_every_street
+	icon = GFX_IND_The_Might_of_Indias_Rivers
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_going_to_the_masses
+	}
+	x = 2
+	y = 7
+	completion_reward = {
+		add_war_support = .05
+		# add military control
+		add_to_variable = { ITA_RED_coming_storm_fascism = -.025}
+		add_to_variable = { ITA_RED_coming_storm_nazism = .02}
+		custom_effect_tooltip = ITA_RED_pre_igw_decrease_fascism_tt
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_a_rebel_on_every_street"
+	}
+}
+
+shared_focus = {	# divert resources to help the populace
+	id = ITA_RED_serve_the_people
+	icon = GFX_IND_The_Might_of_Indias_Rivers
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_going_to_the_masses
+	}
+	x = 4
+	y = 7
+	completion_reward = {
+		add_stability = .05
+		# add civilian control
+		# some sort of cost
+		add_to_variable = { ITA_RED_coming_storm_fascism = -.025}
+		add_to_variable = { ITA_RED_coming_storm_nazism = .02}
+		custom_effect_tooltip = ITA_RED_pre_igw_decrease_fascism_tt
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_serve_the_people"
+	}
+}
+
+shared_focus = {	# mob violence
+	id = ITA_RED_rouse_the_people_to_action
+	icon = GFX_IND_The_Might_of_Indias_Rivers
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_a_rebel_on_every_street
+		focus = ITA_RED_serve_the_people
+	}
+	mutually_exclusive = { focus = ITA_RED_revolutionary_order }
+	x = 2
+	y = 8
+	completion_reward = {
+		# mobs fuck shit up. they support the govt now tho
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_rouse_the_people_to_action"
+	}
+}
+shared_focus = {	# we are the police now
+	id = ITA_RED_revolutionary_order
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_a_rebel_on_every_street
+		focus = ITA_RED_serve_the_people
+	}
+	mutually_exclusive = { focus = ITA_RED_rouse_the_people_to_action }
+	x = 4
+	y = 8
+	completion_reward = {
+		#
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_revolutionary_order"
+	}
+}
+shared_focus = {	# more party memebers
+	id = ITA_RED_welcoming_new_cadres
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_rouse_the_people_to_action
+		focus = ITA_RED_revolutionary_order
+	}
+	x = 3
+	y = 9
+	completion_reward = {
+		# event that reshuffles party support and stuff
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_welcoming_new_cadres"
+	}
+}
+
+	# Main Section - Center
+
+shared_focus = {
+	id = ITA_RED_secure_the_war_industry
+	icon = GFX_MAG_Soldiers_Without_Borders
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_show_must_go_on
+	}
+	x = 7
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_secure_the_war_industry"
+		# control in liguria and piemonte
+
+		country_event = {
+			id = revolutionary_provisional_government.6
+			hours = 6
+		}
+	}
+}
+
+#GFX_YUN_Mountain_People
+shared_focus = {	# doctrine issues
+	id = ITA_RED_refine_operational_command
+	icon = GFX_goal_unknown
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_secure_the_war_industry
+	}
+	x = 6
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_refine_operational_command"
+
+	}
+}
+shared_focus = { #
+	id = ITA_RED_secure_the_coasts
+	icon = GFX_FEN_The_Red_Navy
+	cost = 0.5
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_secure_the_war_industry
+	}
+	x = 8
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_secure_the_coasts"
+	}
+}
+shared_focus = { # send reinforcements to guerillas
+	id = ITA_RED_mountain_holdouts
+	icon = GFX_YUN_Mountain_People
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_secure_the_coasts
+	}
+	prerequisite = {
+		focus = ITA_RED_refine_operational_command
+	}
+	x = 7
+	y = 8
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_mountain_holdouts"
+
+	}
+}
+shared_focus = {
+	id = ITA_RED_along_the_river_plain
+	icon = GFX_IND_The_Might_of_Indias_Rivers
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_mountain_holdouts
+	}
+	x = 6
+	y = 9
+	completion_reward = {
+
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_along_the_river_plain"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_infiltrate_the_south
+	icon = GFX_generic_liberty
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_mountain_holdouts
+	}
+	x = 8
+	y = 9
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_infiltrate_the_south"
+		country_event = {
+			id = revolutionary_provisional_government.7
+			hours = 6
+		}
+	}
+}
+
+	# Main Section - Right
+
+shared_focus = {
+	id = ITA_RED_a_revolutionary_army_focus
+	icon = GFX_generic_liberty
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_show_must_go_on
+	}
+	x = 11
+	y = 6
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_a_revolutionary_army_focus"
+		
+		#activate army stuff
+		#unlock templates
+		
+		hidden_effect = {
+			# Character-system advisor role. TNORA seats ministers as ideas, and the
+			# idea_token this names is defined nowhere, so the block is inert either way.
+			# add_advisor_role = {
+			# name = "Arrigo Boldrini"
+			# activate = yes
+			# advisor = {
+			# slot = army_chief
+			# idea_token = ITA_Arrigo_Boldrini_army_chief
+			# allowed = { original_tag = ITA }
+			# ledger = army
+			# traits = {
+			# army_chief
+			# army_chief_maneuver_2
+			# }
+			# cost = -1
+			# can_be_fired = no
+			# }
+			# }
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_sway_the_common_soldier
+	icon = GFX_ITA_Conquer_Them
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_a_revolutionary_army_focus
+	}
+	x = 10
+	y = 7
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_sway_the_common_soldier"
+		add_war_support = .1
+		country_event = {
+			id = revolutionary_provisional_government.6
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_impromptu_training_schools
+	icon = GFX_MAG_Soldiers_Without_Borders
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_a_revolutionary_army_focus
+	}
+	x = 12
+	y = 7
+	completion_reward = {
+		army_experience = 25
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_impromptu_training_schools"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_a_hundred_marching_songs
+	icon = GFX_MAG_Soldiers_Without_Borders
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_sway_the_common_soldier
+		focus = ITA_RED_impromptu_training_schools
+	}
+	mutually_exclusive = { focus = ITA_RED_in_perfect_unison }
+	x = 10
+	y = 8
+	completion_reward = {
+		army_experience = 25
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_a_hundred_marching_songs"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_in_perfect_unison
+	icon = GFX_MAG_Soldiers_Without_Borders
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_sway_the_common_soldier
+		focus = ITA_RED_impromptu_training_schools
+	}
+	mutually_exclusive = { focus = ITA_RED_a_hundred_marching_songs }
+	x = 12
+	y = 8
+	completion_reward = {
+		army_experience = 25
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_in_perfect_unison"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_volante_rossa
+	icon = GFX_ITA_Volante_Rossa
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_in_perfect_unison
+		focus = ITA_RED_a_hundred_marching_songs
+	}
+	x = 11
+	y = 9
+	completion_reward = {
+		add_war_support = .1
+		army_experience = 20
+		custom_effect_tooltip = ITA_RED_recruit_volante_rossa_tt
+		hidden_effect = {
+			#change this
+			load_oob = "ITA_RED_revolution_volante_rossa"
+			create_corps_commander = {
+				name = "Giulio Paggio"
+				traits = {
+					politically_connected
+					commando
+				}
+				skill = 2
+				attack_skill = 3
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 1
+			}
+		}
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_volante_rossa"
+	}
+}
+
+#GFX_GER_A_Bridge_Too_Far
+
+shared_focus = {
+	id = ITA_RED_city_of_steel
+	icon = GFX_ITA_City_of_Steel
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_welcoming_new_cadres
+	}
+	prerequisite = {
+		focus = ITA_RED_along_the_river_plain
+	}
+	prerequisite = {
+		focus = ITA_RED_volante_rossa
+	}
+	x = 6
+	y = 10
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_city_of_steel"
+		country_event = {
+			id = revolutionary_provisional_government.14
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_see_naples_and_die
+	icon = GFX_ITA_See_Naples_and_Die
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_welcoming_new_cadres
+	}
+	prerequisite = {
+		focus = ITA_RED_infiltrate_the_south
+	}
+	prerequisite = {
+		focus = ITA_RED_volante_rossa
+	}
+	x = 8
+	y = 10
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_see_naples_and_die"
+		country_event = {
+			id = revolutionary_provisional_government.15
+			hours = 6
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_eternal_prize
+	icon = GFX_ITA_The_Eternal_Prize
+	cost = 1
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_city_of_steel
+	}
+	prerequisite = {
+		focus = ITA_RED_see_naples_and_die
+	}
+	x = 7
+	y = 11
+	completion_reward = {
+		country_event = revolutionary_provisional_government.22
+		if = {
+			limit = { has_country_flag = ITA_RED_is_new_left }
+			country_event = {
+				id = revolutionary_provisional_government.28
+				hours = 6
+			}
+		}
+		else_if = {
+			limit = { has_country_flag = ITA_RED_is_cathcom }
+			country_event = {
+				id = revolutionary_provisional_government.29
+				hours = 6
+			}
+		}
+		else = {
+			country_event = {
+				id = revolutionary_provisional_government.27
+				hours = 6
+			}
+		}
+		hidden_effect = {
+			GER = {
+				if = {
+					limit = { is_ai = yes }
+					add_political_power = 1000
+				}
+			}
+		}
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_eternal_prize"
+	}
+}
+
+#this is the last section i did not get around to changing any of the effects or adding notes sorry :(
+
+shared_focus = {
+	id = ITA_RED_triumphal_march
+	icon = GFX_orchestral_overture
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_eternal_prize
+	}
+	x = 7
+	y = 12
+	completion_reward = {
+		add_to_variable = { ITA_RED_music_communist = .1 }
+		add_to_variable = { ITA_RED_music_socialist = .1 }
+		custom_effect_tooltip = ITA_RED_boost_music_tt
+		hidden_effect = { ITA_RED_election_setup = yes }
+		custom_effect_tooltip = ITA_RED_elections_begin
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_triumphal_march"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_strangling_the_remnants
+	icon = GFX_generic_police_rifle
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_triumphal_march
+	}
+	x = 5
+	y = 13
+	completion_reward = {
+		add_political_power = 15
+		tno_security_improve = yes
+		add_stability = .05
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_strangling_the_remnants"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_honoring_the_martyrs
+	icon = GFX_generic_socialist_constitution
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_triumphal_march
+	}
+	x = 7
+	y = 13
+	completion_reward = {
+		add_political_power = 15
+		add_stability = .25
+		2 = {
+			#STRIP(building) add_building_construction = {
+				#STRIP(building) type = offices
+				#STRIP(building) level = 1
+				#STRIP(building) instant_build = yes
+			#STRIP(building) }
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_controlled_state = {
+			#STRIP(building) add_building_construction = {
+				#STRIP(building) type = offices
+				#STRIP(building) level = 1
+				#STRIP(building) instant_build = yes
+			#STRIP(building) }
+			add_extra_state_shared_building_slots = 1
+		}
+		random_owned_controlled_state = {
+			#STRIP(building) add_building_construction = {
+				#STRIP(building) type = offices
+				#STRIP(building) level = 1
+				#STRIP(building) instant_build = yes
+			#STRIP(building) }
+			add_extra_state_shared_building_slots = 1
+		}
+		set_temp_variable = { ITA_RED_election_orthodox_temp = 5 }
+		ITA_RED_election_add_orthodox_seats = yes
+		set_temp_variable = { ITA_RED_election_firebrand_temp = 3 }
+		ITA_RED_election_add_firebrand_seats = yes
+		set_temp_variable = { ITA_RED_election_underclass_temp = 2 }
+		ITA_RED_election_add_underclass_seats = yes
+		custom_effect_tooltip = ITA_RED_economy_improve_tt
+		add_to_variable = { ITA_RED_prod_fact_dynmod_variable = 0.12 }
+		add_to_variable = { ITA_RED_gdp_growth_dynmod_variable = 0.03 }
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_honoring_the_martyrs"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_standoff_on_the_vallo_alpino
+	icon = GFX_CAU_purge_the_bureaucrats
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_triumphal_march
+	}
+	x = 9
+	y = 13
+	completion_reward = {
+		add_political_power = 25
+		tno_political_parties_improve = yes
+		set_temp_variable = { ITA_RED_election_orthodox_temp = 10 }
+		ITA_RED_election_add_orthodox_seats = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_standoff_on_the_vallo_alpino"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_tribunali_rivoluzionario
+	icon = GFX_ITA_Volante_Rossa
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_strangling_the_remnants
+	}
+	x = 4
+	y = 14
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_tribunali_rivoluzionario"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_stabilizing_the_republic
+	icon = GFX_Generic_Anti_Fascism
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_honoring_the_martyrs
+	}
+	x = 6
+	y = 14
+	completion_reward = {
+		add_popularity = {
+			ideology = fascism
+			popularity = -0.10
+		}
+		add_popularity = {
+			ideology = despotism
+			popularity = -0.10
+		}
+		add_to_variable = { ITA_RED_coming_storm_fascism = -.05}
+		add_to_variable = { ITA_RED_coming_storm_nazism = .05}
+		custom_effect_tooltip = ITA_RED_pre_igw_decrease_fascism_tt
+		set_temp_variable = { ITA_RED_election_firebrand_temp = 5 }
+		ITA_RED_election_add_firebrand_seats = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_stabilizing_the_republic"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_furthering_the_revolution
+	icon = GFX_GER_court_of_human_rights
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_honoring_the_martyrs
+	}
+	x = 8
+	y = 14
+	completion_reward = {
+		add_political_power = 50
+		add_stability = .1
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_furthering_the_revolution"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_watching_with_vigilance
+	icon = GFX_ENG_socialist_spanner
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_standoff_on_the_vallo_alpino
+	}
+	x = 10
+	y = 14
+	completion_reward = {
+		set_temp_variable = { econ_centralization_temp = 10 }
+		econ_centralization_change = yes
+		custom_effect_tooltip = ITA_RED_economy_improve_tt
+		add_to_variable = { ITA_RED_industrial_capacity_dynmod_variable = -0.04 }
+		add_to_variable = { ITA_RED_consumers_dynmod_variable = -0.01 }
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_watching_with_vigilance"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_legge_dell_avvenir
+	icon = GFX_CHI_Improving_Factory_Efficiency
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_tribunali_rivoluzionario
+	}
+	x = 5
+	y = 15
+	completion_reward = {
+		set_temp_variable = { temp_econ_GDP_boost_percentage = 0.05 }
+		econ_GDP_boost_once_percentage = yes
+		add_to_variable = { ITA_RED_gdp_growth_dynmod_variable = 0.02 }
+		add_to_variable = { ITA_RED_consumers_dynmod_variable = -0.01 }
+		add_equipment_to_stockpile = {
+			type = support_equipment
+			amount = 250
+			producer = ITA
+		}
+		custom_effect_tooltip = ITA_RED_economy_improve_tt
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_legge_dell_avvenir"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_chimneys_smoke
+	icon = GFX_WAL_Talk_with_socialist_militias
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_stabilizing_the_republic
+		focus = ITA_RED_furthering_the_revolution
+	}
+	x = 7
+	y = 15
+	completion_reward = {
+		add_popularity = {
+			ideology = communist
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = socialist
+			popularity = 0.05
+		}
+		set_temp_variable = { ITA_RED_election_underclass_temp = 5 }
+		ITA_RED_election_add_underclass_seats = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_chimneys_smoke"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_supplying_the_defenders
+	icon = GFX_Arms_factory_red
+	cost = 3
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_watching_with_vigilance
+	}
+	x = 9
+	y = 15
+	completion_reward = {
+		set_temp_variable = { temp_econ_GDP_boost_percentage = 0.05 }
+		econ_GDP_boost_once_percentage = yes
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 1000
+			producer = ITA
+		}
+		custom_effect_tooltip = ITA_RED_economy_improve_tt
+		add_to_variable = { ITA_RED_inflation_dynmod_variable = -0.5 }
+		add_to_variable = { ITA_RED_consumers_dynmod_variable = -0.01 }
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_supplying_the_defenders"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_last_movement
+	icon = GFX_orchestral_overture
+	cost = 5
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_legge_dell_avvenir
+	}
+	prerequisite = {
+		focus = ITA_RED_the_chimneys_smoke
+	}
+	prerequisite = {
+		focus = ITA_RED_supplying_the_defenders
+	}
+	x = 7
+	y = 16
+	completion_reward = {
+		add_popularity = {
+			ideology = communist
+			popularity = 0.10
+		}
+		add_popularity = {
+			ideology = socialist
+			popularity = 0.10
+		}
+		add_political_power = 100
+		add_stability = .15
+		custom_effect_tooltip = ITA_RED_the_last_movement_tt
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_last_movement"
+	}
+}
+
+###=====| c) Italo-German War |=====###
+shared_focus = {
+	id = ITA_RED_the_storm_strikes
+	icon = GFX_ITA_RED_the_storm_strikes
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 7
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_storm_strikes"
+		country_event = { id = ig_war_flavor.1 }
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_rally_the_people
+	icon = GFX_ITA_forza_rework
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_storm_strikes
+	}
+	relative_position_id = ITA_RED_the_storm_strikes
+	x = -4
+	y = 1
+	completion_reward = {
+		add_war_support = .15
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_rally_the_people"
+		country_event = { id = ig_war_flavor.2 }
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_necessary_requisitions
+	icon = GFX_SBA_collective_defense_requirements
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_rally_the_people
+	}
+	relative_position_id = ITA_RED_rally_the_people
+	x = -1
+	y = 1
+	completion_reward = {
+		add_stability = -.25
+		set_temp_variable = { temp_gdp_gained = 0.1 }
+		econ_money_reserves_change_percent_gdp = yes
+		set_temp_variable = { econ_centralization_temp = 5 }
+		econ_centralization_change = yes
+		custom_effect_tooltip = ITA_RED_war_economy_begin_tt
+		add_to_variable = { ITA_RED_gdp_growth_dynmod_variable = -0.5 }
+		add_to_variable = { ITA_RED_industrial_capacity_dynmod_variable = 0.1 }
+		add_to_variable = { ITA_RED_inflation_dynmod_variable = 1 }
+		add_to_variable = { ITA_RED_building_speed_variable = 0.025 }
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_necessary_requisitions"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_wartime_authority
+	icon = GFX_YUN_The_War_Machine
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_rally_the_people
+	}
+	relative_position_id = ITA_RED_rally_the_people
+	x = 1
+	y = 1
+	completion_reward = {
+		add_political_power = 25
+		set_temp_variable = { econ_centralization_temp = 10 }
+		econ_centralization_change = yes
+		custom_effect_tooltip = ITA_RED_wareconomy_tt
+		add_to_variable = { ITA_RED_gdp_growth_dynmod_variable = -0.4 }
+		add_to_variable = { ITA_RED_industrial_capacity_dynmod_variable = 0.07 }
+		add_to_variable = { misc_costs_percent_of_GDP_modifier = 0.1 }
+		#STRIP(econ) add_to_variable = { consumer_goods_use_modifier = -0.05 }
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_wartime_authority"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_standing_united
+	icon = GFX_TNO_generic_left_unity_revolution
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_necessary_requisitions
+	}
+	prerequisite = {
+		focus = ITA_RED_wartime_authority
+	}
+	relative_position_id = ITA_RED_necessary_requisitions
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_standing_united"
+		country_event = { id = ig_war_flavor.3 }
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_a_call_to_arms
+	icon = GFX_TNO_generic_left_unity_warfare
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_storm_strikes
+	}
+	relative_position_id = ITA_RED_the_storm_strikes
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_a_call_to_arms"
+		set_temp_variable = { IGW_attack_change_temp = 0.05 }
+		IGW_ITA_add_attack = yes
+		country_event = { id = ig_war_flavor.4 }
+		tno_conscription_improve = yes
+		tno_conscription_improve = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_a_gun_on_every_shoulder
+	icon = GFX_TNO_generic_forbid_guns
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_a_call_to_arms
+	}
+	relative_position_id = ITA_RED_a_call_to_arms
+	x = -1
+	y = 1
+	completion_reward = {
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 5000
+			producer = ITA
+		}
+		set_temp_variable = { IGW_attack_change_temp = 0.05 }
+		IGW_ITA_add_attack = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_a_gun_on_every_shoulder"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_what_can_they_offer
+	icon = GFX_ENG_socialist_spanner
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_a_call_to_arms
+	}
+	relative_position_id = ITA_RED_a_call_to_arms
+	x = 1
+	y = 1
+	completion_reward = {
+		set_temp_variable = { IGW_attack_change_temp = 0.05 }
+		IGW_ITA_add_attack = yes
+		hidden_effect = {
+			IGW_CC_recruit = yes
+		}
+		custom_effect_tooltip = ITA_IGW_recruit_tt
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_what_can_they_offer"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_to_serve_the_nation
+	icon = GFX_IBR_Help_Italy
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_a_gun_on_every_shoulder
+	}
+	prerequisite = {
+		focus = ITA_RED_what_can_they_offer
+	}
+	relative_position_id = ITA_RED_a_gun_on_every_shoulder
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_to_serve_the_nation"
+		hidden_effect = {
+			IGW_CC_recruit = yes
+		}
+		custom_effect_tooltip = ITA_IGW_recruit_tt
+		country_event = { id = ig_war_flavor.5 }
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_our_natural_defenses
+	icon = GFX_MGN_break_mountain
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_storm_strikes
+	}
+	relative_position_id = ITA_RED_the_storm_strikes
+	x = 4
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_our_natural_defenses"
+		set_temp_variable = { IGW_defense_change_temp = 0.1 }
+		IGW_ITA_add_defense = yes
+		country_event = { id = ig_war_flavor.6 }
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_fortresses_along_the_alps
+	icon = GFX_YUN_Fortify_The_Border
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_our_natural_defenses
+	}
+	relative_position_id = ITA_RED_our_natural_defenses
+	x = -1
+	y = 1
+	completion_reward = {
+		set_temp_variable = { IGW_defense_change_temp = 0.05 }
+		IGW_ITA_add_defense = yes
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_fortresses_along_the_alps"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_bitter_resistance
+	icon = GFX_UPO_From_the_Shadows
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_our_natural_defenses
+	}
+	relative_position_id = ITA_RED_our_natural_defenses
+	x = 1
+	y = 1
+	completion_reward = {
+		RKI = {
+			set_temp_variable = { IGW_attack_change_temp = -.10 }
+			IGW_GER_add_attack = yes
+		}
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_bitter_resistance"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_no_easy_prey
+	icon = GFX_SGR_The_Eagle_Tamed
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_fortresses_along_the_alps
+	}
+	prerequisite = {
+		focus = ITA_RED_bitter_resistance
+	}
+	relative_position_id = ITA_RED_fortresses_along_the_alps
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_no_easy_prey"
+		country_event = { id = ig_war_flavor.7 }
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_to_defend_the_revolution
+	icon = GFX_Generic_Russia_Defeat_Germany
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_standing_united
+	}
+	prerequisite = {
+		focus = ITA_RED_to_serve_the_nation
+	}
+	prerequisite = {
+		focus = ITA_RED_no_easy_prey
+	}
+	relative_position_id = ITA_RED_to_serve_the_nation
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_to_defend_the_revolution"
+		if = {
+			limit = {
+				has_full_control_of_state = 161 #emilia romagna
+			}
+			add_to_variable = { ITA_red_brigata_garibaldi_cap  = 1 }
+			set_division_template_cap = { division_template = "Brigata d'assalto Garibaldi" division_cap = ITA_red_brigata_garibaldi_cap }
+			add_to_variable = { ITA_red_workers_militia_cap  = 1 }
+			set_division_template_cap = { division_template = "Battaglione Operaio" division_cap = ITA_red_workers_militia_cap }
+			add_to_variable = { ITA_red_alpine_militia_cap  = 1 }
+			set_division_template_cap = { division_template = "Milizia Alpina" division_cap = ITA_red_alpine_militia_cap }
+			add_to_variable = { ITA_red_partisan_cap  = 1 }
+			set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+			add_to_variable = { ITA_red_student_brigade_cap = 1 }
+			set_division_template_cap = { division_template = "Brigata Studentesca" division_cap = ITA_red_student_brigade_cap }
+			161 = { #emilia romagna
+				create_unit = {
+					division = "division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.15 start_equipment_factor = 0.5 start_manpower_factor = 0.8"
+					owner = ITA
+				}
+				create_unit = {
+					division = "division_template = \"Battaglione Operaio\" start_experience_factor = 0.1 start_equipment_factor = 0.5 start_manpower_factor = 1"
+					owner = ITA
+				}
+				create_unit = {
+					division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.15 start_equipment_factor = 0.5 start_manpower_factor = 0.5"
+					owner = ITA
+				}
+			}
+			39 = { # alto adige-trento
+				create_unit = {
+					division = "division_template = \"Brigata Partigiana\" start_experience_factor = 0.1 start_equipment_factor = 0.5 start_manpower_factor = 0.5"
+					owner = ITA
+					allow_spawning_on_enemy_provs = yes
+				}
+				create_unit = {
+					division = "division_template = \"Milizia Alpina\" start_experience_factor = 0.1 start_equipment_factor = 0.5 start_manpower_factor = 0.5"
+					owner = ITA
+					allow_spawning_on_enemy_provs = yes
+				}
+			}
+		}
+		else = {
+			add_to_variable = { ITA_red_brigata_garibaldi_cap  = 1 }
+			set_division_template_cap = { division_template = "Brigata d'assalto Garibaldi" division_cap = ITA_red_brigata_garibaldi_cap }
+			add_to_variable = { ITA_red_workers_militia_cap  = 1 }
+			set_division_template_cap = { division_template = "Battaglione Operaio" division_cap = ITA_red_workers_militia_cap }
+			add_to_variable = { ITA_red_alpine_militia_cap  = 1 }
+			set_division_template_cap = { division_template = "Milizia Alpina" division_cap = ITA_red_alpine_militia_cap }
+			add_to_variable = { ITA_red_partisan_cap  = 1 }
+			set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+			add_to_variable = { ITA_red_student_brigade_cap = 1 }
+			set_division_template_cap = { division_template = "Brigata Studentesca" division_cap = ITA_red_student_brigade_cap }
+			162 = { #tuscany
+				create_unit = {
+					division = "division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.15 start_equipment_factor = 0.6 start_manpower_factor = 0.8"
+					owner = ITA
+					allow_spawning_on_enemy_provs = yes
+				}
+				create_unit = {
+					division = "division_template = \"Battaglione Operaio\" start_experience_factor = 0.1 start_equipment_factor = 0.6 start_manpower_factor = 1"
+					owner = ITA
+					allow_spawning_on_enemy_provs = yes
+				}
+				create_unit = {
+					division = "division_template = \"Brigata Studentesca\" start_experience_factor = 0.15 start_equipment_factor = 0.7 start_manpower_factor = 0.5"
+					owner = ITA
+					allow_spawning_on_enemy_provs = yes
+				}
+			}
+			160 = { # veneto
+				create_unit = {
+					division = "division_template = \"Brigata Partigiana\" start_experience_factor = 0.1 start_equipment_factor = 0.5 start_manpower_factor = 0.5"
+					owner = ITA
+					allow_spawning_on_enemy_provs = yes
+				}
+			}
+			159 = { # lombardia
+				create_unit = {
+					division = "division_template = \"Milizia Alpina\" start_experience_factor = 0.1 start_equipment_factor = 0.5 start_manpower_factor = 0.5"
+					owner = ITA
+					allow_spawning_on_enemy_provs = yes
+				}
+			}
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_people_protect_themselves
+	icon = GFX_SBA_the_black_army
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_to_defend_the_revolution
+	}
+	relative_position_id = ITA_RED_to_defend_the_revolution
+	mutually_exclusive = {
+		focus = ITA_RED_passion_of_the_students
+		focus = ITA_RED_calling_on_the_unions
+	}
+	x = -2
+	y = 1
+	completion_reward = {
+		custom_effect_tooltip = ITA_RED_the_people_protect_themselves_tt
+		add_to_array = { IGW_discard = 14 }
+		add_to_array = { IGW_discard = 15 }
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_people_protect_themselves"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_militias_abound
+	icon = GFX_KEM_A_Standing_Army
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_people_protect_themselves
+	}
+	relative_position_id = ITA_RED_the_people_protect_themselves
+	x = 0
+	y = 1
+	completion_reward = {
+		custom_effect_tooltip = ITA_RED_militias_abound_tt
+		add_to_array = { IGW_discard = 16 }
+		add_to_array = { IGW_discard = 17 }
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_militias_abound"
+		country_event = { id = ig_war_flavor.8 }
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_passion_of_the_students
+	icon = GFX_ANG_Assisted_Sabotage
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_to_defend_the_revolution
+	}
+	relative_position_id = ITA_RED_to_defend_the_revolution
+	mutually_exclusive = {
+		focus = ITA_RED_the_people_protect_themselves
+		focus = ITA_RED_calling_on_the_unions
+	}
+	x = 0
+	y = 1
+	completion_reward = {
+		custom_effect_tooltip = ITA_RED_passion_of_the_students_tt
+		add_to_array = { IGW_discard = 113 }
+		add_to_array = { IGW_discard = 114 }
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_passion_of_the_students"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_the_fiercest_foe
+	icon = GFX_YUN_Every_Man_A_Soldier
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_passion_of_the_students
+	}
+	relative_position_id = ITA_RED_passion_of_the_students
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_fiercest_foe"
+		custom_effect_tooltip = ITA_RED_the_fiercest_foe_tt
+		add_to_array = { IGW_discard = 115 }
+		add_to_array = { IGW_discard = 116 }
+		country_event = { id = ig_war_flavor.9 }
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_calling_on_the_unions
+	icon = GFX_IRK_the_union_forever
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_to_defend_the_revolution
+	}
+	mutually_exclusive = {
+		focus = ITA_RED_passion_of_the_students
+		focus = ITA_RED_the_people_protect_themselves
+	}
+	relative_position_id = ITA_RED_to_defend_the_revolution
+	x = 2
+	y = 1
+	completion_reward = {
+		custom_effect_tooltip = ITA_RED_calling_on_the_unions_tt
+		add_to_array = { IGW_discard = 213 }
+		add_to_array = { IGW_discard = 214 }
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_calling_on_the_unions"
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_breaking_the_chains
+	icon = GFX_ITA_Move_Towards_Socialization
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_calling_on_the_unions
+	}
+	relative_position_id = ITA_RED_calling_on_the_unions
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_breaking_the_chains"
+		custom_effect_tooltip = ITA_RED_breaking_the_chains_tt
+		add_to_array = { IGW_discard = 215 }
+		add_to_array = { IGW_discard = 216 }
+		country_event = { id = ig_war_flavor.10 }
+	}
+}
+
+###########################################
+###=====| 100 Day Preview Content |=====###
+###########################################
+###=====| a) Viudali's Funnies |=====###
+shared_focus = {
+	id = ITA_RED_we_tried_the_easy_way
+	icon = GFX_ITA_Golden_Star_on_a_Red_Flag
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 15
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_we_tried_the_easy_way"
+		country_event = vidali.1
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_now_the_hard_way
+	icon = GFX_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_we_tried_the_easy_way
+	}
+	relative_position_id = ITA_RED_we_tried_the_easy_way
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_now_the_hard_way"
+		country_event = vidali.2
+		set_temp_variable = { ITA_RED_red_terror_temp = 70 }
+	    ITA_RED_cultrev_red_terror_change = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_bringing_structure_and_order
+	icon = GFX_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_now_the_hard_way
+	}
+	relative_position_id = ITA_RED_now_the_hard_way
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_bringing_structure_and_order"
+		country_event = vidali.3
+		set_temp_variable = { ITA_RED_reaction_temp = -100 }
+		ITA_RED_cultrev_reaction_change = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_cleaning_the_broken_cities
+	icon = GFX_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_now_the_hard_way
+	}
+	relative_position_id = ITA_RED_now_the_hard_way
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_cleaning_the_broken_cities"
+		country_event = vidali.4
+		set_temp_variable = { ITA_RED_severity_temp = -60 }
+	    ITA_RED_cultrev_severity_change = yes
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_shaking_bloody_hands
+	icon = GFX_ITA_RED_Peoples_Court
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_cleaning_the_broken_cities
+	}
+	prerequisite = {
+		focus = ITA_RED_bringing_structure_and_order
+	}
+	relative_position_id = ITA_RED_cleaning_the_broken_cities
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_shaking_bloody_hands"
+		country_event = vidali.5
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_expanding_the_sun
+	icon = GFX_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_shaking_bloody_hands
+	}
+	relative_position_id = ITA_RED_shaking_bloody_hands
+	x = -3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_expanding_the_sun"
+		country_event = vidali.6
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_expanding_the_shadows
+	icon = GFX_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_shaking_bloody_hands
+	}
+	relative_position_id = ITA_RED_shaking_bloody_hands
+	x = 3
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_expanding_the_shadows"
+		country_event = vidali.7
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_fear_in_the_hearts_of_our_enemies
+	icon = GFX_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_expanding_the_sun
+	}
+	relative_position_id = ITA_RED_expanding_the_sun
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_fear_in_the_hearts_of_our_enemies"
+		country_event = vidali.8
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_remember_the_revolution
+	icon = GFX_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_expanding_the_shadows
+	}
+	relative_position_id = ITA_RED_expanding_the_shadows
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_remember_the_revolution"
+		country_event = vidali.9
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_caricare
+	icon = GFX_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_fear_in_the_hearts_of_our_enemies
+	}
+	relative_position_id = ITA_RED_fear_in_the_hearts_of_our_enemies
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_caricare"
+		country_event = vidali.10
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_puntare
+	icon = GFX_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_remember_the_revolution
+	}
+	relative_position_id = ITA_RED_remember_the_revolution
+	x = -1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_puntare"
+		country_event = vidali.11
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_fuoco
+	icon = GFX_unknown
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_caricare
+	}
+	prerequisite = {
+		focus = ITA_RED_puntare
+	}
+	relative_position_id = ITA_RED_caricare
+	x = 1
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_fuoco"
+		country_event = vidali.12
+	}
+}
+
+###=====| b) dancing walking rearranging furniture babs is shopping i let the bird out of the cage |=====###
+shared_focus = {
+	id = ITA_RED_the_red_star_fall
+	icon = GFX_ITA_The_Plan_for_a_Democratic_Rebirth
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	x = 10
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_the_red_star_fall"
+		country_event = red_italy_pacciardi.1
+		custom_effect_tooltip = ITA_RED_the_red_star_fall_tt
+		hidden_effect = {
+		add_ideas = tno_public_meetings_regulated
+		add_ideas = tno_press_rights_state_press_only
+		add_ideas = tno_vote_franchise_no_voting
+		add_ideas = tno_army_professionalism_political_interference
+		}
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_outline_the_presidential_powers
+	icon = GFX_ITA_A_Second_Bastion_of_Liberty
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_red_star_fall
+	}
+	relative_position_id = ITA_RED_the_red_star_fall
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_outline_the_presidential_powers"
+		country_event = red_italy_pacciardi.2
+		custom_effect_tooltip = ITA_RED_outline_the_presidential_powers_tt
+		hidden_effect = {
+		add_ideas = tno_trade_laws_free_trade
+		add_ideas = tno_press_rights_free_press
+		add_ideas = tno_minimum_wage_low_minimum_wage
+		add_ideas = tno_max_workhours_12_hour_work_day
+		}
+		add_to_variable = { ITA_RED_pacciardi_political_power_gain = 0.1 }
+		add_to_variable = { ITA_RED_pacciardi_stability_factor = 0.05 }
+	}
+}
+
+shared_focus = {
+	id = ITA_RED_focus_on_relevant_threads
+	icon = GFX_ITA_Liberating_the_Antenna
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_outline_the_presidential_powers
+	}
+	relative_position_id = ITA_RED_outline_the_presidential_powers
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_focus_on_relevant_threads"
+		country_event = { id = red_italy_pacciardi.3 days = 5 }
+		custom_effect_tooltip = ITA_RED_focus_on_relevant_threads_tt
+		hidden_effect = {
+		add_ideas = tno_security_oppressive_police
+		add_ideas = tno_draft_exemptions_none
+		}
+		add_popularity = {
+			ideology = communist
+			popularity = -0.08
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.08
+		}
+	}
+}
+shared_focus = {
+	id = ITA_RED_propietors_not_proletarians
+	icon = GFX_ITA_Proprietors_Not_Proletarians
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_the_red_star_fall
+	}
+	relative_position_id = ITA_RED_the_red_star_fall
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_propietors_not_proletarians"
+		country_event = red_italy_pacciardi.4
+		set_variable = { TNO_economy_type = token:Econ_Type_Capitalism }
+	}
+}
+shared_focus = {
+	id = ITA_RED_returning_to_italian_values
+	icon = GFX_ITA_Returning_to_Italian_Values
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_propietors_not_proletarians
+	}
+	relative_position_id = ITA_RED_propietors_not_proletarians
+	x = 2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_returning_to_italian_values"
+		country_event = red_italy_pacciardi.5
+		hidden_effect = {
+		add_ideas = tno_gender_rights_heavily_restricted
+		add_ideas = tno_regulations_utterly_unregulated
+		add_ideas = tno_education_stratified_education
+		}
+		custom_effect_tooltip = ITA_RED_returning_to_italian_values_tt
+		add_to_variable = { ITA_RED_pacciardi_political_power_gain = 0.1 }
+		add_to_variable = { ITA_RED_pacciardi_stability_factor = 0.05 }
+	}
+}
+shared_focus = {
+	id = ITA_RED_breaking_the_strikes
+	icon = GFX_ITA_Breaking_the_Strikes
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_propietors_not_proletarians
+	}
+	relative_position_id = ITA_RED_propietors_not_proletarians
+	x = -2
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_breaking_the_strikes"
+		country_event = red_italy_pacciardi.6
+		custom_effect_tooltip = ITA_RED_breaking_the_strikes_tt
+		hidden_effect = {
+		add_ideas = tno_trade_unions_state_controlled
+		add_ideas = tno_public_meetings_regulated
+		}
+		tno_pensions_worsen = yes
+		tno_health_care_worsen = yes
+		tno_security_improve = yes
+	}
+}
+shared_focus = {
+	id = ITA_RED_a_new_star_rises_over_italy
+	icon = GFX_ITA_A_Star_Rises_Over_Italy
+	cost = 2
+	available_if_capitulated = no
+	ai_will_do = { factor = 1 }
+	prerequisite = {
+		focus = ITA_RED_returning_to_italian_values
+	}
+	prerequisite = {
+		focus = ITA_RED_focus_on_relevant_threads
+	}
+	prerequisite = {
+		focus = ITA_RED_breaking_the_strikes
+	}
+	relative_position_id = ITA_RED_breaking_the_strikes
+	x = 0
+	y = 1
+	completion_reward = {
+		log = "[GetDateText]: [Root.GetName]: Focus ITA_RED_a_new_star_rises_over_italy"
+		custom_effect_tooltip = ITA_RED_a_new_star_rises_over_italy_tt
+		hidden_effect = {
+		country_event = { id = red_italy_pacciardi.7 days = 2 }
+		add_ideas = tno_vote_franchise_universal
+		set_variable = { tno_vote_franchise_effectiveness = 5 }
+		add_ideas = tno_political_parties_multiparty_system
+		set_variable = { tno_political_parties_effectiveness = 5 }
+		}
+		remove_dynamic_modifier = { modifier = ITA_RED_a_shaky_foundation }
+	}
+}

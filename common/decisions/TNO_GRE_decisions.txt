@@ -1,0 +1,3886 @@
+GRE_ITW_Prep_category = {
+	GRE_Recruit_Poulos_Bande = {
+		visible = { always = yes}
+		custom_cost_trigger = { command_power > 9.99 }
+		custom_cost_text = decision_cost_10_cp
+		fire_only_once = yes
+		days_remove = 20
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+		}
+		remove_effect = {
+			custom_effect_tooltip = GRE_Poulos_Bande
+			hidden_effect = {
+				load_oob = GRE_Poulos_Bande
+			}
+    	}
+		ai_will_do = {
+			factor = 60
+		}
+    }
+
+	GRE_Recruit_Sourlas_Bande = {
+		custom_cost_trigger = { command_power > 9.99 }
+		custom_cost_text = decision_cost_10_cp
+		fire_only_once = yes
+		days_remove = 20
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+		}
+		remove_effect = { #Spawn an Infantery
+			custom_effect_tooltip = GRE_Sourlas_Bande
+			hidden_effect = {
+				load_oob = GRE_Sourlas_Bande
+			}
+		}
+		ai_will_do = {
+			factor = 60
+		}
+	}
+
+	GRE_Recruit_Makedonas_Bande = {
+		visible = { always = yes}
+		custom_cost_trigger = { command_power > 9.99 }
+		custom_cost_text = decision_cost_10_cp
+		fire_only_once = yes
+		days_remove = 20
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+		}
+		remove_effect = { #Spawn a militia
+			custom_effect_tooltip = GRE_Makedonas_Bande
+			hidden_effect = {
+				load_oob = GRE_Makedonas_Bande
+			}
+		}
+		ai_will_do = {
+			factor = 60
+		}
+	}
+
+	GRE_Recruit_Dagoulas_Bande = {
+		visible = { always = yes }
+		custom_cost_trigger = { command_power > 9.99 }
+		custom_cost_text = decision_cost_10_cp
+		fire_only_once = yes
+		days_remove = 20
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+		}
+		remove_effect = { #Spawn a motorized
+			custom_effect_tooltip = GRE_Dagoulas_Bande
+			hidden_effect = {
+				load_oob = GRE_Dagoulas_Bande
+			}
+		}
+		ai_will_do = {
+			factor = 60
+		}
+	}
+
+#	GRE_Train_Infantry = {
+#		visible = { always = yes }		cost = 75
+#		days_re_enable = 30
+#
+#		complete_effect = { #Spawn a motorized
+#
+#		}
+#	}
+
+
+	GRE_Conscript_New_Soldiers = {
+		visible = { always = yes }
+		days_remove = 14
+		cost = 50
+		days_re_enable = 28
+
+		remove_effect = {
+			add_manpower = 4500
+			add_stability = -0.1
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+	GRE_Buy_Equipment_From_Italy = {
+		visible = { always = yes }
+		custom_cost_trigger = { check_variable = { GDP > 0 } }
+		custom_cost_text = decision_cost_100_million
+		days_re_enable = 30
+		days_remove = 10
+		complete_effect = { #Spends Money
+			set_temp_variable = { temp_econ_spending_amount = 0.2 }
+			econ_spend_money_once_effect_raw_money = yes
+		}
+		remove_effect = { #Adds Guns
+			add_equipment_to_stockpile = {
+    			type = infantry_equipment
+    			amount = 750
+    			producer = ITA
+			}
+			add_equipment_to_stockpile = {
+    			type = support_equipment
+    			amount = 300
+    			producer = ITA
+			}
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+	GRE_Buy_Motorized_From_Italy = {
+		visible = { always = yes }
+		custom_cost_trigger = { check_variable = { GDP > 0 } }
+		custom_cost_text = decision_cost_200_million
+		days_re_enable = 30
+		days_remove = 10
+		complete_effect = { 
+			set_temp_variable = { temp_econ_spending_amount = 0.2 }
+			econ_spend_money_once_effect_raw_money = yes
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+    			type = motorized_equipment
+    			amount = 350
+    			producer = ITA
+			}
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+	GRE_Buy_Artillery_From_Italy = {
+		visible = { always = yes }
+		custom_cost_trigger = { check_variable = { GDP > 0 } }
+		custom_cost_text = decision_cost_100_million
+		days_re_enable = 30
+		days_remove = 10
+		complete_effect = {
+			set_temp_variable = { temp_econ_spending_amount = 0.1 }
+			econ_spend_money_once_effect_raw_money = yes
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+    			type = artillery_equipment
+    			amount = 300
+    			producer = ITA
+			}
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+
+	GRE_Rebuild_Metaxas_Line = {
+		available = {
+			controls_state = 731
+		}
+		visible = { always = yes }
+		days_remove = 28
+		custom_cost_trigger = { command_power > 9.99 }
+		custom_cost_text = decision_cost_10_cp
+		fire_only_once = yes
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+			}
+		}
+		remove_effect = {
+			custom_effect_tooltip = GRE_Metaxas_Line_1
+			set_country_flag = GRE_Metaxis_Line_Rebuilt1
+			731 = {
+				add_building_construction = {
+    				type = bunker
+    				province = 3526
+    				level = 2
+    			}
+			}
+
+			731 = {
+    			add_building_construction = {	
+    				type = bunker
+    				province = 3936
+    				level = 2
+    			}
+			}
+
+			731 = {
+    			add_building_construction = {
+    				type = bunker
+    				province = 895
+    				level = 2
+    			}
+			}
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+	GRE_Prepare_Fuel_Supplies = {
+		visible = { always = yes }
+		days_remove = 20
+		custom_cost_trigger = { check_variable = { GDP > 0 } }
+		custom_cost_text = decision_cost_300_million
+		fire_only_once = yes
+		complete_effect = {	 
+			set_temp_variable = { temp_econ_spending_amount = 0.3 }
+			econ_spend_money_once_effect_raw_money = yes
+		}
+		remove_effect = {
+			#custom_effect_tooltip = GRE_Metaxas_Line_1
+			add_fuel = 10000
+			add_offsite_building = {
+				type = synthetic_refinery
+				level = 2
+			}
+
+			add_offsite_building = {
+				type = fuel_silo
+				level = 1
+			}
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+}
+
+GRE_ITW_category = {
+	GRE_Call_Italian_Advisors = {
+		visible = { always = yes }
+		custom_cost_trigger = { command_power > 4.99 }
+		custom_cost_text = decision_cost_5_cp
+		days_re_enable = 14
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -5
+			}
+			custom_effect_tooltip = GRE_Italian_Advisors
+			add_to_variable = {
+				var = GRE_Armata_org
+				value = 0.05
+			}
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+	GRE_Print_Propaganda = {
+		visible = { always = yes }
+		cost = 40
+		days_re_enable = 14
+
+		complete_effect = {
+			custom_effect_tooltip = GRE_Print_Propag
+			add_to_variable = {
+			var = GRE_Armata_mor
+				value = 0.05
+			}
+			add_war_support = 0.05
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+	GRE_Upgrade_Army_Equipment = {
+		visible = { always = yes }
+		custom_cost_trigger = { has_army_experience > 4.99 }
+		custom_cost_text = decision_cost_5_army_xp
+		days_re_enable = 14
+
+		complete_effect = {
+			custom_effect_tooltip = GRE_Up_Equipment
+			add_to_variable = {
+				var = GRE_Armata_def
+				value = 0.05
+			}
+			hidden_effect = {
+				army_experience = -5
+			}
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+	GRE_Assign_More_Cars_To_Armed_Forces = {
+		visible = { always = yes }
+		custom_cost_trigger = { has_army_experience > 4.99 }
+		custom_cost_text = decision_cost_5_army_xp
+		days_re_enable = 14
+
+		complete_effect = {
+			custom_effect_tooltip = GRE_Car_Armed_Forces
+			add_to_variable = {
+				var = GRE_Armata_spe
+				value = 0.05
+			}
+			hidden_effect = {
+				army_experience = -5
+			}
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+	GRE_Train_The_Troops = {
+		visible = { always = yes }
+		custom_cost_trigger = { has_army_experience > 4.99 }
+		custom_cost_text = decision_cost_5_army_xp
+		days_re_enable = 14
+
+		complete_effect = {
+			custom_effect_tooltip = GRE_Train_Troops
+			add_to_variable = {
+				var = GRE_Armata_att
+				value = 0.05
+			}
+			hidden_effect = {
+				army_experience = -5
+			}
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+	GRE_Teach_Soldiers_Tranches_Stat = {
+		visible = { always = yes }
+		custom_cost_trigger = { has_army_experience > 4.99 }
+		custom_cost_text = decision_cost_5_army_xp
+		days_re_enable = 14
+
+		complete_effect = {
+			custom_effect_tooltip = GRE_Tranches_Stat
+			add_to_variable = {
+				var = GRE_Armata_mdig
+				value = 0.05
+			}
+			hidden_effect = {
+				army_experience = -5
+			}
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+	GRE_Use_Guerilla_Warfare = {
+		visible = { always = yes }
+		custom_cost_trigger = { has_army_experience > 4.99 }
+		custom_cost_text = decision_cost_5_army_xp
+		days_re_enable = 14
+
+		complete_effect = {
+			custom_effect_tooltip = GRE_Guerilla_War
+			add_to_variable = {
+				var = GRE_Armata_sdig
+				value = 0.05
+			}
+			hidden_effect = {
+				army_experience = -5
+			}
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+	GRE_Use_Conscript_More_Citizens = {
+		visible = { always = yes }
+		cost = 50
+		days_re_enable = 50
+
+		complete_effect = {
+			custom_effect_tooltip = GRE_Con_Citizen
+			add_to_variable = {
+				var = GRE_Armata_Con
+				value = 0.02
+			}
+			add_stability = -0.04
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+	GRE_Buy_Equipment_From_Italy_2 = {
+		visible = { always = yes }
+		custom_cost_trigger = { check_variable = { GDP > 0 } }
+		custom_cost_text = decision_cost_200_million
+		days_re_enable = 30
+
+		complete_effect = { #Adds Guns
+			set_temp_variable = { temp_econ_spending_amount = 0.2 }
+			econ_spend_money_once_effect_raw_money = yes
+			add_equipment_to_stockpile = {
+    			type = infantry_equipment
+    			amount = 750
+    			producer = ITA
+			}
+			add_equipment_to_stockpile = {
+    			type = support_equipment
+    			amount = 300
+    			producer = ITA
+			}
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+	GRE_Buy_Motorized_From_Italy_2 = {
+		visible = { always = yes }
+		custom_cost_trigger = { check_variable = { GDP > 0 } }
+		custom_cost_text = decision_cost_400_million
+		days_re_enable = 30
+
+		complete_effect = { #Adds Motorized
+			add_equipment_to_stockpile = {
+    			type = motorized_equipment
+    			amount = 350
+    			producer = ITA
+			}
+			set_temp_variable = { temp_econ_spending_amount = 0.4 }
+			econ_spend_money_once_effect_raw_money = yes
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+	GRE_Buy_Artillery_From_Italy_2 = {
+		visible = { always = yes }
+		custom_cost_trigger = { check_variable = { GDP > 0 } }
+		custom_cost_text = decision_cost_100_million
+		days_re_enable = 30
+
+		complete_effect = { #Adds Motorized
+			add_equipment_to_stockpile = {
+    			type = artillery_equipment
+    			amount = 300
+    			producer = ITA
+			}
+			set_temp_variable = { temp_econ_spending_amount = 0.1 }
+			econ_spend_money_once_effect_raw_money = yes
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+
+	GRE_Continue_to_Rebuild_Metaxas_Line = {
+		available = {
+			AND = {
+				controls_state = 731
+				has_country_flag = GRE_Metaxis_Line_Rebuilt1
+			}
+		}
+		visible = { always = yes }
+		days_remove = 14
+		custom_cost_trigger = { command_power > 14.99 }
+		custom_cost_text = decision_cost_15_cp
+		fire_only_once = yes
+
+		complete_effect = {
+
+			custom_effect_tooltip = GRE_Metaxas_Line_2
+			hidden_effect = {
+				add_command_power = -15
+			}
+			731 = {
+				add_building_construction = {
+    				type = bunker
+    				province = 3526
+    				level = 2
+    			}
+			}
+
+			731 = {
+    			add_building_construction = {	
+    				type = bunker
+    				province = 3936
+    				level = 2
+    			}
+			}
+
+			731 = {
+    			add_building_construction = {
+    				type = bunker
+    				province = 895
+    				level = 2
+    			}
+			}
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+
+	GRE_Buy_Fuel_From_Italy = {
+		visible = { always = yes }
+		custom_cost_trigger = { check_variable = { GDP > 0 } }
+		custom_cost_text = decision_cost_100_million
+		days_re_enable = 20
+
+		complete_effect = {
+			set_temp_variable = { temp_econ_spending_amount = 0.1 }
+			econ_spend_money_once_effect_raw_money = yes
+			add_fuel = 10000
+		}
+		ai_will_do = {
+			factor = 40
+		}
+	}
+}
+
+
+
+
+GRE_debug_category = {
+	GRE_pre_uprising_debug = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = no
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+		}
+	}
+	GRE_enable_ITW_prep_dec = {
+		icon = GFX_decision_generic_political_action_indent
+		available = { always = yes }
+		visible = { always = yes }
+		
+		complete_effect = {
+			set_country_flag = Prep_ITW
+		}
+	}
+	GRE_enable_ITW_dec = {
+		icon = GFX_decision_generic_political_action_indent
+		available = { always = yes }
+		visible = { always = yes }
+		
+		complete_effect = {
+			set_country_flag = ITW_War
+		}
+	}
+	GRE_Enable_BOG_Mechanic = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			set_country_flag = GRE_BOG_mechanic_visible
+		}
+	}
+	GRE_Load_Post_ITW_Tree = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			load_focus_tree = GRE_Post_ITW_Tree
+		}
+	}
+	GRE_themelis_is_kil = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			country_event = { id = grePostITW.14 }
+			country_event = { id = grePostITW.3 }
+			country_event = { id = grePostITW.4 }
+			country_event = { id = grePostITW.5 }
+			country_event = { id = grePostITW.6 }
+		}
+	}
+	
+	GRE_liberation_debug = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = no
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+		}
+	}
+	GRE_EAM_takeover = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			country_event = { id = greEAMGovernment.1 }
+		}
+	}
+	GRE_EAM_load_pre_war_tree = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			load_focus_tree = GRE_EAM_Pre_War_Tree
+		}
+	}
+	GRE_EAM_load_war_tree = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			load_focus_tree = GRE_EAM_War_Start_Tree
+		}
+	}
+	GRE_EAM_load_pushing_in_albania_tree = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			load_focus_tree = GRE_EAM_Pushing_Into_Albania_Tree
+		}
+	}
+	GRE_EAM_load_hold_greece_tree = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			load_focus_tree = GRE_EAM_Keeping_Most_Of_The_Border_Tree
+		}
+	}
+	GRE_EAM_load_italians_invasion_tree = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			load_focus_tree = GRE_EAM_Italians_In_the_Country_Tree
+		}
+	}
+	GRE_EAM_load_peace_negotiations_tree = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			load_focus_tree = GRE_EAM_Peace_Negotiations
+		}
+	}
+	GRE_EDES_takeover = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			country_event = { id = greResistanceGovernment.1 }
+		}
+	}
+	GRE_Load_Provisional_Government_Tree = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			load_focus_tree = GRE_Provisional_Government_Tree
+		}
+	}
+	GRE_activate_far_right_mechanic = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = {
+			always = yes
+		}
+
+		complete_effect = {
+			GRE_far_right_startup = yes
+		}
+	}
+	GRE_prepare_an_election = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			load_focus_tree = GRE_Provisional_Government_Tree
+			complete_national_focus = GRE_The_Elections_of_1964
+			GRE_initialize_election_system = yes
+			GRE_prepare_election = yes
+			
+			set_country_flag = GRE_election_debug_mode
+		}
+	}
+	GRE_run_an_election = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			GRE_election_select_state_victors = yes
+			GRE_election_select_national_victors = yes
+		}
+	}
+
+	GRE_EDA_debug = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = no
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+		}
+	}
+	GRE_EDA_set_Pyromaglou_leader = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			NOT = {
+				has_cosmetic_tag = GRE_med # GRE_med replaced GRE_collab (Phase C)
+			}
+		}
+		visible = { always = yes }
+		complete_effect = {
+			set_politics = {
+				ruling_party = social_democrat
+			}
+			GRE_med_promote_Komninos_Pyromaglou = yes
+		}
+	}
+	GRE_EDA_set_Papandreou_leader = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			NOT = {
+				has_cosmetic_tag = GRE_med # GRE_med replaced GRE_collab (Phase C)
+			}
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			set_politics = {
+				ruling_party = social_democrat
+			}
+			GRE_med_promote_Andreas_Papandreou = yes
+		}
+	}
+	GRE_EDA_set_Kyrkos_leader = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			NOT = {
+				has_cosmetic_tag = GRE_med # GRE_med replaced GRE_collab (Phase C)
+			}
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			set_politics = {
+				ruling_party = socialist
+			}
+			# med: promote_character = GRE_Leonidas_Kyrkos -- its leader role was created above by create_country_leader
+		}
+	}
+	GRE_Load_EDA_64_Tree = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			load_focus_tree = GRE_EDA_First_Term_Tree
+		}
+	}
+	GRE_Enable_Kyrkos_Constitution_Reform = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			GRE_kyrkos_referendum_setup_effect = yes
+			GRE_kyrkos_referendum_check_support = yes
+		}
+	}
+	GRE_Enable_Party_stability = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			GRE_Party_Stability_init = yes
+		}
+	}
+	GRE_Enable_Persuit_Of_Autonomy_Mech = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			set_country_flag = GRE_autonomy_enabled
+			GRE_autonomy_setup_effect = yes
+		}
+	}
+	GRE_enable_full_EDA_reconciliation = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			set_country_flag = GRE_full_reconciliation_enabled
+		}
+	}
+	GRE_enable_partial_EDA_reconciliation = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			set_country_flag = GRE_partial_reconciliation_enabled
+		}
+	}
+	GRE_load_papandreou_tree = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			load_focus_tree = GRE_EDA_Papandreou_Tree
+			complete_national_focus = GRE_The_Promise_of_Change
+		}
+	}
+	GRE_load_oil_crisis_response = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			#STRIP(econ) TNO_Oil_Crisis_apply_modifier = yes # master\'s OIL.5 already applies it to every country
+			add_dynamic_modifier = {
+				modifier = GRE_oil_crisis_specific
+			}
+			country_event = { id = greEDA.247 }
+		}
+	}
+	GRE_load_negotiations_tree = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			load_focus_tree = GRE_EDA_Papandreou_Negotiations
+		}
+	}
+	GRE_load_kyrkos_tree = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			load_focus_tree = GRE_EDA_Kyrkos_Tree
+		}
+	}
+	GRE_load_kyrkos_oil_crisis_response = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			#STRIP(econ) TNO_Oil_Crisis_apply_modifier = yes # master\'s OIL.5 already applies it to every country
+			add_dynamic_modifier = {
+				modifier = GRE_oil_crisis_specific
+			}
+			country_event = { id = greEDA.382 }
+		}
+	}
+	GRE_load_successful_constitution = { #This is a placeholder for the time being
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			load_focus_tree = GRE_EDA_Kyrkos_Successful_Constitution
+		}
+	}
+	GRE_load_failed_constitution = { #This is a placeholder for the time being
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			load_focus_tree = GRE_EDA_Kyrkos_Failed_Constitution
+		}
+	}
+	GRE_load_somewhat_successful_constitution = { #This is a placeholder for the time being
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			load_focus_tree = GRE_EDA_Kyrkos_Somewhat_Successful_Constitution
+		}
+	}
+	GRE_ERE_debug = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = no
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+		}
+	}
+	GRE_ERE_set_Kanellopoulos_leader = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			NOT = {
+				has_cosmetic_tag = GRE_med # GRE_med replaced GRE_collab (Phase C)
+			}
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			set_politics = {
+				ruling_party = social_conservative
+			}
+			GRE_med_promote_Panagiotis_Kanellopoulos = yes
+		}
+	}
+	GRE_Load_ERE_64 = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			load_focus_tree = GRE_ERE_First_Term_Tree
+		}
+	}
+	GRE_Enable_Control_of_the_State = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			GRE_CoTS_init = yes
+		}
+	}
+	GRE_Load_Karamanlis_Closing_Tree = { #placeholder
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+
+		complete_effect = {
+			set_country_flag = GRE_karamanlis_ascension
+		}
+	}
+	GRE_Junta_debug = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = no
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			country_event = { id = greColonelsJunta.1 }
+		}
+	}
+	GRE_junta_takeover = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { always = yes }
+		
+		complete_effect = {
+			country_event = { id = greColonelsJunta.1 }
+		}
+	}
+}
+
+GRE_resistance_category = {
+	GRE_resistance_weekly_tick = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			tag = GRE
+		}
+		available = {
+			always = no
+		}
+		activation = {
+			has_global_flag = ITA_MED_WIP_PATHS
+			has_country_flag = GRE_resistance_mechanic
+		}
+		is_good = no
+		selectable_mission = no
+		days_mission_timeout = 7
+		timeout_effect = {
+			activate_mission = GRE_resistance_weekly_tick
+			hidden_effect = {
+				GRE_resistance_weekly_var_changes = yes
+			}
+		}
+	}
+	##DEBUG##
+	GRE_suppress_debug_toggle = {
+		available = {
+			always = yes
+		}
+		visible = {
+			is_debug = yes
+		}
+		days_re_enable = 0
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GRE_suppress_debug_toggle"
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = GRE_debug_toggle_on
+					}
+				}
+				set_country_flag = GRE_debug_toggle_on
+			}
+			else_if = {
+				limit = {
+					has_country_flag = GRE_debug_toggle_on
+				}
+				clr_country_flag = GRE_debug_toggle_on
+			}
+		}
+	}
+	GRE_debug_resistance_state2 = {
+		available = {
+			is_debug = yes
+		}
+		visible = { has_country_flag = GRE_debug_toggle_on }
+
+		complete_effect = {
+			set_temp_variable = {
+				GRE_Resistance_State_Mod = 0
+			}
+			set_temp_variable = {
+				GRE_Resistance_Amount = 5
+			}
+			set_temp_variable = {
+				GRE_Resistance_Array = 2
+			}
+			GRE_Resistance_Modify_Control = yes
+		}
+	}
+	GRE_debug_resistance_state3 = {
+		available = {
+			is_debug = yes
+		}
+		visible = { has_country_flag = GRE_debug_toggle_on }
+
+		complete_effect = {
+			set_temp_variable = {
+				GRE_Resistance_State_Mod = 2
+			}
+			set_temp_variable = {
+				GRE_Resistance_Amount = 10
+			}
+			set_temp_variable = {
+				GRE_Resistance_Array = 3
+			}
+			GRE_Resistance_Modify_Control = yes
+		}
+	}
+	GRE_debug_resistance_state4 = {
+		available = {
+			is_debug = yes
+		}
+		visible = { has_country_flag = GRE_debug_toggle_on }
+
+		complete_effect = {
+			add_to_variable = {
+				var = 1262.GRE_resistance_govt 
+				value = -100
+			}
+			add_to_variable = {
+				var = 1262.GRE_resistance_eam
+				value = 100
+			}
+			GRE_resistance_state_control_count = yes
+		}
+	}
+	GRE_debug_resistance_state5 = {
+		available = {
+			is_debug = yes
+		}
+		visible = { has_country_flag = GRE_debug_toggle_on }
+
+		complete_effect = {
+			add_to_variable = {
+				var = 47.GRE_resistance_govt 
+				value = -100
+			}
+			add_to_variable = {
+				var = 47.GRE_resistance_eam
+				value = 100
+			}
+			GRE_resistance_state_control_count = yes
+		}
+	}
+	GRE_debug_resistance_state6 = {
+		available = {
+			is_debug = yes
+		}
+		visible = { has_country_flag = GRE_debug_toggle_on }
+
+		complete_effect = {
+			add_to_variable = {
+				var = 731.GRE_resistance_govt 
+				value = -100
+			}
+			add_to_variable = {
+				var = 731.GRE_resistance_eam
+				value = 100
+			}
+			GRE_resistance_state_control_count = yes
+		}
+	}
+	GRE_debug_resistance_state7 = {
+		available = {
+			is_debug = yes
+		}
+		visible = { has_country_flag = GRE_debug_toggle_on }
+
+		complete_effect = {
+			add_to_variable = {
+				var = 182.GRE_resistance_govt 
+				value = -100
+			}
+			add_to_variable = {
+				var = 182.GRE_resistance_eam
+				value = 100
+			}
+			GRE_resistance_state_control_count = yes
+		}
+	}
+	GRE_debug_resistance_state8 = {
+		available = {
+			is_debug = yes
+		}
+		visible = { has_country_flag = GRE_debug_toggle_on }
+
+		complete_effect = {
+			add_to_variable = {
+				var = 1263.GRE_resistance_govt 
+				value = -100
+			}
+			add_to_variable = {
+				var = 1263.GRE_resistance_eam
+				value = 100
+			}
+			GRE_resistance_state_control_count = yes
+		}
+	}
+	GRE_debug_resistance_state9 = {
+		available = {
+			is_debug = yes
+		}
+		visible = { has_country_flag = GRE_debug_toggle_on }
+
+		complete_effect = {
+			add_to_variable = {
+				var = 187.GRE_resistance_govt 
+				value = -100
+			}
+			add_to_variable = {
+				var = 187.GRE_resistance_eam
+				value = 100
+			}
+			GRE_resistance_state_control_count = yes
+		}
+	}
+	GRE_debug_resistance_reset = {
+		available = {
+			is_debug = yes
+		}
+		visible = { has_country_flag = GRE_debug_toggle_on }
+
+		complete_effect = {
+			set_variable = {
+				GRE_resistance_state1_govt = 100
+			}
+			set_variable = {
+				185.GRE_resistance_govt = 100
+			}
+			set_variable = {
+				186.GRE_resistance_govt = 100
+			}
+			set_variable = {
+				1262.GRE_resistance_govt = 100
+			}
+			set_variable = {
+				47.GRE_resistance_govt = 100
+			}
+			set_variable = {
+				731.GRE_resistance_govt = 100
+			}
+			set_variable = {
+				182.GRE_resistance_govt = 100
+			}
+			set_variable = {
+				1263.GRE_resistance_govt = 100
+			}
+			set_variable = {
+				187.GRE_resistance_govt = 100
+			}
+			set_variable = {
+				GRE_resistance_state1_eam = 0
+			}
+			set_variable = {
+				185.GRE_resistance_eam = 0
+			}
+			set_variable = {
+				186.GRE_resistance_eam = 0
+			}
+			set_variable = {
+				1262.GRE_resistance_eam = 0
+			}
+			set_variable = {
+				47.GRE_resistance_eam = 0
+			}
+			set_variable = {
+				731.GRE_resistance_eam = 0
+			}
+			set_variable = {
+				182.GRE_resistance_eam = 0
+			}
+			set_variable = {
+				1263.GRE_resistance_eam = 0
+			}
+			set_variable = {
+				187.GRE_resistance_eam = 0
+			}
+			set_variable = {
+				GRE_resistance_state1_edes = 0
+			}
+			set_variable = {
+				185.GRE_resistance_edes = 0
+			}
+			set_variable = {
+				186.GRE_resistance_edes = 0
+			}
+			set_variable = {
+				1262.GRE_resistance_edes = 0
+			}
+			set_variable = {
+				47.GRE_resistance_edes = 0
+			}
+			set_variable = {
+				731.GRE_resistance_edes = 0
+			}
+			set_variable = {
+				182.GRE_resistance_edes = 0
+			}
+			set_variable = {
+				1263.GRE_resistance_edes = 0
+			}
+			set_variable = {
+				187.GRE_resistance_edes = 0
+			}
+			GRE_resistance_state_control_count = yes
+		}
+	}
+	
+	GRE_OPERATION_Erotokritos = {
+		icon = generic_prepare_civil_war
+		custom_cost_trigger = { 
+			has_equipment = {
+				infantry_equipment > 49
+			}
+		}
+		custom_cost_text = decision_cost_50_inf
+		available = {
+			has_equipment = {
+				infantry_equipment > 49
+			}
+			custom_trigger_tooltip = {
+				tooltip = GRE_OPERATION_EROTOKRITOS_tt
+				check_variable = {
+					GRE_Resistance_Government_Control^5 > 39.9
+				}
+			}
+			has_completed_focus = GRE_Operation_Erotokritos
+		}
+		visible = {
+			has_completed_focus = GRE_Operation_Erotokritos
+		}
+		fire_only_once = yes
+		#cost = 25
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment 
+				amount = -50
+			}
+		}
+		days_remove = 5
+		highlight_states = { state = 182 }
+		remove_effect = {
+			country_event = { id = greInitial.10 days = 2 }
+		}
+	}
+	
+	GRE_OPERATION_Thimari = {
+		icon = generic_prepare_civil_war
+		custom_cost_trigger = { 
+			has_equipment = {
+				infantry_equipment > 49
+			}
+		}
+		custom_cost_text = decision_cost_50_inf
+		available = {
+			has_equipment = {
+				infantry_equipment > 49
+			}
+			custom_trigger_tooltip = {
+				tooltip = GRE_OPERATION_THIMARI_tt
+				check_variable = {
+					GRE_Resistance_Government_Control^0 > 39.9
+				}
+			}
+			has_completed_focus = GRE_Operation_Thimari
+		}
+		visible = {
+			has_completed_focus = GRE_Operation_Thimari
+		}
+		fire_only_once = yes
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment 
+				amount = -50
+			}
+		}
+		days_remove = 5
+		highlight_states = { state = 185 }
+		remove_effect = {
+			country_event = { id = greInitial.11 }
+		}
+	}
+	
+	GRE_OPERATION_Idionymon = {
+		icon = generic_prepare_civil_war
+		custom_cost_trigger = { 
+			has_equipment = {
+				infantry_equipment > 49
+			}
+		}
+		custom_cost_text = decision_cost_50_inf
+		available = {
+			has_equipment = {
+				infantry_equipment > 49
+			}
+			custom_trigger_tooltip = {
+				tooltip = GRE_OPERATION_IDIONYMON_tt
+				check_variable = {
+					GRE_Resistance_Government_Control^2 > 39.9
+				}
+			}
+			has_completed_focus = GRE_Operation_Idionymon
+		}
+		visible = {
+			has_completed_focus = GRE_Operation_Idionymon
+		}
+		fire_only_once = yes
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment 
+				amount = -50
+			}
+		}
+		days_remove = 5
+		highlight_states = { state = 1262 }
+		remove_effect = {
+			country_event = { id = greInitial.12 days = 4 }
+		}
+	}
+
+	GRE_OPERATION_Protomagia = {
+		icon = generic_prepare_civil_war
+		custom_cost_trigger = { 
+			has_equipment = {
+				infantry_equipment > 49
+			}
+		}
+		custom_cost_text = decision_cost_50_inf
+		available = {
+			has_equipment = {
+				infantry_equipment > 49
+			}
+			custom_trigger_tooltip = {
+				tooltip = GRE_OPERATION_PROTOMAGIA_tt
+				check_variable = {
+					GRE_Resistance_Government_Control^3 > 39.9
+				}
+			}
+			has_completed_focus = GRE_Operation_Protomagia
+		}
+		visible = {
+			has_completed_focus = GRE_Operation_Protomagia
+		}
+		fire_only_once = yes
+		complete_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment 
+				amount = -50
+			}
+		}
+		days_remove = 5
+		highlight_states = { state = 47 }
+		remove_effect = {
+			country_event = { id = greInitial.13 days = 1 }
+		}
+	}
+}
+
+GRE_far_right_category = {
+	GRE_far_right_coup_imminent = {
+		available = {
+			check_variable = {
+				var = frcalc
+				value = 0.95
+				compare = less_than
+			}
+		}
+
+		activation = {
+			has_global_flag = ITA_MED_WIP_PATHS
+			check_variable = {
+				var = frcalc
+				value = 0.95
+				compare = greater_than_or_equals
+			}
+		}
+
+		#days_re_enable = 0.04
+		is_good = no
+		days_mission_timeout = 30
+		timeout_effect = {
+			if = {
+				limit = {
+					AND = {
+						check_variable = {
+							var = NOX_power
+							value = MEA_power
+							compare = greater_than_or_equals
+						}
+						check_variable = {
+							var = NOX_power
+							value = 4thoAP_power
+							compare = greater_than_or_equals
+						}
+					}
+				}
+				kill_country_leader = yes
+				set_politics = {
+					ruling_party = despotism
+				}
+				set_popularities = {
+					despotism = 100
+				}
+				# med: GRE_Georgios_Grivas (character scope), converted
+				create_country_leader = {
+					name = "Georgios Grivas"
+					desc = "POLITICS_GEORGIOS_GRIVAS_DESC"
+					picture = "gfx/leaders/GRE/Georgios_Grivas_1968_1971.dds"
+					expire = "1999.1.1.1"
+					ideology = despotism_military_junta_subtype
+					traits = { }
+				}
+				set_cosmetic_tag = GRE_NOX
+				set_party_name = {
+					ideology = despotism
+					long_name = GRE_NOX_Despotism_Post_Occupation_long
+					name = GRE_NOX_Despotism_Post_Occupation
+				}
+			}
+			else_if = {
+				limit = {
+					AND = {
+						check_variable = {
+							var = 4thoAP_power
+							value = MEA_power
+							compare = greater_than_or_equals
+						}
+						check_variable = {
+							var = 4thoAP_power
+							value = NOX_power
+							compare = greater_than
+						}
+					}
+				}
+				kill_country_leader = yes
+				set_politics = {
+					ruling_party = national_socialism
+				}
+				set_popularities = {
+					national_socialism = 100
+				}
+				# med: promote_character = GRE_Konstantinos_Plevris -- its leader role was created above by create_country_leader
+				set_cosmetic_tag = GRE_4thoAP
+				set_party_name = {
+					ideology = national_socialism
+					long_name = GRE_4thoAP_National_Socialism_Post_Occupation_long
+					name = GRE_4thoAP_National_Socialism_Post_Occupation
+				}
+			}
+			else_if = {
+				limit = {
+					AND = {
+						check_variable = {
+							var = MEA_power
+							value = 4thoAP_power
+							compare = greater_than
+						}
+						check_variable = {
+							var = MEA_power
+							value = NOX_power
+							compare = greater_than
+						}
+					}
+				}
+				kill_country_leader = yes
+				set_politics = {
+					ruling_party = ultranational_socialism
+				}
+				set_popularities = {
+					ultranational_socialism = 100
+				}
+				# med: GRE_Xenofon_Giosmas (character scope), converted
+				create_country_leader = {
+					name = "Xenofon Giosmas"
+					picture = "gfx/leaders/GRE/GRE_Xenophon_Giosmas.dds"
+					expire = "1999.1.1.1"
+					ideology = ultranational_socialism_subtype
+					traits = { }
+				}
+				set_cosmetic_tag = GRE_MEA
+				set_party_name = {
+					ideology = ultranational_socialism
+					long_name = GRE_MEA_ultranationalism_Post_Occupation_long
+					name = GRE_MEA_ultranationalism_Post_Occupation
+				}
+			}
+		}
+		complete_effect = {
+			
+		}
+	}
+}
+GRE_projects_category = {
+	GRE_project_university_project_decision = {
+		icon = generic_prepare_civil_war
+		available = {
+			num_of_available_civilian_factories > 1
+		}
+		visible = {
+			NOT = {
+				has_country_flag = GRE_currently_doing_a_project
+			}
+			check_variable = {GRE_projects_university_project_status = 0}
+			has_completed_focus = GRE_EDA_Ethniko_Metsovio_Polytechneio
+		}
+		custom_cost_trigger = {
+			check_variable = { num_of_available_civilian_factories > 1 }
+		}
+		custom_cost_text = GRE_project_university_project_decision_cost
+		complete_effect = {
+			custom_effect_tooltip = GRE_project_university_project_decision_effect
+			add_to_variable = {GRE_project_civillian_factories_used = 2}
+			set_country_flag = GRE_current_project_university
+			GRE_project_start_project = yes
+		}
+		days_remove = 1
+		days_re_enable = 14
+		remove_effect = {
+		}
+	}
+	GRE_project_schools_project_decision = {
+		icon = generic_prepare_civil_war
+		available = {
+			num_of_available_civilian_factories > 2
+		}
+		visible = {
+			NOT = {
+				has_country_flag = GRE_currently_doing_a_project
+			}
+			check_variable = {GRE_projects_schools_project_status = 0}
+			has_completed_focus = GRE_EDA_The_Hellenic_Education
+		}
+		custom_cost_trigger = {
+			check_variable = { num_of_available_civilian_factories > 2 }
+			has_political_power > 49
+		}
+		custom_cost_text = GRE_project_schools_project_decision_cost
+		complete_effect = {
+			custom_effect_tooltip = GRE_project_schools_project_decision_effect
+			add_to_variable = {GRE_project_civillian_factories_used = 3}
+			add_political_power = -50
+			set_country_flag = GRE_current_project_schools
+			GRE_project_start_project = yes
+		}
+		days_remove = 1
+		days_re_enable = 14
+		remove_effect = {
+		}
+	}
+	GRE_project_jobs_project_decision = {
+		icon = generic_prepare_civil_war
+		available = {
+			has_political_power > 49
+		}
+		visible = {
+			NOT = {
+				has_country_flag = GRE_currently_doing_a_project
+			}
+			check_variable = {GRE_projects_jobs_project_status = 0}
+			has_completed_focus = GRE_EDA_Jobs_For_The_People
+		}
+		cost = 50
+		complete_effect = {
+			custom_effect_tooltip = GRE_project_jobs_project_decision_effect
+			set_country_flag = GRE_current_project_jobs
+			GRE_project_start_project = yes
+		}
+		days_remove = 1
+		days_re_enable = 14
+		remove_effect = {
+		}
+	}
+	GRE_project_sexism_project_decision = {
+		icon = generic_prepare_civil_war
+		available = {
+			has_political_power > 49
+		}
+		visible = {
+			NOT = {
+				has_country_flag = GRE_currently_doing_a_project
+			}
+			check_variable = {GRE_projects_sexism_project_status = 0}
+			has_completed_focus = GRE_EDA_The_Greek_Mechanization
+		}
+		cost = 50
+		complete_effect = {
+			custom_effect_tooltip = GRE_project_sexism_project_decision_effect
+			set_country_flag = GRE_current_project_sexism
+			GRE_project_start_project = yes
+		}
+		days_remove = 1
+		days_re_enable = 14
+		remove_effect = {
+		}
+	}
+	GRE_project_industry_project_decision = {
+		icon = generic_prepare_civil_war
+		available = {
+			num_of_available_civilian_factories > 2
+		}
+		visible = {
+			NOT = {
+				has_country_flag = GRE_currently_doing_a_project
+			}
+			check_variable = {GRE_projects_industry_project_status = 0}
+			has_completed_focus = GRE_EDA_The_Industrialization
+		}
+		custom_cost_trigger = {
+			check_variable = { num_of_available_civilian_factories > 2 }
+		}
+		custom_cost_text = GRE_project_industry_project_decision_cost
+		complete_effect = {
+			custom_effect_tooltip = GRE_project_industry_project_decision_effect
+			add_to_variable = {GRE_project_civillian_factories_used = 3}
+			set_country_flag = GRE_current_project_industry
+			GRE_project_start_project = yes
+		}
+		days_remove = 1
+		days_re_enable = 14
+		remove_effect = {
+		}
+	}
+	GRE_project_homes_project_decision = {
+		icon = generic_prepare_civil_war
+		available = {
+			num_of_available_civilian_factories > 1
+		}
+		visible = {
+			NOT = {
+				has_country_flag = GRE_currently_doing_a_project
+			}
+			check_variable = {GRE_projects_homes_project_status = 0}
+			has_completed_focus = GRE_EDA_Greek_Infrastructure_Projects
+		}
+		custom_cost_trigger = {
+			check_variable = { num_of_available_civilian_factories > 1 }
+			has_political_power > 49
+		}
+		custom_cost_text = GRE_project_homes_project_decision_cost
+		complete_effect = {
+			custom_effect_tooltip = GRE_project_homes_project_decision_effect
+			add_to_variable = {GRE_project_civillian_factories_used = 2}
+			set_country_flag = GRE_current_project_homes
+			GRE_project_start_project = yes
+			add_political_power = -50
+		}
+		days_remove = 1
+		days_re_enable = 14
+		remove_effect = {
+		}
+	}
+	GRE_project_ports_project_decision = {
+		icon = generic_prepare_civil_war
+		available = {
+			num_of_available_civilian_factories > 2
+		}
+		visible = {
+			NOT = {
+				has_country_flag = GRE_currently_doing_a_project
+			}
+			check_variable = {GRE_projects_ports_project_status = 0}
+			has_completed_focus = GRE_EDA_Rebuild_The_Ports
+		}
+		custom_cost_trigger = {
+			check_variable = { num_of_available_civilian_factories > 2 }
+		}
+		custom_cost_text = GRE_project_ports_project_decision_cost
+		complete_effect = {
+			custom_effect_tooltip = GRE_project_ports_project_decision_effect
+			add_to_variable = {GRE_project_civillian_factories_used = 3}
+			set_country_flag = GRE_current_project_ports
+			GRE_project_start_project = yes
+			add_political_power = -50
+		}
+		days_remove = 1
+		days_re_enable = 14
+		remove_effect = {
+		}
+	}
+}
+GRE_party_tension = {
+	GRE_party_secure_papandreous_influence = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			always = yes
+		}
+		days_re_enable = 14
+		cost = 15
+		complete_effect = {
+			set_temp_variable = {
+				GRE_Party_Calc = 2
+			}
+			set_temp_variable = {
+				GRE_Party_Amount = 10
+			}
+			GRE_Party_Stability_mod = yes
+		}
+	}
+	GRE_party_empower_the_neocommunists = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			always = yes
+		}
+		days_re_enable = 14
+		cost = 15
+		complete_effect = {
+			set_temp_variable = {
+				GRE_Party_Calc = 1
+			}
+			set_temp_variable = {
+				GRE_Party_Amount = 10
+			}
+			GRE_Party_Stability_mod = yes
+		}
+	}
+	GRE_stabilise_the_party = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			always = yes
+		}
+		days_re_enable = 21
+		cost = 50
+		complete_effect = {
+			set_temp_variable = {
+				GRE_Party_Calc = 3
+			}
+			set_temp_variable = {
+				GRE_Party_Amount = 10
+			}
+			GRE_Party_Stability_mod = yes
+		}
+	}
+}
+GRE_national_reconciliation = {
+	GRE_law_on_the_recognition_of_the_national_resistance = {
+		icon = generic_prepare_civil_war
+		available = {
+		}
+		visible = {
+			has_country_flag = GRE_full_reconciliation_enabled
+		}
+		complete_effect = {
+		}
+		days_remove = 15
+		fire_only_once = yes
+		cost = 40
+		remove_effect = {
+			custom_effect_tooltip = GRE_reconc_large_increase
+			add_to_variable = {
+				var = reconciliation_phase
+				value = 25
+			}
+			GRE_decrease_approval_elit_low = yes
+			GRE_increase_approval_stratos_med = yes
+			#this effect doesn't exist
+			#GRE_increase_andreas_pop_random_amount = yes
+		}
+	}
+	GRE_pyromaglou_meets_returning_exiles = {
+		icon = generic_prepare_civil_war
+		available = {
+		}
+		visible = {
+			has_country_flag = GRE_full_reconciliation_enabled
+		}
+		complete_effect = {
+		}
+		days_remove = 15
+		days_re_enable = 20
+		cost = 20
+		remove_effect = {
+			custom_effect_tooltip = GRE_reconc_small_increase
+			add_to_variable = {
+				var = reconciliation_phase
+				value = 10
+			}
+			GRE_increase_approval_dianooumenoi_med = yes
+		}
+	}
+	GRE_allow_resistance_veterans_on_EDA_lists = {
+		icon = generic_prepare_civil_war
+		available = {
+		}
+		visible = {
+			has_country_flag = GRE_full_reconciliation_enabled
+		}
+		complete_effect = {
+		}
+		days_remove = 15
+		fire_only_once = yes
+		cost = 20
+		remove_effect = {
+			custom_effect_tooltip = GRE_reconc_medium_increase
+			add_to_variable = {
+				var = reconciliation_phase
+				value = 15
+			}
+			GRE_decrease_approval_grafeiokrateia_med = yes
+			GRE_decrease_approval_elit_low = yes
+		}
+	}
+	GRE_mass_pardons_to_KKE_members = {
+		icon = generic_prepare_civil_war
+		available = {
+		}
+		visible = {
+			has_country_flag = GRE_full_reconciliation_enabled
+		}
+		complete_effect = {
+		}
+		days_remove = 15
+		days_re_enable = 30
+		cost = 25
+		remove_effect = {
+			custom_effect_tooltip = GRE_reconc_medium_increase
+			add_to_variable = {
+				var = reconciliation_phase
+				value = 15
+			}
+			GRE_increase_approval_dianooumenoi_low = yes
+			GRE_decrease_approval_elit_low = yes
+		}
+	}
+	GRE_monuments_to_EAM_martyrs = {
+		icon = generic_prepare_civil_war
+		available = {
+		}
+		visible = {
+			has_country_flag = GRE_full_reconciliation_enabled
+		}
+		complete_effect = {
+		}
+		days_remove = 15
+		fire_only_once = yes
+		cost = 15
+		remove_effect = {
+			custom_effect_tooltip = GRE_reconc_medium_increase
+			add_to_variable = {
+				var = reconciliation_phase
+				value = 15
+			}
+			GRE_increase_approval_dianooumenoi_low = yes
+			GRE_increase_approval_ergates_low = yes
+		}
+	}
+	
+	GRE_law_on_the_recognition_of_the_national_minded_resistance = {
+		icon = generic_prepare_civil_war
+		available = {
+		}
+		visible = {
+			has_country_flag = GRE_partial_reconciliation_enabled
+		}
+		complete_effect = {
+		}
+		days_remove = 15
+		fire_only_once = yes
+		cost = 40
+		remove_effect = {
+			custom_effect_tooltip = GRE_reconc_large_increase
+			add_to_variable = {
+				var = reconciliation_phase
+				value = 25
+			}
+			GRE_increase_approval_elit_med = yes
+			GRE_decrease_approval_stratos_low = yes
+		}
+	}
+	GRE_selective_pardons_of_communists = {
+		icon = generic_prepare_civil_war
+		available = {
+		}
+		visible = {
+			has_country_flag = GRE_partial_reconciliation_enabled
+		}
+		complete_effect = {
+		}
+		days_remove = 15
+		days_re_enable = 20
+		cost = 15
+		remove_effect = {
+			custom_effect_tooltip = GRE_reconc_small_increase
+			add_to_variable = {
+				var = reconciliation_phase
+				value = 10
+			}
+			GRE_increase_approval_elit_low = yes
+			GRE_increase_approval_ergates_low = yes
+		}
+	}
+	GRE_honor_moderate_socialist_fighters = {
+		icon = generic_prepare_civil_war
+		available = {
+		}
+		visible = {
+			has_country_flag = GRE_partial_reconciliation_enabled
+		}
+		complete_effect = {
+		}
+		days_remove = 15
+		days_re_enable = 20
+		cost = 15
+		remove_effect = {
+			custom_effect_tooltip = GRE_reconc_small_increase
+			add_to_variable = {
+				var = reconciliation_phase
+				value = 10
+			}
+			GRE_increase_approval_dianooumenoi_low = yes
+		}
+	}
+	GRE_declarations_of_allegiance = {
+		icon = generic_prepare_civil_war
+		available = {
+		}
+		visible = {
+			has_country_flag = GRE_partial_reconciliation_enabled
+		}
+		complete_effect = {
+		}
+		days_remove = 15
+		days_re_enable = 20
+		cost = 15
+		remove_effect = {
+			custom_effect_tooltip = GRE_reconc_medium_increase
+			add_to_variable = {
+				var = reconciliation_phase
+				value = 15
+			}
+			GRE_increase_approval_stratos_low = yes
+			GRE_increase_approval_elit_low = yes
+		}
+	}
+	
+	GRE_disband_the_last_xeronisia_camps = {
+		icon = generic_prepare_civil_war
+		available = {
+		}
+		visible = {
+			OR = {
+				has_country_flag = GRE_partial_reconciliation_enabled
+				has_country_flag = GRE_full_reconciliation_enabled
+			}
+		}
+		complete_effect = {
+		}
+		days_remove = 15
+		fire_only_once = yes
+		cost = 25
+		remove_effect = {
+			custom_effect_tooltip = GRE_reconc_small_increase
+			add_to_variable = {
+				var = reconciliation_phase
+				value = 10
+			}
+			GRE_decrease_approval_grafeiokrateia_low = yes
+			GRE_increase_approval_ergates_low = yes
+		}
+	}
+	GRE_burn_the_files_of_leftist_police_suspects = {
+		icon = generic_prepare_civil_war
+		available = {
+		}
+		visible = {
+			OR = {
+				has_country_flag = GRE_partial_reconciliation_enabled
+				has_country_flag = GRE_full_reconciliation_enabled
+			}
+		}
+		complete_effect = {
+		}
+		days_remove = 15
+		fire_only_once = yes
+		cost = 15
+		remove_effect = {
+			custom_effect_tooltip = GRE_reconc_small_increase
+			add_to_variable = {
+				var = reconciliation_phase
+				value = 10
+			}
+			GRE_decrease_approval_dianooumenoi_low = yes
+			GRE_increase_approval_ergates_low = yes
+		}
+	}
+	
+	GRE_law_on_the_formation_and_function_of_political_parties = {
+		icon = generic_prepare_civil_war
+		available = {
+			check_variable = {
+				var = reconciliation_phase
+				value = 100
+				compare = greater_than_or_equals
+			}
+		}
+		visible = {
+			has_country_flag = GRE_full_reconciliation_enabled
+		}
+		complete_effect = {
+		}
+		days_remove = 15
+		fire_only_once = yes
+		cost = 50
+		remove_effect = {
+			country_event = { id = greEDA.60 days = 5 }
+			GRE_decrease_approval_grafeiokrateia_med = yes
+			#this effect doesn't exist
+			#GRE_increase_leonidas_pop_random_amount = yes
+		}
+	}
+	GRE_all_greek_electoral_committee = {
+		icon = generic_prepare_civil_war
+		available = {
+			check_variable = {
+				var = reconciliation_phase
+				value = 100
+				compare = greater_than_or_equals
+			}
+		}
+		visible = {
+			has_country_flag = GRE_partial_reconciliation_enabled
+		}
+		complete_effect = {
+		}
+		days_remove = 15
+		fire_only_once = yes
+		cost = 25
+		remove_effect = {
+			custom_effect_tooltip = GRE_reconc_medium_increase
+			add_to_variable = {
+				var = reconciliation_phase
+				value = 15
+			}
+			hidden_effect = {
+				set_country_flag = electoral_committee_formed
+			}
+			GRE_increase_approval_grafeiokrateia_low = yes
+		}
+	}
+	GRE_law_on_the_formation_and_function_of_political_parties_two = {
+		icon = generic_prepare_civil_war
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GRE_electoral_committee_tooltip
+				has_country_flag = electoral_committee_formed
+			}
+		}
+		visible = {
+			has_country_flag = GRE_partial_reconciliation_enabled
+		}
+		complete_effect = {
+		}
+		days_remove = 15
+		fire_only_once = yes
+		cost = 50
+		remove_effect = {
+			country_event = { id = greEDA.61 days = 5 }
+			#this effect doesn't exist
+			#GRE_increase_andreas_pop_random_amount = yes
+		}
+	}
+}
+GRE_in_persuit_of_autonomy = {
+	GRE_affirm_italian_bonds = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			always = yes
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_affirm_italian_bonds_tt
+			GRE_increase_NOX_power_v_low = yes
+			GRE_increase_MEA_power_v_low = yes
+			GRE_increase_4thoAP_power_v_low = yes
+			add_to_variable = {GRE_autonomy_cooperation = 3}
+			GRE_autonomy_clamp_variables = yes
+		}
+		days_re_enable = 21
+		cost = 15
+	}
+	GRE_rebuff_italian_outreach = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			always = yes
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_rebuff_italian_outreach_tt
+			add_stability = -0.005
+			GRE_decrease_approval_grafeiokrateia_med = yes
+			GRE_decrease_approval_dianooumenoi_med = yes
+			add_to_variable = {GRE_autonomy_cooperation = -3}
+			GRE_autonomy_clamp_variables = yes
+		}
+		days_re_enable = 21
+	}
+	GRE_itallian_investment_tour = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			OR = {
+				check_variable = {GRE_autonomy_cooperation = 66}
+				check_variable = {GRE_autonomy_cooperation < 66}
+			}
+			check_variable = {GRE_autonomy_cooperation > 33}
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_itallian_investment_tour_tt
+			add_to_variable = {GRE_autonomy_cooperation = 5}
+			add_to_variable = {GRE_autonomy_itallian_reliance = 5}
+			add_to_variable = {GRE_autonomy_crete_industrialisation = 3}
+			add_to_variable = {GRE_autonomy_athens_industrialisation = 3}
+			add_to_variable = {GRE_autonomy_epirus_industrialisation = 3}
+			add_to_variable = {GRE_autonomy_thessalonika_industrialisation = 3}
+			add_to_variable = {GRE_autonomy_thrace_industrialisation = 3}
+			add_to_variable = {GRE_autonomy_naxos_industrialisation = 3}
+			add_to_variable = {GRE_autonomy_cyprus_industrialisation = 3}
+			add_to_variable = {GRE_autonomy_corfu_industrialisation = 3}
+			add_to_variable = {GRE_autonomy_thrace_proper_industrialisation = 3}
+			add_to_variable = {GRE_autonomy_peloponese_industrialisation = 3}
+			GRE_increase_approval_elit_med = yes
+			GRE_increase_approval_grafeiokrateia_med = yes
+			GRE_decrease_approval_ergates_med = yes
+			GRE_autonomy_clamp_variables = yes
+		}
+		days_re_enable = 90
+		cost = 20
+	}
+	GRE_invite_the_prime_minister = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		fire_only_once = yes
+		visible = {
+			OR = {
+				check_variable = {GRE_autonomy_cooperation = 66}
+				check_variable = {GRE_autonomy_cooperation < 66}
+			}
+			check_variable = {GRE_autonomy_cooperation > 33}
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_invite_the_prime_minister_tt
+			hidden_effect = {
+				ITA = {
+					country_event = {
+						id = greFlavour.4 days = 1
+					}
+				}
+			}
+		}
+	}
+	GRE_conduct_technical_exchanges = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			OR = {
+				check_variable = {GRE_autonomy_cooperation = 66}
+				check_variable = {GRE_autonomy_cooperation < 66}
+			}
+			check_variable = {GRE_autonomy_cooperation > 33}
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_conduct_technical_exchanges_tt
+			add_to_variable = {GRE_autonomy_cooperation = 5}
+			GRE_increase_approval_elit_med = yes
+			GRE_increase_approval_dianooumenoi_high = yes
+			GRE_increase_approval_ergates_med = yes
+			GRE_autonomy_clamp_variables = yes
+			add_timed_idea = { idea = GRE_Itallian_Greece_Cooperation  days = 60 }
+		}
+		days_re_enable = 90
+		cost = 15
+	}
+	GRE_low_level_renegotiations = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			OR = {
+				check_variable = {GRE_autonomy_cooperation = 33}
+				check_variable = {GRE_autonomy_cooperation < 33}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_low_level_renegotiations_tt
+			add_to_variable = {GRE_autonomy_cooperation = -5}
+			GRE_decrease_approval_grafeiokrateia_med = yes
+			GRE_decrease_approval_dianooumenoi_med = yes
+			GRE_autonomy_clamp_variables = yes
+			add_stability = -0.005
+		}
+		days_re_enable = 30
+		cost = 15
+	}
+	GRE_send_the_foreign_minister = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			OR = {
+				check_variable = {GRE_autonomy_cooperation = 33}
+				check_variable = {GRE_autonomy_cooperation < 33}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_send_the_foreign_minister_tt
+			add_to_variable = {GRE_autonomy_cooperation = 10}
+			GRE_increase_approval_grafeiokrateia_med = yes
+			GRE_increase_approval_dianooumenoi_med = yes
+			GRE_increase_NOX_power_v_low = yes
+			GRE_increase_MEA_power_v_low = yes
+			GRE_increase_4thoAP_power_v_low = yes
+			GRE_autonomy_clamp_variables = yes
+		}
+		days_re_enable = 180
+		cost = 15
+	}
+	GRE_reduce_italian_imports = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			always = yes
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_reduce_italian_imports_tt
+			add_to_variable = {GRE_autonomy_itallian_reliance = -3}
+			add_stability = -0.01
+			GRE_increase_disapproval_grafeiokrateia_med = yes
+			GRE_autonomy_clamp_variables = yes
+		}
+		days_re_enable = 30
+		cost = 10
+	}
+	GRE_increase_regional_trade = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			always = yes
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_increase_regional_trade_tt
+			add_to_variable = {GRE_autonomy_itallian_reliance = 5}
+			add_timed_idea = { idea = GRE_Increased_Regional_Trade  days = 60 }
+			GRE_autonomy_clamp_variables = yes
+		}
+		days_re_enable = 60
+	}
+	GRE_ask_for_italian_loans = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			check_variable = {GRE_autonomy_itallian_reliance > 66}
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_ask_for_italian_loans_tt
+			add_to_variable = {GRE_autonomy_itallian_reliance = 10}
+			add_political_power = 40
+			GRE_increase_disapproval_grafeiokrateia_med = yes
+			GRE_increase_disapproval_elit_med = yes
+			GRE_autonomy_clamp_variables = yes
+		}
+		days_re_enable = 30
+	}
+	GRE_invite_foreign_investment = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			check_variable = {GRE_autonomy_itallian_reliance > 66}
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_invite_foreign_investment_tt
+			add_to_variable = {GRE_autonomy_itallian_reliance = 10}
+			GRE_increase_approval_ergates_med = yes
+			GRE_autonomy_clamp_variables = yes
+			random_owned_state = {
+    			add_extra_state_shared_building_slots = 1
+    			add_building_construction = {
+    				type = industrial_complex
+    				level = 1
+   					instant_build = yes
+				}
+			}
+		}
+		days_re_enable = 30
+	}
+	GRE_buy_back_investments = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			check_variable = {GRE_autonomy_itallian_reliance > 66}
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_buy_back_investments_tt
+			add_to_variable = {GRE_autonomy_itallian_reliance = -10}
+			GRE_increase_NOX_power_v_low = yes
+			GRE_increase_MEA_power_v_low = yes
+			GRE_increase_4thoAP_power_v_low = yes
+			GRE_increase_disapproval_ergates_med = yes
+			GRE_increase_disapproval_elit_med = yes
+			GRE_increase_approval_grafeiokrateia_med = yes
+			GRE_autonomy_clamp_variables = yes
+			random_state = {
+				limit = {
+					is_controlled_by = GRE
+				}
+				remove_building = {
+   					type = industrial_complex
+    				level = 1
+				}
+			}
+		}
+		days_re_enable = 30
+	}
+	GRE_purchase_italian_arms = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			OR = {
+				check_variable = {GRE_autonomy_itallian_reliance < 66}
+				check_variable = {GRE_autonomy_itallian_reliance = 66}
+			}
+			check_variable = {GRE_autonomy_itallian_reliance > 33}
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_purchase_italian_arms_tt
+			add_to_variable = {GRE_autonomy_itallian_reliance = 5}
+			GRE_increase_approval_stratos_high = yes
+			add_equipment_to_stockpile = {
+    			type = infantry_equipment
+    			amount = 1000
+    			producer = ITA
+			}
+			add_equipment_to_stockpile = {
+    			type = support_equipment
+    			amount = 1000
+    			producer = ITA
+			}
+			GRE_autonomy_clamp_variables = yes
+		}
+		days_re_enable = 30
+	}
+	GRE_sell_greek_arms = {
+		icon = generic_prepare_civil_war
+		available = {
+			has_equipment = {
+    			infantry_equipment > 499
+			}
+		}
+		visible = {
+			OR = {
+				check_variable = {GRE_autonomy_itallian_reliance < 66}
+				check_variable = {GRE_autonomy_itallian_reliance = 66}
+			}
+			check_variable = {GRE_autonomy_itallian_reliance > 33}
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_sell_greek_arms_tt
+			add_to_variable = {GRE_autonomy_itallian_reliance = -5}
+			GRE_increase_approval_stratos_med = yes
+			GRE_increase_approval_elit_med = yes
+			GRE_increase_approval_grafeiokrateia_med = yes
+			GRE_increase_approval_ergates_med = yes
+			GRE_increase_approval_dianooumenoi_med = yes
+			add_equipment_to_stockpile = {
+    			type = infantry_equipment
+    			amount = -500
+			}
+			GRE_autonomy_clamp_variables = yes
+		}
+		days_re_enable = 30
+	}
+	GRE_increase_exports = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			OR = {
+				check_variable = {GRE_autonomy_itallian_reliance < 33}
+				check_variable = {GRE_autonomy_itallian_reliance = 33}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_increase_exports_tt
+			add_to_variable = {GRE_autonomy_itallian_reliance = -3}
+			GRE_increase_disapproval_elit_med = yes
+			GRE_increase_disapproval_grafeiokrateia_med = yes
+			GRE_autonomy_clamp_variables = yes
+		}
+		days_re_enable = 30
+		cost = 10
+	}
+	GRE_advertise_greece = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			OR = {
+				check_variable = {GRE_autonomy_itallian_reliance < 33}
+				check_variable = {GRE_autonomy_itallian_reliance = 33}
+			}
+		}
+		complete_effect = {
+			custom_effect_tooltip = GRE_advertise_greece_tt
+			add_to_variable = {GRE_autonomy_itallian_reliance = -3}
+			GRE_increase_disapproval_elit_med = yes
+			GRE_increase_disapproval_grafeiokrateia_med = yes
+			GRE_increase_approval_ergates_med = yes
+			hidden_effect = {
+				set_variable = { GRE_autonomy_advertise_rewards = random }
+				if = {
+					limit = {
+						check_variable = {GRE_autonomy_advertise_rewards < 0.33}
+					}
+					add_political_power = 25
+				}
+				if = {
+					limit = {
+						OR = {
+							check_variable = {GRE_autonomy_advertise_rewards > 0.33}
+							check_variable = {GRE_autonomy_advertise_rewards = 0.33}
+						}
+						check_variable = {GRE_autonomy_advertise_rewards < 0.66}
+					}
+				}
+				if = {
+					limit = {
+						OR = {
+							check_variable = {GRE_autonomy_advertise_rewards > 0.66}
+							check_variable = {GRE_autonomy_advertise_rewards = 0.66}
+						}
+					}
+					random_owned_state = {
+    					add_extra_state_shared_building_slots = 1
+    					add_building_construction = {
+    						type = industrial_complex
+    						level = 1
+   							instant_build = yes
+						}
+					}
+				}
+			}
+			GRE_autonomy_clamp_variables = yes
+		}
+		days_re_enable = 30
+		cost = 10
+	}
+}
+
+GRE_democratic_politics_category = {
+	GRE_send_party_officials_to_local_events = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			check_variable = { GRE_election_campaign_mode = 2 }
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 1 }
+				}
+				add_to_variable = { ERE_pop_elit^GRE_election_selected_state = 10 }
+				add_to_variable = { ERE_pop_int^GRE_election_selected_state = -5 }
+				custom_effect_tooltip = GRE_ERE_pop_elit_local_increase
+				custom_effect_tooltip = GRE_ERE_pop_int_local_decrease
+			}
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 2 }
+				}
+				add_to_variable = { EDA_pop_elit^GRE_election_selected_state = 10 }
+				add_to_variable = { EDA_pop_int^GRE_election_selected_state = -5 }
+				custom_effect_tooltip = GRE_EDA_pop_elit_local_increase
+				custom_effect_tooltip = GRE_EDA_pop_int_local_decrease
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+	GRE_fund_small_local_projects = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			check_variable = { GRE_election_campaign_mode = 2 }
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 1 }
+				}
+				add_to_variable = { ERE_pop_int^GRE_election_selected_state = 10 }
+				add_to_variable = { ERE_pop_elit^GRE_election_selected_state = -5 }
+				custom_effect_tooltip = GRE_ERE_pop_int_local_increase
+				custom_effect_tooltip = GRE_ERE_pop_elit_local_decrease
+			}
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 2 }
+				}
+				add_to_variable = { EDA_pop_int^GRE_election_selected_state = 10 }
+				add_to_variable = { EDA_pop_elit^GRE_election_selected_state = -5 }
+				custom_effect_tooltip = GRE_EDA_pop_int_local_increase
+				custom_effect_tooltip = GRE_EDA_pop_elit_local_decrease
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+	GRE_give_speech_to_local_community = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			check_variable = { GRE_election_campaign_mode = 2 }
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 1 }
+				}
+				add_to_variable = { ERE_pop_erg^GRE_election_selected_state = 5 }
+				add_to_variable = { ERE_pop_int^GRE_election_selected_state = 5 }
+				add_to_variable = { ERE_pop_elit^GRE_election_selected_state = 5 }
+				custom_effect_tooltip = GRE_ERE_pop_combined_local_increase
+			}
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 2 }
+				}
+				add_to_variable = { EDA_pop_erg^GRE_election_selected_state = 5 }
+				add_to_variable = { EDA_pop_int^GRE_election_selected_state = 5 }
+				add_to_variable = { EDA_pop_elit^GRE_election_selected_state = 5 }
+				custom_effect_tooltip = GRE_EDA_pop_combined_local_increase
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+	GRE_meet_and_greet_the_local_populace = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			check_variable = { GRE_election_campaign_mode = 2 }
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 1 }
+				}
+				add_to_variable = { ERE_pop_erg^GRE_election_selected_state = 5 }
+				add_to_variable = { ERE_pop_int^GRE_election_selected_state = 5 }
+				add_to_variable = { ERE_pop_elit^GRE_election_selected_state = -5 }
+				custom_effect_tooltip = GRE_ERE_pop_erg_local_increase
+				custom_effect_tooltip = GRE_ERE_pop_int_local_increase
+				custom_effect_tooltip = GRE_ERE_pop_elit_local_decrease
+			}
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 2 }
+				}
+				add_to_variable = { EDA_pop_erg^GRE_election_selected_state = 5 }
+				add_to_variable = { EDA_pop_int^GRE_election_selected_state = 5 }
+				add_to_variable = { EDA_pop_elit^GRE_election_selected_state = -5 }
+				custom_effect_tooltip = GRE_EDA_pop_erg_local_increase
+				custom_effect_tooltip = GRE_EDA_pop_int_local_increase
+				custom_effect_tooltip = GRE_EDA_pop_elit_local_decrease
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+	GRE_fund_parastate_letter_pushers = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			AND = {
+				has_country_flag = GRE_Karamanlis_campaign
+				check_variable = { GRE_election_campaign_mode = 2 }
+			}
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 1 }
+				}
+				add_to_variable = { ERE_pop_elit^GRE_election_selected_state = 10 }
+				add_to_variable = { ERE_pop_erg^GRE_election_selected_state = -5 }
+				custom_effect_tooltip = GRE_ERE_pop_elit_local_increase
+				custom_effect_tooltip = GRE_ERE_pop_erg_local_decrease
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+	GRE_cooperate_with_economic_officials = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			AND = {
+				has_country_flag = GRE_Kanellopooulos_campaign
+				check_variable = { GRE_election_campaign_mode = 2 }
+			}
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 1 }
+				}
+				add_to_variable = { ERE_pop_int^GRE_election_selected_state = 10 }
+				add_to_variable = { ERE_pop_elit^GRE_election_selected_state = -5 }
+				custom_effect_tooltip = GRE_ERE_pop_int_local_increase
+				custom_effect_tooltip = GRE_ERE_pop_elit_local_decrease
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+	GRE_meet_with_workers_and_farmers_unions = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			AND = {
+				has_country_flag = GRE_Kyrkos_campaign
+				check_variable = { GRE_election_campaign_mode = 2 }
+			}
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 2 }
+				}
+				add_to_variable = { EDA_pop_erg^GRE_election_selected_state = 10 }
+				add_to_variable = { EDA_pop_elit^GRE_election_selected_state = -5 }
+				custom_effect_tooltip = GRE_EDA_pop_erg_local_increase
+				custom_effect_tooltip = GRE_EDA_pop_elit_local_decrease
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+	GRE_host_local_festivities_and_rallies = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			AND = {
+				has_country_flag = GRE_Papandreou_campaign
+				check_variable = { GRE_election_campaign_mode = 2 }
+			}
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 2 }
+				}
+				add_to_variable = { EDA_pop_erg^GRE_election_selected_state = 10 }
+				add_to_variable = { EDA_pop_elit^GRE_election_selected_state = -5 }
+				custom_effect_tooltip = GRE_EDA_pop_erg_local_increase
+				custom_effect_tooltip = GRE_EDA_pop_elit_local_decrease
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+	
+	
+	GRE_promote_through_a_radio_campaign = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			check_variable = { GRE_election_campaign_mode = 1 }
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 1 }
+				}
+				for_each_loop = {
+					array = GRE_election_state_IDs
+					
+					add_to_variable = { ERE_pop_int^i = 10 }
+					add_to_variable = { ERE_pop_erg^i = -5 }
+					custom_effect_tooltip = GRE_ERE_pop_int_general_increase
+					custom_effect_tooltip = GRE_ERE_pop_erg_general_decrease
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 2 }
+				}
+				for_each_loop = {
+					array = GRE_election_state_IDs
+					
+					add_to_variable = { EDA_pop_int^i = 10 }
+					add_to_variable = { EDA_pop_erg^i = -5 }
+					custom_effect_tooltip = GRE_EDA_pop_int_general_increase
+					custom_effect_tooltip = GRE_EDA_pop_erg_general_decrease
+				}
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+	GRE_speech_in_syntagma = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			check_variable = { GRE_election_campaign_mode = 1 }
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 1 }
+				}
+				for_each_loop = {
+					array = GRE_election_state_IDs
+					
+					add_to_variable = { ERE_pop_erg^i = 10 }
+					add_to_variable = { ERE_pop_elit^i = -5 }
+					custom_effect_tooltip = GRE_ERE_pop_erg_general_increase
+					custom_effect_tooltip = GRE_ERE_pop_elit_general_decrease
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 2 }
+				}
+				for_each_loop = {
+					array = GRE_election_state_IDs
+					
+					add_to_variable = { EDA_pop_erg^i = 10 }
+					add_to_variable = { EDA_pop_elit^i = -5 }
+					custom_effect_tooltip = GRE_EDA_pop_erg_general_increase
+					custom_effect_tooltip = GRE_EDA_pop_elit_general_decrease
+				}
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+	GRE_mass_propaganda_campaign = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			check_variable = { GRE_election_campaign_mode = 1 }
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 1 }
+				}
+				for_each_loop = {
+					array = GRE_election_state_IDs
+					
+					add_to_variable = { ERE_pop_erg^i = 10 }
+					add_to_variable = { ERE_pop_int^i = -5 }
+					custom_effect_tooltip = GRE_ERE_pop_erg_general_increase
+					custom_effect_tooltip = GRE_ERE_pop_int_general_decrease
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 2 }
+				}
+				for_each_loop = {
+					array = GRE_election_state_IDs
+					
+					add_to_variable = { EDA_pop_erg^i = 10 }
+					add_to_variable = { EDA_pop_int^i = -5 }
+					custom_effect_tooltip = GRE_EDA_pop_erg_general_increase
+					custom_effect_tooltip = GRE_EDA_pop_int_general_decrease
+				}
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+	GRE_tour_through_greece = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			check_variable = { GRE_election_campaign_mode = 1 }
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 1 }
+				}
+				for_each_loop = {
+					array = GRE_election_state_IDs
+					
+					add_to_variable = { ERE_pop_erg^i = 5 }
+					add_to_variable = { ERE_pop_int^i = 5 }
+					add_to_variable = { ERE_pop_elit^i = 5 }
+					custom_effect_tooltip = GRE_ERE_pop_combined_general_increase
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 2 }
+				}
+				for_each_loop = {
+					array = GRE_election_state_IDs
+					
+					add_to_variable = { EDA_pop_erg^i = 5 }
+					add_to_variable = { EDA_pop_int^i = 5 }
+					add_to_variable = { EDA_pop_elit^i = 5 }
+					custom_effect_tooltip = GRE_EDA_pop_combined_general_increase
+				}
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+	GRE_force_the_hand_of_voters = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			AND = {
+				has_country_flag = GRE_Karamanlis_campaign
+				check_variable = { GRE_election_campaign_mode = 1 }
+			}
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 1 }
+				}
+				for_each_loop = {
+					array = GRE_election_state_IDs
+					
+					add_to_variable = { ERE_pop_elit^i = 10 }
+					add_to_variable = { ERE_pop_int^i = -5 }
+					custom_effect_tooltip = GRE_ERE_pop_elit_general_increase
+					custom_effect_tooltip = GRE_ERE_pop_int_general_decrease
+				}
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+	GRE_influence_the_banking_elite = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			AND = {
+				has_country_flag = GRE_Kanellopooulos_campaign
+				check_variable = { GRE_election_campaign_mode = 1 }
+			}
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 1 }
+				}
+				for_each_loop = {
+					array = GRE_election_state_IDs
+					
+					add_to_variable = { ERE_pop_elit^i = 10 }
+					add_to_variable = { ERE_pop_erg^i = -5 }
+					custom_effect_tooltip = GRE_ERE_pop_elit_general_increase
+					custom_effect_tooltip = GRE_ERE_pop_erg_general_decrease
+				}
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+	GRE_call_for_strikes_and_rallies = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			AND = {
+				has_country_flag = GRE_Kyrkos_campaign
+				check_variable = { GRE_election_campaign_mode = 1 }
+			}
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 2 }
+				}
+				for_each_loop = {
+					array = GRE_election_state_IDs
+					
+					add_to_variable = { EDA_pop_erg^i = 10 }
+					add_to_variable = { EDA_pop_elit^i = -5 }
+					custom_effect_tooltip = GRE_EDA_pop_erg_general_increase
+					custom_effect_tooltip = GRE_EDA_pop_elit_general_decrease
+				}
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+	GRE_charm_your_way_through_the_arts = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			AND = {
+				has_country_flag = GRE_Papandreou_campaign
+				check_variable = { GRE_election_campaign_mode = 1 }
+			}
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			if = {
+				limit = {
+					check_variable = { GRE_campaigning_party = 2 }
+				}
+				for_each_loop = {
+					array = GRE_election_state_IDs
+					
+					add_to_variable = { EDA_pop_int^i = 10 }
+					add_to_variable = { EDA_pop_elit^i = -5 }
+					custom_effect_tooltip = GRE_EDA_pop_int_general_increase
+					custom_effect_tooltip = GRE_EDA_pop_elit_general_decrease
+				}
+			}
+			GRE_election_adjust_popularities = yes
+			GRE_set_popularity_bars = yes
+		}
+		days_remove = 5
+		days_re_enable = 25
+		cost = 20
+	}
+}
+
+# Control of The State
+GRE_control_of_the_state = {
+	GRE_CoTS_test_tooltip = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { 
+			is_debug = yes 
+			is_ai = no
+		}
+
+		complete_effect = {
+			set_temp_variable = {
+				GRE_CoTS_Amount = 2
+			}
+			set_temp_variable = {
+				GRE_CoTS_Faction_Mod = Party
+			}
+			GRE_CoTS_Modify_Control = yes
+
+			set_temp_variable = {
+				GRE_CoTS_Amount = -7
+			}
+			set_temp_variable = {
+				GRE_CoTS_Faction_Mod = Military
+			}
+			GRE_CoTS_Modify_Control = yes
+
+			set_temp_variable = {
+				GRE_CoTS_Amount = 4
+			}
+			set_temp_variable = {
+				GRE_CoTS_Faction_Mod = People
+			}
+			GRE_CoTS_Modify_Control = yes
+		}
+	}
+	GRE_CoTS_test_winner = {
+		icon = GFX_decision_generic_political_action_indent
+		available = {
+			always = yes
+		}
+		visible = { 
+			is_debug = yes 
+			is_ai = no
+		}
+
+		complete_effect = {
+			GRE_CoTS_Get_Winner = yes
+		}
+	}
+	GRE_CoTS_tick = {
+		icon = GFX_decision_generic_political_action
+		allowed = {
+			tag = GRE
+		}
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		selectable_mission = no
+		days_mission_timeout = 60
+		timeout_effect = {
+			activate_mission = GRE_CoTS_tick
+			GRE_CoTS_Tick = yes
+		}
+	}
+	GRE_CoTS_BOG_tick = {
+		icon = GFX_decision_generic_political_discourse
+		allowed = {
+			tag = GRE
+		}
+		available = {
+			always = no
+		}
+		activation = {
+			always = no
+		}
+		is_good = yes
+		selectable_mission = no
+		days_mission_timeout = 30
+		timeout_effect = {
+			activate_mission = GRE_CoTS_BOG_tick
+			GRE_CoTS_BOG_Tick = yes
+		}
+	}
+	GRE_promote_loyal_officers = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Military_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_conduct_unit_audits = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Military_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_make_political_promises = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Military_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_pass_along_information = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Military_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_suggest_officer_promotions = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Military_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	
+	GRE_meet_business_owners = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Business_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_draft_additional_subsidies = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Business_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_cut_favorable_contracts = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Business_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_approach_the_oligarchs = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Business_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	
+	GRE_hold_rallies = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Party_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_promote_ERE_members = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Party_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_consult_with_the_moderates = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Party_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_placate_the_hardliners = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Party_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_hold_private_meetings = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Party_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_employ_pressure_tactics = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Party_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_make_grand_promises = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Party_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	
+	GRE_streamline_processes = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Government_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_review_leadership_positions = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Government_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_increase_oversight = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Government_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_suggest_promotions = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Government_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_utilize_pressure = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Government_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_fire_and_replace_employees = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_Government_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	
+	GRE_make_economic_promises = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_People_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_point_to_successes = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_People_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_encourage_social_protests = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_People_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_contact_community_leaders = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_People_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+	GRE_divert_funding_to_protests = {
+		icon = generic_prepare_civil_war
+		available = {
+			always = yes
+		}
+		visible = {
+			GRE_CoTS_People_Faction_Selected = yes
+		}
+		complete_effect = {
+			
+		}
+		remove_effect = {
+			
+		}
+		days_remove = 5
+		days_re_enable = 30
+		cost = 20
+	}
+}
+
+GRE_war_category = {
+GRE_EAM_liberation_war = {
+		icon = GFX_decision_revolt
+	
+		fire_only_once = no
+    	is_good = yes
+	
+    	days_mission_timeout = 2
+		
+		activation = {
+			has_global_flag = ITA_MED_WIP_PATHS
+			has_country_flag = eam_war_liberation
+			NOT = { has_country_flag = GRE_EAM_peace_talks } # Phase G
+		}
+		visible = {
+			has_country_flag = eam_war_liberation
+			NOT = { has_country_flag = GRE_EAM_peace_talks } # Phase G
+		}
+	
+		timeout_effect = {
+    		log = "[GetDateText]: [Root.GetName]: GRE_EAM_liberation_war mission timer elapsed" 
+			if = {
+					limit = {
+					GRE = {
+					has_full_control_of_state = 185
+					has_full_control_of_state = 731
+					has_full_control_of_state = 47
+					has_full_control_of_state = 1262
+					has_full_control_of_state = 186
+					has_full_control_of_state = 1294
+					has_full_control_of_state = 1295
+					}
+				}
+					country_event = { id = greEAMGovernment.2 }
+					set_country_flag = eam_albania_front # Phase G: the border front is now an else_if, one tree at a time
+				}
+				else_if = {
+					limit = {
+					GRE = {
+					has_full_control_of_state = 185
+					has_full_control_of_state = 731
+					has_full_control_of_state = 47
+					has_full_control_of_state = 1262
+					has_full_control_of_state = 186
+					}
+				}
+					country_event = { id = greEAMGovernment.3 }
+					set_country_flag = eam_border_front
+				}
+				else_if = {
+					limit = {
+					1262 = { is_controlled_by = GRE }
+					}
+					country_event = { id = greEAMGovernment.4 }
+					set_country_flag = eam_home_front
+				}
+    	    }
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Mission GRE_EAM_liberation_war Completed"
+    	}
+	}
+}

@@ -1,0 +1,995 @@
+ITA_nuclear_calc = {
+	clamp_variable = {
+		var = ITA_nuclear_development_monthly
+		min = 0
+		max = 100
+	}
+	clamp_variable = { 
+		var = ITA_nuclear_development_completion
+		min = 0
+		max = 100
+	}
+	clamp_variable = { 
+		var = ITA_nuclear_maintenance_cost
+		min = 0
+	}
+	clamp_variable = { 
+		var = ITA_nuclear_science_cost
+		min = 0
+	}
+	clamp_variable = { 
+		var = ITA_nuclear_material_cost
+		min = 0
+	}
+	clamp_variable = { 
+		var = ITA_nuclear_material_quality
+		min = 0
+		max = 100
+	}
+	clamp_variable = { 
+		var = ITA_scientist_happiness
+		min = 0
+		max = 100
+	}
+	ITA_nuclear_multipliers = yes
+	set_variable = { ITA_nuclear_development_cost = 0}
+	add_to_variable = { ITA_nuclear_development_cost = ITA_nuclear_maintenance_cost }
+	add_to_variable = { ITA_nuclear_development_cost = ITA_nuclear_science_cost }
+	add_to_variable = { ITA_nuclear_development_cost = ITA_nuclear_material_cost }
+	
+	##pie chart
+	
+	set_variable = { ITA_nuclear_maintenance_cost_percent = ITA_nuclear_maintenance_cost }
+	set_variable = { ITA_nuclear_science_cost_percent = ITA_nuclear_science_cost }
+	set_variable = { ITA_nuclear_material_cost_percent = ITA_nuclear_material_cost }
+	
+	divide_variable = { ITA_nuclear_maintenance_cost_percent = ITA_nuclear_development_cost }
+	divide_variable = { ITA_nuclear_science_cost_percent = ITA_nuclear_development_cost }
+	divide_variable = { ITA_nuclear_material_cost_percent = ITA_nuclear_development_cost }
+	
+	multiply_variable = { ITA_nuclear_maintenance_cost_percent = 100 }
+	multiply_variable = { ITA_nuclear_science_cost_percent = 100 }
+	multiply_variable = { ITA_nuclear_material_cost_percent = 100 }
+	
+	add_to_variable = { ITA_nuclear_material_cost_percent = ITA_nuclear_science_cost_percent }
+	add_to_variable = { ITA_nuclear_maintenance_cost_percent = ITA_nuclear_material_cost_percent }
+	
+	# tooltip purposes
+	set_variable = { ITA_nuclear_maintenance_tt = 100 }
+	subtract_from_variable = { ITA_nuclear_maintenance_tt = ITA_nuclear_material_cost_percent }
+	
+	set_variable = { ITA_nuclear_material_tt = ITA_nuclear_material_cost_percent }
+	subtract_from_variable = { ITA_nuclear_material_tt = ITA_nuclear_science_cost_percent }
+	
+	##misc cost stuff 
+	
+	set_variable = { ITA_nuke_misc_costs_var = ITA_nuclear_development_cost }
+	divide_variable = { ITA_nuke_misc_costs_var = 1000 }
+	
+	if = {
+		# Was "= 100", and ITA_nuclear_development_completion accumulates a float
+		# every month, so it never landed on exactly a hundred and the event that
+		# makes Italy a nuclear power never fired.
+		limit = {
+			check_variable = {
+				var = ITA_nuclear_development_completion
+				value = 100
+				compare = greater_than_or_equals
+			}
+		}
+		country_event = {
+			id = NuclearItaly_med.2
+		}
+		set_variable = { ITA_nuclear_development_completion = 0 }
+	}
+	add_to_variable = { ITA_nuke_gui_dirty_var = 0.01 }
+}
+
+ITA_nuclear_monthly = {
+	add_to_variable = { ITA_nuclear_development_completion = ITA_nuclear_development_monthly }
+	set_temp_variable = { ITA_old_nuclear_development_cost = ITA_nuclear_development_cost}
+	custom_effect_tooltip = ITA_nuclear_monthly_progress.tt
+	subtract_from_variable = { ITA_scientist_happiness = ITA_scientist_decay }
+	subtract_from_variable = { ITA_nuclear_material_quality = ITA_nuclear_material_decay }
+	set_temp_variable = { ITA_nuclear_development_cost_monthly = ITA_nuclear_development_cost }
+	divide_temp_variable = { ITA_nuclear_development_cost_monthly = 12 }
+	divide_temp_variable = { ITA_nuclear_development_cost_monthly = 1000 }
+	log = "[?ITA_nuclear_development_cost_monthly]"
+	if = {
+		limit = {
+			ITA = {
+				check_variable = {
+					var = money_reserves
+					value = ITA_nuclear_development_cost_monthly
+					compare = greater_than_or_equals
+				}
+			}
+		}
+		ITA = {
+			subtract_from_variable = {money_reserves = ITA_nuclear_development_cost_monthly }
+		}
+	}
+	else = {
+		ITA = {
+			add_to_variable = {national_debt = ITA_nuclear_development_cost_monthly }
+		}
+	}
+	ITA_nuclear_calc = yes
+}
+
+ITA_nuclear_setup = {
+	set_variable = { ITA_nuclear_development_completion = 5.5 }
+	set_variable = { ITA_nuclear_maintenance_cost = 156 }
+	set_variable = { ITA_nuclear_material_quality = 85 }
+	set_variable = { ITA_scientist_happiness = 60 }
+	set_variable = { ITA_nuclear_material_decay = 5 }
+	set_variable = { ITA_scientist_decay = 3 }
+	set_variable = { ITA_nuclear_development_monthly = 0.3 }
+	set_variable = { ITA_nuclear_science_cost = 74 }
+	set_variable = { ITA_nuclear_material_cost = 36 }
+	ITA_nuclear_calc = yes
+}
+
+ITA_nuclear_multipliers = {
+	set_variable = { ITA_nuclear_development_monthly = 0.3 }
+	set_variable = { ITA_nuclear_science_cost = 74 }
+	set_variable = { ITA_nuclear_material_cost = 36 }
+	add_to_variable = { ITA_nuclear_development_monthly = ITA_nuclear_development_monthly_modifier }
+	if = {
+		limit = {
+			check_variable = { ITA_scientist_happiness < 25 }
+		}
+		multiply_variable = { ITA_nuclear_development_monthly = 0 }
+		multiply_variable = { ITA_nuclear_science_cost = 0 }
+	}
+	else_if = {
+		limit = {
+			AND = {
+				check_variable = { ITA_scientist_happiness > 24.99 }
+				check_variable = { ITA_scientist_happiness < 50 }
+			}
+		}
+		multiply_variable = { ITA_nuclear_development_monthly = 0.6 }
+		multiply_variable = { ITA_nuclear_science_cost = 0.3 }
+	}
+	else_if = {
+		limit = {
+			AND = {
+				check_variable = { ITA_scientist_happiness > 49.99 }
+				check_variable = { ITA_scientist_happiness < 75 }
+			}
+		}
+		multiply_variable = { ITA_nuclear_development_monthly = 0.9 }
+		multiply_variable = { ITA_nuclear_science_cost = 0.6 }
+	}
+	else_if = {
+		limit = {
+			AND = {
+				check_variable = { ITA_scientist_happiness > 74.99 }
+				check_variable = { ITA_scientist_happiness < 100 }
+			}
+		}
+		multiply_variable = { ITA_nuclear_development_monthly = 1.2 }
+		multiply_variable = { ITA_nuclear_science_cost = 1 }
+	}
+	else_if = {
+		limit = {
+			AND = {
+				check_variable = { ITA_scientist_happiness = 100 }
+			}
+		}
+		multiply_variable = { ITA_nuclear_development_monthly = 1.5 }
+		multiply_variable = { ITA_nuclear_science_cost = 1.2 }
+	}
+
+	if = {
+		limit = {
+			check_variable = { ITA_nuclear_material_quality < 25 }
+		}
+		multiply_variable = { ITA_nuclear_development_monthly = 0 }
+		multiply_variable = { ITA_nuclear_material_cost = 0 }
+	}
+	else_if = {
+		limit = {
+			AND = {
+				check_variable = { ITA_nuclear_material_quality > 24.99 }
+				check_variable = { ITA_nuclear_material_quality < 50 }
+			}
+		}
+		multiply_variable = { ITA_nuclear_development_monthly = 0.4 }
+		multiply_variable = { ITA_nuclear_material_cost = 0.4 }
+	}
+	else_if = {
+		limit = {
+			AND = {
+				check_variable = { ITA_nuclear_material_quality > 49.99 }
+				check_variable = { ITA_nuclear_material_quality < 75 }
+			}
+		}
+		multiply_variable = { ITA_nuclear_development_monthly = 0.8 }
+		multiply_variable = { ITA_nuclear_material_cost = 0.7 }
+	}
+	else_if = {
+		limit = {
+			AND = {
+				check_variable = { ITA_nuclear_material_quality > 74.99 }
+				check_variable = { ITA_nuclear_material_quality < 100 }
+			}
+		}
+		multiply_variable = { ITA_nuclear_development_monthly = 1.2 }
+		multiply_variable = { ITA_nuclear_material_cost = 1 }
+	}
+	else_if = {
+		limit = {
+			AND = {
+				check_variable = { ITA_nuclear_material_quality = 100 }
+			}
+		}
+		multiply_variable = { ITA_nuclear_development_monthly = 1.6 }
+		multiply_variable = { ITA_nuclear_material_cost = 1.3 }
+	}
+}
+
+
+###Setup Iraq stuff
+ITA_ITW_Iraq_setup = {
+	set_country_flag = ITA_ITW_leadup
+	ITA = {
+		country_event = { id = ITA_med.2002 }
+		country_event = { id = ITA_med.2000 }
+	}
+	TUR = { 
+		set_country_flag = ITA_ITW_leadup
+		country_event = { id = ITA_med.2001 }
+	}
+	TUR = { set_variable = { TUR.TUR_stab_bonus = 0 } }
+	set_variable = { ITA.ITA_Iraq_stability = 0.5 }
+	set_variable = { ITA.ITA_stab_bonus = 0 }
+	# TNO_fopo_* registered a tab in the upstream foreign-policy panel, which
+	# is not imported. The call resolved to nothing.
+}
+
+ITW_Iraq_add_Stability_small = {
+	set_temp_variable = { small_multiplier = 0.025 }
+	add_to_variable = { ITA.ITA_Iraq_stability = ITA.ITA_stab_bonus }
+	add_to_variable = { ITA.ITA_Iraq_stability = small_multiplier }
+}
+
+ITW_Iraq_add_Stability_medium = {
+	set_temp_variable = { medium_multiplier = 0.05 }
+	add_to_variable = { ITA.ITA_Iraq_stability = ITA.ITA_stab_bonus }
+	add_to_variable = { ITA.ITA_Iraq_stability = medium_multiplier }
+}
+
+ITW_Iraq_add_Stability_large = {
+	set_temp_variable = { large_multiplier = 0.1 }
+	add_to_variable = { ITA.ITA_Iraq_stability = ITA.ITA_stab_bonus }
+	add_to_variable = { ITA.ITA_Iraq_stability = large_multiplier }
+}
+
+ITW_Iraq_remove_Stability_small = {
+	set_temp_variable = { small_multiplier = -0.025 }
+	add_to_variable = { ITA.ITA_Iraq_stability = TUR.TUR_stab_bonus }
+	add_to_variable = { ITA.ITA_Iraq_stability = small_multiplier }
+}
+
+ITW_Iraq_remove_Stability_medium = {
+	set_temp_variable = { medium_multiplier = -0.05 }
+	add_to_variable = { ITA.ITA_Iraq_stability = TUR.TUR_stab_bonus }
+	add_to_variable = { ITA.ITA_Iraq_stability = medium_multiplier }
+}
+
+ITW_Iraq_remove_Stability_large = {
+	set_temp_variable = { large_multiplier = -0.1 }
+	add_to_variable = { ITA.ITA_Iraq_stability = TUR.TUR_stab_bonus }
+	add_to_variable = { ITA.ITA_Iraq_stability = large_multiplier }
+}
+
+### Verona congress effects ###
+ITA_Verona_setup = {
+	ITA_Ciano_POP_convert_to_verona = yes #use pop popularities to set the starting values in verona
+	set_country_flag = ITA_show_verona_congress
+	hidden_effect = {
+		ZZZ = {
+			activate_mission = ITA_ZZZ_Verona_Congress_Countdown_mission
+		}
+	}
+
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_public_verona
+			}
+		}
+		ITA_Verona_get_next_outside_move = yes
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_ciano_verona
+			}
+		}
+		ITA_Verona_get_next_ciano_move = yes
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ITA_fascist_verona
+			}
+		}
+		ITA_Verona_get_next_fascist_move = yes
+	}
+	
+	
+	add_to_array = { ITA_Verona_days_to_frame = 100 }
+	add_to_array = { ITA_Verona_days_to_frame = 98 }
+	add_to_array = { ITA_Verona_days_to_frame = 97 }
+	add_to_array = { ITA_Verona_days_to_frame = 95 }
+	add_to_array = { ITA_Verona_days_to_frame = 93 }
+	add_to_array = { ITA_Verona_days_to_frame = 92 }
+	add_to_array = { ITA_Verona_days_to_frame = 90 }
+	add_to_array = { ITA_Verona_days_to_frame = 88 }
+	add_to_array = { ITA_Verona_days_to_frame = 87 }
+	add_to_array = { ITA_Verona_days_to_frame = 85 }
+	add_to_array = { ITA_Verona_days_to_frame = 83 }
+	add_to_array = { ITA_Verona_days_to_frame = 82 }
+	add_to_array = { ITA_Verona_days_to_frame = 80 }
+	add_to_array = { ITA_Verona_days_to_frame = 78 }
+	add_to_array = { ITA_Verona_days_to_frame = 77 }
+	add_to_array = { ITA_Verona_days_to_frame = 75 }
+	add_to_array = { ITA_Verona_days_to_frame = 73 }
+	add_to_array = { ITA_Verona_days_to_frame = 72 }
+	add_to_array = { ITA_Verona_days_to_frame = 70 }
+	add_to_array = { ITA_Verona_days_to_frame = 68 }
+	add_to_array = { ITA_Verona_days_to_frame = 67 }
+	add_to_array = { ITA_Verona_days_to_frame = 65 }
+	add_to_array = { ITA_Verona_days_to_frame = 63 }
+	add_to_array = { ITA_Verona_days_to_frame = 62 }
+	add_to_array = { ITA_Verona_days_to_frame = 60 }
+	add_to_array = { ITA_Verona_days_to_frame = 58 }
+	add_to_array = { ITA_Verona_days_to_frame = 57 }
+	add_to_array = { ITA_Verona_days_to_frame = 55 }
+	add_to_array = { ITA_Verona_days_to_frame = 53 }
+	add_to_array = { ITA_Verona_days_to_frame = 52 }
+	add_to_array = { ITA_Verona_days_to_frame = 50 }
+	add_to_array = { ITA_Verona_days_to_frame = 48 }
+	add_to_array = { ITA_Verona_days_to_frame = 47 }
+	add_to_array = { ITA_Verona_days_to_frame = 45 }
+	add_to_array = { ITA_Verona_days_to_frame = 43 }
+	add_to_array = { ITA_Verona_days_to_frame = 42 }
+	add_to_array = { ITA_Verona_days_to_frame = 40 }
+	add_to_array = { ITA_Verona_days_to_frame = 38 }
+	add_to_array = { ITA_Verona_days_to_frame = 37 }
+	add_to_array = { ITA_Verona_days_to_frame = 35 }
+	add_to_array = { ITA_Verona_days_to_frame = 33 }
+	add_to_array = { ITA_Verona_days_to_frame = 32 }
+	add_to_array = { ITA_Verona_days_to_frame = 30 }
+	add_to_array = { ITA_Verona_days_to_frame = 28 }
+	add_to_array = { ITA_Verona_days_to_frame = 27 }
+	add_to_array = { ITA_Verona_days_to_frame = 25 }
+	add_to_array = { ITA_Verona_days_to_frame = 23 }
+	add_to_array = { ITA_Verona_days_to_frame = 22 }
+	add_to_array = { ITA_Verona_days_to_frame = 20 }
+	add_to_array = { ITA_Verona_days_to_frame = 18 }
+	add_to_array = { ITA_Verona_days_to_frame = 17 }
+	add_to_array = { ITA_Verona_days_to_frame = 15 }
+	add_to_array = { ITA_Verona_days_to_frame = 13 }
+	add_to_array = { ITA_Verona_days_to_frame = 12 }
+	add_to_array = { ITA_Verona_days_to_frame = 10 }
+	add_to_array = { ITA_Verona_days_to_frame = 8 }
+	add_to_array = { ITA_Verona_days_to_frame = 7 }
+	add_to_array = { ITA_Verona_days_to_frame = 5 }
+	add_to_array = { ITA_Verona_days_to_frame = 3 }
+	add_to_array = { ITA_Verona_days_to_frame = 2 }
+	add_to_array = { ITA_Verona_days_to_frame = 0 }
+}
+
+ITA_Verona_check_vars = {
+	clamp_variable = { var = ITA_Verona_Ciano_Percent min = 0 max = 100 }
+	clamp_variable = { var = ITA_Verona_Fascist_Opposition_Percent min = 0 max = 100 }
+	clamp_variable = { var = ITA_Verona_outside_pressure min = 0 max = 100 }
+
+	set_temp_variable = { 100_check = ITA_Verona_Ciano_Percent }
+	add_to_temp_variable = { 100_check = ITA_Verona_Fascist_Opposition_Percent }
+	if = {
+		limit = {
+			NOT = {
+				check_variable = { 100_check = 100 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable = { 100_check < 100 }
+			}
+			set_temp_variable = { loops = 100 }
+			subtract_from_temp_variable = { loops = 100_check }
+		}
+		else = {
+			set_temp_variable = { loops = 100_check }
+			subtract_from_temp_variable = { loops = 100 }
+		}
+		for_loop_effect = {
+			start = 0
+			end = loops
+
+			random_list = {
+				50 = {
+					add_to_variable = { ITA_Verona_Ciano_Percent = 1 }
+				}
+				50 = {
+					add_to_variable = { ITA_Verona_Fascist_Opposition_Percent = 1 }
+				}
+			}
+		}
+	}
+
+	set_variable = { ITA_Verona_win_margin = 50 }
+	set_temp_variable = { add_to_margin = ITA_Verona_outside_pressure }
+	divide_temp_variable = { add_to_margin = 10 }
+	add_to_variable = { ITA_Verona_win_margin = add_to_margin }
+}
+
+ITA_Verona_get_winner = {
+	set_country_flag = ITA_Verona_Congress_Over
+	if = {
+		limit = {
+			check_variable = { ITA_Verona_Ciano_Percent > ITA_Verona_win_margin }
+		}
+		country_event = {
+			id = ITA_verona.50
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = { ITA_Verona_Fascist_Opposition_Percent > ITA_Verona_win_margin }
+		}
+		country_event = {
+			id = ITA_verona.51
+		}
+	}
+	else = {
+		country_event = {
+			id = ITA_verona.52
+		}
+	}
+}
+
+ITA_Verona_get_next_ciano_move = {
+	hidden_effect = {
+		#wait a couple of days
+		country_event = {
+			id = ITA_verona.101
+			days = 1
+			random = 48
+		}
+	}
+}
+
+ITA_Verona_get_next_ciano_move_2 = {
+	if = {
+		limit = {
+			check_variable = {
+				ITA_Verona_outside_pressure > 40
+			}
+			set_temp_variable = { decider = random }
+			check_variable = {
+				decider > 0.75
+			}
+		}
+		
+		activate_mission = ITA_mission_send_in_the_blackshirts_ciano
+	}
+	else = {
+		random_list = {
+			1 = {
+				activate_mission = ITA_mission_bribe_minor_opposition_gerarchi
+			}
+			1 = {
+				activate_mission = ITA_mission_use_royal_palace_contacts
+			}
+			1 = {
+				activate_mission = ITA_mission_promise_everything_you_can
+			}
+			1 = {
+				activate_mission = ITA_mission_send_in_the_police
+			}
+			1 = {
+				activate_mission = ITA_mission_appeal_to_the_loyal_citizens
+			}
+		}
+	}
+}
+
+ITA_Verona_get_next_fascist_move = {
+	hidden_effect = {
+		#wait a couple of days
+		country_event = {
+			id = ITA_verona.102
+			days = 1
+			random = 48
+		}
+	}
+}
+
+ITA_Verona_get_next_fascist_move_2 = {
+	random_list = {
+		1 = {
+			activate_mission = ITA_mission_find_the_weak_links
+		}
+		1 = {
+			activate_mission = ITA_mission_use_regia_marina_contacts
+		}
+		1 = {
+			activate_mission = ITA_mission_open_threats
+		}
+		1 = {
+			activate_mission = ITA_mission_send_in_the_blackshirts
+		}
+		1 = {
+			activate_mission = ITA_mission_appeal_to_the_hardliners
+		}
+		1 = {
+			activate_mission = ITA_mission_beat_them_harder
+		}
+	}
+}
+
+ITA_Verona_get_next_outside_move = {
+	hidden_effect = {
+		#wait a couple of days
+		country_event = {
+			id = ITA_verona.103
+			days = 1
+			random = 48
+		}
+	}
+}
+
+ITA_Verona_get_next_outside_move_2 = {
+	if = {
+		limit = {
+			check_variable = {
+				ITA_Verona_outside_pressure > 75
+			}
+			set_temp_variable = { decider = random }
+			check_variable = {
+				decider > 0.5
+			}
+			check_variable = {
+				ITA_Verona_stormed_verona_chosen = 0
+			}
+		}
+		
+		set_variable = { ITA_Verona_stormed_verona_chosen = 1 }
+		activate_mission = ITA_mission_storm_verona
+	}
+	else = {
+		random_list = {
+			1 = {
+				activate_mission = ITA_mission_hold_peaceful_protests
+			}
+			1 = {
+				activate_mission = ITA_mission_our_friends_in_russia
+			}
+			1 = {
+				activate_mission = ITA_mission_proletarians_of_italy_unite
+			}
+			1 = {
+				activate_mission = ITA_mission_confront_the_police
+			}
+			1 = {
+				activate_mission = ITA_mission_form_the_gruppi_di_difesa_proletaria
+			}
+			1 = {
+				activate_mission = ITA_mission_reduce_the_tension
+			}
+		}
+	}
+}
+
+
+
+### Increase Ciano 
+
+ITA_increase_ciano_verona_1 = {
+	add_to_variable = { ITA_Verona_Ciano_Percent = 1 }
+	subtract_from_variable = { ITA_Verona_Fascist_Opposition_Percent = 1 }
+	custom_effect_tooltip = ITA_verona_ciano_increase_1.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_ciano_verona_2 = {
+	add_to_variable = { ITA_Verona_Ciano_Percent = 2 }
+	subtract_from_variable = { ITA_Verona_Fascist_Opposition_Percent = 2 }
+	custom_effect_tooltip = ITA_verona_ciano_increase_2.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_ciano_verona_3 = {
+	add_to_variable = { ITA_Verona_Ciano_Percent = 3 }
+	subtract_from_variable = { ITA_Verona_Fascist_Opposition_Percent = 3 }
+	custom_effect_tooltip = ITA_verona_ciano_increase_3.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_ciano_verona_4 = {
+	add_to_variable = { ITA_Verona_Ciano_Percent = 4 }
+	subtract_from_variable = { ITA_Verona_Fascist_Opposition_Percent = 4 }
+	custom_effect_tooltip = ITA_verona_ciano_increase_4.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_ciano_verona_5 = {
+	add_to_variable = { ITA_Verona_Ciano_Percent = 5 }
+	subtract_from_variable = { ITA_Verona_Fascist_Opposition_Percent = 5 }
+	custom_effect_tooltip = ITA_verona_ciano_increase_5.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_ciano_verona_6 = {
+	add_to_variable = { ITA_Verona_Ciano_Percent = 6 }
+	subtract_from_variable = { ITA_Verona_Fascist_Opposition_Percent = 6 }
+	custom_effect_tooltip = ITA_verona_ciano_increase_6.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_ciano_verona_7 = {
+	add_to_variable = { ITA_Verona_Ciano_Percent = 7 }
+	subtract_from_variable = { ITA_Verona_Fascist_Opposition_Percent = 7 }
+	custom_effect_tooltip = ITA_verona_ciano_increase_7.tt
+	ITA_Verona_check_vars = yes
+}
+
+### Decrease Ciano
+
+ITA_decrease_ciano_verona_1 = {
+	subtract_from_variable = { ITA_Verona_Ciano_Percent = 1 }
+	add_to_variable = { ITA_Verona_Fascist_Opposition_Percent = 1 }
+	custom_effect_tooltip = ITA_verona_ciano_decrease_1.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_ciano_verona_2 = {
+	subtract_from_variable = { ITA_Verona_Ciano_Percent = 2 }
+	add_to_variable = { ITA_Verona_Fascist_Opposition_Percent = 2 }
+	custom_effect_tooltip = ITA_verona_ciano_decrease_2.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_ciano_verona_3 = {
+	subtract_from_variable = { ITA_Verona_Ciano_Percent = 3 }
+	add_to_variable = { ITA_Verona_Fascist_Opposition_Percent = 3 }
+	custom_effect_tooltip = ITA_verona_ciano_decrease_3.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_ciano_verona_4 = {
+	subtract_from_variable = { ITA_Verona_Ciano_Percent = 4 }
+	add_to_variable = { ITA_Verona_Fascist_Opposition_Percent = 4 }
+	custom_effect_tooltip = ITA_verona_ciano_decrease_4.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_ciano_verona_5 = {
+	subtract_from_variable = { ITA_Verona_Ciano_Percent = 5 }
+	add_to_variable = { ITA_Verona_Fascist_Opposition_Percent = 5 }
+	custom_effect_tooltip = ITA_verona_ciano_decrease_5.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_ciano_verona_20 = {
+	subtract_from_variable = { ITA_Verona_Ciano_Percent = 20 }
+	add_to_variable = { ITA_Verona_Fascist_Opposition_Percent = 20 }
+	custom_effect_tooltip = ITA_verona_ciano_decrease_20.tt
+	ITA_Verona_check_vars = yes
+}
+
+### Increase Fascist
+ITA_increase_fascist_verona_2 = {
+	add_to_variable = { ITA_Verona_Fascist_Opposition_Percent = 2 }
+	subtract_from_variable = { ITA_Verona_Ciano_Percent = 2 }
+	custom_effect_tooltip = ITA_verona_fascist_increase_2.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_fascist_verona_3 = {
+	add_to_variable = { ITA_Verona_Fascist_Opposition_Percent = 3 }
+	subtract_from_variable = { ITA_Verona_Ciano_Percent = 3 }
+	custom_effect_tooltip = ITA_verona_fascist_increase_3.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_fascist_verona_4 = {
+	add_to_variable = { ITA_Verona_Fascist_Opposition_Percent = 4 }
+	subtract_from_variable = { ITA_Verona_Ciano_Percent = 4 }
+	custom_effect_tooltip = ITA_verona_fascist_increase_4.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_fascist_verona_5 = {
+	add_to_variable = { ITA_Verona_Fascist_Opposition_Percent = 5 }
+	subtract_from_variable = { ITA_Verona_Ciano_Percent = 5 }
+	custom_effect_tooltip = ITA_verona_fascist_increase_5.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_fascist_verona_6 = {
+	add_to_variable = { ITA_Verona_Fascist_Opposition_Percent = 6 }
+	subtract_from_variable = { ITA_Verona_Ciano_Percent = 6 }
+	custom_effect_tooltip = ITA_verona_fascist_increase_6.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_fascist_verona_8 = {
+	add_to_variable = { ITA_Verona_Fascist_Opposition_Percent = 8 }
+	subtract_from_variable = { ITA_Verona_Ciano_Percent = 8 }
+	custom_effect_tooltip = ITA_verona_fascist_increase_8.tt
+	ITA_Verona_check_vars = yes
+}
+
+### Decrease Fascist
+
+ITA_decrease_fascist_verona_1 = {
+	subtract_from_variable = { ITA_Verona_Fascist_Opposition_Percent = 1 }
+	add_to_variable = { ITA_Verona_Ciano_Percent = 1 }
+	custom_effect_tooltip = ITA_verona_fascist_decrease_1.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_fascist_verona_2 = {
+	subtract_from_variable = { ITA_Verona_Fascist_Opposition_Percent = 2 }
+	add_to_variable = { ITA_Verona_Ciano_Percent = 2 }
+	custom_effect_tooltip = ITA_verona_fascist_decrease_2.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_fascist_verona_3 = {
+	subtract_from_variable = { ITA_Verona_Fascist_Opposition_Percent = 3 }
+	add_to_variable = { ITA_Verona_Ciano_Percent = 3 }
+	custom_effect_tooltip = ITA_verona_fascist_decrease_3.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_fascist_verona_4 = {
+	subtract_from_variable = { ITA_Verona_Fascist_Opposition_Percent = 4 }
+	add_to_variable = { ITA_Verona_Ciano_Percent = 4 }
+	custom_effect_tooltip = ITA_verona_fascist_decrease_4.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_fascist_verona_5 = {
+	subtract_from_variable = { ITA_Verona_Fascist_Opposition_Percent = 5 }
+	add_to_variable = { ITA_Verona_Ciano_Percent = 5 }
+	custom_effect_tooltip = ITA_verona_fascist_decrease_5.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_fascist_verona_7 = {
+	subtract_from_variable = { ITA_Verona_Fascist_Opposition_Percent = 7 }
+	add_to_variable = { ITA_Verona_Ciano_Percent = 7 }
+	custom_effect_tooltip = ITA_verona_fascist_decrease_7.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_fascist_verona_10 = {
+	subtract_from_variable = { ITA_Verona_Fascist_Opposition_Percent = 10 }
+	add_to_variable = { ITA_Verona_Ciano_Percent = 10 }
+	custom_effect_tooltip = ITA_verona_fascist_decrease_10.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_fascist_verona_15 = {
+	subtract_from_variable = { ITA_Verona_Fascist_Opposition_Percent = 15 }
+	add_to_variable = { ITA_Verona_Ciano_Percent = 15 }
+	custom_effect_tooltip = ITA_verona_fascist_decrease_15.tt
+	ITA_Verona_check_vars = yes
+}
+
+
+### Increase outside pressure
+
+ITA_increase_outside_pressure_verona_1 = {
+	add_to_variable = { ITA_Verona_outside_pressure = 1 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_increase_1.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_outside_pressure_verona_2 = {
+	add_to_variable = { ITA_Verona_outside_pressure = 2 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_increase_2.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_outside_pressure_verona_3 = {
+	add_to_variable = { ITA_Verona_outside_pressure = 3 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_increase_3.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_outside_pressure_verona_4 = {
+	add_to_variable = { ITA_Verona_outside_pressure = 4 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_increase_4.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_outside_pressure_verona_6 = {
+	add_to_variable = { ITA_Verona_outside_pressure = 6 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_increase_6.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_outside_pressure_verona_7 = {
+	add_to_variable = { ITA_Verona_outside_pressure = 7 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_increase_7.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_outside_pressure_verona_8 = {
+	add_to_variable = { ITA_Verona_outside_pressure = 8 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_increase_8.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_outside_pressure_verona_12 = {
+	add_to_variable = { ITA_Verona_outside_pressure = 12 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_increase_12.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_increase_outside_pressure_verona_15 = {
+	add_to_variable = { ITA_Verona_outside_pressure = 15 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_increase_15.tt
+	ITA_Verona_check_vars = yes
+}
+
+### Decrease outside pressure
+
+ITA_decrease_outside_pressure_verona_1 = {
+	subtract_from_variable = { ITA_Verona_outside_pressure = 1 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_decrease_1.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_outside_pressure_verona_2 = {
+	subtract_from_variable = { ITA_Verona_outside_pressure = 2 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_decrease_2.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_outside_pressure_verona_3 = {
+	subtract_from_variable = { ITA_Verona_outside_pressure = 3 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_decrease_3.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_outside_pressure_verona_4 = {
+	subtract_from_variable = { ITA_Verona_outside_pressure = 4 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_decrease_4.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_outside_pressure_verona_5 = {
+	subtract_from_variable = { ITA_Verona_outside_pressure = 5 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_decrease_5.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_outside_pressure_verona_6 = {
+	subtract_from_variable = { ITA_Verona_outside_pressure = 6 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_decrease_6.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_outside_pressure_verona_10 = {
+	subtract_from_variable = { ITA_Verona_outside_pressure = 10 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_decrease_10.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_decrease_outside_pressure_verona_12 = {
+	subtract_from_variable = { ITA_Verona_outside_pressure = 12 }
+	custom_effect_tooltip = ITA_verona_outside_pressure_decrease_12.tt
+	ITA_Verona_check_vars = yes
+}
+
+ITA_PCW_winner_checker = {
+	log = "[GetDateText]: [Root.GetName]: scripted_effects ITA_PCW_winner_checker"
+	if = { #IME/JOR victory 
+		limit = {
+			AND = {
+				country_exists = IME
+				NOT = {
+					country_exists = ISR
+				}
+				NOT = {
+					country_exists = PAL
+				}	
+			}
+		}
+		IME = {
+			country_event = { id = IMEskeleton.9 days = 6 }
+		}
+		clr_global_flag = Palestinian_Civil_War
+	}
+	else_if = { #PAL Victory
+		limit = {
+			AND = {
+				country_exists = PAL
+				NOT = {
+					country_exists = IME
+				}
+				NOT = {
+					country_exists = ISR
+				}	
+			}
+		}
+		PAL = {
+			country_event = { id = IMEskeleton.10 days = 3 }
+		}
+		clr_global_flag = Palestinian_Civil_War
+	}
+	else_if = { #ISR Victory
+		limit = {
+			AND = {
+				country_exists = ISR
+				NOT = {
+					country_exists = IME
+				}
+				NOT = {
+					country_exists = PAL
+				}	
+			}
+		}
+		ISR = {
+			country_event = { id = IMEskeleton.11 days = 3 }
+		}
+		clr_global_flag = Palestinian_Civil_War
+	}
+}
+
+ITA_scrap_all_battleships_and_carriers = {
+	custom_effect_tooltip = ITA_scrap_boats_tooltip
+
+	set_temp_variable = { destroyed_ships = num_ships_with_type@carrier }
+	add_to_temp_variable = { destroyed_ships = num_ships_with_type@battleship }
+	
+	#per ship:
+	#20 steel
+	#8 chromium
+	#50 mil
+	set_temp_variable = { steel_to_add = 20 }
+	set_temp_variable = { chrom_to_add = 8 }
+	set_temp_variable = { money_to_add = 0.05 }
+	multiply_temp_variable = { steel_to_add = destroyed_ships }
+	multiply_temp_variable = { chrom_to_add = destroyed_ships }
+	multiply_temp_variable = { money_to_add = destroyed_ships }
+
+	# stockpile_steel_change and stockpile_chromium_change are defined nowhere, so
+	# the hulls were being cut up for nothing. The metal goes to the capital.
+	capital_scope = {
+		add_resource = {
+			type = steel
+			amount = steel_to_add
+		}
+		add_resource = {
+			type = chromium
+			amount = chrom_to_add
+		}
+	}
+	custom_effect_tooltip = ITA_scrap_boats_resources_tooltip
+	set_temp_variable = { money_reserves_temp = money_to_add }
+	econ_money_reserves_change_raw_money = yes
+	
+	
+	custom_effect_tooltip = ITA_scrap_boats_end_tooltip
+	hidden_effect = {
+		destroy_ships = {
+			type = ship_hull_carrier
+			count = all
+		}
+		destroy_ships = {
+			type = ship_hull_heavy
+			count = all
+		}
+	}
+}

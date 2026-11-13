@@ -1,0 +1,412 @@
+#################
+##TERROR BENGAL##
+#################
+
+add_namespace = ibg
+
+country_event = {
+	id = ibg.1 #Intro to Islamist Bengal
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.1"}
+ 	title = ibg.1.t
+ 	desc = ibg.1.desc
+ 	picture = GFX_report_event_bengal_ina
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+ 	option = {
+ 		name = ibg.1.a
+		custom_effect_tooltip = IBG_1_a_tooltip
+		hidden_effect = {
+			#country_event = {id = ibg.2} add event tree here if want
+		}
+ 	}
+}
+
+country_event = { #US Arms Choice
+	id = ibg.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.2"}
+	title = ibg.2.t
+	desc = ibg.2.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Guns please
+		name = ibg.2.a
+		custom_effect_tooltip = IBG_2_a_tooltip
+		add_equipment_to_stockpile = {
+			type = infantry_equipment_3
+			amount = 2000
+			producer = USA
+		}
+	}
+	option = { #Guns and Equipment Please
+		name = ibg.2.b
+		custom_effect_tooltip = IBG_2_b_tooltip
+		add_equipment_to_stockpile = {
+			type = infantry_equipment_3
+			amount = 1000
+			producer = USA
+		}
+		add_equipment_to_stockpile = {
+			type = support_equipment_1
+			amount = 500
+			producer = USA
+		}
+	}
+}
+
+country_event = { #Saudi main wave event
+	id = ibg.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.3"}
+	title = ibg.3.t
+	desc = ibg.3.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #ok
+		name = ibg.3.a
+		custom_effect_tooltip = IBG_3_a_tooltip
+		add_equipment_to_stockpile = {
+			type = infantry_equipment_2
+			amount = 4000
+			producer = SAU
+		}
+	}
+}
+
+country_event = { #Choice for what kind of army you want
+	id = ibg.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.4"}
+	title = ibg.4.t
+	desc = ibg.4.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Professional Army
+		name = ibg.4.a
+		custom_effect_tooltip = IBG_4_a_tooltip
+		add_ideas = IBG_Bengal_Liberation_Army
+	}
+	option = { #Guns and Equipment Please
+		name = ibg.4.b
+		custom_effect_tooltip = IBG_4_b_tooltip
+		add_ideas = IBG_Revolutionary_Battalions
+	}
+}
+
+country_event = { #Army chaos event
+	id = ibg.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.5"}
+	title = ibg.5.t
+	desc = ibg.5.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #oh shit
+		name = ibg.5.a
+		custom_effect_tooltip = IBG_5_a_tooltip
+		add_ideas = IBG_Disobedient_Militas
+	}
+}
+
+country_event = { #Improve relations with our benefactors
+	id = ibg.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.6"}
+	title = ibg.6.t
+	desc = ibg.6.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #mmmyeeeesssoverlordsmmmm
+		name = ibg.6.a
+		custom_effect_tooltip = IBG_6_a_tooltip
+		add_opinion_modifier = { target = USA modifier = medium_increase }
+		add_opinion_modifier = { target = SAU modifier = medium_increase }
+	}
+}
+
+country_event = { #Christians accept proposal
+	id = ibg.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.7"}
+	title = ibg.7.t
+	desc = ibg.7.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #mmmyeeeesssoverlordsmmmm
+		name = ibg.7.a
+		custom_effect_tooltip = IBG_7_a_tooltip
+		add_stability = 0.1
+		add_political_power = 100
+	}
+}
+
+country_event = { #Christians deny proposal
+	id = ibg.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.8"}
+	title = ibg.8.t
+	desc = ibg.8.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #mmmyeeeesssoverlordsmmmm
+		name = ibg.8.a
+		custom_effect_tooltip = IBG_8_a_tooltip
+		add_stability = -0.05
+		add_political_power = -50
+	}
+}
+country_event = { #Sharia implementation
+	id = ibg.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.9"}
+	title = ibg.9.t
+	desc = ibg.9.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Very Good Idea of reinstating slavery proposed by the more ISIS-y of society (enslaving people from plundered lands I guess)
+		name = ibg.9.a
+		custom_effect_tooltip = IBG_9_a_tooltip
+		swap_ideas = {
+			remove_idea = tno_slavery_outlawed
+			add_idea = tno_slavery_corvee
+		}
+		add_political_power = -200
+		add_stability = -0.25
+		country_event = {days = 1 id = ibg.11}
+	}
+	option = { #Religious Schooling focus (Religious *public* schooling)
+		name = ibg.9.b
+		custom_effect_tooltip = IBG_9_b_tooltip
+		country_event = {id = ibg.12 days = 1}
+	}
+	option = { #implement religious police (policing muslims only)
+		name = ibg.9.c
+		custom_effect_tooltip = IBG_9_b_tooltip
+		swap_ideas = {
+			remove_idea = tno_security_police
+			add_idea = tno_security_police
+		}
+		country_event = {days = 1 id = ibg.13}
+	}
+	option = { #police the christians too
+		name = ibg.9.d
+		swap_ideas = {
+			remove_idea = tno_security_police
+			add_idea = tno_security_police
+		}
+		swap_ideas = {
+			remove_idea = tno_minorities_equal_rights
+			add_idea = tno_minorities_segregation
+		}
+		country_event = {days = 1 id = ibg.10}
+	}
+}
+
+country_event = { #Christians hate you and you crack down
+	id = ibg.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.10"}
+	title = ibg.10.t
+	desc = ibg.10.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #christians organize resistance
+		name = ibg.10.a
+		custom_effect_tooltip = IBG_10_a_tooltip
+		add_timed_idea = {
+			idea = IBG_Disobedient_Minorities
+			days = 90
+		}
+	}
+}
+
+country_event = { #Everyone hates you
+	id = ibg.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.11"}
+	title = ibg.11.t
+	desc = ibg.11.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Everyone hates you (seriously bringing back slavery bad)
+		name = ibg.11.a
+		custom_effect_tooltip = IBG_11_a_tooltip
+		add_timed_idea = {
+			idea = IBG_Disobedient_Populace
+			days = 180
+		}
+	}
+}
+	
+country_event = { #Flavor religious schooling event
+	id = ibg.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.12"}
+	title = ibg.12.t
+	desc = ibg.12.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Everyone hates you (seriously bringing back slavery bad)
+		name = ibg.12.a
+		custom_effect_tooltip = IBG_12_a_tooltip
+		swap_ideas = {
+			remove_idea = tno_education_subsidised_higher_education
+			add_idea = tno_education_public_higher_education
+		}
+	}
+}
+
+country_event = { #Flavor religious schooling event
+	id = ibg.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.13"}
+	title = ibg.13.t
+	desc = ibg.13.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Event about muslims being arrested for something or non-halal places/shops closing down
+		name = ibg.13.a
+		custom_effect_tooltip = IBG_13_a_tooltip
+		swap_ideas = {
+			remove_idea = tno_security_police
+			add_idea = tno_security_police
+		}
+	}
+}
+
+country_event = { #exhaustion
+	id = ibg.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.14"}
+	title = ibg.14.t
+	desc = ibg.14.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Event about people being worked to death
+		name = ibg.14.a
+		custom_effect_tooltip = IBG_14_a_tooltip
+		add_equipment_to_stockpile = {
+			type = infantry_equipment_1
+			amount = 2000
+			producer = IBG
+		}
+		remove_ideas = {
+			IBG_Arms_Manufacturing_2
+		}
+	}
+}
+
+country_event = { #home factories flavor event
+	id = ibg.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.15"}
+	title = ibg.15.t
+	desc = ibg.15.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Event about people being worked to death
+		name = ibg.15.a
+		custom_effect_tooltip = IBG_15_a_tooltip
+	}
+}
+
+country_event = { #officers planning the attack
+	id = ibg.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.16"}
+	title = ibg.16.t
+	desc = ibg.16.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #ok
+		name = ibg.16.a
+		custom_effect_tooltip = IBG_16_a_tooltip
+		country_event = { id = ibg.17 days = 30}
+	}
+}
+
+country_event = { #individual pep talk for the suicide bombers (please avoid using the overused virgins thing, but if you can't help it it's ok too)
+	id = ibg.17
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.17"}
+	title = ibg.17.t
+	desc = ibg.17.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = ibg.17.a
+		custom_effect_tooltip = IBG_17_a_tooltip
+		country_event = { id = ibg.18 days = 30}
+	}
+}
+
+country_event = { #the day of the bombing, targeting supply depots, barracks and establishments (bars and shit) that's popular with soldiers
+	id = ibg.18
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.18"}
+	title = ibg.18.t
+	desc = ibg.18.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #Fuck you too imperialist dogshit (ok don't put that in the option please is only joke)
+		name = ibg.18.a
+		custom_effect_tooltip = IBG_18_a_tooltip
+		BEN = {
+			add_stability = -0.1
+		}
+		#Population don't want to go anywhere near soldiers/pmc now and soldiers are hyperparanoid
+		#want to also implement infrastructure damage but that's tbd
+	}
+}
+
+country_event = { #Maududi's proposal to christians (flavor)
+	id = ibg.19
+	immediate = {log = "[GetDateText]: [Root.GetName]: event ibg.19"}
+	title = ibg.19.t
+	desc = ibg.19.desc
+	#picture = GFX_
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #mmmyeeeesssoverlordsmmmm
+		name = ibg.19.a
+		custom_effect_tooltip = IBG_19_a_tooltip
+	}
+}

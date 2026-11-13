@@ -1,0 +1,1953 @@
+### Greece and Turkey (Mediterranean branch) start under the _WIP rule, Phase C.
+### Called only from the WIP branch of common/on_actions/TNO_Italy_med_on_actions.txt, after
+### ITA_MED_WIP_PATHS is set. Built from the branch's history files by tools/med_import/phase_c_startup.py;
+### master's history files stay the legacy baseline and are not touched.
+
+GRE_med_wip_startup = {
+	log = "[GetDateText]: [Root.GetName]: GRE_med_wip_startup"
+	set_country_flag = GRE_med_rework_active
+
+	### focus tree
+	load_focus_tree = GRE_Initial_Tree
+	mark_focus_tree_layout_dirty = yes
+
+	### ideas that differ from the legacy start (master's own economy ideas kept where the branch sets none)
+	remove_ideas = {
+		GRE_Georgios_Themelis_for
+		GRE_Luigi_Mascherpa_hog
+		GRE_Nikolaos_Bourantas_eco
+		GRE_Xenophon_Giosmas_sec
+		GRE_dysfunctional_government
+		GRE_elusive_resistance
+		GRE_security_battalions
+		GRE_the_cyprus_situation
+		GRE_triumvirate_garrisons
+	}
+	add_ideas = {
+		tno_trade_laws_limited_exports
+		tno_income_taxation_elite_tax_exemptions
+		tno_child_labor_illegal
+		tno_safety_minimal_regulations
+		tno_lgbt_rights_lgbt_outlawed
+		tno_gender_rights_traditional_roles
+		tno_political_parties_one_party_state
+		tno_religious_rights_state_religion
+		tno_trade_unions_illegal
+		tno_slavery_outlawed
+		tno_vote_franchise_no_voting
+		tno_women_banned
+		tno_draft_exemptions_none
+		tno_research_facilities_outdated
+		tno_agriculture_basic_mechanized
+		tno_industrial_expertise_nascent
+		GRE_katochiko_kratos
+		GRE_scars_of_the_great_famine
+		GRE_elusive_opposition
+		GRE_Antonio_Gandin_hog
+		GRE_Phaedon_Gizikis_sec
+		GRE_Ioannis_Voulpiotis_eco
+		GRE_Antonis_Livieratos_for
+		#STRIP(dead_idea) GRE_Phaedon_Gizikis_high_command
+		#STRIP(dead_idea) GRE_Georgios_Papadopoulos_army_chief
+		tno_immigration_open_immigration
+		tno_public_meetings_regulated
+		tno_press_rights_censored_press
+		tno_refugees_vetted_entry
+		tno_conscription_two_year_draft
+		tno_military_supervision_military_policing
+		tno_training_basic_training
+		tno_racial_integration_segregated_regiments
+		tno_health_care_no_health_care
+		tno_pollution_few_regulations
+		tno_education_elite_only
+		tno_penal_system_penal_labor
+		tno_minorities_segregation
+		tno_security_police
+		tno_minimum_wage_trinket_minimum_wage
+		tno_max_workhours_12_hour_work_day
+		tno_pensions_trinket_pensions
+		tno_unemployment_trinket_subsidies
+		tno_army_professionalism_disgruntled_veterans
+		tno_industrial_equipment_power_tools
+		tno_academic_base_basic_literacy
+	}
+
+	### the branch's country setup
+	set_cosmetic_tag = GRE_med
+	set_stability = 0.5
+	set_war_support = 0.0
+	set_variable = {
+		var = GRE_ITA_Influence
+		value = 4
+	}
+	GRE_reset_BOG = yes
+	add_dynamic_modifier = { 
+		modifier = GRE_BOG_ergates_effect
+	}
+	add_dynamic_modifier = { 
+		modifier = GRE_BOG_dianoomenoi_effect
+	}
+	add_dynamic_modifier = { 
+		modifier = GRE_BOG_elit_effect
+	}
+	add_dynamic_modifier = { 
+		modifier = GRE_BOG_stratos_effect
+	}
+	add_dynamic_modifier = { 
+		modifier = GRE_BOG_ekklisia_effect
+	}
+	add_dynamic_modifier = { 
+		modifier = GRE_BOG_grafeiokrateia_effect
+	}
+	set_politics = {
+		ruling_party = fascism
+		last_election = "1934.3.26"
+		election_frequency = 60
+		elections_allowed = no
+	}
+	set_popularities = {
+		communist = 8
+		despotism = 20
+		socialist = 7
+		social_democrat = 6
+		social_liberal = 7
+		social_conservative = 9
+		authoritarian_democrat = 8
+		fascism = 26
+		national_socialism = 9
+		ultranational_socialism = 0
+	
+	}
+
+	### names: med's own party names (renamed keys, decision 3); country names come with GRE_med
+	set_party_name = { ideology = authoritarian_democrat long_name = GRE_med_authoritarian_democrat_party_long name = GRE_med_authoritarian_democrat_party }
+	set_party_name = { ideology = communist long_name = GRE_med_communist_party_long name = GRE_med_communist_party }
+	set_party_name = { ideology = despotism long_name = GRE_med_despotism_party_long name = GRE_med_despotism_party }
+	set_party_name = { ideology = national_socialism long_name = GRE_med_national_socialism_party_long name = GRE_med_national_socialism_party }
+	set_party_name = { ideology = social_conservative long_name = GRE_med_social_conservative_party_long name = GRE_med_social_conservative_party }
+	set_party_name = { ideology = social_democrat long_name = GRE_med_social_democrat_party_long name = GRE_med_social_democrat_party }
+	set_party_name = { ideology = social_liberal long_name = GRE_med_social_liberal_party_long name = GRE_med_social_liberal_party }
+	set_party_name = { ideology = socialist long_name = GRE_med_socialist_party_long name = GRE_med_socialist_party }
+
+	### leaders and commanders (converted characters, TNO_Greece_Turkey_med_characters_scripted_effects.txt)
+	GRE_med_create_Phaedon_Gizikis = yes
+	GRE_med_promote_Dimitrios_Psarros = yes
+	GRE_med_promote_Komninos_Pyromaglou = yes
+	GRE_med_promote_Panagiotis_Kanellopoulos = yes
+	GRE_med_promote_Georgios_Papadopoulos = yes
+	GRE_med_create_Georgios_Papadopoulos = yes
+	GRE_med_promote_Aris_Velouchiotis = yes
+	GRE_med_promote_Ioannis_Ladas = yes
+	GRE_med_promote_Konstantinos_Karamanlis = yes
+	GRE_med_promote_Andreas_Papandreou = yes
+	GRE_med_promote_Charilaos_Florakis = yes
+	GRE_med_promote_Xenofon_Giosmas = yes
+	GRE_med_create_Xenofon_Giosmas = yes
+	GRE_med_promote_Georgios_Zoitakis = yes
+	GRE_med_create_Takis_Makedonas = yes
+	GRE_med_create_Grigoris_Sourlas = yes
+	GRE_med_create_Antonios_Dagoulas = yes
+	GRE_med_create_Georgios_Poulos = yes
+	GRE_med_create_Nikolaos_Bourantas = yes
+	GRE_med_create_Panos_Katsareas = yes
+	GRE_med_promote_Georgios_Themelis = yes
+}
+
+TUR_med_wip_startup = {
+	log = "[GetDateText]: [Root.GetName]: TUR_med_wip_startup"
+	set_country_flag = TUR_med_rework_active
+
+	### the start map: Syria to the Syrian National State, Mosul and Kirkuk to BKU, Tripoli to IME,
+	### Poti to Caucasia; the branch's cores with them. The new tags' history files hold their leaders.
+	SNS = {
+		transfer_state = 554
+		transfer_state = 680
+		transfer_state = 1371
+		transfer_state = 1372
+		transfer_state = 782
+		load_oob = SNS_1962
+	}
+	680 = { add_core_of = SNS }
+	1371 = { add_core_of = SNS }
+	1372 = { add_core_of = SNS }
+	782 = { add_core_of = SNS remove_core_of = IME }
+	BKU = {
+		transfer_state = 781
+		transfer_state = 1334
+		load_oob = BKU_1962
+	}
+	781 = { add_core_of = BKU }
+	1334 = { add_core_of = BKU }
+	# Tripoli goes to Italy's Middle East, not to a one-state Lebanon (user, 2026-09-25): on the branch
+	# Lebanon is an Italian client holding both Lebanese states; master has no Lebanon at start.
+	IME = { transfer_state = 1240 }
+	CAU = { transfer_state = 783 }
+	783 = { add_core_of = CAU }
+	1243 = { add_core_of = KUR }
+	352 = { add_core_of = KUR }
+	1369 = { add_core_of = KUR }
+	# puppets, keeping the new tags' own politics (TNO_useful_scripted_effects.txt)
+	SNS = { save_party_popularities = yes get_current_government_type = yes }
+	BKU = { save_party_popularities = yes get_current_government_type = yes }
+	if = {
+		limit = { OR = { has_dlc = "Together for Victory" has_dlc = "Man the Guns" } }
+		set_autonomy = { target = SNS autonomy_state = autonomy_puppet }
+		set_autonomy = { target = BKU autonomy_state = autonomy_integrated_puppet }
+	}
+	else = { puppet = SNS puppet = BKU }
+	SNS = { apply_party_popularities = yes restore_previous_government_type = yes }
+	BKU = { apply_party_popularities = yes restore_previous_government_type = yes }
+
+	### focus tree
+	load_focus_tree = TNO_Turkey_intro1
+	mark_focus_tree_layout_dirty = yes
+
+	### ideas that differ from the legacy start (master's own economy ideas kept where the branch sets none)
+	remove_ideas = {
+		TUR_Cemal_Gursel_sec
+		TUR_Muzaffer_Ozdag_eco
+		TUR_Nejdet_Sancar_hog
+		TUR_Nihal_Atsiz_for
+		TUR_economic_depression_1
+		TUR_grey_wolves_terror
+		TUR_weakening_grip
+		tno_child_labor_restricted
+		tno_conscription_service_by_requirement
+		tno_gender_rights_traditional_roles
+		tno_health_care_private_health_care
+		tno_lgbt_rights_lgbt_outlawed
+		tno_max_workhours_14_hour_work_day
+		tno_minorities_segregation
+		tno_pensions_no_pensions
+		tno_political_parties_one_party_state
+		tno_press_rights_state_press_only
+		tno_refugees_banned
+		tno_religious_rights_state_religion
+		tno_trade_unions_illegal
+		tno_vote_franchise_no_voting
+		tno_women_banned
+	}
+	add_ideas = {
+		TUR_economic_stagnation
+		TUR_italo_turkish_tension
+		TUR_inspectorate_generals
+		TUR_Ismet_Inonu_hog
+		TUR_med_Cemal_Gursel_sec
+		TUR_Ferit_Melen_eco
+		TUR_Feridun_Cemal_for
+		tno_political_parties_multiparty_system
+		tno_religious_rights_secularism
+		tno_trade_unions_nonsocialist_allowed
+		tno_press_rights_censored_press
+		tno_vote_franchise_universal
+		tno_refugees_vetted_entry
+		tno_health_care_no_health_care
+		tno_lgbt_rights_lgbt_allowed
+		tno_gender_rights_women_in_the_workplace
+		tno_minorities_oppression
+		tno_conscription_two_year_draft
+		tno_women_military_assistance
+		tno_max_workhours_12_hour_work_day
+		tno_child_labor_illegal
+		tno_pensions_trinket_pensions
+		tno_army_professionalism_political_interference
+		tno_industrial_expertise_nascent
+		tno_industrial_equipment_factory_complexes
+		tno_agriculture_basic_mechanized
+		tno_research_facilities_basic
+		tno_academic_base_basic_literacy
+	}
+
+	### the branch's country setup
+	set_stability = 0.35
+	set_war_support = 0.05
+	set_research_slots = 3
+	if = {
+		limit = { has_dlc = "La Resistance" }
+		create_intelligence_agency = {
+			name = "Millî İstihbarat Teşkilatı"
+			icon = "GFX_intelligence_agency_logo_generic_1"
+		}
+	}
+	set_politics = {	
+		ruling_party = authoritarian_democrat
+		last_election = "1958.1.8"
+		election_frequency = 96
+		elections_allowed = no
+	}
+	set_popularities = {
+		communist = 0
+		socialist = 0
+		social_democrat = 3
+		social_liberal = 0
+		market_liberal = 23
+		social_conservative = 0
+		authoritarian_democrat = 74
+		despotism = 0
+		fascism = 0
+		national_socialism = 0
+		ultranational_socialism = 0
+	
+	}
+	add_equipment_to_stockpile = {
+		type = infantry_equipment_1
+		amount = 1000
+		producer = TUR
+	}
+	add_equipment_to_stockpile = {
+		type = infantry_equipment_2
+		amount = 250
+		producer = TUR
+	}
+	add_equipment_to_stockpile = {
+		type = support_equipment_1
+		amount = 75
+		producer = TUR
+	}
+	add_equipment_to_stockpile = {
+		type = artillery_equipment_2
+		amount = 10
+		producer = TUR
+	}
+	add_equipment_to_stockpile = {
+		type = artillery_equipment_3
+		amount = 20
+		producer = TUR
+	}
+	add_equipment_to_stockpile = {
+		type = motorized_equipment_1
+		amount = 60
+		producer = TUR
+	}
+	add_equipment_to_stockpile = {
+		type = anti_tank_equipment_0
+		amount = 150
+		producer = TUR
+	}
+	add_equipment_to_stockpile = {
+		type = MBT_equipment_1
+		amount = 10
+		producer = TUR
+	}
+	add_equipment_to_stockpile = {
+		type = MBT_equipment_2
+		amount = 15
+		producer = TUR
+	}
+	add_equipment_to_stockpile = {
+		type = cv_jet_fighter_equipment_1
+		amount = 20
+		producer = TUR
+	}
+	add_equipment_to_stockpile = {
+		type = fighter_equipment_1
+		amount = 60
+		producer = TUR
+	}
+	add_to_array = { TUR_GNA_Array_X = 0 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 12 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 24 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 37 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 49 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 61 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 73 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 85 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 98 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 110 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 122 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 1 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 13 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 25 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 38 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 50 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 62 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 75 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 3 }
+	add_to_array = { TUR_GNA_Array_Y = 198 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 87 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 15 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 99 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 27 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 40 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 112 }
+	add_to_array = { TUR_GNA_Array_Y = 212 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 52 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 64 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 124 }
+	add_to_array = { TUR_GNA_Array_Y = 212 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 5 }
+	add_to_array = { TUR_GNA_Array_Y = 186 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 17 }
+	add_to_array = { TUR_GNA_Array_Y = 186 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 77 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 30 }
+	add_to_array = { TUR_GNA_Array_Y = 186 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 89 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 42 }
+	add_to_array = { TUR_GNA_Array_Y = 186 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 55 }
+	add_to_array = { TUR_GNA_Array_Y = 187 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 102 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 8 }
+	add_to_array = { TUR_GNA_Array_Y = 173 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 20 }
+	add_to_array = { TUR_GNA_Array_Y = 174 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 68 }
+	add_to_array = { TUR_GNA_Array_Y = 187 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 115 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 33 }
+	add_to_array = { TUR_GNA_Array_Y = 174 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 80 }
+	add_to_array = { TUR_GNA_Array_Y = 187 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 46 }
+	add_to_array = { TUR_GNA_Array_Y = 174 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 12 }
+	add_to_array = { TUR_GNA_Array_Y = 161 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 127 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 93 }
+	add_to_array = { TUR_GNA_Array_Y = 187 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 59 }
+	add_to_array = { TUR_GNA_Array_Y = 174 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 24 }
+	add_to_array = { TUR_GNA_Array_Y = 162 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 37 }
+	add_to_array = { TUR_GNA_Array_Y = 162 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 72 }
+	add_to_array = { TUR_GNA_Array_Y = 175 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 106 }
+	add_to_array = { TUR_GNA_Array_Y = 187 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 50 }
+	add_to_array = { TUR_GNA_Array_Y = 162 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 16 }
+	add_to_array = { TUR_GNA_Array_Y = 149 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 85 }
+	add_to_array = { TUR_GNA_Array_Y = 175 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 29 }
+	add_to_array = { TUR_GNA_Array_Y = 150 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 119 }
+	add_to_array = { TUR_GNA_Array_Y = 187 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 63 }
+	add_to_array = { TUR_GNA_Array_Y = 163 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 42 }
+	add_to_array = { TUR_GNA_Array_Y = 150 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 98 }
+	add_to_array = { TUR_GNA_Array_Y = 175 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 76 }
+	add_to_array = { TUR_GNA_Array_Y = 163 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 22 }
+	add_to_array = { TUR_GNA_Array_Y = 137 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 132 }
+	add_to_array = { TUR_GNA_Array_Y = 188 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 55 }
+	add_to_array = { TUR_GNA_Array_Y = 151 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 34 }
+	add_to_array = { TUR_GNA_Array_Y = 139 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 111 }
+	add_to_array = { TUR_GNA_Array_Y = 176 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 90 }
+	add_to_array = { TUR_GNA_Array_Y = 163 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 69 }
+	add_to_array = { TUR_GNA_Array_Y = 151 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 48 }
+	add_to_array = { TUR_GNA_Array_Y = 139 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 27 }
+	add_to_array = { TUR_GNA_Array_Y = 125 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 125 }
+	add_to_array = { TUR_GNA_Array_Y = 176 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 103 }
+	add_to_array = { TUR_GNA_Array_Y = 164 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 82 }
+	add_to_array = { TUR_GNA_Array_Y = 152 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 61 }
+	add_to_array = { TUR_GNA_Array_Y = 140 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 40 }
+	add_to_array = { TUR_GNA_Array_Y = 127 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 54 }
+	add_to_array = { TUR_GNA_Array_Y = 128 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 75 }
+	add_to_array = { TUR_GNA_Array_Y = 140 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 34 }
+	add_to_array = { TUR_GNA_Array_Y = 114 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 96 }
+	add_to_array = { TUR_GNA_Array_Y = 152 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 117 }
+	add_to_array = { TUR_GNA_Array_Y = 165 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 138 }
+	add_to_array = { TUR_GNA_Array_Y = 177 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 47 }
+	add_to_array = { TUR_GNA_Array_Y = 117 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 68 }
+	add_to_array = { TUR_GNA_Array_Y = 129 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 89 }
+	add_to_array = { TUR_GNA_Array_Y = 141 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 110 }
+	add_to_array = { TUR_GNA_Array_Y = 153 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 61 }
+	add_to_array = { TUR_GNA_Array_Y = 117 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 41 }
+	add_to_array = { TUR_GNA_Array_Y = 103 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 131 }
+	add_to_array = { TUR_GNA_Array_Y = 165 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 82 }
+	add_to_array = { TUR_GNA_Array_Y = 130 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 54 }
+	add_to_array = { TUR_GNA_Array_Y = 106 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 103 }
+	add_to_array = { TUR_GNA_Array_Y = 142 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 75 }
+	add_to_array = { TUR_GNA_Array_Y = 118 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 124 }
+	add_to_array = { TUR_GNA_Array_Y = 154 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 96 }
+	add_to_array = { TUR_GNA_Array_Y = 131 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 49 }
+	add_to_array = { TUR_GNA_Array_Y = 93 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 68 }
+	add_to_array = { TUR_GNA_Array_Y = 107 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 146 }
+	add_to_array = { TUR_GNA_Array_Y = 167 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 118 }
+	add_to_array = { TUR_GNA_Array_Y = 143 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 90 }
+	add_to_array = { TUR_GNA_Array_Y = 120 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 62 }
+	add_to_array = { TUR_GNA_Array_Y = 96 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 83 }
+	add_to_array = { TUR_GNA_Array_Y = 109 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 111 }
+	add_to_array = { TUR_GNA_Array_Y = 132 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 139 }
+	add_to_array = { TUR_GNA_Array_Y = 156 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 57 }
+	add_to_array = { TUR_GNA_Array_Y = 83 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 76 }
+	add_to_array = { TUR_GNA_Array_Y = 98 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 104 }
+	add_to_array = { TUR_GNA_Array_Y = 121 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 70 }
+	add_to_array = { TUR_GNA_Array_Y = 87 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 133 }
+	add_to_array = { TUR_GNA_Array_Y = 145 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 98 }
+	add_to_array = { TUR_GNA_Array_Y = 110 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 126 }
+	add_to_array = { TUR_GNA_Array_Y = 134 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 92 }
+	add_to_array = { TUR_GNA_Array_Y = 99 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 66 }
+	add_to_array = { TUR_GNA_Array_Y = 73 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 85 }
+	add_to_array = { TUR_GNA_Array_Y = 88 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 120 }
+	add_to_array = { TUR_GNA_Array_Y = 123 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 154 }
+	add_to_array = { TUR_GNA_Array_Y = 157 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 79 }
+	add_to_array = { TUR_GNA_Array_Y = 78 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 113 }
+	add_to_array = { TUR_GNA_Array_Y = 112 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 148 }
+	add_to_array = { TUR_GNA_Array_Y = 147 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 107 }
+	add_to_array = { TUR_GNA_Array_Y = 101 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 75 }
+	add_to_array = { TUR_GNA_Array_Y = 65 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 101 }
+	add_to_array = { TUR_GNA_Array_Y = 91 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 142 }
+	add_to_array = { TUR_GNA_Array_Y = 136 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 95 }
+	add_to_array = { TUR_GNA_Array_Y = 80 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 135 }
+	add_to_array = { TUR_GNA_Array_Y = 125 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 88 }
+	add_to_array = { TUR_GNA_Array_Y = 69 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 129 }
+	add_to_array = { TUR_GNA_Array_Y = 114 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 123 }
+	add_to_array = { TUR_GNA_Array_Y = 104 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 85 }
+	add_to_array = { TUR_GNA_Array_Y = 56 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 117 }
+	add_to_array = { TUR_GNA_Array_Y = 93 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 111 }
+	add_to_array = { TUR_GNA_Array_Y = 82 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 104 }
+	add_to_array = { TUR_GNA_Array_Y = 72 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 164 }
+	add_to_array = { TUR_GNA_Array_Y = 149 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 98 }
+	add_to_array = { TUR_GNA_Array_Y = 61 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 158 }
+	add_to_array = { TUR_GNA_Array_Y = 139 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 151 }
+	add_to_array = { TUR_GNA_Array_Y = 128 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 95 }
+	add_to_array = { TUR_GNA_Array_Y = 48 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 145 }
+	add_to_array = { TUR_GNA_Array_Y = 117 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 139 }
+	add_to_array = { TUR_GNA_Array_Y = 107 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 133 }
+	add_to_array = { TUR_GNA_Array_Y = 96 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 127 }
+	add_to_array = { TUR_GNA_Array_Y = 86 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 121 }
+	add_to_array = { TUR_GNA_Array_Y = 75 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 115 }
+	add_to_array = { TUR_GNA_Array_Y = 64 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 109 }
+	add_to_array = { TUR_GNA_Array_Y = 54 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 106 }
+	add_to_array = { TUR_GNA_Array_Y = 41 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 174 }
+	add_to_array = { TUR_GNA_Array_Y = 142 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 168 }
+	add_to_array = { TUR_GNA_Array_Y = 132 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 162 }
+	add_to_array = { TUR_GNA_Array_Y = 121 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 156 }
+	add_to_array = { TUR_GNA_Array_Y = 110 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 150 }
+	add_to_array = { TUR_GNA_Array_Y = 100 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 144 }
+	add_to_array = { TUR_GNA_Array_Y = 89 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 138 }
+	add_to_array = { TUR_GNA_Array_Y = 79 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 132 }
+	add_to_array = { TUR_GNA_Array_Y = 68 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 125 }
+	add_to_array = { TUR_GNA_Array_Y = 58 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 119 }
+	add_to_array = { TUR_GNA_Array_Y = 47 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 117 }
+	add_to_array = { TUR_GNA_Array_Y = 34 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 130 }
+	add_to_array = { TUR_GNA_Array_Y = 41 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 137 }
+	add_to_array = { TUR_GNA_Array_Y = 52 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 143 }
+	add_to_array = { TUR_GNA_Array_Y = 62 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 149 }
+	add_to_array = { TUR_GNA_Array_Y = 73 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 155 }
+	add_to_array = { TUR_GNA_Array_Y = 83 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 128 }
+	add_to_array = { TUR_GNA_Array_Y = 29 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 161 }
+	add_to_array = { TUR_GNA_Array_Y = 94 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 167 }
+	add_to_array = { TUR_GNA_Array_Y = 105 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 173 }
+	add_to_array = { TUR_GNA_Array_Y = 115 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 179 }
+	add_to_array = { TUR_GNA_Array_Y = 126 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 185 }
+	add_to_array = { TUR_GNA_Array_Y = 136 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 142 }
+	add_to_array = { TUR_GNA_Array_Y = 36 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 148 }
+	add_to_array = { TUR_GNA_Array_Y = 46 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 154 }
+	add_to_array = { TUR_GNA_Array_Y = 57 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 140 }
+	add_to_array = { TUR_GNA_Array_Y = 23 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 160 }
+	add_to_array = { TUR_GNA_Array_Y = 68 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 166 }
+	add_to_array = { TUR_GNA_Array_Y = 78 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 173 }
+	add_to_array = { TUR_GNA_Array_Y = 89 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 179 }
+	add_to_array = { TUR_GNA_Array_Y = 100 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 154 }
+	add_to_array = { TUR_GNA_Array_Y = 31 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 160 }
+	add_to_array = { TUR_GNA_Array_Y = 42 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 152 }
+	add_to_array = { TUR_GNA_Array_Y = 19 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 185 }
+	add_to_array = { TUR_GNA_Array_Y = 110 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 166 }
+	add_to_array = { TUR_GNA_Array_Y = 52 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 191 }
+	add_to_array = { TUR_GNA_Array_Y = 121 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 172 }
+	add_to_array = { TUR_GNA_Array_Y = 63 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 178 }
+	add_to_array = { TUR_GNA_Array_Y = 74 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 197 }
+	add_to_array = { TUR_GNA_Array_Y = 132 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 166 }
+	add_to_array = { TUR_GNA_Array_Y = 27 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 185 }
+	add_to_array = { TUR_GNA_Array_Y = 85 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 164 }
+	add_to_array = { TUR_GNA_Array_Y = 15 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 172 }
+	add_to_array = { TUR_GNA_Array_Y = 38 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 191 }
+	add_to_array = { TUR_GNA_Array_Y = 96 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 178 }
+	add_to_array = { TUR_GNA_Array_Y = 49 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 184 }
+	add_to_array = { TUR_GNA_Array_Y = 60 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 197 }
+	add_to_array = { TUR_GNA_Array_Y = 107 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 178 }
+	add_to_array = { TUR_GNA_Array_Y = 24 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 191 }
+	add_to_array = { TUR_GNA_Array_Y = 71 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 177 }
+	add_to_array = { TUR_GNA_Array_Y = 11 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 184 }
+	add_to_array = { TUR_GNA_Array_Y = 35 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 203 }
+	add_to_array = { TUR_GNA_Array_Y = 118 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 197 }
+	add_to_array = { TUR_GNA_Array_Y = 82 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 190 }
+	add_to_array = { TUR_GNA_Array_Y = 46 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 209 }
+	add_to_array = { TUR_GNA_Array_Y = 129 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 203 }
+	add_to_array = { TUR_GNA_Array_Y = 93 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 197 }
+	add_to_array = { TUR_GNA_Array_Y = 57 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 190 }
+	add_to_array = { TUR_GNA_Array_Y = 21 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 190 }
+	add_to_array = { TUR_GNA_Array_Y = 9 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 197 }
+	add_to_array = { TUR_GNA_Array_Y = 32 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 203 }
+	add_to_array = { TUR_GNA_Array_Y = 68 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 209 }
+	add_to_array = { TUR_GNA_Array_Y = 104 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 203 }
+	add_to_array = { TUR_GNA_Array_Y = 44 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 209 }
+	add_to_array = { TUR_GNA_Array_Y = 80 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 203 }
+	add_to_array = { TUR_GNA_Array_Y = 19 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 202 }
+	add_to_array = { TUR_GNA_Array_Y = 7 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 216 }
+	add_to_array = { TUR_GNA_Array_Y = 116 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 209 }
+	add_to_array = { TUR_GNA_Array_Y = 55 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 209 }
+	add_to_array = { TUR_GNA_Array_Y = 31 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 216 }
+	add_to_array = { TUR_GNA_Array_Y = 91 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 216 }
+	add_to_array = { TUR_GNA_Array_Y = 67 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 216 }
+	add_to_array = { TUR_GNA_Array_Y = 43 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 222 }
+	add_to_array = { TUR_GNA_Array_Y = 128 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 216 }
+	add_to_array = { TUR_GNA_Array_Y = 18 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 215 }
+	add_to_array = { TUR_GNA_Array_Y = 6 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 222 }
+	add_to_array = { TUR_GNA_Array_Y = 103 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 222 }
+	add_to_array = { TUR_GNA_Array_Y = 79 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 222 }
+	add_to_array = { TUR_GNA_Array_Y = 54 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 222 }
+	add_to_array = { TUR_GNA_Array_Y = 30 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 228 }
+	add_to_array = { TUR_GNA_Array_Y = 115 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 228 }
+	add_to_array = { TUR_GNA_Array_Y = 91 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 228 }
+	add_to_array = { TUR_GNA_Array_Y = 66 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 228 }
+	add_to_array = { TUR_GNA_Array_Y = 42 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 228 }
+	add_to_array = { TUR_GNA_Array_Y = 18 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 228 }
+	add_to_array = { TUR_GNA_Array_Y = 6 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 235 }
+	add_to_array = { TUR_GNA_Array_Y = 30 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 235 }
+	add_to_array = { TUR_GNA_Array_Y = 54 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 235 }
+	add_to_array = { TUR_GNA_Array_Y = 79 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 235 }
+	add_to_array = { TUR_GNA_Array_Y = 103 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 241 }
+	add_to_array = { TUR_GNA_Array_Y = 6 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 241 }
+	add_to_array = { TUR_GNA_Array_Y = 18 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 235 }
+	add_to_array = { TUR_GNA_Array_Y = 128 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 241 }
+	add_to_array = { TUR_GNA_Array_Y = 43 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 241 }
+	add_to_array = { TUR_GNA_Array_Y = 67 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 241 }
+	add_to_array = { TUR_GNA_Array_Y = 91 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 247 }
+	add_to_array = { TUR_GNA_Array_Y = 31 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 247 }
+	add_to_array = { TUR_GNA_Array_Y = 55 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 241 }
+	add_to_array = { TUR_GNA_Array_Y = 116 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 254 }
+	add_to_array = { TUR_GNA_Array_Y = 7 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 254 }
+	add_to_array = { TUR_GNA_Array_Y = 19 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 247 }
+	add_to_array = { TUR_GNA_Array_Y = 80 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 253 }
+	add_to_array = { TUR_GNA_Array_Y = 44 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 247 }
+	add_to_array = { TUR_GNA_Array_Y = 104 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 253 }
+	add_to_array = { TUR_GNA_Array_Y = 68 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 260 }
+	add_to_array = { TUR_GNA_Array_Y = 32 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 267 }
+	add_to_array = { TUR_GNA_Array_Y = 9 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 266 }
+	add_to_array = { TUR_GNA_Array_Y = 21 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 260 }
+	add_to_array = { TUR_GNA_Array_Y = 57 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 253 }
+	add_to_array = { TUR_GNA_Array_Y = 93 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 247 }
+	add_to_array = { TUR_GNA_Array_Y = 129 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 266 }
+	add_to_array = { TUR_GNA_Array_Y = 46 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 260 }
+	add_to_array = { TUR_GNA_Array_Y = 82 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 253 }
+	add_to_array = { TUR_GNA_Array_Y = 118 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 272 }
+	add_to_array = { TUR_GNA_Array_Y = 35 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 279 }
+	add_to_array = { TUR_GNA_Array_Y = 11 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 266 }
+	add_to_array = { TUR_GNA_Array_Y = 71 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 278 }
+	add_to_array = { TUR_GNA_Array_Y = 24 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 259 }
+	add_to_array = { TUR_GNA_Array_Y = 107 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 272 }
+	add_to_array = { TUR_GNA_Array_Y = 60 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 278 }
+	add_to_array = { TUR_GNA_Array_Y = 49 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 266 }
+	add_to_array = { TUR_GNA_Array_Y = 96 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 285 }
+	add_to_array = { TUR_GNA_Array_Y = 38 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 292 }
+	add_to_array = { TUR_GNA_Array_Y = 15 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 272 }
+	add_to_array = { TUR_GNA_Array_Y = 85 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 291 }
+	add_to_array = { TUR_GNA_Array_Y = 27 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 259 }
+	add_to_array = { TUR_GNA_Array_Y = 132 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 278 }
+	add_to_array = { TUR_GNA_Array_Y = 74 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 284 }
+	add_to_array = { TUR_GNA_Array_Y = 63 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 265 }
+	add_to_array = { TUR_GNA_Array_Y = 121 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 290 }
+	add_to_array = { TUR_GNA_Array_Y = 52 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 272 }
+	add_to_array = { TUR_GNA_Array_Y = 110 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 304 }
+	add_to_array = { TUR_GNA_Array_Y = 19 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 297 }
+	add_to_array = { TUR_GNA_Array_Y = 42 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 303 }
+	add_to_array = { TUR_GNA_Array_Y = 31 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 278 }
+	add_to_array = { TUR_GNA_Array_Y = 100 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 284 }
+	add_to_array = { TUR_GNA_Array_Y = 89 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 290 }
+	add_to_array = { TUR_GNA_Array_Y = 78 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 296 }
+	add_to_array = { TUR_GNA_Array_Y = 68 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 316 }
+	add_to_array = { TUR_GNA_Array_Y = 23 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 302 }
+	add_to_array = { TUR_GNA_Array_Y = 57 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 308 }
+	add_to_array = { TUR_GNA_Array_Y = 46 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 315 }
+	add_to_array = { TUR_GNA_Array_Y = 36 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 271 }
+	add_to_array = { TUR_GNA_Array_Y = 136 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 277 }
+	add_to_array = { TUR_GNA_Array_Y = 126 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 283 }
+	add_to_array = { TUR_GNA_Array_Y = 115 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 289 }
+	add_to_array = { TUR_GNA_Array_Y = 105 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 295 }
+	add_to_array = { TUR_GNA_Array_Y = 94 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 328 }
+	add_to_array = { TUR_GNA_Array_Y = 29 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 302 }
+	add_to_array = { TUR_GNA_Array_Y = 83 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 308 }
+	add_to_array = { TUR_GNA_Array_Y = 73 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 314 }
+	add_to_array = { TUR_GNA_Array_Y = 62 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 320 }
+	add_to_array = { TUR_GNA_Array_Y = 52 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 326 }
+	add_to_array = { TUR_GNA_Array_Y = 41 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 340 }
+	add_to_array = { TUR_GNA_Array_Y = 34 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 337 }
+	add_to_array = { TUR_GNA_Array_Y = 47 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 331 }
+	add_to_array = { TUR_GNA_Array_Y = 58 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 325 }
+	add_to_array = { TUR_GNA_Array_Y = 68 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 319 }
+	add_to_array = { TUR_GNA_Array_Y = 79 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 313 }
+	add_to_array = { TUR_GNA_Array_Y = 89 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 307 }
+	add_to_array = { TUR_GNA_Array_Y = 100 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 301 }
+	add_to_array = { TUR_GNA_Array_Y = 110 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 294 }
+	add_to_array = { TUR_GNA_Array_Y = 121 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 288 }
+	add_to_array = { TUR_GNA_Array_Y = 132 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 282 }
+	add_to_array = { TUR_GNA_Array_Y = 142 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 351 }
+	add_to_array = { TUR_GNA_Array_Y = 41 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 348 }
+	add_to_array = { TUR_GNA_Array_Y = 54 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 342 }
+	add_to_array = { TUR_GNA_Array_Y = 64 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 336 }
+	add_to_array = { TUR_GNA_Array_Y = 75 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 330 }
+	add_to_array = { TUR_GNA_Array_Y = 86 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 323 }
+	add_to_array = { TUR_GNA_Array_Y = 96 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 317 }
+	add_to_array = { TUR_GNA_Array_Y = 107 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 311 }
+	add_to_array = { TUR_GNA_Array_Y = 117 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 361 }
+	add_to_array = { TUR_GNA_Array_Y = 48 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 305 }
+	add_to_array = { TUR_GNA_Array_Y = 128 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 299 }
+	add_to_array = { TUR_GNA_Array_Y = 139 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 358 }
+	add_to_array = { TUR_GNA_Array_Y = 61 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 293 }
+	add_to_array = { TUR_GNA_Array_Y = 149 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 352 }
+	add_to_array = { TUR_GNA_Array_Y = 72 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 346 }
+	add_to_array = { TUR_GNA_Array_Y = 82 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 340 }
+	add_to_array = { TUR_GNA_Array_Y = 93 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 372 }
+	add_to_array = { TUR_GNA_Array_Y = 56 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 334 }
+	add_to_array = { TUR_GNA_Array_Y = 104 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 327 }
+	add_to_array = { TUR_GNA_Array_Y = 114 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 368 }
+	add_to_array = { TUR_GNA_Array_Y = 69 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 321 }
+	add_to_array = { TUR_GNA_Array_Y = 125 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 362 }
+	add_to_array = { TUR_GNA_Array_Y = 80 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 315 }
+	add_to_array = { TUR_GNA_Array_Y = 136 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 356 }
+	add_to_array = { TUR_GNA_Array_Y = 91 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 381 }
+	add_to_array = { TUR_GNA_Array_Y = 65 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 349 }
+	add_to_array = { TUR_GNA_Array_Y = 101 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 309 }
+	add_to_array = { TUR_GNA_Array_Y = 147 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 343 }
+	add_to_array = { TUR_GNA_Array_Y = 112 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 378 }
+	add_to_array = { TUR_GNA_Array_Y = 78 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 302 }
+	add_to_array = { TUR_GNA_Array_Y = 157 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 337 }
+	add_to_array = { TUR_GNA_Array_Y = 123 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 371 }
+	add_to_array = { TUR_GNA_Array_Y = 88 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 391 }
+	add_to_array = { TUR_GNA_Array_Y = 73 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 365 }
+	add_to_array = { TUR_GNA_Array_Y = 99 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 330 }
+	add_to_array = { TUR_GNA_Array_Y = 134 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 358 }
+	add_to_array = { TUR_GNA_Array_Y = 110 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 324 }
+	add_to_array = { TUR_GNA_Array_Y = 145 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 386 }
+	add_to_array = { TUR_GNA_Array_Y = 87 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 352 }
+	add_to_array = { TUR_GNA_Array_Y = 121 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 380 }
+	add_to_array = { TUR_GNA_Array_Y = 98 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 400 }
+	add_to_array = { TUR_GNA_Array_Y = 83 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 317 }
+	add_to_array = { TUR_GNA_Array_Y = 156 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 345 }
+	add_to_array = { TUR_GNA_Array_Y = 132 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 373 }
+	add_to_array = { TUR_GNA_Array_Y = 109 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 395 }
+	add_to_array = { TUR_GNA_Array_Y = 96 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 367 }
+	add_to_array = { TUR_GNA_Array_Y = 120 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 339 }
+	add_to_array = { TUR_GNA_Array_Y = 143 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 311 }
+	add_to_array = { TUR_GNA_Array_Y = 167 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 388 }
+	add_to_array = { TUR_GNA_Array_Y = 107 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 408 }
+	add_to_array = { TUR_GNA_Array_Y = 93 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 360 }
+	add_to_array = { TUR_GNA_Array_Y = 131 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 332 }
+	add_to_array = { TUR_GNA_Array_Y = 154 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 381 }
+	add_to_array = { TUR_GNA_Array_Y = 118 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 353 }
+	add_to_array = { TUR_GNA_Array_Y = 142 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 403 }
+	add_to_array = { TUR_GNA_Array_Y = 106 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 375 }
+	add_to_array = { TUR_GNA_Array_Y = 130 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 325 }
+	add_to_array = { TUR_GNA_Array_Y = 165 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 416 }
+	add_to_array = { TUR_GNA_Array_Y = 103 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 396 }
+	add_to_array = { TUR_GNA_Array_Y = 117 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 346 }
+	add_to_array = { TUR_GNA_Array_Y = 153 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 368 }
+	add_to_array = { TUR_GNA_Array_Y = 141 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 389 }
+	add_to_array = { TUR_GNA_Array_Y = 129 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 410 }
+	add_to_array = { TUR_GNA_Array_Y = 117 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 318 }
+	add_to_array = { TUR_GNA_Array_Y = 177 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 339 }
+	add_to_array = { TUR_GNA_Array_Y = 165 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 360 }
+	add_to_array = { TUR_GNA_Array_Y = 152 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 423 }
+	add_to_array = { TUR_GNA_Array_Y = 114 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 382 }
+	add_to_array = { TUR_GNA_Array_Y = 140 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 403 }
+	add_to_array = { TUR_GNA_Array_Y = 128 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 416 }
+	add_to_array = { TUR_GNA_Array_Y = 127 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 395 }
+	add_to_array = { TUR_GNA_Array_Y = 140 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 374 }
+	add_to_array = { TUR_GNA_Array_Y = 152 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 353 }
+	add_to_array = { TUR_GNA_Array_Y = 164 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 332 }
+	add_to_array = { TUR_GNA_Array_Y = 176 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 429 }
+	add_to_array = { TUR_GNA_Array_Y = 125 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 409 }
+	add_to_array = { TUR_GNA_Array_Y = 139 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 388 }
+	add_to_array = { TUR_GNA_Array_Y = 151 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 367 }
+	add_to_array = { TUR_GNA_Array_Y = 163 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 345 }
+	add_to_array = { TUR_GNA_Array_Y = 176 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 422 }
+	add_to_array = { TUR_GNA_Array_Y = 139 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 401 }
+	add_to_array = { TUR_GNA_Array_Y = 151 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 324 }
+	add_to_array = { TUR_GNA_Array_Y = 188 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 435 }
+	add_to_array = { TUR_GNA_Array_Y = 137 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 380 }
+	add_to_array = { TUR_GNA_Array_Y = 163 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 359 }
+	add_to_array = { TUR_GNA_Array_Y = 175 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 414 }
+	add_to_array = { TUR_GNA_Array_Y = 150 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 393 }
+	add_to_array = { TUR_GNA_Array_Y = 163 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 337 }
+	add_to_array = { TUR_GNA_Array_Y = 187 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 428 }
+	add_to_array = { TUR_GNA_Array_Y = 150 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 372 }
+	add_to_array = { TUR_GNA_Array_Y = 175 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 440 }
+	add_to_array = { TUR_GNA_Array_Y = 149 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 406 }
+	add_to_array = { TUR_GNA_Array_Y = 162 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 351 }
+	add_to_array = { TUR_GNA_Array_Y = 187 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 385 }
+	add_to_array = { TUR_GNA_Array_Y = 175 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 419 }
+	add_to_array = { TUR_GNA_Array_Y = 162 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 432 }
+	add_to_array = { TUR_GNA_Array_Y = 162 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 398 }
+	add_to_array = { TUR_GNA_Array_Y = 174 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 363 }
+	add_to_array = { TUR_GNA_Array_Y = 187 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 329 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 445 }
+	add_to_array = { TUR_GNA_Array_Y = 161 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 411 }
+	add_to_array = { TUR_GNA_Array_Y = 174 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 376 }
+	add_to_array = { TUR_GNA_Array_Y = 187 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 423 }
+	add_to_array = { TUR_GNA_Array_Y = 174 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 342 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 389 }
+	add_to_array = { TUR_GNA_Array_Y = 187 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 436 }
+	add_to_array = { TUR_GNA_Array_Y = 174 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 448 }
+	add_to_array = { TUR_GNA_Array_Y = 173 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 354 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 402 }
+	add_to_array = { TUR_GNA_Array_Y = 187 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 414 }
+	add_to_array = { TUR_GNA_Array_Y = 186 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 367 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 427 }
+	add_to_array = { TUR_GNA_Array_Y = 186 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 380 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 439 }
+	add_to_array = { TUR_GNA_Array_Y = 186 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 451 }
+	add_to_array = { TUR_GNA_Array_Y = 186 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 332 }
+	add_to_array = { TUR_GNA_Array_Y = 212 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 392 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 404 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 345 }
+	add_to_array = { TUR_GNA_Array_Y = 212 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 417 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 429 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 357 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 442 }
+	add_to_array = { TUR_GNA_Array_Y = 199 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 370 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 454 }
+	add_to_array = { TUR_GNA_Array_Y = 198 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 382 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 394 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 406 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 419 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 431 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 443 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 456 }
+	add_to_array = { TUR_GNA_Array_Y = 211 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 334 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 347 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 359 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 371 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 383 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 395 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 408 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 420 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 432 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 444 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+	add_to_array = { TUR_GNA_Array_X = 456 }
+	add_to_array = { TUR_GNA_Array_Y = 224 }
+	add_to_array = { TUR_GNA_Array = 1 }
+
+	### names: med's own party names (renamed keys, decision 3)
+	set_party_name = { ideology = burgundian_system long_name = TUR_med_burgundian_system_party_long name = TUR_med_burgundian_system_party }
+	set_party_name = { ideology = communist long_name = TUR_med_communist_party_long name = TUR_med_communist_party }
+	set_party_name = { ideology = despotism long_name = TUR_med_despotism_party_long name = TUR_med_despotism_party }
+	set_party_name = { ideology = fascism long_name = TUR_med_fascism_party_long name = TUR_med_fascism_party }
+	set_party_name = { ideology = national_socialism long_name = TUR_med_national_socialism_party_long name = TUR_med_national_socialism_party }
+	set_party_name = { ideology = social_conservative long_name = TUR_med_social_conservative_party_long name = TUR_med_social_conservative_party }
+	set_party_name = { ideology = social_democrat long_name = TUR_med_social_democrat_party_long name = TUR_med_social_democrat_party }
+	set_party_name = { ideology = social_liberal long_name = TUR_med_social_liberal_party_long name = TUR_med_social_liberal_party }
+	set_party_name = { ideology = socialist long_name = TUR_med_socialist_party_long name = TUR_med_socialist_party }
+
+	### leaders and commanders. Master's history already creates Gürsel, Erdelhun, Evren and Tural;
+	### the branch's own copies of those generals are skipped.
+	TUR_med_promote_Cemal_Gursel = yes
+	# TUR_med_create_Cemal_Gursel: master's history already creates him (id 530); a second copy fails
+	create_country_leader = {
+		name = "Muhsin Batur"
+		desc = "POLITICS_MUHSIN_BATUR_DESC"
+		picture = "Portrait_Muhsin_Batur.dds"
+		expire = "1999.1.1"
+		ideology = communist_maoism_subtype
+		traits = {
+		}
+	}
+	create_country_leader = {
+		name = "Behice Boran"
+		desc = "POLITICS_BEHICE_BORAN_DESC"
+		picture = "Portrait_Turkey_Behice_Boran.dds"
+		expire = "1999.1.1"
+		ideology = socialist_syndicalism_subtype
+		traits = {
+		}
+	}
+	create_country_leader = {
+		name = "Behice Boran"
+		desc = "POLITICS_BEHICE_BORAN_DESC"
+		picture = "Portrait_Turkey_Behice_Boran.dds"
+		expire = "1999.1.1"
+		ideology = social_democrat_left_wing_populism_subtype
+		traits = {
+		}
+	}
+	create_country_leader = {
+		name = "Türkan Akyol"
+		desc = "POLITICS_TURKAN_AKYOL_DESC"
+		picture = "Portrait_Turkey_Turkan_Akyol.dds"
+		expire = "1999.1.1"
+		ideology = social_liberal_subtype
+		traits = {
+		}
+	}
+	create_country_leader = {
+		name = "Celâl Bayar"
+		desc = "POLITICS_CELAL_BAYAR_DESC"
+		picture = "Portrait_Turkey_Celal_Bayar.dds"
+		expire = "1999.1.1"
+		ideology = social_conservative_free_market_social_conservative_subtype
+		traits = {
+		}
+	}
+	TUR_med_promote_Celal_Bayar = yes
+	create_country_leader = { 
+		name = "Alparslan Türkeş"
+		desc = "POLITICS_ALPARSLAN_TURKES_DESC"
+		picture = "Portrait_Turkey_Alparslan_Turkes.dds"
+		expire = "1999.1.1"
+		ideology = fascism_subtype
+		traits = {
+		}
+	}
+	create_country_leader = {
+		name = "Cemal Gürsel"
+		desc = "POLITICS_CEMAL_GURSEL_DESC"
+		picture = "Portrait_Turkey_Cemal_Gursel.dds"
+		expire = "1999.1.1"
+		ideology = despotism_military_junta_subtype
+		traits = {
+		}
+	}
+	create_country_leader = {
+		name = "Talat Aydemir"
+		desc = "POLITICS_TALAT_AYDEMIR_DESC"
+		picture = "Portrait_Turkey_Talat_Aydemir.dds"
+		expire = "1999.1.1"
+		ideology = burgundian_system_esoteric_kemalism_subtype
+		traits = {
+		}
+	}
+	TUR_med_create_Ragip_Gumuspala = yes
+	create_field_marshal = {
+		name = "Cevdet Sunay"
+		picture = "Portrait_Turkey_Cevdet_Sunay.dds"
+		traits = { old_guard war_hero panzer_savant offensive_doctrine }
+		skill = 5
+		id = 12003
+		attack_skill = 3
+	    defense_skill = 3
+	    planning_skill = 4
+	    logistics_skill = 4
+	}
+	create_corps_commander = {
+		name = "Cemal Madanoglu"
+		picture = "Portrait_Cemal_Madanoglu.dds"
+		traits = { trait_mountaineer logistics_wizard }
+		skill = 3
+		id = 12006
+		attack_skill = 2
+	    defense_skill = 2
+	    planning_skill = 3
+	    logistics_skill = 4
+	}
+	create_corps_commander = {
+		name = "Faruk Gürler"
+		picture = "Portrait_Turkey_Farlek_Gurler.dds"
+		traits = { bearer_of_artillery trait_engineer fortress_buster }
+		skill = 2
+		id = 12008
+		attack_skill = 2
+	    defense_skill = 2
+	    planning_skill = 1
+	    logistics_skill = 2
+	}
+	create_corps_commander = {
+		name = "Fikret Esen"
+		picture = "Portrait_Turkey_Fikret_Esen.dds"
+		traits = { infantry_leader ambusher }
+		skill = 1
+		id = 12009
+		attack_skill = 2
+	    defense_skill = 1
+	    planning_skill = 2
+	    logistics_skill = 3
+	}
+	create_corps_commander = {
+		name = "Mehmet Ali Keskiner"
+		picture = "Portrait_Turkey_Mehmet_Ali_Keskiner.dds"
+		traits = { bearer_of_artillery }
+		skill = 1
+		id = 12010
+		attack_skill = 1
+	    defense_skill = 2
+	    planning_skill = 1
+	    logistics_skill = 3
+	}
+	create_navy_leader = {
+		name = "Kemal Kayacan"
+		picture = "Portrait_Turkey_Kemal_Kayacan.dds"
+		traits = { mine_layer }
+		skill = 1
+		id = 12014
+		attack_skill = 1
+		defense_skill = 1
+		maneuvering_skill = 1
+		coordination_skill = 3
+	}
+	create_navy_leader = {
+		name = "Nejat Tümer"
+		picture = "Portrait_Turkey_Nejat_Tumer.dds"
+		traits = { navy_career_officer }
+		skill = 1
+		id = 12015
+		attack_skill = 2
+		defense_skill = 1
+		maneuvering_skill = 2
+		coordination_skill = 1
+	}
+	create_navy_leader = {
+		name = "Bahattin Özülker"
+		picture = "Portrait_Turkey_Bahattin_Ozulker.dds"
+		traits = { green_water_expert }
+		skill = 1
+		id = 12016
+		attack_skill = 1
+		defense_skill = 3
+		maneuvering_skill = 1
+		coordination_skill = 1
+	}
+	TUR_med_promote_Ismet_Inonu = yes
+}
+
+# The imported on_actions' on_startup bodies, run once from the WIP branch (global scope).
+GRE_TUR_med_wip_startup_global = {
+	log = "[GetDateText]: GRE_TUR_med_wip_startup_global"
+	# from common/on_actions/TNO_Greece_on_actions.txt (on_startup)
+
+			GRE = {
+				GRE_initialize_election_system = yes
+				GRE_resistance_startup = yes
+				country_event = { id = grePreITW.3 days = 140 }
+			}
+	# from common/on_actions/TNO_Turkey_on_actions.txt (on_startup)
+
+			TUR = {
+				TUR_DtS_HB_setup = yes
+				country_event = { id = tur.7 days = 45 }
+				country_event = { id = tur.8 days = 450 }
+				country_event = { id = tur.19 days = 428 }
+				country_event = { id = tur.20 days = 4 }
+				country_event = { id = tur.96 days = 90 }
+				country_event = { id = tur_flavor.1 days = 1700 }
+				country_event = { id = tur_flavor.6 days = 750 }
+				set_variable = { TUR_DOW = 35 }
+				set_variable = { TUR_influence_ecevit_koruturk_x = 242 }
+				set_variable = { TUR_DOW = 35 }
+				set_variable = { TUR_DOW_casualties_per_morale_decrease = 9000 } #-10 DOW points every 5000 deaths
+				set_variable = { TUR_DOW_next_casualty_level = TUR_DOW_casualties_per_morale_decrease }
+				set_variable = { TUR_DYPS_seats = 2 }
+				set_variable = { TUR_DYPI_seats = 2 }
+				set_variable = { TUR_DYPL_seats = 2 }
+				set_variable = { TUR_CHPS_seats = 59 }
+				set_variable = { TUR_CHPU_seats = 283 }
+				set_variable = { TUR_UDPD_seats = 66 }
+				set_variable = { TUR_UDPP_seats = 8 }
+				set_variable = { TUR_UDPM_seats = 28 }
+				TUR_Get_Parliament_Array = yes
+				set_variable = { TUR_DYP_Popularity = 3 }
+				set_variable = { TUR_CHP_Popularity = 74 }
+				set_variable = { TUR_UDP_Popularity = 23 }
+				set_variable = { TUR_DYP_Socialist = 0.33 }
+				set_variable = { TUR_DYP_Progressive = 0.40}
+				set_variable = { TUR_DYP_Liberal = 0.27 }
+				set_variable = { TUR_CHP_Left = 0.17 }
+				set_variable = { TUR_CHP_Right = 0.83 }
+				set_variable = { TUR_UDP_Democrat = 0.65 }
+				set_variable = { TUR_UDP_Islamist = 0.08 }
+				set_variable = { TUR_UDP_Nationalist = 0.27 }
+				TUR_Pie_Chart_Update = yes
+				set_variable = { TUR_GNA_Heading_Frame = 1 }
+				set_variable = { TUR.TUR_GUI_Darkening_the_Sun = 1 }
+				set_variable = { TUR_current_state_development_LEVEL = 0 }
+				set_variable = { TUR_current_state_development_STAGE = 0 } #range from 0-4, for current level. Loc lifts it up by 1.
+				set_variable = { TUR_days_Liberate_Kudus = 60 }
+				set_variable = { TUR_days_Liberate_Rhodes = 45 }
+				set_variable = { TUR_days_Capture_Thessaloniki = 42 }
+				set_variable = { TUR_days_Ez_Oglum = 30 }
+				set_variable = { TUR_GUI_select = 1 }
+				set_variable = { TUR_StC_selected_party = 1 }
+				
+				# TUR_DtS_initialize = yes
+				# TUR_DtS_initialize is fired either the first time the window is opened, OR after one event (1 hour)
+				country_event = { id = TUR_DTS.1 hours = 1 }
+				
+				set_variable = { TUR_StC_selected_region = 1 }
+				TUR_StC_Demographics_setup = yes
+				TUR_TV_set_up = yes
+				TUR_election_setup = yes
+				TUR_update_election = yes
+			}
+			BKU = {
+				give_resource_rights = { receiver = TUR state = 1334 }
+			}
+			SNS = {
+				give_resource_rights = { receiver = TUR state = 1372 }
+			}
+}
+

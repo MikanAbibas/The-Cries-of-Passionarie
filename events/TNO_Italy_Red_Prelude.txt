@@ -1,0 +1,3680 @@
+add_namespace = provisional_government
+add_namespace = dead_provisional_government
+add_namespace = revolutionary_provisional_government
+add_namespace = kingsgov_gui
+add_namespace = ITA_RED_leader_intro
+add_namespace = ITA_RED_twilight
+add_namespace = ITA_RED_midnight
+add_namespace = ITA_RED_dawn
+add_namespace = ITA_RED_revolutionary_assembly
+
+### PROVISIONAL GOVERNMENT ###
+country_event = {
+	id = provisional_government.1
+	title = provisional_government.1.t
+	desc = provisional_government.1.desc
+	picture = GFX_report_event_italy_umberto2
+
+	is_triggered_only = yes
+
+	option = {
+		name = provisional_government.1.a
+		retire_country_leader = yes
+		set_country_flag = ITA_GCF_Ciano_gone
+		clr_country_flag = ITA_show_grand_council_of_fascism
+		set_politics = { ruling_party = despotism }
+		set_global_flag = ITA_kings_gov
+		custom_effect_tooltip = ITA_add_ministers_tt
+		custom_effect_tooltip = ITA_RED_economy_start_tt
+		hidden_effect = {
+			load_focus_tree = { tree = ITA_kings_provisional_government keep_completed = no }
+			remove_ideas = ITA_fading_fascism
+			#remove_ideas = ITA_stagnating_empire
+			#remove_ideas = ITA_patrizi_e_plebei
+			remove_ideas = ITA_second_quadrumvirate
+			add_dynamic_modifier = {modifier = ITA_RED_economic_stagnation}
+			set_variable = { ITA_RED_inflation_dynmod_variable = 3 }
+			set_variable = { ITA_RED_building_speed_variable = -0.3 }
+			set_variable = { ITA_RED_prod_fact_dynmod_variable = -0.05 }
+			set_variable = { ITA_RED_gdp_growth_dynmod_variable = -0.05 }
+			set_variable = { ITA_RED_industrial_capacity_dynmod_variable = -0.05 }
+			set_variable = { ITA_RED_dockyard_capacity_variable = -0.10 }
+			set_variable = { production_speed_buildings_factor = -0.15 }
+			set_variable = { ITA_RED_consumers_dynmod_variable = 0.02 }
+			remove_all_ministers = yes
+			add_ideas = {
+				ITA_Giovanni_De_Lorenzo_sec
+				ITA_veronas_consequence
+			}
+			fill_empty_minister = yes
+			set_country_leader_description = {
+				ideology = despotism
+				desc = POLITICS_UMBERTO_II_DESC_red
+			}
+			add_popularity = {
+				ideology = despotism
+				popularity = 0.3
+			}
+			add_popularity = {
+				ideology = communist
+				popularity = 0.10
+			}
+			add_popularity = {
+				ideology = socialist
+				popularity = 0.05
+			}
+			country_event = {
+				id = provisional_government.2
+				days = 1
+			}
+			country_event = {
+				id = provisional_government.4
+				days = 100
+			}
+			# Defined in neither branch - this call did nothing.
+			#country_event = { # ZAVNOH seizes power in Croatia
+			#	id = cro_red_italy.1
+			#	days = 9
+			#}
+			country_event = {
+				id = ITA_RED_twilight.4
+				days = 4
+			}
+		}
+	}
+}
+
+country_event = { # King's Speech to the Nation
+	id = provisional_government.2
+	title = provisional_government.2.t
+	desc = provisional_government.2.desc
+	picture = GFX_report_event_italy_umberto_II_outdoors_1970
+
+	is_triggered_only = yes
+
+	option = {
+		name = provisional_government.2.a
+		hidden_effect = {
+			every_country = {
+				news_event = {
+					id = ITA_news.7
+				}
+			}
+			country_event = {
+				id = provisional_government.17
+				days = 16
+			}
+		}
+	}
+}
+
+country_event = { # Oh god oh fuck
+	id = provisional_government.3
+	title = provisional_government.3.t
+	desc = provisional_government.3.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = provisional_government.3.a
+		ai_chance = { factor = 1 }
+		add_stability = 0.10
+		hidden_effect = {
+			ITA_RED_Kings_Gov_Initialize_Variables = yes
+		}
+		custom_effect_tooltip = ITA_RED_kings_reforms_tt
+	}
+}
+
+country_event = { #
+	id = provisional_government.4
+	title = provisional_government.4.t
+	desc = provisional_government.4.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = provisional_government.4.a
+		ai_chance = { factor = 1 }
+
+	}
+}
+
+country_event = { # Dissolve the Grand Council - King Umberto makes a speech at the grand council of fascism, announcing its dissolution and how fascism has failed Italy. The only solution is to cut the institution out of Italy.
+	id = provisional_government.5
+	title = provisional_government.5.t
+	desc = provisional_government.5.desc
+	picture = GFX_report_event_italy_umberto_II_indoors_1970
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = provisional_government.5.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = { # Dissolve the Parliament - After dissolving Parliament, Umberto starts to work with his ministers about determining a replacement. He determines to institute the PNM as the official ruling party, as Italy is not ready for elections at the moment. Umberto will still hold onto power however, as only he can save Italy (make it clear Umberto is taking risky actions out of fear).
+	id = provisional_government.6
+	title = provisional_government.6.t
+	desc = provisional_government.6.desc
+	picture = GFX_report_event_italy_umberto_II_walking
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = provisional_government.6.a
+		ai_chance = { factor = 1 }
+		# PUT DEM ITALY PNM MINISTERS HERE
+		#remove_ideas_with_trait = head_of_government
+		add_ideas = ITA_Alfredo_Covelli_hog
+	}
+}
+
+country_event = { #
+	id = provisional_government.7
+	title = provisional_government.7.t
+	desc = provisional_government.7.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = provisional_government.7.a
+		ai_chance = { factor = 1 }
+
+	}
+}
+
+country_event = { # Restoring Order #1
+	id = provisional_government.8
+	title = provisional_government.8.t
+	desc = provisional_government.8.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { # Old Guard
+		name = provisional_government.8.a
+		ai_chance = { factor = 1 }
+		set_country_flag = ITA_RED_king_target_old_guard
+		hidden_effect = {
+			country_event = { id = provisional_government.9 }
+		}
+	}
+	option = { # New Left
+		name = provisional_government.8.b
+		ai_chance = { factor = 1 }
+		set_country_flag = ITA_RED_king_target_new_left
+		hidden_effect = {
+			country_event = { id = provisional_government.9 }
+		}
+	}
+	option = { # Catholic Communist
+		name = provisional_government.8.c
+		ai_chance = { factor = 1 }
+		set_country_flag = ITA_RED_king_target_cath_com
+		hidden_effect = {
+			country_event = { id = provisional_government.9 }
+		}
+	}
+}
+
+country_event = { # Restoring Order #2
+	id = provisional_government.9
+	title = provisional_government.9.t
+	desc = provisional_government.9.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { # Old Guard
+		trigger = {
+			NOT = { has_country_flag = ITA_RED_king_target_old_guard }
+		}
+		name = provisional_government.9.a
+		ai_chance = { factor = 1 }
+		set_country_flag = ITA_RED_king_target_old_guard
+		hidden_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_king_target_new_left }
+				country_event = {
+					id = provisional_government.13
+					days = 142
+				}
+				country_event = {
+					id = ITA_RED_leader_intro.7
+					days = 14
+				}
+			}
+			else = {
+				country_event = {
+					id = provisional_government.12
+					days = 142
+				}
+				country_event = {
+					id = ITA_RED_leader_intro.4
+					days = 14
+				}
+			}
+		}
+	}
+	option = { # New Left
+		trigger = {
+			NOT = { has_country_flag = ITA_RED_king_target_new_left }
+		}
+		name = provisional_government.9.b
+		ai_chance = { factor = 1 }
+		set_country_flag = ITA_RED_king_target_new_left
+		hidden_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_king_target_old_guard }
+				country_event = {
+					id = provisional_government.13
+					days = 142
+				}
+				country_event = {
+					id = ITA_RED_leader_intro.7
+					days = 14
+				}
+				else = {
+					country_event = {
+						id = provisional_government.11
+						days = 142
+					}
+					country_event = {
+						id = ITA_RED_leader_intro.1
+						days = 14
+					}
+					country_event = {
+						id = ITA_old_guard_flavor.1
+						days = 12
+					}
+				}
+			}
+		}
+	}
+	option = { # Catholic Communist
+		trigger = {
+			NOT = { has_country_flag = ITA_RED_king_target_cath_com }
+		}
+		name = provisional_government.9.c
+		ai_chance = { factor = 1 }
+		set_country_flag = ITA_RED_king_target_cath_com
+		hidden_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_king_target_old_guard }
+				country_event = {
+					id = provisional_government.12
+					days = 142
+				}
+				country_event = {
+					id = ITA_RED_leader_intro.4
+					days = 14
+				}
+				else = {
+					country_event = {
+						id = provisional_government.11
+						days = 142
+					}
+					country_event = {
+						id = ITA_RED_leader_intro.1
+						days = 14
+					}
+					country_event = {
+						id = ITA_old_guard_flavor.1
+						days = 12
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { #
+	id = provisional_government.10
+	title = provisional_government.10.t
+	desc = provisional_government.10.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = provisional_government.10.a
+		ai_chance = { factor = 1 }
+
+	}
+}
+
+country_event = { #Old Guard Got Away
+	id = provisional_government.11
+	title = provisional_government.11.t
+	desc = provisional_government.11.desc
+	picture = GFX_report_event_italy_blackshirts1
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = provisional_government.11.a
+		add_to_variable = { ITA_RED_Old_Left_Power_weekly = 30 }
+		add_to_variable = { ITA_RED_revolutionary_fervor = 20 }
+		set_country_flag = ITA_RED_is_old_guard
+		custom_effect_tooltip = ITA_RED_old_guard_surge
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = { #New Left Got Away
+	id = provisional_government.12
+	title = provisional_government.12.t
+	desc = provisional_government.12.desc
+	picture = GFX_report_event_italy_left_wing_students
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = provisional_government.12.a
+		add_to_variable = { ITA_RED_New_Left_Power_weekly = 30 }
+		add_to_variable = { ITA_RED_revolutionary_fervor = 20 }
+		set_country_flag = ITA_RED_is_new_left
+		custom_effect_tooltip = ITA_RED_new_left_surge
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = { #CathCom Got Away
+	id = provisional_government.13
+	title = provisional_government.13.t
+	desc = provisional_government.13.desc
+	picture = GFX_report_event_ruined_cathedral
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = provisional_government.13.a
+		add_to_variable = { ITA_RED_CathCom_Power_weekly = 30 }
+		add_to_variable = { ITA_RED_revolutionary_fervor = 20 }
+		set_country_flag = ITA_RED_is_cathcom
+		custom_effect_tooltip = ITA_RED_cathcom_surge
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = provisional_government.14
+	title = provisional_government.14.t
+	desc = provisional_government.14.desc
+	picture = GFX_report_event_german_radio_espionage
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.14.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.15
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.15
+	title = provisional_government.15.t
+	desc = provisional_government.15.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = provisional_government.15.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = provisional_government.16
+	title = provisional_government.16.t
+	desc = provisional_government.16.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.16.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = provisional_government.17 # Umberto regrets standing by for so long, not fighting back when he could. He could have ended the chaos caused by fascism so much earlier, or even his father could have. But they all stood by and let Italy become this chaotic mess.
+	title = provisional_government.17.t
+	desc = provisional_government.17.desc
+	picture = GFX_report_event_italy_umberto_II_walking
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.17.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.18
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.18 # Fascist rioters crushed by Italian military, as the chaos following the Verona conference begins to be fought back against.
+	title = provisional_government.18.t
+	desc = provisional_government.18.desc
+	picture = GFX_report_event_italy_soldier_patrol
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.18.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.19
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.19 # Verona still remains in chaos, rioting has gone on for nearly a month. The police are dealing with rioters on all sides of the political spectrum, making sure the king's government remains intact. (use same police as prior event)
+	title = provisional_government.19.t
+	desc = provisional_government.19.desc
+	picture = GFX_report_event_italy_violent_riot
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.19.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.20
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.20 # Verona's rioting has spread out to more cities, as the police get more and more overwhelmed. At this point it's hard to tell what people are even upset about. There is just this bubbling anger rising up in the population. (use same police as prior event)
+	title = provisional_government.20.t
+	desc = provisional_government.20.desc
+	picture = GFX_report_event_riot_police
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.20.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.21
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.21 # Old exiles start to return to Italy, slipping into the chaos. Old networks start up again, and the wheels start turning. Use several perspectives, several slices of life. Militants come out of hiding, radicals jot theory down, and people start to believe in a new world.
+	title = provisional_government.21.t
+	desc = provisional_government.21.desc
+	picture = GFX_report_event_riot_chaos
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.21.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.22
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.22 # The Verona police department is burnt out. Half don't even want to fight anymore. It's hard to deal with months of rioting. They feel like they're the villains (THEY ARE), but they still get up every day and put on their uniforms. Just another day. (use same police as prior events)
+	title = provisional_government.22.t
+	desc = provisional_government.22.desc
+	picture = GFX_report_event_italy_violent_riot
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.22.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.23
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.23 # The fascists have been mostly beaten back. The newer crowd is something else. Something more red. The police fight back still, but they are noticing a more united and radical front. (use same police as prior events)
+	title = provisional_government.23.t
+	desc = provisional_government.23.desc
+	picture = GFX_report_event_italy_student_riots
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.23.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.24
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.24 # Umberto sits in his office, surrounded by yes-men and rubber stamps. He is in the middle of one of the worst moments in Italian history. The colonies are growing restless, wars are burning the Mediterranean, and Italy itself is collapsing. Only a king can save Italy.
+	title = provisional_government.24.t
+	desc = provisional_government.24.desc
+	picture = GFX_report_event_italy_umberto_II_indoors_1970
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.24.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.25
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.25 # A baby is born to a young communist couple. It's a quiet moment for them, well not literally because BABY, but quiet compared to the chaos outside. The baby is named Antonio after Gramsci and the parents quietly contemplate their child. (THIS BABY WILL HAVE MORE EVENTS BC REVOLUTION SYMBOL!!!!!)
+	title = provisional_government.25.t
+	desc = provisional_government.25.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.25.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.26
+				days = 10
+			}
+		}
+	}
+}
+country_event = {
+	id = provisional_government.26 # Back to the police station, the station is surrounded with the police force having a hard time to deal with the communist rioters. The situation has remained mostly peaceful but the radicals at any moment could take the station. A rock is thrown. Shots fire. The fighting starts. The next phase begins.
+	title = provisional_government.26.t
+	desc = provisional_government.26.desc
+#picture = GFX_report_event_italy_student_clashes1
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.26.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.27
+				days = 10
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.27 # News article about the massacre in Verona. Hundreds dead from police violence, with a handful of police deaths as well from rioters. The police chief has declined to comment. Communist militias have begun to openly carry weapons to defend protests, as well as performing direct action through attacks on government buildings.
+	title = provisional_government.27.t
+	desc = provisional_government.27.desc
+	picture = GFX_report_event_italy_student_clashes2
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.27.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.28
+				days = 14
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.28 # POV of Verona protestors taking over and burning down a police station (not the other pov one). Happy excited vibes, before the military rolls in to destroy them.
+	title = provisional_government.28.t
+	desc = provisional_government.28.desc
+	picture = GFX_report_event_burning_building
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.28.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.29
+				days = 14
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.29 # The new family is having some challenges with participating in political stuff because there's a baby to account for. Both parents can't risk their lives, lest they leave the baby an orphan. However they do print out radical literature and help where they can, and work for the future of their baby.
+	title = provisional_government.29.t
+	desc = provisional_government.29.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.29.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.30
+				days = 14
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.30 # The police station is hopeless. Everyday they fight back against communist militants. The military has been assisting for the past few months in riot suppression, and the line between police officer and soldier blurs. The only solution seems to be violence.
+	title = provisional_government.30.t
+	desc = provisional_government.30.desc
+	picture = GFX_report_event_commune_protest
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.30.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.31
+				days = 21
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.31 # Multiple snapshots of places in Italy: More massacres flow out, rural and urban. Civilians debate over how much to blame Umberto, and if it is the fascists or communists or monarchists to blame. All the while, the communists keep organizing and fighting.
+	title = provisional_government.31.t
+	desc = provisional_government.31.desc
+	picture = GFX_report_event_protest
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.31.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.32
+				days = 21
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.32 # A quiet moment in the chaos, a communist organization managed by the PCdI hands out food to the people in Verona. Supplies are tough to get in the city, but the communist networks provide and the people are grateful.
+	title = provisional_government.32.t
+	desc = provisional_government.32.desc
+	Picture = GFX_report_event_food_bank
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.32.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.33
+				days = 21
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.33 # Everyday, another paragraph gets added to Umberto's page in history. Another massacre, another failure, another movement. He has done everything within his power, but the people do not understand. Do they think he will give them elections after their demonstration of mob rule? Does father give in to the child's whining? No. Not until the chaos ends.
+	title = provisional_government.33.t
+	desc = provisional_government.33.desc
+	picture = GFX_report_event_italy_umberto_II_serious_1967
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.33.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.34
+				days = 21
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.34 # Farinacci has taken advantage of the chaos. With the focus on communist radicals, it has become easier to get some old soldiers nostalgic for the good old days of Mussolini. Back when fascism meant something, when fascism was powerful, when Italy ruled the Mediterranean. Now, Farinacci promises a return.
+	title = provisional_government.34.t
+	desc = provisional_government.34.desc
+	picture = GFX_report_event_italy_soldier_convoy
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.34.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.35
+				days = 21
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.35 # It is a good day. The chaos in Verona has been silenced. Military patrols roam the streets as a curfew has been instituted for what has been around a couple months. Slowly things seem to be quieting down. But maybe it is just the calm before the storm. The station is hopeful though!
+	title = provisional_government.35.t
+	desc = provisional_government.35.desc
+	picture = GFX_report_event_italy_soldier_patrol
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.35.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = provisional_government.36
+				days = 14
+			}
+		}
+	}
+}
+
+country_event = {
+	id = provisional_government.36 # After peace in Verona has been forced, Umberto plans to make a speech in the city. He expects it to go well, and that he can begin the transition to a stable government under the PNM. He stares at his garden, overrun with invasive red Italian arum. He makes a note to fire his gardener. Elsewhere, a nameless man frustrated at Umberto, frustrated at the chaos, and at the oppressive government, readies a gun.
+	title = provisional_government.36.t
+	desc = provisional_government.36.desc
+	picture = GFX_report_event_italy_umberto_II_serious_1967
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = provisional_government.36.a
+		ai_chance = { factor = 1 }
+	}
+}
+### Leader Intros ###
+
+country_event = { # Secchia Intro
+	id = ITA_RED_leader_intro.1
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ITA_RED_leader_intro.1" }
+	title = ITA_RED_leader_intro.1.t
+	desc = ITA_RED_leader_intro.1.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = ITA_RED_leader_intro.1.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_leader_intro.3
+				days = 42
+			}
+		}
+	}
+}
+
+country_event = { # Damen Intro
+	id = ITA_RED_leader_intro.3
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ITA_RED_leader_intro.3" }
+	title = ITA_RED_leader_intro.3.t
+	desc = ITA_RED_leader_intro.3.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = ITA_RED_leader_intro.3.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_leader_intro.10
+				days = 42
+			}
+		}
+	}
+}
+
+country_event = { # Negri Intro
+	id = ITA_RED_leader_intro.4
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ITA_RED_leader_intro.4" }
+	title = ITA_RED_leader_intro.4.t
+	desc = ITA_RED_leader_intro.4.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = ITA_RED_leader_intro.4.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_leader_intro.5
+				days = 42
+			}
+		}
+	}
+}
+
+country_event = { # Feltrinelli Intro
+	id = ITA_RED_leader_intro.5
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ITA_RED_leader_intro.5" }
+	title = ITA_RED_leader_intro.5.t
+	desc = ITA_RED_leader_intro.5.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = ITA_RED_leader_intro.1.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_leader_intro.10
+				days = 42
+			}
+		}
+	}
+}
+
+country_event = { # Gallo Intro
+	id = ITA_RED_leader_intro.7
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ITA_RED_leader_intro.7" }
+	title = ITA_RED_leader_intro.7.t
+	desc = ITA_RED_leader_intro.7.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = ITA_RED_leader_intro.7.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_leader_intro.8
+				days = 42
+			}
+		}
+	}
+}
+
+country_event = { # Rodano Intro
+	id = ITA_RED_leader_intro.8
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ITA_RED_leader_intro.8" }
+	title = ITA_RED_leader_intro.8.t
+	desc = ITA_RED_leader_intro.8.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = ITA_RED_leader_intro.8.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_leader_intro.10
+				days = 42
+			}
+		}
+	}
+}
+
+country_event = { # Bordiga Intro
+	id = ITA_RED_leader_intro.10
+	immediate = { log = "[GetDateText]: [Root.GetName]: event ITA_RED_leader_intro.10" }
+	title = ITA_RED_leader_intro.10.t
+	desc = ITA_RED_leader_intro.10.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = ITA_RED_leader_intro.10.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+### DEAD PROVISIONAL GOVERNMENT ###
+country_event = {
+	id = dead_provisional_government.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event dead_provisional_government.1"}
+	title = dead_provisional_government.1.t
+	desc = dead_provisional_government.1.desc
+	picture = GFX_report_event_italy_shootout1
+
+	is_triggered_only = yes
+
+	option = {
+		name = dead_provisional_government.1.a
+		kill_country_leader = yes
+		ITA_med_promote_Collapsed_Rule = yes
+		set_politics = { ruling_party = despotism }
+		load_focus_tree = generic_focus
+		custom_effect_tooltip = ITA_RED_economy_worsen_tt
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_dawn.1
+				days = 2
+			}
+			country_event = {
+				id = dead_provisional_government.2
+				days = 8
+			}
+			country_event = {
+				id = dead_provisional_government.10
+				days = 5
+			}
+			every_country = {
+				news_event = {
+					id = ITA_news.8
+				}
+			}
+			if = {
+				limit = { has_country_flag = ITA_RED_is_old_guard }
+				country_event = {
+					id = ITA_old_guard_flavor.2
+					days = 2
+				}
+			}
+			add_popularity = {
+				ideology = despotism
+				popularity = -0.6
+			}
+			add_popularity = {
+				ideology = communist
+				popularity = 0.3
+			}
+			add_popularity = {
+				ideology = socialist
+				popularity = 0.15
+			}
+			# Montenegro deteriorates; Croatia
+			hidden_effect = {
+				MNT = {
+					swap_ideas = {
+						remove_idea = MNT_unending_unrest
+						add_idea = MNT_open_civil_war
+					}
+				}
+				# Defined in neither branch - this call did nothing.
+				#country_event = { id = cro_red_italy.2 days = 224 } # Gorkic's Provisional Government
+			}
+			remove_dynamic_modifier = { modifier = ITA_RED_kings_reforms_modifier }
+			add_to_variable = { ITA_RED_inflation_dynmod_variable = 2 }
+			add_to_variable = { ITA_RED_prod_fact_dynmod_variable = -0.1 }
+			add_to_variable = { ITA_RED_gdp_growth_dynmod_variable = -0.05 }
+			add_to_variable = { ITA_RED_industrial_capacity_dynmod_variable = -0.1 }
+			add_to_variable = { ITA_RED_consumers_dynmod_variable = 0.01 }
+			clr_country_flag = ITA_RED_kings_culrev_available
+		}
+	}
+}
+
+country_event = { #
+	id = dead_provisional_government.2
+	immediate = { log = "[GetDateText]: [Root.GetName]: event dead_provisional_government.2" }
+	title = dead_provisional_government.2.t
+	desc = dead_provisional_government.2.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = dead_provisional_government.2.a
+		ai_chance = { factor = 1 }
+
+	}
+}
+
+country_event = { #
+	id = dead_provisional_government.3
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = { log = "[GetDateText]: [Root.GetName]: event dead_provisional_government.3" }
+	title = dead_provisional_government.3.t
+	desc = dead_provisional_government.3.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = dead_provisional_government.3.a
+		ai_chance = { factor = 1 }
+
+	}
+}
+
+country_event = { #
+	id = dead_provisional_government.4
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = { log = "[GetDateText]: [Root.GetName]: event dead_provisional_government.4" }
+	title = dead_provisional_government.4.t
+	desc = dead_provisional_government.4.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = dead_provisional_government.4.a
+		ai_chance = { factor = 1 }
+
+	}
+}
+
+country_event = { #
+	id = dead_provisional_government.5
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = { log = "[GetDateText]: [Root.GetName]: event dead_provisional_government.5" }
+	title = dead_provisional_government.5.t
+	desc = dead_provisional_government.5.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = dead_provisional_government.5.a
+		ai_chance = { factor = 1 }
+
+	}
+}
+
+country_event = { #
+	id = dead_provisional_government.6
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = { log = "[GetDateText]: [Root.GetName]: event dead_provisional_government.6" }
+	title = dead_provisional_government.6.t
+	desc = dead_provisional_government.6.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = dead_provisional_government.6.a
+		ai_chance = { factor = 1 }
+
+	}
+}
+
+country_event = { #
+	id = dead_provisional_government.7
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = { log = "[GetDateText]: [Root.GetName]: event dead_provisional_government.7" }
+	title = dead_provisional_government.7.t
+	desc = dead_provisional_government.7.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = dead_provisional_government.7.a
+		ai_chance = { factor = 1 }
+
+	}
+}
+
+country_event = { #
+	id = dead_provisional_government.8
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = { log = "[GetDateText]: [Root.GetName]: event dead_provisional_government.8" }
+	title = dead_provisional_government.8.t
+	desc = dead_provisional_government.8.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = dead_provisional_government.8.a
+		ai_chance = { factor = 1 }
+
+	}
+}
+
+country_event = { #
+	id = dead_provisional_government.9
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = { log = "[GetDateText]: [Root.GetName]: event dead_provisional_government.9" }
+	title = dead_provisional_government.9.t
+	desc = dead_provisional_government.9.desc
+	#picture =
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = { #
+		name = dead_provisional_government.9.a
+		ai_chance = { factor = 1 }
+
+	}
+}
+
+country_event = { # Cliqueists taking over the North
+	id = dead_provisional_government.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event dead_provisional_government.10"}
+	title = dead_provisional_government.10.t
+	desc = dead_provisional_government.10.desc
+	#picture = GFX_report_event_italy_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = dead_provisional_government.10.a
+		158 = {set_demilitarized_zone = yes}
+		735 = {set_demilitarized_zone = yes}
+		1323 = {set_demilitarized_zone = yes}
+		159 = {set_demilitarized_zone = yes}
+
+		if = {
+			limit = { NOT = { has_idea = tno_security_totalitarian_police } }
+			add_ideas = tno_security_totalitarian_police
+		}
+		if = {
+			limit = { has_idea = tno_press_rights_censored_press }
+			tno_press_rights_worsen = yes
+		}
+
+		hidden_effect = {
+			country_event = {
+				id = dead_provisional_government.11
+				days = 2
+			}
+		}
+	}
+}
+
+country_event = { # Cliqueists taking over the South
+	id = dead_provisional_government.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event dead_provisional_government.11"}
+	title = dead_provisional_government.11.t
+	desc = dead_provisional_government.11.desc
+	#picture = GFX_report_event_italy_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = dead_provisional_government.11.a
+		117 = {set_demilitarized_zone = yes}
+		1325 = {set_demilitarized_zone = yes}
+		117 = {set_demilitarized_zone = yes} # was 1445, a state on neither branch - Basilicata by its neighbours; its land lies in Campania on this map
+		156 = {set_demilitarized_zone = yes}
+		115 = {set_demilitarized_zone = yes}
+		1327 = {set_demilitarized_zone = yes}
+
+		hidden_effect = {
+			country_event = {
+				id = revolutionary_provisional_government.1
+				days = 2
+			}
+		}
+	}
+}
+
+### REVOLUTIONARY PROVISIONAL GOVERNMENT ###
+country_event = { # Revolutionaries Overthrow Government!
+	id = revolutionary_provisional_government.1
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.1"}
+	title = revolutionary_provisional_government.1.t
+	desc = revolutionary_provisional_government.1.desc
+	picture = GFX_report_event_italy_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.1.a
+		ITA_RED_revolution_setup = yes
+	}
+}
+
+country_event = { # Going to the Masses
+	id = revolutionary_provisional_government.2
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.2"}
+	title = revolutionary_provisional_government.2.t
+	desc = revolutionary_provisional_government.2.desc
+	picture = GFX_report_event_italy_standing_crowd
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.2.a
+	}
+}
+
+country_event = { # Like Sunrays in the Morning
+	id = revolutionary_provisional_government.3
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.3"}
+	title = revolutionary_provisional_government.3.t
+	desc = revolutionary_provisional_government.3.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.3.a
+	}
+}
+
+country_event = { # Like Fish in the Sea
+	id = revolutionary_provisional_government.4
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.4"}
+	title = revolutionary_provisional_government.4.t
+	desc = revolutionary_provisional_government.4.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.4.a
+	}
+}
+
+country_event = { # Mountain Republics
+	id = revolutionary_provisional_government.5
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.5"}
+	title = revolutionary_provisional_government.5.t
+	desc = revolutionary_provisional_government.5.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.5.a
+		hidden_effect = {
+			random_list = {
+				30 = {
+					modifier = {
+						factor = 0.7
+						check_variable = { ITA_red_army_progress > 0 }
+					}
+					country_event = {
+						id = revolutionary_provisional_government.8
+						hours = 16
+					}
+				}
+				45 = {
+					country_event = {
+						id = revolutionary_provisional_government.9
+						hours = 16
+					}
+				}
+				25 = {
+					modifier = {
+						factor = 1.4
+						check_variable = { ITA_red_army_progress > 1 }
+					}
+					modifier = {
+						factor = 1.4
+						check_variable = { ITA_red_army_progress > 2 }
+					}
+					country_event = {
+						id = revolutionary_provisional_government.10
+						hours = 16
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { # Sway the Common Soldier
+	id = revolutionary_provisional_government.6
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.6"}
+	title = revolutionary_provisional_government.6.t
+	desc = revolutionary_provisional_government.6.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.6.a
+		1324 = {
+			create_unit = {
+				division = "division_template = \"Divisione di Fanteria\" start_experience_factor = 0.3 start_equipment_factor = 0.4 start_manpower_factor = 0.8"
+				owner = ITA
+			}
+		}
+		115 = {
+			create_unit = {
+				division = "division_template = \"Divisione di Fanteria\" start_experience_factor = 0.3 start_equipment_factor = 0.4 start_manpower_factor = 0.8"
+				owner = ITA
+			}
+		}
+		743 = {
+			create_unit = {
+				division = "name = \"Divisione Alpina 'Arditi del Popolo'\" division_template = \"Divisione Alpina\" start_experience_factor = 0.3 start_equipment_factor = 0.4 start_manpower_factor = 0.8"
+				owner = ITA
+			}
+		}
+	}
+}
+
+country_event = { # Liberated Countrysides
+	id = revolutionary_provisional_government.7
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.7"}
+	title = revolutionary_provisional_government.7.t
+	desc = revolutionary_provisional_government.7.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.7.a
+		hidden_effect = {
+			random_list = {
+				45 = {
+					modifier = {
+						factor = 2
+						check_variable = { ITA_red_army_progress = 0 }
+					}
+					country_event = {
+						id = revolutionary_provisional_government.11
+						hours = 16
+					}
+				}
+				45 = {
+					modifier = {
+						factor = 1.1
+						check_variable = { ITA_red_army_progress > 1 }
+					}
+					modifier = {
+						factor = 1.2
+						check_variable = { ITA_red_army_progress > 2 }
+					}
+					country_event = {
+						id = revolutionary_provisional_government.12
+						hours = 16
+					}
+				}
+				10 = {
+					modifier = {
+						factor = 2
+						check_variable = { ITA_red_army_progress > 1 }
+					}
+					modifier = {
+						factor = 2
+						check_variable = { ITA_red_army_progress > 2 }
+					}
+					country_event = {
+						id = revolutionary_provisional_government.13
+						hours = 16
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { # Mountain Republics - Maximum Casualties Taken
+	id = revolutionary_provisional_government.8
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.8"}
+	title = revolutionary_provisional_government.8.t
+	desc = revolutionary_provisional_government.8.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.8.a
+		add_manpower = -1250
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -150
+		}
+		158 = {
+			damage_building = {
+				type = infrastructure
+				damage = 2
+			}
+		}
+		1323 = {
+			damage_building = {
+				type = infrastructure
+				damage = 2
+			}
+		}
+		158 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		735 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		1323 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		add_to_variable = { ITA_red_brigata_garibaldi_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata d'assalto Garibaldi" division_cap = ITA_red_brigata_garibaldi_cap }
+		add_to_variable = { ITA_red_alpine_militia_cap = 1 }
+		set_division_template_cap = { division_template = "Milizia Alpina" division_cap = ITA_red_alpine_militia_cap }
+		add_to_variable = { ITA_red_partisan_cap  = 1 }
+		set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+		add_to_variable = { ITA_red_student_brigade_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata Studentesca" division_cap = ITA_red_student_brigade_cap }
+		1323 = {
+			create_unit = {
+				division = "name = \"Gruppi Anarchici d'Azione Proletaria 'Liguria'\" division_template = \"Brigata Partigiana\" start_experience_factor = 0.2 start_equipment_factor = 0.15 start_manpower_factor = 0.4"
+				owner = ITA
+			}
+		}
+		158 = {
+			create_unit = {
+				division = "name = \"Guardie Rossa di Torino\" division_template = \"Brigata Studentesca\" start_experience_factor = 0.15 start_equipment_factor = 0.5 start_manpower_factor = 0.6"
+				owner = ITA
+			}
+		}
+		735 = {
+			create_unit = {
+				division = "name = \"Brigata Unita Alpina 'Piemonte'\" division_template = \"Milizia Alpina\" start_experience_factor = 0.2 start_equipment_factor = 0.1 start_manpower_factor = 0.4"
+				owner = ITA
+			}
+		}
+		1323 = {
+			create_unit = {
+				division = "name = \"98a Brigata Garibaldi 'Martiri di Alessandria'\" division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.3 start_equipment_factor = 0.15 start_manpower_factor = 0.3"
+				owner = ITA
+			}
+		}
+		158 = {
+		subtract_from_temp_variable = { temp_state_value_addition = 0.04 }
+		econ_state_value_change_addition_specified_state = yes
+		}
+		1323 = {
+		subtract_from_temp_variable = { temp_state_value_addition = 0.02 }
+		econ_state_value_change_addition_specified_state = yes
+		}
+	}
+}
+
+country_event = { # Mountain Republics - Medium Casualties Taken
+	id = revolutionary_provisional_government.9
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.9"}
+	title = revolutionary_provisional_government.9.t
+	desc = revolutionary_provisional_government.9.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.9.a
+		add_manpower = -955
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -130
+		}
+		158 = {
+			damage_building = {
+				type = infrastructure
+				damage = 2
+			}
+		}
+		1323 = {
+			damage_building = {
+				type = infrastructure
+				damage = 1
+			}
+		}
+		158 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		735 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		1323 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		add_to_variable = { ITA_red_brigata_garibaldi_cap  = 1 }
+		set_division_template_cap = { division_template = "Brigata d'assalto Garibaldi" division_cap = ITA_red_brigata_garibaldi_cap }
+		add_to_variable = { ITA_red_alpine_militia_cap  = 1 }
+		set_division_template_cap = { division_template = "Milizia Alpina" division_cap = ITA_red_alpine_militia_cap }
+		add_to_variable = { ITA_red_partisan_cap  = 1 }
+		set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+		add_to_variable = { ITA_red_student_brigade_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata Studentesca" division_cap = ITA_red_student_brigade_cap }
+		1323 = {
+			create_unit = {
+				division = "name = \"Gruppi Anarchici d'Azione Proletaria 'Liguria'\" division_template = \"Brigata Partigiana\" start_experience_factor = 0.15 start_equipment_factor = 0.2 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		158 = {
+			create_unit = {
+				division = "name = \"Guardie Rossa di Torino\" division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.5 start_manpower_factor = 0.7"
+				owner = ITA
+			}
+		}
+		735 = {
+			create_unit = {
+				division = "name = \"Brigata Unita Alpina 'Piemonte'\" division_template = \"Milizia Alpina\" start_experience_factor = 0.15 start_equipment_factor = 0.15 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		1323 = {
+			create_unit = {
+				division = "name = \"98a Brigata Garibaldi 'Martiri di Alessandria'\" division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.3 start_equipment_factor = 0.2 start_manpower_factor = 0.35"
+				owner = ITA
+			}
+		}
+		158 = {
+		subtract_from_temp_variable = { temp_state_value_addition = 0.02 }
+		econ_state_value_change_addition_specified_state = yes
+		}
+	}
+}
+
+country_event = { # Mountain Republics - Minimal Casualties Taken
+	id = revolutionary_provisional_government.10
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.10"}
+	title = revolutionary_provisional_government.10.t
+	desc = revolutionary_provisional_government.10.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.10.a
+		add_manpower = -675
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -110
+		}
+		158 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		735 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		1323 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		add_to_variable = { ITA_red_brigata_garibaldi_cap  = 1 }
+		set_division_template_cap = { division_template = "Brigata d'assalto Garibaldi" division_cap = ITA_red_brigata_garibaldi_cap }
+		add_to_variable = { ITA_red_alpine_militia_cap  = 1 }
+		set_division_template_cap = { division_template = "Milizia Alpina" division_cap = ITA_red_alpine_militia_cap }
+		add_to_variable = { ITA_red_partisan_cap  = 1 }
+		set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+		add_to_variable = { ITA_red_student_brigade_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata Studentesca" division_cap = ITA_red_student_brigade_cap }
+		1323 = {
+			create_unit = {
+				division = "name = \"Gruppi Anarchici d'Azione Proletaria 'Liguria'\" division_template = \"Brigata Partigiana\" start_experience_factor = 0.15 start_equipment_factor = 0.3 start_manpower_factor = 0.6"
+				owner = ITA
+			}
+		}
+		158 = {
+			create_unit = {
+				division = "name = \"Guardie Rossa di Torino\" division_template = \"Brigata Studentesca\" start_experience_factor = 0.1 start_equipment_factor = 0.5 start_manpower_factor = 0.75"
+				owner = ITA
+			}
+		}
+		735 = {
+			create_unit = {
+				division = "name = \"Brigata Unita Alpina 'Piemonte'\" division_template = \"Milizia Alpina\" start_experience_factor = 0.15 start_equipment_factor = 0.2 start_manpower_factor = 0.6"
+				owner = ITA
+			}
+		}
+		1323 = {
+			create_unit = {
+				division = "name = \"98a Brigata Garibaldi 'Martiri di Alessandria'\" division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.25 start_equipment_factor = 0.2 start_manpower_factor = 0.4"
+				owner = ITA
+			}
+		}
+	}
+}
+
+country_event = { # Liberated Countrysides - Maximum Casualties Taken
+	id = revolutionary_provisional_government.11
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.11"}
+	title = revolutionary_provisional_government.11.t
+	desc = revolutionary_provisional_government.11.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.11.a
+		add_manpower = -1250
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -170
+		}
+		1325 = {
+			damage_building = {
+				type = infrastructure
+				damage = 1
+			}
+		}
+		117 = { # was 1445, a state on neither branch - Basilicata by its neighbours; its land lies in Campania on this map
+			damage_building = {
+				type = infrastructure
+				damage = 1
+			}
+		}
+		156 = {
+			damage_building = {
+				type = infrastructure
+				damage = 1
+			}
+		}
+		115 = {
+			damage_building = {
+				type = infrastructure
+				damage = 2
+			}
+		}
+		1327 = {
+			damage_building = {
+				type = infrastructure
+				damage = 1
+			}
+		}
+		1325 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		117 = { # was 1445, a state on neither branch - Basilicata by its neighbours; its land lies in Campania on this map
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		156 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		115 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		1327 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		add_to_variable = { ITA_red_partisan_cap = 2 }
+		set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+		115 = {
+			create_unit = {
+				division = "name = \"Banda Susina Rossa\" division_template = \"Brigata Partigiana\" start_experience_factor = 0.2 start_equipment_factor = 0.15 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		1325 = {
+			create_unit = {
+				division = "name = \"Battaglione di Difesa Popolare 'Fiore'\" division_template = \"Brigata Partigiana\" start_experience_factor = 0.2 start_equipment_factor = 0.15 start_manpower_factor = 0.3"
+				owner = ITA
+			}
+		}
+		115 = {
+		subtract_from_temp_variable = { temp_state_value_addition = 0.3 }
+		econ_state_value_change_addition_specified_state = yes
+		}
+		1327 = {
+		subtract_from_temp_variable = { temp_state_value_addition = 0.1 }
+		econ_state_value_change_addition_specified_state = yes
+		}
+	}
+}
+
+country_event = { # Liberated Countrysides - Medium Casualties Taken
+	id = revolutionary_provisional_government.12
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.12"}
+	title = revolutionary_provisional_government.12.t
+	desc = revolutionary_provisional_government.12.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.12.a
+		add_manpower = -845
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -140
+		}
+		115 = {
+			damage_building = {
+				type = infrastructure
+				damage = 2
+			}
+		}
+		1325 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		117 = { # was 1445, a state on neither branch - Basilicata by its neighbours; its land lies in Campania on this map
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		156 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		115 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		1327 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		add_to_variable = { ITA_red_partisan_cap = 2 }
+		set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+		115 = {
+			create_unit = {
+				division = "name = \"Banda Susina Rossa\" division_template = \"Brigata Partigiana\" start_experience_factor = 0.15 start_equipment_factor = 0.2 start_manpower_factor = 0.6"
+				owner = ITA
+			}
+		}
+		1325 = {
+			create_unit = {
+				division = "name = \"Battaglione di Difesa Popolare 'Fiore'\" division_template = \"Brigata Partigiana\" start_experience_factor = 0.15 start_equipment_factor = 0.2 start_manpower_factor = 0.4"
+				owner = ITA
+			}
+		}
+		115 = {
+		subtract_from_temp_variable = { temp_state_value_addition = 0.1 }
+		econ_state_value_change_addition_specified_state = yes
+		}
+	}
+}
+
+country_event = { # Liberated Countrysides - Minimal Casualties Taken
+	id = revolutionary_provisional_government.13
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.13"}
+	title = revolutionary_provisional_government.13.t
+	desc = revolutionary_provisional_government.13.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.13.a
+		add_manpower = -635
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -105
+		}
+		1325 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		117 = { # was 1445, a state on neither branch - Basilicata by its neighbours; its land lies in Campania on this map
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		156 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		115 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		1327 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		add_to_variable = { ITA_red_partisan_cap = 2 }
+		set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+		115 = {
+			create_unit = {
+				division = "name = \"Banda Susina Rossa\" division_template = \"Brigata Partigiana\" start_experience_factor = 0.15 start_equipment_factor = 0.2 start_manpower_factor = 0.7"
+				owner = ITA
+			}
+		}
+		1325 = {
+			create_unit = {
+				division = "name = \"Battaglione di Difesa Popolare 'Fiore'\" division_template = \"Brigata Partigiana\" start_experience_factor = 0.15 start_equipment_factor = 0.2 start_manpower_factor = 0.4"
+				owner = ITA
+			}
+		}
+	}
+}
+
+country_event = { # City of Steel
+	id = revolutionary_provisional_government.14
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.14"}
+	title = revolutionary_provisional_government.14.t
+	desc = revolutionary_provisional_government.14.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.14.a
+		hidden_effect = {
+			random_list = {
+				30 = {
+					modifier = {
+						factor = 5
+						check_variable = { ITA_red_army_progress = 0 }
+					}
+					country_event = {
+						id = revolutionary_provisional_government.16
+						hours = 16
+					}
+				}
+				40 = {
+					modifier = {
+						factor = 1.1
+						check_variable = { ITA_red_army_progress > 2 }
+					}
+					modifier = {
+						factor = 1.2
+						check_variable = { ITA_red_army_progress > 1 }
+					}
+					country_event = {
+						id = revolutionary_provisional_government.17
+						hours = 16
+					}
+				}
+				30 = {
+					modifier = {
+						factor = 1.4
+						check_variable = { ITA_red_army_progress > 2 }
+					}
+					modifier = {
+						factor = 1.2
+						check_variable = { ITA_red_army_progress > 1 }
+					}
+					country_event = {
+						id = revolutionary_provisional_government.18
+						hours = 16
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { # See Naples and Die
+	id = revolutionary_provisional_government.15
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.15"}
+	title = revolutionary_provisional_government.15.t
+	desc = revolutionary_provisional_government.15.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.15.a
+		hidden_effect = {
+			random_list = {
+				45 = {
+					modifier = {
+						factor = 5
+						check_variable = { ITA_red_army_progress = 0 }
+					}
+					country_event = {
+						id = revolutionary_provisional_government.19
+						hours = 16
+					}
+				}
+				35 = {
+					modifier = {
+						factor = 1.2
+						check_variable = { ITA_red_army_progress > 2 }
+					}
+					modifier = {
+						factor = 1.3
+						check_variable = { ITA_red_army_progress > 1 }
+					}
+					country_event = {
+						id = revolutionary_provisional_government.20
+						hours = 16
+					}
+				}
+				20 = {
+					modifier = {
+						factor = 1.5
+						check_variable = { ITA_red_army_progress > 2 }
+					}
+					modifier = {
+						factor = 1.3
+						check_variable = { ITA_red_army_progress > 1 }
+					}
+					country_event = {
+						id = revolutionary_provisional_government.21
+						hours = 16
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { # City of Steel - Maximum Casualties Taken
+	id = revolutionary_provisional_government.16
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.16"}
+	title = revolutionary_provisional_government.16.t
+	desc = revolutionary_provisional_government.16.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.16.a
+		add_manpower = -1750
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -190
+		}
+		add_to_variable = { ITA_red_brigata_garibaldi_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata d'assalto Garibaldi" division_cap = ITA_red_brigata_garibaldi_cap }
+		add_to_variable = { ITA_red_partisan_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+		add_to_variable = { ITA_red_workers_militia_cap = 1 }
+		set_division_template_cap = { division_template = "Battaglione Operaio" division_cap = ITA_red_workers_militia_cap }
+		159 = {
+			damage_building = {
+				type = infrastructure
+				damage = 3
+			}
+
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+
+			create_unit = {
+				division = "name = \"Brigate Bruzzi-Malatesta\" division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.3 start_equipment_factor = 0.1 start_manpower_factor = 0.3"
+				owner = ITA
+			}
+			create_unit = {
+				division = "name = \"Fronte Anarchici d'Azione Proletaria\" division_template = \"Brigata Partigiana\" start_experience_factor = 0.2 start_equipment_factor = 0.1 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+			create_unit = {
+				division = "name = \"Battaglione Proletario 'Lombardi'\" division_template = \"Battaglione Operaio\" start_experience_factor = 0.15 start_equipment_factor = 0.1 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		159 = {
+		subtract_from_temp_variable = { temp_state_value_addition = 0.1 }
+		econ_state_value_change_addition_specified_state = yes
+		}
+	}
+}
+
+country_event = { # City of Steel - Medium Casualties Taken
+	id = revolutionary_provisional_government.17
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.17"}
+	title = revolutionary_provisional_government.17.t
+	desc = revolutionary_provisional_government.17.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.17.a
+		add_manpower = -1150
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -155
+		}
+		add_to_variable = { ITA_red_brigata_garibaldi_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata d'assalto Garibaldi" division_cap = ITA_red_brigata_garibaldi_cap }
+		add_to_variable = { ITA_red_partisan_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+		add_to_variable = { ITA_red_workers_militia_cap = 1 }
+		set_division_template_cap = { division_template = "Battaglione Operaio" division_cap = ITA_red_workers_militia_cap }
+		159 = {
+			damage_building = {
+				type = infrastructure
+				damage = 2
+			}
+
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+
+			create_unit = {
+				division = "name = \"Brigate Bruzzi-Malatesta\" division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.25 start_equipment_factor = 0.15 start_manpower_factor = 0.4"
+				owner = ITA
+			}
+			create_unit = {
+				division = "name = \"Fronte Anarchici d'Azione Proletaria\" division_template = \"Brigata Partigiana\" start_experience_factor = 0.2 start_equipment_factor = 0.15 start_manpower_factor = 0.6"
+				owner = ITA
+			}
+			create_unit = {
+				division = "name = \"Battaglione Proletario 'Lombardi'\" division_template = \"Battaglione Operaio\" start_experience_factor = 0.15 start_equipment_factor = 0.15 start_manpower_factor = 0.6"
+				owner = ITA
+			}
+		}
+	}
+}
+
+country_event = { # City of Steel - Minimal Casualties Taken
+	id = revolutionary_provisional_government.18
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.18"}
+	title = revolutionary_provisional_government.18.t
+	desc = revolutionary_provisional_government.18.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.18.a
+		add_manpower = -855
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -125
+		}
+		add_to_variable = { ITA_red_brigata_garibaldi_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata d'assalto Garibaldi" division_cap = ITA_red_brigata_garibaldi_cap }
+		add_to_variable = { ITA_red_partisan_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+		add_to_variable = { ITA_red_workers_militia_cap = 1 }
+		set_division_template_cap = { division_template = "Battaglione Operaio" division_cap = ITA_red_workers_militia_cap }
+		159 = {
+
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+
+			create_unit = {
+				division = "name = \"Brigate Bruzzi-Malatesta\" division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.2 start_equipment_factor = 0.2 start_manpower_factor = 0.45"
+				owner = ITA
+			}
+			create_unit = {
+				division = "name = \"Fronte Anarchici d'Azione Proletaria\" division_template = \"Brigata Partigiana\" start_experience_factor = 0.2 start_equipment_factor = 0.2 start_manpower_factor = 0.65"
+				owner = ITA
+			}
+			create_unit = {
+				division = "name = \"Battaglione Proletario 'Lombardi'\" division_template = \"Battaglione Operaio\" start_experience_factor = 0.15 start_equipment_factor = 0.2 start_manpower_factor = 0.75"
+				owner = ITA
+			}
+		}
+	}
+}
+
+country_event = { # See Naples and Die - Maximum Casualties Taken
+	id = revolutionary_provisional_government.19
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.19"}
+	title = revolutionary_provisional_government.19.t
+	desc = revolutionary_provisional_government.19.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.19.a
+		add_manpower = -1475
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -165
+		}
+		117 = {
+			damage_building = {
+				type = infrastructure
+				damage = 3
+			}
+		}
+		117 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		add_to_variable = { ITA_red_student_brigade_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata Studentesca" division_cap = ITA_red_student_brigade_cap }
+		add_to_variable = { ITA_red_partisan_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+		117 = {
+			create_unit = {
+				division = "name = \"Unita Infiltrazione 'Sussurro del Popolo'\" division_template = \"Brigata Partigiana\" start_experience_factor = 0.25 start_equipment_factor = 0.15 start_manpower_factor = 0.4"
+				owner = ITA
+			}
+			create_unit = {
+				division = "name = \"Comitato Bolscevico 'Vesuvio Rosso'\" division_template = \"Brigata Studentesca\" start_experience_factor = 0.2 start_equipment_factor = 0.2 start_manpower_factor = 0.6"
+				owner = ITA
+			}
+		}
+		117 = {
+		subtract_from_temp_variable = { temp_state_value_addition = 0.1 }
+		econ_state_value_change_addition_specified_state = yes
+		}
+	}
+}
+
+country_event = { # See Naples and Die - Minimal Casualties Taken
+	id = revolutionary_provisional_government.20
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.20"}
+	title = revolutionary_provisional_government.20.t
+	desc = revolutionary_provisional_government.20.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.20.a
+		add_manpower = -1150
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -135
+		}
+		117 = {
+			damage_building = {
+				type = infrastructure
+				damage = 2
+			}
+		}
+		117 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		add_to_variable = { ITA_red_student_brigade_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata Studentesca" division_cap = ITA_red_student_brigade_cap }
+		add_to_variable = { ITA_red_partisan_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+		117 = {
+			create_unit = {
+				division = "name = \"Unita Infiltrazione 'Sussurro del Popolo'\" division_template = \"Brigata Partigiana\" start_experience_factor = 0.25 start_equipment_factor = 0.2 start_manpower_factor = 0.4"
+				owner = ITA
+			}
+			create_unit = {
+				division = "name = \"Comitato Bolscevico 'Vesuvio Rosso'\" division_template = \"Brigata Studentesca\" start_experience_factor = 0.15 start_equipment_factor = 0.25 start_manpower_factor = 0.7"
+				owner = ITA
+			}
+		}
+	}
+}
+
+country_event = { # See Naples and Die - No Casualties Taken
+	id = revolutionary_provisional_government.21
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.21"}
+	title = revolutionary_provisional_government.21.t
+	desc = revolutionary_provisional_government.21.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.21.a
+		add_manpower = -750
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -120
+		}
+		117 = {
+			transfer_state_to = ITA
+			set_demilitarized_zone = no
+		}
+		add_to_variable = { ITA_red_student_brigade_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata Studentesca" division_cap = ITA_red_student_brigade_cap }
+		add_to_variable = { ITA_red_partisan_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata Partigiana" division_cap = ITA_red_partisan_cap }
+		117 = {
+			create_unit = {
+				division = "name = \"Unita Infiltrazione 'Sussurro del Popolo'\" division_template = \"Brigata Partigiana\" start_experience_factor = 0.2 start_equipment_factor = 0.25 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+			create_unit = {
+				division = "name = \"Comitato Bolscevico 'Vesuvio Rosso'\" division_template = \"Brigata Studentesca\" start_experience_factor = 0.15 start_equipment_factor = 0.3 start_manpower_factor = 0.8"
+				owner = ITA
+			}
+		}
+	}
+}
+
+country_event = { # The Eternal Reward
+	id = revolutionary_provisional_government.22
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.22"}
+	title = revolutionary_provisional_government.22.t
+	desc = revolutionary_provisional_government.22.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.22.a
+		hidden_effect = {
+			random_list = {
+				35 = {
+					modifier = {
+						factor = 100
+						check_variable = { ITA_red_army_progress = 0 }
+					}
+					country_event = {
+						id = revolutionary_provisional_government.23
+						hours = 16
+					}
+				}
+				50 = {
+					modifier = {
+						factor = 1.1
+						check_variable = { ITA_red_army_progress > 2 }
+					}
+					modifier = {
+						factor = 1.2
+						check_variable = { ITA_red_army_progress > 1 }
+					}
+					country_event = {
+						id = revolutionary_provisional_government.24
+						hours = 16
+					}
+				}
+				15 = {
+					modifier = {
+						factor = 1.5
+						check_variable = { ITA_red_army_progress > 3 }
+					}
+					modifier = {
+						factor = 1.5
+						check_variable = { ITA_red_army_progress > 2 }
+					}
+					modifier = {
+						factor = 1.2
+						check_variable = { ITA_red_army_progress > 1 }
+					}
+					country_event = {
+						id = revolutionary_provisional_government.25
+						hours = 16
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = { # The Eternal Reward - Maximum Casualties Taken
+	id = revolutionary_provisional_government.23
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.23"}
+	title = revolutionary_provisional_government.23.t
+	desc = revolutionary_provisional_government.23.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.23.a
+		add_manpower = -1750
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -180
+		}
+		add_to_variable = { ITA_red_brigata_garibaldi_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata d'assalto Garibaldi" division_cap = ITA_red_brigata_garibaldi_cap }
+		add_to_variable = { ITA_red_workers_militia_cap = 1 }
+		set_division_template_cap = { division_template = "Battaglione Operaio" division_cap = ITA_red_workers_militia_cap }
+		annex_country = { #remove these annexes later once the "civil war" is actually functional.... euehugshkgjdhfkjlsahfsdjk
+			target = RKI
+			transfer_troops = no
+		}
+		2 = {
+			damage_building = {
+				type = infrastructure
+				damage = 3
+			}
+
+			set_demilitarized_zone = no
+
+			create_unit = {
+				division = "name = \"Brigata Garibaldi 'Amendola'\" division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.2 start_equipment_factor = 0.1 start_manpower_factor = 0.3"
+				owner = ITA
+			}
+			create_unit = {
+				division = "name = \"Battaglione di Difesa Proletaria 'Lazio'\" division_template = \"Battaglione Operaio\" start_experience_factor = 0.15 start_equipment_factor = 0.15 start_manpower_factor = 0.4"
+				owner = ITA
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = exile_gov_chain.1
+				hours = 12
+			}
+			every_country = {
+				news_event = {
+					id = ITA_news.9
+				}
+			}
+			set_cosmetic_tag = ITA_red_italy
+			# Revolutions in San Marino and Monaco
+			MOC = {
+				# Defined in neither branch - this call did nothing.
+				#country_event = { id = MOC.2 days = 45 }
+			}
+			SNM = {
+				# Defined in neither branch - this call did nothing.
+				#country_event = { id = SNM.1 days = 23 }
+			}
+			# Revolution in Montenegro
+			# Defined in neither branch - this call did nothing.
+			#country_event = {
+			#id = MNT.11 days = 38
+			#}
+		}
+	}
+}
+
+country_event = { # The Eternal Reward - Minimal Casualties Taken
+	id = revolutionary_provisional_government.24
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.24"}
+	title = revolutionary_provisional_government.24.t
+	desc = revolutionary_provisional_government.24.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.24.a
+		add_manpower = -1250
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -140
+		}
+		add_to_variable = { ITA_red_brigata_garibaldi_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata d'assalto Garibaldi" division_cap = ITA_red_brigata_garibaldi_cap }
+		add_to_variable = { ITA_red_workers_militia_cap = 1 }
+		set_division_template_cap = { division_template = "Battaglione Operaio" division_cap = ITA_red_workers_militia_cap }
+		annex_country = { #remove these annexes later once the "civil war" is actually functional.... euehugshkgjdhfkjlsahfsdjk
+			target = RKI
+			transfer_troops = no
+		}
+		2 = {
+			damage_building = {
+				type = infrastructure
+				damage = 2
+			}
+
+			set_demilitarized_zone = no
+
+			create_unit = {
+				division = "name = \"Brigata Garibaldi 'Amendola'\" division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.2 start_equipment_factor = 0.1 start_manpower_factor = 0.35"
+				owner = ITA
+			}
+			create_unit = {
+				division = "name = \"Battaglione di Difesa Proletaria 'Lazio'\" division_template = \"Battaglione Operaio\" start_experience_factor = 0.1 start_equipment_factor = 0.15 start_manpower_factor = 0.5"
+				owner = ITA
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = exile_gov_chain.1
+				hours = 12
+			}
+			every_country = {
+				news_event = {
+					id = ITA_news.9
+				}
+			}
+			set_cosmetic_tag = ITA_red_italy
+			# Revolutions in San Marino and Monaco
+			MOC = {
+				# Defined in neither branch - this call did nothing.
+				#country_event = { id = MOC.2 days = 45 }
+			}
+			SNM = {
+				# Defined in neither branch - this call did nothing.
+				#country_event = { id = SNM.1 days = 23 }
+			}
+			# Revolution in Montenegro
+			# Defined in neither branch - this call did nothing.
+			#country_event = {
+			#id = MNT.11 days = 38
+			#}
+		}
+	}
+}
+
+country_event = { # The Eternal Reward - No Casualties Taken
+	id = revolutionary_provisional_government.25
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.25"}
+	title = revolutionary_provisional_government.25.t
+	desc = revolutionary_provisional_government.25.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.25.a
+		add_manpower = -1000
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -130
+		}
+		add_to_variable = { ITA_red_brigata_garibaldi_cap = 1 }
+		set_division_template_cap = { division_template = "Brigata d'assalto Garibaldi" division_cap = ITA_red_brigata_garibaldi_cap }
+		add_to_variable = { ITA_red_workers_militia_cap = 1 }
+		set_division_template_cap = { division_template = "Battaglione Operaio" division_cap = ITA_red_workers_militia_cap }
+		annex_country = { #remove these annexes later once the "civil war" is actually functional.... euehugshkgjdhfkjlsahfsdjk
+			target = RKI
+			transfer_troops = no
+		}
+		2 = {
+			set_demilitarized_zone = no
+
+			create_unit = {
+				division = "name = \"Brigata Garibaldi 'Amendola'\" division_template = \"Brigata d'assalto Garibaldi\" start_experience_factor = 0.2 start_equipment_factor = 0.1 start_manpower_factor = 0.4"
+				owner = ITA
+			}
+			create_unit = {
+				division = "name = \"Battaglione di Difesa Proletaria 'Lazio'\" division_template = \"Battaglione Operaio\" start_experience_factor = 0.1 start_equipment_factor = 0.15 start_manpower_factor = 0.6"
+				owner = ITA
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = exile_gov_chain.1
+				hours = 12
+			}
+			every_country = {
+				news_event = {
+					id = ITA_news.9
+				}
+			}
+			set_cosmetic_tag = ITA_red_italy
+			# Revolutions in San Marino and Monaco
+			MOC = {
+				# Defined in neither branch - this call did nothing.
+				#country_event = { id = MOC.4 days = 240 }
+				# Defined in neither branch - this call did nothing.
+				#country_event = { id = MOC.2 days = 250 }
+			}
+			SNM = {
+				# Defined in neither branch - this call did nothing.
+				#country_event = { id = SNM.1 days = 23 }
+			}
+			# Revolution in Montenegro
+			# Defined in neither branch - this call did nothing.
+			#country_event = {
+			#id = MNT.11 days = 38
+			#}
+		}
+	}
+}
+
+country_event = { # Ciao pre-IGW!
+	id = revolutionary_provisional_government.26
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.26"}
+	title = revolutionary_provisional_government.26.t
+	desc = revolutionary_provisional_government.26.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.26.a
+		156 = {set_demilitarized_zone = yes}
+		country_event = {
+			id = ig_war_beginning.1
+			days = 2
+		}
+	}
+}
+
+#Whoops gotta do leader shit here
+
+country_event = { # OG leader pick
+	id = revolutionary_provisional_government.27
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.27"}
+	title = revolutionary_provisional_government.27.t
+	desc = revolutionary_provisional_government.27.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.27.a
+		ai_chance = { factor = 10 }
+		set_country_flag = ITA_RED_chose_first_leader
+		hidden_effect = {
+			country_event = {
+				id = revolutionary_provisional_government.31
+				days = 60
+			}
+		}
+	}
+	option = {
+		name = revolutionary_provisional_government.27.b
+		ai_chance = { factor = 7 }
+		set_country_flag = ITA_RED_chose_second_leader
+		hidden_effect = {
+			country_event = {
+				id = revolutionary_provisional_government.33
+				days = 60
+			}
+		}
+	}
+}
+
+country_event = { # NL leader pick
+	id = revolutionary_provisional_government.28
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.28"}
+	title = revolutionary_provisional_government.28.t
+	desc = revolutionary_provisional_government.28.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.28.a
+		ai_chance = { factor = 10 }
+		set_country_flag = ITA_RED_chose_first_leader
+		hidden_effect = {
+			country_event = {
+				id = revolutionary_provisional_government.34
+				days = 60
+			}
+		}
+	}
+	option = {
+		name = revolutionary_provisional_government.28.b
+		ai_chance = { factor = 5 }
+		set_country_flag = ITA_RED_chose_second_leader
+		hidden_effect = {
+			country_event = {
+				id = revolutionary_provisional_government.35
+				days = 60
+			}
+		}
+	}
+}
+
+country_event = { # CC leader pick
+	id = revolutionary_provisional_government.29
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.29"}
+	title = revolutionary_provisional_government.29.t
+	desc = revolutionary_provisional_government.29.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.29.a
+		ai_chance = { factor = 10 }
+		set_country_flag = ITA_RED_chose_first_leader
+		hidden_effect = {
+			country_event = {
+				id = revolutionary_provisional_government.38
+				days = 60
+			}
+		}
+	}
+	option = {
+		name = revolutionary_provisional_government.29.b
+		ai_chance = { factor = 5 }
+		set_country_flag = ITA_RED_chose_second_leader
+		hidden_effect = {
+			country_event = {
+				id = revolutionary_provisional_government.37
+				days = 60
+			}
+		}
+	}
+}
+
+country_event = { # Consolidating Power
+	id = revolutionary_provisional_government.30
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.30"}
+	title = revolutionary_provisional_government.30.t
+	desc = revolutionary_provisional_government.30.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.30.a
+		trigger = { has_country_flag = ITA_RED_chose_secchia }
+		country_event = {
+			id = red_italy.100
+			days = 1
+		}
+	}
+	option = {
+		name = revolutionary_provisional_government.30.b
+		trigger = { has_country_flag = ITA_RED_chose_conti }
+		# Defined in neither branch - this call did nothing.
+		#country_event = {
+		#id = red_italy.101
+		#days = 1
+		#}
+	}
+	option = {
+		name = revolutionary_provisional_government.30.c
+		trigger = { has_country_flag = ITA_RED_chose_damen }
+		country_event = {
+			id = red_italy.102
+			days = 1
+		}
+	}
+	option = {
+		name = revolutionary_provisional_government.30.d
+		trigger = { has_country_flag = ITA_RED_chose_negri }
+		country_event = {
+			id = red_italy.103
+			days = 1
+		}
+	}
+	option = {
+		name = revolutionary_provisional_government.30.e
+		trigger = { has_country_flag = ITA_RED_chose_feltrinelli }
+		country_event = {
+			id = red_italy.104
+			days = 1
+		}
+	}
+	option = {
+		name = revolutionary_provisional_government.30.f
+		trigger = { has_country_flag = ITA_RED_chose_cervetto }
+		# Defined in neither branch - this call did nothing.
+		#country_event = {
+		#id = red_italy.105
+		#days = 1
+		#}
+	}
+	option = {
+		name = revolutionary_provisional_government.30.g
+		trigger = { has_country_flag = ITA_RED_chose_gallo }
+		country_event = {
+			id = red_italy.106
+			days = 1
+		}
+	}
+	option = {
+		name = revolutionary_provisional_government.30.h
+		trigger = { has_country_flag = ITA_RED_chose_rodano }
+		country_event = {
+			id = red_italy.107
+			days = 1
+		}
+	}
+	option = {
+		name = revolutionary_provisional_government.30.i
+		trigger = { has_country_flag = ITA_RED_chose_labor }
+		# Defined in neither branch - this call did nothing.
+		#country_event = {
+		#id = red_italy.108
+		#days = 1
+		#}
+	}
+}
+
+country_event = { # Secchia election event
+	id = revolutionary_provisional_government.31
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.31"}
+	title = revolutionary_provisional_government.31.t
+	desc = revolutionary_provisional_government.31.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.31.a
+		ai_chance = { factor = 5 }
+	}
+}
+country_event = { # Conti election event
+	id = revolutionary_provisional_government.32
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.32"}
+	title = revolutionary_provisional_government.32.t
+	desc = revolutionary_provisional_government.32.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.32.a
+		ai_chance = { factor = 5 }
+	}
+}
+country_event = { # Damen election event
+	id = revolutionary_provisional_government.33
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.33"}
+	title = revolutionary_provisional_government.33.t
+	desc = revolutionary_provisional_government.33.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.33.a
+		ai_chance = { factor = 5 }
+	}
+}
+country_event = { # Feltrinelli election event
+	id = revolutionary_provisional_government.34
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.34"}
+	title = revolutionary_provisional_government.34.t
+	desc = revolutionary_provisional_government.34.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.34.a
+		ai_chance = { factor = 5 }
+	}
+}
+country_event = { # Negri election event
+	id = revolutionary_provisional_government.35
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.35"}
+	title = revolutionary_provisional_government.35.t
+	desc = revolutionary_provisional_government.35.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.35.a
+		ai_chance = { factor = 5 }
+	}
+}
+country_event = { # Cervetto election event
+	id = revolutionary_provisional_government.36
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.36"}
+	title = revolutionary_provisional_government.36.t
+	desc = revolutionary_provisional_government.36.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.36.a
+		ai_chance = { factor = 5 }
+	}
+}
+country_event = { # Gallo election event
+	id = revolutionary_provisional_government.37
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.37"}
+	title = revolutionary_provisional_government.37.t
+	desc = revolutionary_provisional_government.37.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.37.a
+		ai_chance = { factor = 5 }
+		set_temp_variable = { Y = 2 }
+		set_temp_variable = { ITA_RED_election_firebrand_temp = 1 }
+		ITA_RED_election_add_firebrand_seats = yes
+		set_temp_variable = { ITA_RED_election_firebrand_pop_temp = 0.02 }
+		ITA_RED_election_add_firebrand_popularity = yes
+		set_temp_variable = { ITA_RED_election_underclass_temp = 1 }
+		ITA_RED_election_add_underclass_seats = yes
+		set_temp_variable = { ITA_RED_election_underclass_pop_temp = 0.05 }
+		ITA_RED_election_add_underclass_popularity = yes
+		hidden_effect = {
+			if = {
+				limit = { has_country_flag = ITA_RED_chose_second_leader }
+				country_event = {
+					id = ITA_RED_gallo.1
+					days = 15
+				}
+			}
+		}
+	}
+}
+country_event = { # Rodano election event
+	id = revolutionary_provisional_government.38
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.38"}
+	title = revolutionary_provisional_government.38.t
+	desc = revolutionary_provisional_government.38.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.38.a
+		ai_chance = { factor = 5 }
+	}
+}
+country_event = { # Labor election event
+	id = revolutionary_provisional_government.39
+	hidden = yes # TNORA: no description written yet - delete this line when it is
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.39"}
+	title = revolutionary_provisional_government.39.t
+	desc = revolutionary_provisional_government.39.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.39.a
+		ai_chance = { factor = 5 }
+	}
+}
+
+country_event = {
+	id = revolutionary_provisional_government.40
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.40"}
+	title = revolutionary_provisional_government.40.t
+	desc = revolutionary_provisional_government.40.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.40.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = {
+				id = revolutionary_provisional_government.41
+				days = 7
+			}
+		}
+	}
+}
+
+country_event = {
+	id = revolutionary_provisional_government.41
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.41"}
+	title = revolutionary_provisional_government.41.t
+	desc = revolutionary_provisional_government.41.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.41.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = revolutionary_provisional_government.42
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.42"}
+	title = revolutionary_provisional_government.42.t
+	desc = revolutionary_provisional_government.42.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.42.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = revolutionary_provisional_government.43
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.43"}
+	title = revolutionary_provisional_government.43.t
+	desc = revolutionary_provisional_government.43.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.43.a
+		ai_chance = { factor = 1 }
+		hidden_effect = {
+			country_event = { id = revolutionary_provisional_government.44 }
+		}
+	}
+}
+
+country_event = {
+	id = revolutionary_provisional_government.44
+	immediate = {log = "[GetDateText]: [Root.GetName]: event revolutionary_provisional_government.44"}
+	title = revolutionary_provisional_government.44.t
+	desc = revolutionary_provisional_government.44.desc
+
+	is_triggered_only = yes
+
+	option = {
+		name = revolutionary_provisional_government.44.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+##GUI Shit
+country_event = { #
+	id = kingsgov_gui.1
+	title = kingsgov_gui.1.t
+	desc = kingsgov_gui.1.desc
+	is_triggered_only = yes
+	#fire_only_once = yes
+	hidden = yes
+
+	immediate = {
+		log = "[GetDateText]: [Root.GetName]: event kingsgov_gui.1"
+
+		if = {
+			limit = { has_country_flag = ITA_has_policy_not_a_single_movement }
+			if = {
+				limit = { check_variable = { ITA_RED_CathCom_Power_weekly > 0 } }
+				subtract_from_variable = {ITA_RED_CathCom_Power_weekly = 1}
+				else_if = {
+					limit = { check_variable = { ITA_RED_CathCom_Power_weekly < 0 } }
+					add_to_variable = {ITA_RED_CathCom_Power_weekly = 1}
+				}
+			}
+			if = {
+				limit = { check_variable = { ITA_RED_Old_Left_Power_weekly > 0 } }
+				subtract_from_variable = {ITA_RED_Old_Left_Power_weekly = 1}
+				else_if = {
+					limit = { check_variable = { ITA_RED_Old_Left_Power_weekly < 0 } }
+					add_to_variable = {ITA_RED_Old_Left_Power_weekly = 1}
+				}
+			}
+			if = {
+				limit = { check_variable = { ITA_RED_New_Left_Power_weekly > 0 } }
+				subtract_from_variable = {ITA_RED_New_Left_Power_weekly = 1}
+				else_if = {
+					limit = { check_variable = { ITA_RED_New_Left_Power_weekly < 0 } }
+					add_to_variable = {ITA_RED_New_Left_Power_weekly = 1}
+				}
+			}
+			if = {
+				limit = { check_variable = { ITA_RED_Fascist_Power_weekly > 0 } }
+				subtract_from_variable = {ITA_RED_Fascist_Power_weekly = 1}
+				else_if = {
+					limit = { check_variable = { ITA_RED_Fascist_Power_weekly < 0 } }
+					add_to_variable = {ITA_RED_Fascist_Power_weekly = 1}
+				}
+			}
+		}
+
+		add_to_variable = {ITA_RED_CathCom_Power = modifier@ITA_RED_weekly_cath_com_modifier}
+		add_to_variable = {ITA_RED_Old_Left_Power = modifier@ITA_RED_weekly_old_guard_modifier}
+		add_to_variable = {ITA_RED_New_Left_Power = modifier@ITA_RED_weekly_new_left_modifier}
+		add_to_variable = {ITA_RED_Fascist_Power = modifier@ITA_RED_weekly_fascist_modifier}
+
+		ITA_RED_kingsgov_dynmod_calculations = yes
+
+		ITA = {
+			if = {
+				limit = { has_country_flag = ITA_RED_kings_culrev_available }
+				country_event = {
+					id = kingsgov_gui.1
+					days = 7
+				}
+			}
+		}
+	}
+	option = {
+		name = kingsgov_gui.1.a
+	}
+}
+
+
+### TWILIGHT - Revolutionary Movements Gather ###
+
+country_event = { # FPRI gathering, pre-Verona
+	id = ITA_RED_twilight.1
+	title = ITA_RED_twilight.1.t
+	desc = ITA_RED_twilight.1.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_twilight.1.a
+	}
+}
+
+country_event = { # beginning of student protests, post-malta
+	id = ITA_RED_twilight.2
+	title = ITA_RED_twilight.2.t
+	desc = ITA_RED_twilight.2.desc
+	picture = GFX_report_event_italy_student_riots
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_twilight.2.a
+		#increase student popular opposition
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_twilight.3
+				days = 45
+			}
+		}
+	}
+}
+
+country_event = { # Rodano snooping, pre-Verona
+	id = ITA_RED_twilight.3
+	title = ITA_RED_twilight.3.t
+	desc = ITA_RED_twilight.3.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_twilight.3.a
+	}
+}
+country_event = { # student demonstrations after king's coup
+	id = ITA_RED_twilight.4
+	title = ITA_RED_twilight.4.t
+	desc = ITA_RED_twilight.4.desc
+	picture = GFX_report_event_italy_left_wing_students
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_twilight.4.a
+		add_to_variable = { ITA_RED_New_Left_Power_weekly = 1 }
+		custom_effect_tooltip = ITA_RED_new_left_growing_tt
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_twilight.5
+				days = 3
+			}
+		}
+	}
+}
+country_event = { # FRPI distributes manifesto
+	id = ITA_RED_twilight.5
+	title = ITA_RED_twilight.5.t
+	desc = ITA_RED_twilight.5.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_twilight.5.a
+		add_to_variable = { ITA_RED_Old_Left_Power_weekly = 1 }
+		custom_effect_tooltip = ITA_RED_old_guard_growing_tt
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_twilight.6
+				days = 14
+			}
+		}
+	}
+}
+country_event = { # 
+	id = ITA_RED_twilight.6
+	title = ITA_RED_twilight.6.t
+	desc = ITA_RED_twilight.6.desc
+	picture = GFX_report_event_Worker_Protest
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_twilight.6.a
+		add_to_variable = { ITA_RED_New_Left_Power_weekly = 1 }
+		custom_effect_tooltip = ITA_RED_new_left_growing_tt
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_twilight.7
+				days = 28
+			}
+		}
+	}
+}
+country_event = { # 
+	id = ITA_RED_twilight.7
+	title = ITA_RED_twilight.7.t
+	desc = ITA_RED_twilight.7.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_twilight.7.a
+		ITA_med_promote_Rev_United_Front_Com = yes
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_twilight.8
+				days = 30
+			}
+			country_event = {
+				id = ITA_RED_midnight.1
+				days = 14
+			}
+		}
+	}
+}
+country_event = { # 
+	id = ITA_RED_twilight.8
+	title = ITA_RED_twilight.8.t
+	desc = ITA_RED_twilight.8.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		add_to_variable = { ITA_RED_New_Left_Power_weekly = -1 }
+		custom_effect_tooltip = ITA_RED_new_left_setback_tt
+		name = ITA_RED_twilight.8.a
+	}
+}
+
+### MIDNIGHT - The Insurgency ###
+
+country_event = { # forming military committee
+	id = ITA_RED_midnight.1
+	title = ITA_RED_midnight.1.t
+	desc = ITA_RED_midnight.1.desc
+	picture = GFX_report_event_italy_right_militants
+
+	is_triggered_only = yes
+
+	option = { # Secchia as chair
+		name = ITA_RED_midnight.1.a
+		set_country_flag = ITA_RED_prelude_appointed_secchia
+		set_variable = { ITA_RED_revisionism_tracker = -1 }
+		custom_effect_tooltip = ITA_RED_prelude_empower_hardliners_tt
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_midnight.2
+				days = 28
+			}
+		}
+	}
+	option = { # Amendola as chair
+		name = ITA_RED_midnight.1.b
+		custom_effect_tooltip = ITA_RED_prelude_empower_moderates_tt
+		set_variable = { ITA_RED_revisionism_tracker = 1 }
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_midnight.2
+				days = 28
+			}
+		}
+	}
+}
+
+country_event = {
+	id = ITA_RED_midnight.2
+	title = ITA_RED_midnight.2.t
+	desc = ITA_RED_midnight.2.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_midnight.2.a
+		add_to_variable = { ITA_RED_Old_Left_Power_weekly = 1 }
+		add_to_variable = { ITA_RED_New_Left_Power_weekly = 1 }
+		add_to_variable = { ITA_RED_CathCom_Power_weekly = 1 }
+		custom_effect_tooltip = ITA_RED_all_currents_growing_tt
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_midnight.3
+				days = 56
+			}
+		}
+	}
+}
+country_event = {
+	id = ITA_RED_midnight.3
+	title = ITA_RED_midnight.3.t
+	desc = ITA_RED_midnight.3.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_midnight.3.a
+		add_to_variable = { ITA_RED_Old_Left_Power_weekly = 1 }
+		custom_effect_tooltip = ITA_RED_old_guard_growing_tt
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_midnight.4
+				days = 14
+			}
+		}
+	}
+}
+country_event = { # secchia endorses war crimes
+	id = ITA_RED_midnight.4
+	title = ITA_RED_midnight.4.t
+	desc = ITA_RED_midnight.4.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_midnight.4.a
+
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_midnight.5
+				days = 14
+			}
+		}
+	}
+}
+country_event = { #galloooooo
+	id = ITA_RED_midnight.5
+	title = ITA_RED_midnight.5.t
+	desc = ITA_RED_midnight.5.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_midnight.5.a
+		add_to_variable = { ITA_RED_CathCom_Power_weekly = 1 }
+		custom_effect_tooltip = ITA_RED_cathcom_growing_tt
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_midnight.6
+				days = 14
+			}
+		}
+	}
+}
+country_event = {	# recruiting students
+	id = ITA_RED_midnight.6
+	title = ITA_RED_midnight.6.t
+	desc = ITA_RED_midnight.6.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_midnight.6.a
+		add_to_variable = { ITA_RED_New_Left_Power_weekly = 1 }
+		custom_effect_tooltip = ITA_RED_new_left_growing_tt
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_midnight.8
+				days = 28
+			}
+		}
+	}
+}
+country_event = {	
+	id = ITA_RED_midnight.7
+	title = ITA_RED_midnight.7.t
+	desc = ITA_RED_midnight.7.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_midnight.7.a
+		
+	}
+}
+country_event = { # battle of camerino
+	id = ITA_RED_midnight.8
+	title = ITA_RED_midnight.8.t
+	desc = ITA_RED_midnight.8.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_midnight.8.a
+		add_to_variable = { ITA_RED_Old_Left_Power_weekly = -2 }
+		custom_effect_tooltip = ITA_RED_Old_Guard_setback_tt
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_midnight.9
+				days = 2
+			}
+		}
+	}
+}
+country_event = { 	# PCI calls for retreat
+	id = ITA_RED_midnight.9
+	title = ITA_RED_midnight.9.t
+	desc = ITA_RED_midnight.9.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+	
+	option = {	# boldrini's proposal - preparing for conventional warfare
+		name = ITA_RED_midnight.9.a
+		set_variable = { ITA_RED_army_professionalism_lean = 40 }
+		set_variable = { ITA_RED_army_officer_fulfillment = 35 }
+		add_to_variable = { ITA_RED_Old_Left_Power_weekly = 2 }
+		custom_effect_tooltip = ITA_RED_old_guard_growing_tt
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_midnight.12
+				days = 7
+			}
+			country_event = {
+				id = ITA_RED_midnight.10
+				days = 14
+			}
+		}
+	}
+	option = {	# amendola's proposal - continue people's war
+		name = ITA_RED_midnight.9.b
+		set_variable = { ITA_RED_army_professionalism_lean = 30 }
+		set_variable = { ITA_RED_army_officer_fulfillment = 30 }
+		add_to_variable = { ITA_RED_Old_Left_Power_weekly = 1 }
+		add_to_variable = { ITA_RED_New_Left_Power_weekly = 1 }
+		add_to_variable = { ITA_RED_CathCom_Power_weekly = 1 }
+		custom_effect_tooltip = ITA_RED_all_currents_growing_tt
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_midnight.12
+				days = 7
+			}
+			country_event = {
+				id = ITA_RED_midnight.10
+				days = 14
+			}
+		}
+	}
+}
+country_event = {	# liberals btfo
+	id = ITA_RED_midnight.10
+	title = ITA_RED_midnight.10.t
+	desc = ITA_RED_midnight.10.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_midnight.10.a
+
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_midnight.11
+				days = 7
+			}
+		}
+	}
+}
+country_event = {	# deciding party line on collaboration
+	id = ITA_RED_midnight.11
+	title = ITA_RED_midnight.11.t
+	desc = ITA_RED_midnight.11.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {	# quick question, how many proletarian classes are there?
+		name = ITA_RED_midnight.11.a
+		custom_effect_tooltip = ITA_RED_coalition_narrow_tt
+		set_party_name = {
+			ideology = socialist
+			long_name = "Fronte Rivoluzionario Popolare Italiano"
+			name = "FRPI"
+		}
+		set_party_name = {
+			ideology = socialist_1
+			long_name = "Partito Socialista Italiano/Partito Repubblicano Italiano"
+			name = "PSI/PRI"
+		}
+		set_party_name = {
+			ideology = communist
+			long_name = "Fronte Rivoluzionario Popolare Italiano (Partito Comunista d'Italia)"
+			name = "FRPI (PCdI)"
+		}
+		hidden_effect = {
+			add_popularity = {
+				ideology = socialist_1
+				popularity = 0.05
+			}
+			add_popularity = {
+				ideology = socialist
+				popularity = -0.03
+			}
+		}
+	}
+	option = {	# commit to united front govt
+		name = ITA_RED_midnight.11.b
+		set_country_flag = ITA_RED_coalition_united
+		custom_effect_tooltip = ITA_RED_coalition_united_tt
+		set_party_name = {
+			ideology = socialist
+			long_name = "Fronte Rivoluzionario Popolare Italiano"
+			name = "FRPI"
+		}
+		set_party_name = {
+			ideology = socialist_1
+			long_name = "Fronte Rivoluzionario Popolare Italiano (PSI/PRI)"
+			name = "FRPI (PSI/PRI)"
+		}
+		set_party_name = {
+			ideology = communist
+			long_name = "Fronte Rivoluzionario Popolare Italiano (Partito Comunista d'Italia)"
+			name = "FRPI (PCdI)"
+		}
+		hidden_effect = {
+			add_popularity = {
+				ideology = socialist_1
+				popularity = 0.03
+			}
+		}
+	}
+}
+country_event = { # longo gets nabbed
+	id = ITA_RED_midnight.12
+	title = ITA_RED_midnight.12.t
+	desc = ITA_RED_midnight.12.desc
+	picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_midnight.12.a
+		# remember to add a followup about the fallout in party leadership
+	}
+}
+
+### DAWN - The Revolution Emerges ###
+
+country_event = {	# planning the uprising after king's death
+	id = ITA_RED_dawn.1
+	title = ITA_RED_dawn.1.t
+	desc = ITA_RED_dawn.1.desc
+	picture = GFX_report_event_italy_left_wing_students
+
+	is_triggered_only = yes
+
+	option = {	# 
+		name = ITA_RED_dawn.1.a
+		ITA_med_promote_Rev_United_Front_Soc = yes
+	}
+}
+
+
+
+### REVOLUTIONARY ASSEMBLY ###
+	# events related to assembly mechanic
+
+country_event = { 	# The Bologna Declaration
+	id = ITA_RED_revolutionary_assembly.1
+	title = ITA_RED_revolutionary_assembly.1.t
+	desc = ITA_RED_revolutionary_assembly.1.desc
+	#picture = GFX_report_event_italy_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_revolutionary_assembly.1.a
+
+		add_political_power = 50
+		add_war_support = 0.1
+		custom_effect_tooltip = ITA_add_ministers_tt
+
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_revolutionary_assembly.2
+				days = 1
+			}
+			remove_all_ministers = yes
+			if = {
+				limit = { has_country_flag = ITA_RED_prelude_appointed_secchia }
+				add_ideas = ITA_Alfredo_Reichlin_sec
+			}
+			else = {
+				add_ideas = ITA_Giorgio_Amendola_sec
+			}
+			if = {
+				limit = { has_country_flag = ITA_RED_coalition_united }
+				add_ideas = {
+					ITA_Alessandro_Natta_hog
+					ITA_Lucio_Libertini_eco
+				}
+				# Character-system advisor role. TNORA seats ministers as ideas, and the
+				# idea_token this names is defined nowhere, so the block is inert either way.
+				# remove_advisor_role = { character = "ITA_Ricardo_Lombardi" slot = foreign_minister }
+				# Character-system advisor role. TNORA seats ministers as ideas, and the
+				# idea_token this names is defined nowhere, so the block is inert either way.
+				# add_advisor_role = {
+				# character = "ITA_Ricardo_Lombardi"
+				# activate = yes
+				# advisor = {
+				# slot = foreign_minister
+				# cost = -1
+				# idea_token = ITA_Ricardo_Lombardi_provrevgov_for
+				# traits = {
+				# foreign_minister
+				# for_well_connected #change maybe idk
+				# }
+				# }
+				# }
+			}
+			else = {
+				add_ideas = {
+					ITA_Alessandro_Natta_hog
+					ITA_Lelio_Basso_for
+					ITA_Pio_la_Torre_eco
+				}
+			}
+			fill_empty_minister = yes
+		}
+	}
+}
+
+country_event = { # initial flurry of decrees, freeing of political prisoners
+	id = ITA_RED_revolutionary_assembly.2
+	title = ITA_RED_revolutionary_assembly.2.t
+	desc = ITA_RED_revolutionary_assembly.2.desc
+	picture = GFX_report_event_corporate_board_meeting
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_revolutionary_assembly.2.a
+
+		tno_vote_franchise_improve = yes
+		tno_religious_rights_improve = yes
+		tno_gender_rights_improve = yes
+
+		tno_press_rights_improve = yes
+		tno_trade_unions_improve = yes
+		tno_trade_unions_improve = yes
+		set_variable = { tno_trade_unions_effectiveness = 10 }
+
+		add_popularity = {
+			ideology = communist
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = socialist
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = socialist_1
+			popularity = 0.03
+		}
+		add_popularity = {
+			ideology = social_democrat
+			popularity = 0.02
+		}
+		add_popularity = {
+			ideology = social_liberal
+			popularity = 0.02
+		}
+		hidden_effect = {
+			country_event = {
+				id = ITA_RED_revolutionary_assembly.3
+				days = 6
+			}
+		}
+	}
+}
+
+country_event = { # party congress meets, dealing with the revolutionary wave
+	id = ITA_RED_revolutionary_assembly.3
+	title = ITA_RED_revolutionary_assembly.3.t
+	desc = ITA_RED_revolutionary_assembly.3.desc
+	#picture = GFX_report_event_ITA_tradeunion
+
+	is_triggered_only = yes
+
+	option = {
+		name = ITA_RED_revolutionary_assembly.3.a
+		
+	}
+}

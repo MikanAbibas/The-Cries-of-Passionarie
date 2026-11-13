@@ -1,0 +1,220 @@
+GER_protektor_overview = {
+	GER_readiness_decreasing = {
+		activation = {
+			always = no
+		}
+		available = {
+			always = no
+		}
+		is_good = no
+		days_mission_timeout = 100
+		complete_effect = {
+
+		}
+		timeout_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_readiness_decreasing"
+			activate_mission = GER_readiness_decreasing
+			custom_effect_tooltip = {
+				localization_key = GER_readiness_change
+				READINESS_VALUE = {
+					localization_key = TNO_COLOR_RED
+					VALUE_CHANGE = "-10"
+				}
+			}
+			add_to_variable = { global.GER_readiness = -10 }
+			clamp_variable = {
+				var = global.GER_readiness
+				min = -50
+				max = 50
+			}
+			set_variable = {
+				var = global.GER_readiness_consciption_factor
+				value = global.GER_readiness
+			}
+			set_variable = {
+				var = global.GER_readiness_orginization
+				value = global.GER_readiness
+			}
+			set_variable = {
+				var = global.GER_readiness_defence
+				value = global.GER_readiness
+			}
+			divide_variable = {
+				var = global.GER_readiness_consciption_factor
+				value = 200
+			}
+			divide_variable = {
+				var = global.GER_readiness_orginization
+				value = 500
+			}
+			divide_variable = {
+				var = global.GER_readiness_defence
+				value = 500
+			}
+		}
+	}
+	GER_send_equipment_to_protektorate = {
+		icon = decision_generic_military_parade
+		targets = { GGN OST UKR CAU MCW }
+		target_trigger = {
+			FROM = {
+				is_reichsprotektorat = yes
+			}
+		}
+		visible = {
+			tag = GER
+		}
+		days_remove = 20
+		days_re_enable = 70
+		#fire_only_once = yes
+		cost = 75
+		highlight_states = {
+			highlight_states_trigger = {
+				is_owned_and_controlled_by = FROM
+				is_capital = yes
+			}
+		}
+		on_map_mode = map_and_decisions_view
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_send_equipment_to_protektorate"
+		}
+		remove_effect = {
+			FROM = {
+				GER_add_5_influence_points_to_protektor = yes
+			}
+			send_equipment = {
+				equipment = infantry_equipment
+				amount = 2000
+				target = FROM
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_readiness_change
+				READINESS_VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+5"
+				}
+			}
+			add_to_variable = { global.GER_readiness = 5 }
+		}
+		ai_will_do = { 
+			factor = 100
+		}
+	}
+
+	GER_transfer_troops_to_protektorate = {
+		icon = decision_generic_military_parade
+		targets = { GGN OST UKR CAU MCW }
+		target_trigger = {
+			FROM = {
+				is_reichsprotektorat = yes
+			}
+		}
+		visible = {
+			tag = GER
+		}
+		days_remove = 20
+		days_re_enable = 70
+		#fire_only_once = yes
+		cost = 65
+		highlight_states = {
+			highlight_states_trigger = {
+				is_owned_and_controlled_by = FROM
+				is_capital = yes
+			}
+		}
+		on_map_mode = map_and_decisions_view
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_transfer_troops_to_protektorate"
+			add_manpower = -20000
+		}
+		remove_effect = {
+			FROM = {
+				GER_add_5_influence_points_to_protektor = yes
+				add_manpower = 20000
+			}
+			custom_effect_tooltip = {
+				localization_key = GER_readiness_change
+				READINESS_VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+7"
+				}
+			}
+			add_to_variable = { global.GER_readiness = 7 }
+		}
+		ai_will_do = { 
+			factor = 100
+		}
+	}
+
+	GER_pakt_wide_wargames = {
+		icon = decision_generic_military_parade
+		visible = {
+			tag = GER
+		}
+		days_remove = 20
+		days_re_enable = 50
+		#fire_only_once = yes
+		custom_cost_trigger = { command_power > 24.99 }
+		custom_cost_text = decision_cost_25_cp
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_pakt_wide_wargames"
+			hidden_effect = {
+				add_command_power = -25
+			}
+		}
+		remove_effect = {
+			custom_effect_tooltip = {
+				localization_key = GER_readiness_change
+				READINESS_VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+5"
+				}
+			}
+			add_to_variable = { global.GER_readiness = 5 }
+		}
+		ai_will_do = { 
+			factor = 100
+		}
+	}
+
+	GER_inter_branch_excercises = {
+		icon = decision_generic_military_parade
+		visible = {
+			tag = GER
+		}
+		available = {
+			has_completed_focus = GER_inter_branch_excercises
+		}
+		days_remove = 20
+		days_re_enable = 50
+		#fire_only_once = yes
+		custom_cost_trigger = { command_power > 24.99 }
+		custom_cost_text = decision_cost_25_cp
+
+		complete_effect = {
+			log = "[GetDateText]: [Root.GetName]: Decision GER_inter_branch_excercises"
+			hidden_effect = {
+				add_command_power = -25
+			}
+		}
+		remove_effect = {
+			custom_effect_tooltip = {
+				localization_key = GER_readiness_change
+				READINESS_VALUE = {
+					localization_key = TNO_COLOR_GREEN
+					VALUE_CHANGE = "+5"
+				}
+			}
+			add_to_variable = { global.GER_readiness = 5 }
+			army_experience = 10
+			navy_experience = 10
+			air_experience = 10
+		}
+		ai_will_do = { 
+			factor = 100
+		}
+	}
+}

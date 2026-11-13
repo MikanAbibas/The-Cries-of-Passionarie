@@ -1,0 +1,895 @@
+﻿###################
+##PAKISTAN EVENTS##
+###################
+
+add_namespace = pakistan
+
+country_event = {
+	id = pakistan.1 #Ayub Khan marches on the government
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.1"}
+	title = pakistan.1.t
+	desc = pakistan.1.desc
+	picture = GFX_report_event_german_march
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #i give up
+		name = pakistan.1.a
+		ai_chance = {
+			factor = 5
+		}
+		set_politics = {
+			ruling_party = authoritarian_democrat
+			last_election = "1962.2.1"
+			election_frequency = 57
+			elections_allowed = no
+		}
+		set_country_flag = PAK_ICW_Ayub_Khan
+	}
+	option = { #i love democracy
+		name = pakistan.1.b
+		ai_chance = {
+			factor = 50
+		}
+		set_country_flag = PAK_ICW_dem
+	}
+}
+
+country_event = {
+	id = pakistan.2 #Ayub Khan is in control
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.2"}
+	title = pakistan.2.t
+	desc = pakistan.2.desc
+	picture = GFX_report_event_pakistan_ayub_khan
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = pakistan.2.a
+		ai_chance = {
+			factor = 1
+		}
+		hidden_effect = {
+			add_popularity = {
+				ideology = social_conservative
+				popularity = -0.2
+			}
+		}
+		add_popularity = {
+			ideology = authoritarian_democrat
+			popularity = 0.2
+		}
+		add_stability = 0.03
+	}
+}
+
+country_event = {
+	id = pakistan.3 #Indian Civil War — Pakistan thinks about a peace treaty
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.3"}
+	title = pakistan.3.t
+	desc = pakistan.3.desc
+	picture = GFX_report_event_india_war_2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #whyismauriceherejusttosuffer
+		name = pakistan.3.a
+		ai_chance = {
+			factor = 20
+		}
+		RAJ = { 
+			country_event = {
+				id = india.211
+				days = 4
+			}
+		}
+	}
+	option = {
+		name = pakistan.3.b
+		ai_chance = {
+			factor = 1
+		}
+		RAJ = { 
+			country_event = {
+				id = india.212
+				days = 4
+			}
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.4 #USA - Pakistan Calls for Aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.4"}
+	title = pakistan.4.t
+	desc = pakistan.4.desc
+	picture = GFX_report_event_india_war_2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #ok buddy
+		name = pakistan.4.a
+		ai_chance = {
+			factor = 20
+		}
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 100
+			target = PAK
+		}
+		hidden_effect = {
+			PAK = {
+				country_event = {
+					id = pakistan.5
+					hours = 5
+				}
+			}
+		}
+	}
+	option = { #fuck off pakistan
+		name = pakistan.4.b
+		ai_chance = {
+			factor = 1
+		}
+		PAK = {
+			country_event = {
+				id = pakistan.6
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.5 #America said yes
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.5"}
+	title = pakistan.5.t
+	desc = pakistan.5.desc
+	picture = GFX_report_event_india_war_2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #epic!
+		name = pakistan.5.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = USA
+			modifier = PAK_sent_aid
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.6 #America said no
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.6"}
+	title = pakistan.6.t
+	desc = pakistan.6.desc
+	picture = GFX_report_event_india_war_2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #unepic!
+		name = pakistan.6.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = USA
+			modifier = PAK_didnt_send_aid
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.7 #Germany - Pakistan Calls for Aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.7"}
+	title = pakistan.7.t
+	desc = pakistan.7.desc
+	picture = GFX_report_event_india_war
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #ok buddy
+		name = pakistan.7.a
+		ai_chance = {
+			factor = 20
+		}
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 100
+			target = PAK
+		}
+		hidden_effect = {
+			PAK = {
+				country_event = {
+					id = pakistan.8
+					hours = 5
+				}
+			}
+		}
+	}
+	option = { #fuck off pakistan
+		name = pakistan.7.b
+		ai_chance = {
+			factor = 1
+		}
+		PAK = {
+			country_event = {
+				id = pakistan.9
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.8 #Germany said yes
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.8"}
+	title = pakistan.8.t
+	desc = pakistan.8.desc
+	picture = GFX_report_event_india_war
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #epic!
+		name = pakistan.8.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = GER
+			modifier = PAK_sent_aid
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.9 #Germany said no
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.9"}
+	title = pakistan.9.t
+	desc = pakistan.9.desc
+	picture = GFX_report_event_india_war
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #unepic!
+		name = pakistan.9.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = GER
+			modifier = PAK_didnt_send_aid
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.10 #First Pakistani Elections
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.10"}
+	title = pakistan.10.t
+	desc = pakistan.10.desc
+	picture = GFX_report_event_generic_election
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = pakistan.10.a
+		custom_effect_tooltip = PAK_elections_1965_happening
+		hidden_effect = {
+			random_list = {
+				15 = {
+					country_event = {
+						id = pakistan.11
+						hours = 12
+					}
+				}
+				35 = {
+					country_event = {
+						id = pakistan.12
+						hours = 12
+					}
+				}
+				50 = {
+					country_event = {
+						id = pakistan.13
+						hours = 12
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.11 #First Pakistani Elections - PPP Wins
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.11"}
+	title = pakistan.11.t
+	desc = pakistan.11.desc
+	picture = GFX_report_event_generic_election
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = pakistan.11.a
+		set_politics = {
+			ruling_party = social_democrat
+			last_election = "1965.6.21"
+			election_frequency = 57
+			elections_allowed = yes
+		}
+		set_country_flag = PAK_socdem1
+	}
+}
+
+country_event = {
+	id = pakistan.12 #First Pakistani Elections - UOP Wins
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.12"}
+	title = pakistan.12.t
+	desc = pakistan.12.desc
+	picture = GFX_report_event_generic_election
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = pakistan.12.a
+		set_politics = {
+			ruling_party = social_liberal
+			last_election = "1965.6.21"
+			election_frequency = 57
+			elections_allowed = yes
+		}
+		set_country_flag = PAK_soclib1
+	}
+}
+
+country_event = {
+	id = pakistan.13 #First Pakistani Elections - AIML Wins
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.13"}
+	title = pakistan.13.t
+	desc = pakistan.13.desc
+	picture = GFX_report_event_generic_election
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = pakistan.13.a
+		set_politics = {
+			ruling_party = social_conservative
+			last_election = "1965.6.21"
+			election_frequency = 57
+			elections_allowed = yes
+		}
+		set_country_flag = PAK_soccon1
+	}
+}
+
+country_event = {
+	id = pakistan.14 #First Pakistani Elections
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.14"}
+	title = pakistan.14.t
+	desc = pakistan.14.desc
+	picture = GFX_report_event_generic_election
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = pakistan.14.a
+		custom_effect_tooltip = PAK_elections_1965_ayub_khan
+		hidden_effect = {
+			country_event = {
+				id = pakistan.15
+				hours = 12
+			}
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.15 #First Pakistani Elections - CML Wins
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.15"}
+	title = pakistan.15.t
+	desc = pakistan.15.desc
+	picture = GFX_report_event_generic_election
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #ok
+		name = pakistan.15.a
+		set_politics = {
+			ruling_party = authoritarian_democrat
+			last_election = "1965.6.21"
+			election_frequency = 57
+			elections_allowed = yes
+		}
+		set_country_flag = PAK_authdem1
+	}
+}
+
+country_event = {
+	id = pakistan.16 #Afghanistan - Pakistan Calls for Aid
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.16"}
+	title = pakistan.16.t
+	desc = pakistan.16.desc
+	picture = GFX_report_event_india_war
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #ok buddy
+		name = pakistan.16.a
+		ai_chance = {
+			factor = 20
+		}
+		send_equipment = {
+			equipment = infantry_equipment
+			amount = 100
+			target = PAK
+		}
+		hidden_effect = {
+			PAK = {
+				country_event = {
+					id = pakistan.17
+					hours = 5
+				}
+			}
+		}
+	}
+	option = { #fuck off pakistan
+		name = pakistan.16.b
+		ai_chance = {
+			factor = 1
+		}
+		PAK = {
+			country_event = {
+				id = pakistan.18
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.17 #Afghanistan said yes
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.17"}
+	title = pakistan.17.t
+	desc = pakistan.17.desc
+	picture = GFX_report_event_india_war
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #epic!
+		name = pakistan.17.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = AFG
+			modifier = PAK_sent_aid
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.18 #Afghanistan said no
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.18"}
+	title = pakistan.18.t
+	desc = pakistan.18.desc
+	picture = GFX_report_event_india_war
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #unepic!
+		name = pakistan.18.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = AFG
+			modifier = PAK_didnt_send_aid
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.19 #Afghanistan - Pakistan Asks For Faction
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.19"}
+	title = pakistan.19.t
+	desc = pakistan.19.desc
+	picture = GFX_report_event_india_war_2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #ok buddy
+		name = pakistan.19.a
+		ai_chance = {
+			factor = 10
+		}
+		hidden_effect = {
+			PAK = {
+				country_event = {
+					id = pakistan.20
+					hours = 5
+				}
+			}
+		}
+	}
+	option = { #fuck off pakistan
+		name = pakistan.19.b
+		ai_chance = {
+			factor = 5
+		}
+		PAK = {
+			country_event = {
+				id = pakistan.21
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.20 #Afghanistan said yes
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.20"}
+	title = pakistan.20.t
+	desc = pakistan.20.desc
+	picture = GFX_report_event_india_war_2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #epic!
+		name = pakistan.20.a
+		ai_chance = {
+			factor = 1
+		}
+		AFG = {
+			create_faction = AFG_PAK_Alliance
+			add_to_faction = PAK
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.21 #Afghanistan said no
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.21"}
+	title = pakistan.21.t
+	desc = pakistan.21.desc
+	picture = GFX_report_event_india_war_2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #unepic!
+		name = pakistan.21.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = AFG
+			modifier = PAK_didnt_faction
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.22 #Afghanistan - Pakistan Asks For Razakar Funding
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.22"}
+	title = pakistan.22.t
+	desc = pakistan.22.desc
+	picture = GFX_report_event_india_war
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #ok buddy
+		name = pakistan.22.a
+		ai_chance = {
+			factor = 5
+		}
+		add_to_variable = { misc_costs = 0.5 }
+		hidden_effect = {
+			PAK = {
+				country_event = {
+					id = pakistan.23
+					hours = 5
+				}
+			}
+		}
+	}
+	option = { #fuck off pakistan
+		name = pakistan.22.b
+		ai_chance = {
+			factor = 3
+		}
+		PAK = {
+			country_event = {
+				id = pakistan.24
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.23 #Afghanistan said yes
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.23"}
+	title = pakistan.23.t
+	desc = pakistan.23.desc
+	picture = GFX_report_event_india_war
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #epic!
+		name = pakistan.23.a
+		ai_chance = {
+			factor = 1
+		}
+		add_to_variable = { misc_income = 0.5 }
+		add_to_variable = { national_debt = 0.5 }
+	}
+}
+
+country_event = {
+	id = pakistan.24 #Afghanistan said no
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.24"}
+	title = pakistan.24.t
+	desc = pakistan.24.desc
+	picture = GFX_report_event_india_war
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #unepic!
+		name = pakistan.24.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = AFG
+			modifier = PAK_didnt_fund_razakars
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.25 #Afghanistan - Pakistan Asks For Guarantee
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.25"}
+	title = pakistan.25.t
+	desc = pakistan.25.desc
+	picture = GFX_report_event_india_war_2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #ok buddy
+		name = pakistan.25.a
+		ai_chance = {
+			factor = 5
+		}
+		give_guarantee = PAK
+		hidden_effect = {
+			PAK = {
+				country_event = {
+					id = pakistan.26
+					hours = 5
+				}
+			}
+		}
+	}
+	option = { #fuck off pakistan
+		name = pakistan.25.b
+		ai_chance = {
+			factor = 3
+		}
+		PAK = {
+			country_event = {
+				id = pakistan.27
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.26 #Afghanistan said yes
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.26"}
+	title = pakistan.26.t
+	desc = pakistan.26.desc
+	picture = GFX_report_event_india_war_2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #epic!
+		name = pakistan.26.a
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.27 #Afghanistan said no
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.27"}
+	title = pakistan.27.t
+	desc = pakistan.27.desc
+	picture = GFX_report_event_india_war_2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #unepic!
+		name = pakistan.24.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = AFG
+			modifier = PAK_didnt_guarantee
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.28 #Afghanistan - Pakistan Says Afghania + Balochistan or War
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.28"}
+	title = pakistan.28.t
+	desc = pakistan.28.desc
+	picture = GFX_report_event_india_war
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #ok buddy
+		name = pakistan.28.a
+		ai_chance = {
+			factor = 1
+		}
+		hidden_effect = {
+			PAK = {
+				country_event = {
+					id = pakistan.29
+					hours = 5
+				}
+			}
+		}
+	}
+	option = { #please stop sending me these
+		name = pakistan.28.b
+		ai_chance = {
+			factor = 20
+		}
+		PAK = {
+			country_event = {
+				id = pakistan.30
+				hours = 5
+			}
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.29 #Afghanistan said yes
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.29"}
+	title = pakistan.29.t
+	desc = pakistan.29.desc
+	picture = GFX_report_event_india_war
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #epic!
+		name = pakistan.29.a
+		ai_chance = {
+			factor = 1
+		}
+		set_state_owner = 444
+		set_state_owner = 445
+		set_state_owner = 929
+		set_state_controller = 444
+		set_state_controller = 445
+		set_state_controller = 929
+	}
+}
+
+country_event = {
+	id = pakistan.30 #Afghanistan said no
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.30"}
+	title = pakistan.30.t
+	desc = pakistan.30.desc
+	picture = GFX_report_event_india_war_2
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #unepic!
+		name = pakistan.30.a
+		ai_chance = {
+			factor = 1
+		}
+		add_opinion_modifier = {
+			target = AFG
+			modifier = PAK_AFG_didnt_give_land
+		}
+		set_country_flag = PAK_AFG_didnt_give_land_flag
+	}
+}
+
+country_event = {
+	id = pakistan.31 #Afghanistan - Pakistan Uprising
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.31"}
+	title = pakistan.31.t
+	desc = pakistan.31.desc
+	picture = GFX_report_event_india_war
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #unepic!
+		name = pakistan.31.a
+		ai_chance = {
+			factor = 1
+		}
+		PAK = {
+			declare_war_on = {
+				target = AFG
+				type = terrorism_wargoal
+			}
+			hidden_effect = {
+				IF = {
+					limit = {
+						PAK = { has_government = ultranational_socialism }
+					}
+					load_oob = PAK_mujahideen_440
+				}
+				else_if = {
+					limit = {
+						PAK = { has_government = communist }
+					}
+					load_oob = PAK_mkf_440
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = pakistan.32 #Pakistan Cooldown End
+	immediate = {log = "[GetDateText]: [Root.GetName]: event pakistan.32"}
+	title = pakistan.31.t
+	desc = pakistan.31.desc
+	picture = GFX_report_event_india_war
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = { #unepic!
+		name = pakistan.32.a
+		ai_chance = {
+			factor = 1
+		}
+		clr_country_flag = PAK_insurgency_cooldown
+	}
+}

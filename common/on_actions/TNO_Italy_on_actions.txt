@@ -1,0 +1,197 @@
+### Italy - Mediterranean rework periodic hooks.
+###
+### on_startup was moved out of this file into ITA_med_rework_startup: it ran
+### unconditionally and would have initialised the rework's GUIs and variables
+### on the legacy path as well.
+###
+### The monthly/daily/weekly bodies below are gated on ITA_med_rework_active so
+### they stay inert unless the rework is the active Italy content.
+
+on_actions = {
+	on_monthly_ITA = {
+		effect = {
+			if = {
+				limit = { has_country_flag = ITA_med_rework_active }
+				if = {
+					limit = {
+						has_country_flag = ITA_GUI_giani_mech_active
+					}
+					ITA_giani_monthly_conversion_increase = yes
+				}
+				if = {
+					limit = {
+						has_country_flag = ITA_RQSC_Mechanic
+					}
+					ITA_RQSC_monthly_tick = yes
+				}
+
+				# Empire Management monthly update
+				if = {
+					limit = { has_country_flag = ITA_EM_Active }
+					ITA_EmpireManagement_MonthlyUpdate = yes
+				}
+
+			}
+		}
+	}
+	on_daily_ITA = {
+		effect = {
+			if = {
+				limit = { has_country_flag = ITA_med_rework_active }
+				# Empire Management ENI actions cooldown
+				if = {
+					limit = { has_country_flag = ITA_EM_Active }
+					ITA_EmpireManagement_DailyCooldown = yes
+				}
+
+				if = {
+					limit = {
+						has_country_flag = ITA_Muti_GUI_enabled
+					}
+					ITA_Muti_Cooldown_Countdown = yes
+				}
+				if = {
+					limit = {
+						has_country_flag = ITA_GUI_giani_mech_active
+					}
+					ITA_GUI_giani_idea_check = yes
+					ITA_GUI_giani_calculate_stability_vars = yes
+				}
+				if = {
+					limit = { has_country_flag = ITA_Camera_Enabled }
+					if = {
+						limit = { ITA_ddl_active = no }
+						set_variable = { ITA_ddl_days_left_pct = 100 }
+
+						if = {
+							limit = { ITA_govform_active = yes }
+
+							subtract_from_variable = { ITA_gf_days_left = 1 }
+
+							set_variable = { ITA_gf_days_left_pct = ITA_gf_days_left }
+							divide_variable = { ITA_gf_days_left_pct = ITA_gf_days_total }
+							multiply_variable = { ITA_gf_days_left_pct = 100 }
+
+							add_to_variable = { TNO_Italy_Camera_dirty = 1 }
+
+							if = {
+								limit = {
+									check_variable = { ITA_gf_days_left < 1 }
+								}
+								ITA_gf_timeout = yes
+							}
+						}
+					}
+					else_if = {
+						limit = { check_variable = { ITA_ddl_days_left > 0 } }
+						subtract_from_variable = { ITA_ddl_days_left = 1 }
+
+						set_variable = { ITA_ddl_days_left_pct = ITA_ddl_days_left }
+						divide_variable = { ITA_ddl_days_left_pct = ITA_ddl_days_total }
+						multiply_variable = { ITA_ddl_days_left_pct = 100 }
+
+						add_to_variable = { TNO_Italy_Camera_dirty = 1 }
+
+						if = {
+							limit = {
+								check_variable = { ITA_ddl_days_left = 0 }
+							}
+							ITA_ddl_hold_vote = yes
+						}
+					}
+				}
+
+			}
+		}
+	}
+	on_weekly_ITA = {
+		effect = {
+			if = {
+				limit = { has_country_flag = ITA_med_rework_active }
+				if = {
+					limit = {
+						check_variable = {global.ITA_speedometer > 80}
+					}
+					ITA_Muti_GUI_were_going_to_explode_slow_down = yes
+				}
+				if = {
+					limit = {
+						has_country_flag = ITA_Muti_GUI_enabled
+					}
+					ITA_Muti_GUI_weekly_changes = yes
+				}
+				if = {
+					limit = {
+						has_country_flag = ITA_RED_culrev_available
+					}
+					ITA_RED_weekly_tick = yes
+				}
+				if = {
+					limit = {
+						has_country_flag = ITA_show_grand_council_of_fascism
+					}
+					if = {
+						limit = {
+							has_active_mission = ITA_GCF_100_day_session
+						}
+
+						if = {
+							limit = {
+								is_in_array = {
+									array = ITA_promises_array
+									value = 34
+								}
+							}
+
+							ITA_GCF_Get_leading_duce = yes
+							set_temp_variable = { ITA_GCF_gerarchi_to_add = 0 }
+							set_temp_variable = { ITA_GCF_amount_to_add = 0.01 }
+							ITA_GCF_AddLoy = yes
+							ITA_GCF_Get_leading_duce = yes
+							set_temp_variable = { ITA_GCF_gerarchi_to_add = 2 }
+							set_temp_variable = { ITA_GCF_amount_to_add = 0.01 }
+							ITA_GCF_AddLoy = yes
+						}
+
+						if = {
+							limit = {
+								is_in_array = {
+									array = ITA_promises_array
+									value = 35
+								}
+							}
+
+							ITA_GCF_Get_leading_duce = yes
+							set_temp_variable = { ITA_GCF_gerarchi_to_add = 1 }
+							set_temp_variable = { ITA_GCF_amount_to_add = 0.01 }
+							ITA_GCF_AddLoy = yes
+							ITA_GCF_Get_leading_duce = yes
+							set_temp_variable = { ITA_GCF_gerarchi_to_add = 5 }
+							set_temp_variable = { ITA_GCF_amount_to_add = 0.01 }
+							ITA_GCF_AddLoy = yes
+						}
+
+						if = {
+							limit = {
+								is_in_array = {
+									array = ITA_promises_array
+									value = 36
+								}
+							}
+
+							ITA_GCF_Get_leading_duce = yes
+							set_temp_variable = { ITA_GCF_gerarchi_to_add = 3 }
+							set_temp_variable = { ITA_GCF_amount_to_add = 0.01 }
+							ITA_GCF_AddLoy = yes
+							ITA_GCF_Get_leading_duce = yes
+							set_temp_variable = { ITA_GCF_gerarchi_to_add = 4 }
+							set_temp_variable = { ITA_GCF_amount_to_add = 0.01 }
+							ITA_GCF_AddLoy = yes
+						}
+					}
+				}
+
+			}
+		}
+	}
+}

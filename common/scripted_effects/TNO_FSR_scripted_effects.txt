@@ -1,0 +1,86 @@
+FSR_lower_morality_level = {
+	if = {
+		limit = {
+			#has good morality idea
+			has_idea = FSR_morality_status_good
+			check_variable = {
+				var = FSR_morality_value
+				value = 5
+				compare = less_than
+			}
+		}
+		#lower morality
+		swap_ideas = {
+			remove_idea = FSR_morality_status_good
+			add_idea = FSR_morality_status_neutral
+		}
+	}
+	else_if = {
+		limit = {
+			#has neutral morality idea
+			has_idea = FSR_morality_status_neutral
+			check_variable = {
+				var = FSR_morality_value
+				value = -2
+				compare = less_than
+			}
+		}
+		#lower morality
+		swap_ideas = {
+			remove_idea = FSR_morality_status_neutral
+			add_idea = FSR_morality_status_evil
+		}
+	}
+}
+
+FSR_raise_morality_level = {
+	if = {
+		limit = {
+			#has neutral morality idea
+			has_idea = FSR_morality_status_neutral
+			check_variable = {
+				var = FSR_morality_value
+				value = 5
+				compare = greater_than_or_equals
+			}
+		}
+		#raise morality
+		swap_ideas = {
+			remove_idea = FSR_morality_status_neutral
+			add_idea = FSR_morality_status_good
+		}
+	}
+	else_if = {
+		limit = {
+			#has bad morality idea
+			has_idea = FSR_morality_status_evil
+			check_variable = {
+				var = FSR_morality_value
+				value = -2
+				compare = greater_than_or_equals
+			}
+		}
+		#raise morality
+		swap_ideas = {
+			remove_idea = FSR_morality_status_evil
+			add_idea = FSR_morality_status_neutral
+		}
+	}
+}
+
+FSR_lower_morality_value = {
+	subtract_from_variable = {
+		var = FSR_morality_value
+		value = 1
+	}
+	custom_effect_tooltip = FSR_lower_morality_value_tt
+}
+
+
+FSR_raise_morality_value = {
+	add_to_variable = {
+		var = FSR_morality_value
+		value = 1
+	}
+	custom_effect_tooltip = FSR_raise_morality_value_tt
+}

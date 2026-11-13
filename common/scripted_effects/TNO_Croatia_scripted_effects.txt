@@ -1,0 +1,561 @@
+# Croatia — Government Control mechanic (Phase 1)
+# CRO_gov_control: 0-100. High = the Italian-backed government holds. Low = collapse.
+# Boosted by Italian influence + player focuses/decisions; decays via a repeating mission.
+# Below the coup threshold (25) the government falls and the civil war begins (cro.coup, Phase 3).
+
+CRO_gov_control_recalc = {
+	clamp_variable = { var = CRO_gov_control min = 0 max = 100 }
+	# Mirror to a GLOBAL display var so both CRO and ITA can read the same bar (KN-bar pattern).
+	set_variable = { global.CRO_gov_control_display = CRO_gov_control }
+	CRO_sync_italian_power = yes
+
+	# Coup trigger: government control collapses.
+	if = {
+		limit = {
+			check_variable = { CRO_gov_control < 25 }
+			NOT = { has_country_flag = CRO_couped }
+			NOT = { has_country_flag = CRO_path_resolved }
+		}
+		country_event = { id = cro.100 days = 0 }
+	}
+}
+
+# OOSG-style: caller sets the temp var, this applies it and shows the exact change in the tooltip.
+# Usage:  set_temp_variable = { CRO_gov_control_change = 10 }  then  CRO_apply_gov_control_change = yes
+CRO_apply_gov_control_change = {
+	custom_effect_tooltip = CRO_gov_control_change_tt
+	hidden_effect = {
+		add_to_variable = { CRO_gov_control = CRO_gov_control_change }
+		CRO_gov_control_recalc = yes
+	}
+}
+
+# Italian Power is a 0-1 projection of ITA's own influence score for Croatia,
+# ITA.CRO_ITA_Influence (0-500 on the Italian Influence GUI; 1962 start = 300 -> 0.6).
+# The GUI score is the single source of truth: this only reads it.
+CRO_sync_italian_power = {
+	if = {
+		limit = { ITA = { exists = yes } }
+		set_variable = { CRO_italian_power = ITA.CRO_ITA_Influence }
+		divide_variable = { CRO_italian_power = 500 }
+		clamp_variable = { var = CRO_italian_power min = 0 max = 1 }
+	}
+	else = {
+		set_variable = { CRO_italian_power = 0 }
+	}
+	set_variable = { global.CRO_italian_power_display = CRO_italian_power }
+}
+
+# Usage:  set_temp_variable = { CRO_italian_power_change = 0.1 }  then  CRO_apply_italian_power_change = yes
+# Writes back to ITA's influence score (the source), then re-derives the 0-1 value.
+CRO_apply_italian_power_change = {
+	custom_effect_tooltip = CRO_italian_power_change_tt
+	hidden_effect = {
+		set_temp_variable = { CRO_ita_influence_delta = CRO_italian_power_change }
+		multiply_temp_variable = { CRO_ita_influence_delta = 500 }
+		ITA = {
+			add_to_variable = { CRO_ITA_Influence = CRO_ita_influence_delta }
+			clamp_variable = { var = CRO_ITA_Influence min = 0 max = 500 }
+		}
+		CRO_sync_italian_power = yes
+	}
+}
+
+# --- Phase 3: the coup. Builds the SAME world state regardless of the player's sympathy ---
+# (Ustase always = CRO, Tito always = BOS). The dispatch event then moves the player to BOS
+# via change_tag_from if their sympathy is Tito. Run in CRO scope.
+CRO_begin_civil_war = {
+	set_global_flag = CRO_civil_war_active
+	# Bosnia rises as Tito's Yugoslavia.
+	104 = { add_core_of = BOS }
+	1276 = { add_core_of = BOS }
+	1277 = { add_core_of = BOS }
+	1278 = { add_core_of = BOS }
+	BOS = {
+		transfer_state = 104
+		transfer_state = 1276
+		transfer_state = 1277
+		transfer_state = 1278
+		set_politics = { ruling_party = communist }
+		set_popularities = { communist = 70 socialist = 30 }
+		set_party_name = { ideology = communist long_name = CRO_AUTHDEM_LONG name = CRO_AUTHDEM }
+		create_country_leader = {
+			name = "Josip Broz Tito"
+			desc = "POLITICS_tito_DESC"
+			picture = "Portrait_Yugoslavia_Josip_Broz_Tito.dds"
+			expire = "1982.1.1"
+			ideology = communist_subtype
+			traits = { the_last_yugoslav }
+		}
+		set_cosmetic_tag = BOS_Yugoslavia
+		load_focus_tree = blank_no_tree_apoc
+		add_ideas = {
+			CRO_Andrija_Hebrang_hog
+			CRO_Leon_Gerskovic_eco
+			CRO_Ivan_Gosnjak_sec
+			CRO_Edvard_Kardelj_for
+		}
+		# Partisan groundwork (final intermission focus) makes the rising far stronger.
+		if = {
+			limit = { CRO = { has_country_flag = CRO_partisans_ready } }
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 5000 producer = BOS }
+			add_manpower = 25000
+			add_war_support = 0.15
+		}
+		# Army arrives via cro.105 one day later (load_oob fails if run the instant BOS is created).
+		country_event = { id = cro.105 }
+	}
+	# Croatia becomes the Ustase state.
+	set_politics = { ruling_party = national_socialism }
+	set_popularities = {
+		national_socialism = 45
+		authoritarian_democrat = 35
+		communist = 20
+	}
+	create_country_leader = {
+		name = "Jure Francetić"
+		desc = "POLITICS_Jure_Francetic_DESC"
+		picture = "Portrait_Croatia_Jure_Francetic_DDS.dds"
+		expire = "1965.1.1"
+		ideology = national_socialism_subtype
+	}
+	remove_all_ministers = yes
+	remove_faction_status = yes
+	add_ideas = {
+		CRO_Andrija_Artukovic_hog
+		CRO_Vladimir_Kosak_eco
+		CRO_Ante_Vokic_sec
+		CRO_Mladen_Lorkovic_for
+	}
+	remove_ideas = {
+		CRO_the_partisan_problem
+		CRO_legacy_of_the_ustase
+		CRO_bosnian_autonomy
+		CRO_the_sham_kingdom
+	}
+	# Broken partisan cells keep fighting in the hills.
+	add_ideas = CRO_PARTISAN_ACTIVITY
+	# Independence FIRST: subjects cannot leave their overlord's faction or declare wars,
+	# so end_puppet must run before leave_faction / declare_war_on below.
+	ITA = { end_puppet = CRO }
+	leave_faction = yes
+	set_country_flag = ustasevictory
+	# Ustase groundwork (final intermission focus) makes the seizure far stronger.
+	if = {
+		limit = { has_country_flag = CRO_ustase_ready }
+		add_equipment_to_stockpile = { type = infantry_equipment amount = 5000 producer = CRO }
+		add_manpower = 25000
+		add_war_support = 0.15
+		army_experience = 50
+	}
+	load_focus_tree = blank_no_tree_apoc
+	# The civil war: Ustase Croatia vs Tito's Bosnia.
+	declare_war_on = { target = BOS type = annex_everything }
+	# Italy intervenes against both breakaways after a delay (Phase 5 handles the survival window).
+	ITA = { country_event = { id = cro.103 days = 260 } }
+}
+
+# ===================== Phase 6: Titotangle (clone of WRRFTangle) =====================
+# Three communist factions compete for leadership of the new Yugoslavia.
+# Corners:  bottom-left = Tito (A), bottom-right = Hebrang (B), top = Bakaric (C).
+CROTitoTangle_calcXY = {
+	clamp_variable = { var = CRO_tito_balance min = 0 max = 95 }
+	clamp_variable = { var = CRO_hebrang_balance min = 0 max = 95 }
+	clamp_variable = { var = CRO_bakaric_balance min = 0 max = 95 }
+
+	set_temp_variable = { A = CRO_tito_balance }
+	set_temp_variable = { B = CRO_hebrang_balance }
+	set_temp_variable = { C = CRO_bakaric_balance }
+	set_temp_variable = { ABC = A }
+	add_to_temp_variable = { ABC = B }
+	add_to_temp_variable = { ABC = C }
+
+	# X = 1/2 * ((2B + C) / (A+B+C))
+	set_variable = { CROTitoTangle_X = B }
+	multiply_variable = { CROTitoTangle_X = 2 }
+	add_to_variable = { CROTitoTangle_X = C }
+	divide_variable = { CROTitoTangle_X = ABC }
+	multiply_variable = { CROTitoTangle_X = 0.5 }
+
+	# Y = sqrt(3)/2 * (C / (A+B+C))
+	set_variable = { CROTitoTangle_Y = C }
+	divide_variable = { CROTitoTangle_Y = ABC }
+	multiply_variable = { CROTitoTangle_Y = 0.866 }
+
+	# Scale to the GUI triangle (matches the WRRF outline sprite extents).
+	multiply_variable = { CROTitoTangle_X = 496 }
+	multiply_variable = { CROTitoTangle_Y = 392 }
+	multiply_variable = { CROTitoTangle_Y = -1 }
+	add_to_variable = { CROTitoTangle_Y = 392 }
+}
+
+# Start the leadership struggle (called from cro.110 once Yugoslavia outlasts Italy).
+CRO_start_titotangle = {
+	set_country_flag = CRO_revolution_active
+	# Tito starts ahead as the victor of the civil war; the others contend.
+	set_variable = { CRO_tito_balance = 40 }
+	set_variable = { CRO_hebrang_balance = 30 }
+	set_variable = { CRO_bakaric_balance = 30 }
+	CROTitoTangle_calcXY = yes
+}
+
+# Resolve the struggle to whichever faction holds the highest balance.
+CRO_resolve_titotangle = {
+	clr_country_flag = CRO_revolution_active
+	if = {
+		limit = {
+			check_variable = { var = CRO_tito_balance value = CRO_hebrang_balance compare = greater_than_or_equals }
+			check_variable = { var = CRO_tito_balance value = CRO_bakaric_balance compare = greater_than_or_equals }
+		}
+		set_country_flag = CRO_tito_leader
+	}
+	else_if = {
+		limit = { check_variable = { var = CRO_hebrang_balance value = CRO_bakaric_balance compare = greater_than_or_equals } }
+		set_country_flag = CRO_hebrang_leader
+	}
+	else = {
+		set_country_flag = CRO_bakaric_leader
+	}
+}
+
+
+# Partisan activity eases one step (higher tier = milder; tier 6 -> removed).
+CRO_partisan_Activity_down = {
+	if = {
+		limit = { has_idea = CRO_PARTISAN_ACTIVITY6 }
+		remove_ideas = CRO_PARTISAN_ACTIVITY6
+		custom_effect_tooltip = CRO_partisan_activity_gone_tt
+	}
+	else_if = {
+		limit = { has_idea = CRO_PARTISAN_ACTIVITY5 }
+		swap_ideas = { remove_idea = CRO_PARTISAN_ACTIVITY5 add_idea = CRO_PARTISAN_ACTIVITY6 }
+	}
+	else_if = {
+		limit = { has_idea = CRO_PARTISAN_ACTIVITY4 }
+		swap_ideas = { remove_idea = CRO_PARTISAN_ACTIVITY4 add_idea = CRO_PARTISAN_ACTIVITY5 }
+	}
+	else_if = {
+		limit = { has_idea = CRO_PARTISAN_ACTIVITY3 }
+		swap_ideas = { remove_idea = CRO_PARTISAN_ACTIVITY3 add_idea = CRO_PARTISAN_ACTIVITY4 }
+	}
+	else_if = {
+		limit = { has_idea = CRO_PARTISAN_ACTIVITY2 }
+		swap_ideas = { remove_idea = CRO_PARTISAN_ACTIVITY2 add_idea = CRO_PARTISAN_ACTIVITY3 }
+	}
+	else_if = {
+		limit = { has_idea = CRO_PARTISAN_ACTIVITY1 }
+		swap_ideas = { remove_idea = CRO_PARTISAN_ACTIVITY1 add_idea = CRO_PARTISAN_ACTIVITY2 }
+	}
+	else_if = {
+		limit = { has_idea = CRO_PARTISAN_ACTIVITY }
+		swap_ideas = { remove_idea = CRO_PARTISAN_ACTIVITY add_idea = CRO_PARTISAN_ACTIVITY1 }
+	}
+}
+
+# Same ladder, Italian/Succession flavor callers.
+CRO_italian_partisan_Activity_down = {
+	CRO_partisan_Activity_down = yes
+}
+
+# Ustase main tree: slow-and-steady national buildup (g4-style cycle).
+# Base: 1 offmap civilian factory per cycle. Everything else scales with CRO_growth_* vars
+# (start 0; raised by economic-branch focuses).
+CRO_steady_growth_tick = {
+	add_offsite_building = { type = industrial_complex level = 1 }
+	if = {
+		limit = { check_variable = { CRO_growth_civ > 0 } }
+		add_offsite_building = { type = industrial_complex level = 1 }
+	}
+	if = {
+		limit = { check_variable = { CRO_growth_civ > 1 } }
+		add_offsite_building = { type = industrial_complex level = 1 }
+	}
+	if = {
+		limit = { check_variable = { CRO_growth_gdp > 0 } }
+		add_to_variable = { GDP = CRO_growth_gdp }
+	}
+	# rolling modifiers (CRO_new_order_growth dynamic modifier)
+	if = {
+		limit = { check_variable = { CRO_growth_eff_step > 0 } }
+		add_to_variable = { CRO_new_order_eff = CRO_growth_eff_step }
+	}
+	if = {
+		limit = { check_variable = { CRO_growth_output_step > 0 } }
+		add_to_variable = { CRO_new_order_output = CRO_growth_output_step }
+	}
+	if = {
+		limit = { check_variable = { CRO_growth_pop_step > 0 } }
+		add_to_variable = { CRO_new_order_pop = CRO_growth_pop_step }
+	}
+	if = {
+		limit = { check_variable = { CRO_growth_xp > 0 } }
+		army_experience = CRO_growth_xp
+	}
+	if = {
+		limit = { check_variable = { CRO_growth_manpower > 0 } }
+		add_manpower = var:CRO_growth_manpower
+	}
+	if = {
+		limit = { check_variable = { CRO_growth_mbt > 0 } }
+		add_equipment_to_stockpile = { type = MBT_equipment_1 amount = var:CRO_growth_mbt producer = GER }
+	}
+	if = {
+		limit = { check_variable = { CRO_growth_ifv > 0 } }
+		add_equipment_to_stockpile = { type = IFV_equipment amount = var:CRO_growth_ifv producer = GER }
+	}
+	if = {
+		limit = { check_variable = { CRO_growth_apc > 0 } }
+		add_equipment_to_stockpile = { type = APC_equipment amount = var:CRO_growth_apc producer = GER }
+	}
+	if = {
+		limit = { check_variable = { CRO_growth_heli > 0 } }
+		add_equipment_to_stockpile = { type = transport_helicopter_equipment_1 amount = var:CRO_growth_heli producer = GER }
+	}
+	if = {
+		limit = { check_variable = { CRO_growth_fighter > 0 } }
+		add_equipment_to_stockpile = { type = small_plane_airframe_1 amount = var:CRO_growth_fighter producer = GER }
+	}
+	# Restored Croatian Armed Forces — rolling military steps
+	if = {
+		limit = { check_variable = { CRO_raf_org_step > 0 } }
+		add_to_variable = { CRO_raf_org = CRO_raf_org_step }
+	}
+	if = {
+		limit = { check_variable = { CRO_raf_morale_step > 0 } }
+		add_to_variable = { CRO_raf_morale = CRO_raf_morale_step }
+	}
+	if = {
+		limit = { check_variable = { CRO_raf_cp_step > 0 } }
+		add_to_variable = { CRO_raf_cp = CRO_raf_cp_step }
+	}
+	if = {
+		limit = { check_variable = { CRO_raf_breakthrough_step > 0 } }
+		add_to_variable = { CRO_raf_breakthrough = CRO_raf_breakthrough_step }
+	}
+}
+# ===================== Leadership Crisis (OOSG candidate-mechanic clone) =====================
+# Three factions contest the Ustase succession (fires ~1970 via on_monthly_CRO):
+#   Old Guard  = Jure Francetic (incumbent, national_socialism)
+#   Moderates  = Mladen Lorkovic (fascism)
+#   Crusaders  = Vjekoslav Luburic (burgundian_system)
+# Powers are zero-sum (~100 total). Resolution: CRO_sort_leader, fired by the
+# CRO_black_council_mission timeout or by the "convene the council" focus (Phase 2).
+
+CRO_initialize_leadership_race = {
+	set_variable = { CRO_francetic_power = 50 }
+	set_variable = { CRO_lorkovic_power = 30 }
+	set_variable = { CRO_luburic_power = 20 }
+	set_country_flag = CRO_leadership_crisis
+	CRO_leadership_math = yes
+}
+
+# Display math + dominant flags + popularity sync (GAY_candidate_math clone).
+CRO_leadership_math = {
+	hidden_effect = {
+		# Stacked-bar display vars (cumulative; window draws widest-first).
+		set_variable = { CRO_francetic_power_display = CRO_francetic_power }
+		set_variable = { CRO_lorkovic_power_display = CRO_francetic_power_display }
+		add_to_variable = { CRO_lorkovic_power_display = CRO_lorkovic_power }
+		set_variable = { CRO_luburic_power_display = CRO_lorkovic_power_display }
+		add_to_variable = { CRO_luburic_power_display = CRO_luburic_power }
+		clamp_variable = { var = CRO_francetic_power min = 0 max = 100 }
+		clamp_variable = { var = CRO_lorkovic_power min = 0 max = 100 }
+		clamp_variable = { var = CRO_luburic_power min = 0 max = 100 }
+		clamp_variable = { var = CRO_francetic_power_display min = 0 max = 100 }
+		clamp_variable = { var = CRO_lorkovic_power_display min = 0 max = 100 }
+		clamp_variable = { var = CRO_luburic_power_display min = 0 max = 100 }
+		clr_country_flag = CRO_francetic_dominant
+		clr_country_flag = CRO_lorkovic_dominant
+		clr_country_flag = CRO_luburic_dominant
+		if = {
+			limit = { check_variable = { CRO_francetic_power > 50 } }
+			set_country_flag = CRO_francetic_dominant
+		}
+		else_if = {
+			limit = { check_variable = { CRO_lorkovic_power > 50 } }
+			set_country_flag = CRO_lorkovic_dominant
+		}
+		else_if = {
+			limit = { check_variable = { CRO_luburic_power > 50 } }
+			set_country_flag = CRO_luburic_dominant
+		}
+		CRO_ideologies_var = yes
+	}
+}
+
+# Popularity mapping (GAY_ideologies_var clone, adapted): the ruling Ustase spectrum
+# is a 60% pool split by candidate power; HSS (authdem) 25 + communists 15 stay fixed.
+# Normalized by the power sum so _flat adds (which inflate the sum) can't break the total.
+CRO_ideologies_var = {
+	if = {
+		limit = { has_country_flag = CRO_leadership_crisis }
+		set_variable = { CRO_power_sum = CRO_francetic_power }
+		add_to_variable = { CRO_power_sum = CRO_lorkovic_power }
+		add_to_variable = { CRO_power_sum = CRO_luburic_power }
+		if = {
+			limit = { check_variable = { CRO_power_sum > 0 } }
+			set_variable = { CRO_ns_var = CRO_francetic_power }
+			divide_variable = { CRO_ns_var = CRO_power_sum }
+			multiply_variable = { CRO_ns_var = 60 }
+			set_variable = { CRO_fa_var = CRO_lorkovic_power }
+			divide_variable = { CRO_fa_var = CRO_power_sum }
+			multiply_variable = { CRO_fa_var = 60 }
+			set_variable = { CRO_bs_var = CRO_luburic_power }
+			divide_variable = { CRO_bs_var = CRO_power_sum }
+			multiply_variable = { CRO_bs_var = 60 }
+			set_popularities = {
+				national_socialism = CRO_ns_var
+				fascism = CRO_fa_var
+				burgundian_system = CRO_bs_var
+				authoritarian_democrat = 25
+				communist = 15
+			}
+		}
+	}
+}
+
+# Zero-sum adds (GAY_add_X_power clones). Caller sets CRO_<faction>_power_temp first.
+CRO_add_francetic_power = {
+	add_to_variable = { CRO_francetic_power = CRO_francetic_power_temp }
+	if = {
+		limit = { check_variable = { CRO_lorkovic_power < CRO_luburic_power } }
+		subtract_from_variable = { CRO_luburic_power = CRO_francetic_power_temp }
+		if = {
+			limit = { check_variable = { CRO_luburic_power < 0 } }
+			set_temp_variable = { CRO_negative_temp = CRO_luburic_power }
+			add_to_variable = { CRO_lorkovic_power = CRO_negative_temp }
+		}
+	}
+	else = {
+		subtract_from_variable = { CRO_lorkovic_power = CRO_francetic_power_temp }
+		if = {
+			limit = { check_variable = { CRO_lorkovic_power < 0 } }
+			set_temp_variable = { CRO_negative_temp = CRO_lorkovic_power }
+			add_to_variable = { CRO_luburic_power = CRO_negative_temp }
+		}
+	}
+	custom_effect_tooltip = CRO_add_francetic_power_tt
+	CRO_leadership_math = yes
+}
+
+CRO_add_lorkovic_power = {
+	add_to_variable = { CRO_lorkovic_power = CRO_lorkovic_power_temp }
+	if = {
+		limit = { check_variable = { CRO_francetic_power < CRO_luburic_power } }
+		subtract_from_variable = { CRO_luburic_power = CRO_lorkovic_power_temp }
+		if = {
+			limit = { check_variable = { CRO_luburic_power < 0 } }
+			set_temp_variable = { CRO_negative_temp = CRO_luburic_power }
+			add_to_variable = { CRO_francetic_power = CRO_negative_temp }
+		}
+	}
+	else = {
+		subtract_from_variable = { CRO_francetic_power = CRO_lorkovic_power_temp }
+		if = {
+			limit = { check_variable = { CRO_francetic_power < 0 } }
+			set_temp_variable = { CRO_negative_temp = CRO_francetic_power }
+			add_to_variable = { CRO_luburic_power = CRO_negative_temp }
+		}
+	}
+	custom_effect_tooltip = CRO_add_lorkovic_power_tt
+	CRO_leadership_math = yes
+}
+
+CRO_add_luburic_power = {
+	add_to_variable = { CRO_luburic_power = CRO_luburic_power_temp }
+	if = {
+		limit = { check_variable = { CRO_francetic_power < CRO_lorkovic_power } }
+		subtract_from_variable = { CRO_lorkovic_power = CRO_luburic_power_temp }
+		if = {
+			limit = { check_variable = { CRO_lorkovic_power < 0 } }
+			set_temp_variable = { CRO_negative_temp = CRO_lorkovic_power }
+			add_to_variable = { CRO_francetic_power = CRO_negative_temp }
+		}
+	}
+	else = {
+		subtract_from_variable = { CRO_francetic_power = CRO_luburic_power_temp }
+		if = {
+			limit = { check_variable = { CRO_francetic_power < 0 } }
+			set_temp_variable = { CRO_negative_temp = CRO_francetic_power }
+			add_to_variable = { CRO_lorkovic_power = CRO_negative_temp }
+		}
+	}
+	custom_effect_tooltip = CRO_add_luburic_power_tt
+	CRO_leadership_math = yes
+}
+
+# Flat variants (for focuses): add without draining the others, still show the tooltip.
+CRO_add_francetic_power_flat = {
+	add_to_variable = { CRO_francetic_power = CRO_francetic_power_temp }
+	custom_effect_tooltip = CRO_add_francetic_power_tt
+	CRO_leadership_math = yes
+}
+
+CRO_add_lorkovic_power_flat = {
+	add_to_variable = { CRO_lorkovic_power = CRO_lorkovic_power_temp }
+	custom_effect_tooltip = CRO_add_lorkovic_power_tt
+	CRO_leadership_math = yes
+}
+
+CRO_add_luburic_power_flat = {
+	add_to_variable = { CRO_luburic_power = CRO_luburic_power_temp }
+	custom_effect_tooltip = CRO_add_luburic_power_tt
+	CRO_leadership_math = yes
+}
+
+# Resolve the struggle (GAY_sort_candidate clone). Highest power wins; tie -> incumbent.
+CRO_sort_leader = {
+	if = {
+		limit = {
+			check_variable = { CRO_lorkovic_power > CRO_luburic_power }
+			check_variable = { CRO_lorkovic_power > CRO_francetic_power }
+		}
+		CRO_lorkovic_wins = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = { CRO_francetic_power > CRO_luburic_power }
+			check_variable = { CRO_francetic_power > CRO_lorkovic_power }
+		}
+		CRO_francetic_wins = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = { CRO_luburic_power > CRO_francetic_power }
+			check_variable = { CRO_luburic_power > CRO_lorkovic_power }
+		}
+		CRO_luburic_wins = yes
+	}
+	else = {
+		# Dead heat: the incumbent's machine holds the state.
+		CRO_francetic_wins = yes
+	}
+	clr_country_flag = CRO_leadership_crisis
+	set_country_flag = CRO_crisis_resolved
+}
+
+# Winner effects (GAY_X_wins clones). Tree + flag + event live here;
+# politics/leader creation left commented for the user to write.
+CRO_francetic_wins = {
+	set_country_flag = CRO_francetic_leader
+	country_event = { id = crocrisis.3 days = 1 }
+	load_focus_tree = cro_ustase_francetic_endgame
+	# USER: Francetic stays leader / ruling_party national_socialism (already in place).
+}
+
+CRO_lorkovic_wins = {
+	set_country_flag = CRO_lorkovic_leader
+	country_event = { id = crocrisis.4 days = 1 }
+	load_focus_tree = cro_ustase_lorkovic_endgame
+	# USER: retire Francetic, create_country_leader Lorkovic (needs portrait),
+	# set_politics = { ruling_party = fascism }
+}
+
+CRO_luburic_wins = {
+	set_country_flag = CRO_luburic_leader
+	country_event = { id = crocrisis.5 days = 1 }
+	load_focus_tree = cro_ustase_luburic_endgame
+	# USER: retire Francetic, create_country_leader Luburic
+	# (picture = "Portrait_Croatia_Vjekoslav_Luburic_DDS.dds"),
+	# set_politics = { ruling_party = burgundian_system }
+}
