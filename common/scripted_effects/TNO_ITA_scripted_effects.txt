@@ -398,68 +398,24 @@ ITA_gulf_points_3 = {
 
 ITA_algeria_points_0 = {
 	set_variable = { var = ITA_ILG_management value = 0 }
-	if = {
-		limit = { country_exists = ILG }
-		ILG = {
-			if = {
-				limit = { NOT = { has_country_flag = empire_client } }
-				ITA_empire_register_client = yes
-			}
-			set_variable = { var = empire_invest value = 0 }
-			empire_refresh_boost = yes
-		}
-	}
 	ITA = { ITA_empire_recalc = yes }
 	custom_effect_tooltip = ITA_ILG_POINTS_SET_0
 }
 
 ITA_algeria_points_1 = {
 	set_variable = { var = ITA_ILG_management value = 1 }
-	if = {
-		limit = { country_exists = ILG }
-		ILG = {
-			if = {
-				limit = { NOT = { has_country_flag = empire_client } }
-				ITA_empire_register_client = yes
-			}
-			set_variable = { var = empire_invest value = 1 }
-			empire_refresh_boost = yes
-		}
-	}
 	ITA = { ITA_empire_recalc = yes }
 	custom_effect_tooltip = ITA_ILG_POINTS_SET_1
 }
 
 ITA_algeria_points_2 = {
 	set_variable = { var = ITA_ILG_management value = 2 }
-	if = {
-		limit = { country_exists = ILG }
-		ILG = {
-			if = {
-				limit = { NOT = { has_country_flag = empire_client } }
-				ITA_empire_register_client = yes
-			}
-			set_variable = { var = empire_invest value = 2 }
-			empire_refresh_boost = yes
-		}
-	}
 	ITA = { ITA_empire_recalc = yes }
 	custom_effect_tooltip = ITA_ILG_POINTS_SET_2
 }
 
 ITA_algeria_points_3 = {
 	set_variable = { var = ITA_ILG_management value = 3 }
-	if = {
-		limit = { country_exists = ILG }
-		ILG = {
-			if = {
-				limit = { NOT = { has_country_flag = empire_client } }
-				ITA_empire_register_client = yes
-			}
-			set_variable = { var = empire_invest value = 3 }
-			empire_refresh_boost = yes
-		}
-	}
 	ITA = { ITA_empire_recalc = yes }
 	custom_effect_tooltip = ITA_ILG_POINTS_SET_3
 }
@@ -1181,13 +1137,6 @@ ITA_empire_update_garrison_bonus = {
 			ITA_empire_garrison_add_region = yes
 			OMA = { ITA_empire_set_garrison_mult = yes }
 		}
-		if = {
-			limit = { country_exists = ILG }
-			ITA_empire_garrison_reset = yes
-			set_temp_variable = { empire_gar_r = 24 }
-			ITA_empire_garrison_add_region = yes
-			ILG = { ITA_empire_set_garrison_mult = yes }
-		}
 	}
 	else = {
 		every_country = {
@@ -1394,7 +1343,6 @@ ITA_empire_startup_init = {
 	# Gulf puppet at start; stabilizing it prevents the Gulf collapse (end_puppet = GUL).
 	if = { limit = { country_exists = GUL } GUL = { ITA_empire_register_client = yes } }
 	# Colonial clients - investment bonuses only (no civil-war / collapse gate yet).
-	if = { limit = { country_exists = ILG } ILG = { ITA_empire_register_client = yes } }
 	# Clients history already has Italy paying for. Their pips come from the
 	# ITA_<TAG>_management values the country file sets, which are also what the
 	# ITA_<TAG>_Block_Status readouts show, so the two never start out disagreeing.

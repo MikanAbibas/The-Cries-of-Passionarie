@@ -1,4 +1,4 @@
-name="The New Order: Rises Again"
+name="The New Order: The Cries of Passionarie"
 tags={
 	"Military"
 	"Ideologies"
@@ -74,6 +74,6 @@ replace_path="map/strategicregions"
 replace_path="gfx/flags"
 replace_path="gfx/loadingscreens"
 replace_path="gfx/interface/equipmentdesigner/graphic_db"
-supported_version="1.19.*"
 path="C:/Users/x02wy/Documents/Paradox Interactive/Hearts of Iron IV/mod/TNORA"
 remote_file_id="3583339918"
+supported_version="1.19.*"

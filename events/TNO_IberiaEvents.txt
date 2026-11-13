@@ -33295,12 +33295,6 @@ country_event = { #NONAG ITALY
 					name = "Carlo Scorza"
 					ruling_only = yes
 				}
-				ILG = {
-					has_country_leader = {
-						name = "Messali Hadj"
-						ruling_only = yes
-					}	
-				}
 			}
 			if = {
 				limit = { IBR = { has_country_flag = IBRChoseUnion }}
@@ -43600,17 +43594,6 @@ country_event = { #FLASHPOINT (SALAZAR DEATH)
 				    days = 1
 			    }
 			}
-			if = { 
-				limit = { 
-					SLG = { 
-						exists = yes
-					}
-				}
-				country_event = { 
-				id = IBR.3001 
-				days = 1
-				}
-			}
 		}
 		if = {
 			limit = {
@@ -44697,21 +44680,6 @@ country_event = {
 		name = IBR.2000.a
 		ai_chance = { factor = 10 }
 		# Play Spain
-		if = {
-			limit = {
-				SLG = {
-					is_subject_of = IBR
-				}
-			}
-			SLG = {
-				transfer_state = 1006
-				transfer_state = 459
-				set_cosmetic_tag = SLG_FREE_YVES
-			}
-			IBR = { 
-				end_puppet = SLG
-			}
-		}
 		IBR_divorce_generals = yes
 		SPA = {	inherit_technology = IBR }
 		POR = {	inherit_technology = IBR }
@@ -45343,21 +45311,6 @@ country_event = {
 		name = IBR.2000.b
 		ai_chance = { factor = 10 }
 		# Play Portugal
-		if = {
-			limit = {
-				SLG = {
-					is_subject_of = IBR
-				}
-			}
-			SLG = {
-				transfer_state = 1006
-				transfer_state = 459
-				set_cosmetic_tag = SLG_FREE_YVES
-			}
-			IBR = { 
-				end_puppet = SLG
-			}
-		}
 		IBR_divorce_generals = yes
 		SPA = {	inherit_technology = IBR }
 		POR = {	inherit_technology = IBR }
@@ -46130,61 +46083,6 @@ country_event = {
 }
 
 country_event = {
-	id = IBR.3001
-	immediate = {log = "[GetDateText]: [Root.GetName]: event IBR.3001"}
-	picture = GFX_report_event_yves_guerin_serac
-	is_triggered_only = yes
-	fire_only_once = yes
-	hidden = no
-	title = IBR.3001.t
-	desc = IBR.3001.d 
-	immediate = { 
-		hidden_effect = { 
-			SLG = {
-				transfer_state = 1006
-				transfer_state = 459
-				set_cosmetic_tag = SLG_FREE_YVES	
-			}
-			IBR = { 
-				end_puppet = SLG
-			}
-		}	
-	}
-	option = {
-		name = IBR.3001.a
-		ai_chance = { factor = 10 }
-	}
-	option = {
-		name = IBR.3001.b
-		ai_chance = { factor = 10 }
-		declare_war_on = {
-    		target = SLG
-    		type = annex_everything
-		}
-		set_country_flag = IBR_yves_algeria_war_flag 
-		activate_mission = IBR_yves_war_mission
-	}
-}
-
-country_event = {
-	id = IBR.3002
-	immediate = {log = "[GetDateText]: [Root.GetName]: event IBR.3002"}
-	picture = GFX_report_event_iberia_salsa
-	is_triggered_only = yes
-	fire_only_once = yes
-	hidden = yes
-	title = IBR.3002.t
-	desc = IBR.3002.d
-	option = {
-		name = IBR.3002.a
-		ai_chance = { factor = 10 }
-		add_to_variable = { IBRIberiaStability = -1 } 
-		custom_effect_tooltip = IBR_sub_stability_small_tt
-		add_to_variable = { IBR_caudillo_correct_var = -2 } 
-	}
-}
-
-country_event = {
 	id = IBR.3003
 	immediate = {log = "[GetDateText]: [Root.GetName]: event IBR.3003"}
 	picture = GFX_report_event_salazar_and_franco
@@ -46421,18 +46319,6 @@ country_event = { #Alger war still going for "always sunny"?
 		name = IBR.31051.a
 		ai_chance = { factor = 1 }
 		
-		if = {
-			limit = { has_global_flag = algeria_war }
-			
-			country_event = { 
-				id = IBR.3107
-				hours = 1
-			}
-			country_event = { 
-				id = IBR.31052
-				days = 12
-			}
-		}
 	}
 }
 
@@ -46450,14 +46336,6 @@ country_event = { #Alger war still going for "letter"?
 		name = IBR.31052.a
 		ai_chance = { factor = 1 }
 		
-		if = {
-			limit = { has_global_flag = algeria_war }
-			
-			country_event = { 
-				id = IBR.3106
-				hours = 1
-			}
-		}
 	}
 }
 
@@ -52563,93 +52441,6 @@ country_event = {
 ## Algeria 
 #Load Tree (NOW LOADED FROM WORLD EVENT LOL)
 country_event = {
-	id = IBR.4100
-	immediate = {log = "[GetDateText]: [Root.GetName]: event IBR.4100"}
-	picture = GFX_report_event_iberia_road_work_2
-	is_triggered_only = yes
-	fire_only_once = yes
-	hidden = yes
-	title = IBR.4100.t
-	desc = IBR.4100.d
-	trigger = {
-		tag = IBR
-		has_global_flag = france_invaded
-		NOT = { 
-			OR = { 
-				has_country_flag = IBR_dissolving_the_union 
-				has_country_flag = IBR_Iberian_Wars_have_happened
-			}
-		}
-	}
-	option = {
-		name = IBR.4100.a
-		ai_chance = { factor = 10 }
-		IBR = {
-			country_event = {
-				id = IBR.4101
-				days = 7
-			}
-		}
-		IBR = {
-			country_event = {
-				id = IBR.3213
-				days = 1
-			}
-		}
-	}
-}
-
-country_event = {
-	id = IBR.4101
-	immediate = {log = "[GetDateText]: [Root.GetName]: event IBR.4101"}
-	picture = GFX_report_event_iberia_algeria_map
-	is_triggered_only = yes
-	fire_only_once = yes
-	hidden = no
-	title = IBR.4101.t
-	desc = IBR.4101.d
-	is_triggered_only = yes
-	option = {
-		name = IBR.4101.a
-		ai_chance = { factor = 10 }		
-    	load_focus_tree = {
-			tree = IBR_Algeria_Conflict
-			keep_completed = yes
-		}
-		set_global_flag = algeria_crisis
-
-		# On the legacy path Italy's own tree carries the Algerian intervention:
-		# ita_the_battle_for_algeria opens off this flag and, six focuses later,
-		# ita_call_castellano fires ILG.1 and ita_operation_jungurtha fires ILG.3,
-		# which is what sets ilg_WAR_IS_HAPPENING. The Mediterranean rework does not
-		# load that tree, so the war never started. Schedule the same three events on
-		# the same cadence instead - 7 days a focus point puts Castellano at day 17,
-		# the offers focus at 22, and Jungurtha at the full 6.75 points, day 47.
-		# The two country flags are the ones those focuses set and that Iberia reads
-		# back: ITA_algeria_blocked_peace, which exists to guarantee the war happens,
-		# and ITA_Algeria_War_Path, checked in tno_Iberia_shared.txt.
-		hidden_effect = {
-			if = {
-				limit = {
-					ITA = { has_country_flag = ITA_med_rework_active }
-					ILG = { exists = yes }
-				}
-				ITA = {
-					set_country_flag = ITA_algeria_blocked_peace
-					set_country_flag = ITA_Algeria_War_Path
-				}
-				ILG = {
-					add_manpower = 10000
-					country_event = { id = ILG.1 days = 17 }
-					country_event = { id = ILG.2 days = 22 }
-					country_event = { id = ILG.3 days = 47 }
-				}
-			}
-		}
-	}
-}
-
-country_event = {
 	id = IBR.4102
 	immediate = {log = "[GetDateText]: [Root.GetName]: event IBR.4102"}
 	picture = GFX_report_event_post_apoc_letter_quill
@@ -52725,129 +52516,7 @@ country_event = {
 		ai_chance = { factor = 10 }	
 		
 		hidden_effect = {
-			country_event = { 
-				id = IBR.4106
-				hours = 15
-			}
 		}
-	}
-}
-
-country_event = {
-	id = IBR.4106
-	immediate = {log = "[GetDateText]: [Root.GetName]: event IBR.4106"}
-	picture = GFX_report_event_iberia_salazar_meeting
-	is_triggered_only = yes
-	fire_only_once = yes
-	hidden = no
-	title = IBR.4106.t
-	desc = IBR.4106.d
-	is_triggered_only = yes
-	option = {
-		name = IBR.4106.a
-		ai_chance = { factor = 10 }
-		trigger = { is_ai = no }
-		
-		custom_effect_tooltip = IBR_cauinfo_algeria_tt
-		
-		unlock_national_focus = IBR_General_Kaulza_Plan
-		
-		add_to_variable = {IBR_military_alignment = 5}
-		custom_effect_tooltip = IBR_improve_franco_army_tt
-		IBR_check_caudillo_popularity = yes
-		set_country_flag = IBR_Algeria_War_Path
-	}
-	option = {
-		name = IBR.4106.b
-		ai_chance = { factor = 10 }
-		trigger = { is_ai = no }	
-		
-		custom_effect_tooltip = IBR_cauinfo_algeria_tt
-		
-		unlock_national_focus = IBR_Ambassador_Moreira_Plan	
-		
-		add_to_variable = {IBR_business_alignment = -5}
-		custom_effect_tooltip = IBR_improve_salazar_businessmen_tt
-		IBR_check_caudillo_popularity = yes
-	}
-	option = {
-		name = IBR.4106.c
-		ai_chance = { factor = 10 }
-		trigger = { is_ai = yes }
-		
-		if = { #Franco made war more likely
-			limit = { 
-				IBR = { 
-					has_country_leader = { 
-						name = "Francisco Franco"
-						ruling_only = yes
-					} 
-				} 
-			}
-			if = { #Burgundy made war more likely
-				limit = { has_country_flag = BRG_false_flagged }
-				random_list = {
-					5 = { unlock_national_focus = IBR_Ambassador_Moreira_Plan }
-					95 = { 
-						unlock_national_focus = IBR_General_Kaulza_Plan 
-						set_country_flag = IBR_Algeria_War_Path
-					}
-				}
-			}
-			else = {
-				random_list = {
-					10 = { unlock_national_focus = IBR_Ambassador_Moreira_Plan }
-					90 = { 
-						unlock_national_focus = IBR_General_Kaulza_Plan 
-						set_country_flag = IBR_Algeria_War_Path
-					}
-				}
-			}
-		}
-		else = {
-			if = { #Burgundy made war more likely
-				limit = { has_country_flag = BRG_false_flagged }
-				random_list = {
-					65 = { unlock_national_focus = IBR_Ambassador_Moreira_Plan }
-					35 = { 
-						unlock_national_focus = IBR_General_Kaulza_Plan 
-						set_country_flag = IBR_Algeria_War_Path
-					}
-				}
-			}
-			else = {
-				random_list = {
-					75 = { unlock_national_focus = IBR_Ambassador_Moreira_Plan }
-					25 = { 
-						unlock_national_focus = IBR_General_Kaulza_Plan
-						set_country_flag = IBR_Algeria_War_Path
-					}
-				}
-			}
-		}
-	}
-}
-
-country_event = {
-	id = IBR.4107
-	immediate = {log = "[GetDateText]: [Root.GetName]: event IBR.4107"}
-	picture = GFX_report_event_iberia_jardim_serious
-	is_triggered_only = yes
-	fire_only_once = yes
-	hidden = no
-	title = IBR.4107.t
-	desc = IBR.4107.d
-	is_triggered_only = yes
-	option = {
-		name = IBR.4107.a
-		ai_chance = { factor = 10 }	
-		
-		add_political_power = 25
-		
-		IBR_worsen_settlers_opinion = yes
-		IBR_improve_foreign_opinion = yes
-		IBR_worsen_burocrats_opinion = yes
-		
 	}
 }
 

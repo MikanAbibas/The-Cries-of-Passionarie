@@ -608,9 +608,6 @@ country_event = { #Fourth of four events in a chain about an Italian squad captu
 
 	option = {
 		name = ita.145.a
-		ILG = {
-			add_manpower = -3
-		}
 	}
 }
 
@@ -11870,7 +11867,6 @@ country_event = {
 		ITA_hungary_inf = yes
 		ITA_serbia_inf = yes
 		ITA_france_inf = yes
-		ITA_algeria_inf = yes
 		ITA_greece_inf = yes
 		ITA_croat_inf = yes
 		if = {
@@ -12340,28 +12336,8 @@ country_event = { ##associate
 			}
 		}
 
-		if = {
-			limit = {
-				tag = ILG
-			}
-			ITA = {
-				set_variable = { ILG_ITA_Influence = 200 }
-			}
-		}
 	}
 }
-##
-#if = {
-	#		limit = {
-		#			ILG = {
-			#			exists = no
-			#				}
-		#			}
-	#			ITA = {
-		#			set_variable = { ILG_ITA_Influence = 0 }
-		#			}
-	#		}
-##
 
 country_event = { #partypop change
 	id = ita.1004
@@ -12847,14 +12823,6 @@ country_event = { ##heavy associate ##autonomy_italy_hefty_influence
 			}
 		}
 
-		if = {
-			limit = {
-				tag = ILG
-			}
-			ITA = {
-				set_variable = { ILG_ITA_Influence = 300 }
-			}
-		}
 	}
 }
 
@@ -13314,14 +13282,6 @@ country_event = { ##reliant ##autonomy_italy_reliant
 			}
 		}
 
-		if = {
-			limit = {
-				tag = ILG
-			}
-			ITA = {
-				set_variable = { ILG_ITA_Influence = 400 }
-			}
-		}
 	}
 }
 
@@ -13781,14 +13741,6 @@ country_event = { ##colony
 			}
 		}
 
-		if = {
-			limit = {
-				tag = ILG
-			}
-			ITA = {
-				set_variable = { ILG_ITA_Influence = 200 }
-			}
-		}
 	}
 }
 
@@ -13895,16 +13847,6 @@ country_event = { #peace deal
 				remove_state_core  = 665
 				remove_state_core  = 1142
 				remove_state_core  = 458
-			}
-			FRA = {
-				annex_country = {
-					target = ILG
-					transfer_troops = no
-				}
-				annex_country = {
-					target = SLG
-					transfer_troops = no
-				}
 			}
 			ITA = {
 				set_autonomy = {
@@ -26028,54 +25970,6 @@ country_event = { # GUL claims
 	}
 }
 
-country_event = { # ILG claims
-	id = empiremanagement.6
-	immediate = {log = "[GetDateText]: [Root.GetName]: event empiremanagement.6"}
-	title = empiremanagement.6.t
-	desc = empiremanagement.6.d
-	picture = GFX_report_event_italy_blackshirts1
-
-	is_triggered_only = yes
-
-	option = { # set nothing
-		name = empiremanagement.6.a
-		ITA_algeria_points_0 = yes
-	}
-	option = { # set 1
-		name = empiremanagement.6.b
-		trigger = {
-			check_variable = {
-				var = ITA_empire_free_coins
-				value = 1
-				compare = greater_than_or_equals
-			}
-		}
-		ITA_algeria_points_1 = yes
-	}
-	option = { # set 2
-		name = empiremanagement.6.c
-		trigger = {
-			check_variable = {
-				var = ITA_empire_free_coins
-				value = 2
-				compare = greater_than_or_equals
-			}
-		}
-		ITA_algeria_points_2 = yes
-	}
-	option = { # set 3
-		name = empiremanagement.6.d	
-		trigger = {
-			check_variable = {
-				var = ITA_empire_free_coins
-				value = 3
-				compare = greater_than_or_equals
-			}
-		}
-		ITA_algeria_points_3 = yes
-	}
-}
-
 country_event = { # IRQ claims
 	id = empiremanagement.7
 	immediate = {log = "[GetDateText]: [Root.GetName]: event empiremanagement.7"}
@@ -29176,291 +29070,6 @@ country_event = { # The Iraqi civil war continues, Italy is very frustrated and 
 		}
 		IRQ = {
 			add_manpower = 2000
-		}
-	}
-}
-###
-add_namespace = empiremanagement_ILG
-
-country_event = { # Italian conscripts interacting with some native Algerians deep in the desert, some are more intense and inquire about bandits and Iberian positions (beat them up even?)
-	id = empiremanagement_ILG.1
-	immediate = {log = "[GetDateText]: [Root.GetName]: event empiremanagement_ILG.1"}
-	title = empiremanagement_ILG.1.t
-	desc = empiremanagement_ILG.1.desc
-	picture = GFX_report_event_italy_blackshirts1
-
-	is_triggered_only = yes
-
-	option = { # set nothing
-		name = empiremanagement_ILG.1.a
-		ITA_algeria_points_0 = yes
-		add_to_variable = {
-			name = ITA_ILG_benefeit
-			value = 0
-		}
-		country_event = { id = empiremanagement_ILG.2 days = 90 }
-	}
-	option = { # set 1
-		name = empiremanagement_ILG.1.b
-		trigger = {
-			check_variable = {
-				var = ITA_empire_free_coins
-				value = 1
-				compare = greater_than_or_equals
-			}
-		}
-		ITA_algeria_points_1 = yes
-		add_to_variable = {
-			name = ITA_ILG_benefeit
-			value = 1
-		}
-		country_event = { id = empiremanagement_ILG.2 days = 90 }
-	}
-	option = { # set 2
-		name = empiremanagement_ILG.1.c
-		trigger = {
-			check_variable = {
-				var = ITA_empire_free_coins
-				value = 2
-				compare = greater_than_or_equals
-			}
-		}
-		ITA_algeria_points_2 = yes
-		add_to_variable = {
-			name = ITA_ILG_benefeit
-			value = 2
-		}
-		country_event = { id = empiremanagement_ILG.2 days = 90 }
-	}
-	option = { # set 3
-		name = empiremanagement_ILG.1.d	
-		trigger = {
-			check_variable = {
-				var = ITA_empire_free_coins
-				value = 3
-				compare = greater_than_or_equals
-			}
-		}
-		ITA_algeria_points_3 = yes
-		add_to_variable = {
-			name = ITA_ILG_benefeit
-			value = 3
-		}
-		country_event = { id = empiremanagement_ILG.2 days = 90 }
-	}
-}
-
-country_event = { # Pied-noirs petition in Annaba/Bona for more representation, get told to stuff it by the local captain resulting in some minor tension with Rome and Libyan commanders (who would most likely be superior to those present in Algeria)
-	id = empiremanagement_ILG.2
-	immediate = {log = "[GetDateText]: [Root.GetName]: event empiremanagement_ILG.2"}
-	title = empiremanagement_ILG.2.t
-	desc = empiremanagement_ILG.2.desc
-	picture = GFX_report_event_italy_right_rally
-
-	is_triggered_only = yes
-
-	option = { # set nothing
-		name = empiremanagement_ILG.2.a
-		ITA_algeria_points_0 = yes
-		add_to_variable = {
-			name = ITA_ILG_benefeit
-			value = 0
-		}
-		country_event = { id = empiremanagement_ILG.3 days = 90 }
-	}
-	option = { # set 1
-		name = empiremanagement_ILG.2.b
-		trigger = {
-			check_variable = {
-				var = ITA_empire_free_coins
-				value = 1
-				compare = greater_than_or_equals
-			}
-		}
-		ITA_algeria_points_1 = yes
-		add_to_variable = {
-			name = ITA_ILG_benefeit
-			value = 1
-		}
-		country_event = { id = empiremanagement_ILG.3 days = 90 }
-	}
-	option = { # set 2
-		name = empiremanagement_ILG.2.c
-		trigger = {
-			check_variable = {
-				var = ITA_empire_free_coins
-				value = 2
-				compare = greater_than_or_equals
-			}
-		}
-		ITA_algeria_points_2 = yes
-		add_to_variable = {
-			name = ITA_ILG_benefeit
-			value = 2
-		}
-		country_event = { id = empiremanagement_ILG.3 days = 90 }
-	}
-	option = { # set 3
-		name = empiremanagement_ILG.2.d	
-		trigger = {
-			check_variable = {
-				var = ITA_empire_free_coins
-				value = 3
-				compare = greater_than_or_equals
-			}
-		}
-		ITA_algeria_points_3 = yes
-		add_to_variable = {
-			name = ITA_ILG_benefeit
-			value = 3
-		}
-		country_event = { id = empiremanagement_ILG.3 days = 90 }
-	}
-}
-
-country_event = { # Algerian protestors ask for autonomy, Italian captain forced to deal with them in some capacity (arrest or let local police handle it)
-	id = empiremanagement_ILG.3
-	immediate = {log = "[GetDateText]: [Root.GetName]: event empiremanagement_ILG.3"}
-	title = empiremanagement_ILG.3.t
-	desc = empiremanagement_ILG.3.desc
-	picture = GFX_report_event_generic_election
-
-	is_triggered_only = yes
-
-	option = { # set nothing
-		name = empiremanagement_ILG.3.a
-		ITA_algeria_points_0 = yes
-		add_to_variable = {
-			name = ITA_ILG_benefeit
-			value = 0
-		}
-	}
-	option = { # set 1
-		name = empiremanagement_ILG.3.b
-		trigger = {
-			check_variable = {
-				var = ITA_empire_free_coins
-				value = 1
-				compare = greater_than_or_equals
-			}
-		}
-		ITA_algeria_points_1 = yes
-		add_to_variable = {
-			name = ITA_ILG_benefeit
-			value = 1
-		}
-	}
-	option = { # set 2
-		name = empiremanagement_ILG.3.c
-		trigger = {
-			check_variable = {
-				var = ITA_empire_free_coins
-				value = 2
-				compare = greater_than_or_equals
-			}
-		}
-		ITA_algeria_points_2 = yes
-		add_to_variable = {
-			name = ITA_ILG_benefeit
-			value = 2
-		}
-	}
-	option = { # set 3
-		name = empiremanagement_ILG.3.d	
-		trigger = {
-			check_variable = {
-				var = ITA_empire_free_coins
-				value = 3
-				compare = greater_than_or_equals
-			}
-		}
-		ITA_algeria_points_3 = yes
-		add_to_variable = {
-			name = ITA_ILG_benefeit
-			value = 3
-		}
-	}
-}
-
-country_event = { # dummy
-	id = empiremanagement_ILG.4
-	immediate = {log = "[GetDateText]: [Root.GetName]: event empiremanagement_ILG.4"}
-	title = empiremanagement_ILG.4.t
-	desc = empiremanagement_ILG.4.desc
-	picture = GFX_report_event_generic_sign_treaty1
-	hidden = yes
-	is_triggered_only = yes
-
-	option = { # set nothing
-		name = empiremanagement_ILG.4.a
-		if = {
-			limit = {
-				ITA = {
-					check_variable = {
-						var = ITA_ILG_benefeit
-						value = 5
-						compare = less_than
-					}
-				}
-			}
-			ITA = {
-				country_event = { id = empiremanagement_ILG.5 days = 12 }
-			}
-		}
-		else_if = {
-			limit = {
-				ITA = {
-					check_variable = {
-						var = ITA_ILG_benefeit
-						value = 5
-						compare = greater_than_or_equals
-					}
-				}
-			}
-			ITA = {
-				country_event = { id = empiremanagement_ILG.6 days = 12 }
-			}
-		}
-	}
-}
-
-country_event = { # Italian privates in the deep desert haven't been paid in two months, radios or other means of communication often unavailable outside of the coastal regions, Castellano implores Rome for aid but receives a reroute to Libyan superiors who are less than impressed with his perceived going around authority
-	id = empiremanagement_ILG.5
-	immediate = {log = "[GetDateText]: [Root.GetName]: event empiremanagement_ILG.5"}
-	title = empiremanagement_ILG.5.t
-	desc = empiremanagement_ILG.5.desc
-	picture = GFX_report_event_generic_election
-
-	is_triggered_only = yes
-
-	option = { # set nothing
-		name = empiremanagement_ILG.5.a
-		ITA_algeria_points_0 = yes
-		set_country_flag = ITA_algeria_done_empire
-	}
-}
-
-country_event = { # A feast is held in Annaba/Bona with many in Italian Algeria's officer corps attending, several prominent locals show up and are quite impressed. Elsewhere Italian soldiers are breaking open wine on positions near Iberian ones lacking anything above rations 
-	id = empiremanagement_ILG.6
-	immediate = {log = "[GetDateText]: [Root.GetName]: event empiremanagement_ILG.6"}
-	title = empiremanagement_ILG.6.t
-	desc = empiremanagement_ILG.6.desc
-	picture = GFX_report_event_italy_blackshirts1
-
-	is_triggered_only = yes
-
-	option = { # set nothing
-		name = empiremanagement_ILG.6.a
-		ITA_algeria_points_0 = yes
-		set_country_flag = ITA_algeria_done_empire
-		hidden_effect = {
-			ILG = {
-				add_equipment_to_stockpile = {
-					type = infantry_equipment
-					amount = 1200
-					producer = ITA
-				}
-			}
 		}
 	}
 }
